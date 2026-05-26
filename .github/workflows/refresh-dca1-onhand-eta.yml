@@ -41,10 +41,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- dashboards/dca1-onhand-eta/data.json; then
+          git add dashboards/dca1-onhand-eta/data.json
+          if git diff --cached --quiet -- dashboards/dca1-onhand-eta/data.json; then
             echo "No data changes."
             exit 0
           fi
-          git add dashboards/dca1-onhand-eta/data.json
           git commit -m "chore: refresh DCA1 on-hand & ETA data ($(date -u +%Y-%m-%dT%H:%MZ))"
           git push
