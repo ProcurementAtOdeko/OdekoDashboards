@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DCA1 — On Hand &amp; ETA</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161a22;
+    --border: #232a36;
+    --text: #e7eaf0;
+    --muted: #8a93a6;
+    --accent: #6aa9ff;
+    --warn: #ffb347;
+    --bad: #ff6b6b;
+    --good: #67d39a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 { margin: 0; font-size: 20px; font-weight: 600; }
+  .meta { color: var(--muted); font-size: 12px; }
+  main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .kpi .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .kpi.bad .value { color: var(--bad); }
+  .kpi.good .value { color: var(--good); }
+  .kpi.warn .value { color: var(--warn); }
+
+  .charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 280px;
+  }
+  .chart-card h2 { margin: 0 0 8px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .chart-card .wrap { position: relative; height: 260px; }
+  .chart-card.tall .wrap { height: 420px; }
+
+  .table-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .table-header h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .search {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 6px 10px;
+    font: inherit;
+    min-width: 220px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; user-select: none; }
+  th:hover { color: var(--text); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+  .cover-bad { color: var(--bad); font-weight: 600; }
+  .cover-warn { color: var(--warn); font-weight: 600; }
+  .cover-good { color: var(--good); }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+
+  @media (max-width: 640px) {
+    main { padding: 12px; }
+    header { padding: 14px 12px; }
+    th, td { padding: 6px 8px; font-size: 12px; }
+    .kpi .value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>DCA1 — On Hand &amp; ETA</h1>
+    <div class="meta" id="meta">Loading…</div>
+  </div>
+</header>
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="chart-card">
+      <h2>Days of Cover Distribution</h2>
+      <div class="wrap"><canvas id="chart-cover"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h2>Top 10 Vendors — On-Hand (Purchase Units)</h2>
+      <div class="wrap"><canvas id="chart-vendors"></canvas></div>
+    </div>
+    <div class="chart-card tall" style="grid-column: 1 / -1;">
+      <h2>Top 20 At-Risk Items (Lowest Days of Cover)</h2>
+      <div class="wrap"><canvas id="chart-risk"></canvas></div>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h2 id="table-title">All Items</h2>
+      <input id="search" class="search" type="search" placeholder="Search item or vendor…" />
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="name">Item</th>
+            <th data-sort="vendor">Vendor</th>
+            <th class="num" data-sort="onHand">On Hand</th>
+            <th class="num" data-sort="qtyOnOrder">On Order</th>
+            <th class="num" data-sort="consumption60">60-Day Consumption</th>
+            <th class="num" data-sort="daysOfCover" data-default="asc">Days of Cover</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, {maximumFractionDigits: 0})
+                      : n.toLocaleString(undefined, {maximumFractionDigits: 1});
+
+const coverClass = (d) =>
+  d == null ? "" : d < 7 ? "cover-bad" : d < 14 ? "cover-warn" : "cover-good";
+
+let DATA = null;
+let sortKey = "daysOfCover";
+let sortDir = "asc";
+let filterText = "";
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.itemCount} items`;
+  renderKpis();
+  renderCharts();
+  renderTable();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Total Items", value: s.itemCount, cls: "" },
+    { label: "Low Cover (<14d)", value: s.lowCoverCount, cls: s.lowCoverCount > 0 ? "bad" : "good" },
+    { label: "Avg Days of Cover", value: s.avgDaysOfCover, cls: s.avgDaysOfCover < 14 ? "warn" : "" },
+    { label: "No Incoming PO/TO", value: s.noIncomingCount, cls: s.noIncomingCount > 0 ? "warn" : "good" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${fmt(k.value)}</div></div>`
+  ).join("");
+}
+
+function renderCharts() {
+  Chart.defaults.color = "#8a93a6";
+  Chart.defaults.borderColor = "#232a36";
+
+  // Cover distribution
+  const cd = DATA.coverDistribution;
+  new Chart(document.getElementById("chart-cover"), {
+    type: "bar",
+    data: {
+      labels: cd.map(b => b.bucket + " days"),
+      datasets: [{
+        data: cd.map(b => b.count),
+        backgroundColor: cd.map(b =>
+          b.bucket === "<7" ? "#ff6b6b" :
+          b.bucket === "7-14" ? "#ffb347" :
+          b.bucket === "unknown" ? "#5a6377" : "#67d39a"
+        ),
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+
+  // Top vendors on-hand
+  const tv = DATA.topVendorsOnHand;
+  new Chart(document.getElementById("chart-vendors"), {
+    type: "bar",
+    data: {
+      labels: tv.map(v => v.vendor.length > 24 ? v.vendor.slice(0, 22) + "…" : v.vendor),
+      datasets: [{ data: tv.map(v => v.onHand), backgroundColor: "#6aa9ff" }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true } },
+    },
+  });
+
+  // Top 20 at-risk
+  const risk = DATA.items.filter(i => i.daysOfCover != null).slice(0, 20);
+  new Chart(document.getElementById("chart-risk"), {
+    type: "bar",
+    data: {
+      labels: risk.map(i => i.name.length > 50 ? i.name.slice(0, 48) + "…" : i.name),
+      datasets: [{
+        data: risk.map(i => i.daysOfCover),
+        backgroundColor: risk.map(i => i.daysOfCover < 7 ? "#ff6b6b" : i.daysOfCover < 14 ? "#ffb347" : "#67d39a"),
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw} days` } } },
+      scales: { x: { beginAtZero: true, title: { display: true, text: "Days of Cover" } } },
+    },
+  });
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.items.filter(i =>
+    !q || i.name.toLowerCase().includes(q) || (i.vendor || "").toLowerCase().includes(q)
+  );
+
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  document.getElementById("table-title").textContent =
+    `Items (${rows.length}${rows.length !== DATA.items.length ? ` of ${DATA.items.length}` : ""})`;
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  const tbody = document.querySelector("#items tbody");
+  tbody.innerHTML = rows.map(i => `
+    <tr>
+      <td>${escapeHtml(i.name)}<div class="uuid">${i.uuid.slice(0, 8)}</div></td>
+      <td>${escapeHtml(i.vendor || "")}</td>
+      <td class="num">${fmt(i.onHand)}</td>
+      <td class="num">${fmt(i.qtyOnOrder)}</td>
+      <td class="num">${fmt(i.consumption60)}</td>
+      <td class="num ${coverClass(i.daysOfCover)}">${fmt(i.daysOfCover)}</td>
+    </tr>
+  `).join("");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value;
+  renderTable();
+});
+
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>

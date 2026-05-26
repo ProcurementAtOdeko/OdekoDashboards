@@ -1,0 +1,50 @@
+name: Refresh DCA1 on-hand & ETA data
+
+on:
+  schedule:
+    - cron: "15 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-dca1-onhand-eta.yml"
+      - "dashboards/dca1-onhand-eta/scripts/build_data.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-dca1-onhand-eta
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Build data.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 dashboards/dca1-onhand-eta/scripts/build_data.py \
+            dashboards/dca1-onhand-eta/data.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- dashboards/dca1-onhand-eta/data.json; then
+            echo "No data changes."
+            exit 0
+          fi
+          git add dashboards/dca1-onhand-eta/data.json
+          git commit -m "chore: refresh DCA1 on-hand & ETA data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push
