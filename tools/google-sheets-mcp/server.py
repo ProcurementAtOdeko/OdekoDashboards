@@ -96,7 +96,16 @@ def _get_service():
         return _service
 
     creds = _service_account_creds() or _oauth_user_creds()
-    _service = build("sheets", "v4", credentials=creds, cache_discovery=False)
+
+    ca_certs = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE")
+    if ca_certs:
+        import httplib2
+        from google_auth_httplib2 import AuthorizedHttp
+
+        http = AuthorizedHttp(creds, http=httplib2.Http(ca_certs=ca_certs))
+        _service = build("sheets", "v4", http=http, cache_discovery=False)
+    else:
+        _service = build("sheets", "v4", credentials=creds, cache_discovery=False)
     return _service
 
 
