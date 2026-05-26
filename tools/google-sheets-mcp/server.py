@@ -1,15 +1,21 @@
-"""MCP server exposing Google Sheets read/write tools via FastMCP."""
+"""MCP server exposing Google Sheets read/write tools via FastMCP.
+
+Supports two auth modes, picked at runtime:
+  1. Service account  - set GOOGLE_SERVICE_ACCOUNT_JSON (raw JSON string)
+                        or GOOGLE_SERVICE_ACCOUNT_FILE (path to key file).
+                        Headless; required for Claude Code on the web.
+  2. OAuth user flow - falls back to ~/.config/google-sheets-mcp/credentials.json
+                        and runs a browser flow on first use. For local use only.
+"""
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from pathlib import Path
 from typing import Any
 
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from mcp.server.fastmcp import FastMCP
 
@@ -38,10 +44,25 @@ def _extract_id(value: str) -> str:
     return match.group(1) if match else value
 
 
-def _get_service():
-    global _service
-    if _service is not None:
-        return _service
+def _service_account_creds():
+    from google.oauth2 import service_account
+
+    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
+    if raw:
+        info = json.loads(raw)
+        return service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
+
+    path = os.environ.get("GOOGLE_SERVICE_ACCOUNT_FILE")
+    if path and Path(path).exists():
+        return service_account.Credentials.from_service_account_file(path, scopes=SCOPES)
+
+    return None
+
+
+def _oauth_user_creds():
+    from google.auth.transport.requests import Request
+    from google.oauth2.credentials import Credentials
+    from google_auth_oauthlib.flow import InstalledAppFlow
 
     creds: Credentials | None = None
     if TOKEN_PATH.exists():
@@ -53,9 +74,10 @@ def _get_service():
         else:
             if not CLIENT_SECRETS_PATH.exists():
                 raise RuntimeError(
-                    f"OAuth client secrets not found at {CLIENT_SECRETS_PATH}. "
-                    "Create an OAuth 2.0 Client ID (type: Desktop app) in Google Cloud Console, "
-                    "download the JSON, save it to that path, then run `python authorize.py` once."
+                    "No auth configured. Either set GOOGLE_SERVICE_ACCOUNT_JSON / "
+                    "GOOGLE_SERVICE_ACCOUNT_FILE for headless use, or place an OAuth "
+                    f"Desktop-app client_secret JSON at {CLIENT_SECRETS_PATH} and "
+                    "run `python authorize.py` once."
                 )
             flow = InstalledAppFlow.from_client_secrets_file(
                 str(CLIENT_SECRETS_PATH), SCOPES
@@ -65,6 +87,15 @@ def _get_service():
         CONFIG_DIR.mkdir(parents=True, exist_ok=True)
         TOKEN_PATH.write_text(creds.to_json())
 
+    return creds
+
+
+def _get_service():
+    global _service
+    if _service is not None:
+        return _service
+
+    creds = _service_account_creds() or _oauth_user_creds()
     _service = build("sheets", "v4", credentials=creds, cache_discovery=False)
     return _service
 
