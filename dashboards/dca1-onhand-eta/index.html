@@ -2,150 +2,140 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DCA1 — On Hand &amp; ETA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · DCA1 On Hand &amp; ETA</title>
+<link rel="icon" type="image/png" href="./odeko-logo.png" />
+<link rel="apple-touch-icon" href="./odeko-logo.png" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg: #0f1115;
-    --panel: #161a22;
-    --border: #232a36;
-    --text: #e7eaf0;
-    --muted: #8a93a6;
-    --accent: #6aa9ff;
-    --warn: #ffb347;
-    --bad: #ff6b6b;
-    --good: #67d39a;
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
   header {
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 12px;
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
   }
-  h1 { margin: 0; font-size: 20px; font-weight: 600; }
-  .meta { color: var(--muted); font-size: 12px; }
-  main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
 
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .kpi {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-  }
-  .kpi .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .kpi .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
-  .kpi.bad .value { color: var(--bad); }
-  .kpi.good .value { color: var(--good); }
-  .kpi.warn .value { color: var(--warn); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
 
-  .charts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
   }
-  .chart-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    min-height: 280px;
-  }
-  .chart-card h2 { margin: 0 0 8px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-  .chart-card .wrap { position: relative; height: 260px; }
-  .chart-card.tall .wrap { height: 420px; }
+  .card .body { padding: 16px; }
+  .card.tall .body { height: 460px; position: relative; }
+  .card.chart .body { height: 280px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
 
-  .table-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
   }
-  .table-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
+  .toolbar input[type=text], .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 220px;
+    font-family: inherit;
   }
-  .table-header h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-  .search {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    padding: 6px 10px;
-    font: inherit;
-    min-width: 220px;
-  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+
   table { width: 100%; border-collapse: collapse; }
-  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
-  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; user-select: none; }
-  th:hover { color: var(--text); }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+  }
+  th:hover { color: var(--ink-2); }
   th.sort-asc::after { content: " ▲"; color: var(--accent); }
   th.sort-desc::after { content: " ▼"; color: var(--accent); }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tr:hover td { background: rgba(255,255,255,0.03); }
-  .cover-bad { color: var(--bad); font-weight: 600; }
-  .cover-warn { color: var(--warn); font-weight: 600; }
-  .cover-good { color: var(--good); }
-  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+  tr:hover td { background: #FAF4E4; }
+  .cover-bad { color: var(--red); font-weight: 600; }
+  .cover-warn { color: var(--amber); font-weight: 600; }
+  .cover-good { color: var(--green); }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
 
-  @media (max-width: 640px) {
-    main { padding: 12px; }
-    header { padding: 14px 12px; }
-    th, td { padding: 6px 8px; font-size: 12px; }
-    .kpi .value { font-size: 22px; }
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
   }
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <h1>DCA1 — On Hand &amp; ETA</h1>
-    <div class="meta" id="meta">Loading…</div>
+  <div class="brand">
+    <img class="logo" src="./odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>DCA1 — On Hand &amp; ETA</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
   </div>
 </header>
+
 <main>
   <section class="kpis" id="kpis"></section>
 
   <section class="charts">
-    <div class="chart-card">
-      <h2>Days of Cover Distribution</h2>
-      <div class="wrap"><canvas id="chart-cover"></canvas></div>
+    <div class="card chart">
+      <h3>Days of Cover Distribution</h3>
+      <div class="body"><canvas id="chart-cover"></canvas></div>
     </div>
-    <div class="chart-card">
-      <h2>Top 10 Vendors — On-Hand (Purchase Units)</h2>
-      <div class="wrap"><canvas id="chart-vendors"></canvas></div>
+    <div class="card chart">
+      <h3>Top 10 Vendors — On-Hand</h3>
+      <div class="body"><canvas id="chart-vendors"></canvas></div>
     </div>
-    <div class="chart-card tall" style="grid-column: 1 / -1;">
-      <h2>Top 20 At-Risk Items (Lowest Days of Cover)</h2>
-      <div class="wrap"><canvas id="chart-risk"></canvas></div>
+    <div class="card tall full">
+      <h3>Top 20 At-Risk Items (Lowest Days of Cover)</h3>
+      <div class="body"><canvas id="chart-risk"></canvas></div>
     </div>
   </section>
 
-  <section class="table-card">
-    <div class="table-header">
-      <h2 id="table-title">All Items</h2>
-      <input id="search" class="search" type="search" placeholder="Search item or vendor…" />
+  <section class="card">
+    <h3>All Items</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item or vendor…" />
+      <span class="count" id="table-count"></span>
     </div>
     <div style="overflow-x:auto">
       <table id="items">
@@ -168,11 +158,16 @@
 <script>
 const fmt = (n) =>
   n == null ? "—" :
-  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, {maximumFractionDigits: 0})
-                      : n.toLocaleString(undefined, {maximumFractionDigits: 1});
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
 
 const coverClass = (d) =>
   d == null ? "" : d < 7 ? "cover-bad" : d < 14 ? "cover-warn" : "cover-good";
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
 
 let DATA = null;
 let sortKey = "daysOfCover";
@@ -193,10 +188,10 @@ async function load() {
 function renderKpis() {
   const s = DATA.summary;
   const kpis = [
-    { label: "Total Items", value: s.itemCount, cls: "" },
-    { label: "Low Cover (<14d)", value: s.lowCoverCount, cls: s.lowCoverCount > 0 ? "bad" : "good" },
-    { label: "Avg Days of Cover", value: s.avgDaysOfCover, cls: s.avgDaysOfCover < 14 ? "warn" : "" },
-    { label: "No Incoming PO/TO", value: s.noIncomingCount, cls: s.noIncomingCount > 0 ? "warn" : "good" },
+    { label: "Total Items", value: s.itemCount, cls: "accent" },
+    { label: "Low Cover (<14d)", value: s.lowCoverCount, cls: s.lowCoverCount > 0 ? "red" : "green" },
+    { label: "Avg Days of Cover", value: s.avgDaysOfCover, cls: s.avgDaysOfCover < 14 ? "amber" : "" },
+    { label: "No Incoming PO/TO", value: s.noIncomingCount, cls: s.noIncomingCount > 0 ? "amber" : "green" },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${fmt(k.value)}</div></div>`
@@ -204,10 +199,10 @@ function renderKpis() {
 }
 
 function renderCharts() {
-  Chart.defaults.color = "#8a93a6";
-  Chart.defaults.borderColor = "#232a36";
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
-  // Cover distribution
   const cd = DATA.coverDistribution;
   new Chart(document.getElementById("chart-cover"), {
     type: "bar",
@@ -216,10 +211,11 @@ function renderCharts() {
       datasets: [{
         data: cd.map(b => b.count),
         backgroundColor: cd.map(b =>
-          b.bucket === "<7" ? "#ff6b6b" :
-          b.bucket === "7-14" ? "#ffb347" :
-          b.bucket === "unknown" ? "#5a6377" : "#67d39a"
+          b.bucket === "<7" ? PALETTE.red :
+          b.bucket === "7-14" ? PALETTE.amber :
+          b.bucket === "unknown" ? PALETTE.neutral : PALETTE.green
         ),
+        borderRadius: 4,
       }],
     },
     options: {
@@ -229,13 +225,12 @@ function renderCharts() {
     },
   });
 
-  // Top vendors on-hand
   const tv = DATA.topVendorsOnHand;
   new Chart(document.getElementById("chart-vendors"), {
     type: "bar",
     data: {
       labels: tv.map(v => v.vendor.length > 24 ? v.vendor.slice(0, 22) + "…" : v.vendor),
-      datasets: [{ data: tv.map(v => v.onHand), backgroundColor: "#6aa9ff" }],
+      datasets: [{ data: tv.map(v => v.onHand), backgroundColor: PALETTE.ink, borderRadius: 4 }],
     },
     options: {
       indexAxis: "y",
@@ -245,7 +240,6 @@ function renderCharts() {
     },
   });
 
-  // Top 20 at-risk
   const risk = DATA.items.filter(i => i.daysOfCover != null).slice(0, 20);
   new Chart(document.getElementById("chart-risk"), {
     type: "bar",
@@ -253,7 +247,8 @@ function renderCharts() {
       labels: risk.map(i => i.name.length > 50 ? i.name.slice(0, 48) + "…" : i.name),
       datasets: [{
         data: risk.map(i => i.daysOfCover),
-        backgroundColor: risk.map(i => i.daysOfCover < 7 ? "#ff6b6b" : i.daysOfCover < 14 ? "#ffb347" : "#67d39a"),
+        backgroundColor: risk.map(i => i.daysOfCover < 7 ? PALETTE.red : i.daysOfCover < 14 ? PALETTE.amber : PALETTE.green),
+        borderRadius: 4,
       }],
     },
     options: {
@@ -280,16 +275,15 @@ function renderTable() {
     return sortDir === "asc" ? av - bv : bv - av;
   });
 
-  document.getElementById("table-title").textContent =
-    `Items (${rows.length}${rows.length !== DATA.items.length ? ` of ${DATA.items.length}` : ""})`;
+  document.getElementById("table-count").textContent =
+    `${rows.length}${rows.length !== DATA.items.length ? ` of ${DATA.items.length}` : ""} items`;
 
   document.querySelectorAll("th").forEach(th => {
     th.classList.remove("sort-asc", "sort-desc");
     if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
   });
 
-  const tbody = document.querySelector("#items tbody");
-  tbody.innerHTML = rows.map(i => `
+  document.querySelector("#items tbody").innerHTML = rows.map(i => `
     <tr>
       <td>${escapeHtml(i.name)}<div class="uuid">${i.uuid.slice(0, 8)}</div></td>
       <td>${escapeHtml(i.vendor || "")}</td>
