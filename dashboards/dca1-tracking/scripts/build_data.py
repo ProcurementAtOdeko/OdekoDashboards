@@ -182,6 +182,13 @@ def build_items(header, rows, mapping):
         "procurement_vendor_uuid": col_index(header, "procurement_vendor_uuid"),
         "item_uuid": col_index(header, "item_uuid"),
         "delivery_date": col_index(header, "delivery_date"),
+        # Ti/Hi (pallet) constraints — round order up to nearest layer
+        "cases_per_layer": col_index(header, "cases_per_layer"),
+        "layers_per_pallet": col_index(header, "layers_per_pallet"),
+        "cases_per_pallet": col_index(header, "cases_per_pallet"),
+        # Source's own order signals (cross-check, not authoritative)
+        "source_order_qty": col_index(header, "Order QTY"),
+        "source_ti_hi": col_index(header, "Ti/Hi"),
     }
     items = []
     as_of = None
@@ -196,7 +203,19 @@ def build_items(header, rows, mapping):
         m = mapping.get(item_class)
         if not m:
             continue
-        order_qty = max(0.0, m["max"] - inv) if inv <= m["min"] else 0.0
+        order_qty_raw = max(0.0, m["max"] - inv) if inv <= m["min"] else 0.0
+
+        # Ti/Hi rounding: snap order up to the nearest full layer when
+        # cases_per_layer is set. cases_per_pallet drives a separate
+        # "full pallet" hint we just expose to the UI for now.
+        cpl = parse_num(r[needed["cases_per_layer"]])
+        lpp = parse_num(r[needed["layers_per_pallet"]])
+        cpp = parse_num(r[needed["cases_per_pallet"]])
+        if order_qty_raw > 0 and cpl and cpl > 0:
+            order_qty = math.ceil(order_qty_raw / cpl) * cpl
+        else:
+            order_qty = order_qty_raw
+
         past_due = parse_num(r[needed["past_due"]]) or 0
         po_past_due = parse_num(r[needed["purchase_orders_past_due"]]) or 0
         if order_qty > 0:
@@ -216,7 +235,14 @@ def build_items(header, rows, mapping):
             "inventory": round(inv, 2),
             "minOh": m["min"],
             "maxOh": m["max"],
+            "orderQtyRaw": round(order_qty_raw, 2),
             "orderQty": round(order_qty, 2),
+            "casesPerLayer": cpl,
+            "layersPerPallet": lpp,
+            "casesPerPallet": cpp,
+            "tiHiBumped": order_qty > order_qty_raw + 1e-9,
+            "sourceOrderQty": parse_num(r[needed["source_order_qty"]]),
+            "sourceTiHi": parse_num(r[needed["source_ti_hi"]]),
             "purchaseUnit": (r[needed["purchase_unit"]] or "").strip(),
             "deliveryDate": (r[needed["delivery_date"]] or "").strip(),
             "warehouseLocationId": (r[needed["warehouse_location_id"]] or "").strip(),
@@ -371,13 +397,18 @@ def main(out_path):
     }
     trend.append(today_summary)
 
+    raw_total = sum(i["orderQtyRaw"] for i in items if i["orderQty"] > 0)
+    rounded_total = sum(i["orderQty"] for i in items if i["orderQty"] > 0)
     summary = {
         "skusToOrder": sum(1 for i in items if i["status"] == "needs_order"),
         "vendorsWithAction": sum(1 for v in vendors if v["skusToOrder"] > 0),
         "vendorsMeetingMoq": sum(1 for v in vendors if v["status"] == "meets"),
         "vendorsShortOfMoq": sum(1 for v in vendors if v["status"] == "short"),
         "skusPastDue": sum(1 for i in items if i["status"] == "past_due"),
-        "totalCasesToOrder": round(sum(v["casesToOrder"] for v in vendors), 1),
+        "totalCasesToOrder": round(rounded_total, 1),
+        "rawCasesToOrder": round(raw_total, 1),
+        "tiHiOverorder": round(rounded_total - raw_total, 1),
+        "skusBumpedByTiHi": sum(1 for i in items if i.get("tiHiBumped")),
         "totalSkus": len(items),
     }
 

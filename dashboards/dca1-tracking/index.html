@@ -47,6 +47,7 @@
   .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
   .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
   .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .kpi-hint { color: var(--muted); font-size: 11px; margin-top: 4px; }
   .kpi.red .value { color: var(--red); }
   .kpi.amber .value { color: var(--amber); }
   .kpi.green .value { color: var(--green); }
@@ -130,6 +131,9 @@
   .checkbox-cell input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
   tr.confirmed td { background: rgba(31,122,51,.06); }
   tr.confirmed:hover td { background: rgba(31,122,51,.10); }
+
+  .tihi-bump { color: var(--amber); white-space: nowrap; cursor: help; }
+  .tihi-bump strong { color: var(--ink-2); }
 
   @media (max-width: 700px) {
     header { padding: 12px 14px; }
@@ -234,6 +238,7 @@
             <th class="num" data-sort="minOh">Min</th>
             <th class="num" data-sort="maxOh">Max</th>
             <th class="num" data-sort="orderQty" data-default="desc">Order Qty</th>
+            <th class="num" data-sort="casesPerLayer">Layer / Pallet</th>
             <th class="num" data-sort="netDoc">Net DOC</th>
             <th data-sort="status">Status</th>
           </tr>
@@ -300,10 +305,18 @@ function renderKpis() {
     { label: "Vendors Meeting MOQ", value: s.vendorsMeetingMoq, cls: "green" },
     { label: "Vendors Short Of MOQ", value: s.vendorsShortOfMoq, cls: s.vendorsShortOfMoq > 0 ? "amber" : "" },
     { label: "Past-Due SKUs", value: s.skusPastDue, cls: s.skusPastDue > 0 ? "amber" : "green" },
-    { label: "Total Cases To Order", value: s.totalCasesToOrder, cls: "" },
+    {
+      label: "Total Cases To Order",
+      value: s.totalCasesToOrder,
+      hint: s.tiHiOverorder ? `incl. +${fmt(s.tiHiOverorder)} from Ti/Hi (${s.skusBumpedByTiHi} SKUs)` : null,
+    },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
-    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${fmt(k.value)}</div></div>`
+    `<div class="kpi ${k.cls || ''}">
+       <div class="label">${k.label}</div>
+       <div class="value">${fmt(k.value)}</div>
+       ${k.hint ? `<div class="kpi-hint">${escapeHtml(k.hint)}</div>` : ''}
+     </div>`
   ).join("");
 }
 
@@ -447,19 +460,34 @@ function renderItems() {
     if (th.dataset.sort === itemSort.key) th.classList.add(itemSort.dir === "asc" ? "sort-asc" : "sort-desc");
   });
 
-  document.querySelector("#items tbody").innerHTML = rows.map(i => `
-    <tr>
-      <td>${escapeHtml(i.name)}<div class="sub-id">${escapeHtml(i.itemId)}</div></td>
-      <td>${escapeHtml(i.vendor || "")}</td>
-      <td class="muted">${escapeHtml(i.itemClass || "")}</td>
-      <td class="num">${fmt(i.inventory)}</td>
-      <td class="num muted">${fmt(i.minOh)}</td>
-      <td class="num muted">${fmt(i.maxOh)}</td>
-      <td class="num">${i.orderQty > 0 ? `<strong>${fmt(i.orderQty)}</strong>` : '<span class="muted">—</span>'}</td>
-      <td class="num">${fmt(i.netDoc)}</td>
-      <td><span class="chip ${i.status}">${STATUS_LABEL[i.status] || i.status}</span></td>
-    </tr>
-  `).join("");
+  document.querySelector("#items tbody").innerHTML = rows.map(i => {
+    let qtyCell;
+    if (i.orderQty > 0) {
+      const bump = i.tiHiBumped
+        ? `<span class="tihi-bump" title="Rounded up to a full layer of ${fmt(i.casesPerLayer)}">${fmt(i.orderQtyRaw)} → <strong>${fmt(i.orderQty)}</strong> ↑</span>`
+        : `<strong>${fmt(i.orderQty)}</strong>`;
+      qtyCell = bump;
+    } else {
+      qtyCell = '<span class="muted">—</span>';
+    }
+    const palletCell = (i.casesPerLayer || i.casesPerPallet)
+      ? `<span class="muted">${i.casesPerLayer != null ? fmt(i.casesPerLayer) : '—'} / ${i.casesPerPallet != null ? fmt(i.casesPerPallet) : '—'}</span>`
+      : '<span class="muted">—</span>';
+    return `
+      <tr>
+        <td>${escapeHtml(i.name)}<div class="sub-id">${escapeHtml(i.itemId)}</div></td>
+        <td>${escapeHtml(i.vendor || "")}</td>
+        <td class="muted">${escapeHtml(i.itemClass || "")}</td>
+        <td class="num">${fmt(i.inventory)}</td>
+        <td class="num muted">${fmt(i.minOh)}</td>
+        <td class="num muted">${fmt(i.maxOh)}</td>
+        <td class="num">${qtyCell}</td>
+        <td class="num">${palletCell}</td>
+        <td class="num">${fmt(i.netDoc)}</td>
+        <td><span class="chip ${i.status}">${STATUS_LABEL[i.status] || i.status}</span></td>
+      </tr>
+    `;
+  }).join("");
 }
 
 function escapeHtml(s) {
