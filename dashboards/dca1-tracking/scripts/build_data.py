@@ -115,6 +115,69 @@ def load_mapping(svc):
     return out
 
 
+def parse_moq(constraint, measure):
+    """Derive {type, quantity, unit} from MOQ constraint + measure text.
+
+    Prefers the parenthetical canonical quantity (e.g. "1 Pallet (120 cases)"
+    -> 120 cases). Quantity MOQs in cases are actionable against
+    casesToOrder; everything else (dollars, weight, cadence) is
+    informational only until we have cost / weight data.
+    """
+    constraint = (constraint or "").strip().lower()
+    measure = (measure or "").strip()
+
+    if not constraint and not measure:
+        return {"type": "none", "quantity": None, "unit": None}
+    if "no moq" in constraint:
+        return {"type": "none", "quantity": None, "unit": None}
+    if "cadence" in constraint or "delivery constraint" in constraint:
+        return {"type": "cadence", "quantity": None, "unit": None}
+
+    if "$ spend" in constraint or constraint.startswith("$"):
+        m = re.search(r'\$\s*([\d,]+(?:\.\d+)?)\s*([kKmM]?)', measure)
+        if m:
+            amt = float(m.group(1).replace(",", ""))
+            suffix = m.group(2).lower()
+            if suffix == "k":
+                amt *= 1000
+            elif suffix == "m":
+                amt *= 1_000_000
+            return {"type": "dollars", "quantity": amt, "unit": "$"}
+        return {"type": "dollars", "quantity": None, "unit": "$"}
+
+    if "weight" in constraint:
+        m = re.search(r'(\d{1,6}(?:,\d{3})*(?:\.\d+)?)\s*lbs?', measure, re.IGNORECASE)
+        if m:
+            return {"type": "weight", "quantity": float(m.group(1).replace(",", "")), "unit": "lbs"}
+        return {"type": "weight", "quantity": None, "unit": "lbs"}
+
+    if "quantity" in constraint:
+        # Eaches first (parenthetical preferred)
+        m = (re.search(r'\((\d{1,6}(?:,\d{3})*)\s+eaches?\)', measure, re.IGNORECASE)
+             or re.search(r'(\d{1,6}(?:,\d{3})*)\s+eaches?', measure, re.IGNORECASE))
+        if m:
+            return {"type": "eaches", "quantity": float(m.group(1).replace(",", "")), "unit": "eaches"}
+        # Cases: parenthetical canonical
+        m = re.search(r'\((\d{1,6}(?:,\d{3})*)\s+cases?\)', measure, re.IGNORECASE)
+        if m:
+            return {"type": "cases", "quantity": float(m.group(1).replace(",", "")), "unit": "cases"}
+        # Cases: any "N cases" not immediately followed by "per ..."
+        for m in re.finditer(r'(\d{1,6}(?:,\d{3})*)\s+cases?\b', measure, re.IGNORECASE):
+            after = measure[m.end():m.end() + 6].lower()
+            if not after.startswith(" per"):
+                return {"type": "cases", "quantity": float(m.group(1).replace(",", "")), "unit": "cases"}
+        # Last-resort cases match
+        m = re.search(r'(\d{1,6}(?:,\d{3})*)\s+cases?', measure, re.IGNORECASE)
+        if m:
+            return {"type": "cases", "quantity": float(m.group(1).replace(",", "")), "unit": "cases"}
+        # Pure pallet count (no case info)
+        m = re.search(r'(\d+(?:\.\d+)?)\s+pallets?', measure, re.IGNORECASE)
+        if m:
+            return {"type": "pallets", "quantity": float(m.group(1)), "unit": "pallets"}
+
+    return {"type": "other", "quantity": None, "unit": None}
+
+
 def load_moq(svc):
     rows = get_values(svc, MOQ_SPREADSHEET_ID, "Dataset!A1:G")
     if not rows:
@@ -124,7 +187,6 @@ def load_moq(svc):
     ci_id = col_index(header, "vendor_id")
     ci_constraint = col_index(header, "MOQ constraint")
     ci_measure = col_index(header, "MOQ measure")
-    ci_qty = col_index(header, "MOQ Quantity")
     by_id, by_name = {}, {}
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
@@ -132,10 +194,15 @@ def load_moq(svc):
         vid = (r[ci_id] or "").strip()
         if not name and not vid:
             continue
+        constraint = (r[ci_constraint] or "").strip()
+        measure = (r[ci_measure] or "").strip()
+        parsed = parse_moq(constraint, measure)
         rec = {
-            "constraint": (r[ci_constraint] or "").strip(),
-            "measure": (r[ci_measure] or "").strip(),
-            "quantity": parse_num(r[ci_qty]),
+            "constraint": constraint,
+            "measure": measure,
+            "type": parsed["type"],
+            "quantity": parsed["quantity"],
+            "unit": parsed["unit"],
         }
         if vid:
             by_id[vid] = rec
@@ -281,25 +348,38 @@ def build_vendors(items, moq):
     out = []
     for v in by_vendor.values():
         m = lookup_moq(moq, v["vendorId"], v["vendor"])
+        moq_type = m["type"] if m else "unknown"
         moq_qty = m["quantity"] if m else None
+        moq_unit = m["unit"] if m else None
         moq_constraint = m["constraint"] if m else ""
         moq_measure = m["measure"] if m else ""
         cases = round(v["casesToOrder"], 2)
-        if moq_constraint in ("", "No MOQ of any type"):
+        pct = None
+        if not m or moq_type in ("none", "unknown"):
             status = "no_moq"
-            pct = None
-        elif moq_constraint == "Quantity" and moq_qty:
-            pct = (cases / moq_qty * 100) if moq_qty else None
+        elif moq_type == "cadence":
+            status = "cadence_moq"
+        elif moq_type == "dollars":
+            status = "dollar_moq"
+        elif moq_type == "weight":
+            status = "weight_moq"
+        elif moq_type == "eaches":
+            status = "eaches_moq"
+        elif moq_type == "pallets":
+            status = "pallet_moq"
+        elif moq_type == "cases" and moq_qty:
+            pct = (cases / moq_qty * 100)
             status = "meets" if cases >= moq_qty else ("short" if cases > 0 else "inactive")
         else:
-            status = "non_qty_moq"
-            pct = None
+            status = "other_moq"
         out.append({
             "vendor": v["vendor"],
             "vendorId": v["vendorId"],
             "moqConstraint": moq_constraint,
             "moqMeasure": moq_measure,
+            "moqType": moq_type,
             "moqQuantity": moq_qty,
+            "moqUnit": moq_unit,
             "casesToOrder": cases,
             "skusToOrder": v["skusToOrder"],
             "skusPastDue": v["skusPastDue"],

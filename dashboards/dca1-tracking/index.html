@@ -93,8 +93,14 @@
   .chip.meets { background: var(--green-soft); color: var(--green); }
   .chip.short { background: var(--red-soft); color: var(--red); }
   .chip.no_moq { background: rgba(138,123,106,.14); color: var(--muted); }
-  .chip.non_qty_moq { background: var(--amber-soft); color: var(--amber); }
   .chip.inactive { background: rgba(138,123,106,.10); color: var(--muted); }
+  .chip.cadence_moq,
+  .chip.dollar_moq,
+  .chip.weight_moq,
+  .chip.eaches_moq,
+  .chip.pallet_moq,
+  .chip.other_moq,
+  .chip.non_qty_moq { background: var(--amber-soft); color: var(--amber); }
   .chip.needs_order { background: var(--red-soft); color: var(--red); }
   .chip.past_due { background: var(--amber-soft); color: var(--amber); }
   .chip.on_track { background: var(--green-soft); color: var(--green); }
@@ -134,6 +140,14 @@
 
   .tihi-bump { color: var(--amber); white-space: nowrap; cursor: help; }
   .tihi-bump strong { color: var(--ink-2); }
+
+  .vendor-link {
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: var(--ink-2); font: inherit; font-weight: 600; text-align: left;
+  }
+  .vendor-link:hover { text-decoration: underline; color: var(--accent); }
+  .vendor-link::after { content: " →"; color: var(--muted); font-weight: 400; opacity: 0; transition: opacity .15s; }
+  .vendor-link:hover::after { opacity: 1; }
 
   @media (max-width: 700px) {
     header { padding: 12px 14px; }
@@ -262,7 +276,11 @@ const PALETTE = {
 
 const STATUS_LABEL = {
   meets: "Meets MOQ", short: "Short of MOQ", no_moq: "No MOQ",
-  non_qty_moq: "$/Cadence MOQ", inactive: "No action",
+  inactive: "No action",
+  cadence_moq: "Cadence MOQ", dollar_moq: "$ Spend MOQ",
+  weight_moq: "Weight MOQ", eaches_moq: "Eaches MOQ",
+  pallet_moq: "Pallet MOQ", other_moq: "Other MOQ",
+  non_qty_moq: "Other MOQ",
   needs_order: "Needs order", past_due: "Past due", on_track: "On track",
 };
 
@@ -388,7 +406,11 @@ function renderVendors() {
   let rows = DATA.vendors.filter(v =>
     !q || (v.vendor || "").toLowerCase().includes(q)
   );
+  const OTHER_MOQ_STATUSES = new Set([
+    "cadence_moq","dollar_moq","weight_moq","eaches_moq","pallet_moq","other_moq","non_qty_moq",
+  ]);
   if (sf === "action") rows = rows.filter(v => v.skusToOrder > 0);
+  else if (sf === "non_qty_moq") rows = rows.filter(v => OTHER_MOQ_STATUSES.has(v.status));
   else if (sf) rows = rows.filter(v => v.status === sf);
 
   rows = sortBy(rows, vendorSort.key, vendorSort.dir);
@@ -411,9 +433,12 @@ function renderVendors() {
     return `
       <tr class="${confirmed.has(k) ? "confirmed" : ""}">
         <td class="checkbox-cell"><input type="checkbox" data-vendor-key="${escapeHtml(k)}" ${checked} ${disabled} /></td>
-        <td>${escapeHtml(v.vendor)}${v.vendorId ? `<div class="sub-id">${v.vendorId}</div>` : ""}</td>
+        <td>
+          <button type="button" class="vendor-link" data-vendor-name="${escapeHtml(v.vendor)}" title="View SKUs">${escapeHtml(v.vendor)}</button>
+          ${v.vendorId ? `<div class="sub-id">${v.vendorId}</div>` : ""}
+        </td>
         <td>${v.moqConstraint ? escapeHtml(v.moqConstraint) : '<span class="muted">—</span>'}</td>
-        <td class="num">${v.moqQuantity != null ? fmt(v.moqQuantity) : '<span class="muted">—</span>'}</td>
+        <td class="num">${formatMoq(v)}</td>
         <td class="num">${fmt(v.casesToOrder)}</td>
         <td class="num">${fmt(v.skusToOrder)}</td>
         <td class="num">${
@@ -423,7 +448,7 @@ function renderVendors() {
              <div class="bar-wrap"><div class="bar ${barCls}" style="width:${barWidth}%"></div></div>
            </div>`
         }</td>
-        <td><span class="chip ${v.status}">${STATUS_LABEL[v.status] || v.status}</span></td>
+        <td><span class="chip ${v.status}" title="${escapeHtml(v.moqMeasure || "")}">${STATUS_LABEL[v.status] || v.status}</span></td>
       </tr>
     `;
   }).join("");
@@ -438,6 +463,27 @@ function renderVendors() {
       renderCart();
     });
   });
+  document.querySelectorAll("#vendors tbody .vendor-link").forEach(btn => {
+    btn.addEventListener("click", () => viewVendorSkus(btn.dataset.vendorName));
+  });
+}
+
+function formatMoq(v) {
+  if (v.status === "no_moq") return '<span class="muted">—</span>';
+  if (v.status === "cadence_moq") return '<span class="muted">by day</span>';
+  if (v.moqQuantity == null) return '<span class="muted">—</span>';
+  if (v.moqType === "dollars") return `$${fmt(v.moqQuantity)}`;
+  const unit = v.moqUnit || "";
+  return `${fmt(v.moqQuantity)} <span class="muted">${escapeHtml(unit)}</span>`;
+}
+
+function viewVendorSkus(vendorName) {
+  const sel = document.getElementById("item-vendor");
+  sel.value = vendorName;
+  document.getElementById("item-status").value = "";
+  document.getElementById("item-search").value = "";
+  renderItems();
+  document.getElementById("items").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderItems() {
@@ -496,9 +542,14 @@ function escapeHtml(s) {
 
 function confirmedItems() {
   if (!DATA) return [];
-  const keyOf = v => v.vendorId || v.vendor;
   const matchKey = (vendor, vendorId) => confirmed.has(vendorId || vendor);
-  return DATA.items.filter(i => i.orderQty > 0 && matchKey(i.vendor, i.vendorId));
+  // Anything other than a positive finite number in orderQty is not an order.
+  return DATA.items.filter(i =>
+    typeof i.orderQty === "number" &&
+    Number.isFinite(i.orderQty) &&
+    i.orderQty > 0 &&
+    matchKey(i.vendor, i.vendorId)
+  );
 }
 
 function renderCart() {
