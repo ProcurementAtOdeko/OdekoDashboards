@@ -13,6 +13,7 @@ Reorder logic (v1, intentionally simple so it's easy to iterate on):
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import sys
@@ -45,9 +46,10 @@ def parse_num(s):
     if s is None or s == "":
         return None
     try:
-        return float(str(s).replace(",", "").replace("$", "").strip())
+        f = float(str(s).replace(",", "").replace("$", "").strip())
     except (ValueError, TypeError):
         return None
+    return f if math.isfinite(f) else None
 
 
 def col_index(header, name):
@@ -174,6 +176,12 @@ def build_items(header, rows, mapping):
         "purchase_orders": col_index(header, "purchase_orders"),
         "purchase_unit": col_index(header, "purchase_unit"),
         "as_of": col_index(header, "as_of"),
+        # Fields needed to emit po_upload_template-shaped CSVs
+        "warehouse_location_id": col_index(header, "warehouse_location_id"),
+        "warehouse_uuid": col_index(header, "warehouse_uuid"),
+        "procurement_vendor_uuid": col_index(header, "procurement_vendor_uuid"),
+        "item_uuid": col_index(header, "item_uuid"),
+        "delivery_date": col_index(header, "delivery_date"),
     }
     items = []
     as_of = None
@@ -200,7 +208,9 @@ def build_items(header, rows, mapping):
         items.append({
             "vendor": (r[needed["vendor_name"]] or "").strip(),
             "vendorId": (r[needed["vendor_id"]] or "").strip(),
+            "vendorUuid": (r[needed["procurement_vendor_uuid"]] or "").strip(),
             "itemId": (r[needed["item_id"]] or "").strip(),
+            "itemUuid": (r[needed["item_uuid"]] or "").strip(),
             "name": (r[needed["item_name"]] or "").strip(),
             "itemClass": item_class,
             "inventory": round(inv, 2),
@@ -208,6 +218,9 @@ def build_items(header, rows, mapping):
             "maxOh": m["max"],
             "orderQty": round(order_qty, 2),
             "purchaseUnit": (r[needed["purchase_unit"]] or "").strip(),
+            "deliveryDate": (r[needed["delivery_date"]] or "").strip(),
+            "warehouseLocationId": (r[needed["warehouse_location_id"]] or "").strip(),
+            "warehouseUuid": (r[needed["warehouse_uuid"]] or "").strip(),
             "netDoc": parse_num(r[needed["net_days_of_cover"]]),
             "pastDue": past_due,
             "poPastDue": po_past_due,

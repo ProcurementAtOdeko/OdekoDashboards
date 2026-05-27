@@ -106,6 +106,31 @@
   .muted { color: var(--muted); }
   .sub-id { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
 
+  .cart {
+    position: sticky; top: 73px; z-index: 9;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .cart .cart-summary { flex: 1; min-width: 240px; }
+  .cart .cart-summary .lead { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .cart .cart-summary .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .cart .btn {
+    background: var(--accent-yellow); color: var(--ink-2); border: 1px solid var(--ink-2);
+    padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .cart .btn:hover { filter: brightness(0.97); }
+  .cart .btn:disabled { background: var(--line); color: var(--muted); border-color: var(--line); cursor: not-allowed; }
+  .cart .btn.ghost { background: transparent; border-color: var(--line); color: var(--ink); font-weight: 500; }
+  .cart .btn.ghost:hover { border-color: var(--ink); }
+  .cart .btn.ghost:disabled { color: var(--muted); cursor: not-allowed; }
+
+  .checkbox-cell { width: 36px; text-align: center; }
+  .checkbox-cell input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+  tr.confirmed td { background: rgba(31,122,51,.06); }
+  tr.confirmed:hover td { background: rgba(31,122,51,.10); }
+
   @media (max-width: 700px) {
     header { padding: 12px 14px; }
     header .logo { width: 32px; height: 32px; }
@@ -129,6 +154,15 @@
 
 <main>
   <section class="kpis" id="kpis"></section>
+
+  <div class="cart" id="cart">
+    <div class="cart-summary">
+      <div class="lead" id="cart-lead">No vendors confirmed yet</div>
+      <div class="sub" id="cart-sub">Tick a vendor below to add its order lines to the cart.</div>
+    </div>
+    <button id="cart-download" class="btn" disabled>Download Order CSV</button>
+    <button id="cart-clear" class="btn ghost" disabled>Clear</button>
+  </div>
 
   <div class="grid-2">
     <div class="card chart">
@@ -159,6 +193,7 @@
       <table id="vendors">
         <thead>
           <tr>
+            <th class="checkbox-cell"><input type="checkbox" id="vendor-select-all" title="Confirm all visible vendors with action" /></th>
             <th data-sort="vendor">Vendor</th>
             <th data-sort="moqConstraint">MOQ Type</th>
             <th class="num" data-sort="moqQuantity">MOQ Qty</th>
@@ -226,9 +261,20 @@ const STATUS_LABEL = {
   needs_order: "Needs order", past_due: "Past due", on_track: "On track",
 };
 
+const CART_KEY = "dca1-tracking-confirmed-vendors-v1";
 let DATA = null;
 let vendorSort = { key: "pctToMoq", dir: "desc" };
 let itemSort = { key: "orderQty", dir: "desc" };
+let confirmed = new Set(loadCart());
+
+function loadCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+  catch { return []; }
+}
+function saveCart() {
+  localStorage.setItem(CART_KEY, JSON.stringify([...confirmed]));
+}
+function vendorKey(v) { return v.vendorId || v.vendor; }
 
 async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
@@ -243,6 +289,7 @@ async function load() {
   populateVendorFilter();
   renderVendors();
   renderItems();
+  renderCart();
 }
 
 function renderKpis() {
@@ -345,8 +392,12 @@ function renderVendors() {
     const pct = v.pctToMoq;
     const barWidth = pct == null ? 0 : Math.min(100, Math.max(0, pct));
     const barCls = v.status === "meets" ? "meets" : v.status === "short" ? "short" : "";
+    const k = vendorKey(v);
+    const checked = confirmed.has(k) ? "checked" : "";
+    const disabled = v.skusToOrder === 0 ? "disabled" : "";
     return `
-      <tr>
+      <tr class="${confirmed.has(k) ? "confirmed" : ""}">
+        <td class="checkbox-cell"><input type="checkbox" data-vendor-key="${escapeHtml(k)}" ${checked} ${disabled} /></td>
         <td>${escapeHtml(v.vendor)}${v.vendorId ? `<div class="sub-id">${v.vendorId}</div>` : ""}</td>
         <td>${v.moqConstraint ? escapeHtml(v.moqConstraint) : '<span class="muted">—</span>'}</td>
         <td class="num">${v.moqQuantity != null ? fmt(v.moqQuantity) : '<span class="muted">—</span>'}</td>
@@ -363,6 +414,17 @@ function renderVendors() {
       </tr>
     `;
   }).join("");
+
+  document.querySelectorAll("#vendors tbody input[type=checkbox]").forEach(cb => {
+    cb.addEventListener("change", e => {
+      const k = e.target.dataset.vendorKey;
+      if (e.target.checked) confirmed.add(k);
+      else confirmed.delete(k);
+      saveCart();
+      renderVendors();
+      renderCart();
+    });
+  });
 }
 
 function renderItems() {
@@ -403,6 +465,102 @@ function renderItems() {
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 }
+
+function confirmedItems() {
+  if (!DATA) return [];
+  const keyOf = v => v.vendorId || v.vendor;
+  const matchKey = (vendor, vendorId) => confirmed.has(vendorId || vendor);
+  return DATA.items.filter(i => i.orderQty > 0 && matchKey(i.vendor, i.vendorId));
+}
+
+function renderCart() {
+  // Prune stale entries (vendors that no longer exist or now have no action)
+  if (DATA) {
+    const valid = new Set(DATA.vendors.filter(v => v.skusToOrder > 0).map(vendorKey));
+    let changed = false;
+    for (const k of confirmed) if (!valid.has(k)) { confirmed.delete(k); changed = true; }
+    if (changed) saveCart();
+  }
+  const items = confirmedItems();
+  const lines = items.length;
+  const cases = items.reduce((s, i) => s + (i.orderQty || 0), 0);
+  const vendorCount = confirmed.size;
+  const lead = document.getElementById("cart-lead");
+  const sub = document.getElementById("cart-sub");
+  const dl = document.getElementById("cart-download");
+  const clr = document.getElementById("cart-clear");
+  if (vendorCount === 0) {
+    lead.textContent = "No vendors confirmed yet";
+    sub.textContent = "Tick a vendor below to add its order lines to the cart.";
+    dl.disabled = true; clr.disabled = true;
+  } else {
+    lead.textContent = `${vendorCount} vendor${vendorCount === 1 ? "" : "s"} · ${lines} line${lines === 1 ? "" : "s"} · ${fmt(Math.round(cases * 10) / 10)} cases`;
+    sub.textContent = `Ready to download as po_upload_template-shaped CSV.`;
+    dl.disabled = false; clr.disabled = false;
+  }
+}
+
+function csvEscape(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function formatDeliveryDate(s) {
+  // Template expects M/D/YYYY (no leading zeros). Source delivery_date is YYYY-MM-DD.
+  if (!s) return "";
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
+  if (!m) return s;
+  return `${+m[2]}/${+m[3]}/${m[1]}`;
+}
+
+function buildCsv() {
+  const headers = [
+    "warehouse_location_id", "warehouse_uuid", "warehouse_name",
+    "procurement_vendor_uuid", "vendor_name", "delivery_date",
+    "item_uuid", "item_name", "purchase_unit", "Order.QTY",
+  ];
+  const items = confirmedItems();
+  const lines = items.map(i => [
+    i.warehouseLocationId, i.warehouseUuid, DATA.warehouse,
+    i.vendorUuid, i.vendor, formatDeliveryDate(i.deliveryDate),
+    i.itemUuid, i.name, i.purchaseUnit, i.orderQty,
+  ].map(csvEscape).join(","));
+  return [headers.join(","), ...lines].join("\n") + "\n";
+}
+
+function downloadCsv() {
+  const csv = buildCsv();
+  const stamp = new Date().toISOString().slice(0, 10);
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `dca1-po-upload-${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("cart-download").addEventListener("click", downloadCsv);
+document.getElementById("cart-clear").addEventListener("click", () => {
+  if (!confirm("Clear all confirmed vendors?")) return;
+  confirmed.clear();
+  saveCart();
+  renderVendors();
+  renderCart();
+});
+document.getElementById("vendor-select-all").addEventListener("change", e => {
+  // "Select all" applies to vendors currently visible AND with action.
+  document.querySelectorAll("#vendors tbody input[type=checkbox]:not(:disabled)").forEach(cb => {
+    const k = cb.dataset.vendorKey;
+    if (e.target.checked) confirmed.add(k); else confirmed.delete(k);
+  });
+  saveCart();
+  renderVendors();
+  renderCart();
+});
 
 document.getElementById("vendor-search").addEventListener("input", renderVendors);
 document.getElementById("vendor-status").addEventListener("change", renderVendors);
