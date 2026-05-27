@@ -16,6 +16,43 @@ dashboards/<name>/
   scripts/build_data.py                # pulls sheet, aggregates, writes data.json
 ```
 
+## Default data source
+
+Unless the user names a different sheet/folder, assume new dashboards are
+built from files in the **Looker Data Dumps** Google Drive folder:
+
+- Folder name: `Looker Data Dumps`
+- Folder ID: `1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7`
+- URL: https://drive.google.com/drive/folders/1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7
+- Owner: bhiney@odeko.com (already shared with the service account)
+
+Files in this folder are Looker scheduled exports — Google Sheets with
+`.csv` in the title. They refresh on Looker's schedule, so dashboards
+just need to re-read the latest values.
+
+To browse it, use the Drive MCP `search_files` with
+`parentId = '1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7'`. To filter by name, add
+`and title contains '<keyword>'`.
+
+## New dashboard intake
+
+When the user asks for a new dashboard, before writing any code:
+
+1. **Find the source file.** Search the Looker Data Dumps folder by
+   keyword from the request. If multiple candidates match (e.g. several
+   "Stock Report" files), list them and ask which one — prefer the
+   most-recently-modified unless the user says otherwise.
+2. **Inspect the sheet.** Use `get_spreadsheet_info` + `read_range` on
+   `A1:Z6` of the relevant tab to confirm columns.
+3. **Ask the user (batched in a single `AskUserQuestion` call):**
+   - **Purpose / audience** — what decision does this dashboard support?
+   - **Key metrics / views** — KPI cards? Charts? Tables? Which columns?
+   - **Filters / groupings** — by warehouse, item, date range, etc.?
+   - **Refresh cadence** — hourly (default) or different?
+   Skip any question the user has already answered in their request.
+4. **Confirm the dashboard slug** (folder name under `dashboards/`)
+   before scaffolding files.
+
 ## Adding a new dashboard
 
 Model new dashboards on `dashboards/dca1-onhand-eta/`. Steps:
