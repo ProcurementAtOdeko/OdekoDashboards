@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · DCA1 Tracking</title>
+<link rel="icon" type="image/png" href="./odeko-logo.png" />
+<link rel="apple-touch-icon" href="./odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 280px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=text], .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 240px; }
+  .toolbar input:focus, .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .02em; }
+  .chip.meets { background: var(--green-soft); color: var(--green); }
+  .chip.short { background: var(--red-soft); color: var(--red); }
+  .chip.no_moq { background: rgba(138,123,106,.14); color: var(--muted); }
+  .chip.non_qty_moq { background: var(--amber-soft); color: var(--amber); }
+  .chip.inactive { background: rgba(138,123,106,.10); color: var(--muted); }
+  .chip.needs_order { background: var(--red-soft); color: var(--red); }
+  .chip.past_due { background: var(--amber-soft); color: var(--amber); }
+  .chip.on_track { background: var(--green-soft); color: var(--green); }
+
+  .bar-wrap { background: var(--line); border-radius: 4px; height: 8px; min-width: 80px; overflow: hidden; position: relative; }
+  .bar-wrap .bar { height: 100%; background: var(--accent); border-radius: 4px; }
+  .bar-wrap .bar.short { background: var(--red); }
+  .bar-wrap .bar.meets { background: var(--green); }
+
+  .muted { color: var(--muted); }
+  .sub-id { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="./odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>DCA1 — Tracking</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid-2">
+    <div class="card chart">
+      <h3>SKUs To Order — Last 10 Days</h3>
+      <div class="body"><canvas id="chart-trend-orders"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Past-Due SKUs — Last 10 Days</h3>
+      <div class="body"><canvas id="chart-trend-pastdue"></canvas></div>
+    </div>
+  </div>
+
+  <section class="card">
+    <h3>Vendor Rollup — Today's Order vs MOQ</h3>
+    <div class="toolbar">
+      <input id="vendor-search" type="search" placeholder="Search vendor…" />
+      <select id="vendor-status">
+        <option value="">All vendors</option>
+        <option value="action">Has action today</option>
+        <option value="short">MOQ short</option>
+        <option value="meets">MOQ met</option>
+        <option value="no_moq">No MOQ</option>
+        <option value="non_qty_moq">Non-quantity MOQ</option>
+      </select>
+      <span class="count" id="vendor-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="vendors">
+        <thead>
+          <tr>
+            <th data-sort="vendor">Vendor</th>
+            <th data-sort="moqConstraint">MOQ Type</th>
+            <th class="num" data-sort="moqQuantity">MOQ Qty</th>
+            <th class="num" data-sort="casesToOrder" data-default="desc">Cases To Order</th>
+            <th class="num" data-sort="skusToOrder" data-default="desc">SKUs To Order</th>
+            <th class="num" data-sort="pctToMoq" data-default="desc">% To MOQ</th>
+            <th data-sort="status">Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Item-Level Detail</h3>
+    <div class="toolbar">
+      <input id="item-search" type="search" placeholder="Search item or vendor…" />
+      <select id="item-vendor">
+        <option value="">All vendors</option>
+      </select>
+      <select id="item-status">
+        <option value="">All statuses</option>
+        <option value="needs_order">Needs order today</option>
+        <option value="past_due">Past due</option>
+        <option value="on_track">On track</option>
+      </select>
+      <span class="count" id="item-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="name">Item</th>
+            <th data-sort="vendor">Vendor</th>
+            <th data-sort="itemClass">Class</th>
+            <th class="num" data-sort="inventory">On Hand</th>
+            <th class="num" data-sort="minOh">Min</th>
+            <th class="num" data-sort="maxOh">Max</th>
+            <th class="num" data-sort="orderQty" data-default="desc">Order Qty</th>
+            <th class="num" data-sort="netDoc">Net DOC</th>
+            <th data-sort="status">Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100",
+};
+
+const STATUS_LABEL = {
+  meets: "Meets MOQ", short: "Short of MOQ", no_moq: "No MOQ",
+  non_qty_moq: "$/Cadence MOQ", inactive: "No action",
+  needs_order: "Needs order", past_due: "Past due", on_track: "On track",
+};
+
+let DATA = null;
+let vendorSort = { key: "pctToMoq", dir: "desc" };
+let itemSort = { key: "orderQty", dir: "desc" };
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  document.getElementById("meta").textContent =
+    `Tab ${DATA.sourceTab}` +
+    (DATA.asOf ? ` · source as-of ${DATA.asOf}` : "") +
+    ` · refreshed ${new Date(DATA.generatedAt).toLocaleString()}`;
+  renderKpis();
+  renderTrends();
+  populateVendorFilter();
+  renderVendors();
+  renderItems();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "SKUs To Order", value: s.skusToOrder, cls: s.skusToOrder > 0 ? "red" : "green" },
+    { label: "Vendors With Action", value: s.vendorsWithAction, cls: "accent" },
+    { label: "Vendors Meeting MOQ", value: s.vendorsMeetingMoq, cls: "green" },
+    { label: "Vendors Short Of MOQ", value: s.vendorsShortOfMoq, cls: s.vendorsShortOfMoq > 0 ? "amber" : "" },
+    { label: "Past-Due SKUs", value: s.skusPastDue, cls: s.skusPastDue > 0 ? "amber" : "green" },
+    { label: "Total Cases To Order", value: s.totalCasesToOrder, cls: "" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${fmt(k.value)}</div></div>`
+  ).join("");
+}
+
+function renderTrends() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const labels = DATA.trend.map(t => t.date);
+  new Chart(document.getElementById("chart-trend-orders"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        data: DATA.trend.map(t => t.skusToOrder),
+        borderColor: PALETTE.ink, backgroundColor: "rgba(64,24,11,.08)",
+        tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: PALETTE.ink,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+
+  new Chart(document.getElementById("chart-trend-pastdue"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        data: DATA.trend.map(t => t.pastDue),
+        borderColor: PALETTE.amber, backgroundColor: "rgba(181,102,10,.10)",
+        tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: PALETTE.amber,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+}
+
+function populateVendorFilter() {
+  const vendors = Array.from(new Set(DATA.items.map(i => i.vendor).filter(Boolean))).sort();
+  const sel = document.getElementById("item-vendor");
+  vendors.forEach(v => {
+    const o = document.createElement("option");
+    o.value = v; o.textContent = v;
+    sel.appendChild(o);
+  });
+}
+
+function sortBy(arr, key, dir) {
+  return [...arr].sort((a, b) => {
+    const av = a[key], bv = b[key];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return dir === "asc" ? av - bv : bv - av;
+  });
+}
+
+function renderVendors() {
+  const q = document.getElementById("vendor-search").value.toLowerCase();
+  const sf = document.getElementById("vendor-status").value;
+  let rows = DATA.vendors.filter(v =>
+    !q || (v.vendor || "").toLowerCase().includes(q)
+  );
+  if (sf === "action") rows = rows.filter(v => v.skusToOrder > 0);
+  else if (sf) rows = rows.filter(v => v.status === sf);
+
+  rows = sortBy(rows, vendorSort.key, vendorSort.dir);
+
+  document.getElementById("vendor-count").textContent =
+    `${rows.length}${rows.length !== DATA.vendors.length ? ` of ${DATA.vendors.length}` : ""} vendors`;
+
+  document.querySelectorAll("#vendors th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === vendorSort.key) th.classList.add(vendorSort.dir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#vendors tbody").innerHTML = rows.map(v => {
+    const pct = v.pctToMoq;
+    const barWidth = pct == null ? 0 : Math.min(100, Math.max(0, pct));
+    const barCls = v.status === "meets" ? "meets" : v.status === "short" ? "short" : "";
+    return `
+      <tr>
+        <td>${escapeHtml(v.vendor)}${v.vendorId ? `<div class="sub-id">${v.vendorId}</div>` : ""}</td>
+        <td>${v.moqConstraint ? escapeHtml(v.moqConstraint) : '<span class="muted">—</span>'}</td>
+        <td class="num">${v.moqQuantity != null ? fmt(v.moqQuantity) : '<span class="muted">—</span>'}</td>
+        <td class="num">${fmt(v.casesToOrder)}</td>
+        <td class="num">${fmt(v.skusToOrder)}</td>
+        <td class="num">${
+          pct == null ? '<span class="muted">—</span>' :
+          `<div style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+             <span>${fmt(pct)}%</span>
+             <div class="bar-wrap"><div class="bar ${barCls}" style="width:${barWidth}%"></div></div>
+           </div>`
+        }</td>
+        <td><span class="chip ${v.status}">${STATUS_LABEL[v.status] || v.status}</span></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function renderItems() {
+  const q = document.getElementById("item-search").value.toLowerCase();
+  const vf = document.getElementById("item-vendor").value;
+  const sf = document.getElementById("item-status").value;
+  let rows = DATA.items.filter(i =>
+    (!q || i.name.toLowerCase().includes(q) || (i.vendor || "").toLowerCase().includes(q)) &&
+    (!vf || i.vendor === vf) &&
+    (!sf || i.status === sf)
+  );
+
+  rows = sortBy(rows, itemSort.key, itemSort.dir);
+
+  document.getElementById("item-count").textContent =
+    `${rows.length}${rows.length !== DATA.items.length ? ` of ${DATA.items.length}` : ""} items`;
+
+  document.querySelectorAll("#items th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === itemSort.key) th.classList.add(itemSort.dir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#items tbody").innerHTML = rows.map(i => `
+    <tr>
+      <td>${escapeHtml(i.name)}<div class="sub-id">${escapeHtml(i.itemId)}</div></td>
+      <td>${escapeHtml(i.vendor || "")}</td>
+      <td class="muted">${escapeHtml(i.itemClass || "")}</td>
+      <td class="num">${fmt(i.inventory)}</td>
+      <td class="num muted">${fmt(i.minOh)}</td>
+      <td class="num muted">${fmt(i.maxOh)}</td>
+      <td class="num">${i.orderQty > 0 ? `<strong>${fmt(i.orderQty)}</strong>` : '<span class="muted">—</span>'}</td>
+      <td class="num">${fmt(i.netDoc)}</td>
+      <td><span class="chip ${i.status}">${STATUS_LABEL[i.status] || i.status}</span></td>
+    </tr>
+  `).join("");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("vendor-search").addEventListener("input", renderVendors);
+document.getElementById("vendor-status").addEventListener("change", renderVendors);
+document.getElementById("item-search").addEventListener("input", renderItems);
+document.getElementById("item-vendor").addEventListener("change", renderItems);
+document.getElementById("item-status").addEventListener("change", renderItems);
+
+document.querySelectorAll("#vendors th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (vendorSort.key === key) vendorSort.dir = vendorSort.dir === "asc" ? "desc" : "asc";
+    else vendorSort = { key, dir: th.dataset.default || "asc" };
+    renderVendors();
+  });
+});
+document.querySelectorAll("#items th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (itemSort.key === key) itemSort.dir = itemSort.dir === "asc" ? "desc" : "asc";
+    else itemSort = { key, dir: th.dataset.default || "asc" };
+    renderItems();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
