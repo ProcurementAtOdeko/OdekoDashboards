@@ -367,11 +367,7 @@ function renderKpis() {
     { label: "Vendors Meeting MOQ", value: s.vendorsMeetingMoq, cls: "green" },
     { label: "Vendors Short Of MOQ", value: s.vendorsShortOfMoq, cls: s.vendorsShortOfMoq > 0 ? "amber" : "" },
     { label: "Past-Due SKUs", value: s.skusPastDue, cls: s.skusPastDue > 0 ? "amber" : "green" },
-    {
-      label: "Total Cases To Order",
-      value: s.totalCasesToOrder,
-      hint: s.tiHiOverorder ? `incl. +${fmt(s.tiHiOverorder)} from Ti/Hi (${s.skusBumpedByTiHi} SKUs)` : null,
-    },
+    { label: "Total Cases To Order", value: s.totalCasesToOrder, cls: "" },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls || ''}">
@@ -559,10 +555,11 @@ function renderItems() {
   document.querySelector("#items tbody").innerHTML = rows.map(i => {
     let qtyCell;
     if (i.orderQty > 0) {
-      const bump = i.tiHiBumped
-        ? `<span class="tihi-bump" title="Rounded up to a full layer of ${fmt(i.casesPerLayer)}">${fmt(i.orderQtyRaw)} → <strong>${fmt(i.orderQty)}</strong> ↑</span>`
-        : `<strong>${fmt(i.orderQty)}</strong>`;
-      qtyCell = bump;
+      // Show Ti/Hi divergence as a hint when source col L != col K
+      const hint = i.tiHiBumped
+        ? `<span class="tihi-bump" title="Source Ti/Hi (col L) = ${fmt(i.sourceTiHi)}">↳ ${fmt(i.sourceTiHi)}</span>`
+        : "";
+      qtyCell = `<strong>${fmt(i.orderQty)}</strong>${hint ? "<br/>" + hint : ""}`;
     } else {
       qtyCell = '<span class="muted">—</span>';
     }
@@ -575,8 +572,8 @@ function renderItems() {
         <td>${escapeHtml(i.vendor || "")}</td>
         <td class="muted">${escapeHtml(i.itemClass || "")}</td>
         <td class="num">${fmt(i.inventory)}</td>
-        <td class="num muted">${fmt(i.minOh)}</td>
-        <td class="num muted">${fmt(i.maxOh)}</td>
+        <td class="num muted">${i.minOh != null ? fmt(i.minOh) : '—'}</td>
+        <td class="num muted">${i.maxOh != null ? fmt(i.maxOh) : '—'}</td>
         <td class="num">${qtyCell}</td>
         <td class="num">${palletCell}</td>
         <td class="num">${fmt(i.netDoc)}</td>

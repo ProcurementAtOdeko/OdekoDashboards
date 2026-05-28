@@ -228,7 +228,13 @@ def read_today_tab(svc, tab_title):
 
 
 def build_items(header, rows, mapping):
-    """Yield per-SKU records with min/max + computed order qty."""
+    """Yield per-SKU records sourced from the daily tab.
+
+    Source "Order QTY" (col K) is the authoritative pre-rounding order
+    quantity. Source "Ti/Hi" (col L) is the same value rounded UP to a
+    full layer; when L is populated we trust it. Anything other than a
+    positive finite number in K means no order for this SKU today.
+    """
     needed = {
         "vendor_name": col_index(header, "vendor_name"),
         "vendor_id": col_index(header, "vendor_id"),
@@ -262,26 +268,20 @@ def build_items(header, rows, mapping):
     for r in rows:
         r = r + [""] * (len(header) - len(r))
         item_class = (r[needed["item_class"]] or "").strip()
-        if not item_class:
-            continue
         inv = parse_num(r[needed["inventory"]])
         if inv is None:
             continue
-        m = mapping.get(item_class)
-        if not m:
-            continue
-        order_qty_raw = max(0.0, m["max"] - inv) if inv <= m["min"] else 0.0
+        m = mapping.get(item_class)  # may be None — informational only
 
-        # Ti/Hi rounding: snap order up to the nearest full layer when
-        # cases_per_layer is set. cases_per_pallet drives a separate
-        # "full pallet" hint we just expose to the UI for now.
+        # Order qty comes from source col K (Order QTY) — authoritative.
+        # Anything other than a positive finite number is "not an order".
+        source_order_qty = parse_num(r[needed["source_order_qty"]])
+        source_ti_hi = parse_num(r[needed["source_ti_hi"]])
         cpl = parse_num(r[needed["cases_per_layer"]])
         lpp = parse_num(r[needed["layers_per_pallet"]])
         cpp = parse_num(r[needed["cases_per_pallet"]])
-        if order_qty_raw > 0 and cpl and cpl > 0:
-            order_qty = math.ceil(order_qty_raw / cpl) * cpl
-        else:
-            order_qty = order_qty_raw
+        order_qty = source_order_qty if (source_order_qty and source_order_qty > 0) else 0.0
+        order_qty_raw = order_qty  # kept for back-compat in front-end
 
         past_due = parse_num(r[needed["past_due"]]) or 0
         po_past_due = parse_num(r[needed["purchase_orders_past_due"]]) or 0
@@ -300,16 +300,19 @@ def build_items(header, rows, mapping):
             "name": (r[needed["item_name"]] or "").strip(),
             "itemClass": item_class,
             "inventory": round(inv, 2),
-            "minOh": m["min"],
-            "maxOh": m["max"],
+            "minOh": m["min"] if m else None,
+            "maxOh": m["max"] if m else None,
             "orderQtyRaw": round(order_qty_raw, 2),
             "orderQty": round(order_qty, 2),
             "casesPerLayer": cpl,
             "layersPerPallet": lpp,
             "casesPerPallet": cpp,
-            "tiHiBumped": order_qty > order_qty_raw + 1e-9,
-            "sourceOrderQty": parse_num(r[needed["source_order_qty"]]),
-            "sourceTiHi": parse_num(r[needed["source_ti_hi"]]),
+            # tiHiBumped now reflects whether the source's Ti/Hi (col L)
+            # diverges from Order QTY (col K) — informational only.
+            "tiHiBumped": bool(source_ti_hi and source_order_qty and
+                               abs(source_ti_hi - source_order_qty) > 0.5),
+            "sourceOrderQty": source_order_qty,
+            "sourceTiHi": source_ti_hi,
             "purchaseUnit": (r[needed["purchase_unit"]] or "").strip(),
             "deliveryDate": (r[needed["delivery_date"]] or "").strip(),
             "warehouseLocationId": (r[needed["warehouse_location_id"]] or "").strip(),
@@ -391,27 +394,25 @@ def build_vendors(items, moq):
 
 
 def trend_summary(svc, tab_title, mapping):
-    """Lightweight summary for one dated tab — just counts."""
+    """Lightweight summary for one dated tab — just counts.
+
+    Mirrors the daily logic: needs-order = source "Order QTY" > 0.
+    """
     rows = get_values(svc, SPREADSHEET_ID, f"'{tab_title}'!A1:CF")
     if not rows:
         return None
     header = rows[0]
-    ci_class = col_index(header, "item_class")
-    ci_inv = col_index(header, "inventory")
+    ci_oq = col_index(header, "Order QTY")
     ci_pd = col_index(header, "past_due")
     ci_po_pd = col_index(header, "purchase_orders_past_due")
-    if None in (ci_class, ci_inv):
+    if ci_oq is None:
         return None
     needs_order = 0
     past_due = 0
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
-        ic = (r[ci_class] or "").strip()
-        inv = parse_num(r[ci_inv])
-        if not ic or inv is None:
-            continue
-        m = mapping.get(ic)
-        if m and inv <= m["min"]:
+        oq = parse_num(r[ci_oq])
+        if oq and oq > 0:
             needs_order += 1
         pd = parse_num(r[ci_pd]) if ci_pd is not None else 0
         ppd = parse_num(r[ci_po_pd]) if ci_po_pd is not None else 0
@@ -477,18 +478,14 @@ def main(out_path):
     }
     trend.append(today_summary)
 
-    raw_total = sum(i["orderQtyRaw"] for i in items if i["orderQty"] > 0)
-    rounded_total = sum(i["orderQty"] for i in items if i["orderQty"] > 0)
+    total_cases = sum(i["orderQty"] for i in items if i["orderQty"] > 0)
     summary = {
         "skusToOrder": sum(1 for i in items if i["status"] == "needs_order"),
         "vendorsWithAction": sum(1 for v in vendors if v["skusToOrder"] > 0),
         "vendorsMeetingMoq": sum(1 for v in vendors if v["status"] == "meets"),
         "vendorsShortOfMoq": sum(1 for v in vendors if v["status"] == "short"),
         "skusPastDue": sum(1 for i in items if i["status"] == "past_due"),
-        "totalCasesToOrder": round(rounded_total, 1),
-        "rawCasesToOrder": round(raw_total, 1),
-        "tiHiOverorder": round(rounded_total - raw_total, 1),
-        "skusBumpedByTiHi": sum(1 for i in items if i.get("tiHiBumped")),
+        "totalCasesToOrder": round(total_cases, 1),
         "totalSkus": len(items),
     }
 
