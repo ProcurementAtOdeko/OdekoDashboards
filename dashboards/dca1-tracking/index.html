@@ -41,6 +41,22 @@
   header .logo { width: 40px; height: 40px; border-radius: 8px; }
   header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
   header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header .actions { display: flex; align-items: center; gap: 8px; }
+  header .refresh {
+    background: transparent; border: 1px solid var(--line); color: var(--ink);
+    padding: 7px 12px; border-radius: 6px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  header .refresh:hover { border-color: var(--ink-2); }
+  header .refresh:disabled { color: var(--muted); cursor: wait; }
+  header .refresh .icon { display: inline-block; transition: transform .6s linear; }
+  header .refresh.spinning .icon { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  header .force {
+    color: var(--muted); font-size: 11px; text-decoration: none;
+  }
+  header .force:hover { color: var(--ink-2); text-decoration: underline; }
   main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
 
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
@@ -168,6 +184,13 @@
       <div class="sub" id="meta">Loading…</div>
     </div>
   </div>
+  <div class="actions">
+    <a class="force" href="https://github.com/ProcurementAtOdeko/OdekoDashboards/actions/workflows/refresh-dca1-tracking.yml" target="_blank" rel="noopener" title="Open the GitHub Actions workflow and click ‘Run workflow’ to pull fresh data from the source sheet right now.">force re-pull ↗</a>
+    <button class="refresh" id="refresh-btn" title="Reload the latest data.json without a full page refresh">
+      <span class="icon">↻</span>
+      <span class="label">Refresh</span>
+    </button>
+  </div>
 </header>
 
 <main>
@@ -289,6 +312,7 @@ let DATA = null;
 let vendorSort = { key: "pctToMoq", dir: "desc" };
 let itemSort = { key: "orderQty", dir: "desc" };
 let confirmed = new Set(loadCart());
+const CHARTS = {};
 
 function loadCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
@@ -300,10 +324,16 @@ function saveCart() {
 function vendorKey(v) { return v.vendorId || v.vendor; }
 
 async function load() {
-  const res = await fetch("./data.json", { cache: "no-store" });
-  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
-  DATA = await res.json();
-  document.getElementById("meta").textContent =
+  const meta = document.getElementById("meta");
+  try {
+    const res = await fetch(`./data.json?t=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) { meta.textContent = "Failed to load data.json"; return; }
+    DATA = await res.json();
+  } catch (e) {
+    meta.textContent = "Failed to load data.json — " + (e?.message || e);
+    return;
+  }
+  meta.textContent =
     `Tab ${DATA.sourceTab}` +
     (DATA.asOf ? ` · source as-of ${DATA.asOf}` : "") +
     ` · refreshed ${new Date(DATA.generatedAt).toLocaleString()}`;
@@ -313,6 +343,20 @@ async function load() {
   renderVendors();
   renderItems();
   renderCart();
+}
+
+async function refresh() {
+  const btn = document.getElementById("refresh-btn");
+  btn.disabled = true;
+  btn.classList.add("spinning");
+  try {
+    await load();
+  } finally {
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.classList.remove("spinning");
+    }, 300);
+  }
 }
 
 function renderKpis() {
@@ -343,8 +387,10 @@ function renderTrends() {
   Chart.defaults.borderColor = PALETTE.line;
   Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
+  for (const k of Object.keys(CHARTS)) { CHARTS[k].destroy(); delete CHARTS[k]; }
+
   const labels = DATA.trend.map(t => t.date);
-  new Chart(document.getElementById("chart-trend-orders"), {
+  CHARTS.orders = new Chart(document.getElementById("chart-trend-orders"), {
     type: "line",
     data: {
       labels,
@@ -361,7 +407,7 @@ function renderTrends() {
     },
   });
 
-  new Chart(document.getElementById("chart-trend-pastdue"), {
+  CHARTS.pastdue = new Chart(document.getElementById("chart-trend-pastdue"), {
     type: "line",
     data: {
       labels,
@@ -380,13 +426,17 @@ function renderTrends() {
 }
 
 function populateVendorFilter() {
-  const vendors = Array.from(new Set(DATA.items.map(i => i.vendor).filter(Boolean))).sort();
   const sel = document.getElementById("item-vendor");
+  const previous = sel.value;
+  // Wipe everything except the leading "All vendors" placeholder.
+  while (sel.options.length > 1) sel.remove(1);
+  const vendors = Array.from(new Set(DATA.items.map(i => i.vendor).filter(Boolean))).sort();
   vendors.forEach(v => {
     const o = document.createElement("option");
     o.value = v; o.textContent = v;
     sel.appendChild(o);
   });
+  if (previous && vendors.includes(previous)) sel.value = previous;
 }
 
 function sortBy(arr, key, dir) {
@@ -622,6 +672,7 @@ function downloadCsv() {
   URL.revokeObjectURL(url);
 }
 
+document.getElementById("refresh-btn").addEventListener("click", refresh);
 document.getElementById("cart-download").addEventListener("click", downloadCsv);
 document.getElementById("cart-clear").addEventListener("click", () => {
   if (!confirm("Clear all confirmed vendors?")) return;
