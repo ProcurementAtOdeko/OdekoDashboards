@@ -29,6 +29,25 @@ SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 ABC_BUCKETS = ["a", "b", "c", "d"]
 XYZ_BUCKETS = ["x", "y", "z"]
 
+ABC_RANK = {"a": 1, "b": 2, "c": 3, "d": 4}
+XYZ_RANK = {"x": 1, "y": 2, "z": 3}
+
+
+def direction(old: str, new: str, ranks: dict) -> str:
+    """Return '+' if new is a better rank than old (closer to A/X),
+    '-' if worse, '0' if same, '' if either side is missing."""
+    if not old or not new:
+        return ""
+    if old == new:
+        return "0"
+    ro = ranks.get(old, 99)
+    rn = ranks.get(new, 99)
+    if rn < ro:
+        return "+"
+    if rn > ro:
+        return "-"
+    return "0"
+
 
 def download_csv(creds, file_id: str) -> str:
     if not creds.valid:
@@ -101,6 +120,10 @@ def main(out_path: str):
         "abcChanged": 0,
         "xyzChanged": 0,
         "abcXyzChanged": 0,
+        "abcUp": 0,
+        "abcDown": 0,
+        "xyzUp": 0,
+        "xyzDown": 0,
         "onlyWith": 0,
         "onlyWithout": 0,
         "both": 0,
@@ -116,6 +139,10 @@ def main(out_path: str):
     total_abc_changed = 0
     total_xyz_changed = 0
     total_class_changed = 0
+    total_abc_up = 0
+    total_abc_down = 0
+    total_xyz_up = 0
+    total_xyz_down = 0
 
     for key in keys:
         w = with_idx.get(key)
@@ -162,12 +189,18 @@ def main(out_path: str):
         abc_changed = present == "both" and abc_with != abc_without
         xyz_changed = present == "both" and xyz_with != xyz_without
         any_changed = abc_changed or xyz_changed
+        abc_dir = direction(abc_with, abc_without, ABC_RANK) if present == "both" else ""
+        xyz_dir = direction(xyz_with, xyz_without, XYZ_RANK) if present == "both" else ""
         if abc_changed:
             total_abc_changed += 1
         if xyz_changed:
             total_xyz_changed += 1
         if any_changed:
             total_class_changed += 1
+        if abc_dir == "+": total_abc_up += 1
+        if abc_dir == "-": total_abc_down += 1
+        if xyz_dir == "+": total_xyz_up += 1
+        if xyz_dir == "-": total_xyz_down += 1
 
         cs = cat_stats[category]
         cs["category"] = category
@@ -180,10 +213,14 @@ def main(out_path: str):
                 cs["xyzChanged"] += 1
             if any_changed:
                 cs["abcXyzChanged"] += 1
-            cs["abcMatrix"][f"{abc_without or '–'}|{abc_with or '–'}"] += 1
-            cs["xyzMatrix"][f"{xyz_without or '–'}|{xyz_with or '–'}"] += 1
-            abc_matrix[f"{abc_without or '–'}|{abc_with or '–'}"] += 1
-            xyz_matrix[f"{xyz_without or '–'}|{xyz_with or '–'}"] += 1
+            if abc_dir == "+": cs["abcUp"] += 1
+            if abc_dir == "-": cs["abcDown"] += 1
+            if xyz_dir == "+": cs["xyzUp"] += 1
+            if xyz_dir == "-": cs["xyzDown"] += 1
+            cs["abcMatrix"][f"{abc_with or '–'}|{abc_without or '–'}"] += 1
+            cs["xyzMatrix"][f"{xyz_with or '–'}|{xyz_without or '–'}"] += 1
+            abc_matrix[f"{abc_with or '–'}|{abc_without or '–'}"] += 1
+            xyz_matrix[f"{xyz_with or '–'}|{xyz_without or '–'}"] += 1
         elif present == "with":
             cs["onlyWith"] += 1
         else:
@@ -205,6 +242,8 @@ def main(out_path: str):
             "xyzWithout": xyz_without.upper() if xyz_without else "",
             "abcChanged": abc_changed,
             "xyzChanged": xyz_changed,
+            "abcDir": abc_dir,
+            "xyzDir": xyz_dir,
             "presence": present,
         })
 
@@ -219,6 +258,10 @@ def main(out_path: str):
             "abcChanged": cs["abcChanged"],
             "xyzChanged": cs["xyzChanged"],
             "abcXyzChanged": cs["abcXyzChanged"],
+            "abcUp": cs["abcUp"],
+            "abcDown": cs["abcDown"],
+            "xyzUp": cs["xyzUp"],
+            "xyzDown": cs["xyzDown"],
             "abcChangedPct": round(100 * cs["abcChanged"] / cs["both"], 1) if cs["both"] else 0,
             "xyzChangedPct": round(100 * cs["xyzChanged"] / cs["both"], 1) if cs["both"] else 0,
             "abcMatrix": dict(cs["abcMatrix"]),
@@ -242,6 +285,10 @@ def main(out_path: str):
             "abcChanged": total_abc_changed,
             "xyzChanged": total_xyz_changed,
             "anyChanged": total_class_changed,
+            "abcUp": total_abc_up,
+            "abcDown": total_abc_down,
+            "xyzUp": total_xyz_up,
+            "xyzDown": total_xyz_down,
             "abcChangedPct": round(100 * total_abc_changed / total_both, 1) if total_both else 0,
             "xyzChangedPct": round(100 * total_xyz_changed / total_both, 1) if total_both else 0,
         },
