@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · ABC/XYZ Model Comparison</title>
+<link rel="icon" type="image/png" href="./odeko-logo.png" />
+<link rel="apple-touch-icon" href="./odeko-logo.png" />
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card .body.tight { padding: 0; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 220px; }
+  .toolbar input:focus, .toolbar select:focus {
+    border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08);
+  }
+  .toolbar label { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; user-select: none; background: var(--bg); position: sticky; top: 73px; z-index: 1;
+  }
+  th.sortable { cursor: pointer; }
+  th.sortable:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.center, th.center { text-align: center; }
+  tr:hover td { background: #FAF4E4; }
+
+  .badge {
+    display: inline-block; min-width: 22px; padding: 2px 6px; border-radius: 4px;
+    font-weight: 700; font-size: 12px; text-align: center;
+    background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+  }
+  .badge.A { background: rgba(180,35,24,.12); color: var(--red); border-color: rgba(180,35,24,.25); }
+  .badge.B { background: rgba(181,102,10,.14); color: var(--amber); border-color: rgba(181,102,10,.28); }
+  .badge.C { background: rgba(31,122,51,.14); color: var(--green); border-color: rgba(31,122,51,.28); }
+  .badge.D { background: var(--panel-2); color: var(--muted); }
+  .badge.X { background: rgba(31,122,51,.14); color: var(--green); border-color: rgba(31,122,51,.28); }
+  .badge.Y { background: rgba(181,102,10,.14); color: var(--amber); border-color: rgba(181,102,10,.28); }
+  .badge.Z { background: rgba(180,35,24,.12); color: var(--red); border-color: rgba(180,35,24,.25); }
+  .badge.muted { color: var(--muted); }
+  .arrow { color: var(--muted); padding: 0 4px; }
+  .changed-row td { background: rgba(255,209,0,.10); }
+  .changed-row:hover td { background: rgba(255,209,0,.18); }
+
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+
+  .matrix {
+    display: grid; gap: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .matrix .cell {
+    padding: 8px 10px; text-align: center; border-radius: 4px;
+    background: var(--panel-2); font-weight: 600; color: var(--ink-2);
+    font-size: 12px; min-width: 48px;
+  }
+  .matrix .lbl {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+    display: flex; align-items: center; justify-content: center; padding: 6px;
+  }
+  .matrix .diag { background: rgba(31,122,51,.10); color: var(--green); }
+  .matrix .changed { background: rgba(180,35,24,.10); color: var(--red); }
+  .matrix .empty { background: transparent; color: var(--muted); font-weight: 400; }
+  .matrix-wrap { display: flex; gap: 24px; flex-wrap: wrap; }
+  .matrix-block { flex: 1; min-width: 320px; }
+  .matrix-axis { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 11px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+
+  .legend { display: flex; gap: 12px; color: var(--muted); font-size: 11px; margin-top: 10px; flex-wrap: wrap; }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    th { position: static; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="./odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>ABC / XYZ — Model Comparison</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h3>Per-Category Change Summary</h3>
+    <div class="toolbar">
+      <label>Sort</label>
+      <select id="cat-sort">
+        <option value="total">By total items</option>
+        <option value="abcChanged">By ABC changes (#)</option>
+        <option value="abcChangedPct">By ABC changes (%)</option>
+        <option value="xyzChanged">By XYZ changes (#)</option>
+        <option value="xyzChangedPct">By XYZ changes (%)</option>
+      </select>
+      <span class="count">Counts of items whose ABC or XYZ moved between the two models.</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="cat-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="num">Items</th>
+            <th class="num">ABC Changed</th>
+            <th class="num">ABC %</th>
+            <th class="num">XYZ Changed</th>
+            <th class="num">XYZ %</th>
+            <th class="num">Either Changed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <div class="card">
+      <h3>ABC Confusion Matrix · Rows = Without Categories · Cols = With Categories</h3>
+      <div class="body">
+        <div id="abc-matrix" class="matrix-block"></div>
+        <div class="legend">
+          <span><span class="sw" style="background:rgba(31,122,51,.30)"></span>Diagonal (unchanged)</span>
+          <span><span class="sw" style="background:rgba(180,35,24,.25)"></span>Off-diagonal (changed)</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>XYZ Confusion Matrix · Rows = Without Categories · Cols = With Categories</h3>
+      <div class="body">
+        <div id="xyz-matrix" class="matrix-block"></div>
+        <div class="legend">
+          <span><span class="sw" style="background:rgba(31,122,51,.30)"></span>Diagonal (unchanged)</span>
+          <span><span class="sw" style="background:rgba(180,35,24,.25)"></span>Off-diagonal (changed)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Item-Level Comparison</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, vendor, or warehouse…" />
+      <label>Category</label>
+      <select id="cat-filter"><option value="">All categories</option></select>
+      <label>Show</label>
+      <select id="change-filter">
+        <option value="any">All items</option>
+        <option value="changed" selected>Only changed</option>
+        <option value="abc">ABC changed</option>
+        <option value="xyz">XYZ changed</option>
+        <option value="unchanged">Unchanged</option>
+      </select>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto; max-height: 70vh; overflow-y: auto;">
+      <table id="items">
+        <thead>
+          <tr>
+            <th class="sortable" data-sort="warehouse">Warehouse</th>
+            <th class="sortable" data-sort="item">Item</th>
+            <th class="sortable" data-sort="category">Category</th>
+            <th class="center sortable" data-sort="abcWithout">ABC w/o</th>
+            <th class="center sortable" data-sort="abcWith">ABC w/</th>
+            <th class="center sortable" data-sort="xyzWithout">XYZ w/o</th>
+            <th class="center sortable" data-sort="xyzWith">XYZ w/</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+const ROW_LIMIT = 2000;
+let DATA = null;
+let sortKey = "category";
+let sortDir = "asc";
+let filterText = "";
+let categoryFilter = "";
+let changeFilter = "changed";
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  const s = DATA.summary;
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${fmt(s.totalPairs)} items joined on (warehouse_uuid, item_uuid)`;
+  renderKpis();
+  renderCategoryTable();
+  renderMatrix("abc-matrix", DATA.abcMatrix, DATA.abcBuckets);
+  renderMatrix("xyz-matrix", DATA.xyzMatrix, DATA.xyzBuckets);
+  populateCategoryFilter();
+  renderTable();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Items matched in both", value: fmt(s.matchedBoth), sub: `${fmt(s.totalPairs)} total`, cls: "accent" },
+    { label: "ABC changed", value: fmt(s.abcChanged), sub: `${s.abcChangedPct}% of matched`, cls: s.abcChanged ? "amber" : "green" },
+    { label: "XYZ changed", value: fmt(s.xyzChanged), sub: `${s.xyzChangedPct}% of matched`, cls: s.xyzChanged ? "amber" : "green" },
+    { label: "Either changed", value: fmt(s.anyChanged), sub: "ABC or XYZ moved", cls: s.anyChanged ? "red" : "green" },
+    { label: "Only in w/ categories", value: fmt(s.onlyWith), cls: s.onlyWith ? "amber" : "" },
+    { label: "Only in w/o categories", value: fmt(s.onlyWithout), cls: s.onlyWithout ? "amber" : "" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div>${k.sub ? `<div class="sub">${k.sub}</div>` : ""}</div>`
+  ).join("");
+}
+
+function renderCategoryTable() {
+  const key = document.getElementById("cat-sort").value;
+  const sorted = [...DATA.categories].sort((a, b) => (b[key] || 0) - (a[key] || 0));
+  const tbody = document.querySelector("#cat-table tbody");
+  tbody.innerHTML = sorted.map(c => `
+    <tr>
+      <td><strong>${escapeHtml(c.category)}</strong></td>
+      <td class="num">${fmt(c.total)}</td>
+      <td class="num">${fmt(c.abcChanged)}</td>
+      <td class="num">${c.abcChangedPct}%</td>
+      <td class="num">${fmt(c.xyzChanged)}</td>
+      <td class="num">${c.xyzChangedPct}%</td>
+      <td class="num">${fmt(c.abcXyzChanged)}</td>
+    </tr>
+  `).join("");
+}
+
+function renderMatrix(id, matrix, buckets) {
+  const norm = buckets.map(b => b);
+  const present = new Set();
+  for (const k of Object.keys(matrix)) {
+    const [r, c] = k.split("|");
+    present.add(r);
+    present.add(c);
+  }
+  for (const b of norm) {
+    present.add(b);
+  }
+  if (present.has("–")) present.delete("–");
+  const rows = [...norm.filter(b => present.has(b))];
+  if (Object.keys(matrix).some(k => k.startsWith("–"))) rows.push("–");
+  const cols = [...rows];
+
+  const total = Object.values(matrix).reduce((a, b) => a + b, 0);
+  const el = document.getElementById(id);
+
+  const cells = [];
+  cells.push(`<div class="lbl"></div>`);
+  for (const c of cols) cells.push(`<div class="lbl">w/ ${c.toUpperCase()}</div>`);
+  for (const r of rows) {
+    cells.push(`<div class="lbl">w/o ${r.toUpperCase()}</div>`);
+    for (const c of cols) {
+      const v = matrix[`${r}|${c}`] || 0;
+      const cls = r === c ? "diag" : (v > 0 ? "changed" : "empty");
+      const pct = total ? ` (${(100 * v / total).toFixed(1)}%)` : "";
+      cells.push(`<div class="cell ${cls}" title="${r.toUpperCase()} → ${c.toUpperCase()}: ${v}${pct}">${v ? fmt(v) : "·"}</div>`);
+    }
+  }
+  el.innerHTML = `<div class="matrix" style="grid-template-columns: auto repeat(${cols.length}, 1fr)">${cells.join("")}</div>`;
+}
+
+function populateCategoryFilter() {
+  const sel = document.getElementById("cat-filter");
+  const cats = [...new Set(DATA.items.map(i => i.category || "(uncategorized)"))].sort();
+  for (const c of cats) {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    sel.appendChild(opt);
+  }
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.items.filter(i => {
+    if (categoryFilter && (i.category || "(uncategorized)") !== categoryFilter) return false;
+    if (changeFilter === "changed" && !(i.abcChanged || i.xyzChanged)) return false;
+    if (changeFilter === "abc" && !i.abcChanged) return false;
+    if (changeFilter === "xyz" && !i.xyzChanged) return false;
+    if (changeFilter === "unchanged" && (i.abcChanged || i.xyzChanged)) return false;
+    if (q) {
+      const hay = `${i.item} ${i.vendor} ${i.warehouse}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  rows.sort((a, b) => {
+    const av = a[sortKey] || "", bv = b[sortKey] || "";
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const total = rows.length;
+  const shown = rows.slice(0, ROW_LIMIT);
+  document.getElementById("table-count").textContent =
+    `${fmt(shown.length)}${total > shown.length ? ` of ${fmt(total)} (showing first ${ROW_LIMIT})` : ` of ${fmt(DATA.items.length)} items`}`;
+
+  document.querySelectorAll("th[data-sort]").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  const badge = (v, kind) => {
+    if (!v) return `<span class="badge muted">—</span>`;
+    return `<span class="badge ${v}">${v}</span>`;
+  };
+  const pair = (without, withv, changed) => {
+    const arrow = changed ? `<span class="arrow">→</span>` : `<span class="arrow">·</span>`;
+    return `${badge(without)} ${arrow} ${badge(withv)}`;
+  };
+
+  document.querySelector("#items tbody").innerHTML = shown.map(i => `
+    <tr class="${(i.abcChanged || i.xyzChanged) ? "changed-row" : ""}">
+      <td>${escapeHtml(i.warehouse || "")}<div class="uuid">${(i.whUuid || "").slice(0, 8)}</div></td>
+      <td>${escapeHtml(i.item || "")}<div class="uuid">${(i.itemUuid || "").slice(0, 8)} · ${escapeHtml(i.vendor || "")}</div></td>
+      <td>${escapeHtml(i.category || "")}<div class="uuid">${escapeHtml(i.subcategory || "")}</div></td>
+      <td class="center">${badge(i.abcWithout)}</td>
+      <td class="center">${badge(i.abcWith)}${i.abcChanged ? '<div class="uuid" style="color:var(--red)">changed</div>' : ""}</td>
+      <td class="center">${badge(i.xyzWithout)}</td>
+      <td class="center">${badge(i.xyzWith)}${i.xyzChanged ? '<div class="uuid" style="color:var(--red)">changed</div>' : ""}</td>
+    </tr>
+  `).join("");
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value;
+  renderTable();
+});
+document.getElementById("cat-filter").addEventListener("change", (e) => {
+  categoryFilter = e.target.value;
+  renderTable();
+});
+document.getElementById("change-filter").addEventListener("change", (e) => {
+  changeFilter = e.target.value;
+  renderTable();
+});
+document.getElementById("cat-sort").addEventListener("change", () => renderCategoryTable());
+
+document.querySelectorAll("#items th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = "asc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
