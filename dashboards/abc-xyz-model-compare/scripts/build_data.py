@@ -129,6 +129,10 @@ def main(out_path: str):
         "both": 0,
         "abcMatrix": defaultdict(int),
         "xyzMatrix": defaultdict(int),
+        "abcWithCounts": defaultdict(int),
+        "abcWithoutCounts": defaultdict(int),
+        "xyzWithCounts": defaultdict(int),
+        "xyzWithoutCounts": defaultdict(int),
     })
     abc_matrix = defaultdict(int)
     xyz_matrix = defaultdict(int)
@@ -205,6 +209,14 @@ def main(out_path: str):
         cs = cat_stats[category]
         cs["category"] = category
         cs["total"] += 1
+        if abc_with:
+            cs["abcWithCounts"][abc_with] += 1
+        if abc_without:
+            cs["abcWithoutCounts"][abc_without] += 1
+        if xyz_with:
+            cs["xyzWithCounts"][xyz_with] += 1
+        if xyz_without:
+            cs["xyzWithoutCounts"][xyz_without] += 1
         if present == "both":
             cs["both"] += 1
             if abc_changed:
@@ -266,6 +278,10 @@ def main(out_path: str):
             "xyzChangedPct": round(100 * cs["xyzChanged"] / cs["both"], 1) if cs["both"] else 0,
             "abcMatrix": dict(cs["abcMatrix"]),
             "xyzMatrix": dict(cs["xyzMatrix"]),
+            "abcWithCounts": {k.upper(): v for k, v in cs["abcWithCounts"].items()},
+            "abcWithoutCounts": {k.upper(): v for k, v in cs["abcWithoutCounts"].items()},
+            "xyzWithCounts": {k.upper(): v for k, v in cs["xyzWithCounts"].items()},
+            "xyzWithoutCounts": {k.upper(): v for k, v in cs["xyzWithoutCounts"].items()},
         })
     categories.sort(key=lambda c: -c["total"])
 

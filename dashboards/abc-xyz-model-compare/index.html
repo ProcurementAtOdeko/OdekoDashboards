@@ -107,6 +107,13 @@
   .delta.up   { background: rgba(31,122,51,.14);  color: var(--green); border-color: rgba(31,122,51,.30); }
   .delta.down { background: rgba(180,35,24,.12);  color: var(--red);   border-color: rgba(180,35,24,.30); }
   .delta.same { color: var(--muted); }
+  .net { font-variant-numeric: tabular-nums; line-height: 1.35; }
+  .net .pair { color: var(--ink-2); font-weight: 600; font-size: 13px; }
+  .net .pair .orig { color: var(--muted); font-weight: 400; }
+  .net .d { display: block; font-size: 11px; margin-top: 1px; font-weight: 600; }
+  .net .d.up { color: var(--green); }
+  .net .d.down { color: var(--red); }
+  .net .d.zero { color: var(--muted); font-weight: 400; }
   .changed-row.up td   { background: rgba(31,122,51,.06); }
   .changed-row.up:hover td   { background: rgba(31,122,51,.12); }
   .changed-row.down td { background: rgba(180,35,24,.06); }
@@ -228,6 +235,35 @@
   </section>
 
   <section class="card">
+    <h3>Net Bucket Change by Category · Original (With) → New (Without)</h3>
+    <div class="toolbar">
+      <span class="count">Cells show <strong>original / new (Δ)</strong>. Green Δ = net items gained in that bucket, red Δ = net items lost.</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="net-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Category</th>
+            <th class="num" rowspan="2">Items</th>
+            <th class="center" colspan="4" style="border-left:1px solid var(--line)">ABC</th>
+            <th class="center" colspan="3" style="border-left:1px solid var(--line)">XYZ</th>
+          </tr>
+          <tr>
+            <th class="center" style="border-left:1px solid var(--line)">A</th>
+            <th class="center">B</th>
+            <th class="center">C</th>
+            <th class="center">D</th>
+            <th class="center" style="border-left:1px solid var(--line)">X</th>
+            <th class="center">Y</th>
+            <th class="center">Z</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
     <h3>Item-Level Comparison</h3>
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search item, vendor, or warehouse…" />
@@ -295,6 +331,7 @@ async function load() {
   renderCategoryTable();
   renderMatrix("abc-matrix", DATA.abcMatrix, DATA.abcBuckets);
   renderMatrix("xyz-matrix", DATA.xyzMatrix, DATA.xyzBuckets);
+  renderNetChangeTable();
   populateCategoryFilter();
   renderTable();
 }
@@ -332,6 +369,69 @@ function renderCategoryTable() {
       <td class="num" style="color:var(--red)">${c.xyzDown ? "−" + fmt(c.xyzDown) : "—"}</td>
     </tr>
   `).join("");
+}
+
+function netCell(orig, now) {
+  const delta = now - orig;
+  let dCls = "zero", dTxt = "±0";
+  if (delta > 0) { dCls = "up"; dTxt = "+" + fmt(delta); }
+  else if (delta < 0) { dCls = "down"; dTxt = "−" + fmt(Math.abs(delta)); }
+  return `<div class="net"><div class="pair"><span class="orig">${fmt(orig)}</span> → ${fmt(now)}</div><span class="d ${dCls}">${dTxt}</span></div>`;
+}
+
+function renderNetChangeTable() {
+  const abcKeys = ["A", "B", "C", "D"];
+  const xyzKeys = ["X", "Y", "Z"];
+  const sorted = [...DATA.categories].sort((a, b) => b.total - a.total);
+
+  const totals = {
+    abcWith: {A:0,B:0,C:0,D:0}, abcWithout: {A:0,B:0,C:0,D:0},
+    xyzWith: {X:0,Y:0,Z:0}, xyzWithout: {X:0,Y:0,Z:0},
+    items: 0,
+  };
+  for (const c of sorted) {
+    totals.items += c.total;
+    for (const k of abcKeys) {
+      totals.abcWith[k]    += (c.abcWithCounts    || {})[k] || 0;
+      totals.abcWithout[k] += (c.abcWithoutCounts || {})[k] || 0;
+    }
+    for (const k of xyzKeys) {
+      totals.xyzWith[k]    += (c.xyzWithCounts    || {})[k] || 0;
+      totals.xyzWithout[k] += (c.xyzWithoutCounts || {})[k] || 0;
+    }
+  }
+
+  const rowFor = (c) => {
+    const aw = c.abcWithCounts || {}, an = c.abcWithoutCounts || {};
+    const xw = c.xyzWithCounts || {}, xn = c.xyzWithoutCounts || {};
+    return `
+      <td><strong>${escapeHtml(c.category)}</strong></td>
+      <td class="num">${fmt(c.total)}</td>
+      <td class="center" style="border-left:1px solid var(--line)">${netCell(aw.A||0, an.A||0)}</td>
+      <td class="center">${netCell(aw.B||0, an.B||0)}</td>
+      <td class="center">${netCell(aw.C||0, an.C||0)}</td>
+      <td class="center">${netCell(aw.D||0, an.D||0)}</td>
+      <td class="center" style="border-left:1px solid var(--line)">${netCell(xw.X||0, xn.X||0)}</td>
+      <td class="center">${netCell(xw.Y||0, xn.Y||0)}</td>
+      <td class="center">${netCell(xw.Z||0, xn.Z||0)}</td>
+    `;
+  };
+
+  const tbody = document.querySelector("#net-table tbody");
+  const totalsRowHtml = `
+    <tr style="background:var(--panel-2); font-weight:700;">
+      <td><strong>All categories</strong></td>
+      <td class="num">${fmt(totals.items)}</td>
+      <td class="center" style="border-left:1px solid var(--line)">${netCell(totals.abcWith.A, totals.abcWithout.A)}</td>
+      <td class="center">${netCell(totals.abcWith.B, totals.abcWithout.B)}</td>
+      <td class="center">${netCell(totals.abcWith.C, totals.abcWithout.C)}</td>
+      <td class="center">${netCell(totals.abcWith.D, totals.abcWithout.D)}</td>
+      <td class="center" style="border-left:1px solid var(--line)">${netCell(totals.xyzWith.X, totals.xyzWithout.X)}</td>
+      <td class="center">${netCell(totals.xyzWith.Y, totals.xyzWithout.Y)}</td>
+      <td class="center">${netCell(totals.xyzWith.Z, totals.xyzWithout.Z)}</td>
+    </tr>
+  `;
+  tbody.innerHTML = totalsRowHtml + sorted.map(c => `<tr>${rowFor(c)}</tr>`).join("");
 }
 
 function renderMatrix(id, matrix, buckets) {
