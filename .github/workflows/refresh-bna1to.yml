@@ -37,21 +37,21 @@ jobs:
             -o bna1-inventory.csv
           test -s bna1-inventory.csv
 
-      - name: Build procurement.json
+      - name: Build data.json
         run: |
           python3 dashboards/bna1to/scripts/build_procurement.py \
             procurement-source.csv bna1-inventory.csv \
-            dashboards/bna1to/procurement.json
+            dashboards/bna1to/data.json
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- dashboards/bna1to/procurement.json; then
+          if git diff --quiet -- dashboards/bna1to/data.json; then
             echo "No procurement changes."
             exit 0
           fi
-          git add dashboards/bna1to/procurement.json
+          git add dashboards/bna1to/data.json
           git commit -m "chore: refresh BNA1TO procurement data ($(date -u +%Y-%m-%dT%H:%MZ))"
           git push
 

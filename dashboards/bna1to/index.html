@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#FFD100" />
 <title>Odeko · BNA1 Transfer Order Dashboard</title>
-<link rel="icon" type="image/png" href="assets/odeko-logo.png" />
-<link rel="apple-touch-icon" href="assets/odeko-logo.png" />
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
 <style>
   :root {
     /* Odeko-inspired palette: deep coffee brown, cream, signature yellow */
@@ -306,7 +306,7 @@
 
 <header>
   <div class="brand">
-    <img class="logo" src="assets/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
     <div>
       <h1>BNA1 Transfer Order Dashboard</h1>
       <div class="sub">Source: EWR1 → Destination: BNA1 · Auto-saves to your browser</div>
@@ -1159,8 +1159,8 @@
   }
 
   // Load procurement metadata (ETA + on-hand units + consumption + TO available + lead days)
-  // The procurement.json file is refreshed hourly by .github/workflows/refresh-eta.yml.
-  fetch('./procurement.json', { cache: 'no-cache' })
+  // The data.json file is refreshed hourly by .github/workflows/refresh-bna1to.yml.
+  fetch('./data.json', { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
     .then(data => {
       procMeta = data;

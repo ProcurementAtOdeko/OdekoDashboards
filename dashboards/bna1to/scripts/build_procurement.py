@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build procurement.json by merging two CSV exports per UUID.
+"""Build the dashboard's data.json by merging two CSV exports per UUID.
 
 Source sheet (procurement source-side):
   - eta:          col G, parsed list of YYYY-MM-DD strings
