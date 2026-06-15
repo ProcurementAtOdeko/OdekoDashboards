@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Inbound PO Assistant</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --red: #B42318;
+    --amber: #B5660A;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+  }
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header .user { color: var(--muted); font-size: 12px; }
+  header .user button {
+    background: none; border: 1px solid var(--line); color: var(--ink-2);
+    padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    font-family: inherit; margin-left: 8px;
+  }
+  header .user button:hover { background: var(--bg); }
+
+  main { flex: 1; display: flex; flex-direction: column; padding: 0; max-width: 900px; width: 100%; margin: 0 auto; }
+
+  #gate, #app { flex: 1; display: flex; flex-direction: column; }
+  #gate { align-items: center; justify-content: center; padding: 40px 20px; text-align: center; gap: 16px; }
+  #gate h2 { margin: 0; color: var(--ink-2); font-weight: 600; font-size: 18px; }
+  #gate p { margin: 0; color: var(--muted); max-width: 380px; }
+  #gate .g_id_signin { margin-top: 8px; }
+
+  #app { display: none; padding: 16px 16px 0; }
+
+  #thread {
+    flex: 1; overflow-y: auto; padding: 8px 4px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .msg { max-width: 92%; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap; word-wrap: break-word; line-height: 1.55; }
+  .msg.user { align-self: flex-end; background: var(--ink-2); color: #FFF8E1; border-bottom-right-radius: 4px; }
+  .msg.assistant { align-self: flex-start; background: var(--panel); border: 1px solid var(--line); color: var(--ink); border-bottom-left-radius: 4px; }
+  .msg.assistant .tool { color: var(--muted); font-size: 11px; font-style: italic; margin-top: 6px; }
+  .msg.error { align-self: stretch; background: rgba(180,35,24,.08); border: 1px solid rgba(180,35,24,.3); color: var(--red); }
+
+  .typing { color: var(--muted); font-size: 12px; padding: 0 4px 8px; height: 18px; }
+
+  form#composer {
+    display: flex; gap: 10px; padding: 12px 4px 18px; border-top: 1px solid var(--line);
+    background: var(--bg); position: sticky; bottom: 0;
+  }
+  #composer textarea {
+    flex: 1; resize: none; background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+    font: inherit; font-size: 14px; line-height: 1.5; min-height: 44px; max-height: 160px;
+    outline: none;
+  }
+  #composer textarea:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  #composer button {
+    background: var(--accent-yellow); border: 1px solid #E2B900; color: var(--ink-2);
+    padding: 0 18px; border-radius: 8px; font: inherit; font-weight: 600; cursor: pointer;
+    font-size: 14px;
+  }
+  #composer button:disabled { opacity: .5; cursor: not-allowed; }
+  #composer button:hover:not(:disabled) { background: #FFDB33; }
+
+  .suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 4px 0; }
+  .suggestions button {
+    background: var(--panel); border: 1px solid var(--line); color: var(--ink-2);
+    padding: 6px 12px; border-radius: 999px; font: inherit; font-size: 12px; cursor: pointer;
+  }
+  .suggestions button:hover { background: #FAF4E4; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    #app { padding: 12px 12px 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Inbound PO Assistant</h1>
+      <div class="sub" id="meta">Ask about quantities, ETAs, vendors, warehouses…</div>
+    </div>
+  </div>
+  <div class="user" id="userBar"></div>
+</header>
+
+<main>
+  <section id="gate">
+    <h2>Sign in with your Odeko Google account</h2>
+    <p>This assistant answers questions about open inbound purchase orders. Access is restricted to @odeko.com accounts.</p>
+    <div id="signinBtn"></div>
+  </section>
+
+  <section id="app">
+    <div class="suggestions" id="suggestions">
+      <button data-q="How many open POs are arriving at DCA1 this week?">DCA1 arrivals this week</button>
+      <button data-q="Which vendors have the most outstanding units inbound?">Top vendors by outstanding units</button>
+      <button data-q="What's the status of PO110127?">Look up a PO</button>
+      <button data-q="Show late POs (expected receipt date before today).">Late POs</button>
+    </div>
+    <div id="thread"></div>
+    <div class="typing" id="typing"></div>
+    <form id="composer">
+      <textarea id="input" placeholder="Ask about inbound POs…" rows="1" autocomplete="off"></textarea>
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  // ---- CONFIG ----------------------------------------------------------
+  // Paste your Google OAuth 2.0 Web client ID here (from Google Cloud Console).
+  const GOOGLE_CLIENT_ID = "REPLACE_WITH_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com";
+  // The deployed Cloudflare Worker URL.
+  const WORKER_URL = "https://inbound-po-chat.REPLACE-WITH-YOUR-SUBDOMAIN.workers.dev/chat";
+  // ---------------------------------------------------------------------
+
+  let idToken = null;
+  let userEmail = null;
+  let history = [];
+
+  const gate = document.getElementById("gate");
+  const app = document.getElementById("app");
+  const thread = document.getElementById("thread");
+  const typing = document.getElementById("typing");
+  const input = document.getElementById("input");
+  const sendBtn = document.getElementById("sendBtn");
+  const userBar = document.getElementById("userBar");
+  const meta = document.getElementById("meta");
+
+  function parseJwt(t) {
+    try {
+      return JSON.parse(atob(t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    } catch { return null; }
+  }
+
+  function showApp() {
+    gate.style.display = "none";
+    app.style.display = "flex";
+    userBar.innerHTML = `${userEmail} <button id="signoutBtn">Sign out</button>`;
+    document.getElementById("signoutBtn").onclick = signOut;
+  }
+
+  function signOut() {
+    idToken = null; userEmail = null; history = [];
+    thread.innerHTML = "";
+    app.style.display = "none";
+    gate.style.display = "flex";
+    userBar.innerHTML = "";
+    if (window.google?.accounts?.id) google.accounts.id.disableAutoSelect();
+  }
+
+  window.handleCredentialResponse = (resp) => {
+    const payload = parseJwt(resp.credential);
+    if (!payload) return addMsg("error", "Invalid sign-in token.");
+    if (payload.hd !== "odeko.com") {
+      return addMsg("error", "Access is restricted to @odeko.com accounts.");
+    }
+    idToken = resp.credential;
+    userEmail = payload.email;
+    showApp();
+  };
+
+  function initSignIn() {
+    if (!window.google?.accounts?.id) { setTimeout(initSignIn, 100); return; }
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+      hd: "odeko.com",
+    });
+    google.accounts.id.renderButton(document.getElementById("signinBtn"), {
+      theme: "outline", size: "large", text: "signin_with", shape: "rectangular",
+    });
+  }
+  initSignIn();
+
+  function addMsg(role, text, extra) {
+    const el = document.createElement("div");
+    el.className = `msg ${role}`;
+    el.textContent = text;
+    if (extra) {
+      const e = document.createElement("div");
+      e.className = "tool";
+      e.textContent = extra;
+      el.appendChild(e);
+    }
+    thread.appendChild(el);
+    thread.scrollTop = thread.scrollHeight;
+    return el;
+  }
+
+  async function send(text) {
+    if (!text.trim() || !idToken) return;
+    addMsg("user", text);
+    history.push({ role: "user", content: text });
+    input.value = "";
+    input.style.height = "auto";
+    sendBtn.disabled = true;
+    typing.textContent = "Thinking…";
+    try {
+      const r = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "content-type": "application/json", "authorization": `Bearer ${idToken}` },
+        body: JSON.stringify({ messages: history }),
+      });
+      if (!r.ok) {
+        const err = await r.text();
+        addMsg("error", `Error ${r.status}: ${err.slice(0, 300)}`);
+        history.pop();
+        return;
+      }
+      const data = await r.json();
+      const reply = data.reply || "(no reply)";
+      const tool = data.toolsUsed?.length ? `tools: ${data.toolsUsed.join(", ")}` : "";
+      addMsg("assistant", reply, tool);
+      history.push({ role: "assistant", content: reply });
+    } catch (e) {
+      addMsg("error", `Network error: ${e.message}`);
+      history.pop();
+    } finally {
+      sendBtn.disabled = false;
+      typing.textContent = "";
+      input.focus();
+    }
+  }
+
+  document.getElementById("composer").addEventListener("submit", (e) => {
+    e.preventDefault();
+    send(input.value);
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input.value); }
+  });
+  input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = Math.min(input.scrollHeight, 160) + "px";
+  });
+  document.getElementById("suggestions").addEventListener("click", (e) => {
+    const q = e.target.closest("button")?.dataset.q;
+    if (q) send(q);
+  });
+
+  // Show data freshness from the (publicly readable) data.json metadata.
+  fetch("./data.json").then((r) => r.ok ? r.json() : null).then((d) => {
+    if (!d) return;
+    const t = new Date(d.generatedAt).toLocaleString();
+    meta.textContent = `${d.lineCount.toLocaleString()} open PO lines · refreshed ${t}`;
+  }).catch(() => {});
+</script>
+</body>
+</html>

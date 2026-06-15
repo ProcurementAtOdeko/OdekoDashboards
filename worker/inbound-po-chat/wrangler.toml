@@ -1,0 +1,14 @@
+name = "inbound-po-chat"
+main = "index.js"
+compatibility_date = "2024-11-01"
+
+# Secrets (set via `wrangler secret put`):
+#   ANTHROPIC_API_KEY        - from console.anthropic.com
+#   GOOGLE_OAUTH_CLIENT_ID   - from Google Cloud Console (OAuth 2.0 Web client)
+
+[vars]
+# Raw URL to the dashboard's data.json on the main branch.
+DATA_URL = "https://raw.githubusercontent.com/ProcurementAtOdeko/OdekoDashboards/main/dashboards/inbound-po-chat/data.json"
+ANTHROPIC_MODEL = "claude-opus-4-7"
+# CORS origin allowed to call the worker. Replace with the GitHub Pages origin.
+ALLOWED_ORIGIN = "https://procurementatodeko.github.io"
