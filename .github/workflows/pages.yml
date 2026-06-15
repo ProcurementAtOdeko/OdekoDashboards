@@ -6,6 +6,16 @@ on:
     paths:
       - "dashboards/**"
       - ".github/workflows/pages.yml"
+  # GITHUB_TOKEN commits from refresh-*.yml don't trigger push events, so we
+  # also redeploy whenever a refresh workflow completes.
+  workflow_run:
+    workflows:
+      - "Refresh PO approval data"
+      - "Refresh DCA1 Tracking data"
+      - "Refresh DCA1 on-hand & ETA data"
+      - "Refresh BNA1TO procurement data"
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

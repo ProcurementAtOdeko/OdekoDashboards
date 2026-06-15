@@ -139,7 +139,10 @@ def main(out_path):
         trigger = parse_bool(r[col["v2_order_trigger"]])
         rec_qty = parse_num(r[col["v2_order_quantity_pu"]]) or 0
         raw_qty = parse_num(r[col["v2_raw_order_quantity_pu"]]) or 0
-        if not (trigger or rec_qty > 0 or raw_qty > 0):
+        # Only surface lines the model is actually recommending. raw>0 without
+        # a triggered rec means the unconstrained calc was positive but the
+        # model decided not to order (timing, MOQ, etc) — noise for buyers.
+        if rec_qty <= 0:
             continue
 
         warehouse = r[col["warehouse_name"]]
@@ -261,7 +264,7 @@ def main(out_path):
     }
 
     with open(out_path, "w") as f:
-        json.dump(out, f, indent=2)
+        json.dump(out, f, separators=(",", ":"))
     print(f"Wrote {len(items)} recommendations to {out_path}")
 
 
