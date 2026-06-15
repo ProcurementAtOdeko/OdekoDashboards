@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · PO Recommendations &amp; Approval</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header .who { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+  header .who button {
+    background: transparent; border: 1px solid var(--line); padding: 4px 8px;
+    border-radius: 6px; color: var(--ink-2); cursor: pointer; font: inherit;
+  }
+  main { padding: 20px 24px 60px; max-width: 1700px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 280px; position: relative; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 240px; }
+  .toolbar input:focus, .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+  .chips { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    padding: 4px 10px; border-radius: 99px; font-size: 12px; cursor: pointer;
+    border: 1px solid var(--line); color: var(--muted); background: var(--panel);
+  }
+  .chip.active { background: var(--ink-2); color: #fff; border-color: var(--ink-2); }
+  .chip .badge { margin-left: 6px; color: inherit; opacity: .7; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.row:hover td { background: #FAF4E4; }
+  tr.row.expanded td { background: #FAF4E4; }
+  tr.row { cursor: pointer; }
+  tr.detail td {
+    background: var(--panel-2); padding: 14px 18px; border-bottom: 1px solid var(--line);
+  }
+
+  .doc-bad { color: var(--red); font-weight: 700; }
+  .doc-warn { color: var(--amber); font-weight: 700; }
+  .doc-good { color: var(--green); }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+
+  .status-pill {
+    display: inline-block; padding: 2px 8px; border-radius: 99px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+  }
+  .status-pill.pending { background: var(--amber-soft); color: var(--amber); }
+  .status-pill.approved { background: var(--green-soft); color: var(--green); }
+  .status-pill.skipped  { background: rgba(138,123,106,.18); color: var(--muted); }
+  .status-pill.edited   { background: rgba(255,209,0,.30); color: var(--ink-2); }
+
+  .actions { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .actions input[type=number] {
+    width: 84px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px;
+    font: inherit; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  .btn {
+    padding: 5px 10px; font-size: 12px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+  }
+  .btn:hover { background: var(--bg); }
+  .btn.primary { background: var(--accent-yellow); border-color: var(--accent-yellow); color: var(--ink-2); font-weight: 600; }
+  .btn.primary:hover { filter: brightness(.96); }
+  .btn.ghost { background: transparent; }
+  .btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+  .detail-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px 28px;
+  }
+  .detail-grid .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+  .detail-grid .v { font-variant-numeric: tabular-nums; font-weight: 600; margin-top: 2px; color: var(--ink-2); }
+  .detail-grid .v.muted { font-weight: 500; color: var(--ink); }
+
+  .bar-cmp { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .bar-cmp .bar { flex: 1; height: 6px; background: var(--line); border-radius: 4px; position: relative; overflow: hidden; }
+  .bar-cmp .bar > span { position: absolute; top: 0; bottom: 0; left: 0; background: var(--ink-2); }
+  .bar-cmp .bar > span.sanity { background: var(--accent-yellow); opacity: .7; }
+  .variance.pos { color: var(--red); }
+  .variance.neg { color: var(--green); }
+
+  .toast {
+    position: fixed; bottom: 20px; right: 20px; padding: 10px 16px;
+    background: var(--ink-2); color: #fff; border-radius: 6px; font-size: 13px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15); transition: opacity .2s; z-index: 100;
+  }
+  .toast.hidden { opacity: 0; pointer-events: none; }
+  .toast.error { background: var(--red); }
+
+  .banner {
+    background: var(--amber-soft); border: 1px solid var(--amber); color: var(--amber);
+    padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: 13px;
+  }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>PO Recommendations &amp; Approval</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <div class="who">
+    <span id="who-label">Not signed in</span>
+    <button id="who-set" title="Set approver email">Change</button>
+  </div>
+</header>
+
+<main>
+  <div class="banner" id="banner" style="display:none"></div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>Recommendations by Days of Cover</h3>
+      <div class="body"><canvas id="chart-doc"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Top 10 Vendors — Items Recommended</h3>
+      <div class="body"><canvas id="chart-vendors"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Recommendations</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item / vendor / uuid…" />
+      <select id="warehouse-filter"><option value="">All warehouses</option></select>
+      <select id="vendor-filter"><option value="">All vendors</option></select>
+      <span class="chips" id="status-chips"></span>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="netDaysOfCover" data-default="asc">DOC</th>
+            <th data-sort="name">Item</th>
+            <th>Warehouse</th>
+            <th data-sort="vendor">Vendor</th>
+            <th class="num" data-sort="onHand">On Hand</th>
+            <th class="num" data-sort="v2RecQty">Model Rec</th>
+            <th class="num" data-sort="sanityForecast30d">Sanity 30d</th>
+            <th class="num" data-sort="variancePct">Δ vs Model</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+// ---- CONFIG ---------------------------------------------------------------
+// Set this to the Apps Script Web App URL (ends in /exec) after deploying
+// scripts/approvals_apps_script.gs. Until set, approvals stay local-only.
+const APPS_SCRIPT_URL = "";
+// ---------------------------------------------------------------------------
+
+const fmt = (n, dp) => {
+  if (n == null || Number.isNaN(n)) return "—";
+  const opts = dp != null
+    ? { minimumFractionDigits: dp, maximumFractionDigits: dp }
+    : Math.abs(n) >= 1000
+      ? { maximumFractionDigits: 0 }
+      : { maximumFractionDigits: 1 };
+  return n.toLocaleString(undefined, opts);
+};
+const fmtInt = (n) => n == null ? "—" : Math.round(n).toLocaleString();
+const fmtUsd = (n) => n == null ? "—" : "$" + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+
+const docClass = (d) => d == null ? "" : d < 7 ? "doc-bad" : d < 14 ? "doc-warn" : "doc-good";
+
+const STATUS_LABEL = { pending: "Pending", approved: "Approved", skipped: "Skipped", edited: "Edited" };
+const STATUS_ORDER = ["pending", "approved", "edited", "skipped"];
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let sortKey = "netDaysOfCover";
+let sortDir = "asc";
+let filterText = "";
+let filterWarehouse = "";
+let filterVendor = "";
+let filterStatus = "";  // "" = all
+let expanded = new Set();
+
+function approverEmail() { return localStorage.getItem("odeko.po.approver") || ""; }
+function setApproverEmail(v) { localStorage.setItem("odeko.po.approver", v || ""); renderWho(); }
+
+function renderWho() {
+  const e = approverEmail();
+  document.getElementById("who-label").textContent = e ? "Signed in as " + e : "Not signed in";
+}
+document.getElementById("who-set").addEventListener("click", () => {
+  const v = prompt("Approver email (recorded with each approval):", approverEmail());
+  if (v !== null) setApproverEmail(v.trim());
+});
+
+function statusOf(it) {
+  const a = it.approval;
+  if (!a) return "pending";
+  return a.status || "pending";
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) {
+    document.getElementById("meta").textContent = "Failed to load data.json";
+    return;
+  }
+  DATA = await res.json();
+  // Apply any pending local overlays for items the Apps Script may not have flushed yet
+  applyLocalOverlay();
+
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()}` +
+    (DATA.modelAsOf ? ` · model as of ${DATA.modelAsOf}` : "") +
+    ` · ${DATA.summary.itemCount} recommendations`;
+
+  if (!APPS_SCRIPT_URL) {
+    const b = document.getElementById("banner");
+    b.style.display = "";
+    b.textContent = "Apps Script URL not configured — approvals will not persist. See dashboards/po-approval/SETUP.md.";
+  }
+
+  populateFilters();
+  renderKpis();
+  renderCharts();
+  renderStatusChips();
+  renderTable();
+  renderWho();
+}
+
+function applyLocalOverlay() {
+  let local;
+  try { local = JSON.parse(localStorage.getItem("odeko.po.pending") || "{}"); }
+  catch (e) { local = {}; }
+  for (const it of DATA.items) {
+    const k = it.warehouse + "|" + it.uuid;
+    const ov = local[k];
+    if (!ov) continue;
+    if (!it.approval || (ov.timestamp || "") > (it.approval.timestamp || "")) {
+      it.approval = ov;
+    }
+  }
+}
+function saveLocalOverlay(it, approval) {
+  let local;
+  try { local = JSON.parse(localStorage.getItem("odeko.po.pending") || "{}"); }
+  catch (e) { local = {}; }
+  local[it.warehouse + "|" + it.uuid] = approval;
+  localStorage.setItem("odeko.po.pending", JSON.stringify(local));
+}
+
+function populateFilters() {
+  const w = document.getElementById("warehouse-filter");
+  for (const x of DATA.warehouses) {
+    const o = document.createElement("option"); o.value = x; o.textContent = x; w.appendChild(o);
+  }
+  const v = document.getElementById("vendor-filter");
+  for (const x of DATA.vendors) {
+    const o = document.createElement("option"); o.value = x; o.textContent = x; v.appendChild(o);
+  }
+  w.addEventListener("change", e => { filterWarehouse = e.target.value; renderTable(); });
+  v.addEventListener("change", e => { filterVendor = e.target.value; renderTable(); });
+  document.getElementById("search").addEventListener("input", e => { filterText = e.target.value; renderTable(); });
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Recommendations", value: fmtInt(s.itemCount), cls: "accent" },
+    { label: "Pending", value: fmtInt(s.pendingCount), cls: s.pendingCount > 0 ? "amber" : "green" },
+    { label: "Approved", value: fmtInt(s.approvedCount), cls: "green" },
+    { label: "Past Due (DOC < 0)", value: fmtInt(s.pastDueCount), cls: s.pastDueCount > 0 ? "red" : "green" },
+    { label: "Warehouses", value: fmtInt(s.warehouses) },
+    { label: "Est. PO Value", value: fmtUsd(s.estRecValueUsd) },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls || ""}"><div class="label">${k.label}</div><div class="value">${k.value}</div></div>`
+  ).join("");
+}
+
+function renderStatusChips() {
+  // Counts use current data overlay
+  const counts = { all: DATA.items.length, pending: 0, approved: 0, edited: 0, skipped: 0 };
+  for (const it of DATA.items) counts[statusOf(it)] = (counts[statusOf(it)] || 0) + 1;
+  const chips = [["", "All"], ["pending", "Pending"], ["approved", "Approved"], ["edited", "Edited"], ["skipped", "Skipped"]];
+  document.getElementById("status-chips").innerHTML = chips.map(([k, label]) => {
+    const c = k === "" ? counts.all : (counts[k] || 0);
+    return `<span class="chip ${filterStatus === k ? "active" : ""}" data-status="${k}">${label}<span class="badge">${c}</span></span>`;
+  }).join("");
+  document.querySelectorAll(".chip[data-status]").forEach(el => {
+    el.addEventListener("click", () => {
+      filterStatus = el.dataset.status;
+      renderStatusChips();
+      renderTable();
+    });
+  });
+}
+
+function renderCharts() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const dd = DATA.docDistribution;
+  new Chart(document.getElementById("chart-doc"), {
+    type: "bar",
+    data: {
+      labels: dd.map(b => b.bucket),
+      datasets: [{
+        data: dd.map(b => b.count),
+        backgroundColor: dd.map(b =>
+          b.bucket === "past-due" || b.bucket === "<7" ? PALETTE.red :
+          b.bucket === "7-14" ? PALETTE.amber :
+          b.bucket === "unknown" ? PALETTE.neutral : PALETTE.green
+        ),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+
+  const tv = DATA.topVendors;
+  new Chart(document.getElementById("chart-vendors"), {
+    type: "bar",
+    data: {
+      labels: tv.map(v => v.vendor.length > 28 ? v.vendor.slice(0, 26) + "…" : v.vendor),
+      datasets: [{ data: tv.map(v => v.items), backgroundColor: PALETTE.ink, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+}
+
+function filterRows() {
+  const q = filterText.toLowerCase();
+  return DATA.items.filter(i => {
+    if (filterWarehouse && i.warehouse !== filterWarehouse) return false;
+    if (filterVendor && i.vendor !== filterVendor) return false;
+    if (filterStatus && statusOf(i) !== filterStatus) return false;
+    if (!q) return true;
+    return (i.name || "").toLowerCase().includes(q)
+        || (i.vendor || "").toLowerCase().includes(q)
+        || i.uuid.toLowerCase().includes(q);
+  });
+}
+
+function renderTable() {
+  let rows = filterRows();
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  document.getElementById("table-count").textContent =
+    `${rows.length}${rows.length !== DATA.items.length ? ` of ${DATA.items.length}` : ""} items`;
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  const tbody = document.querySelector("#items tbody");
+  tbody.innerHTML = rows.map(rowHtml).join("");
+
+  // wire row clicks (expand)
+  tbody.querySelectorAll("tr.row").forEach(tr => {
+    tr.addEventListener("click", (ev) => {
+      if (ev.target.closest(".actions")) return;  // don't toggle when clicking buttons
+      const key = tr.dataset.key;
+      if (expanded.has(key)) expanded.delete(key);
+      else expanded.add(key);
+      renderTable();
+    });
+  });
+  // wire actions
+  tbody.querySelectorAll("[data-act]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const tr = btn.closest("tr");
+      const key = tr.dataset.key;
+      const it = DATA.items.find(x => (x.warehouse + "|" + x.uuid) === key);
+      if (!it) return;
+      const act = btn.dataset.act;
+      if (act === "approve") submitApproval(it, "approved", it.v2RecQty);
+      else if (act === "skip") submitApproval(it, "skipped", null);
+      else if (act === "reset") submitApproval(it, "reset", null);
+      else if (act === "save-edit") {
+        const input = tr.querySelector("input[type=number]");
+        const v = parseFloat(input.value);
+        if (Number.isNaN(v) || v < 0) { toast("Invalid quantity", true); return; }
+        submitApproval(it, "edited", v);
+      }
+    });
+  });
+}
+
+function rowHtml(it) {
+  const key = it.warehouse + "|" + it.uuid;
+  const status = statusOf(it);
+  const isExp = expanded.has(key);
+  const v = it.variancePct;
+  const varCls = v == null ? "" : v > 0 ? "pos" : v < 0 ? "neg" : "";
+  const varSign = v == null ? "" : v > 0 ? "+" : "";
+  const detail = isExp ? `<tr class="detail"><td colspan="10">${detailHtml(it)}</td></tr>` : "";
+  return `
+    <tr class="row ${isExp ? "expanded" : ""}" data-key="${escapeAttr(key)}">
+      <td class="num ${docClass(it.netDaysOfCover)}">${fmt(it.netDaysOfCover)}</td>
+      <td>${escapeHtml(it.name || "")}<div class="uuid">${it.uuid.slice(0, 8)}</div></td>
+      <td>${escapeHtml(it.warehouse)}</td>
+      <td>${escapeHtml(it.vendor || "")}</td>
+      <td class="num">${fmt(it.onHand)}</td>
+      <td class="num"><strong>${fmt(it.v2RecQty)}</strong> <span style="color:var(--muted);font-size:11px">${escapeHtml(it.purchaseUnit || "")}</span></td>
+      <td class="num">${fmt(it.sanityForecast30d)}</td>
+      <td class="num"><span class="variance ${varCls}">${v == null ? "—" : varSign + v + "%"}</span></td>
+      <td><span class="status-pill ${status}">${STATUS_LABEL[status] || status}</span></td>
+      <td>${actionsHtml(it, status)}</td>
+    </tr>
+    ${detail}
+  `;
+}
+
+function actionsHtml(it, status) {
+  if (status === "approved" || status === "skipped" || status === "edited") {
+    return `<div class="actions"><button class="btn ghost" data-act="reset">Reset</button></div>`;
+  }
+  return `
+    <div class="actions">
+      <button class="btn primary" data-act="approve" title="Approve at recommended qty">Approve</button>
+      <input type="number" min="0" step="1" value="${it.v2RecQty || 0}" />
+      <button class="btn" data-act="save-edit" title="Approve at edited qty">Save</button>
+      <button class="btn ghost" data-act="skip">Skip</button>
+    </div>
+  `;
+}
+
+function detailHtml(it) {
+  const a = it.approval;
+  const rates = (it.trailingRates || []).map((r, i) => `wk-${4 - i}: ${fmt(r, 2)}`).join("  ·  ");
+  const moq = it.vendorMin
+    ? `${fmt(it.vendorMin)} ${it.vendorMinType || ""}`.trim()
+    : "—";
+
+  return `
+    <div class="detail-grid">
+      <div>
+        <div class="label">Forecast comparison</div>
+        <div class="v">${fmt(it.predCurrentMonth)} <span style="color:var(--muted);font-weight:500">model · current month</span></div>
+        <div class="v muted">${fmt(it.sanityForecast30d)} <span style="color:var(--muted);font-weight:500">trailing 4-wk avg × 30d</span></div>
+        ${it.variancePct != null ? `<div class="v" style="margin-top:6px"><span class="variance ${it.variancePct > 0 ? "pos" : "neg"}">${it.variancePct > 0 ? "+" : ""}${it.variancePct}%</span> <span style="color:var(--muted);font-weight:500">model vs trailing</span></div>` : ""}
+      </div>
+      <div>
+        <div class="label">Model forward</div>
+        <div class="v muted">m+1: ${fmt(it.predNextMonth)}</div>
+        <div class="v muted">m+2: ${fmt(it.predFollowingMonth)}</div>
+      </div>
+      <div>
+        <div class="label">Trailing daily rates</div>
+        <div class="v muted" style="font-family:ui-monospace,monospace;font-size:12px">${rates || "—"}</div>
+        <div class="v muted" style="margin-top:6px">stdev: ${fmt(it.trailingStdev, 3)}</div>
+      </div>
+      <div>
+        <div class="label">Inventory</div>
+        <div class="v">${fmt(it.onHand)} on hand</div>
+        <div class="v muted">${fmt(it.netOnHand)} net</div>
+        <div class="v muted">${fmtUsd(it.onHandValue)} on-hand value</div>
+      </div>
+      <div>
+        <div class="label">Days of Cover</div>
+        <div class="v ${docClass(it.daysOfCover)}">${fmt(it.daysOfCover)} gross</div>
+        <div class="v ${docClass(it.netDaysOfCover)}">${fmt(it.netDaysOfCover)} net</div>
+        <div class="v muted">forecast bucket: ${escapeHtml(it.forecastDoc || "—")}</div>
+      </div>
+      <div>
+        <div class="label">Order recommendation</div>
+        <div class="v">${fmt(it.v2RecQty)} ${escapeHtml(it.purchaseUnit || "")}</div>
+        <div class="v muted">raw: ${fmt(it.v2RawQty)}</div>
+        <div class="v muted">MOQ: ${escapeHtml(moq)}</div>
+        <div class="v muted">trigger: ${it.v2Trigger ? "yes" : "no"}</div>
+      </div>
+      <div>
+        <div class="label">Next scheduled PO</div>
+        <div class="v">${escapeHtml(it.nextPoDate || "—")}</div>
+        <div class="v muted">${fmt(it.nextPoQty)} ${escapeHtml(it.purchaseUnit || "")}</div>
+      </div>
+      <div>
+        <div class="label">Approval state</div>
+        ${a ? `
+          <div class="v"><span class="status-pill ${a.status}">${STATUS_LABEL[a.status] || a.status}</span></div>
+          <div class="v muted">${escapeHtml(a.approver || "")}</div>
+          <div class="v muted">${escapeHtml(a.timestamp || "")}</div>
+          ${a.approvedQty != null ? `<div class="v muted">qty: ${fmt(a.approvedQty)}</div>` : ""}
+          ${a.notes ? `<div class="v muted">${escapeHtml(a.notes)}</div>` : ""}
+        ` : `<div class="v muted">No action yet</div>`}
+      </div>
+    </div>
+  `;
+}
+
+async function submitApproval(it, status, approvedQty) {
+  const email = approverEmail();
+  if (!email && status !== "reset") {
+    const v = prompt("Approver email (recorded with each approval):", "");
+    if (!v) { toast("Approver email required", true); return; }
+    setApproverEmail(v.trim());
+  }
+  const payload = {
+    approver_email: approverEmail(),
+    warehouse: it.warehouse,
+    item_uuid: it.uuid,
+    item_name: it.name,
+    vendor: it.vendor,
+    purchase_unit: it.purchaseUnit,
+    recommended_qty: it.v2RecQty,
+    approved_qty: approvedQty,
+    status: status,
+    notes: "",
+  };
+  // optimistic update
+  const approval = {
+    timestamp: new Date().toISOString(),
+    approver: payload.approver_email,
+    status: status === "reset" ? "pending" : status,
+    approvedQty: approvedQty,
+    notes: "",
+  };
+  it.approval = status === "reset" ? null : approval;
+  saveLocalOverlay(it, it.approval);
+  renderStatusChips();
+  renderTable();
+
+  if (!APPS_SCRIPT_URL) {
+    toast("Saved locally — Apps Script URL not configured", true);
+    return;
+  }
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      // text/plain avoids CORS preflight; Apps Script reads e.postData.contents either way.
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+    });
+    const txt = await res.text();
+    let json;
+    try { json = JSON.parse(txt); } catch (e) { throw new Error(txt.slice(0, 200)); }
+    if (!json.ok) throw new Error(json.error || "unknown error");
+    toast(status === "reset" ? "Reset" : `Marked ${status}`);
+  } catch (err) {
+    toast("Save failed: " + err.message, true);
+  }
+}
+
+function toast(msg, isError) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.toggle("error", !!isError);
+  t.classList.remove("hidden");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.add("hidden"), 3000);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+function escapeAttr(s) { return escapeHtml(s); }
+
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
