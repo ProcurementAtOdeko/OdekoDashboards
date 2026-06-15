@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko Dashboards</title>
+<link rel="icon" type="image/png" href="./_shared/odeko-logo.png" />
+<style>
+  :root {
+    --bg: #FBF7EC; --panel: #FFFFFF; --line: #E6DFCC;
+    --ink: #2A1408; --ink-2: #40180B; --muted: #8A7B6A; --accent-yellow: #FFD100;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 14px; background: var(--panel);
+  }
+  header img { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; color: var(--ink-2); letter-spacing: -.01em; }
+  main { padding: 28px 24px 60px; max-width: 900px; margin: 0 auto; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  li a {
+    display: block; padding: 16px 18px; background: var(--panel); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent-yellow); border-radius: 8px;
+    color: var(--ink-2); text-decoration: none;
+  }
+  li a:hover { background: #FAF4E4; }
+  li a .name { font-weight: 600; font-size: 15px; }
+  li a .desc { color: var(--muted); font-size: 12px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<header>
+  <img src="./_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+  <h1>Odeko Dashboards</h1>
+</header>
+<main>
+  <ul>
+    <li><a href="./po-approval/"><div class="name">PO Recommendations &amp; Approval</div><div class="desc">All warehouses · v2 model recommendations with forecast comparison and approval workflow</div></a></li>
+    <li><a href="./dca1-onhand-eta/"><div class="name">DCA1 — On Hand &amp; ETA</div><div class="desc">Inventory, days of cover, top vendors</div></a></li>
+    <li><a href="./dca1-tracking/"><div class="name">DCA1 — Tracking</div><div class="desc">DCA1 procurement tracking</div></a></li>
+    <li><a href="./bna1to/"><div class="name">BNA1 Transfer Orders</div><div class="desc">BNA1 inbound transfer orders</div></a></li>
+  </ul>
+</main>
+</body>
+</html>
