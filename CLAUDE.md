@@ -115,3 +115,202 @@ Use that file as the design reference for new dashboards.
 - Chart.js charts: set `Chart.defaults.color = "#8A7B6A"`, `borderColor = "#E6DFCC"`, font family Inter
 - Status colors in charts use the palette red / amber / green
 - The Odeko logo lives at `dashboards/_shared/odeko-logo.png` and is referenced as `../_shared/odeko-logo.png` from each dashboard's `index.html`
+# Looker Data Dumps — Inventory Network Map
+
+Scan of every Sheet in the `Looker Data Dumps` Drive folder (folder ID
+`1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7`). Headers + 1–4 sample rows pulled
+from each file's first tab.
+
+## 1. Common join keys (the spine of the network)
+
+Almost every file in the folder uses one of these keys. Spell variants
+all refer to the same logical entity:
+
+| Concept | Names found in files |
+|---|---|
+| Item (numeric) | `Item ID`, `item_id`, `Internal ID` |
+| Item (UUID) | `Item Extid`, `Item Uuid`, `item_uuid` |
+| Item label | `Item Name` / `Name` |
+| Warehouse code | `Warehouse Name` / `Warehouse` / `warehouse_name` (e.g. `EWR1`, `LAX1`, `DCA1`, `ATL1`, `AUS1`, `BNA1`, `BLI1`, `BOS1`, `CLT1`, `DEN1`, `DFW1`, `HOU1`, `MDT1`, `MIA1`, `PDX1`, `PWM1`, `SDF1`) |
+| Warehouse (numeric) | `warehouse_location_id` (Combined Model only) |
+| Brand | `Brand Name` / `Catalog Brand` / `Item Brand` |
+| Category | `Item Category Name` / `Category` (+ `item subcategory name` / `Sub-Category`) |
+| Vendor | `Vendor Name` / `Full Vendor Name` / `Procurement Vendor` / `vendor_id` |
+| PO | `Purchase Order Number` (+ `Item Uuid`) |
+| Customer / location | `Location Name`, `Business Name`, `Customer Name`, `Odeko Account Uuid`, `Parent Company Name` |
+| Purchase unit | `Purchase Units Name`, `Purchase Unit Conversion Rate`, `Sales Unit Conversion Rate` |
+| Date | `Date Date`, `Fulfillment Date Date`, `Snapshot As of Month`, `FEOOS Event Date`, `Expected Receipt Date Date` |
+
+**Rule of thumb**: any two files can almost always be joined on
+`(Warehouse Name, Item Extid)` or `(Warehouse Name, Item ID)`. If only
+one of the two item keys is present, the catalog table
+`All Items Unit Conversions` (Item Name + Item Extid) bridges them.
+
+## 2. File inventory grouped by concept
+
+### A. Master combined models (the universe)
+- **`Combined Models Dump for Dashbaord`** (`1sPEc5rB…`, 5.9 MB) — tab `Warehouse Raw`. Columns: `warehouse_location_id, warehouse_name, vendor_id, vendor_name, item_id, item_name, item_class, in_catalog, order_date, delivery_date, thru_date, date_out_of_stock, order, purchase_unit, est_days_of_cover, days_of_cover, reorder_point_days, consumption_rate, consumption_rate_supply_chain, consumption_rate_barista_underground, consumption_rate_manual, fulfillments, inventory, unsellable, arriving_today, past_due`. **This is the join hub** — almost everything else can be re-derived from it.
+- **`Combined Model V2 Dump`** (`1UIj4jGK…`, 24 MB) — same `Warehouse Raw` schema. Larger / more recent. Use this for any dashboard that wants the full universe.
+- **`model_without_categories_2025-05-01_2026-05-20.csv`** + **`model_with_categories_…`** (13 MB raw CSVs) — exported snapshots of the same combined model.
+
+### B. On-Hand & ETA snapshots (current inventory + incoming)
+| File | Tab | Notable columns |
+|---|---|---|
+| `On Hand & ETA.csv` (`11PkkcjiAG…`) | same | Warehouse, Procurement Vendor, Item Name/Extid, Consumption 60d, DoC 60d Eaches, Upcoming Pos Tos, On Hand PU, Qty on Order PU, Past Due Pos Tos, Available Each, PU Conv Rate, Qty Available PU |
+| `BLI1 On Hand/On Order.csv` | same | Same schema, scoped to BLI1 |
+| `CLT1 On Hand.csv` | same | Item ID, WH, Name, Sale Units Name, Sales Unit Conv Rate, Brand, Category, sub-cat, qty on hand eaches, Cons 30d/60d, Qty on Order Each, Avg Cost $/each, Total On Hand Cost |
+| `On Hand Automation.csv` | same | Same as CLT1 On Hand but network-wide |
+| `BU Sites Inventory Available.csv` | same | Item Name, Stock Unit Conv Rate, Availability In Eaches (Business-Unit subset) |
+| `Branded Paper Google Sheets Push.csv` | same | Item Name, Warehouse, Item Extid, qty on hand eaches, Cons 30/60/90/365, Qty Received Last 30d, Qty on Order Each, PU Conv Rate, DOC, On Hand, Qtty on Order |
+| `DCA1 Tracking` (`162M43zm…`) | `Mapping` | item_class, Max OH, Min OH, item_id, item_name, DNR'ed?, Internal ID, Seasonal Items, Top 30 FEOOS, FEOOS Qty, Target DOC — this is the **DCA1 par-level mapping** that drives `dca1-onhand-eta` |
+
+### C. Stock-report files (item × warehouse, very lightweight)
+Same shape: `Name, Inv on Hand Count, Quantity on Order Stock Units, Catalog Brand, Warehouse Name, Catalog Status`.
+- `SDF1 Stock Report.csv`, `DFW1 Stock Report.csv`, `DEN1 Stock Report.csv`, `ATL1 Stock Report.csv`
+- `Summer Moon Stock Report ATL1.csv`, `Summer Moon Stock Report AUS.csv` (brand-scoped variants)
+
+### D. ETA (incoming POs) — per-WH "items arriving"
+- `Item ETA for BU Sites.csv` — Item Name, Brand Name, Expected Receipt Date, Purchase Order Units
+- `ATL1 ETA Report.csv` — **stub (empty header)**
+- POs that drive ETA: `PO Data for Automating.csv` (full PO ledger).
+
+### E. FEOOS (For-Each-Out-Of-Stock) — failed-sale events
+Records of every line item the WH couldn't fulfill on its delivery date.
+- `DCA1 Trailing 7 Day FEOOS.csv` — FEOOS Event Date, Delivery Date, Brand, Item Name, Skip OOS Orders, Qty Requested (SU)
+- `Trailing Full Week FEOOS ATL1.csv` — adds Warehouse, Location Name, Overrode Skip Inventory Check
+- `Texas FEOOS Pull.csv` — adds Item Uuid, Item Brand, Request Value, Qty in Orders/Standing Orders/Inventory, Quantity Short, Vendor
+- `BH Trailing 14 FEOOS - Enterprise.csv` — **stub (empty)**
+- `BH Trailing Full Month FEOOS.csv` — adds Parent Company Name, Is Enterprise flag
+- `Trailing 14 FEOOS.csv` — **stub (empty)**
+- Aggregate scorecards: `Trailing 13 Months Order Success.csv`, `Trailing Full Month Order Success.csv`, `Trailing 3 Month Order Success.csv` — Warehouse, % Qty NOT OOS, % Unique FEOOS Items Order Prevented
+
+### F. Consumption & "Top Risk" (low-DOC alerts)
+Mostly Warehouse × Item × Cons rate × DOC.
+- `EWR Ops Top 100 Fridge SKUs.csv`, `EWR Ops Top 100 Ambient SKUS.csv` — WH, Item, PU Name, PU On Hand, daily PU cons (30d)
+- `BNA1 TO Data.csv` — Item, Extid, qoh stock units, PU conv, qoh eaches, Upcoming Expected Receipt Dates, Avg DoC 30, PU Consumption
+- `Total Cons Network.csv`, `Total Cons LAX1 minus Califia.csv` — WH, Item, PU Cons, Brand, Avg DoC 30
+- `Network Con <7 DOC.csv`, `Con <7 DOC (LAX1 minus Califia).csv` (empty), `Texas Top Risk (<7 DOC).csv` — same shape, filtered to DoC < 7
+
+### G. Margin / COGS / inventory $
+- `SKU Margins.csv` — Item, Purchase Price $/each, Regular Sale Price, Margin %, Sale Price $/each
+- `EWR Fridge Profitability Trailing 60.csv` — Brand, Item, Category, List Sales Price, item margin $, item margin %, # Ordering Customers, Invoiced Sales Units
+- `WH Cogs Report - Trailing 13 Months.csv`, `…Trailing 3 Months.csv`, `…Trailing Full Month.csv` — WH, net revenue, Cost Amount, item margin %
+- `WH/SKU Blended Margin Automation.csv` — WH × Item × Category × net revenue × Cost Amount
+- `Inventory Value by WH.csv` — wide format: Snapshot As of Month columns 2025-06 → 2026-05 × Warehouse rows
+- `Average Inventory Value by Warehouse - Last Month / Trailing 3 Months / Trailing 13 Months.csv` — same shape, different windows
+- `COGS Over Time by WH.csv` — **stub**
+
+### H. Purchasing & PO lifecycle
+- `PO Data for Automating.csv` — PO Created, PO#, Vendor, Item Name/Uuid, Expected Receipt, WH, PO Units, PU Name, Qty Received, Shipment Received, Qty Received PU, PO Status
+- `PO Approval Log` — empty log: timestamp_utc, approver_email, warehouse, item_uuid, item_name, vendor, purchase_unit, recommended_qty, approved_qty, status, notes
+- `PO Expected Vs Actual Receive Deviation.csv` — **stub**
+- `MOQ Surfacing and Automating` — vendor_name, vendor_id, MOQ constraint type, MOQ measure, in model?, MOQ Quantity, Vendor Cons needed
+- `Purchase Price Push.csv` — **stub**
+- `Purchase Units quick look.csv` — Item Extid, Item Name, Purchase Units Name (catalog lookup table)
+- `po_upload_template.csv` — small CSV used for PO uploads
+
+### I. Sales / customer activity
+- `Total Ordering Customer Counts By WH (Trailing 30 Full Months).csv` — wide: monthly columns 2023-12 → 2025-11 × WH rows, value = # of Ordering Customers
+- `Active Warehouse Customers.csv` — Date Month, WH, # Ordering Customers, net revenue (long format)
+- `Active SKU/WH Customers Automation.csv` — Item, Item ID, Category, WH, # Ordering Customers, net revenue
+- `ABC Automation.csv` — Item ID, Brand, Item, WH, Category, Sub-cat, Picked Sales Unit, then monthly Invoiced Amount columns 2024-12 → 2026-06
+- `XYZ automation.csv` — same wide shape as ABC but Invoiced Sales Units (volume-based ABC)
+- `CLT1 ABC Classification.csv` — adds Category Rank per Warehouse, running_category_revenue, cumulative_percent_of_category, inventory_classification (A/B/C)
+- `First Fulfillment Ledger.csv` — Item ID, Extid, Name, Vendor, WH, Min Date (first time item shipped), unix min date
+- `EWR Pastry Sales Trailing 30.csv` — Brand, Item, Fulfillment Date, Invoice Amount, Invoice Item Qty, Customer Name, Odeko Account Uuid
+- `DEN Pastry Sales Trailing 30.csv` — **stub**
+- `The Worx Sales Tracker.csv` — single-customer (The Works Bakery Cafe) trailing purchase ledger by item × date × franchisee location
+- `Torani Transition Data.csv` — brand-scoped on-hand/cons for Torani SKUs across WHs (transition tracking)
+
+### J. Catalog metadata
+- `All Items Unit Conversions.csv` — Item Name, Item Extid, PU Conv Rate, Sales Unit Conv Rate, Category, Subcategory (universal item dictionary)
+- `Catalog Activation Report.csv` — Brand, Item, WH, Warehouse Price Association Status (e.g. "Awaiting Vendor"), qoh stock units, Item Extid
+- `DIO Trend Data.csv` — **stub**
+
+### K. Empty / stub files (header-only, ~1 KB each)
+These are scheduled Looker exports that haven't refreshed or whose
+filters returned nothing recent. Worth a fresh re-run before using:
+`COGS Over Time by WH`, `DEN Pastry Sales Trailing 30`, `ATL1 ETA Report`,
+`BH Trailing 14 FEOOS - Enterprise`, `DIO Trend Data`,
+`Trailing 14 FEOOS`, `PO Expected Vs Actual Receive Deviation`,
+`Con <7 DOC (LAX1 minus Califia)`, `Purchase Price Push`,
+`Trailing 13 Months Order Success` (header but no body in this read).
+
+## 3. The "interlocking network"
+
+Treat **Combined Model V2 Dump** as the fact table. Everything else is
+either a finer-grained event log or a pre-aggregated view of it.
+
+```
+                       ┌──────────────────────────────────┐
+                       │   Combined Model V2 (fact hub)   │
+                       │   grain = WH × Vendor × Item ×   │
+                       │           order_date             │
+                       └──────────────────────────────────┘
+                          │                │                │
+   ┌──────────────────────┼────────────────┼────────────────┼─────────────────┐
+   │ on-hand snapshots    │ FEOOS events   │ PO ledger      │ sales ledger    │
+   │ (WH × Item, today)   │ (WH × Item ×   │ (PO# × Item ×  │ (Customer × Item│
+   │                      │  delivery_date)│  exp_receipt)  │  × fulfill_date)│
+   ├──────────────────────┼────────────────┼────────────────┼─────────────────┤
+   │ On Hand & ETA        │ DCA1/ATL1/TX/  │ PO Data for    │ EWR/DEN Pastry  │
+   │ CLT1 On Hand         │ BH FEOOS       │ Automating     │ The Worx Tracker│
+   │ Stock Reports (×5)   │ Trailing FEOOS │ PO Approval Log│ Active SKU/WH   │
+   │ Branded Paper Push   │ Order Success  │ Item ETA BU    │ ABC/XYZ Auto    │
+   │ BLI1 / On Hand Auto  │ scorecards     │ MOQ Surfacing  │ First Fulfillm. │
+   └──────────────────────┴────────────────┴────────────────┴─────────────────┘
+                          │                │                │
+                          └────────────────┼────────────────┘
+                                           │
+                          ┌────────────────┴────────────────┐
+                          │  catalog dimension              │
+                          │  All Items Unit Conversions     │
+                          │  Purchase Units quick look      │
+                          │  Catalog Activation             │
+                          │  SKU Margins                    │
+                          └─────────────────────────────────┘
+                                           │
+                                           │
+                          ┌────────────────┴────────────────┐
+                          │  warehouse-level aggregates     │
+                          │  Inventory Value by WH          │
+                          │  Avg Inv Value (1/3/13mo)       │
+                          │  WH COGS (1/3/13mo)             │
+                          │  Active Warehouse Customers     │
+                          │  Total Ordering Customer Counts │
+                          └─────────────────────────────────┘
+```
+
+### Concrete join recipes
+1. **On-Hand × Margin × Sales velocity** — join `On Hand Automation` (or any stock report) ↔ `SKU Margins` ↔ `Active SKU/WH Customers Automation` on `(Warehouse Name, Item Name)` → cost of risk per slow-moving SKU.
+2. **FEOOS × On-Hand × ETA** — join `Texas FEOOS Pull` (or any FEOOS file) ↔ `On Hand & ETA` ↔ `PO Data for Automating` on `(Warehouse Name, Item Uuid)` → for each missed sale, show what's on hand, what's incoming, when.
+3. **PO Lifecycle deviation** — `PO Data for Automating` self-join on `Purchase Order Number` to compare Expected vs Received quantities/dates.
+4. **Brand transition tracking** — `Torani Transition Data` ↔ `On Hand Automation` ↔ FEOOS files on `Catalog Brand = 'Torani'` and `Item Extid` → drawdown curves.
+5. **ABC/XYZ classification** — `ABC Automation` (revenue rank) × `XYZ Automation` (volume rank) on `Item ID, Warehouse Name` → 9-quadrant inventory strategy matrix.
+6. **Network DOC heat map** — `Total Cons Network` + `Network Con <7 DOC` ↔ `On Hand & ETA` on `(WH, Item Name)` → cross-WH stock-out risk map.
+7. **Customer concentration** — `Active Warehouse Customers` (counts) ↔ `WH Cogs Report` (revenue/margin) on `Warehouse Name × Date Month`.
+8. **Catalog completeness** — `Catalog Activation Report` ↔ `All Items Unit Conversions` ↔ `On Hand Automation` → identify SKUs that are stocked but not yet activated for sale.
+
+## 4. Dashboard opportunities (next builds)
+
+Ranked by data readiness (1 = ready today, all source columns present):
+
+1. **Network-wide FEOOS scorecard** — combines all 3 Order Success files + monthly FEOOS event counts; WH leaderboard + month-over-month trend + worst-offending SKUs. ⭐ Highest reuse of existing DCA1 patterns.
+2. **Top Risk (<7 DOC) Live Board** — read `Total Cons Network` + `Network Con <7 DOC` + `On Hand & ETA`; one card per warehouse with the count of <7-day SKUs, click-through table per WH. Pairs with Texas Top Risk.
+3. **PO Health & Receive Deviation** — `PO Data for Automating`: KPIs = on-time receive %, avg days late, $ of past-due POs by vendor; bar chart of vendors by deviation.
+4. **Brand Drawdown Tracker (Torani / Summer Moon)** — `Torani Transition Data` joined to FEOOS + on-hand; per-WH residual inventory + estimated weeks-to-clear.
+5. **ABC × XYZ Inventory Quadrant** — combine `ABC Automation` (revenue) and `XYZ automation` (units) by Item × WH; scatter / 9-cell heat map for category strategy.
+6. **Warehouse P&L Mini-Dashboard** — `WH Cogs Report` (3 windows) + `Inventory Value by WH` + `Active Warehouse Customers` → revenue, COGS, margin %, avg inventory, # customers, all on one page, switchable by WH.
+7. **Catalog Activation Funnel** — `Catalog Activation Report`: # SKUs stocked but "Awaiting Vendor" by WH, age of stock, $ value sitting unmonetized.
+8. **MDSL Expiration Watchlist** — `60 Days out MDSL`: items past MDSL, expiring soon; by WH, by category, $ at risk.
+9. **First-Fulfillment / New-SKU Adoption** — `First Fulfillment Ledger` joined to `Active SKU/WH Customers`: time-to-traction per SKU per WH.
+10. **Customer Lifetime / Cohort by WH** — `Active Warehouse Customers` (long) + `Total Ordering Customer Counts` (wide) → monthly cohort retention curve per warehouse.
+
+## 5. Notes on data quirks
+
+- **Wide vs long format mismatch**: `Inventory Value by WH`, `ABC Automation`, `XYZ automation`, `CLT1 ABC Classification`, `Total Ordering Customer Counts` are all **wide** (date columns spreading rightward). Header is in **row 2**; row 1 holds the date labels. Build scripts must read row 2 as the header.
+- **Two-key item identity**: half the files use `Item Extid` (UUID), half use `Item ID` (int). To join across both, use `All Items Unit Conversions` as a bridge — it pairs them.
+- **Trailing rows**: Many FEOOS / stock-report files have a leading blank column (index column starting at 1). Strip the first column when parsing.
+- **Filesize as freshness proxy**: ~1024-byte files have only a header. Anything <2 KB is suspect and should be re-run from Looker before relying on it.
+- **Datestamps**: All dates appear to be in `YYYY-MM-DD`. The 2026 dates throughout reflect the current-date context (today is 2026-06-23).
+- **Warehouse universe** observed: ATL1, AUS1, BLI1, BNA1, BOS1, CLT1, DCA1, DEN1, DFW1, EWR1, HOU1, LAX1, MDT1, MIA1, PDX1, PWM1, SDF1 (17 codes).
