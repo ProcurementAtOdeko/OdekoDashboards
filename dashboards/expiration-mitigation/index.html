@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Expiration Mitigation</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+    --blue: #2A5BB4;
+    --blue-soft: rgba(42,91,180,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.blue .value { color: var(--blue); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 280px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 220px; }
+  .toolbar input:focus, .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    white-space: nowrap;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .tier-expired   { background: var(--red-soft);   color: var(--red); }
+  .tier-past_mdsl { background: var(--red-soft);   color: var(--red); }
+  .tier-urgent    { background: var(--amber-soft); color: var(--amber); }
+  .tier-watch     { background: var(--green-soft); color: var(--green); }
+
+  .action-DISPOSE          { background: var(--red-soft);   color: var(--red); }
+  .action-MARKDOWN         { background: var(--amber-soft); color: var(--amber); }
+  .action-PUSH             { background: var(--blue-soft);  color: var(--blue); }
+  .action-TRANSFER         { background: var(--blue-soft);  color: var(--blue); }
+  .action-MONITOR          { background: var(--green-soft); color: var(--green); }
+  .action-SUPPRESS         { background: var(--amber-soft); color: var(--amber); }
+  .action-MARKDOWNDONATE   { background: var(--red-soft);   color: var(--red); }
+
+  .meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Expiration Mitigation</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>$ at Risk by Warehouse</h3>
+      <div class="body"><canvas id="chart-wh"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>$ at Risk by Category (Top 12)</h3>
+      <div class="body"><canvas id="chart-cat"></canvas></div>
+    </div>
+    <div class="card chart full">
+      <h3>Lifecycle Stage Breakdown</h3>
+      <div class="body"><canvas id="chart-tier"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>At-Risk Lots</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, category, or bin…" />
+      <select id="filter-wh"><option value="">All warehouses</option></select>
+      <select id="filter-tier">
+        <option value="">All stages</option>
+        <option value="expired">Expired</option>
+        <option value="past_mdsl">Past MDSL</option>
+        <option value="urgent">Urgent (≤14d)</option>
+        <option value="watch">Watch (15–60d)</option>
+      </select>
+      <select id="filter-action"><option value="">All actions</option></select>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="lots">
+        <thead>
+          <tr>
+            <th data-sort="warehouse">WH</th>
+            <th data-sort="name">Item</th>
+            <th data-sort="category">Category</th>
+            <th class="num" data-sort="daysToMdsl" data-default="asc">Days to MDSL</th>
+            <th class="num" data-sort="daysToExpiration" data-default="asc">Days to Exp</th>
+            <th class="num" data-sort="onHand">On Hand</th>
+            <th class="num" data-sort="cons30">30d Cons</th>
+            <th class="num" data-sort="dollarsAtRisk" data-default="desc">$ at Risk</th>
+            <th data-sort="tier">Stage</th>
+            <th data-sort="action">Recommendation</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const fmtMoney = (n) => "$" + (n || 0).toLocaleString(undefined, { maximumFractionDigits: 0 });
+const fmtMoneyExact = (n) => "$" + (n || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+const fmtInt = (n) => n == null ? "—" : Math.round(n).toLocaleString();
+
+const TIER_LABEL = {
+  expired: "Expired",
+  past_mdsl: "Past MDSL",
+  urgent: "Urgent",
+  watch: "Watch",
+};
+const TIER_COLOR = {
+  expired: "#B42318",
+  past_mdsl: "#B42318",
+  urgent: "#B5660A",
+  watch: "#1F7A33",
+};
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+  blue: "#2A5BB4",
+};
+
+let DATA = null;
+let sortKey = "dollarsAtRisk";
+let sortDir = "desc";
+let filterText = "";
+let filterWh = "";
+let filterTier = "";
+let filterAction = "";
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.lotCount} at-risk lots across ${DATA.summary.warehouseCount} warehouses`;
+  populateFilters();
+  renderKpis();
+  renderCharts();
+  renderTable();
+}
+
+function populateFilters() {
+  const whSel = document.getElementById("filter-wh");
+  for (const w of DATA.warehouseDollars) {
+    const o = document.createElement("option");
+    o.value = w.warehouse; o.textContent = w.warehouse;
+    whSel.appendChild(o);
+  }
+  const actSel = document.getElementById("filter-action");
+  for (const a of DATA.actionBreakdown) {
+    const o = document.createElement("option");
+    o.value = a.action; o.textContent = `${a.action} (${a.count})`;
+    actSel.appendChild(o);
+  }
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Total $ at Risk", value: fmtMoney(s.dollarsAtRisk), cls: "accent" },
+    { label: "Transferable", value: fmtMoney(s.transferableDollars), cls: "blue",
+      sub: "Another WH has capacity" },
+    { label: "Markdown / Dispose", value: fmtMoney(s.markdownDollars), cls: "red",
+      sub: "Can't sell through" },
+    { label: "Expired", value: s.expiredCount, cls: s.expiredCount > 0 ? "red" : "green" },
+    { label: "Past MDSL", value: s.pastMdslCount, cls: s.pastMdslCount > 0 ? "red" : "green" },
+    { label: "Urgent (≤14d)", value: s.urgentCount, cls: s.urgentCount > 0 ? "amber" : "green" },
+    { label: "Watch (15–60d)", value: s.watchCount, cls: "" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}">
+      <div class="label">${k.label}</div>
+      <div class="value">${k.value}</div>
+      ${k.sub ? `<div class="sub">${k.sub}</div>` : ""}
+    </div>`
+  ).join("");
+}
+
+function renderCharts() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const wh = DATA.warehouseDollars;
+  new Chart(document.getElementById("chart-wh"), {
+    type: "bar",
+    data: {
+      labels: wh.map(w => w.warehouse),
+      datasets: [{ data: wh.map(w => w.dollars), backgroundColor: PALETTE.ink, borderRadius: 4 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => fmtMoneyExact(c.raw) } },
+      },
+      scales: { y: { beginAtZero: true, ticks: { callback: (v) => "$" + v.toLocaleString() } } },
+    },
+  });
+
+  const cat = DATA.categoryDollars;
+  new Chart(document.getElementById("chart-cat"), {
+    type: "bar",
+    data: {
+      labels: cat.map(c => c.category.length > 26 ? c.category.slice(0, 24) + "…" : c.category),
+      datasets: [{ data: cat.map(c => c.dollars), backgroundColor: PALETTE.amber, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => fmtMoneyExact(c.raw) } },
+      },
+      scales: { x: { beginAtZero: true, ticks: { callback: (v) => "$" + v.toLocaleString() } } },
+    },
+  });
+
+  const tb = DATA.tierBreakdown;
+  new Chart(document.getElementById("chart-tier"), {
+    type: "bar",
+    data: {
+      labels: tb.map(t => `${TIER_LABEL[t.tier]} (${t.count})`),
+      datasets: [{
+        data: tb.map(t => t.dollars),
+        backgroundColor: tb.map(t => TIER_COLOR[t.tier]),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => fmtMoneyExact(c.raw) + " at risk" } },
+      },
+      scales: { x: { beginAtZero: true, ticks: { callback: (v) => "$" + v.toLocaleString() } } },
+    },
+  });
+}
+
+function actionClass(action) {
+  return "action-" + action.replace(/[^A-Z]/g, "");
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.lots.filter(l => {
+    if (filterWh && l.warehouse !== filterWh) return false;
+    if (filterTier && l.tier !== filterTier) return false;
+    if (filterAction && l.action !== filterAction) return false;
+    if (q) {
+      const hay = `${l.name} ${l.category} ${l.bin || ""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  document.getElementById("table-count").textContent =
+    `${rows.length}${rows.length !== DATA.lots.length ? ` of ${DATA.lots.length}` : ""} lots · ${fmtMoneyExact(rows.reduce((s, r) => s + r.dollarsAtRisk, 0))} at risk`;
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#lots tbody").innerHTML = rows.map(l => `
+    <tr>
+      <td>${escapeHtml(l.warehouse)}</td>
+      <td>
+        ${escapeHtml(l.name)}
+        ${l.bin ? `<div class="meta">${escapeHtml(l.bin)}${l.expirationDate ? ` · exp ${escapeHtml(l.expirationDate)}` : ""}</div>` : (l.expirationDate ? `<div class="meta">exp ${escapeHtml(l.expirationDate)}</div>` : "")}
+      </td>
+      <td>${escapeHtml(l.category || "")}</td>
+      <td class="num">${fmtInt(l.daysToMdsl)}</td>
+      <td class="num">${fmtInt(l.daysToExpiration)}</td>
+      <td class="num">${fmt(l.onHand)}</td>
+      <td class="num">${fmt(l.cons30)}</td>
+      <td class="num">${fmtMoneyExact(l.dollarsAtRisk)}</td>
+      <td><span class="badge tier-${l.tier}">${TIER_LABEL[l.tier]}</span></td>
+      <td>
+        <span class="badge ${actionClass(l.action)}">${escapeHtml(l.action)}</span>
+        <div class="meta">${escapeHtml(l.actionDetail || "")}</div>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value;
+  renderTable();
+});
+document.getElementById("filter-wh").addEventListener("change", (e) => {
+  filterWh = e.target.value;
+  renderTable();
+});
+document.getElementById("filter-tier").addEventListener("change", (e) => {
+  filterTier = e.target.value;
+  renderTable();
+});
+document.getElementById("filter-action").addEventListener("change", (e) => {
+  filterAction = e.target.value;
+  renderTable();
+});
+
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
