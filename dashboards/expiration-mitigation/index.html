@@ -79,6 +79,13 @@
   .toolbar input[type=search] { min-width: 220px; }
   .toolbar input:focus, .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
   .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .toolbar button {
+    background: var(--ink-2); color: var(--bg); border: 1px solid var(--ink-2);
+    padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: inherit; letter-spacing: .02em;
+  }
+  .toolbar button:hover { background: var(--ink); border-color: var(--ink); }
+  .toolbar button:focus { box-shadow: 0 0 0 3px rgba(64,24,11,.15); outline: none; }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -165,6 +172,7 @@
         <option value="watch">Watch (15–60d)</option>
       </select>
       <select id="filter-action"><option value="">All actions</option></select>
+      <button id="download-csv" type="button">Download CSV</button>
       <span class="count" id="table-count"></span>
     </div>
     <div style="overflow-x:auto">
@@ -224,6 +232,7 @@ let filterText = "";
 let filterWh = "";
 let filterTier = "";
 let filterAction = "";
+let visibleRows = [];
 
 async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
@@ -363,6 +372,7 @@ function renderTable() {
     return sortDir === "asc" ? av - bv : bv - av;
   });
 
+  visibleRows = rows;
   document.getElementById("table-count").textContent =
     `${rows.length}${rows.length !== DATA.lots.length ? ` of ${DATA.lots.length}` : ""} lots · ${fmtMoneyExact(rows.reduce((s, r) => s + r.dollarsAtRisk, 0))} at risk`;
 
@@ -396,6 +406,53 @@ function renderTable() {
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 }
+
+function csvEscape(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadCsv() {
+  const cols = [
+    ["warehouse", "Warehouse"],
+    ["itemExtid", "Item UUID"],
+    ["name", "Item Name"],
+    ["category", "Category"],
+    ["bin", "Bin"],
+    ["expirationDate", "Expiration Date"],
+    ["mdslDays", "MDSL (days)"],
+    ["daysToExpiration", "Days to Expiration"],
+    ["daysToMdsl", "Days to MDSL"],
+    ["onHand", "Quantity Each on Hand"],
+    ["cons30", "Consumption 30 Days"],
+    ["cons60", "Consumption 60 Days"],
+    ["cons365", "Consumption 365 Days"],
+    ["costEach", "Avg Cost ($/each)"],
+    ["dollarsAtRisk", "$ at Risk"],
+    ["tier", "Lifecycle Stage"],
+    ["action", "Recommendation"],
+    ["actionDetail", "Recommendation Detail"],
+    ["transferTo", "Transfer Destination"],
+  ];
+  const header = cols.map(c => c[1]).join(",");
+  const body = visibleRows.map(r =>
+    cols.map(([k]) => csvEscape(r[k])).join(",")
+  ).join("\r\n");
+  const csv = header + "\r\n" + body + "\r\n";
+  const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const stamp = new Date(DATA.generatedAt).toISOString().slice(0, 10);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `expiration-mitigation-${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("download-csv").addEventListener("click", downloadCsv);
 
 document.getElementById("search").addEventListener("input", (e) => {
   filterText = e.target.value;

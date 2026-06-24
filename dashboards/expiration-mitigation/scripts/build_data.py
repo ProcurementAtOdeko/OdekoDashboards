@@ -19,6 +19,8 @@ from googleapiclient.discovery import build
 
 SPREADSHEET_ID = "1-uO3LjbNXbmbiN3rUcWvtB0S-urWYqRkuYoaFVL9IiU"
 SHEET_RANGE = "'60 Days out MDSL.csv'!A1:O"
+CATALOG_SPREADSHEET_ID = "1cH-rQQNwOFuPb1Xvj5uUSIk1HKl-8U9xYlVFZZrxrAQ"
+CATALOG_RANGE = "'All Items Unit Conversions.csv'!A1:C"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 URGENT_MAX_DAYS = 14
@@ -72,6 +74,30 @@ def main(out_path):
     if not rows:
         sys.exit("Sheet returned no rows")
 
+    # Catalog bridge: Item Name -> Item Extid (UUID). The MDSL sheet only
+    # carries item names, so we join through the catalog dictionary.
+    cat_res = (
+        svc.spreadsheets()
+        .values()
+        .get(spreadsheetId=CATALOG_SPREADSHEET_ID, range=CATALOG_RANGE)
+        .execute()
+    )
+    cat_rows = cat_res.get("values", [])
+    name_to_uuid = {}
+    if cat_rows:
+        cat_header = cat_rows[0]
+        cat_col = {name: i for i, name in enumerate(cat_header)}
+        n_idx = cat_col.get("Item Name")
+        u_idx = cat_col.get("Item Extid")
+        if n_idx is not None and u_idx is not None:
+            for r in cat_rows[1:]:
+                if len(r) <= max(n_idx, u_idx):
+                    continue
+                name = (r[n_idx] or "").strip()
+                uuid = (r[u_idx] or "").strip()
+                if name and uuid and name not in name_to_uuid:
+                    name_to_uuid[name] = uuid
+
     header = rows[0]
     col = {name: i for i, name in enumerate(header)}
     required = [
@@ -115,6 +141,7 @@ def main(out_path):
         lots.append({
             "warehouse": wh,
             "name": name,
+            "itemExtid": name_to_uuid.get(name),
             "category": r[col["Item Category Name"]].strip(),
             "bin": r[col["Bin Number"]].strip(),
             "expirationDate": r[col["Expiration Date"]].strip() or None,
