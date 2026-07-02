@@ -204,6 +204,7 @@
             <th class="num">Total PU</th>
             <th class="num">Pallets</th>
             <th class="num">Est. Cost</th>
+            <th class="num" title="Active ordering customers across the PO's SKUs">Cust</th>
             <th>Vendor Min</th>
             <th>Status</th>
             <th></th>
@@ -234,6 +235,8 @@
             <th class="num" data-sort="doc" data-default="asc">Cover (d)</th>
             <th data-sort="so">Stockout</th>
             <th data-sort="soIn">w/ Inbound</th>
+            <th class="num" data-sort="cust" title="Active ordering customers">Cust</th>
+            <th class="num" data-sort="oosN" title="Out-of-stock events, last 14 days">OOS 14d</th>
             <th class="num" data-sort="sq">Order Qty</th>
             <th data-sort="flag">Reorder</th>
           </tr>
@@ -326,6 +329,8 @@ function renderKpis(agg) {
     { label: "Draft POs", value: fmt(k.draftPos), cls: "accent" },
     { label: "Order Today", value: fmt(k.urgentPos), cls: k.urgentPos > 0 ? "red" : "green" },
     { label: "Est. Order Spend", value: fmtMoney(k.orderValue), cls: "" },
+    { label: "Recent OOS SKUs (14d)", value: fmt(k.recentOos), cls: k.recentOos > 0 ? "red" : "green" },
+    { label: "Customer Impact ≤14d", value: fmt(k.custAtRisk), cls: k.custAtRisk > 0 ? "amber" : "green" },
     { label: "Past-Due PO SKUs", value: fmt(k.pastDue), cls: k.pastDue > 0 ? "amber" : "green" },
     { label: "Median Cover (days)", value: fmt(k.medianCover), cls: k.medianCover != null && k.medianCover < 14 ? "amber" : "" },
     { label: "On-Hand Value", value: fmtMoney(k.onHandValue), cls: "" },
@@ -485,19 +490,25 @@ function renderOrders() {
     const isOrdered = ORDERED.has(key);
     const t = computeTotals(o);
     const cost = t.costComplete ? fmtMoney(t.cost) : t.cost > 0 ? `≥ ${fmtMoney(t.cost)}*` : "—";
+    const relNote = o.rel == null ? "" :
+      o.rel.avgDev > 0.5
+        ? `<div class="sub-cell min-short">receives +${o.rel.avgDev}d late avg (${o.rel.n} POs)</div>`
+        : `<div class="sub-cell min-met">on-time receiver (${o.rel.n} POs)</div>`;
     let html = `
     <tr class="vendor-row ${open ? "open" : ""} ${isOrdered ? "ordered" : ""}" data-key="${escapeHtml(key)}">
-      <td><strong>${escapeHtml(o.vendor)}</strong></td>
+      <td><strong>${escapeHtml(o.vendor)}</strong>${relNote}</td>
       ${isAll ? `<td>${escapeHtml(o.w)}</td>` : ""}
       <td class="${o.urgent && !isOrdered ? "cover-bad" : ""}">${fmtDate(o.orderBy)}</td>
       <td class="num">${t.lines}</td>
       <td class="num">${fmt(t.qty)}</td>
       <td class="num">${t.pallets ? fmt(t.pallets) : "—"}</td>
       <td class="num">${cost}</td>
+      <td class="num">${o.cust ? fmt(o.cust) : "—"}</td>
       <td>${minCell(o, t)}</td>
       <td>${isOrdered ? '<span class="pill ok">Ordered ✓</span>'
           : o.urgent ? '<span class="pill reorder">Order now</span>'
-          : '<span class="pill amber">Upcoming</span>'}</td>
+          : '<span class="pill amber">Upcoming</span>'}
+          ${o.oosN > 0 && !isOrdered ? `<span class="pill reorder" title="Actual out-of-stock events on these SKUs in the last 14 days">OOS ×${o.oosN}</span>` : ""}</td>
       <td><button class="btn" data-csv="${escapeHtml(key)}">CSV</button></td>
     </tr>`;
     if (open) {
@@ -505,7 +516,7 @@ function renderOrders() {
       const { met } = minProgress(o, t);
       const edited = st.some((s, i) => s.qty !== o.lines[i].qty || !s.inc);
       html += `
-    <tr class="lines-row"><td colspan="${isAll ? 10 : 9}">
+    <tr class="lines-row"><td colspan="${isAll ? 11 : 10}">
       <div class="po-actions">
         <button class="btn ${isOrdered ? "done" : ""}" data-act="ordered" data-key="${escapeHtml(key)}">
           ${isOrdered ? "✓ Ordered — undo" : "Mark as ordered"}</button>
@@ -517,7 +528,9 @@ function renderOrders() {
       </div>
       <table>
         <thead><tr>
-          <th></th><th>Item</th><th>Item ID</th><th>Purchase Unit</th><th>Ti×Hi</th>
+          <th></th><th>Item</th><th>Item ID</th><th class="num" title="Active ordering customers">Cust</th>
+          <th class="num" title="Out-of-stock events, last 14 days">OOS 14d</th>
+          <th>Purchase Unit</th><th>Ti×Hi</th>
           <th class="num">Order Qty</th>
           <th class="num">Cost / PU</th><th class="num">Line Cost</th>
           <th class="num">On Hand</th><th class="num">On Order</th>
@@ -531,6 +544,8 @@ function renderOrders() {
             <td><input type="checkbox" data-inc="${i}" data-key="${escapeHtml(key)}" ${s.inc ? "checked" : ""} title="Include line" /></td>
             <td>${escapeHtml(l.n)}</td>
             <td class="num">${escapeHtml(l.id || "—")}</td>
+            <td class="num">${l.cust ? fmt(l.cust) : "—"}</td>
+            <td class="num">${l.oosN > 0 ? `<span class="cover-bad">×${l.oosN}</span>` : "—"}</td>
             <td>${escapeHtml(l.unit || "")}</td>
             <td>${l.tihi ? escapeHtml(l.tihi) : "—"}</td>
             <td class="num">
@@ -699,6 +714,8 @@ function renderTable() {
       <td class="num ${coverClass(i.doc)}">${fmt(i.doc)}</td>
       <td class="${coverClass(i.doc)}">${fmtDate(i.so)}</td>
       <td class="${coverClass(i.docIn)}">${fmtDate(i.soIn)}</td>
+      <td class="num">${i.cust ? fmt(i.cust) : "—"}</td>
+      <td class="num">${i.oosN > 0 ? `<span class="cover-bad">×${i.oosN}</span>` : "—"}</td>
       <td class="num">${i.sq > 0 ? `<strong>${fmt(i.sq)}</strong>` : "—"}</td>
       <td>${i.flag ? '<span class="pill reorder">Reorder</span>' : '<span class="pill ok">OK</span>'}</td>
     </tr>
@@ -717,7 +734,12 @@ function renderAssumptions() {
     Safety stock = <code>${a.safetyStockDays} days</code> of demand; reorder point =
     <code>lead time + ${a.safetyStockDays} days</code> of demand, using each item's mean lead time
     from Combined V2 (fallback <code>${a.leadTimeDays} days</code>) — a SKU is flagged when
-    on hand + on order falls at or below it.<br/>
+    on hand + on order falls at or below it. Lead times are padded by the vendor's average
+    receive delay (PO Expected vs Actual Receive Deviation, when based on ≥ ${a.reliabilityMinPos}
+    received POs) — the vendor's on-time record shows under their name in Build Orders.<br/>
+    Customer counts (Active SKU/WH Customers) show how many cafes order each SKU, and
+    <span class="cover-bad">OOS ×N</span> marks SKUs with actual out-of-stock events in the last
+    14 days (Trailing 14 FEOOS) — both to help triage which orders matter most.<br/>
     Draft POs: each flagged SKU gets an order quantity that restores
     <code>lead time + ${a.reviewPeriodDays} + ${a.safetyStockDays} days</code> of demand
     (rounded up to whole purchase units), grouped by vendor per warehouse.
