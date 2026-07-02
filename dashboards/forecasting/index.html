@@ -8,39 +8,10 @@
 <link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
 <link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="../_shared/odeko-charts.js"></script>
+<link rel="stylesheet" href="../_shared/odeko.css" />
 <style>
-  :root {
-    --bg: #FBF7EC;
-    --panel: #FFFFFF;
-    --panel-2: #F5EFE0;
-    --line: #E6DFCC;
-    --ink: #2A1408;
-    --ink-2: #40180B;
-    --muted: #8A7B6A;
-    --accent: #40180B;
-    --accent-yellow: #FFD100;
-    --green: #1F7A33;
-    --green-soft: rgba(31,122,51,.12);
-    --red: #B42318;
-    --red-soft: rgba(180,35,24,.10);
-    --amber: #B5660A;
-    --amber-soft: rgba(181,102,10,.12);
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  header {
-    padding: 16px 24px; border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    background: var(--panel); position: sticky; top: 0; z-index: 10; flex-wrap: wrap;
-  }
-  header .brand { display: flex; align-items: center; gap: 14px; }
-  header .logo { width: 40px; height: 40px; border-radius: 8px; }
-  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
-  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header { flex-wrap: wrap; }
   header select {
     background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
     padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600;
@@ -223,9 +194,6 @@ async function load() {
     .join("");
   sel.value = selectedWh;
 
-  Chart.defaults.color = PALETTE.muted;
-  Chart.defaults.borderColor = PALETTE.line;
-  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
   renderAssumptions();
   render();

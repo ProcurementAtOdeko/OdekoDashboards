@@ -13,43 +13,24 @@ Reorder logic (v1, intentionally simple so it's easy to iterate on):
 from __future__ import annotations
 
 import json
-import math
-import os
 import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
-import httplib2
-from google.oauth2 import service_account
-from google_auth_httplib2 import AuthorizedHttp
-from googleapiclient.discovery import build
-
-# Respect a custom CA bundle if the runtime sets one (e.g. SSL_CERT_FILE in a
-# sandboxed env). httplib2 doesn't read that env var on its own.
-_CA = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE")
-if _CA:
-    httplib2.CA_CERTS = _CA
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import list_tabs, parse_num, sheets_service
+from _lib.sheets import read_range as get_values
 
 SPREADSHEET_ID = "162M43zm7D65Z3JqHpPqh1pa5Xrd6NLLvPuDu9qmpM8M"
 MOQ_SPREADSHEET_ID = "1zNDxmJETDp6IGFiYL04wZU_lak8CBMNHfoz5KmlFzTs"
 WAREHOUSE = "DCA1"
 WAREHOUSE_TZ = ZoneInfo("America/New_York")
 TREND_TAB_LIMIT = 10
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 DATED_TAB_RE = re.compile(r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) (\d{2})-(\d{2})$")
-
-
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        f = float(str(s).replace(",", "").replace("$", "").strip())
-    except (ValueError, TypeError):
-        return None
-    return f if math.isfinite(f) else None
 
 
 def col_index(header, name):
@@ -58,21 +39,6 @@ def col_index(header, name):
         if h.strip() == name.strip():
             return i
     return None
-
-
-def get_values(svc, sheet_id, rng):
-    return (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=sheet_id, range=rng)
-        .execute()
-        .get("values", [])
-    )
-
-
-def list_tabs(svc, sheet_id):
-    meta = svc.spreadsheets().get(spreadsheetId=sheet_id).execute()
-    return [s["properties"]["title"] for s in meta["sheets"]]
 
 
 def dated_tabs_sorted(tab_names):
@@ -424,19 +390,7 @@ def trend_summary(svc, tab_title, mapping):
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    http = AuthorizedHttp(creds, http=httplib2.Http(ca_certs=_CA)) if _CA else None
-    svc = build(
-        "sheets", "v4",
-        credentials=None if http else creds,
-        http=http,
-        cache_discovery=False,
-    )
+    svc = sheets_service()
 
     tab_names = list_tabs(svc, SPREADSHEET_ID)
     dated = dated_tabs_sorted(tab_names)

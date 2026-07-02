@@ -23,13 +23,13 @@ All forecasting logic is hardcoded here, not pulled from Looker:
 from __future__ import annotations
 
 import json
-import os
 import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import fetch_table, parse_num, sheets_service
 
 # --- Sources -----------------------------------------------------------------
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
@@ -38,7 +38,6 @@ ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:R"
 CONS30_SPREADSHEET_ID = "1kivMVt86rNXoiOpsfodZ_gdSLZcElVU3P8EFT5WAggI"
 CONS30_RANGE = "'Total Cons Network.csv'!A1:G"
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- Hardcoded forecast assumptions ------------------------------------------
 DEMAND_WEIGHTS = {"model": 0.5, "t30": 0.3, "t60": 0.2}
@@ -49,35 +48,6 @@ DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
 RED_DAYS = 7
 AMBER_DAYS = 14
-
-
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        return float(str(s).replace(",", "").replace("$", "").strip())
-    except (ValueError, TypeError):
-        return None
-
-
-def fetch(svc, spreadsheet_id, rng):
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=spreadsheet_id, range=rng)
-        .execute()
-    )
-    rows = res.get("values", [])
-    if not rows:
-        sys.exit(f"{spreadsheet_id} returned no rows for {rng}")
-    header = rows[0]
-    col = {name: i for i, name in enumerate(header)}
-
-    def get(row, name):
-        i = col.get(name)
-        return row[i] if i is not None and i < len(row) else ""
-
-    return rows[1:], get
 
 
 def blend_demand(signals):
@@ -97,17 +67,11 @@ def blend_demand(signals):
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
+    svc = sheets_service()
 
-    models_rows, m = fetch(svc, MODELS_SPREADSHEET_ID, MODELS_RANGE)
-    onhand_rows, o = fetch(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
-    cons30_rows, c = fetch(svc, CONS30_SPREADSHEET_ID, CONS30_RANGE)
+    models_rows, m = fetch_table(svc, MODELS_SPREADSHEET_ID, MODELS_RANGE)
+    onhand_rows, o = fetch_table(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
+    cons30_rows, c = fetch_table(svc, CONS30_SPREADSHEET_ID, CONS30_RANGE)
 
     # --- Secondary lookups ----------------------------------------------------
     # On Hand & ETA repeats item-level totals across per-location rows, so take

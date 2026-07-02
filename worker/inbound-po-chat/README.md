@@ -74,8 +74,9 @@ wrangler dev
 - **Auth:** worker verifies the Google ID token signature against Google's
   JWKS, checks `aud` matches `GOOGLE_OAUTH_CLIENT_ID`, and rejects anything
   without `hd === "odeko.com"`.
-- **Data:** worker fetches `data.json` from the `main` branch (cached for
-  10 min in worker memory) so refreshes flow through automatically.
+- **Data:** worker fetches `data.json` from the deployed GitHub Pages site
+  (cached for 10 min in worker memory) so refreshes flow through
+  automatically.
 - **Tools:** Claude is given `query_pos`, `summary`, and `list_dimensions`.
   The worker executes each tool call against the in-memory data and feeds
   results back until Claude produces a final answer.
