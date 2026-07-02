@@ -9,17 +9,16 @@ Cloudflare Worker loads to answer questions.
 from __future__ import annotations
 
 import json
-import os
 import re
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import parse_num, read_range, sheets_service
 
 SPREADSHEET_ID = "1x5T4i6WrO22iGJ2-0tX8N_hrOVC4NwRRCkoA5VWMmOo"
 SHEET_RANGE = "'PO Data for Automating.csv'!A1:N"
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # Statuses we consider "still inbound" — units expected to arrive.
 OPEN_STATUSES = {
@@ -31,34 +30,13 @@ OPEN_STATUSES = {
 VENDOR_PREFIX_RE = re.compile(r"^VEN\d+\s+")
 
 
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        return float(str(s).replace(",", "").strip())
-    except (ValueError, TypeError):
-        return None
-
-
 def clean_vendor(s: str) -> str:
     return VENDOR_PREFIX_RE.sub("", (s or "").strip())
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = res.get("values", [])
+    svc = sheets_service()
+    rows = read_range(svc, SPREADSHEET_ID, SHEET_RANGE)
     if not rows:
         sys.exit("Sheet returned no rows")
 

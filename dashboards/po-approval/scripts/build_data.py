@@ -10,30 +10,19 @@ a JSON payload the dashboard consumes.
 from __future__ import annotations
 
 import json
-import os
 import statistics
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import parse_num, read_range, sheets_service
 
 MODEL_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
 MODEL_RANGE = "'Warehouse Raw'!A1:BU"
 APPROVALS_SPREADSHEET_ID = "19kWUzVFHTzVDb64fU9r83oaKmbO8rgEaNUJG6r2oyOk"
 APPROVALS_RANGE = "'PO Approval Log'!A1:K"
-
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-
-
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        return float(str(s).replace(",", "").strip())
-    except (ValueError, TypeError):
-        return None
 
 
 def parse_bool(s):
@@ -57,16 +46,10 @@ def doc_bucket(d):
 def load_approvals(svc):
     """Return {(warehouse, item_uuid): latest_approval_dict}."""
     try:
-        res = (
-            svc.spreadsheets()
-            .values()
-            .get(spreadsheetId=APPROVALS_SPREADSHEET_ID, range=APPROVALS_RANGE)
-            .execute()
-        )
+        rows = read_range(svc, APPROVALS_SPREADSHEET_ID, APPROVALS_RANGE)
     except Exception as e:
         print(f"warn: could not read approvals sheet ({e}); proceeding empty", file=sys.stderr)
         return {}
-    rows = res.get("values", [])
     if not rows or len(rows) < 2:
         return {}
     header = [h.strip() for h in rows[0]]
@@ -94,21 +77,8 @@ def load_approvals(svc):
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
-
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=MODEL_SPREADSHEET_ID, range=MODEL_RANGE)
-        .execute()
-    )
-    rows = res.get("values", [])
+    svc = sheets_service()
+    rows = read_range(svc, MODEL_SPREADSHEET_ID, MODEL_RANGE)
     if not rows:
         sys.exit("Model sheet returned no rows")
 

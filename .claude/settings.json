@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(pip install:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(ls:*)",
+      "mcp__google-sheets__get_spreadsheet_info",
+      "mcp__google-sheets__read_range"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && { [ -x tools/google-sheets-mcp/.venv/bin/python ] || (python3 -m venv tools/google-sheets-mcp/.venv && tools/google-sheets-mcp/.venv/bin/pip install --quiet -r tools/google-sheets-mcp/requirements.txt); }"
+          }
+        ]
+      }
+    ]
+  }
+}

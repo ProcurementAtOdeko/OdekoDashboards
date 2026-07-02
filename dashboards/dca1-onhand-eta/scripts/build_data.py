@@ -9,27 +9,17 @@ file the dashboard front-end consumes.
 from __future__ import annotations
 
 import json
-import os
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import parse_num, read_range, sheets_service
 
 SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 SHEET_RANGE = "'On Hand & ETA.csv'!A1:R"
 WAREHOUSE_FILTER = "DCA1"
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-
-
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        return float(str(s).replace(",", "").strip())
-    except (ValueError, TypeError):
-        return None
 
 
 def cover_bucket(days):
@@ -47,20 +37,8 @@ def cover_bucket(days):
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = res.get("values", [])
+    svc = sheets_service()
+    rows = read_range(svc, SPREADSHEET_ID, SHEET_RANGE)
     if not rows:
         sys.exit("Sheet returned no rows")
 

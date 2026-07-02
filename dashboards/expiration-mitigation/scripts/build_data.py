@@ -9,31 +9,21 @@ mitigation action (transfer between warehouses, push, markdown, dispose).
 from __future__ import annotations
 
 import json
-import os
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
 
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _lib.sheets import parse_num, read_range, sheets_service
 
 SPREADSHEET_ID = "1-uO3LjbNXbmbiN3rUcWvtB0S-urWYqRkuYoaFVL9IiU"
 SHEET_RANGE = "'60 Days out MDSL.csv'!A1:O"
 CATALOG_SPREADSHEET_ID = "1cH-rQQNwOFuPb1Xvj5uUSIk1HKl-8U9xYlVFZZrxrAQ"
 CATALOG_RANGE = "'All Items Unit Conversions.csv'!A1:C"
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 URGENT_MAX_DAYS = 14
 WATCH_MAX_DAYS = 60
-
-
-def parse_num(s):
-    if s is None or s == "":
-        return None
-    try:
-        return float(str(s).replace("$", "").replace(",", "").strip())
-    except (ValueError, TypeError):
-        return None
 
 
 def tier_for(days_to_expiration, days_to_mdsl):
@@ -57,32 +47,14 @@ def daily_cons(cons30):
 
 
 def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = res.get("values", [])
+    svc = sheets_service()
+    rows = read_range(svc, SPREADSHEET_ID, SHEET_RANGE)
     if not rows:
         sys.exit("Sheet returned no rows")
 
     # Catalog bridge: Item Name -> Item Extid (UUID). The MDSL sheet only
     # carries item names, so we join through the catalog dictionary.
-    cat_res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=CATALOG_SPREADSHEET_ID, range=CATALOG_RANGE)
-        .execute()
-    )
-    cat_rows = cat_res.get("values", [])
+    cat_rows = read_range(svc, CATALOG_SPREADSHEET_ID, CATALOG_RANGE)
     name_to_uuid = {}
     if cat_rows:
         cat_header = cat_rows[0]

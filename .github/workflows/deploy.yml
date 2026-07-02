@@ -1,0 +1,64 @@
+name: Build data & deploy dashboards
+
+on:
+  schedule:
+    # Hourly refresh for all dashboards.
+    - cron: "15 * * * *"
+    # Extra weekday-morning cadence: DCA1 Tracking's source refreshes pre-9am
+    # ET, so pick it up every 30 min 11:00-17:00 UTC (covers EDT and EST).
+    - cron: "0,30 11-17 * * 1-5"
+  push:
+    branches: [main]
+    paths:
+      - "dashboards/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet google-api-python-client google-auth
+
+      # Every dashboards/<name>/scripts/build_data.py is discovered and run;
+      # data.json is never committed — it only exists in the deployed artifact.
+      # Any single failure aborts the deploy so the previous good deployment
+      # stays live.
+      - name: Build all data.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          for script in dashboards/*/scripts/build_data.py; do
+            dash="$(dirname "$(dirname "$script")")"
+            echo "== ${dash#dashboards/}"
+            python3 "$script" "$dash/data.json"
+          done
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dashboards
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

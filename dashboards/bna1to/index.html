@@ -7,47 +7,10 @@
 <title>Odeko · BNA1 Transfer Order Dashboard</title>
 <link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
 <link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<link rel="stylesheet" href="../_shared/odeko.css" />
 <style>
-  :root {
-    /* Odeko-inspired palette: deep coffee brown, cream, signature yellow */
-    --bg: #FBF7EC;          /* warm cream background */
-    --panel: #FFFFFF;       /* card surface */
-    --panel-2: #F5EFE0;     /* secondary surface, inputs */
-    --line: #E6DFCC;        /* warm hairline */
-    --ink: #2A1408;         /* deep coffee, slightly darker than brand #40180B for body legibility */
-    --ink-2: #40180B;       /* exact Odeko brand brown for headings */
-    --muted: #8A7B6A;       /* warm warm gray */
-    --accent: #40180B;      /* primary brown */
-    --accent-yellow: #FFD100; /* Odeko signature yellow — used sparingly */
-    --green: #1F7A33;
-    --green-soft: rgba(31,122,51,.12);
-    --red: #B42318;
-    --red-soft: rgba(180,35,24,.10);
-    --amber: #B5660A;
-    --amber-soft: rgba(181,102,10,.12);
-    --violet: #5A3D8A;
-    --violet-soft: rgba(90,61,138,.12);
-    --gray-soft: rgba(64,24,11,.08);
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin:0; background:var(--bg); color:var(--ink);
-    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
   a { color: var(--accent); }
-  header {
-    padding: 16px 24px; border-bottom: 1px solid var(--line);
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    background:var(--panel); position:sticky; top:0; z-index:10;
-  }
-  header .brand { display:flex; align-items:center; gap:14px; }
-  header .logo {
-    width: 40px; height: 40px; display: block; border-radius: 8px;
-    flex-shrink: 0;
-  }
-  header h1 { margin:0; font-size:17px; font-weight:600; letter-spacing:-.01em; color: var(--ink-2); }
-  header .sub { color:var(--muted); font-size:12px; margin-top:2px; }
+  header .logo { display: block; flex-shrink: 0; }
   header .actions { display:flex; gap:8px; }
   button, .btn {
     background:var(--panel); color:var(--ink-2); border:1px solid var(--line);
