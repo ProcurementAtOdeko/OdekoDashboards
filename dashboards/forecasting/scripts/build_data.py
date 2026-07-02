@@ -23,9 +23,17 @@ Actionable draft POs: every flagged SKU gets a suggested order quantity that
 brings its position up to an order-up-to target (lead time + review period +
 safety days of demand). Lines are grouped into vendor-level built orders per
 warehouse, with an order-by date, cost totals, and vendor-minimum checks.
-Per-item lead times, PU costs, vendor minimums, and case/pallet dimensions
-come from a fourth export (Combined V2 For Dashboards); lead time falls back
-to LEAD_TIME_DAYS when the model has none.
+Per-item lead times, PU costs, and case/pallet dimensions come from a fourth
+export (Combined V2 For Dashboards); lead time falls back to LEAD_TIME_DAYS
+when the model has none.
+
+Ti/hi awareness: order quantities round up to a full layer (cases_per_layer)
+when within LAYER_ROUND_FRACTION of one, or a full pallet when within
+PALLET_ROUND_FRACTION, so suggested buys land on clean pallet math.
+
+Vendor minimums come from the MOQ Surfacing and Automating sheet (typed as
+$ spend / case quantity / weight / delivery cadence / no MOQ), matched by
+vendor_id then name, with Combined V2's vendor_min as fallback.
 """
 
 from __future__ import annotations
@@ -33,6 +41,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
@@ -49,6 +58,8 @@ CONS30_SPREADSHEET_ID = "1kivMVt86rNXoiOpsfodZ_gdSLZcElVU3P8EFT5WAggI"
 CONS30_RANGE = "'Total Cons Network.csv'!A1:G"
 V2_SPREADSHEET_ID = "14cQNxWLX4Cqb2Upp-_C6TmRC0-NUNKWYzq4K_3X6mdM"
 V2_RANGE = "'Warehouse Raw'!A1:AR"
+MOQ_SPREADSHEET_ID = "1zNDxmJETDp6IGFiYL04wZU_lak8CBMNHfoz5KmlFzTs"
+MOQ_RANGE = "'Dataset'!A1:G"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- Hardcoded forecast assumptions ------------------------------------------
@@ -56,6 +67,8 @@ DEMAND_WEIGHTS = {"model": 0.5, "t30": 0.3, "t60": 0.2}
 LEAD_TIME_DAYS = 10          # fallback when the item has no mean_lead_time
 SAFETY_STOCK_DAYS = 4
 REVIEW_PERIOD_DAYS = 7       # ordering cadence covered by the order-up-to target
+LAYER_ROUND_FRACTION = 0.75  # round qty up to a full layer when >= 75% of one
+PALLET_ROUND_FRACTION = 0.85 # round qty up to a full pallet when >= 85% of one
 PROJECTION_WEEKS = 4
 DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
@@ -83,7 +96,7 @@ def fetch(svc, spreadsheet_id, rng):
     if not rows:
         sys.exit(f"{spreadsheet_id} returned no rows for {rng}")
     header = rows[0]
-    col = {name: i for i, name in enumerate(header)}
+    col = {name.strip(): i for i, name in enumerate(header)}
 
     def get(row, name):
         i = col.get(name)
@@ -121,6 +134,7 @@ def main(out_path):
     onhand_rows, o = fetch(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
     cons30_rows, c = fetch(svc, CONS30_SPREADSHEET_ID, CONS30_RANGE)
     v2_rows, v2 = fetch(svc, V2_SPREADSHEET_ID, V2_RANGE)
+    moq_rows, mq = fetch(svc, MOQ_SPREADSHEET_ID, MOQ_RANGE)
 
     # --- Secondary lookups ----------------------------------------------------
     # On Hand & ETA repeats item-level totals across per-location rows, so take
@@ -156,17 +170,67 @@ def main(out_path):
             continue
         cost_each = parse_num(v2(r, "cost_dollars_per_each"))
         eaches = parse_num(v2(r, "eaches_per_purchase_unit"))
+        ti = parse_num(v2(r, "cases_per_layer"))
+        hi = parse_num(v2(r, "layers_per_pallet"))
         v2_by_key[key] = {
             "lead": parse_num(v2(r, "mean_lead_time")),
             "costPu": cost_each * eaches if cost_each is not None and eaches else None,
             "min": parse_num(v2(r, "vendor_min")),
             "minType": v2(r, "vendor_min_type").strip(),
-            "casesPerPallet": (
-                (parse_num(v2(r, "cases_per_layer")) or 0)
-                * (parse_num(v2(r, "layers_per_pallet")) or 0)
-            ) or None,
+            "ti": ti,
+            "hi": hi,
+            "casesPerPallet": (ti * hi) if ti and hi else None,
             "caseWeight": parse_num(v2(r, "case_weight_lbs")),
         }
+
+    # MOQ Surfacing and Automating: vendor-level order minimums.
+    # "MOQ constraint" types: "$ spend", "Quantity" (cases), "Weight",
+    # "Cadence (Delivery constraint)", "No MOQ of any type".
+    def parse_moq(constraint, measure, qty):
+        c = constraint.lower()
+        if c.startswith("no moq"):
+            return {"type": "none", "note": measure or None}
+        if c.startswith("cadence"):
+            return {"type": "cadence", "note": measure or None}
+        if c.startswith("$"):
+            mm = re.search(r"\$\s*([\d,]+(?:\.\d+)?)\s*(k?)", measure, re.I)
+            if mm:
+                value = float(mm.group(1).replace(",", ""))
+                if mm.group(2).lower() == "k":
+                    value *= 1000
+                return {"type": "dollars", "value": value, "note": measure}
+            return None
+        if c.startswith("quantity"):
+            if qty:
+                return {"type": "pu", "value": qty, "note": measure}
+            return {"type": "unparsed", "note": measure} if measure else None
+        if c.startswith("weight"):
+            mm = re.search(r"([\d,]+(?:\.\d+)?)\s*lbs", measure, re.I)
+            if mm:
+                return {
+                    "type": "weight_lbs",
+                    "value": float(mm.group(1).replace(",", "")),
+                    "note": measure,
+                }
+            return {"type": "unparsed", "note": measure} if measure else None
+        return None
+
+    moq_by_id = {}
+    moq_by_name = {}
+    for r in moq_rows:
+        vname = mq(r, "vendor_name").strip()
+        vid = mq(r, "vendor_id").strip()
+        parsed = parse_moq(
+            mq(r, "MOQ constraint").strip(),
+            mq(r, "MOQ measure").strip(),
+            parse_num(mq(r, "MOQ Quantity")),
+        )
+        if not vname or parsed is None:
+            continue
+        if vid and vid not in moq_by_id:
+            moq_by_id[vid] = parsed
+        if vname.lower() not in moq_by_name:
+            moq_by_name[vname.lower()] = parsed
 
     cons30_by_name = {}
     for r in cons30_rows:
@@ -241,6 +305,7 @@ def main(out_path):
         flag = False
         order_qty = 0
         order_by = None
+        rounded_to = None
         if demand and demand > 0:
             position = (on_hand or 0) + (on_order or 0)
             cover = max((on_hand or 0), 0) / demand
@@ -251,6 +316,15 @@ def main(out_path):
                 target = demand * (lead + REVIEW_PERIOD_DAYS + SAFETY_STOCK_DAYS)
                 order_qty = max(1, math.ceil(target - position))
                 order_by = out_date(max(0, cover_in - lead))
+                # Ti/hi rounding: land on clean pallet math when close.
+                cpp = v2i.get("casesPerPallet")
+                ti = v2i.get("ti")
+                if cpp and (order_qty / cpp) % 1 >= PALLET_ROUND_FRACTION:
+                    order_qty = math.ceil(order_qty / cpp) * int(cpp)
+                    rounded_to = "pallet"
+                elif ti and ti > 1 and (order_qty / ti) % 1 >= LAYER_ROUND_FRACTION:
+                    order_qty = math.ceil(order_qty / ti) * int(ti)
+                    rounded_to = "layer"
 
         past_due = (parse_num(m(r, "past_due")) or 0) > 0 or (
             parse_num(m(r, "purchase_orders_past_due")) or 0
@@ -260,6 +334,8 @@ def main(out_path):
             "w": wh,
             "n": name,
             "v": m(r, "vendor_name").strip() or "Unknown vendor",
+            "vid": m(r, "vendor_id").strip(),
+            "rnd": rounded_to,
             "cls": m(r, "item_class").strip(),
             "unit": m(r, "purchase_unit").strip(),
             "oh": round(on_hand or 0, 1),
@@ -309,10 +385,15 @@ def main(out_path):
             if v2i.get("min") and v2i.get("minType"):
                 if vmin is None or v2i["min"] > vmin:
                     vmin, vmin_type = v2i["min"], v2i["minType"]
+            tihi = None
+            if v2i.get("ti") and v2i.get("hi"):
+                tihi = f"{int(v2i['ti'])}×{int(v2i['hi'])}"
             lines.append({
                 "n": it["n"],
                 "unit": it["unit"],
                 "qty": it["sq"],
+                "tihi": tihi,
+                "rnd": it["rnd"],
                 "costPu": round(cost_pu, 2) if cost_pu is not None else None,
                 "cost": line_cost,
                 "oh": it["oh"],
@@ -322,8 +403,22 @@ def main(out_path):
                 "ob": it["ob"],
             })
         total_qty = sum(l["qty"] for l in lines)
+
+        # Vendor minimum: MOQ sheet first (by vendor_id, then name), V2 fallback.
+        moq = moq_by_id.get(group[0]["vid"]) or moq_by_name.get(vendor.lower())
         min_info = None
-        if vmin:
+        if moq:
+            min_info = {"src": "moq", "type": moq["type"], "note": moq.get("note"),
+                        "value": moq.get("value"), "progress": None, "met": None}
+            if moq.get("value"):
+                progress = {
+                    "dollars": total_cost if cost_complete else None,
+                    "pu": total_qty,
+                    "weight_lbs": round(weight, 1) if weight else None,
+                }.get(moq["type"])
+                min_info["progress"] = round(progress, 2) if progress is not None else None
+                min_info["met"] = progress >= moq["value"] if progress is not None else None
+        elif vmin:
             progress = {
                 "dollars": total_cost if cost_complete else None,
                 "pu": total_qty,
@@ -331,8 +426,10 @@ def main(out_path):
                 "weight_lbs": round(weight, 1) if weight else None,
             }.get(vmin_type)
             min_info = {
-                "value": vmin,
+                "src": "v2",
                 "type": vmin_type,
+                "note": None,
+                "value": vmin,
                 "progress": round(progress, 2) if progress is not None else None,
                 "met": progress >= vmin if progress is not None else None,
             }
@@ -422,6 +519,7 @@ def main(out_path):
         it.pop("sig", None)
         it.pop("v2", None)
         it.pop("unit", None)
+        it.pop("vid", None)
 
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -431,6 +529,8 @@ def main(out_path):
             "leadTimeDays": LEAD_TIME_DAYS,
             "safetyStockDays": SAFETY_STOCK_DAYS,
             "reviewPeriodDays": REVIEW_PERIOD_DAYS,
+            "layerRoundFraction": LAYER_ROUND_FRACTION,
+            "palletRoundFraction": PALLET_ROUND_FRACTION,
             "detailHorizonDays": DETAIL_HORIZON_DAYS,
             "detailCapPerWarehouse": DETAIL_CAP_PER_WH,
             "redDays": RED_DAYS,
