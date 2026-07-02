@@ -87,6 +87,9 @@ RELIABILITY_MIN_POS = 3      # pad lead time by a vendor's avg receive delay
                              # only when based on at least this many received POs
 NEW_ITEM_DAYS = 45           # "NEW" badge: first fulfillment within this window
 EXPIRY_WARN_DAYS = 30        # warn when on-hand stock hits MDSL within this window
+MAX_PAD_COVER_DAYS = 45      # never pad a SKU beyond this many days of cover
+                             # when building an order up to the vendor MOQ
+MIN_ORDER_DOLLARS = 50       # hold trivially small orders with nothing critical
 PROJECTION_WEEKS = 4
 DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
@@ -534,112 +537,229 @@ def main(out_path):
         })
 
     # --- Vendor-level built orders per warehouse --------------------------------
+    # Orders are DECISIONS, not arithmetic: each PO is auto-built up to the
+    # vendor MOQ (padding capped at MAX_PAD_COVER_DAYS of cover per SKU) and
+    # carries a recommendation — order / hold / review — with the reason.
     order_groups = defaultdict(list)
     for it in items:
         if it["flag"] and it["sq"] > 0:
             order_groups[(it["w"], it["v"])].append(it)
 
+    # Top-up candidates for MOQ building: same vendor+warehouse SKUs with
+    # demand that aren't below their reorder point yet, closest-to-needing first.
+    topup_by_group = defaultdict(list)
+    for it in items:
+        if not it["flag"] and (it["dr"] or 0) > 0:
+            topup_by_group[(it["w"], it["v"])].append(it)
+    for cands in topup_by_group.values():
+        cands.sort(key=lambda x: (x["docIn"] is None, x["docIn"] or 0))
+
+    def contribution_per_pu(it, min_type):
+        if min_type == "dollars":
+            return it["cpu"]
+        if min_type == "pu":
+            return 1.0
+        if min_type == "weight_lbs":
+            return it["v2"].get("caseWeight")
+        if min_type == "pallets":
+            cpp = it["v2"].get("casesPerPallet")
+            return (1.0 / cpp) if cpp else None
+        return None
+
+    def pad_room(it, current_qty):
+        # PUs this SKU can absorb before exceeding MAX_PAD_COVER_DAYS of cover.
+        position = (it["oh"] or 0) + (it["oo"] or 0)
+        return int(max(0, math.floor(it["dr"] * MAX_PAD_COVER_DAYS - position - current_qty)))
+
+    def make_line(it, qty, pad=0, fill=False):
+        v2i = it["v2"]
+        cost_pu = it["cpu"]
+        tihi = None
+        if v2i.get("ti") and v2i.get("hi"):
+            tihi = f"{int(v2i['ti'])}×{int(v2i['hi'])}"
+        return {
+            "n": it["n"],
+            "id": it["id"],
+            "cust": it["cust"],
+            "oosN": it["oosN"],
+            "new": it["new"],
+            "inb": it["inb"],
+            "exp": it["exp"],
+            "unit": it["unit"],
+            "qty": qty,
+            "pad": pad,
+            "fill": fill,
+            "tihi": tihi,
+            "rnd": it["rnd"] if not fill else None,
+            "costPu": round(cost_pu, 2) if cost_pu is not None else None,
+            "cost": round(qty * cost_pu, 2) if cost_pu is not None else None,
+            "wt": v2i.get("caseWeight"),
+            "cpp": v2i.get("casesPerPallet"),
+            "oh": it["oh"],
+            "oo": it["oo"],
+            "dr": it["dr"],
+            "docIn": it["docIn"],
+            "ob": it["ob"],
+        }
+
+    def totals_from(lines):
+        cost = pallets = weight = 0.0
+        cost_complete = True
+        for l in lines:
+            if l["costPu"] is None:
+                cost_complete = False
+            else:
+                cost += l["qty"] * l["costPu"]
+            if l["cpp"]:
+                pallets += l["qty"] / l["cpp"]
+            if l["wt"] is not None:
+                weight += l["qty"] * l["wt"]
+        qty = sum(l["qty"] for l in lines)
+        return {
+            "lines": len(lines),
+            "qty": qty,
+            "cost": round(cost, 2) if cost_complete else None,
+            "costPartial": None if cost_complete else round(cost, 2),
+            "pallets": round(pallets, 2) if pallets else None,
+            "weightLbs": round(weight, 1) if weight else None,
+        }
+
+    def min_progress(min_type, t):
+        return {
+            "dollars": t["cost"],
+            "pu": t["qty"],
+            "pallets": t["pallets"],
+            "weight_lbs": t["weightLbs"],
+        }.get(min_type)
+
     orders = []
     for (wh, vendor), group in order_groups.items():
         group.sort(key=lambda x: (x["ob"] or "9999", x["docIn"] or 0))
-        lines = []
-        total_cost = pallets = weight = 0.0
-        cost_complete = True
-        vmin = None
-        vmin_type = ""
-        for it in group:
-            v2i = it["v2"]
-            cost_pu = it["cpu"]
-            line_cost = round(it["sq"] * cost_pu, 2) if cost_pu is not None else None
-            if line_cost is None:
-                cost_complete = False
-            else:
-                total_cost += line_cost
-            if v2i.get("casesPerPallet"):
-                pallets += it["sq"] / v2i["casesPerPallet"]
-            if v2i.get("caseWeight") is not None:
-                weight += it["sq"] * v2i["caseWeight"]
-            if v2i.get("min") and v2i.get("minType"):
-                if vmin is None or v2i["min"] > vmin:
-                    vmin, vmin_type = v2i["min"], v2i["minType"]
-            tihi = None
-            if v2i.get("ti") and v2i.get("hi"):
-                tihi = f"{int(v2i['ti'])}×{int(v2i['hi'])}"
-            lines.append({
-                "n": it["n"],
-                "id": it["id"],
-                "cust": it["cust"],
-                "oosN": it["oosN"],
-                "new": it["new"],
-                "inb": it["inb"],
-                "exp": it["exp"],
-                "unit": it["unit"],
-                "qty": it["sq"],
-                "tihi": tihi,
-                "rnd": it["rnd"],
-                "costPu": round(cost_pu, 2) if cost_pu is not None else None,
-                "cost": line_cost,
-                "wt": v2i.get("caseWeight"),
-                "cpp": v2i.get("casesPerPallet"),
-                "oh": it["oh"],
-                "oo": it["oo"],
-                "dr": it["dr"],
-                "docIn": it["docIn"],
-                "ob": it["ob"],
-            })
-        total_qty = sum(l["qty"] for l in lines)
+        lines = [make_line(it, it["sq"]) for it in group]
+        line_items = list(group)
 
         # Vendor minimum: MOQ sheet first (by vendor_id, then name), V2 fallback.
         moq = moq_by_id.get(group[0]["vid"]) or moq_by_name.get(vendor.lower())
-        min_info = None
+        vmin = vmin_type = None
+        for it in group:
+            v2i = it["v2"]
+            if v2i.get("min") and v2i.get("minType"):
+                if vmin is None or v2i["min"] > vmin:
+                    vmin, vmin_type = v2i["min"], v2i["minType"]
         if moq:
             min_info = {"src": "moq", "type": moq["type"], "note": moq.get("note"),
-                        "value": moq.get("value"), "progress": None, "met": None}
-            if moq.get("value"):
-                progress = {
-                    "dollars": total_cost if cost_complete else None,
-                    "pu": total_qty,
-                    "weight_lbs": round(weight, 1) if weight else None,
-                }.get(moq["type"])
-                min_info["progress"] = round(progress, 2) if progress is not None else None
-                min_info["met"] = progress >= moq["value"] if progress is not None else None
+                        "value": moq.get("value")}
         elif vmin:
-            progress = {
-                "dollars": total_cost if cost_complete else None,
-                "pu": total_qty,
-                "pallets": round(pallets, 2) if pallets else None,
-                "weight_lbs": round(weight, 1) if weight else None,
-            }.get(vmin_type)
-            min_info = {
-                "src": "v2",
-                "type": vmin_type,
-                "note": None,
-                "value": vmin,
-                "progress": round(progress, 2) if progress is not None else None,
-                "met": progress >= vmin if progress is not None else None,
-            }
+            min_info = {"src": "v2", "type": vmin_type, "note": None, "value": vmin}
+        else:
+            min_info = None
+
+        rec, reason, revisit = "order", None, None
+        pad_total = 0
+
+        risky = any(
+            it["doc"] is not None and it["doc"] < RED_DAYS
+            and (it["cust"] > 0 or it["oosN"] > 0)
+            for it in group
+        )
+
+        # Rule 1: nobody orders these SKUs — refill is probably dead stock.
+        if all(it["cust"] == 0 and it["oosN"] == 0 and not it["new"] for it in group):
+            rec, reason = "hold", "No active customers order these SKUs — verify demand before buying"
+
+        # Rule 2: build the order up to the MOQ, within the cover cap.
+        t = totals_from(lines)
+        if rec == "order" and min_info and min_info.get("value"):
+            progress = min_progress(min_info["type"], t)
+            if progress is not None and progress < min_info["value"]:
+                shortfall = min_info["value"] - progress
+                # Phase 1: raise SKUs already on the order (fastest movers first).
+                for li, it in sorted(enumerate(line_items), key=lambda p: -(p[1]["dr"] or 0)):
+                    if shortfall <= 0:
+                        break
+                    uv = contribution_per_pu(it, min_info["type"])
+                    if not uv or uv <= 0:
+                        continue
+                    add = min(pad_room(it, lines[li]["qty"]), math.ceil(shortfall / uv))
+                    if add <= 0:
+                        continue
+                    lines[li] = make_line(it, lines[li]["qty"] + add, pad=lines[li]["pad"] + add)
+                    pad_total += add
+                    shortfall -= add * uv
+                # Phase 2: add same-vendor SKUs that are closest to needing a buy.
+                for it in topup_by_group.get((wh, vendor), []):
+                    if shortfall <= 0:
+                        break
+                    uv = contribution_per_pu(it, min_info["type"])
+                    if not uv or uv <= 0:
+                        continue
+                    add = min(pad_room(it, 0), math.ceil(shortfall / uv))
+                    if add <= 0:
+                        continue
+                    lines.append(make_line(it, add, pad=add, fill=True))
+                    line_items.append(it)
+                    pad_total += add
+                    shortfall -= add * uv
+                t = totals_from(lines)
+                if shortfall > 0:
+                    # Can't reach the MOQ within the cover cap.
+                    daily = sum(
+                        (it["dr"] or 0) * (contribution_per_pu(it, min_info["type"]) or 0)
+                        for it in group + topup_by_group.get((wh, vendor), [])
+                    )
+                    if daily > 0:
+                        revisit = (base + timedelta(days=math.ceil(shortfall / daily))).isoformat()
+                    if risky:
+                        rec = "review"
+                        reason = (
+                            f"Can't reach the MOQ within {MAX_PAD_COVER_DAYS}d of cover, but "
+                            "SKUs with active customers are at stockout risk — call the vendor "
+                            "or transfer stock"
+                        )
+                    else:
+                        rec = "hold"
+                        reason = (
+                            f"Reaching the MOQ would exceed {MAX_PAD_COVER_DAYS} days of cover — "
+                            "let demand accrue"
+                        )
+
+        # Rule 3: order too small to be worth a PO, nothing critical on it.
+        if rec == "order" and not risky and t["cost"] is not None and t["cost"] < MIN_ORDER_DOLLARS:
+            rec, reason = "hold", (
+                f"Under ${MIN_ORDER_DOLLARS} with nothing critical — batch with a future order"
+            )
+
+        # Final min status after building.
+        if min_info is not None:
+            progress = min_progress(min_info.get("type"), t) if min_info.get("value") else None
+            min_info["progress"] = round(progress, 2) if progress is not None else None
+            min_info["met"] = (
+                progress >= min_info["value"]
+                if progress is not None and min_info.get("value") else None
+            )
+
         order_by = min((l["ob"] for l in lines if l["ob"]), default=None)
         rel = reliability_for(vendor)
         orders.append({
             "w": wh,
             "vendor": vendor,
             "orderBy": order_by,
-            "urgent": order_by is not None and order_by <= base.isoformat(),
+            "urgent": rec == "order" and order_by is not None and order_by <= base.isoformat(),
+            "rec": rec,
+            "reason": reason,
+            "revisit": revisit,
+            "padPu": pad_total,
             "cust": sum(l["cust"] for l in lines),
             "oosN": sum(l["oosN"] for l in lines),
             "rel": rel if rel and rel["n"] >= RELIABILITY_MIN_POS else None,
             "lines": lines,
-            "totals": {
-                "lines": len(lines),
-                "qty": total_qty,
-                "cost": round(total_cost, 2) if cost_complete else None,
-                "costPartial": None if cost_complete else round(total_cost, 2),
-                "pallets": round(pallets, 2) if pallets else None,
-                "weightLbs": round(weight, 1) if weight else None,
-            },
+            "totals": t,
             "min": min_info,
         })
-    orders.sort(key=lambda x: (x["orderBy"] or "9999", -x["cust"], -x["totals"]["lines"]))
+    rec_rank = {"order": 0, "review": 1, "hold": 2}
+    orders.sort(key=lambda x: (
+        rec_rank[x["rec"]], x["orderBy"] or "9999", -x["cust"], -x["totals"]["lines"]
+    ))
 
     # --- Aggregates per warehouse (over ALL items, not just detail rows) -------
     warehouses = sorted({it["w"] for it in items})
@@ -669,13 +789,14 @@ def main(out_path):
                 "onHandValue": round(sum(it["val"] for it in subset)),
                 "draftPos": len(wh_orders),
                 "urgentPos": sum(1 for o in wh_orders if o["urgent"]),
+                "heldPos": sum(1 for o in wh_orders if o["rec"] != "order"),
                 "recentOos": sum(1 for it in subset if it["oosN"] > 0),
                 "custAtRisk": sum(
                     it["cust"] for it in tracked if it["doc"] < AMBER_DAYS
                 ),
                 "orderValue": round(sum(
                     o["totals"]["cost"] or o["totals"]["costPartial"] or 0
-                    for o in wh_orders
+                    for o in wh_orders if o["rec"] == "order"
                 )),
             },
             "riskMix": {
@@ -730,6 +851,8 @@ def main(out_path):
             "reliabilityMinPos": RELIABILITY_MIN_POS,
             "newItemDays": NEW_ITEM_DAYS,
             "expiryWarnDays": EXPIRY_WARN_DAYS,
+            "maxPadCoverDays": MAX_PAD_COVER_DAYS,
+            "minOrderDollars": MIN_ORDER_DOLLARS,
             "detailHorizonDays": DETAIL_HORIZON_DAYS,
             "detailCapPerWarehouse": DETAIL_CAP_PER_WH,
             "redDays": RED_DAYS,
