@@ -66,6 +66,14 @@ CUSTOMERS_SPREADSHEET_ID = "1DlVvTpy1z1Gdv6VATAQtbeP0aUQK-EH0z1GRLfpks80"
 CUSTOMERS_RANGE = "'Active SKU/WH Customers Automation.csv'!A1:F"
 FEOOS_SPREADSHEET_ID = "1tNBL8WXowviHwF5ywOaYl0xkUQCnr9c56Idmfx7kf8Y"
 FEOOS_RANGE = "'Trailing 14 FEOOS.csv'!A1:J"
+PRICE_SPREADSHEET_ID = "1tnp8NgcveLolvQ9IoB813LpK4_vkRJN6AzIUszIYikA"
+PRICE_RANGE = "'Purchase Price Push.csv'!A1:G"
+PODATA_SPREADSHEET_ID = "1x5T4i6WrO22iGJ2-0tX8N_hrOVC4NwRRCkoA5VWMmOo"
+PODATA_RANGE = "'PO Data for Automating.csv'!A1:M"
+FIRSTFUL_SPREADSHEET_ID = "1xQ4up0z56zvCKZH1g5fLpbgv2R1rFRFt6GL-6kUFUlE"
+FIRSTFUL_RANGE = "'First Fulfillment Ledger.csv'!A1:H"
+MDSL_SPREADSHEET_ID = "1-uO3LjbNXbmbiN3rUcWvtB0S-urWYqRkuYoaFVL9IiU"
+MDSL_RANGE = "'60 Days out MDSL.csv'!A1:J"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- Hardcoded forecast assumptions ------------------------------------------
@@ -77,6 +85,8 @@ LAYER_ROUND_FRACTION = 0.75  # round qty up to a full layer when >= 75% of one
 PALLET_ROUND_FRACTION = 0.85 # round qty up to a full pallet when >= 85% of one
 RELIABILITY_MIN_POS = 3      # pad lead time by a vendor's avg receive delay
                              # only when based on at least this many received POs
+NEW_ITEM_DAYS = 45           # "NEW" badge: first fulfillment within this window
+EXPIRY_WARN_DAYS = 30        # warn when on-hand stock hits MDSL within this window
 PROJECTION_WEEKS = 4
 DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
@@ -146,6 +156,10 @@ def main(out_path):
     dev_rows, dv = fetch(svc, DEVIATION_SPREADSHEET_ID, DEVIATION_RANGE)
     cust_rows, cu = fetch(svc, CUSTOMERS_SPREADSHEET_ID, CUSTOMERS_RANGE)
     feoos_rows, fe = fetch(svc, FEOOS_SPREADSHEET_ID, FEOOS_RANGE)
+    price_rows, pr = fetch(svc, PRICE_SPREADSHEET_ID, PRICE_RANGE)
+    podata_rows, po = fetch(svc, PODATA_SPREADSHEET_ID, PODATA_RANGE)
+    firstful_rows, ff = fetch(svc, FIRSTFUL_SPREADSHEET_ID, FIRSTFUL_RANGE)
+    mdsl_rows, md = fetch(svc, MDSL_SPREADSHEET_ID, MDSL_RANGE)
 
     # --- Secondary lookups ----------------------------------------------------
     # On Hand & ETA repeats item-level totals across per-location rows, so take
@@ -324,6 +338,58 @@ def main(out_path):
             return None
         return (base + timedelta(days=cover)).isoformat()
 
+    # Purchase Price Push: network purchase price per PU, by item uuid.
+    price_by_uuid = {}
+    for r in price_rows:
+        uuid = pr(r, "Item Extid").strip()
+        price = parse_num(pr(r, "Purchase Price Dollars"))
+        if uuid and price is not None and uuid not in price_by_uuid:
+            price_by_uuid[uuid] = price
+
+    # PO Data for Automating: earliest open inbound line per (warehouse, item).
+    inbound_by_key = {}
+    for r in podata_rows:
+        key = (po(r, "Warehouse Name").strip(), po(r, "Item Uuid").strip())
+        if not key[0] or not key[1]:
+            continue
+        ordered = parse_num(po(r, "Purchase Order Units")) or 0
+        received = parse_num(po(r, "Quantity Received PU")) or 0
+        open_qty = ordered - received
+        expected = parse_date(po(r, "Expected Receipt Date Date"))
+        if open_qty <= 0 or expected is None:
+            continue
+        cur = inbound_by_key.get(key)
+        if cur is None:
+            inbound_by_key[key] = {"d": expected, "q": open_qty}
+        else:
+            cur["q"] += open_qty
+            if expected < cur["d"]:
+                cur["d"] = expected
+
+    # First Fulfillment Ledger: items first sold recently are still ramping.
+    firstful_by_key = {}
+    for r in firstful_rows:
+        key = (ff(r, "Warehouse Name").strip(), ff(r, "Item ID").strip())
+        d = parse_date(ff(r, "Min Date"))
+        if key[0] and key[1] and d and (key not in firstful_by_key or d < firstful_by_key[key]):
+            firstful_by_key[key] = d
+
+    # 60 Days out MDSL: on-hand stock hitting minimum deliverable shelf life soon.
+    expiry_by_key = {}
+    for r in mdsl_rows:
+        key = (md(r, "Warehouse Name").strip(), md(r, "Item Name").strip().lower())
+        qty = parse_num(md(r, "Quantity Each on Hand")) or 0
+        days_to_mdsl = parse_num(md(r, "Days to MDSL"))
+        exp_date = parse_date(md(r, "Expiration Date"))
+        if not key[0] or not key[1] or qty <= 0 or days_to_mdsl is None:
+            continue
+        if days_to_mdsl > EXPIRY_WARN_DAYS:
+            continue
+        cur = expiry_by_key.setdefault(key, {"q": 0.0, "d": exp_date})
+        cur["q"] += qty
+        if exp_date and (cur["d"] is None or exp_date < cur["d"]):
+            cur["d"] = exp_date
+
     # --- Walk the primary file, compute the forecast ---------------------------
     items = []
     seen = set()
@@ -408,6 +474,30 @@ def main(out_path):
         cust = cust_by_key.get((wh, item_id), {})
         oos = feoos_by_key.get((wh, name.lower()))
 
+        cost_pu = v2i.get("costPu")
+        if cost_pu is None:
+            cost_pu = price_by_uuid.get(item_uuid)
+
+        first = firstful_by_key.get((wh, item_id))
+        is_new = first is not None and 0 <= (base - first).days <= NEW_ITEM_DAYS
+
+        inb_raw = inbound_by_key.get((wh, item_uuid))
+        inb = None
+        if inb_raw:
+            inb = {
+                "d": inb_raw["d"].isoformat(),
+                "q": round(inb_raw["q"], 1),
+                "late": inb_raw["d"] < base,
+            }
+
+        exp_raw = expiry_by_key.get((wh, name.lower()))
+        exp = None
+        if exp_raw:
+            exp = {
+                "q": round(exp_raw["q"]),
+                "d": exp_raw["d"].isoformat() if exp_raw["d"] else None,
+            }
+
         items.append({
             "w": wh,
             "n": name,
@@ -419,6 +509,10 @@ def main(out_path):
             "rev": round(cust.get("revenue") or 0),
             "oosN": oos["events"] if oos else 0,
             "pad": lead_pad,
+            "cpu": cost_pu,
+            "new": is_new,
+            "inb": inb,
+            "exp": exp,
             "cls": m(r, "item_class").strip(),
             "unit": m(r, "purchase_unit").strip(),
             "oh": round(on_hand or 0, 1),
@@ -455,7 +549,7 @@ def main(out_path):
         vmin_type = ""
         for it in group:
             v2i = it["v2"]
-            cost_pu = v2i.get("costPu")
+            cost_pu = it["cpu"]
             line_cost = round(it["sq"] * cost_pu, 2) if cost_pu is not None else None
             if line_cost is None:
                 cost_complete = False
@@ -476,6 +570,9 @@ def main(out_path):
                 "id": it["id"],
                 "cust": it["cust"],
                 "oosN": it["oosN"],
+                "new": it["new"],
+                "inb": it["inb"],
+                "exp": it["exp"],
                 "unit": it["unit"],
                 "qty": it["sq"],
                 "tihi": tihi,
@@ -618,6 +715,7 @@ def main(out_path):
         it.pop("vid", None)
         it.pop("rev", None)
         it.pop("pad", None)
+        it.pop("cpu", None)
 
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -630,6 +728,8 @@ def main(out_path):
             "layerRoundFraction": LAYER_ROUND_FRACTION,
             "palletRoundFraction": PALLET_ROUND_FRACTION,
             "reliabilityMinPos": RELIABILITY_MIN_POS,
+            "newItemDays": NEW_ITEM_DAYS,
+            "expiryWarnDays": EXPIRY_WARN_DAYS,
             "detailHorizonDays": DETAIL_HORIZON_DAYS,
             "detailCapPerWarehouse": DETAIL_CAP_PER_WH,
             "redDays": RED_DAYS,
