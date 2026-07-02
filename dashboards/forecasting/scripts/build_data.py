@@ -60,6 +60,12 @@ V2_SPREADSHEET_ID = "14cQNxWLX4Cqb2Upp-_C6TmRC0-NUNKWYzq4K_3X6mdM"
 V2_RANGE = "'Warehouse Raw'!A1:AR"
 MOQ_SPREADSHEET_ID = "1zNDxmJETDp6IGFiYL04wZU_lak8CBMNHfoz5KmlFzTs"
 MOQ_RANGE = "'Dataset'!A1:G"
+DEVIATION_SPREADSHEET_ID = "1Q1ChGZ8PQZGhoohnBBVuaGtcdzdhLmgRodmpOOSN8bs"
+DEVIATION_RANGE = "'PO Expected Vs Actual Receive Deviation.csv'!A1:G"
+CUSTOMERS_SPREADSHEET_ID = "1DlVvTpy1z1Gdv6VATAQtbeP0aUQK-EH0z1GRLfpks80"
+CUSTOMERS_RANGE = "'Active SKU/WH Customers Automation.csv'!A1:F"
+FEOOS_SPREADSHEET_ID = "1tNBL8WXowviHwF5ywOaYl0xkUQCnr9c56Idmfx7kf8Y"
+FEOOS_RANGE = "'Trailing 14 FEOOS.csv'!A1:J"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- Hardcoded forecast assumptions ------------------------------------------
@@ -69,6 +75,8 @@ SAFETY_STOCK_DAYS = 4
 REVIEW_PERIOD_DAYS = 7       # ordering cadence covered by the order-up-to target
 LAYER_ROUND_FRACTION = 0.75  # round qty up to a full layer when >= 75% of one
 PALLET_ROUND_FRACTION = 0.85 # round qty up to a full pallet when >= 85% of one
+RELIABILITY_MIN_POS = 3      # pad lead time by a vendor's avg receive delay
+                             # only when based on at least this many received POs
 PROJECTION_WEEKS = 4
 DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
@@ -135,6 +143,9 @@ def main(out_path):
     cons30_rows, c = fetch(svc, CONS30_SPREADSHEET_ID, CONS30_RANGE)
     v2_rows, v2 = fetch(svc, V2_SPREADSHEET_ID, V2_RANGE)
     moq_rows, mq = fetch(svc, MOQ_SPREADSHEET_ID, MOQ_RANGE)
+    dev_rows, dv = fetch(svc, DEVIATION_SPREADSHEET_ID, DEVIATION_RANGE)
+    cust_rows, cu = fetch(svc, CUSTOMERS_SPREADSHEET_ID, CUSTOMERS_RANGE)
+    feoos_rows, fe = fetch(svc, FEOOS_SPREADSHEET_ID, FEOOS_RANGE)
 
     # --- Secondary lookups ----------------------------------------------------
     # On Hand & ETA repeats item-level totals across per-location rows, so take
@@ -232,6 +243,63 @@ def main(out_path):
         if vname.lower() not in moq_by_name:
             moq_by_name[vname.lower()] = parsed
 
+    # PO receive deviation -> per-vendor reliability (avg days late vs expected).
+    def parse_date(s):
+        try:
+            return datetime.strptime(s.strip()[:10], "%Y-%m-%d").date()
+        except (ValueError, AttributeError):
+            return None
+
+    dev_samples = defaultdict(list)
+    for r in dev_rows:
+        expected = parse_date(dv(r, "Receive By Date Date"))
+        received = parse_date(dv(r, "Shipment Received Utc Date"))
+        vendor = re.sub(r"^VEN\d+\s+", "", dv(r, "Full Vendor Name").strip()).lower()
+        if vendor and expected and received:
+            dev_samples[vendor].append((received - expected).days)
+
+    reliability_stats = {
+        v: {"avgDev": round(sum(s) / len(s), 1), "n": len(s)}
+        for v, s in dev_samples.items()
+    }
+    _rel_cache = {}
+
+    def reliability_for(vendor_name):
+        key = vendor_name.lower()
+        if key in _rel_cache:
+            return _rel_cache[key]
+        rel = reliability_stats.get(key)
+        if rel is None and len(key) >= 6:
+            for v, stats in reliability_stats.items():
+                if len(v) >= 6 and (key in v or v in key):
+                    rel = stats
+                    break
+        _rel_cache[key] = rel
+        return rel
+
+    # Active customers + net revenue per (warehouse, item_id).
+    cust_by_key = {}
+    for r in cust_rows:
+        key = (cu(r, "Warehouse Name").strip(), cu(r, "Item ID").strip())
+        if key[0] and key[1] and key not in cust_by_key:
+            cust_by_key[key] = {
+                "customers": parse_num(cu(r, "# of Ordering Customers")) or 0,
+                "revenue": parse_num(cu(r, "net revenue")) or 0,
+            }
+
+    # FEOOS events (actual out-of-stocks at order time), trailing 14 days,
+    # aggregated per (warehouse, item name).
+    feoos_by_key = defaultdict(lambda: {"events": 0, "units": 0.0})
+    for r in feoos_rows:
+        key = (fe(r, "Warehouse").strip(), fe(r, "Item Name").strip().lower())
+        if not key[0] or not key[1]:
+            continue
+        agg = feoos_by_key[key]
+        agg["events"] += 1
+        agg["units"] += parse_num(
+            fe(r, "Quantity of FEOOS Items Requested in Sales Units")
+        ) or 0
+
     cons30_by_name = {}
     for r in cons30_rows:
         wh = c(r, "Warehouse Name").strip()
@@ -300,6 +368,12 @@ def main(out_path):
         lead = v2i.get("lead")
         if not lead or lead <= 0:
             lead = LEAD_TIME_DAYS
+        vendor_name = m(r, "vendor_name").strip()
+        rel = reliability_for(vendor_name) if vendor_name else None
+        lead_pad = 0
+        if rel and rel["n"] >= RELIABILITY_MIN_POS and rel["avgDev"] > 0:
+            lead_pad = round(rel["avgDev"])
+        lead += lead_pad
 
         cover = cover_in = rop = None
         flag = False
@@ -330,12 +404,21 @@ def main(out_path):
             parse_num(m(r, "purchase_orders_past_due")) or 0
         ) > 0
 
+        item_id = m(r, "item_id").strip()
+        cust = cust_by_key.get((wh, item_id), {})
+        oos = feoos_by_key.get((wh, name.lower()))
+
         items.append({
             "w": wh,
             "n": name,
-            "v": m(r, "vendor_name").strip() or "Unknown vendor",
+            "id": item_id,
+            "v": vendor_name or "Unknown vendor",
             "vid": m(r, "vendor_id").strip(),
             "rnd": rounded_to,
+            "cust": int(cust.get("customers") or 0),
+            "rev": round(cust.get("revenue") or 0),
+            "oosN": oos["events"] if oos else 0,
+            "pad": lead_pad,
             "cls": m(r, "item_class").strip(),
             "unit": m(r, "purchase_unit").strip(),
             "oh": round(on_hand or 0, 1),
@@ -390,12 +473,17 @@ def main(out_path):
                 tihi = f"{int(v2i['ti'])}×{int(v2i['hi'])}"
             lines.append({
                 "n": it["n"],
+                "id": it["id"],
+                "cust": it["cust"],
+                "oosN": it["oosN"],
                 "unit": it["unit"],
                 "qty": it["sq"],
                 "tihi": tihi,
                 "rnd": it["rnd"],
                 "costPu": round(cost_pu, 2) if cost_pu is not None else None,
                 "cost": line_cost,
+                "wt": v2i.get("caseWeight"),
+                "cpp": v2i.get("casesPerPallet"),
                 "oh": it["oh"],
                 "oo": it["oo"],
                 "dr": it["dr"],
@@ -434,11 +522,15 @@ def main(out_path):
                 "met": progress >= vmin if progress is not None else None,
             }
         order_by = min((l["ob"] for l in lines if l["ob"]), default=None)
+        rel = reliability_for(vendor)
         orders.append({
             "w": wh,
             "vendor": vendor,
             "orderBy": order_by,
             "urgent": order_by is not None and order_by <= base.isoformat(),
+            "cust": sum(l["cust"] for l in lines),
+            "oosN": sum(l["oosN"] for l in lines),
+            "rel": rel if rel and rel["n"] >= RELIABILITY_MIN_POS else None,
             "lines": lines,
             "totals": {
                 "lines": len(lines),
@@ -450,7 +542,7 @@ def main(out_path):
             },
             "min": min_info,
         })
-    orders.sort(key=lambda x: (x["orderBy"] or "9999", -x["totals"]["lines"]))
+    orders.sort(key=lambda x: (x["orderBy"] or "9999", -x["cust"], -x["totals"]["lines"]))
 
     # --- Aggregates per warehouse (over ALL items, not just detail rows) -------
     warehouses = sorted({it["w"] for it in items})
@@ -480,6 +572,10 @@ def main(out_path):
                 "onHandValue": round(sum(it["val"] for it in subset)),
                 "draftPos": len(wh_orders),
                 "urgentPos": sum(1 for o in wh_orders if o["urgent"]),
+                "recentOos": sum(1 for it in subset if it["oosN"] > 0),
+                "custAtRisk": sum(
+                    it["cust"] for it in tracked if it["doc"] < AMBER_DAYS
+                ),
                 "orderValue": round(sum(
                     o["totals"]["cost"] or o["totals"]["costPartial"] or 0
                     for o in wh_orders
@@ -520,6 +616,8 @@ def main(out_path):
         it.pop("v2", None)
         it.pop("unit", None)
         it.pop("vid", None)
+        it.pop("rev", None)
+        it.pop("pad", None)
 
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -531,6 +629,7 @@ def main(out_path):
             "reviewPeriodDays": REVIEW_PERIOD_DAYS,
             "layerRoundFraction": LAYER_ROUND_FRACTION,
             "palletRoundFraction": PALLET_ROUND_FRACTION,
+            "reliabilityMinPos": RELIABILITY_MIN_POS,
             "detailHorizonDays": DETAIL_HORIZON_DAYS,
             "detailCapPerWarehouse": DETAIL_CAP_PER_WH,
             "redDays": RED_DAYS,
