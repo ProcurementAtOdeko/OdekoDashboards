@@ -16,13 +16,22 @@ All forecasting logic is hardcoded here, not pulled from Looker:
   days of cover        = net on hand / daily demand
   w/ inbound cover     = (net on hand + on order) / daily demand
   safety stock         = daily demand * SAFETY_STOCK_DAYS
-  reorder point        = daily demand * (LEAD_TIME_DAYS + SAFETY_STOCK_DAYS)
+  reorder point        = daily demand * (lead time + SAFETY_STOCK_DAYS)
   reorder flag         = on hand + on order <= reorder point
+
+Actionable draft POs: every flagged SKU gets a suggested order quantity that
+brings its position up to an order-up-to target (lead time + review period +
+safety days of demand). Lines are grouped into vendor-level built orders per
+warehouse, with an order-by date, cost totals, and vendor-minimum checks.
+Per-item lead times, PU costs, vendor minimums, and case/pallet dimensions
+come from a fourth export (Combined V2 For Dashboards); lead time falls back
+to LEAD_TIME_DAYS when the model has none.
 """
 
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 from collections import defaultdict
@@ -38,12 +47,15 @@ ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:R"
 CONS30_SPREADSHEET_ID = "1kivMVt86rNXoiOpsfodZ_gdSLZcElVU3P8EFT5WAggI"
 CONS30_RANGE = "'Total Cons Network.csv'!A1:G"
+V2_SPREADSHEET_ID = "14cQNxWLX4Cqb2Upp-_C6TmRC0-NUNKWYzq4K_3X6mdM"
+V2_RANGE = "'Warehouse Raw'!A1:AR"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- Hardcoded forecast assumptions ------------------------------------------
 DEMAND_WEIGHTS = {"model": 0.5, "t30": 0.3, "t60": 0.2}
-LEAD_TIME_DAYS = 10
+LEAD_TIME_DAYS = 10          # fallback when the item has no mean_lead_time
 SAFETY_STOCK_DAYS = 4
+REVIEW_PERIOD_DAYS = 7       # ordering cadence covered by the order-up-to target
 PROJECTION_WEEKS = 4
 DETAIL_HORIZON_DAYS = 60   # items with cover beyond this are aggregated only
 DETAIL_CAP_PER_WH = 300    # max detail rows per warehouse in data.json
@@ -108,6 +120,7 @@ def main(out_path):
     models_rows, m = fetch(svc, MODELS_SPREADSHEET_ID, MODELS_RANGE)
     onhand_rows, o = fetch(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
     cons30_rows, c = fetch(svc, CONS30_SPREADSHEET_ID, CONS30_RANGE)
+    v2_rows, v2 = fetch(svc, V2_SPREADSHEET_ID, V2_RANGE)
 
     # --- Secondary lookups ----------------------------------------------------
     # On Hand & ETA repeats item-level totals across per-location rows, so take
@@ -134,6 +147,26 @@ def main(out_path):
             for f in ("cons60", "conv"):
                 if cur[f] is None and rec[f] is not None:
                     cur[f] = rec[f]
+
+    # Combined V2: lead times, PU costs, vendor minimums, case/pallet dims.
+    v2_by_key = {}
+    for r in v2_rows:
+        key = (v2(r, "warehouse_uuid").strip(), v2(r, "item_uuid").strip())
+        if not key[0] or not key[1] or key in v2_by_key:
+            continue
+        cost_each = parse_num(v2(r, "cost_dollars_per_each"))
+        eaches = parse_num(v2(r, "eaches_per_purchase_unit"))
+        v2_by_key[key] = {
+            "lead": parse_num(v2(r, "mean_lead_time")),
+            "costPu": cost_each * eaches if cost_each is not None and eaches else None,
+            "min": parse_num(v2(r, "vendor_min")),
+            "minType": v2(r, "vendor_min_type").strip(),
+            "casesPerPallet": (
+                (parse_num(v2(r, "cases_per_layer")) or 0)
+                * (parse_num(v2(r, "layers_per_pallet")) or 0)
+            ) or None,
+            "caseWeight": parse_num(v2(r, "case_weight_lbs")),
+        }
 
     cons30_by_name = {}
     for r in cons30_rows:
@@ -199,13 +232,25 @@ def main(out_path):
         if (on_hand or 0) <= 0 and not demand:
             continue
 
+        v2i = v2_by_key.get((m(r, "warehouse_uuid").strip(), item_uuid), {})
+        lead = v2i.get("lead")
+        if not lead or lead <= 0:
+            lead = LEAD_TIME_DAYS
+
         cover = cover_in = rop = None
         flag = False
+        order_qty = 0
+        order_by = None
         if demand and demand > 0:
+            position = (on_hand or 0) + (on_order or 0)
             cover = max((on_hand or 0), 0) / demand
-            cover_in = max((on_hand or 0) + (on_order or 0), 0) / demand
-            rop = demand * (LEAD_TIME_DAYS + SAFETY_STOCK_DAYS)
-            flag = ((on_hand or 0) + (on_order or 0)) <= rop
+            cover_in = max(position, 0) / demand
+            rop = demand * (lead + SAFETY_STOCK_DAYS)
+            flag = position <= rop
+            if flag:
+                target = demand * (lead + REVIEW_PERIOD_DAYS + SAFETY_STOCK_DAYS)
+                order_qty = max(1, math.ceil(target - position))
+                order_by = out_date(max(0, cover_in - lead))
 
         past_due = (parse_num(m(r, "past_due")) or 0) > 0 or (
             parse_num(m(r, "purchase_orders_past_due")) or 0
@@ -214,26 +259,106 @@ def main(out_path):
         items.append({
             "w": wh,
             "n": name,
-            "v": m(r, "vendor_name").strip(),
+            "v": m(r, "vendor_name").strip() or "Unknown vendor",
             "cls": m(r, "item_class").strip(),
+            "unit": m(r, "purchase_unit").strip(),
             "oh": round(on_hand or 0, 1),
             "oo": round(on_order or 0, 1),
             "val": parse_num(m(r, "on_hand_value")) or 0,
             "dr": round(demand, 3) if demand is not None else None,
+            "lt": round(lead, 1),
             "doc": round(cover, 1) if cover is not None else None,
             "docIn": round(cover_in, 1) if cover_in is not None else None,
             "so": out_date(cover),
             "soIn": out_date(cover_in),
             "rop": round(rop, 1) if rop is not None else None,
             "flag": flag,
+            "sq": order_qty,
+            "ob": order_by,
             "pd": past_due,
             "sig": signals_used,
+            "v2": v2i,
         })
+
+    # --- Vendor-level built orders per warehouse --------------------------------
+    order_groups = defaultdict(list)
+    for it in items:
+        if it["flag"] and it["sq"] > 0:
+            order_groups[(it["w"], it["v"])].append(it)
+
+    orders = []
+    for (wh, vendor), group in order_groups.items():
+        group.sort(key=lambda x: (x["ob"] or "9999", x["docIn"] or 0))
+        lines = []
+        total_cost = pallets = weight = 0.0
+        cost_complete = True
+        vmin = None
+        vmin_type = ""
+        for it in group:
+            v2i = it["v2"]
+            cost_pu = v2i.get("costPu")
+            line_cost = round(it["sq"] * cost_pu, 2) if cost_pu is not None else None
+            if line_cost is None:
+                cost_complete = False
+            else:
+                total_cost += line_cost
+            if v2i.get("casesPerPallet"):
+                pallets += it["sq"] / v2i["casesPerPallet"]
+            if v2i.get("caseWeight") is not None:
+                weight += it["sq"] * v2i["caseWeight"]
+            if v2i.get("min") and v2i.get("minType"):
+                if vmin is None or v2i["min"] > vmin:
+                    vmin, vmin_type = v2i["min"], v2i["minType"]
+            lines.append({
+                "n": it["n"],
+                "unit": it["unit"],
+                "qty": it["sq"],
+                "costPu": round(cost_pu, 2) if cost_pu is not None else None,
+                "cost": line_cost,
+                "oh": it["oh"],
+                "oo": it["oo"],
+                "dr": it["dr"],
+                "docIn": it["docIn"],
+                "ob": it["ob"],
+            })
+        total_qty = sum(l["qty"] for l in lines)
+        min_info = None
+        if vmin:
+            progress = {
+                "dollars": total_cost if cost_complete else None,
+                "pu": total_qty,
+                "pallets": round(pallets, 2) if pallets else None,
+                "weight_lbs": round(weight, 1) if weight else None,
+            }.get(vmin_type)
+            min_info = {
+                "value": vmin,
+                "type": vmin_type,
+                "progress": round(progress, 2) if progress is not None else None,
+                "met": progress >= vmin if progress is not None else None,
+            }
+        order_by = min((l["ob"] for l in lines if l["ob"]), default=None)
+        orders.append({
+            "w": wh,
+            "vendor": vendor,
+            "orderBy": order_by,
+            "urgent": order_by is not None and order_by <= base.isoformat(),
+            "lines": lines,
+            "totals": {
+                "lines": len(lines),
+                "qty": total_qty,
+                "cost": round(total_cost, 2) if cost_complete else None,
+                "costPartial": None if cost_complete else round(total_cost, 2),
+                "pallets": round(pallets, 2) if pallets else None,
+                "weightLbs": round(weight, 1) if weight else None,
+            },
+            "min": min_info,
+        })
+    orders.sort(key=lambda x: (x["orderBy"] or "9999", -x["totals"]["lines"]))
 
     # --- Aggregates per warehouse (over ALL items, not just detail rows) -------
     warehouses = sorted({it["w"] for it in items})
 
-    def aggregate(subset):
+    def aggregate(subset, wh_orders):
         tracked = [it for it in subset if it["doc"] is not None]
         covers = sorted(it["doc"] for it in tracked)
         median = covers[len(covers) // 2] if covers else None
@@ -256,6 +381,12 @@ def main(out_path):
                 "pastDue": sum(1 for it in subset if it["pd"]),
                 "medianCover": round(median, 1) if median is not None else None,
                 "onHandValue": round(sum(it["val"] for it in subset)),
+                "draftPos": len(wh_orders),
+                "urgentPos": sum(1 for o in wh_orders if o["urgent"]),
+                "orderValue": round(sum(
+                    o["totals"]["cost"] or o["totals"]["costPartial"] or 0
+                    for o in wh_orders
+                )),
             },
             "riskMix": {
                 "red": sum(1 for it in tracked if it["doc"] < RED_DAYS),
@@ -265,9 +396,12 @@ def main(out_path):
             "projection": weeks,
         }
 
-    by_wh = {"ALL": aggregate(items)}
+    by_wh = {"ALL": aggregate(items, orders)}
     for wh in warehouses:
-        by_wh[wh] = aggregate([it for it in items if it["w"] == wh])
+        by_wh[wh] = aggregate(
+            [it for it in items if it["w"] == wh],
+            [o for o in orders if o["w"] == wh],
+        )
 
     # --- Detail rows: at-risk items only, capped per warehouse -----------------
     detail = []
@@ -286,6 +420,8 @@ def main(out_path):
     for it in detail:
         it.pop("val", None)
         it.pop("sig", None)
+        it.pop("v2", None)
+        it.pop("unit", None)
 
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -294,6 +430,7 @@ def main(out_path):
             "demandWeights": DEMAND_WEIGHTS,
             "leadTimeDays": LEAD_TIME_DAYS,
             "safetyStockDays": SAFETY_STOCK_DAYS,
+            "reviewPeriodDays": REVIEW_PERIOD_DAYS,
             "detailHorizonDays": DETAIL_HORIZON_DAYS,
             "detailCapPerWarehouse": DETAIL_CAP_PER_WH,
             "redDays": RED_DAYS,
@@ -301,14 +438,15 @@ def main(out_path):
         },
         "warehouses": warehouses,
         "aggregates": by_wh,
+        "orders": orders,
         "items": detail,
     }
 
     with open(out_path, "w") as f:
         json.dump(out, f, separators=(",", ":"))
     print(
-        f"Wrote {len(detail)} detail items across {len(warehouses)} warehouses "
-        f"({len(items)} total) to {out_path}"
+        f"Wrote {len(detail)} detail items and {len(orders)} draft POs across "
+        f"{len(warehouses)} warehouses ({len(items)} total items) to {out_path}"
     )
 
 

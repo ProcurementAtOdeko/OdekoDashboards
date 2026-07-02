@@ -104,6 +104,22 @@
   }
   .pill.reorder { background: var(--red-soft); color: var(--red); }
   .pill.ok { background: var(--green-soft); color: var(--green); }
+  .pill.amber { background: var(--amber-soft); color: var(--amber); }
+
+  tr.vendor-row { cursor: pointer; }
+  tr.vendor-row td:first-child::before { content: "▸ "; color: var(--muted); }
+  tr.vendor-row.open td:first-child::before { content: "▾ "; }
+  tr.lines-row > td { padding: 0 12px 14px 32px; background: var(--panel-2); }
+  tr.lines-row table { margin-top: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+  tr.lines-row th { background: var(--panel-2); cursor: default; }
+  tr.lines-row tr:hover td { background: var(--panel); }
+  .btn {
+    background: var(--accent-yellow); color: var(--ink-2); border: none; border-radius: 6px;
+    padding: 5px 10px; font: 600 11px/1.4 inherit; font-family: inherit; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { filter: brightness(.96); }
+  .min-short { color: var(--amber); font-weight: 600; }
+  .min-met { color: var(--green); font-weight: 600; }
 
   .assumptions { margin-top: 20px; }
   .assumptions .body { color: var(--muted); font-size: 12px; line-height: 1.7; }
@@ -148,6 +164,34 @@
     </div>
   </section>
 
+  <section class="card" style="margin-bottom:20px">
+    <h3 id="orders-title">Build Orders — Draft POs by Vendor</h3>
+    <div class="toolbar">
+      <input id="orders-search" type="search" placeholder="Search vendor…" />
+      <label><input type="checkbox" id="only-urgent" /> Order-now only</label>
+      <span class="count" id="orders-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="orders">
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th id="orders-col-wh">WH</th>
+            <th>Order By</th>
+            <th class="num">Lines</th>
+            <th class="num">Total PU</th>
+            <th class="num">Pallets</th>
+            <th class="num">Est. Cost</th>
+            <th>Vendor Min</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="card">
     <h3 id="table-title">At-Risk Items</h3>
     <div class="toolbar">
@@ -168,6 +212,7 @@
             <th class="num" data-sort="doc" data-default="asc">Cover (d)</th>
             <th data-sort="so">Stockout</th>
             <th data-sort="soIn">w/ Inbound</th>
+            <th class="num" data-sort="sq">Order Qty</th>
             <th data-sort="flag">Reorder</th>
           </tr>
         </thead>
@@ -209,6 +254,9 @@ let sortKey = "doc";
 let sortDir = "asc";
 let filterText = "";
 let onlyFlagged = false;
+let ordersFilterText = "";
+let onlyUrgent = false;
+let openOrders = new Set();
 let projChart = null;
 let riskChart = null;
 
@@ -238,6 +286,7 @@ function render() {
     `${agg.kpis.tracked.toLocaleString()} SKUs with demand signal`;
   renderKpis(agg);
   renderCharts(agg);
+  renderOrders();
   renderTable();
 }
 
@@ -246,8 +295,10 @@ function renderKpis(agg) {
   const kpis = [
     { label: "Tracked SKUs", value: fmt(k.tracked), cls: "accent" },
     { label: "Stockout ≤ 7d", value: fmt(k.atRisk7), cls: k.atRisk7 > 0 ? "red" : "green" },
-    { label: "Stockout ≤ 14d", value: fmt(k.atRisk14), cls: k.atRisk14 > 0 ? "amber" : "green" },
     { label: "Below Reorder Point", value: fmt(k.belowRop), cls: k.belowRop > 0 ? "amber" : "green" },
+    { label: "Draft POs", value: fmt(k.draftPos), cls: "accent" },
+    { label: "Order Today", value: fmt(k.urgentPos), cls: k.urgentPos > 0 ? "red" : "green" },
+    { label: "Est. Order Spend", value: fmtMoney(k.orderValue), cls: "" },
     { label: "Past-Due PO SKUs", value: fmt(k.pastDue), cls: k.pastDue > 0 ? "amber" : "green" },
     { label: "Median Cover (days)", value: fmt(k.medianCover), cls: k.medianCover != null && k.medianCover < 14 ? "amber" : "" },
     { label: "On-Hand Value", value: fmtMoney(k.onHandValue), cls: "" },
@@ -306,6 +357,109 @@ function renderCharts(agg) {
   });
 }
 
+const orderKey = (o) => `${o.w}::${o.vendor}`;
+
+function minCell(o) {
+  if (!o.min) return '<span class="sub-cell">—</span>';
+  const unit = { dollars: "$", pu: " PU", pallets: " plt", weight_lbs: " lbs" }[o.min.type] || ` ${o.min.type}`;
+  const val = o.min.type === "dollars" ? fmtMoney(o.min.value) : fmt(o.min.value) + unit;
+  const prog = o.min.progress == null ? "?" :
+    o.min.type === "dollars" ? fmtMoney(o.min.progress) : fmt(o.min.progress) + unit;
+  if (o.min.met == null) return `min ${val} · <span class="sub-cell">${prog}</span>`;
+  return `min ${val} · <span class="${o.min.met ? "min-met" : "min-short"}">${prog}${o.min.met ? " ✓" : " short"}</span>`;
+}
+
+function renderOrders() {
+  const isAll = selectedWh === "ALL";
+  document.getElementById("orders-col-wh").style.display = isAll ? "" : "none";
+  document.getElementById("orders-title").textContent =
+    `Build Orders — Draft POs by Vendor · ${isAll ? "All Warehouses" : selectedWh}`;
+  const q = ordersFilterText.toLowerCase();
+  const rows = DATA.orders.filter(o =>
+    (isAll || o.w === selectedWh) &&
+    (!onlyUrgent || o.urgent) &&
+    (!q || o.vendor.toLowerCase().includes(q))
+  );
+  document.getElementById("orders-count").textContent =
+    `${rows.length} draft POs · ${rows.filter(o => o.urgent).length} to order today`;
+
+  document.querySelector("#orders tbody").innerHTML = rows.map(o => {
+    const key = orderKey(o);
+    const open = openOrders.has(key);
+    const cost = o.totals.cost != null ? fmtMoney(o.totals.cost)
+      : o.totals.costPartial != null ? `≥ ${fmtMoney(o.totals.costPartial)}*` : "—";
+    let html = `
+    <tr class="vendor-row ${open ? "open" : ""}" data-key="${escapeHtml(key)}">
+      <td><strong>${escapeHtml(o.vendor)}</strong></td>
+      ${isAll ? `<td>${escapeHtml(o.w)}</td>` : ""}
+      <td class="${o.urgent ? "cover-bad" : ""}">${fmtDate(o.orderBy)}</td>
+      <td class="num">${o.totals.lines}</td>
+      <td class="num">${fmt(o.totals.qty)}</td>
+      <td class="num">${o.totals.pallets != null ? fmt(o.totals.pallets) : "—"}</td>
+      <td class="num">${cost}</td>
+      <td>${minCell(o)}</td>
+      <td>${o.urgent ? '<span class="pill reorder">Order now</span>' : '<span class="pill amber">Upcoming</span>'}</td>
+      <td><button class="btn" data-csv="${escapeHtml(key)}">CSV</button></td>
+    </tr>`;
+    if (open) {
+      html += `
+    <tr class="lines-row"><td colspan="${isAll ? 10 : 9}">
+      <table>
+        <thead><tr>
+          <th>Item</th><th>Purchase Unit</th><th class="num">Order Qty</th>
+          <th class="num">Cost / PU</th><th class="num">Line Cost</th>
+          <th class="num">On Hand</th><th class="num">On Order</th>
+          <th class="num">Demand / Day</th><th class="num">Cover w/ Inbound</th><th>Order By</th>
+        </tr></thead>
+        <tbody>${o.lines.map(l => `
+          <tr>
+            <td>${escapeHtml(l.n)}</td>
+            <td>${escapeHtml(l.unit || "")}</td>
+            <td class="num"><strong>${fmt(l.qty)}</strong></td>
+            <td class="num">${l.costPu != null ? fmtMoney(l.costPu) : "—"}</td>
+            <td class="num">${l.cost != null ? fmtMoney(l.cost) : "—"}</td>
+            <td class="num">${fmt(l.oh)}</td>
+            <td class="num">${fmt(l.oo)}</td>
+            <td class="num">${l.dr == null ? "—" : l.dr.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+            <td class="num ${coverClass(l.docIn)}">${fmt(l.docIn)}</td>
+            <td class="${o.urgent ? "cover-bad" : ""}">${fmtDate(l.ob)}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </td></tr>`;
+    }
+    return html;
+  }).join("");
+
+  document.querySelectorAll("#orders tr.vendor-row").forEach(tr => {
+    tr.addEventListener("click", (e) => {
+      if (e.target.closest("button")) return;
+      const key = tr.dataset.key;
+      openOrders.has(key) ? openOrders.delete(key) : openOrders.add(key);
+      renderOrders();
+    });
+  });
+  document.querySelectorAll("#orders button[data-csv]").forEach(btn => {
+    btn.addEventListener("click", () => downloadCsv(btn.dataset.csv));
+  });
+}
+
+function downloadCsv(key) {
+  const o = DATA.orders.find(x => orderKey(x) === key);
+  if (!o) return;
+  const esc = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
+  const rows = [
+    ["Warehouse", "Vendor", "Item", "Purchase Unit", "Order Qty (PU)", "Cost per PU", "Line Cost", "Order By"],
+    ...o.lines.map(l => [o.w, o.vendor, l.n, l.unit || "", l.qty, l.costPu ?? "", l.cost ?? "", l.ob || ""]),
+  ];
+  const blob = new Blob([rows.map(r => r.map(esc).join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `PO-${o.w}-${o.vendor.replace(/[^\w-]+/g, "_")}-${DATA.asOf}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 function renderTable() {
   const q = filterText.toLowerCase();
   const isAll = selectedWh === "ALL";
@@ -347,6 +501,7 @@ function renderTable() {
       <td class="num ${coverClass(i.doc)}">${fmt(i.doc)}</td>
       <td class="${coverClass(i.doc)}">${fmtDate(i.so)}</td>
       <td class="${coverClass(i.docIn)}">${fmtDate(i.soIn)}</td>
+      <td class="num">${i.sq > 0 ? `<strong>${fmt(i.sq)}</strong>` : "—"}</td>
       <td>${i.flag ? '<span class="pill reorder">Reorder</span>' : '<span class="pill ok">OK</span>'}</td>
     </tr>
   `).join("");
@@ -362,9 +517,16 @@ function renderAssumptions() {
     <code>${w.t60} × trailing 60-day rate</code> (On Hand &amp; ETA), renormalized when a signal is missing.<br/>
     Days of cover = net on hand ÷ daily demand; the “with inbound” forecast adds open PO quantities.
     Safety stock = <code>${a.safetyStockDays} days</code> of demand; reorder point =
-    <code>${a.leadTimeDays + a.safetyStockDays} days</code> of demand
-    (${a.leadTimeDays}-day lead time + ${a.safetyStockDays}-day buffer) — a SKU is flagged when
-    on hand + on order falls at or below it.
+    <code>lead time + ${a.safetyStockDays} days</code> of demand, using each item's mean lead time
+    from Combined V2 (fallback <code>${a.leadTimeDays} days</code>) — a SKU is flagged when
+    on hand + on order falls at or below it.<br/>
+    Draft POs: each flagged SKU gets an order quantity that restores
+    <code>lead time + ${a.reviewPeriodDays} + ${a.safetyStockDays} days</code> of demand
+    (rounded up to whole purchase units), grouped by vendor per warehouse.
+    “Order by” = projected stockout (with inbound) minus lead time; “Order now” means that date
+    has arrived. Cost, pallet, and weight totals come from Combined V2 unit data
+    (<code>≥ $…*</code> marks totals with some lines missing cost data) and are checked against
+    the vendor minimum where one is defined.
     Status colors: <span class="cover-bad">&lt; ${a.redDays} days</span>,
     <span class="cover-warn">${a.redDays}–${a.amberDays} days</span>,
     <span class="cover-good">${a.amberDays}+ days</span>.
@@ -388,6 +550,14 @@ document.getElementById("search").addEventListener("input", (e) => {
 document.getElementById("only-flagged").addEventListener("change", (e) => {
   onlyFlagged = e.target.checked;
   renderTable();
+});
+document.getElementById("orders-search").addEventListener("input", (e) => {
+  ordersFilterText = e.target.value;
+  renderOrders();
+});
+document.getElementById("only-urgent").addEventListener("change", (e) => {
+  onlyUrgent = e.target.checked;
+  renderOrders();
 });
 document.querySelectorAll("th[data-sort]").forEach(th => {
   th.addEventListener("click", () => {
