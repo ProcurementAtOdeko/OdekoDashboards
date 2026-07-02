@@ -333,6 +333,7 @@ def main(out_path):
         items.append({
             "w": wh,
             "n": name,
+            "id": m(r, "item_id").strip(),
             "v": m(r, "vendor_name").strip() or "Unknown vendor",
             "vid": m(r, "vendor_id").strip(),
             "rnd": rounded_to,
@@ -390,12 +391,15 @@ def main(out_path):
                 tihi = f"{int(v2i['ti'])}×{int(v2i['hi'])}"
             lines.append({
                 "n": it["n"],
+                "id": it["id"],
                 "unit": it["unit"],
                 "qty": it["sq"],
                 "tihi": tihi,
                 "rnd": it["rnd"],
                 "costPu": round(cost_pu, 2) if cost_pu is not None else None,
                 "cost": line_cost,
+                "wt": v2i.get("caseWeight"),
+                "cpp": v2i.get("casesPerPallet"),
                 "oh": it["oh"],
                 "oo": it["oo"],
                 "dr": it["dr"],

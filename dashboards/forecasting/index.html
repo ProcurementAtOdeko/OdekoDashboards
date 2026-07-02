@@ -118,8 +118,27 @@
     padding: 5px 10px; font: 600 11px/1.4 inherit; font-family: inherit; cursor: pointer; white-space: nowrap;
   }
   .btn:hover { filter: brightness(.96); }
+  .btn.ghost { background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); }
+  .btn.ghost:hover { background: var(--panel-2); filter: none; }
+  .btn.done { background: var(--green-soft); color: var(--green); border: 1px solid rgba(31,122,51,.3); }
   .min-short { color: var(--amber); font-weight: 600; }
   .min-met { color: var(--green); font-weight: 600; }
+  tr.vendor-row.ordered td { opacity: .55; }
+  tr.vendor-row.ordered td:first-child { text-decoration: line-through; }
+  .po-actions {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    padding: 10px 0 2px; font-size: 12px; color: var(--muted);
+  }
+  .po-actions .terms { flex-basis: 100%; font-size: 11px; }
+  .qty-input {
+    width: 68px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 5px;
+    font: 600 13px/1.3 inherit; font-family: inherit; text-align: right; color: var(--ink-2);
+    background: var(--panel); font-variant-numeric: tabular-nums;
+  }
+  .qty-input.edited { border-color: var(--amber); background: var(--amber-soft); }
+  .qty-input:focus { outline: none; border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .flash { animation: flash-ok 1.2s ease-out; }
+  @keyframes flash-ok { 0% { background: var(--green-soft); } 100% { background: transparent; } }
 
   .assumptions { margin-top: 20px; }
   .assumptions .body { color: var(--muted); font-size: 12px; line-height: 1.7; }
@@ -169,7 +188,10 @@
     <div class="toolbar">
       <input id="orders-search" type="search" placeholder="Search vendor…" />
       <label><input type="checkbox" id="only-urgent" /> Order-now only</label>
+      <label><input type="checkbox" id="hide-ordered" /> Hide ordered</label>
       <span class="count" id="orders-count"></span>
+      <span style="flex:1"></span>
+      <button class="btn" id="export-all">Export all (CSV)</button>
     </div>
     <div style="overflow-x:auto">
       <table id="orders">
@@ -256,6 +278,7 @@ let filterText = "";
 let onlyFlagged = false;
 let ordersFilterText = "";
 let onlyUrgent = false;
+let hideOrdered = false;
 let openOrders = new Set();
 let projChart = null;
 let riskChart = null;
@@ -264,6 +287,10 @@ async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
   if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
   DATA = await res.json();
+  ORDERED = loadOrderedFlags();
+
+  const hashWh = decodeURIComponent(location.hash.slice(1));
+  if (hashWh && (hashWh === "ALL" || DATA.warehouses.includes(hashWh))) selectedWh = hashWh;
 
   const sel = document.getElementById("wh");
   sel.innerHTML = ["ALL", ...DATA.warehouses]
@@ -359,20 +386,86 @@ function renderCharts(agg) {
 
 const orderKey = (o) => `${o.w}::${o.vendor}`;
 
-function minCell(o) {
+// --- Editable order state (qty edits + include flags are session-scoped;
+// --- "ordered" flags persist in localStorage for the current data day) ------
+const ORDER_STATE = new Map();
+const orderedStorageKey = () => `forecasting-ordered:${DATA.asOf}`;
+
+function loadOrderedFlags() {
+  try {
+    Object.keys(localStorage)
+      .filter(k => k.startsWith("forecasting-ordered:") && k !== orderedStorageKey())
+      .forEach(k => localStorage.removeItem(k));
+    return new Set(JSON.parse(localStorage.getItem(orderedStorageKey()) || "[]"));
+  } catch { return new Set(); }
+}
+let ORDERED = new Set();
+function saveOrderedFlags() {
+  try { localStorage.setItem(orderedStorageKey(), JSON.stringify([...ORDERED])); } catch {}
+}
+
+function stateFor(o) {
+  const key = orderKey(o);
+  if (!ORDER_STATE.has(key)) {
+    ORDER_STATE.set(key, o.lines.map(l => ({ qty: l.qty, inc: true })));
+  }
+  return ORDER_STATE.get(key);
+}
+
+function computeTotals(o) {
+  const st = stateFor(o);
+  let qty = 0, cost = 0, costComplete = true, pallets = 0, weight = 0, lines = 0;
+  o.lines.forEach((l, i) => {
+    const s = st[i];
+    if (!s.inc || s.qty <= 0) return;
+    lines += 1;
+    qty += s.qty;
+    if (l.costPu != null) cost += s.qty * l.costPu; else costComplete = false;
+    if (l.cpp) pallets += s.qty / l.cpp;
+    if (l.wt != null) weight += s.qty * l.wt;
+  });
+  return { lines, qty, cost, costComplete, pallets, weight };
+}
+
+function minProgress(o, t) {
+  if (!o.min || o.min.value == null) return { progress: null, met: null };
+  const progress = {
+    dollars: t.costComplete ? t.cost : null,
+    pu: t.qty,
+    pallets: t.pallets || null,
+    weight_lbs: t.weight || null,
+  }[o.min.type];
+  return { progress, met: progress == null ? null : progress >= o.min.value };
+}
+
+function minCell(o, t) {
   if (!o.min) return '<span class="sub-cell">no MOQ data</span>';
   const m = o.min;
   const note = m.note ? ` title="${escapeHtml(m.note)}"` : "";
   if (m.type === "none") return `<span class="min-met"${note}>No MOQ ✓</span>`;
   if (m.type === "cadence") return `<span class="sub-cell"${note}>🗓 ${escapeHtml(m.note || "delivery cadence")}</span>`;
   if (m.type === "unparsed") return `<span class="sub-cell"${note}>MOQ: ${escapeHtml(m.note || "see vendor")}</span>`;
+  const { progress, met } = minProgress(o, t);
   const unit = { dollars: "$", pu: " cs", pallets: " plt", weight_lbs: " lbs" }[m.type] || ` ${m.type}`;
   const val = m.type === "dollars" ? fmtMoney(m.value) : fmt(m.value) + unit;
-  const prog = m.progress == null ? "?" :
-    m.type === "dollars" ? fmtMoney(m.progress) : fmt(m.progress) + unit;
+  const prog = progress == null ? "?" :
+    m.type === "dollars" ? fmtMoney(progress) : fmt(progress) + unit;
   const label = m.src === "moq" ? "MOQ" : "min";
-  if (m.met == null) return `<span${note}>${label} ${val} · <span class="sub-cell">${prog}</span></span>`;
-  return `<span${note}>${label} ${val} · <span class="${m.met ? "min-met" : "min-short"}">${prog}${m.met ? " ✓" : " short"}</span></span>`;
+  if (met == null) return `<span${note}>${label} ${val} · <span class="sub-cell">${prog}</span></span>`;
+  return `<span${note}>${label} ${val} · <span class="${met ? "min-met" : "min-short"}">${prog}${met ? " ✓" : " short"}</span></span>`;
+}
+
+function visibleOrders() {
+  const isAll = selectedWh === "ALL";
+  const q = ordersFilterText.toLowerCase();
+  const rows = DATA.orders.filter(o =>
+    (isAll || o.w === selectedWh) &&
+    (!onlyUrgent || o.urgent) &&
+    (!hideOrdered || !ORDERED.has(orderKey(o))) &&
+    (!q || o.vendor.toLowerCase().includes(q))
+  );
+  // Ordered POs sink to the bottom so the live queue stays on top.
+  return rows.sort((a, b) => ORDERED.has(orderKey(a)) - ORDERED.has(orderKey(b)));
 }
 
 function renderOrders() {
@@ -380,57 +473,81 @@ function renderOrders() {
   document.getElementById("orders-col-wh").style.display = isAll ? "" : "none";
   document.getElementById("orders-title").textContent =
     `Build Orders — Draft POs by Vendor · ${isAll ? "All Warehouses" : selectedWh}`;
-  const q = ordersFilterText.toLowerCase();
-  const rows = DATA.orders.filter(o =>
-    (isAll || o.w === selectedWh) &&
-    (!onlyUrgent || o.urgent) &&
-    (!q || o.vendor.toLowerCase().includes(q))
-  );
+  const rows = visibleOrders();
+  const scope = DATA.orders.filter(o => isAll || o.w === selectedWh);
+  const done = scope.filter(o => ORDERED.has(orderKey(o))).length;
   document.getElementById("orders-count").textContent =
-    `${rows.length} draft POs · ${rows.filter(o => o.urgent).length} to order today`;
+    `${rows.length} draft POs · ${rows.filter(o => o.urgent && !ORDERED.has(orderKey(o))).length} to order today · ${done}/${scope.length} marked ordered`;
 
   document.querySelector("#orders tbody").innerHTML = rows.map(o => {
     const key = orderKey(o);
     const open = openOrders.has(key);
-    const cost = o.totals.cost != null ? fmtMoney(o.totals.cost)
-      : o.totals.costPartial != null ? `≥ ${fmtMoney(o.totals.costPartial)}*` : "—";
+    const isOrdered = ORDERED.has(key);
+    const t = computeTotals(o);
+    const cost = t.costComplete ? fmtMoney(t.cost) : t.cost > 0 ? `≥ ${fmtMoney(t.cost)}*` : "—";
     let html = `
-    <tr class="vendor-row ${open ? "open" : ""}" data-key="${escapeHtml(key)}">
+    <tr class="vendor-row ${open ? "open" : ""} ${isOrdered ? "ordered" : ""}" data-key="${escapeHtml(key)}">
       <td><strong>${escapeHtml(o.vendor)}</strong></td>
       ${isAll ? `<td>${escapeHtml(o.w)}</td>` : ""}
-      <td class="${o.urgent ? "cover-bad" : ""}">${fmtDate(o.orderBy)}</td>
-      <td class="num">${o.totals.lines}</td>
-      <td class="num">${fmt(o.totals.qty)}</td>
-      <td class="num">${o.totals.pallets != null ? fmt(o.totals.pallets) : "—"}</td>
+      <td class="${o.urgent && !isOrdered ? "cover-bad" : ""}">${fmtDate(o.orderBy)}</td>
+      <td class="num">${t.lines}</td>
+      <td class="num">${fmt(t.qty)}</td>
+      <td class="num">${t.pallets ? fmt(t.pallets) : "—"}</td>
       <td class="num">${cost}</td>
-      <td>${minCell(o)}</td>
-      <td>${o.urgent ? '<span class="pill reorder">Order now</span>' : '<span class="pill amber">Upcoming</span>'}</td>
+      <td>${minCell(o, t)}</td>
+      <td>${isOrdered ? '<span class="pill ok">Ordered ✓</span>'
+          : o.urgent ? '<span class="pill reorder">Order now</span>'
+          : '<span class="pill amber">Upcoming</span>'}</td>
       <td><button class="btn" data-csv="${escapeHtml(key)}">CSV</button></td>
     </tr>`;
     if (open) {
+      const st = stateFor(o);
+      const { met } = minProgress(o, t);
+      const edited = st.some((s, i) => s.qty !== o.lines[i].qty || !s.inc);
       html += `
     <tr class="lines-row"><td colspan="${isAll ? 10 : 9}">
+      <div class="po-actions">
+        <button class="btn ${isOrdered ? "done" : ""}" data-act="ordered" data-key="${escapeHtml(key)}">
+          ${isOrdered ? "✓ Ordered — undo" : "Mark as ordered"}</button>
+        <button class="btn ghost" data-act="copy" data-key="${escapeHtml(key)}">Copy for Sheets</button>
+        ${met === false ? `<button class="btn ghost" data-act="scale" data-key="${escapeHtml(key)}">Scale up to MOQ</button>` : ""}
+        ${edited ? `<button class="btn ghost" data-act="reset" data-key="${escapeHtml(key)}">Reset quantities</button>` : ""}
+        <span id="copy-note-${cssKey(key)}"></span>
+        ${o.min && o.min.note ? `<span class="terms">Vendor terms: ${escapeHtml(o.min.note)}</span>` : ""}
+      </div>
       <table>
         <thead><tr>
-          <th>Item</th><th>Purchase Unit</th><th>Ti×Hi</th><th class="num">Order Qty</th>
+          <th></th><th>Item</th><th>Item ID</th><th>Purchase Unit</th><th>Ti×Hi</th>
+          <th class="num">Order Qty</th>
           <th class="num">Cost / PU</th><th class="num">Line Cost</th>
           <th class="num">On Hand</th><th class="num">On Order</th>
           <th class="num">Demand / Day</th><th class="num">Cover w/ Inbound</th><th>Order By</th>
         </tr></thead>
-        <tbody>${o.lines.map(l => `
-          <tr>
+        <tbody>${o.lines.map((l, i) => {
+          const s = st[i];
+          const lineCost = l.costPu != null ? fmtMoney(s.qty * l.costPu) : "—";
+          return `
+          <tr style="${s.inc ? "" : "opacity:.45"}">
+            <td><input type="checkbox" data-inc="${i}" data-key="${escapeHtml(key)}" ${s.inc ? "checked" : ""} title="Include line" /></td>
             <td>${escapeHtml(l.n)}</td>
+            <td class="num">${escapeHtml(l.id || "—")}</td>
             <td>${escapeHtml(l.unit || "")}</td>
             <td>${l.tihi ? escapeHtml(l.tihi) : "—"}</td>
-            <td class="num"><strong>${fmt(l.qty)}</strong>${l.rnd ? `<div class="sub-cell">full ${l.rnd}</div>` : ""}</td>
+            <td class="num">
+              <input type="number" min="0" step="1" class="qty-input ${s.qty !== l.qty ? "edited" : ""}"
+                     value="${s.qty}" data-qty="${i}" data-key="${escapeHtml(key)}" />
+              ${l.rnd ? `<div class="sub-cell">full ${l.rnd}</div>` : ""}
+              ${s.qty !== l.qty ? `<div class="sub-cell">suggested ${fmt(l.qty)}</div>` : ""}
+            </td>
             <td class="num">${l.costPu != null ? fmtMoney(l.costPu) : "—"}</td>
-            <td class="num">${l.cost != null ? fmtMoney(l.cost) : "—"}</td>
+            <td class="num">${lineCost}</td>
             <td class="num">${fmt(l.oh)}</td>
             <td class="num">${fmt(l.oo)}</td>
             <td class="num">${l.dr == null ? "—" : l.dr.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
             <td class="num ${coverClass(l.docIn)}">${fmt(l.docIn)}</td>
             <td class="${o.urgent ? "cover-bad" : ""}">${fmtDate(l.ob)}</td>
-          </tr>`).join("")}
+          </tr>`;
+        }).join("")}
         </tbody>
       </table>
     </td></tr>`;
@@ -438,33 +555,107 @@ function renderOrders() {
     return html;
   }).join("");
 
+  wireOrderEvents();
+}
+
+const cssKey = (key) => key.replace(/[^\w-]+/g, "_");
+
+function wireOrderEvents() {
   document.querySelectorAll("#orders tr.vendor-row").forEach(tr => {
     tr.addEventListener("click", (e) => {
-      if (e.target.closest("button")) return;
+      if (e.target.closest("button, input")) return;
       const key = tr.dataset.key;
       openOrders.has(key) ? openOrders.delete(key) : openOrders.add(key);
       renderOrders();
     });
   });
-  document.querySelectorAll("#orders button[data-csv]").forEach(btn => {
-    btn.addEventListener("click", () => downloadCsv(btn.dataset.csv));
+  document.querySelectorAll("#orders button[data-csv]").forEach(btn =>
+    btn.addEventListener("click", () => downloadCsv(btn.dataset.csv)));
+  document.querySelectorAll("#orders button[data-act]").forEach(btn =>
+    btn.addEventListener("click", () => orderAction(btn.dataset.act, btn.dataset.key)));
+  document.querySelectorAll("#orders input[data-qty]").forEach(inp =>
+    inp.addEventListener("change", () => {
+      const o = DATA.orders.find(x => orderKey(x) === inp.dataset.key);
+      const st = stateFor(o);
+      st[Number(inp.dataset.qty)].qty = Math.max(0, Math.round(Number(inp.value) || 0));
+      renderOrders();
+    }));
+  document.querySelectorAll("#orders input[data-inc]").forEach(inp =>
+    inp.addEventListener("change", () => {
+      const o = DATA.orders.find(x => orderKey(x) === inp.dataset.key);
+      stateFor(o)[Number(inp.dataset.inc)].inc = inp.checked;
+      renderOrders();
+    }));
+}
+
+function orderAction(act, key) {
+  const o = DATA.orders.find(x => orderKey(x) === key);
+  if (!o) return;
+  const st = stateFor(o);
+  if (act === "ordered") {
+    ORDERED.has(key) ? ORDERED.delete(key) : ORDERED.add(key);
+    saveOrderedFlags();
+  } else if (act === "reset") {
+    o.lines.forEach((l, i) => { st[i].qty = l.qty; st[i].inc = true; });
+  } else if (act === "scale") {
+    const t = computeTotals(o);
+    const { progress } = minProgress(o, t);
+    if (progress > 0 && o.min.value) {
+      const factor = o.min.value / progress;
+      o.lines.forEach((l, i) => { if (st[i].inc && st[i].qty > 0) st[i].qty = Math.ceil(st[i].qty * factor); });
+    }
+  } else if (act === "copy") {
+    const rows = [
+      ["Warehouse", "Vendor", "Item", "Item ID", "Purchase Unit", "Order Qty (PU)", "Cost per PU", "Line Cost", "Order By"],
+      ...o.lines.map((l, i) => st[i])
+        .flatMap((s, i) => s.inc && s.qty > 0
+          ? [[o.w, o.vendor, o.lines[i].n, o.lines[i].id || "", o.lines[i].unit || "", s.qty,
+              o.lines[i].costPu ?? "", o.lines[i].costPu != null ? (s.qty * o.lines[i].costPu).toFixed(2) : "",
+              o.lines[i].ob || ""]] : []),
+    ];
+    navigator.clipboard.writeText(rows.map(r => r.join("\t")).join("\n")).then(() => {
+      const note = document.getElementById(`copy-note-${cssKey(key)}`);
+      if (note) { note.textContent = "Copied — paste into Sheets or email"; note.classList.add("flash"); }
+    }).catch(() => alert("Copy failed — use the CSV download instead."));
+    return; // no re-render, keep the note visible
+  }
+  renderOrders();
+}
+
+function csvRowsFor(o) {
+  const st = stateFor(o);
+  return o.lines.flatMap((l, i) => {
+    const s = st[i];
+    if (!s.inc || s.qty <= 0) return [];
+    return [[o.w, o.vendor, l.n, l.id || "", l.unit || "", l.tihi || "", s.qty, l.qty, l.rnd || "",
+             l.costPu ?? "", l.costPu != null ? (s.qty * l.costPu).toFixed(2) : "", l.ob || ""]];
   });
+}
+const CSV_HEADER = ["Warehouse", "Vendor", "Item", "Item ID", "Purchase Unit", "Ti x Hi",
+                    "Order Qty (PU)", "Suggested Qty", "Rounded To", "Cost per PU", "Line Cost", "Order By"];
+
+function saveCsv(rows, name) {
+  const esc = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
+  const blob = new Blob([rows.map(r => r.map(esc).join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 function downloadCsv(key) {
   const o = DATA.orders.find(x => orderKey(x) === key);
   if (!o) return;
-  const esc = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
-  const rows = [
-    ["Warehouse", "Vendor", "Item", "Purchase Unit", "Ti x Hi", "Order Qty (PU)", "Rounded To", "Cost per PU", "Line Cost", "Order By"],
-    ...o.lines.map(l => [o.w, o.vendor, l.n, l.unit || "", l.tihi || "", l.qty, l.rnd || "", l.costPu ?? "", l.cost ?? "", l.ob || ""]),
-  ];
-  const blob = new Blob([rows.map(r => r.map(esc).join(",")).join("\n")], { type: "text/csv" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `PO-${o.w}-${o.vendor.replace(/[^\w-]+/g, "_")}-${DATA.asOf}.csv`;
-  a.click();
-  URL.revokeObjectURL(a.href);
+  saveCsv([CSV_HEADER, ...csvRowsFor(o)],
+    `PO-${o.w}-${o.vendor.replace(/[^\w-]+/g, "_")}-${DATA.asOf}.csv`);
+}
+
+function exportAllCsv() {
+  const rows = visibleOrders().filter(o => !ORDERED.has(orderKey(o))).flatMap(csvRowsFor);
+  if (!rows.length) return;
+  saveCsv([CSV_HEADER, ...rows],
+    `POs-${selectedWh}-${DATA.asOf}.csv`);
 }
 
 function renderTable() {
@@ -538,7 +729,12 @@ function renderAssumptions() {
     (<code>≥ $…*</code> marks totals with some lines missing cost data).
     Vendor minimums come from the <em>MOQ Surfacing and Automating</em> sheet ($ spend, case
     quantity, weight, delivery cadence, or no-MOQ — hover for the vendor's exact terms), with
-    Combined V2's vendor_min as fallback for vendors not in that sheet.
+    Combined V2's vendor_min as fallback for vendors not in that sheet.<br/>
+    Working the queue: expand a PO to edit quantities or exclude lines (totals and MOQ progress
+    recalculate live), “Scale up to MOQ” proportionally raises included lines to hit the minimum,
+    and “Copy for Sheets” / CSV export the adjusted order. “Mark as ordered” greys the PO out and
+    is remembered in this browser for the current data day. Link a teammate straight to their
+    warehouse by sharing the URL after picking it (e.g. <code>…/forecasting/#DCA1</code>).
     Status colors: <span class="cover-bad">&lt; ${a.redDays} days</span>,
     <span class="cover-warn">${a.redDays}–${a.amberDays} days</span>,
     <span class="cover-good">${a.amberDays}+ days</span>.
@@ -553,6 +749,7 @@ function escapeHtml(s) {
 
 document.getElementById("wh").addEventListener("change", (e) => {
   selectedWh = e.target.value;
+  history.replaceState(null, "", `#${encodeURIComponent(selectedWh)}`);
   render();
 });
 document.getElementById("search").addEventListener("input", (e) => {
@@ -571,6 +768,11 @@ document.getElementById("only-urgent").addEventListener("change", (e) => {
   onlyUrgent = e.target.checked;
   renderOrders();
 });
+document.getElementById("hide-ordered").addEventListener("change", (e) => {
+  hideOrdered = e.target.checked;
+  renderOrders();
+});
+document.getElementById("export-all").addEventListener("click", exportAllCsv);
 document.querySelectorAll("th[data-sort]").forEach(th => {
   th.addEventListener("click", () => {
     const key = th.dataset.sort;
