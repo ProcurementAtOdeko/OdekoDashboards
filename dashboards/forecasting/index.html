@@ -360,13 +360,19 @@ function renderCharts(agg) {
 const orderKey = (o) => `${o.w}::${o.vendor}`;
 
 function minCell(o) {
-  if (!o.min) return '<span class="sub-cell">—</span>';
-  const unit = { dollars: "$", pu: " PU", pallets: " plt", weight_lbs: " lbs" }[o.min.type] || ` ${o.min.type}`;
-  const val = o.min.type === "dollars" ? fmtMoney(o.min.value) : fmt(o.min.value) + unit;
-  const prog = o.min.progress == null ? "?" :
-    o.min.type === "dollars" ? fmtMoney(o.min.progress) : fmt(o.min.progress) + unit;
-  if (o.min.met == null) return `min ${val} · <span class="sub-cell">${prog}</span>`;
-  return `min ${val} · <span class="${o.min.met ? "min-met" : "min-short"}">${prog}${o.min.met ? " ✓" : " short"}</span>`;
+  if (!o.min) return '<span class="sub-cell">no MOQ data</span>';
+  const m = o.min;
+  const note = m.note ? ` title="${escapeHtml(m.note)}"` : "";
+  if (m.type === "none") return `<span class="min-met"${note}>No MOQ ✓</span>`;
+  if (m.type === "cadence") return `<span class="sub-cell"${note}>🗓 ${escapeHtml(m.note || "delivery cadence")}</span>`;
+  if (m.type === "unparsed") return `<span class="sub-cell"${note}>MOQ: ${escapeHtml(m.note || "see vendor")}</span>`;
+  const unit = { dollars: "$", pu: " cs", pallets: " plt", weight_lbs: " lbs" }[m.type] || ` ${m.type}`;
+  const val = m.type === "dollars" ? fmtMoney(m.value) : fmt(m.value) + unit;
+  const prog = m.progress == null ? "?" :
+    m.type === "dollars" ? fmtMoney(m.progress) : fmt(m.progress) + unit;
+  const label = m.src === "moq" ? "MOQ" : "min";
+  if (m.met == null) return `<span${note}>${label} ${val} · <span class="sub-cell">${prog}</span></span>`;
+  return `<span${note}>${label} ${val} · <span class="${m.met ? "min-met" : "min-short"}">${prog}${m.met ? " ✓" : " short"}</span></span>`;
 }
 
 function renderOrders() {
@@ -406,7 +412,7 @@ function renderOrders() {
     <tr class="lines-row"><td colspan="${isAll ? 10 : 9}">
       <table>
         <thead><tr>
-          <th>Item</th><th>Purchase Unit</th><th class="num">Order Qty</th>
+          <th>Item</th><th>Purchase Unit</th><th>Ti×Hi</th><th class="num">Order Qty</th>
           <th class="num">Cost / PU</th><th class="num">Line Cost</th>
           <th class="num">On Hand</th><th class="num">On Order</th>
           <th class="num">Demand / Day</th><th class="num">Cover w/ Inbound</th><th>Order By</th>
@@ -415,7 +421,8 @@ function renderOrders() {
           <tr>
             <td>${escapeHtml(l.n)}</td>
             <td>${escapeHtml(l.unit || "")}</td>
-            <td class="num"><strong>${fmt(l.qty)}</strong></td>
+            <td>${l.tihi ? escapeHtml(l.tihi) : "—"}</td>
+            <td class="num"><strong>${fmt(l.qty)}</strong>${l.rnd ? `<div class="sub-cell">full ${l.rnd}</div>` : ""}</td>
             <td class="num">${l.costPu != null ? fmtMoney(l.costPu) : "—"}</td>
             <td class="num">${l.cost != null ? fmtMoney(l.cost) : "—"}</td>
             <td class="num">${fmt(l.oh)}</td>
@@ -449,8 +456,8 @@ function downloadCsv(key) {
   if (!o) return;
   const esc = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
   const rows = [
-    ["Warehouse", "Vendor", "Item", "Purchase Unit", "Order Qty (PU)", "Cost per PU", "Line Cost", "Order By"],
-    ...o.lines.map(l => [o.w, o.vendor, l.n, l.unit || "", l.qty, l.costPu ?? "", l.cost ?? "", l.ob || ""]),
+    ["Warehouse", "Vendor", "Item", "Purchase Unit", "Ti x Hi", "Order Qty (PU)", "Rounded To", "Cost per PU", "Line Cost", "Order By"],
+    ...o.lines.map(l => [o.w, o.vendor, l.n, l.unit || "", l.tihi || "", l.qty, l.rnd || "", l.costPu ?? "", l.cost ?? "", l.ob || ""]),
   ];
   const blob = new Blob([rows.map(r => r.map(esc).join(",")).join("\n")], { type: "text/csv" });
   const a = document.createElement("a");
@@ -523,10 +530,15 @@ function renderAssumptions() {
     Draft POs: each flagged SKU gets an order quantity that restores
     <code>lead time + ${a.reviewPeriodDays} + ${a.safetyStockDays} days</code> of demand
     (rounded up to whole purchase units), grouped by vendor per warehouse.
+    Ti/hi rounding: quantities bump up to a full layer when ≥ ${Math.round(a.layerRoundFraction * 100)}%
+    of one, or a full pallet when ≥ ${Math.round(a.palletRoundFraction * 100)}%, using each item's
+    cases-per-layer × layers-per-pallet from Combined V2.
     “Order by” = projected stockout (with inbound) minus lead time; “Order now” means that date
     has arrived. Cost, pallet, and weight totals come from Combined V2 unit data
-    (<code>≥ $…*</code> marks totals with some lines missing cost data) and are checked against
-    the vendor minimum where one is defined.
+    (<code>≥ $…*</code> marks totals with some lines missing cost data).
+    Vendor minimums come from the <em>MOQ Surfacing and Automating</em> sheet ($ spend, case
+    quantity, weight, delivery cadence, or no-MOQ — hover for the vendor's exact terms), with
+    Combined V2's vendor_min as fallback for vendors not in that sheet.
     Status colors: <span class="cover-bad">&lt; ${a.redDays} days</span>,
     <span class="cover-warn">${a.redDays}–${a.amberDays} days</span>,
     <span class="cover-good">${a.amberDays}+ days</span>.
