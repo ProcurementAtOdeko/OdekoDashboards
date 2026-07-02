@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Network Stock Forecast</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10; flex-wrap: wrap;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header select {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 8px 12px; border-radius: 6px; font-size: 14px; font-weight: 600;
+    font-family: inherit; cursor: pointer; outline: none;
+    border-left: 3px solid var(--accent-yellow);
+  }
+  header select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 900px) { .charts { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 220px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+  .toolbar label { color: var(--muted); font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg); white-space: nowrap;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .cover-bad { color: var(--red); font-weight: 600; }
+  .cover-warn { color: var(--amber); font-weight: 600; }
+  .cover-good { color: var(--green); }
+  .sub-cell { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .pill.reorder { background: var(--red-soft); color: var(--red); }
+  .pill.ok { background: var(--green-soft); color: var(--green); }
+
+  .assumptions { margin-top: 20px; }
+  .assumptions .body { color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .assumptions code {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px;
+    padding: 1px 5px; font-size: 11px; color: var(--ink-2);
+  }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Network Stock Forecast</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <select id="wh" aria-label="Warehouse"></select>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>Projected Stockouts — Next 4 Weeks</h3>
+      <div class="body"><canvas id="chart-projection"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Risk Mix — Days of Cover</h3>
+      <div class="body"><canvas id="chart-risk"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 id="table-title">At-Risk Items</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, vendor, or category…" />
+      <label><input type="checkbox" id="only-flagged" /> Below reorder point only</label>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="n">Item</th>
+            <th data-sort="w" id="col-wh">WH</th>
+            <th data-sort="v">Vendor</th>
+            <th class="num" data-sort="oh">On Hand</th>
+            <th class="num" data-sort="oo">On Order</th>
+            <th class="num" data-sort="dr">Demand / Day</th>
+            <th class="num" data-sort="doc" data-default="asc">Cover (d)</th>
+            <th data-sort="so">Stockout</th>
+            <th data-sort="soIn">w/ Inbound</th>
+            <th data-sort="flag">Reorder</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card assumptions">
+    <h3>Forecast Assumptions (Hardcoded)</h3>
+    <div class="body" id="assumptions"></div>
+  </section>
+</main>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+const fmtMoney = (n) => n == null ? "—" : "$" + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+const fmtDate = (iso) => {
+  if (!iso) return "—";
+  const [y, m, d] = iso.split("-").map(Number);
+  const opts = { month: "short", day: "numeric" };
+  if (y !== new Date().getFullYear()) opts.year = "numeric";
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, opts);
+};
+const coverClass = (d) =>
+  d == null ? "" : d < 7 ? "cover-bad" : d < 14 ? "cover-warn" : "cover-good";
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let selectedWh = "ALL";
+let sortKey = "doc";
+let sortDir = "asc";
+let filterText = "";
+let onlyFlagged = false;
+let projChart = null;
+let riskChart = null;
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+
+  const sel = document.getElementById("wh");
+  sel.innerHTML = ["ALL", ...DATA.warehouses]
+    .map(w => `<option value="${w}">${w === "ALL" ? "All warehouses" : w}</option>`)
+    .join("");
+  sel.value = selectedWh;
+
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  renderAssumptions();
+  render();
+}
+
+function render() {
+  const agg = DATA.aggregates[selectedWh];
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · data as of ${fmtDate(DATA.asOf)} · ` +
+    `${agg.kpis.tracked.toLocaleString()} SKUs with demand signal`;
+  renderKpis(agg);
+  renderCharts(agg);
+  renderTable();
+}
+
+function renderKpis(agg) {
+  const k = agg.kpis;
+  const kpis = [
+    { label: "Tracked SKUs", value: fmt(k.tracked), cls: "accent" },
+    { label: "Stockout ≤ 7d", value: fmt(k.atRisk7), cls: k.atRisk7 > 0 ? "red" : "green" },
+    { label: "Stockout ≤ 14d", value: fmt(k.atRisk14), cls: k.atRisk14 > 0 ? "amber" : "green" },
+    { label: "Below Reorder Point", value: fmt(k.belowRop), cls: k.belowRop > 0 ? "amber" : "green" },
+    { label: "Past-Due PO SKUs", value: fmt(k.pastDue), cls: k.pastDue > 0 ? "amber" : "green" },
+    { label: "Median Cover (days)", value: fmt(k.medianCover), cls: k.medianCover != null && k.medianCover < 14 ? "amber" : "" },
+    { label: "On-Hand Value", value: fmtMoney(k.onHandValue), cls: "" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(kp =>
+    `<div class="kpi ${kp.cls}"><div class="label">${kp.label}</div><div class="value">${kp.value}</div></div>`
+  ).join("");
+}
+
+function renderCharts(agg) {
+  if (projChart) projChart.destroy();
+  if (riskChart) riskChart.destroy();
+
+  projChart = new Chart(document.getElementById("chart-projection"), {
+    type: "bar",
+    data: {
+      labels: agg.projection.map(p => `By ${fmtDate(p.by)}`),
+      datasets: [
+        {
+          label: "On hand only",
+          data: agg.projection.map(p => p.handOnly),
+          backgroundColor: PALETTE.red, borderRadius: 4,
+        },
+        {
+          label: "With inbound POs",
+          data: agg.projection.map(p => p.withInbound),
+          backgroundColor: PALETTE.ink, borderRadius: 4,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.raw} SKUs stocked out` } },
+      },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: "SKUs stocked out" } } },
+    },
+  });
+
+  const mix = agg.riskMix;
+  riskChart = new Chart(document.getElementById("chart-risk"), {
+    type: "doughnut",
+    data: {
+      labels: ["< 7 days", "7–14 days", "14+ days"],
+      datasets: [{
+        data: [mix.red, mix.amber, mix.green],
+        backgroundColor: [PALETTE.red, PALETTE.amber, PALETTE.green],
+        borderColor: "#FFFFFF", borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  const isAll = selectedWh === "ALL";
+  document.getElementById("col-wh").style.display = isAll ? "" : "none";
+  document.getElementById("table-title").textContent =
+    `At-Risk Items — ${isAll ? "All Warehouses" : selectedWh} (cover ≤ ${DATA.assumptions.detailHorizonDays}d or below reorder point)`;
+
+  let rows = DATA.items.filter(i =>
+    (isAll || i.w === selectedWh) &&
+    (!onlyFlagged || i.flag) &&
+    (!q || i.n.toLowerCase().includes(q) || (i.v || "").toLowerCase().includes(q) || (i.cls || "").toLowerCase().includes(q))
+  );
+
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "boolean") return sortDir === "asc" ? av - bv : bv - av;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  document.getElementById("table-count").textContent = `${rows.length.toLocaleString()} items`;
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#items tbody").innerHTML = rows.map(i => `
+    <tr>
+      <td>${escapeHtml(i.n)}<div class="sub-cell">${escapeHtml(i.cls || "")}</div></td>
+      ${isAll ? `<td>${escapeHtml(i.w)}</td>` : ""}
+      <td>${escapeHtml(i.v || "")}</td>
+      <td class="num">${fmt(i.oh)}</td>
+      <td class="num">${fmt(i.oo)}</td>
+      <td class="num">${i.dr == null ? "—" : i.dr.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+      <td class="num ${coverClass(i.doc)}">${fmt(i.doc)}</td>
+      <td class="${coverClass(i.doc)}">${fmtDate(i.so)}</td>
+      <td class="${coverClass(i.docIn)}">${fmtDate(i.soIn)}</td>
+      <td>${i.flag ? '<span class="pill reorder">Reorder</span>' : '<span class="pill ok">OK</span>'}</td>
+    </tr>
+  `).join("");
+}
+
+function renderAssumptions() {
+  const a = DATA.assumptions;
+  const w = a.demandWeights;
+  document.getElementById("assumptions").innerHTML = `
+    Daily demand per SKU is a weighted blend of the demand signals available:
+    <code>${w.model} × model consumption rate</code> (Combined Models Dump) +
+    <code>${w.t30} × trailing 30-day rate</code> (Total Cons Network) +
+    <code>${w.t60} × trailing 60-day rate</code> (On Hand &amp; ETA), renormalized when a signal is missing.<br/>
+    Days of cover = net on hand ÷ daily demand; the “with inbound” forecast adds open PO quantities.
+    Safety stock = <code>${a.safetyStockDays} days</code> of demand; reorder point =
+    <code>${a.leadTimeDays + a.safetyStockDays} days</code> of demand
+    (${a.leadTimeDays}-day lead time + ${a.safetyStockDays}-day buffer) — a SKU is flagged when
+    on hand + on order falls at or below it.
+    Status colors: <span class="cover-bad">&lt; ${a.redDays} days</span>,
+    <span class="cover-warn">${a.redDays}–${a.amberDays} days</span>,
+    <span class="cover-good">${a.amberDays}+ days</span>.
+    The table lists items with cover ≤ ${a.detailHorizonDays} days or below reorder point
+    (max ${a.detailCapPerWarehouse} per warehouse); KPIs and charts cover all SKUs.
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("wh").addEventListener("change", (e) => {
+  selectedWh = e.target.value;
+  render();
+});
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value;
+  renderTable();
+});
+document.getElementById("only-flagged").addEventListener("change", (e) => {
+  onlyFlagged = e.target.checked;
+  renderTable();
+});
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
