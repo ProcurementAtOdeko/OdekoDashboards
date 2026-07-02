@@ -105,6 +105,7 @@
   .pill.reorder { background: var(--red-soft); color: var(--red); }
   .pill.ok { background: var(--green-soft); color: var(--green); }
   .pill.amber { background: var(--amber-soft); color: var(--amber); }
+  .pill.new { background: rgba(255,209,0,.25); color: var(--ink-2); }
 
   tr.vendor-row { cursor: pointer; }
   tr.vendor-row td:first-child::before { content: "▸ "; color: var(--muted); }
@@ -391,6 +392,22 @@ function renderCharts(agg) {
 
 const orderKey = (o) => `${o.w}::${o.vendor}`;
 
+// Shared badges for a SKU: NEW (recent first fulfillment), inbound PO timing,
+// and stock hitting minimum deliverable shelf life soon.
+function itemBadges(x) {
+  let html = "";
+  if (x.new) html += ` <span class="pill new" title="First fulfillment within the last ${DATA.assumptions.newItemDays} days — demand may still be ramping">NEW</span>`;
+  if (x.inb) {
+    html += x.inb.late
+      ? `<div class="sub-cell min-short">inbound overdue: ${fmt(x.inb.q)} PU was due ${fmtDate(x.inb.d)}</div>`
+      : `<div class="sub-cell min-met">inbound ${fmt(x.inb.q)} PU lands ${fmtDate(x.inb.d)}</div>`;
+  }
+  if (x.exp) {
+    html += `<div class="sub-cell min-short" title="On-hand stock reaching minimum deliverable shelf life within ${DATA.assumptions.expiryWarnDays} days">⚠ ${fmt(x.exp.q)} ea unsellable${x.exp.d ? ` by ${fmtDate(x.exp.d)}` : " soon"}</div>`;
+  }
+  return html;
+}
+
 // --- Editable order state (qty edits + include flags are session-scoped;
 // --- "ordered" flags persist in localStorage for the current data day) ------
 const ORDER_STATE = new Map();
@@ -542,7 +559,7 @@ function renderOrders() {
           return `
           <tr style="${s.inc ? "" : "opacity:.45"}">
             <td><input type="checkbox" data-inc="${i}" data-key="${escapeHtml(key)}" ${s.inc ? "checked" : ""} title="Include line" /></td>
-            <td>${escapeHtml(l.n)}</td>
+            <td>${escapeHtml(l.n)}${itemBadges(l)}</td>
             <td class="num">${escapeHtml(l.id || "—")}</td>
             <td class="num">${l.cust ? fmt(l.cust) : "—"}</td>
             <td class="num">${l.oosN > 0 ? `<span class="cover-bad">×${l.oosN}</span>` : "—"}</td>
@@ -705,7 +722,7 @@ function renderTable() {
 
   document.querySelector("#items tbody").innerHTML = rows.map(i => `
     <tr>
-      <td>${escapeHtml(i.n)}<div class="sub-cell">${escapeHtml(i.cls || "")}</div></td>
+      <td>${escapeHtml(i.n)}${itemBadges(i)}<div class="sub-cell">${escapeHtml(i.cls || "")}</div></td>
       ${isAll ? `<td>${escapeHtml(i.w)}</td>` : ""}
       <td>${escapeHtml(i.v || "")}</td>
       <td class="num">${fmt(i.oh)}</td>
@@ -739,7 +756,14 @@ function renderAssumptions() {
     received POs) — the vendor's on-time record shows under their name in Build Orders.<br/>
     Customer counts (Active SKU/WH Customers) show how many cafes order each SKU, and
     <span class="cover-bad">OOS ×N</span> marks SKUs with actual out-of-stock events in the last
-    14 days (Trailing 14 FEOOS) — both to help triage which orders matter most.<br/>
+    14 days (Trailing 14 FEOOS) — both to help triage which orders matter most.
+    Costs fall back to the network purchase price (Purchase Price Push) when Combined V2 has none.
+    Item notes: <span class="pill new">NEW</span> = first fulfillment within
+    ${a.newItemDays} days (trailing demand rates likely understate these);
+    <span class="min-met">inbound … lands …</span> shows the earliest open PO line
+    (PO Data for Automating), red when overdue; <span class="min-short">⚠ … unsellable</span>
+    warns when on-hand stock hits its minimum deliverable shelf life within
+    ${a.expiryWarnDays} days (60 Days out MDSL) — real cover is lower than it looks.<br/>
     Draft POs: each flagged SKU gets an order quantity that restores
     <code>lead time + ${a.reviewPeriodDays} + ${a.safetyStockDays} days</code> of demand
     (rounded up to whole purchase units), grouped by vendor per warehouse.
