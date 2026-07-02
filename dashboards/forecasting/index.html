@@ -106,6 +106,9 @@
   .pill.ok { background: var(--green-soft); color: var(--green); }
   .pill.amber { background: var(--amber-soft); color: var(--amber); }
   .pill.new { background: rgba(255,209,0,.25); color: var(--ink-2); }
+  .pill.hold { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+  .pill.review { background: var(--red-soft); color: var(--red); border: 1px solid rgba(180,35,24,.35); }
+  tr.vendor-row.held td { opacity: .75; }
 
   tr.vendor-row { cursor: pointer; }
   tr.vendor-row td:first-child::before { content: "▸ "; color: var(--muted); }
@@ -329,6 +332,7 @@ function renderKpis(agg) {
     { label: "Below Reorder Point", value: fmt(k.belowRop), cls: k.belowRop > 0 ? "amber" : "green" },
     { label: "Draft POs", value: fmt(k.draftPos), cls: "accent" },
     { label: "Order Today", value: fmt(k.urgentPos), cls: k.urgentPos > 0 ? "red" : "green" },
+    { label: "Held / Review POs", value: fmt(k.heldPos), cls: k.heldPos > 0 ? "amber" : "green" },
     { label: "Est. Order Spend", value: fmtMoney(k.orderValue), cls: "" },
     { label: "Recent OOS SKUs (14d)", value: fmt(k.recentOos), cls: k.recentOos > 0 ? "red" : "green" },
     { label: "Customer Impact ≤14d", value: fmt(k.custAtRisk), cls: k.custAtRisk > 0 ? "amber" : "green" },
@@ -498,8 +502,9 @@ function renderOrders() {
   const rows = visibleOrders();
   const scope = DATA.orders.filter(o => isAll || o.w === selectedWh);
   const done = scope.filter(o => ORDERED.has(orderKey(o))).length;
+  const held = rows.filter(o => o.rec !== "order" && !ORDERED.has(orderKey(o))).length;
   document.getElementById("orders-count").textContent =
-    `${rows.length} draft POs · ${rows.filter(o => o.urgent && !ORDERED.has(orderKey(o))).length} to order today · ${done}/${scope.length} marked ordered`;
+    `${rows.length} draft POs · ${rows.filter(o => o.urgent && !ORDERED.has(orderKey(o))).length} to order today · ${held} held/review · ${done}/${scope.length} marked ordered`;
 
   document.querySelector("#orders tbody").innerHTML = rows.map(o => {
     const key = orderKey(o);
@@ -511,9 +516,13 @@ function renderOrders() {
       o.rel.avgDev > 0.5
         ? `<div class="sub-cell min-short">receives +${o.rel.avgDev}d late avg (${o.rel.n} POs)</div>`
         : `<div class="sub-cell min-met">on-time receiver (${o.rel.n} POs)</div>`;
+    const padNote = o.padPu > 0 && o.rec === "order"
+      ? `<div class="sub-cell min-met">auto-built to MOQ (+${fmt(o.padPu)} PU)</div>` : "";
+    const reasonNote = o.reason
+      ? `<div class="sub-cell ${o.rec === "review" ? "min-short" : ""}">${escapeHtml(o.reason)}${o.revisit ? ` · revisit ~${fmtDate(o.revisit)}` : ""}</div>` : "";
     let html = `
-    <tr class="vendor-row ${open ? "open" : ""} ${isOrdered ? "ordered" : ""}" data-key="${escapeHtml(key)}">
-      <td><strong>${escapeHtml(o.vendor)}</strong>${relNote}</td>
+    <tr class="vendor-row ${open ? "open" : ""} ${isOrdered ? "ordered" : ""} ${o.rec === "hold" && !isOrdered ? "held" : ""}" data-key="${escapeHtml(key)}">
+      <td><strong>${escapeHtml(o.vendor)}</strong>${relNote}${padNote}${reasonNote}</td>
       ${isAll ? `<td>${escapeHtml(o.w)}</td>` : ""}
       <td class="${o.urgent && !isOrdered ? "cover-bad" : ""}">${fmtDate(o.orderBy)}</td>
       <td class="num">${t.lines}</td>
@@ -523,6 +532,8 @@ function renderOrders() {
       <td class="num">${o.cust ? fmt(o.cust) : "—"}</td>
       <td>${minCell(o, t)}</td>
       <td>${isOrdered ? '<span class="pill ok">Ordered ✓</span>'
+          : o.rec === "hold" ? '<span class="pill hold">Hold</span>'
+          : o.rec === "review" ? '<span class="pill review">Review</span>'
           : o.urgent ? '<span class="pill reorder">Order now</span>'
           : '<span class="pill amber">Upcoming</span>'}
           ${o.oosN > 0 && !isOrdered ? `<span class="pill reorder" title="Actual out-of-stock events on these SKUs in the last 14 days">OOS ×${o.oosN}</span>` : ""}</td>
@@ -569,6 +580,8 @@ function renderOrders() {
               <input type="number" min="0" step="1" class="qty-input ${s.qty !== l.qty ? "edited" : ""}"
                      value="${s.qty}" data-qty="${i}" data-key="${escapeHtml(key)}" />
               ${l.rnd ? `<div class="sub-cell">full ${l.rnd}</div>` : ""}
+              ${l.fill ? `<div class="sub-cell min-met">MOQ fill</div>`
+                : l.pad > 0 ? `<div class="sub-cell min-met">+${fmt(l.pad)} for MOQ</div>` : ""}
               ${s.qty !== l.qty ? `<div class="sub-cell">suggested ${fmt(l.qty)}</div>` : ""}
             </td>
             <td class="num">${l.costPu != null ? fmtMoney(l.costPu) : "—"}</td>
@@ -659,12 +672,12 @@ function csvRowsFor(o) {
   return o.lines.flatMap((l, i) => {
     const s = st[i];
     if (!s.inc || s.qty <= 0) return [];
-    return [[o.w, o.vendor, l.n, l.id || "", l.unit || "", l.tihi || "", s.qty, l.qty, l.rnd || "",
+    return [[o.w, o.vendor, l.n, l.id || "", l.unit || "", l.tihi || "", s.qty, l.qty, l.pad || 0, l.rnd || "",
              l.costPu ?? "", l.costPu != null ? (s.qty * l.costPu).toFixed(2) : "", l.ob || ""]];
   });
 }
 const CSV_HEADER = ["Warehouse", "Vendor", "Item", "Item ID", "Purchase Unit", "Ti x Hi",
-                    "Order Qty (PU)", "Suggested Qty", "Rounded To", "Cost per PU", "Line Cost", "Order By"];
+                    "Order Qty (PU)", "Suggested Qty", "MOQ Fill (PU)", "Rounded To", "Cost per PU", "Line Cost", "Order By"];
 
 function saveCsv(rows, name) {
   const esc = (s) => `"${String(s ?? "").replace(/"/g, '""')}"`;
@@ -684,7 +697,9 @@ function downloadCsv(key) {
 }
 
 function exportAllCsv() {
-  const rows = visibleOrders().filter(o => !ORDERED.has(orderKey(o))).flatMap(csvRowsFor);
+  const rows = visibleOrders()
+    .filter(o => o.rec === "order" && !ORDERED.has(orderKey(o)))
+    .flatMap(csvRowsFor);
   if (!rows.length) return;
   saveCsv([CSV_HEADER, ...rows],
     `POs-${selectedWh}-${DATA.asOf}.csv`);
@@ -776,6 +791,15 @@ function renderAssumptions() {
     Vendor minimums come from the <em>MOQ Surfacing and Automating</em> sheet ($ spend, case
     quantity, weight, delivery cadence, or no-MOQ — hover for the vendor's exact terms), with
     Combined V2's vendor_min as fallback for vendors not in that sheet.<br/>
+    Each PO carries a recommendation. Orders short of the vendor MOQ are <strong>auto-built up
+    to it</strong> — first raising the SKUs already on the order, then adding the vendor's other
+    SKUs closest to needing a buy (<span class="min-met">MOQ fill</span> lines) — but never
+    beyond <code>${a.maxPadCoverDays} days</code> of cover on any SKU.
+    <span class="pill hold">Hold</span> = don't order: reaching the MOQ would exceed that cap
+    (with a revisit date for when demand will have accrued), no active customers order the SKUs,
+    or the order is under $${a.minOrderDollars} with nothing critical.
+    <span class="pill review">Review</span> = the MOQ can't be reached sensibly but SKUs with
+    active customers are at stockout risk — call the vendor or transfer stock.<br/>
     Working the queue: expand a PO to edit quantities or exclude lines (totals and MOQ progress
     recalculate live), “Scale up to MOQ” proportionally raises included lines to hit the minimum,
     and “Copy for Sheets” / CSV export the adjusted order. “Mark as ordered” greys the PO out and
