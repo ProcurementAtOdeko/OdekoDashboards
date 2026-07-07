@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Seasonality Tracker</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+    --neutral: #A89684;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
+  }
+  header select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .seasons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .season {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px 16px; cursor: pointer; user-select: none; text-align: left;
+    font-family: inherit; min-width: 150px;
+  }
+  .season .name { font-weight: 700; font-size: 14px; color: var(--ink-2); }
+  .season .window { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .season .status { font-size: 11px; font-weight: 600; margin-top: 2px; color: var(--muted); }
+  .season.active { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); border-left: 4px solid var(--accent-yellow); }
+  .season .status.live { color: var(--green); }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.tall .body { height: 440px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 220px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
+  }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg); white-space: nowrap;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .cls { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .up { color: var(--green); font-weight: 600; }
+  .down { color: var(--red); }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .badge.ready { background: var(--green-soft); color: var(--green); }
+  .badge.watch { background: var(--amber-soft); color: var(--amber); }
+  .badge.stockout { background: var(--red-soft); color: var(--red); }
+  .badge.expiring { background: rgba(64,24,11,.10); color: var(--ink-2); }
+  .badge.both { background: var(--red); color: #fff; }
+  .badge.preseason { background: var(--panel-2); color: var(--muted); }
+  .expcell { white-space: nowrap; }
+  .expcell .d { color: var(--muted); font-size: 11px; }
+  .expcell.soon { color: var(--red); font-weight: 600; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Seasonality Tracker</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <select id="wh" aria-label="Market"></select>
+</header>
+
+<main>
+  <section class="seasons" id="seasons"></section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card tall full">
+      <h3 id="risk-title">Risk by Market</h3>
+      <div class="body"><canvas id="chart-risk"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3 id="uplift-title">Top Forecast Uplift SKUs</h3>
+      <div class="body">
+        <canvas id="chart-uplift"></canvas>
+        <div id="uplift-empty" style="display:none; position:absolute; inset:0; align-items:center; justify-content:center; color:var(--muted); font-size:13px; text-align:center; padding:0 24px;"></div>
+      </div>
+    </div>
+    <div class="card chart">
+      <h3>$ at Expiration Risk by Market</h3>
+      <div class="body"><canvas id="chart-exp"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3 id="table-title">Target SKUs</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, vendor, or class…" />
+      <select id="riskFilter">
+        <option value="ALL">All risk levels</option>
+        <option value="attention">Needs attention</option>
+        <option value="stockout">Stockout risk</option>
+        <option value="expiring">Expiration risk</option>
+        <option value="watch">Watch</option>
+        <option value="ready">Ready</option>
+      </select>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="n">Item</th>
+            <th data-sort="w">Market</th>
+            <th class="num" data-sort="rate">Rate (PU/d)</th>
+            <th class="num" data-sort="sRate">Season Fcst (PU/d)</th>
+            <th class="num" data-sort="uplift" data-default="desc">Uplift</th>
+            <th class="num" data-sort="inv">Net On Hand</th>
+            <th class="num" data-sort="onOrder">On Order</th>
+            <th class="num" data-sort="covRatio">Season Coverage</th>
+            <th data-sort="expDays">Next Expiry</th>
+            <th class="num" data-sort="expValue">$ at Exp Risk</th>
+            <th data-sort="risk">Risk</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+const RISK = {
+  ready:     { label: "Ready",           color: PALETTE.green },
+  watch:     { label: "Watch",           color: PALETTE.amber },
+  stockout:  { label: "Stockout risk",   color: PALETTE.red },
+  expiring:  { label: "Expiration risk", color: PALETTE.ink },
+  both:      { label: "Stockout + exp.", color: "#7A1109" },
+  preseason: { label: "Pre-season",      color: PALETTE.neutral },
+};
+const RISK_ORDER = ["both", "stockout", "expiring", "watch", "ready", "preseason"];
+
+const fmt = (n, d = 1) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: d });
+const fmtMoney = (n) =>
+  n == null ? "—" : "$" + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+const fmtUplift = (u) => {
+  if (u == null) return "—";
+  if (u >= 2) return "×" + (1 + u).toFixed(1);
+  return (u >= 0 ? "+" : "") + (u * 100).toFixed(0) + "%";
+};
+const fmtDate = (iso) =>
+  iso ? new Date(iso + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "—";
+const fmtWindow = (s) => {
+  const opts = { month: "short", day: "numeric" };
+  return new Date(s.start + "T00:00:00").toLocaleDateString(undefined, opts)
+    + " – " + new Date(s.end + "T00:00:00").toLocaleDateString(undefined, opts);
+};
+const escapeHtml = (s) =>
+  String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+
+let DATA = null;
+let season = null;
+let selectedWh = "ALL";
+let filterText = "";
+let riskFilter = "ALL";
+let sortKey = "uplift";
+let sortDir = "desc";
+let charts = {};
+
+function currentSeasonKey() {
+  const active = DATA.seasons.find(s => s.active);
+  if (active) return active.key;
+  return DATA.seasons.slice().sort((a, b) => a.daysToStart - b.daysToStart)[0].key;
+}
+
+function seasonLines() {
+  return DATA.lines.filter(l =>
+    l.s === season && (selectedWh === "ALL" || l.w === selectedWh));
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  season = currentSeasonKey();
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · model as of ${fmtDate(DATA.asOf)} · forecast horizon thru ${fmtDate(DATA.predWindow.end)}`;
+
+  const sel = document.getElementById("wh");
+  sel.innerHTML = `<option value="ALL">All markets</option>` +
+    DATA.warehouses.map(w => `<option value="${w}">${w}</option>`).join("");
+  sel.value = selectedWh;
+  sel.addEventListener("change", (e) => { selectedWh = e.target.value; renderAll(); });
+
+  renderAll();
+}
+
+function renderAll() {
+  renderSeasons();
+  renderKpis();
+  renderCharts();
+  renderTable();
+}
+
+function renderSeasons() {
+  document.getElementById("seasons").innerHTML = DATA.seasons.map(s => {
+    const status = s.active
+      ? `<span class="status live">● In season</span>`
+      : `<span class="status">Starts in ${s.daysToStart}d</span>`;
+    return `<button class="season ${s.key === season ? "active" : ""}" data-season="${s.key}">
+      <div class="name">${s.label}</div>
+      <div class="window">${fmtWindow(s)}</div>
+      ${status}
+    </button>`;
+  }).join("");
+  document.querySelectorAll(".season").forEach(b =>
+    b.addEventListener("click", () => { season = b.dataset.season; renderAll(); }));
+}
+
+function renderKpis() {
+  const rows = seasonLines();
+  const skus = new Set(rows.map(l => l.id)).size;
+  const markets = new Set(rows.map(l => l.w)).size;
+  const ups = rows.map(l => l.uplift).filter(u => u != null).sort((a, b) => a - b);
+  const medUplift = ups.length ? ups[Math.floor(ups.length / 2)] : null;
+  const stockout = rows.filter(l => l.risk === "stockout" || l.risk === "both").length;
+  const expValue = rows.reduce((t, l) => t + (l.expValue || 0), 0);
+  const expLines = rows.filter(l => l.risk === "expiring" || l.risk === "both").length;
+  const s = DATA.seasons.find(x => x.key === season);
+
+  const kpis = [
+    { label: "Target SKUs", value: fmt(skus, 0), note: `${rows.length} SKU-market lines · ${markets} markets`, cls: "accent" },
+    { label: "Median Fcst Uplift", value: fmtUplift(medUplift),
+      note: ups.length ? `${ups.length} lines w/ forecast` : "season outside forecast horizon",
+      cls: medUplift == null ? "" : medUplift > 0 ? "green" : "amber" },
+    { label: "Stockout Risk Lines", value: fmt(stockout, 0),
+      note: s.active ? "in-season coverage short" : "coverage short at season start",
+      cls: stockout > 0 ? "red" : "green" },
+    { label: "$ at Expiration Risk", value: fmtMoney(expValue),
+      note: `${expLines} lines expiring before season ends`, cls: expValue > 0 ? "amber" : "green" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="note">${k.note}</div></div>`
+  ).join("");
+}
+
+function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function renderCharts() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const s = DATA.seasons.find(x => x.key === season);
+
+  // --- Risk by market (stacked) ---
+  const byMarket = DATA.marketRisk[season] || {};
+  const markets = Object.keys(byMarket)
+    .filter(w => selectedWh === "ALL" || w === selectedWh)
+    .sort((a, b) => {
+      const bad = (m) => ["both", "stockout", "expiring"].reduce((t, k) => t + (byMarket[m][k] || 0), 0);
+      return bad(b) - bad(a);
+    });
+  document.getElementById("risk-title").textContent = `Risk by Market — ${s.label}`;
+  destroyChart("risk");
+  charts.risk = new Chart(document.getElementById("chart-risk"), {
+    type: "bar",
+    data: {
+      labels: markets,
+      datasets: RISK_ORDER.map(k => ({
+        label: RISK[k].label,
+        data: markets.map(w => byMarket[w][k] || 0),
+        backgroundColor: RISK[k].color,
+        stack: "risk",
+        borderRadius: 2,
+      })).filter(ds => ds.data.some(v => v > 0)),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, ticks: { precision: 0 }, title: { display: true, text: "SKU-market lines" } },
+      },
+    },
+  });
+
+  // --- Top uplift SKUs ---
+  const rows = seasonLines();
+  const top = rows
+    .filter(l => l.uplift != null && l.rate >= 0.05)
+    .sort((a, b) => b.uplift - a.uplift)
+    .slice(0, 12);
+  document.getElementById("uplift-title").textContent =
+    `Top Forecast Uplift SKUs — ${s.label}${selectedWh !== "ALL" ? " · " + selectedWh : ""}`;
+  destroyChart("uplift");
+  const upliftEmpty = document.getElementById("uplift-empty");
+  const upliftCanvas = document.getElementById("chart-uplift");
+  if (!top.length) {
+    upliftCanvas.style.display = "none";
+    upliftEmpty.style.display = "flex";
+    upliftEmpty.textContent =
+      `${s.label} starts in ${s.daysToStart} days — outside the model's forecast horizon (thru ${fmtDate(DATA.predWindow.end)}). Uplift will appear as the season gets closer.`;
+    return renderExpChart();
+  }
+  upliftCanvas.style.display = "";
+  upliftEmpty.style.display = "none";
+  charts.uplift = new Chart(upliftCanvas, {
+    type: "bar",
+    data: {
+      labels: top.map(l => {
+        const nm = l.n.length > 24 ? l.n.slice(0, 22) + "…" : l.n;
+        return selectedWh === "ALL" ? `${nm} (${l.w})` : nm;
+      }),
+      datasets: [{
+        data: top.map(l => l.uplift * 100),
+        backgroundColor: top.map(l => RISK[l.risk].color),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => `${fmtUplift(c.raw / 100)} vs current rate · ${RISK[top[c.dataIndex].risk].label}` } },
+      },
+      scales: { x: { beginAtZero: true, title: { display: true, text: "% uplift vs current rate" } } },
+    },
+  });
+
+  renderExpChart();
+}
+
+// --- $ at expiration risk by market ---
+function renderExpChart() {
+  const expTotals = {};
+  for (const l of DATA.lines) {
+    if (l.s !== season || !l.expValue) continue;
+    if (selectedWh !== "ALL" && l.w !== selectedWh) continue;
+    expTotals[l.w] = (expTotals[l.w] || 0) + l.expValue;
+  }
+  const expMarkets = Object.entries(expTotals).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  destroyChart("exp");
+  charts.exp = new Chart(document.getElementById("chart-exp"), {
+    type: "bar",
+    data: {
+      labels: expMarkets.map(([w]) => w),
+      datasets: [{ data: expMarkets.map(([, v]) => v), backgroundColor: PALETTE.ink, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => fmtMoney(c.raw) } } },
+      scales: { x: { beginAtZero: true, ticks: { callback: (v) => "$" + v.toLocaleString() } } },
+    },
+  });
+}
+
+const RISK_RANK = Object.fromEntries(RISK_ORDER.map((k, i) => [k, i]));
+const MAX_ROWS = 500;
+
+function renderTable() {
+  const s = DATA.seasons.find(x => x.key === season);
+  document.getElementById("table-title").textContent =
+    `Target SKUs — ${s.label}${selectedWh !== "ALL" ? " · " + selectedWh : ""}`;
+
+  const q = filterText.toLowerCase();
+  let rows = seasonLines().filter(l => {
+    if (riskFilter === "attention") {
+      if (!["both", "stockout", "expiring", "watch"].includes(l.risk)) return false;
+    } else if (riskFilter === "stockout") {
+      if (l.risk !== "stockout" && l.risk !== "both") return false;
+    } else if (riskFilter === "expiring") {
+      if (l.risk !== "expiring" && l.risk !== "both") return false;
+    } else if (riskFilter !== "ALL" && l.risk !== riskFilter) return false;
+    return !q || l.n.toLowerCase().includes(q) || (l.v || "").toLowerCase().includes(q) || (l.cls || "").toLowerCase().includes(q);
+  });
+
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (sortKey === "risk") { av = RISK_RANK[a.risk]; bv = RISK_RANK[b.risk]; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const total = rows.length;
+  const shown = rows.slice(0, MAX_ROWS);
+  document.getElementById("table-count").textContent =
+    total > MAX_ROWS ? `showing ${MAX_ROWS} of ${total} lines — refine filters` : `${total} lines`;
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#items tbody").innerHTML = shown.map(l => {
+    const expSoon = l.expDays != null && l.expDays <= 30;
+    return `<tr>
+      <td>${escapeHtml(l.n)}<div class="cls">${escapeHtml(l.cls || "")}${l.v ? " · " + escapeHtml(l.v) : ""}</div></td>
+      <td>${escapeHtml(l.w)}</td>
+      <td class="num">${fmt(l.rate, 2)}</td>
+      <td class="num">${fmt(l.sRate, 2)}</td>
+      <td class="num ${l.uplift == null ? "" : l.uplift >= 0 ? "up" : "down"}">${fmtUplift(l.uplift)}</td>
+      <td class="num">${fmt(l.inv)}</td>
+      <td class="num">${fmt(l.onOrder)}</td>
+      <td class="num">${l.covRatio == null ? "—" : (l.covRatio * 100).toFixed(0) + "%"}</td>
+      <td class="expcell ${expSoon ? "soon" : ""}">${fmtDate(l.exp)}${l.expDays != null ? ` <span class="d">(${l.expDays}d)</span>` : ""}</td>
+      <td class="num">${l.expValue ? fmtMoney(l.expValue) : "—"}</td>
+      <td><span class="badge ${l.risk}">${RISK[l.risk].label}</span></td>
+    </tr>`;
+  }).join("");
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value;
+  renderTable();
+});
+document.getElementById("riskFilter").addEventListener("change", (e) => {
+  riskFilter = e.target.value;
+  renderTable();
+});
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
