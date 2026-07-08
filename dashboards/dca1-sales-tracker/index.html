@@ -106,6 +106,9 @@
   }
   .muted { color: var(--muted); }
   td.new-locs { color: var(--green); font-weight: 600; }
+  .spark { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
+  .spark svg { display: block; }
+  .spark-arrow { font-size: 10px; line-height: 1; }
 
   @media (max-width: 700px) {
     header { padding: 12px 14px; }
@@ -192,6 +195,7 @@ const TABS = {
       { key: "name", label: "Item" },
       { key: "brand", label: "Brand" },
       { key: "units", label: "Units Sold", num: true },
+      { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true },
       { key: "customers", label: "Customers", num: true },
       { key: "newLocations", label: "New Locs (14d)", num: true },
@@ -204,6 +208,7 @@ const TABS = {
     columns: [
       { key: "name", label: "Customer" },
       { key: "units", label: "Units Sold", num: true },
+      { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true },
       { key: "items", label: "SKUs", num: true },
       { key: "firstOrder", label: "First Order" },
@@ -389,6 +394,26 @@ function renderTable() {
   });
 }
 
+function sparkline(r) {
+  const pts = r.trend || [];
+  if (pts.length < 2) return '<span class="muted">—</span>';
+  const color = r.trendDir === "up" ? PALETTE.green : r.trendDir === "down" ? PALETTE.red : PALETTE.muted;
+  const arrow = r.trendDir === "up" ? "▲" : r.trendDir === "down" ? "▼" : "–";
+  const w = 64, h = 20, pad = 2;
+  const max = Math.max(...pts), min = Math.min(...pts);
+  const span = max - min || 1;
+  const x = (i) => pad + i * ((w - 2 * pad) / (pts.length - 1));
+  const y = (v) => h - pad - ((v - min) / span) * (h - 2 * pad);
+  const poly = pts.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const last = pts.length - 1;
+  const title = (DATA.trendWeeks || []).map((wk, i) => `w/o ${wk}: ${fmt(pts[i])}`).join(" · ");
+  return `<span class="spark" title="${escapeHtml(title)}">` +
+    `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-label="4 week trend ${r.trendDir}">` +
+    `<polyline points="${poly}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
+    `<circle cx="${x(last).toFixed(1)}" cy="${y(pts[last]).toFixed(1)}" r="2.4" fill="${color}"/>` +
+    `</svg><span class="spark-arrow" style="color:${color}">${arrow}</span></span>`;
+}
+
 function renderRow(r, spec) {
   if (tab === "placements") {
     return `<tr>
@@ -407,6 +432,7 @@ function renderRow(r, spec) {
         <td>${escapeHtml(r.name)}<div class="uuid">${r.uuid.slice(0, 8)}</div></td>
         <td>${escapeHtml(r.brand || "")}</td>
         <td class="num">${fmt(r.units)}</td>
+        <td class="num">${sparkline(r)}</td>
         <td class="num">${fmtInt(r.lines)}</td>
         <td class="num">${fmtInt(r.customers)}</td>
         <td class="num${r.newLocations ? " new-locs" : ""}">${fmtInt(r.newLocations)}</td>
@@ -416,6 +442,7 @@ function renderRow(r, spec) {
     : `<tr class="row" data-id="${r.uuid}">
         <td>${escapeHtml(r.name)}<div class="uuid">${r.uuid.slice(0, 8)}</div></td>
         <td class="num">${fmt(r.units)}</td>
+        <td class="num">${sparkline(r)}</td>
         <td class="num">${fmtInt(r.lines)}</td>
         <td class="num">${fmtInt(r.items)}</td>
         <td>${fmtDate(r.firstOrder)}</td>
