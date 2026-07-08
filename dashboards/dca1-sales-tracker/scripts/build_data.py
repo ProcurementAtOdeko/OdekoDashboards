@@ -133,11 +133,13 @@ def main(out_path):
                 "customers": set(),
                 "firstOrder": None,
                 "lastOrder": None,
+                "weekly": defaultdict(float),
             },
         )
         it["units"] += units
         it["lines"] += 1
         it["customers"].add(account_uuid)
+        it["weekly"][week_start(order_date)] += units
         if it["firstOrder"] is None or (pair_min_date and pair_min_date < it["firstOrder"]):
             it["firstOrder"] = pair_min_date
         if it["lastOrder"] is None or order_date > it["lastOrder"]:
@@ -153,11 +155,13 @@ def main(out_path):
                 "items": set(),
                 "firstOrder": None,
                 "lastOrder": None,
+                "weekly": defaultdict(float),
             },
         )
         cu["units"] += units
         cu["lines"] += 1
         cu["items"].add(item_uuid)
+        cu["weekly"][week_start(order_date)] += units
         if cu["firstOrder"] is None or (pair_min_date and pair_min_date < cu["firstOrder"]):
             cu["firstOrder"] = pair_min_date
         if cu["lastOrder"] is None or order_date > cu["lastOrder"]:
@@ -224,12 +228,30 @@ def main(out_path):
     weeks = sorted(weekly)
     top_brands = sorted(brand_units.items(), key=lambda x: -x[1])[:10]
 
+    # Trend window: last 4 complete weeks (a week is complete once its Sunday
+    # has passed), so the in-progress week doesn't drag every trend down.
+    complete_weeks = [w for w in weeks if w + timedelta(days=6) <= max_date]
+    trend_weeks = complete_weeks[-4:]
+
+    def trend_fields(weekly_units):
+        series = [round(weekly_units.get(w, 0.0), 1) for w in trend_weeks]
+        if len(series) < 2:
+            return {"trend": series, "trendDelta": 0.0, "trendDir": "flat"}
+        half = len(series) // 2
+        first = sum(series[:half]) / half
+        last = sum(series[-half:]) / half
+        delta = last - first
+        eps = max(0.5, 0.05 * max(first, 1.0))
+        direction = "up" if delta > eps else "down" if delta < -eps else "flat"
+        return {"trend": series, "trendDelta": round(delta, 1), "trendDir": direction}
+
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "warehouse": WAREHOUSE_FILTER,
         "dateRange": {"start": iso(min_order_date), "end": iso(max_date)},
         "newPlacementDays": NEW_PLACEMENT_DAYS,
         "newLocationDays": NEW_LOCATION_DAYS,
+        "trendWeeks": [iso(w) for w in trend_weeks],
         "summary": {
             "totalUnits": round(sum(it["units"] for it in items_list), 1),
             "orderLines": sum(it["lines"] for it in items_list),
@@ -255,6 +277,7 @@ def main(out_path):
                 "newLocations": item_new_locations.get(it["uuid"], 0),
                 "firstOrder": iso(it["firstOrder"]),
                 "lastOrder": iso(it["lastOrder"]),
+                **trend_fields(it["weekly"]),
             }
             for it in items_list
         ],
@@ -267,6 +290,7 @@ def main(out_path):
                 "items": len(cu["items"]),
                 "firstOrder": iso(cu["firstOrder"]),
                 "lastOrder": iso(cu["lastOrder"]),
+                **trend_fields(cu["weekly"]),
             }
             for cu in customers_list
         ],
