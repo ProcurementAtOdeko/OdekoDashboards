@@ -111,12 +111,28 @@
   .spark-arrow { font-size: 10px; line-height: 1; }
 
   @media (max-width: 700px) {
-    header { padding: 12px 14px; }
+    header { padding: 10px 12px; }
     header .logo { width: 32px; height: 32px; }
-    header h1 { font-size: 15px; }
-    main { padding: 14px 12px 40px; }
+    header h1 { font-size: 14px; }
+    header .sub { font-size: 11px; }
+    main { padding: 12px 10px 40px; }
     th, td { padding: 7px 8px; font-size: 12px; }
-    .kpi .value { font-size: 20px; }
+    .kpis { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi { padding: 10px 12px; }
+    .kpi .label { font-size: 10px; }
+    .kpi .value { font-size: 19px; }
+    .charts { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
+    .card.chart .body { height: 220px; padding: 10px; }
+    .card.tall .body { height: 340px; padding: 10px; }
+    .tabs { padding: 10px 10px 0; gap: 4px; }
+    .tabs button { padding: 7px 10px; font-size: 11px; letter-spacing: .03em; }
+    .toolbar { padding: 10px; gap: 8px; }
+    .toolbar input[type=search] { min-width: 0; flex: 1 1 auto; width: 100%; }
+    #table-hint { display: none !important; }
+    .hide-sm { display: none; }
+    tr.detail td { padding-left: 10px; padding-right: 10px; }
+    .detail-table td, .detail-table th { padding: 5px 6px; font-size: 11px; }
+    .uuid { display: none; }
   }
 </style>
 </head>
@@ -193,14 +209,14 @@ const TABS = {
   items: {
     columns: [
       { key: "name", label: "Item" },
-      { key: "brand", label: "Brand" },
+      { key: "brand", label: "Brand", hideSm: true },
       { key: "units", label: "Units Sold", num: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
-      { key: "lines", label: "Order Lines", num: true },
-      { key: "customers", label: "Customers", num: true },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "customers", label: "Customers", num: true, hideSm: true },
       { key: "newLocations", label: "New Locs (14d)", num: true },
-      { key: "firstOrder", label: "First Order" },
-      { key: "lastOrder", label: "Last Order" },
+      { key: "firstOrder", label: "First Order", hideSm: true },
+      { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
   },
@@ -209,10 +225,10 @@ const TABS = {
       { key: "name", label: "Customer" },
       { key: "units", label: "Units Sold", num: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
-      { key: "lines", label: "Order Lines", num: true },
-      { key: "items", label: "SKUs", num: true },
-      { key: "firstOrder", label: "First Order" },
-      { key: "lastOrder", label: "Last Order" },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "items", label: "SKUs", num: true, hideSm: true },
+      { key: "firstOrder", label: "First Order", hideSm: true },
+      { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
   },
@@ -222,8 +238,8 @@ const TABS = {
       { key: "itemName", label: "Item" },
       { key: "minDate", label: "First Order" },
       { key: "units", label: "Units Since", num: true },
-      { key: "lines", label: "Order Lines", num: true },
-      { key: "lastOrder", label: "Last Order" },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "minDate",
   },
@@ -371,7 +387,7 @@ function renderTable() {
   document.getElementById("table-hint").style.display = tab === "placements" ? "none" : "";
 
   document.getElementById("grid-head").innerHTML = "<tr>" + spec.columns.map(c =>
-    `<th class="${c.num ? "num" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
+    `<th class="${c.num ? "num" : ""} ${c.hideSm ? "hide-sm" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
   ).join("") + "</tr>";
 
   document.getElementById("grid-body").innerHTML = rows.map(r => renderRow(r, spec)).join("");
@@ -421,8 +437,8 @@ function renderRow(r, spec) {
       <td>${escapeHtml(r.itemName)}${r.brand ? `<div class="uuid">${escapeHtml(r.brand)}</div>` : ""}</td>
       <td>${fmtDate(r.minDate)}<span class="badge-new">New</span></td>
       <td class="num">${fmt(r.units)}</td>
-      <td class="num">${fmtInt(r.lines)}</td>
-      <td>${fmtDate(r.lastOrder)}</td>
+      <td class="num hide-sm">${fmtInt(r.lines)}</td>
+      <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
     </tr>`;
   }
 
@@ -430,23 +446,23 @@ function renderRow(r, spec) {
   const main = isItem
     ? `<tr class="row" data-id="${r.uuid}">
         <td>${escapeHtml(r.name)}<div class="uuid">${r.uuid.slice(0, 8)}</div></td>
-        <td>${escapeHtml(r.brand || "")}</td>
+        <td class="hide-sm">${escapeHtml(r.brand || "")}</td>
         <td class="num">${fmt(r.units)}</td>
         <td class="num">${sparkline(r)}</td>
-        <td class="num">${fmtInt(r.lines)}</td>
-        <td class="num">${fmtInt(r.customers)}</td>
+        <td class="num hide-sm">${fmtInt(r.lines)}</td>
+        <td class="num hide-sm">${fmtInt(r.customers)}</td>
         <td class="num${r.newLocations ? " new-locs" : ""}">${fmtInt(r.newLocations)}</td>
-        <td>${fmtDate(r.firstOrder)}</td>
-        <td>${fmtDate(r.lastOrder)}</td>
+        <td class="hide-sm">${fmtDate(r.firstOrder)}</td>
+        <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
       </tr>`
     : `<tr class="row" data-id="${r.uuid}">
         <td>${escapeHtml(r.name)}<div class="uuid">${r.uuid.slice(0, 8)}</div></td>
         <td class="num">${fmt(r.units)}</td>
         <td class="num">${sparkline(r)}</td>
-        <td class="num">${fmtInt(r.lines)}</td>
-        <td class="num">${fmtInt(r.items)}</td>
-        <td>${fmtDate(r.firstOrder)}</td>
-        <td>${fmtDate(r.lastOrder)}</td>
+        <td class="num hide-sm">${fmtInt(r.lines)}</td>
+        <td class="num hide-sm">${fmtInt(r.items)}</td>
+        <td class="hide-sm">${fmtDate(r.firstOrder)}</td>
+        <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
       </tr>`;
 
   if (!expanded.has(r.uuid)) return main;
@@ -463,9 +479,9 @@ function renderDetail(r, colspan) {
     return `<tr>
       <td>${escapeHtml(other.name)}${p.new ? '<span class="badge-new">New</span>' : ""}</td>
       <td class="num">${fmt(p.units)}</td>
-      <td class="num">${fmtInt(p.lines)}</td>
+      <td class="num hide-sm">${fmtInt(p.lines)}</td>
       <td>${fmtDate(p.minDate)}</td>
-      <td>${fmtDate(p.lastOrder)}</td>
+      <td class="hide-sm">${fmtDate(p.lastOrder)}</td>
     </tr>`;
   }).join("");
   return `<tr class="detail"><td colspan="${colspan}">
@@ -473,9 +489,9 @@ function renderDetail(r, colspan) {
       <thead><tr>
         <th>${tab === "items" ? "Customer" : "Item"}</th>
         <th class="num">Units</th>
-        <th class="num">Lines</th>
+        <th class="num hide-sm">Lines</th>
         <th>First Order</th>
-        <th>Last Order</th>
+        <th class="hide-sm">Last Order</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
