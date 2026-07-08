@@ -191,12 +191,16 @@ def main(out_path):
     customer_index = {cu["uuid"]: i for i, cu in enumerate(customers_list)}
 
     new_cutoff = max_date - timedelta(days=NEW_PLACEMENT_DAYS)
+    location_cutoff = max_date - timedelta(days=NEW_LOCATION_DAYS)
+    item_new_locations = defaultdict(int)
     pairs_out = []
     new_placements = 0
     for (account_uuid, item_uuid), pr in pairs.items():
         is_new = bool(pr["minDate"] and pr["minDate"] >= new_cutoff)
         if is_new:
             new_placements += 1
+        if pr["minDate"] and pr["minDate"] >= location_cutoff:
+            item_new_locations[item_uuid] += 1
         pairs_out.append(
             {
                 "c": customer_index[account_uuid],
@@ -213,7 +217,6 @@ def main(out_path):
     new_customers = sum(
         1 for cu in customers_list if cu["firstOrder"] and cu["firstOrder"] >= new_cutoff
     )
-    location_cutoff = max_date - timedelta(days=NEW_LOCATION_DAYS)
     new_locations = sum(
         1 for cu in customers_list if cu["firstOrder"] and cu["firstOrder"] >= location_cutoff
     )
@@ -249,6 +252,7 @@ def main(out_path):
                 "units": round(it["units"], 2),
                 "lines": it["lines"],
                 "customers": len(it["customers"]),
+                "newLocations": item_new_locations.get(it["uuid"], 0),
                 "firstOrder": iso(it["firstOrder"]),
                 "lastOrder": iso(it["lastOrder"]),
             }
