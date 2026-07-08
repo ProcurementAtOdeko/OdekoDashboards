@@ -26,6 +26,7 @@ SPREADSHEET_ID = "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs"
 SHEET_RANGE = "A1:M"
 WAREHOUSE_FILTER = "DCA1"
 NEW_PLACEMENT_DAYS = 30
+NEW_LOCATION_DAYS = 14
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 COL_ITEM_NAME = "Item Name"
@@ -212,6 +213,10 @@ def main(out_path):
     new_customers = sum(
         1 for cu in customers_list if cu["firstOrder"] and cu["firstOrder"] >= new_cutoff
     )
+    location_cutoff = max_date - timedelta(days=NEW_LOCATION_DAYS)
+    new_locations = sum(
+        1 for cu in customers_list if cu["firstOrder"] and cu["firstOrder"] >= location_cutoff
+    )
 
     weeks = sorted(weekly)
     top_brands = sorted(brand_units.items(), key=lambda x: -x[1])[:10]
@@ -221,6 +226,7 @@ def main(out_path):
         "warehouse": WAREHOUSE_FILTER,
         "dateRange": {"start": iso(min_order_date), "end": iso(max_date)},
         "newPlacementDays": NEW_PLACEMENT_DAYS,
+        "newLocationDays": NEW_LOCATION_DAYS,
         "summary": {
             "totalUnits": round(sum(it["units"] for it in items_list), 1),
             "orderLines": sum(it["lines"] for it in items_list),
@@ -228,6 +234,7 @@ def main(out_path):
             "itemCount": len(items_list),
             "newPlacements": new_placements,
             "newCustomers": new_customers,
+            "newLocations": new_locations,
         },
         "weeklyTrend": [
             {"weekStart": iso(w), "units": round(weekly[w]["units"], 1), "lines": weekly[w]["lines"]}

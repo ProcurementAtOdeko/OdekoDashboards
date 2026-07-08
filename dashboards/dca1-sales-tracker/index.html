@@ -250,6 +250,7 @@ function renderKpis() {
     { label: "Active SKUs", value: fmtInt(s.itemCount), cls: "" },
     { label: `New Placements (${DATA.newPlacementDays}d)`, value: fmtInt(s.newPlacements), cls: "green" },
     { label: `New Customers (${DATA.newPlacementDays}d)`, value: fmtInt(s.newCustomers), cls: "green" },
+    { label: `New Locations (${DATA.newLocationDays}d)`, value: fmtInt(s.newLocations), cls: "green" },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div></div>`
