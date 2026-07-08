@@ -67,7 +67,14 @@ Model new dashboards on `dashboards/dca1-onhand-eta/`. Steps:
 3. Create `dashboards/<name>/index.html` (copy DCA1's, adjust charts/columns). Reference the logo as `../_shared/odeko-logo.png`.
 4. Create `.github/workflows/refresh-<name>.yml` (copy DCA1's, update name, concurrency group, paths). The workflow should write `dashboards/<name>/data.json`.
 5. Confirm the source sheet is shared with `sheets-mcp-bot@sheets-mcp-497414.iam.gserviceaccount.com`
-6. Commit + push to main. The push triggers the workflow, which writes `data.json` and commits.
+6. Add the new refresh workflow's `name:` to the `workflow_run.workflows` list in `.github/workflows/pages.yml`, so hourly data refreshes redeploy the live site.
+7. Commit + push to main. The push triggers the workflow, which writes `data.json` and commits.
+
+## Live URLs
+
+Dashboards are deployed to GitHub Pages at
+`https://procurementatodeko.github.io/OdekoDashboards/<name>/`.
+**Always give the user the live URL whenever something new is built.**
 
 ## Workflow conventions
 
