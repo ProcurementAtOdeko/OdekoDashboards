@@ -40,6 +40,27 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive.readonly",
 ]
 
+# Generic sub-page stub: the warehouse code is the folder name, everything
+# else lives in ../app.js and ../style.css. Written for any warehouse that
+# doesn't have a page yet, so new exports get a URL automatically.
+PAGE_STUB = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Sales Tracker</title>
+<link rel="icon" type="image/png" href="../../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../../_shared/odeko-logo.png" />
+<link rel="stylesheet" href="../style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<script src="../app.js"></script>
+</body>
+</html>
+"""
+
 COL_ITEM_NAME = "Item Name"
 COL_BRAND = "Brand Name"
 COL_CUSTOMER = "Customer Name"
@@ -365,6 +386,12 @@ def main(out_dir):
             data, skipped = aggregate(rows, wh)
             with open(os.path.join(out_dir, f"{wh}.json"), "w") as f:
                 json.dump(data, f, separators=(",", ":"))
+            page = os.path.join(os.path.dirname(os.path.abspath(out_dir)), wh, "index.html")
+            if not os.path.exists(page):
+                os.makedirs(os.path.dirname(page), exist_ok=True)
+                with open(page, "w") as f:
+                    f.write(PAGE_STUB)
+                print(f"{wh}: created sub-page {page}")
             manifest["warehouses"].append(
                 {"code": wh, "status": "ok", "summary": data["summary"],
                  "dateRange": data["dateRange"]}
