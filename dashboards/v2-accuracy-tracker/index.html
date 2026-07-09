@@ -84,6 +84,18 @@
     cursor: pointer; font-family: inherit;
   }
   .chip.active { background: var(--ink-2); border-color: var(--ink-2); color: #fff; }
+  select.chip { border-radius: 6px; color: var(--ink-2); }
+
+  tr.expandable { cursor: pointer; }
+  .caret { display: inline-block; width: 14px; color: var(--muted); transition: transform .15s; }
+  tr.open .caret { transform: rotate(90deg); }
+  tr.detail-row > td { background: var(--panel-2); padding: 10px 14px 16px; }
+  tr.detail-row:hover > td { background: var(--panel-2); }
+  .mini-note { color: var(--muted); font-size: 11px; margin: 0 0 6px; }
+  .mini-table { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .mini-table th { cursor: default; font-size: 10px; }
+  .mini-table td { font-size: 12px; }
+  .mini-table tr:last-child td { border-bottom: none; }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -138,17 +150,20 @@
       <div class="body"><canvas id="chart-trend"></canvas></div>
     </div>
     <div class="card tall">
-      <h3>Warehouse Accuracy — <span id="wh-latest-label"></span></h3>
+      <h3 style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        <span>Warehouse Accuracy — <span id="wh-latest-label"></span></span>
+        <span style="display:flex;gap:6px">
+          <button class="chip wh-metric-chip active" data-metric="qtyAcc">Qty accuracy</button>
+          <button class="chip wh-metric-chip" data-metric="precision">Precision</button>
+          <button class="chip wh-metric-chip" data-metric="hitRate">Hit rate</button>
+        </span>
+      </h3>
       <div class="body"><canvas id="chart-wh"></canvas></div>
     </div>
     <div class="card tall">
       <h3 style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
         <span>Warehouse Trend</span>
-        <span style="display:flex;gap:6px">
-          <button class="chip metric-chip active" data-metric="precision">Precision</button>
-          <button class="chip metric-chip" data-metric="qtyAcc">Qty accuracy</button>
-          <button class="chip metric-chip" data-metric="hitRate">Hit rate</button>
-        </span>
+        <select id="wh-select" class="chip"></select>
       </h3>
       <div class="body"><canvas id="chart-wh-trend"></canvas></div>
     </div>
@@ -170,7 +185,7 @@
             <th class="num" data-sort="match">Matched</th>
             <th class="num" data-sort="hitRate">Hit Rate</th>
             <th class="num" data-sort="precision">Precision</th>
-            <th class="num" data-sort="qtyAcc" data-default="asc">Qty Accuracy</th>
+            <th class="num" data-sort="qtyAcc">Qty Accuracy</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -195,7 +210,7 @@
             <th class="num" data-sort="recLines">Recommended Lines</th>
             <th class="num" data-sort="units">Units</th>
             <th class="num" data-sort="qtyAcc">Qty Accuracy</th>
-            <th class="num" data-sort="poAcc" data-default="asc">PO Accuracy</th>
+            <th class="num" data-sort="poAcc">PO Accuracy</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -223,7 +238,7 @@
             <th class="num" data-sort="recQty">Model Qty</th>
             <th class="num" data-sort="ordQty">PO Qty</th>
             <th data-sort="status">Status</th>
-            <th class="num" data-sort="acc" data-default="asc">Qty Accuracy</th>
+            <th class="num" data-sort="acc">Qty Accuracy</th>
             <th data-sort="pos">POs</th>
           </tr>
         </thead>
@@ -238,7 +253,6 @@ const PALETTE = {
   ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
   green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
 };
-const SERIES_COLORS = ["#40180B","#B5660A","#1F7A33","#B42318","#D99A06","#5B7A99","#7A4B94","#8A7B6A"];
 const MAX_LINE_ROWS = 800;
 
 const pct = (v) => v == null ? "—" : (v * 100).toFixed(1) + "%";
@@ -251,12 +265,14 @@ const escapeHtml = (s) =>
   String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 
 let DATA = null;
+let whBarChart = null;
 let whTrendChart = null;
-let whTrendMetric = "precision";
+let whBarMetric = "qtyAcc";
+const METRIC_LABEL = { hitRate: "Hit rate", precision: "Precision", qtyAcc: "Qty accuracy" };
 const tableState = {
-  vendors: { sortKey: "ord", sortDir: "desc", q: "" },
-  pos: { sortKey: "poAcc", sortDir: "asc", q: "" },
-  lines: { sortKey: "status", sortDir: "asc", q: "", status: "" },
+  vendors: { sortKey: "qtyAcc", sortDir: "desc", q: "", rows: [] },
+  pos: { sortKey: "poAcc", sortDir: "desc", q: "", rows: [] },
+  lines: { sortKey: "acc", sortDir: "desc", q: "", status: "" },
 };
 
 async function load() {
@@ -325,50 +341,63 @@ function renderCharts() {
     },
   });
 
-  const whs = DATA.latest.byWarehouse.filter(w => w.ord > 0);
-  new Chart(document.getElementById("chart-wh"), {
+  // Warehouse selector, ordered by PO volume across the whole history.
+  const totals = {};
+  H.forEach(d => d.byWarehouse.forEach(w => { totals[w.name] = (totals[w.name] || 0) + w.ord; }));
+  const active = Object.entries(totals).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([n]) => n);
+  const sel = document.getElementById("wh-select");
+  sel.innerHTML = active.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");
+
+  renderWhBar();
+  renderWhTrend();
+}
+
+function renderWhBar() {
+  const whs = DATA.latest.byWarehouse
+    .filter(w => w.ord > 0 && w[whBarMetric] != null)
+    .slice()
+    .sort((a, b) => b[whBarMetric] - a[whBarMetric]);
+  if (whBarChart) whBarChart.destroy();
+  whBarChart = new Chart(document.getElementById("chart-wh"), {
     type: "bar",
     data: {
       labels: whs.map(w => w.name),
-      datasets: [
-        { label: "Hit rate", data: whs.map(w => toPct(w.hitRate)), backgroundColor: PALETTE.red, borderRadius: 3 },
-        { label: "Precision", data: whs.map(w => toPct(w.precision)), backgroundColor: PALETTE.ink, borderRadius: 3 },
-        { label: "Qty accuracy", data: whs.map(w => toPct(w.qtyAcc)), backgroundColor: PALETTE.green, borderRadius: 3 },
-      ],
+      datasets: [{
+        label: METRIC_LABEL[whBarMetric],
+        data: whs.map(w => toPct(w[whBarMetric])),
+        backgroundColor: whs.map(w =>
+          w[whBarMetric] >= 0.7 ? PALETTE.green : w[whBarMetric] >= 0.4 ? PALETTE.amber : PALETTE.red),
+        borderRadius: 4,
+      }],
     },
     options: {
       indexAxis: "y",
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom", labels: { usePointStyle: true, boxHeight: 6 } },
-                 tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.raw == null ? "—" : c.raw + "%"}` } } },
+      plugins: { legend: { display: false },
+                 tooltip: { callbacks: { label: c => `${METRIC_LABEL[whBarMetric]}: ${c.raw == null ? "—" : c.raw + "%"}` } } },
       scales: { x: pctAxis },
     },
   });
-
-  renderWhTrend();
 }
 
 function renderWhTrend() {
   const H = DATA.history;
-  const totals = {};
-  H.forEach(d => d.byWarehouse.forEach(w => { totals[w.name] = (totals[w.name] || 0) + w.ord; }));
-  const top = Object.entries(totals).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([n]) => n);
-
-  const datasets = top.map((name, i) => ({
-    label: name,
-    data: H.map(d => {
-      const w = d.byWarehouse.find(x => x.name === name);
-      return w ? toPct(w[whTrendMetric]) : null;
-    }),
-    borderColor: SERIES_COLORS[i % SERIES_COLORS.length],
-    backgroundColor: SERIES_COLORS[i % SERIES_COLORS.length],
-    tension: .25,
-  }));
-
+  const name = document.getElementById("wh-select").value;
+  const pick = (d, metric) => {
+    const w = d.byWarehouse.find(x => x.name === name);
+    return w ? toPct(w[metric]) : null;
+  };
   if (whTrendChart) whTrendChart.destroy();
   whTrendChart = new Chart(document.getElementById("chart-wh-trend"), {
     type: "line",
-    data: { labels: H.map(d => d.date.slice(5)), datasets },
+    data: {
+      labels: H.map(d => d.date.slice(5)),
+      datasets: [
+        { label: "Hit rate", data: H.map(d => pick(d, "hitRate")), borderColor: PALETTE.red, backgroundColor: PALETTE.red, tension: .25 },
+        { label: "Precision", data: H.map(d => pick(d, "precision")), borderColor: PALETTE.ink, backgroundColor: PALETTE.ink, tension: .25 },
+        { label: "Qty accuracy", data: H.map(d => pick(d, "qtyAcc")), borderColor: PALETTE.green, backgroundColor: PALETTE.green, tension: .25 },
+      ],
+    },
     options: {
       responsive: true, maintainAspectRatio: false, spanGaps: true,
       plugins: { legend: { position: "bottom", labels: { usePointStyle: true, boxHeight: 6 } },
@@ -398,15 +427,58 @@ function markSortHeaders(tableId, state) {
   });
 }
 
+const MAX_DETAIL_ROWS = 150;
+
+function detailLinesHtml(lines) {
+  if (!lines.length) return '<div class="mini-note">No line detail for the latest scored day.</div>';
+  const shown = lines.slice(0, MAX_DETAIL_ROWS);
+  const note = lines.length > shown.length
+    ? `<p class="mini-note">Showing ${shown.length} of ${lines.length} lines</p>` : "";
+  return `${note}<div class="mini-table" style="overflow-x:auto"><table>
+    <thead><tr>
+      <th>Item</th><th>Warehouse</th><th class="num">Model Qty</th><th class="num">PO Qty</th>
+      <th>Status</th><th class="num">Qty Accuracy</th><th>POs</th>
+    </tr></thead>
+    <tbody>${shown.map(l => `
+      <tr>
+        <td>${escapeHtml(l.item)}</td>
+        <td>${escapeHtml(l.wh)}</td>
+        <td class="num">${fmt(l.recQty)}</td>
+        <td class="num">${fmt(l.ordQty)}</td>
+        <td><span class="badge ${l.status}">${l.status}</span></td>
+        <td class="num ${rateClass(l.acc)}">${pct(l.acc)}</td>
+        <td>${l.pos.map(escapeHtml).join(", ")}</td>
+      </tr>`).join("")}
+    </tbody></table></div>`;
+}
+
+const byAccDesc = (a, b) =>
+  (a.acc == null) - (b.acc == null) || (b.acc ?? 0) - (a.acc ?? 0);
+
+function toggleDetail(tr, colspan, buildHtml) {
+  const next = tr.nextElementSibling;
+  if (next && next.classList.contains("detail-row")) {
+    next.remove();
+    tr.classList.remove("open");
+    return;
+  }
+  const detail = document.createElement("tr");
+  detail.className = "detail-row";
+  detail.innerHTML = `<td colspan="${colspan}">${buildHtml()}</td>`;
+  tr.after(detail);
+  tr.classList.add("open");
+}
+
 function renderVendors() {
   const st = tableState.vendors;
   const q = st.q.toLowerCase();
   const rows = sortRows(DATA.latest.byVendor.filter(v => !q || v.name.toLowerCase().includes(q)), st);
-  document.getElementById("vendor-count").textContent = `${rows.length} vendors`;
+  st.rows = rows;
+  document.getElementById("vendor-count").textContent = `${rows.length} vendors · click a row for line detail`;
   markSortHeaders("vendors", st);
-  document.querySelector("#vendors tbody").innerHTML = rows.map(v => `
-    <tr>
-      <td>${escapeHtml(v.name)}</td>
+  document.querySelector("#vendors tbody").innerHTML = rows.map((v, i) => `
+    <tr class="expandable" data-idx="${i}">
+      <td><span class="caret">▸</span>${escapeHtml(v.name)}</td>
       <td class="num">${fmt(v.rec)}</td>
       <td class="num">${fmt(v.ord)}</td>
       <td class="num">${fmt(v.match)}</td>
@@ -423,11 +495,12 @@ function renderPos() {
   const rows = sortRows(DATA.latest.pos.filter(p =>
     !q || p.po.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q) || p.wh.toLowerCase().includes(q)
   ), st);
-  document.getElementById("po-count").textContent = `${rows.length} POs`;
+  st.rows = rows;
+  document.getElementById("po-count").textContent = `${rows.length} POs · click a row for line detail`;
   markSortHeaders("pos", st);
-  document.querySelector("#pos tbody").innerHTML = rows.map(p => `
-    <tr>
-      <td>${escapeHtml(p.po)}</td>
+  document.querySelector("#pos tbody").innerHTML = rows.map((p, i) => `
+    <tr class="expandable" data-idx="${i}">
+      <td><span class="caret">▸</span>${escapeHtml(p.po)}</td>
       <td>${escapeHtml(p.vendor)}</td>
       <td>${escapeHtml(p.wh)}</td>
       <td class="num">${fmt(p.lines)}</td>
@@ -438,6 +511,22 @@ function renderPos() {
     </tr>
   `).join("");
 }
+
+document.querySelector("#vendors tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.expandable");
+  if (!tr) return;
+  const v = tableState.vendors.rows[+tr.dataset.idx];
+  toggleDetail(tr, 7, () =>
+    detailLinesHtml(DATA.latest.lines.filter(l => l.vendor === v.name).sort(byAccDesc)));
+});
+
+document.querySelector("#pos tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.expandable");
+  if (!tr) return;
+  const p = tableState.pos.rows[+tr.dataset.idx];
+  toggleDetail(tr, 8, () =>
+    detailLinesHtml(DATA.latest.lines.filter(l => l.pos.includes(p.po)).sort(byAccDesc)));
+});
 
 function renderLines() {
   const st = tableState.lines;
@@ -484,14 +573,15 @@ document.getElementById("vendor-search").addEventListener("input", e => { tableS
 document.getElementById("po-search").addEventListener("input", e => { tableState.pos.q = e.target.value; renderPos(); });
 document.getElementById("line-search").addEventListener("input", e => { tableState.lines.q = e.target.value; renderLines(); });
 
-document.querySelectorAll(".metric-chip").forEach(btn => {
+document.querySelectorAll(".wh-metric-chip").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".metric-chip").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".wh-metric-chip").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    whTrendMetric = btn.dataset.metric;
-    renderWhTrend();
+    whBarMetric = btn.dataset.metric;
+    renderWhBar();
   });
 });
+document.getElementById("wh-select").addEventListener("change", renderWhTrend);
 document.querySelectorAll(".status-chip").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".status-chip").forEach(b => b.classList.remove("active"));
