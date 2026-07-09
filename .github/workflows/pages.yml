@@ -16,6 +16,8 @@ on:
       - "Refresh BNA1TO procurement data"
       - "Refresh expiration mitigation data"
       - "Refresh sales tracker data"
+      - "Snapshot Combined V2 model (8am ET)"
+      - "Score V2 accuracy vs POs (8pm ET)"
     types: [completed]
     branches: [main]
   workflow_dispatch:

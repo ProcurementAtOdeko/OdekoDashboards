@@ -1,0 +1,71 @@
+name: Snapshot Combined V2 model (8am ET)
+
+on:
+  schedule:
+    # 8am ET is 12:00 UTC during EDT and 13:00 UTC during EST; a gate step
+    # below runs the job only when it's actually 8am in New York.
+    - cron: "0 12,13 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-v2-accuracy-snapshot.yml"
+      - "dashboards/v2-accuracy-tracker/scripts/snapshot_model.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-v2-accuracy-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate to 8am ET (scheduled runs only)
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(TZ=America/New_York date +%H)" != "08" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Not 8am ET; skipping."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        if: steps.gate.outputs.run == 'true'
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Snapshot model recommendations
+        if: steps.gate.outputs.run == 'true'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 dashboards/v2-accuracy-tracker/scripts/snapshot_model.py \
+            dashboards/v2-accuracy-tracker/snapshots
+
+      - name: Commit if changed
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A dashboards/v2-accuracy-tracker/snapshots
+          if git diff --cached --quiet; then
+            echo "No snapshot changes."
+            exit 0
+          fi
+          git commit -m "chore: snapshot Combined V2 model recs ($(date -u +%Y-%m-%dT%H:%MZ))"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase
+          done
+          git push

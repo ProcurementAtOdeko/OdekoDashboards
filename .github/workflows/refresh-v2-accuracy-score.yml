@@ -1,0 +1,71 @@
+name: Score V2 accuracy vs POs (8pm ET)
+
+on:
+  schedule:
+    # 8pm ET is 00:00 UTC (next day) during EDT and 01:00 UTC during EST; a
+    # gate step below runs the job only when it's actually 8pm in New York.
+    - cron: "0 0,1 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-v2-accuracy-score.yml"
+      - "dashboards/v2-accuracy-tracker/scripts/score_pos.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-v2-accuracy-score
+  cancel-in-progress: false
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate to 8pm ET (scheduled runs only)
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(TZ=America/New_York date +%H)" != "20" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Not 8pm ET; skipping."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        if: steps.gate.outputs.run == 'true'
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Score POs against model snapshots
+        if: steps.gate.outputs.run == 'true'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 dashboards/v2-accuracy-tracker/scripts/score_pos.py \
+            dashboards/v2-accuracy-tracker
+
+      - name: Commit if changed
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboards/v2-accuracy-tracker/data.json dashboards/v2-accuracy-tracker/history.json
+          if git diff --cached --quiet; then
+            echo "No score changes."
+            exit 0
+          fi
+          git commit -m "chore: score V2 accuracy vs POs ($(date -u +%Y-%m-%dT%H:%MZ))"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase
+          done
+          git push
