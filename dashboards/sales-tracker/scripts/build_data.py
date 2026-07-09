@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Build data.json for the DCA1 Sales Tracker dashboard.
+"""Build per-warehouse data files for the network Sales Tracker dashboard.
 
-Pulls order lines from the "DCA1 Sales Tracker Trailing 90" Looker export
-(Google Sheet, service-account auth), converts SO item quantities to actual
-sold units by dividing by the item's conversion rate, aggregates by item,
-customer, and customer/SKU pair, and writes a JSON file the dashboard
-front-end consumes.
+Discovers every "Network Sales Tracker - <WAREHOUSE>.csv" Looker export in
+the Looker Data Dumps Drive folder (newest per warehouse), plus the static
+DCA1 sheet, aggregates each into data/<WAREHOUSE>.json, and writes a
+data/manifest.json the front-end uses to render the warehouse switcher.
 
-"Min Date" in the source is the location/SKU first order date, so a pair
-whose Min Date falls inside the trailing window is a new placement.
+Per order line, actual sold units = SO Item Qty / Conversion Rate.
+"Min Date" is the location/SKU first order date, so a pair whose Min Date
+falls inside the trailing window is a new placement.
+
+Some exports occasionally contain a Looker SQL error instead of data; those
+warehouses are recorded in the manifest with status "error" and skipped.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
@@ -22,12 +26,19 @@ from datetime import datetime, timedelta, timezone
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-SPREADSHEET_ID = "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs"
-SHEET_RANGE = "A1:M"
-WAREHOUSE_FILTER = "DCA1"
+LOOKER_FOLDER_ID = "1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7"
+FILE_PATTERN = re.compile(r"^Network Sales Tracker - ([A-Za-z0-9]+)\.csv$")
+# Warehouses with dedicated exports that don't follow the network naming.
+# Discovered "Network Sales Tracker - <WH>" files override these.
+STATIC_SOURCES = {
+    "DCA1": "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs",
+}
 NEW_PLACEMENT_DAYS = 30
 NEW_LOCATION_DAYS = 14
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets.readonly",
+    "https://www.googleapis.com/auth/drive.readonly",
+]
 
 COL_ITEM_NAME = "Item Name"
 COL_BRAND = "Brand Name"
@@ -39,6 +50,7 @@ COL_QTY = "SO Item Qty"
 COL_ITEM_UUID = "Item Uuid"
 COL_CONVERSION = "Conversion Rate"
 COL_MIN_DATE = "Min Date"
+COL_ENTERPRISE = "Enterprise"  # optional
 
 
 def parse_num(s):
@@ -63,24 +75,12 @@ def week_start(d):
     return d - timedelta(days=d.weekday())
 
 
-def main(out_path):
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
-    if not raw:
-        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(raw), scopes=SCOPES
-    )
-    svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
-    res = (
-        svc.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_RANGE)
-        .execute()
-    )
-    rows = res.get("values", [])
-    if not rows:
-        sys.exit("Sheet returned no rows")
+def iso(d):
+    return d.isoformat() if d else None
 
+
+def aggregate(rows, warehouse):
+    """Aggregate raw sheet rows for one warehouse into the dashboard JSON."""
     header = rows[0]
     col = {name: i for i, name in enumerate(header)}
     required = [
@@ -89,7 +89,8 @@ def main(out_path):
     ]
     missing = [c for c in required if c not in col]
     if missing:
-        sys.exit(f"Missing expected columns: {missing}")
+        raise ValueError(f"missing expected columns: {missing}")
+    has_enterprise = COL_ENTERPRISE in col
 
     items = {}
     customers = {}
@@ -102,10 +103,16 @@ def main(out_path):
 
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
-        if r[col[COL_WAREHOUSE]] != WAREHOUSE_FILTER:
+        if r[col[COL_WAREHOUSE]] != warehouse:
             continue
-        item_uuid = r[col[COL_ITEM_UUID]].strip()
-        account_uuid = r[col[COL_ACCOUNT_UUID]].strip()
+        # Some lines (legacy / off-platform sales) have no uuids; fall back to
+        # name-based keys so their volume still counts.
+        item_uuid = r[col[COL_ITEM_UUID]].strip() or (
+            r[col[COL_ITEM_NAME]].strip() and "n:" + r[col[COL_ITEM_NAME]].strip()
+        )
+        account_uuid = r[col[COL_ACCOUNT_UUID]].strip() or (
+            r[col[COL_CUSTOMER]].strip() and "n:" + r[col[COL_CUSTOMER]].strip()
+        )
         qty = parse_num(r[col[COL_QTY]])
         order_date = parse_date(r[col[COL_DATE]])
         if not item_uuid or not account_uuid or qty is None or order_date is None:
@@ -116,6 +123,7 @@ def main(out_path):
             conv = 1.0
         units = qty / conv
         pair_min_date = parse_date(r[col[COL_MIN_DATE]])
+        wk = week_start(order_date)
 
         if max_date is None or order_date > max_date:
             max_date = order_date
@@ -139,7 +147,7 @@ def main(out_path):
         it["units"] += units
         it["lines"] += 1
         it["customers"].add(account_uuid)
-        it["weekly"][week_start(order_date)] += units
+        it["weekly"][wk] += units
         if it["firstOrder"] is None or (pair_min_date and pair_min_date < it["firstOrder"]):
             it["firstOrder"] = pair_min_date
         if it["lastOrder"] is None or order_date > it["lastOrder"]:
@@ -156,12 +164,15 @@ def main(out_path):
                 "firstOrder": None,
                 "lastOrder": None,
                 "weekly": defaultdict(float),
+                "enterprise": False,
             },
         )
         cu["units"] += units
         cu["lines"] += 1
         cu["items"].add(item_uuid)
-        cu["weekly"][week_start(order_date)] += units
+        cu["weekly"][wk] += units
+        if has_enterprise and str(r[col[COL_ENTERPRISE]]).strip().upper() == "TRUE":
+            cu["enterprise"] = True
         if cu["firstOrder"] is None or (pair_min_date and pair_min_date < cu["firstOrder"]):
             cu["firstOrder"] = pair_min_date
         if cu["lastOrder"] is None or order_date > cu["lastOrder"]:
@@ -178,16 +189,13 @@ def main(out_path):
         if pr["lastOrder"] is None or order_date > pr["lastOrder"]:
             pr["lastOrder"] = order_date
 
-        wk = week_start(order_date)
         weekly[wk]["units"] += units
         weekly[wk]["lines"] += 1
         if r[col[COL_BRAND]]:
             brand_units[r[col[COL_BRAND]]] += units
 
     if not items:
-        sys.exit("No rows matched the warehouse filter")
-
-    iso = lambda d: d.isoformat() if d else None
+        raise ValueError(f"no rows matched warehouse {warehouse}")
 
     items_list = sorted(items.values(), key=lambda x: -x["units"])
     customers_list = sorted(customers.values(), key=lambda x: -x["units"])
@@ -245,9 +253,9 @@ def main(out_path):
         direction = "up" if delta > eps else "down" if delta < -eps else "flat"
         return {"trend": series, "trendDelta": round(delta, 1), "trendDir": direction}
 
-    out = {
+    return {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "warehouse": WAREHOUSE_FILTER,
+        "warehouse": warehouse,
         "dateRange": {"start": iso(min_order_date), "end": iso(max_date)},
         "newPlacementDays": NEW_PLACEMENT_DAYS,
         "newLocationDays": NEW_LOCATION_DAYS,
@@ -288,6 +296,7 @@ def main(out_path):
                 "units": round(cu["units"], 2),
                 "lines": cu["lines"],
                 "items": len(cu["items"]),
+                "enterprise": cu["enterprise"],
                 "firstOrder": iso(cu["firstOrder"]),
                 "lastOrder": iso(cu["lastOrder"]),
                 **trend_fields(cu["weekly"]),
@@ -295,15 +304,89 @@ def main(out_path):
             for cu in customers_list
         ],
         "pairs": pairs_out,
-    }
+    }, skipped
 
-    with open(out_path, "w") as f:
-        json.dump(out, f, indent=1)
-    print(
-        f"Wrote {len(items_list)} items, {len(customers_list)} customers, "
-        f"{len(pairs_out)} pairs ({skipped} rows skipped) to {out_path}"
+
+def discover_sources(drive):
+    """Newest 'Network Sales Tracker - <WH>.csv' per warehouse, merged over
+    STATIC_SOURCES (discovered files win)."""
+    res = drive.files().list(
+        q=(
+            f"'{LOOKER_FOLDER_ID}' in parents"
+            " and name contains 'Network Sales Tracker - '"
+            " and mimeType = 'application/vnd.google-apps.spreadsheet'"
+            " and trashed = false"
+        ),
+        orderBy="modifiedTime desc",
+        fields="files(id, name, modifiedTime)",
+        pageSize=100,
+    ).execute()
+    sources = {}
+    for f in res.get("files", []):  # newest first: keep first file per WH
+        m = FILE_PATTERN.match(f["name"])
+        if m:
+            sources.setdefault(m.group(1).upper(), f["id"])
+    for wh, file_id in STATIC_SOURCES.items():
+        sources.setdefault(wh, file_id)
+    return sources
+
+
+def main(out_dir):
+    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
+    if not raw:
+        sys.exit("GOOGLE_SERVICE_ACCOUNT_JSON env var not set")
+    creds = service_account.Credentials.from_service_account_info(
+        json.loads(raw), scopes=SCOPES
     )
+    sheets = build("sheets", "v4", credentials=creds, cache_discovery=False)
+    drive = build("drive", "v3", credentials=creds, cache_discovery=False)
+
+    sources = discover_sources(drive)
+    if not sources:
+        sys.exit("No sales tracker sources found")
+
+    os.makedirs(out_dir, exist_ok=True)
+    manifest = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "warehouses": [],
+    }
+    failures = 0
+    for wh in sorted(sources):
+        try:
+            res = (
+                sheets.spreadsheets()
+                .values()
+                .get(spreadsheetId=sources[wh], range="A1:Z")
+                .execute()
+            )
+            rows = res.get("values", [])
+            if not rows:
+                raise ValueError("sheet returned no rows")
+            data, skipped = aggregate(rows, wh)
+            with open(os.path.join(out_dir, f"{wh}.json"), "w") as f:
+                json.dump(data, f, separators=(",", ":"))
+            manifest["warehouses"].append(
+                {"code": wh, "status": "ok", "summary": data["summary"],
+                 "dateRange": data["dateRange"]}
+            )
+            print(
+                f"{wh}: {data['summary']['itemCount']} items, "
+                f"{data['summary']['customerCount']} customers ({skipped} rows skipped)"
+            )
+        except Exception as e:  # bad export (e.g. Looker SQL error) -> skip
+            failures += 1
+            manifest["warehouses"].append(
+                {"code": wh, "status": "error", "error": str(e)[:300]}
+            )
+            print(f"{wh}: SKIPPED - {e}", file=sys.stderr)
+
+    ok = [w for w in manifest["warehouses"] if w["status"] == "ok"]
+    if not ok:
+        sys.exit("Every warehouse failed; not writing manifest")
+    with open(os.path.join(out_dir, "manifest.json"), "w") as f:
+        json.dump(manifest, f, indent=1)
+    print(f"Wrote manifest with {len(ok)} ok / {failures} failed warehouses to {out_dir}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data.json")
+    main(sys.argv[1] if len(sys.argv) > 1 else "data")
