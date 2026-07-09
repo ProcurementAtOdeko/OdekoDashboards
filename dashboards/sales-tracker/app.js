@@ -16,12 +16,9 @@ document.body.innerHTML = `
       <div class="sub" id="meta">Loading…</div>
     </div>
   </div>
-  <a class="back" href="../">← All markets</a>
 </header>
 
 <main>
-  <nav class="wh-switch" id="wh-switch" aria-label="Warehouse"></nav>
-
   <section class="kpis" id="kpis"></section>
 
   <section class="charts">
@@ -119,14 +116,9 @@ const TABS = {
 };
 
 async function init() {
-  const [manifestRes, dataRes] = await Promise.all([
-    fetch("../data/manifest.json", { cache: "no-store" }),
-    fetch(`../data/${WAREHOUSE}.json`, { cache: "no-store" }),
-  ]);
-  if (manifestRes.ok) renderSwitcher(await manifestRes.json());
+  const dataRes = await fetch(`../data/${WAREHOUSE}.json`, { cache: "no-store" });
   if (!dataRes.ok) {
-    document.getElementById("meta").textContent =
-      `No data for ${WAREHOUSE} — pick another market above.`;
+    document.getElementById("meta").textContent = `No data available for ${WAREHOUSE}.`;
     return;
   }
   DATA = await dataRes.json();
@@ -143,14 +135,6 @@ async function init() {
   renderKpis();
   renderTable();
   try { renderCharts(); } catch (e) { console.error("Charts failed to render:", e); }
-}
-
-function renderSwitcher(manifest) {
-  document.getElementById("wh-switch").innerHTML = manifest.warehouses.map(w =>
-    w.status === "ok"
-      ? `<a href="../${w.code}/" class="${w.code === WAREHOUSE ? "active" : ""}">${w.code}</a>`
-      : `<span class="disabled" title="Source export failed to refresh — no data">${w.code}</span>`
-  ).join("");
 }
 
 function renderKpis() {
