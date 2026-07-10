@@ -7,8 +7,10 @@ DCA1 sheet, aggregates each into data/<WAREHOUSE>.json, and writes a
 data/manifest.json the front-end uses to render the warehouse switcher.
 
 Per order line, actual sold units = SO Item Qty / Conversion Rate.
-"Min Date" is the location/SKU first order date, so a pair whose Min Date
-falls inside the trailing window is a new placement.
+The location/SKU first ORDER date drives new-placement logic: we use the
+"Min Order Date" column when the export provides it, otherwise the legacy
+"Min Date" (first fulfill date) clamped to the earliest observed order date.
+A pair whose first order falls inside the trailing window is a new placement.
 
 Some exports occasionally contain a Looker SQL error instead of data; those
 warehouses are recorded in the manifest with status "error" and skipped.
@@ -70,7 +72,8 @@ COL_WAREHOUSE = "Warehouse Name"
 COL_QTY = "SO Item Qty"
 COL_ITEM_UUID = "Item Uuid"
 COL_CONVERSION = "Conversion Rate"
-COL_MIN_DATE = "Min Date"
+COL_MIN_ORDER_DATE = "Min Order Date"  # preferred when the export provides it
+COL_MIN_DATE = "Min Date"  # legacy: first FULFILL date, lags the order by 1-3 days
 COL_ENTERPRISE = "Enterprise"  # optional
 
 
@@ -106,11 +109,15 @@ def aggregate(rows, warehouse):
     col = {name: i for i, name in enumerate(header)}
     required = [
         COL_ITEM_NAME, COL_BRAND, COL_CUSTOMER, COL_ACCOUNT_UUID, COL_DATE,
-        COL_WAREHOUSE, COL_QTY, COL_ITEM_UUID, COL_CONVERSION, COL_MIN_DATE,
+        COL_WAREHOUSE, COL_QTY, COL_ITEM_UUID, COL_CONVERSION,
     ]
     missing = [c for c in required if c not in col]
     if missing:
         raise ValueError(f"missing expected columns: {missing}")
+    if COL_MIN_ORDER_DATE not in col and COL_MIN_DATE not in col:
+        raise ValueError(f"missing expected columns: ['{COL_MIN_ORDER_DATE}']")
+    # Prefer the true first-order date; "Min Date" is the first FULFILL date.
+    min_date_col = col.get(COL_MIN_ORDER_DATE, col.get(COL_MIN_DATE))
     has_enterprise = COL_ENTERPRISE in col
 
     items = {}
@@ -143,7 +150,12 @@ def aggregate(rows, warehouse):
         if not conv:  # missing or zero conversion -> already in sold units
             conv = 1.0
         units = qty / conv
-        pair_min_date = parse_date(r[col[COL_MIN_DATE]])
+        # While the export still carries the fulfill-based "Min Date", clamp
+        # to the earliest order date we actually observe for the row, so a
+        # first order can never postdate a real order (or land in the future).
+        pair_min_date = parse_date(r[min_date_col])
+        if pair_min_date is None or order_date < pair_min_date:
+            pair_min_date = order_date
         wk = week_start(order_date)
 
         if max_date is None or order_date > max_date:
