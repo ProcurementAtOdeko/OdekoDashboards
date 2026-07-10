@@ -1,99 +1,99 @@
 {
- "generatedAt": "2026-07-10T08:47:15+00:00",
+ "generatedAt": "2026-07-10T15:09:39+00:00",
  "warehouses": [
   {
    "code": "BLI1",
    "status": "ok",
    "summary": {
-    "totalUnits": 91569.0,
-    "orderLines": 12087,
+    "totalUnits": 93463.0,
+    "orderLines": 12379,
     "customerCount": 150,
-    "itemCount": 262,
-    "newPlacements": 143,
+    "itemCount": 261,
+    "newPlacements": 149,
     "newCustomers": 4,
     "newLocations": 2
    },
    "dateRange": {
-    "start": "2026-04-11",
-    "end": "2026-07-08"
+    "start": "2026-04-12",
+    "end": "2026-07-09"
    }
   },
   {
    "code": "CLT1",
-   "status": "error",
-   "error": "missing expected columns: ['Item Name', 'Brand Name', 'Customer Name', 'Odeko Account Uuid', 'Date Date', 'Warehouse Name', 'SO Item Qty', 'Item Uuid', 'Conversion Rate', 'Min Date']"
+   "status": "ok",
+   "summary": {
+    "totalUnits": 74905.0,
+    "orderLines": 23793,
+    "customerCount": 696,
+    "itemCount": 1053,
+    "newPlacements": 1046,
+    "newCustomers": 18,
+    "newLocations": 5
+   },
+   "dateRange": {
+    "start": "2026-04-12",
+    "end": "2026-07-09"
+   }
   },
   {
    "code": "DCA1",
    "status": "ok",
    "summary": {
-    "totalUnits": 39379.0,
-    "orderLines": 19798,
-    "customerCount": 148,
-    "itemCount": 762,
-    "newPlacements": 897,
+    "totalUnits": 39698.0,
+    "orderLines": 19876,
+    "customerCount": 147,
+    "itemCount": 765,
+    "newPlacements": 868,
     "newCustomers": 11,
     "newLocations": 5
    },
    "dateRange": {
-    "start": "2026-04-11",
-    "end": "2026-07-08"
+    "start": "2026-04-12",
+    "end": "2026-07-09"
    }
   },
   {
    "code": "DEN1",
-   "status": "ok",
-   "summary": {
-    "totalUnits": 140476.0,
-    "orderLines": 58803,
-    "customerCount": 1664,
-    "itemCount": 2213,
-    "newPlacements": 4153,
-    "newCustomers": 354,
-    "newLocations": 162
-   },
-   "dateRange": {
-    "start": "2026-04-11",
-    "end": "2026-07-08"
-   }
-  },
-  {
-   "code": "DFW1",
    "status": "error",
    "error": "sheet returned no rows"
   },
   {
-   "code": "HOU1",
+   "code": "DFW1",
    "status": "ok",
    "summary": {
-    "totalUnits": 126214.0,
-    "orderLines": 37738,
-    "customerCount": 2164,
-    "itemCount": 1795,
-    "newPlacements": 4269,
-    "newCustomers": 452,
-    "newLocations": 164
+    "totalUnits": 102993.0,
+    "orderLines": 35549,
+    "customerCount": 1807,
+    "itemCount": 1812,
+    "newPlacements": 3397,
+    "newCustomers": 436,
+    "newLocations": 195
    },
    "dateRange": {
-    "start": "2026-04-11",
-    "end": "2026-07-08"
+    "start": "2026-04-12",
+    "end": "2026-07-09"
    }
+  },
+  {
+   "code": "HOU1",
+   "status": "error",
+   "error": "sheet returned no rows"
   },
   {
    "code": "LAX1",
    "status": "ok",
    "summary": {
-    "totalUnits": 383776.0,
-    "orderLines": 93125,
+    "totalUnits": 386948.0,
+    "orderLines": 94018,
     "customerCount": 1598,
-    "itemCount": 1910,
-    "newPlacements": 5312,
-    "newCustomers": 256,
-    "newLocations": 126
+    "itemCount": 1913,
+    "newPlacements": 5358,
+    "newCustomers": 249,
+    "newLocations": 120
    },
    "dateRange": {
-    "start": "2026-04-11",
-    "end": "2026-07-08"
+    "start": "2026-04-12",
+    "end": "2026-07-09"
    }
   }
  ]
