@@ -403,8 +403,8 @@ function renderRow(r, spec) {
   return main + renderDetail(r, activeColumns(spec).length);
 }
 
-const LOCAL_LINES = new Set(["metrobi", "local distribution"]);
-const ECOMM_LINES = new Set(["shipping", "odeko shipping"]);
+const LOCAL_LINES = new Set(["metrobi", "local distribution", "roadie", "pickup"]);
+const ECOMM_LINES = new Set(["shipping", "odeko shipping", "parcel - bulk", "drop ship"]);
 function lineCategory(name) {
   const k = (name || "").trim().toLowerCase();
   if (LOCAL_LINES.has(k)) return "local";
