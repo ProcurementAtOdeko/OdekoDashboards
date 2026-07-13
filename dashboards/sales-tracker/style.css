@@ -118,6 +118,11 @@ td.new-locs { color: var(--green); font-weight: 600; }
 .spark { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
 .spark svg { display: block; }
 .spark-arrow { font-size: 10px; line-height: 1; }
+.split { display: inline-flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.split-bar { display: inline-flex; width: 64px; height: 8px; border-radius: 999px; overflow: hidden; background: var(--line); }
+.split-bar span { display: block; height: 100%; }
+.split-pct { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bl-dot { display: inline-block; width: 8px; height: 8px; border-radius: 999px; margin-right: 6px; vertical-align: middle; }
 
 @media (max-width: 700px) {
   header { padding: 10px 12px; }

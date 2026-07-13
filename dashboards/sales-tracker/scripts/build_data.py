@@ -75,6 +75,21 @@ COL_CONVERSION = "Conversion Rate"
 COL_MIN_ORDER_DATE = "Min Order Date"  # preferred when the export provides it
 COL_MIN_DATE = "Min Date"  # legacy: first FULFILL date, lags the order by 1-3 days
 COL_ENTERPRISE = "Enterprise"  # optional
+COL_BUSINESS_LINE = "Business Line"  # optional
+
+# Business-line categories. Local delivery and ecomm (shipping) are the two
+# we split items on; everything else rolls up to "other".
+LOCAL_LINES = {"metrobi", "local distribution"}
+ECOMM_LINES = {"shipping", "odeko shipping"}
+
+
+def line_category(name):
+    key = (name or "").strip().lower()
+    if key in LOCAL_LINES:
+        return "local"
+    if key in ECOMM_LINES:
+        return "ecomm"
+    return "other"
 
 
 def parse_num(s):
@@ -119,12 +134,14 @@ def aggregate(rows, warehouse):
     # Prefer the true first-order date; "Min Date" is the first FULFILL date.
     min_date_col = col.get(COL_MIN_ORDER_DATE, col.get(COL_MIN_DATE))
     has_enterprise = COL_ENTERPRISE in col
+    has_business_line = COL_BUSINESS_LINE in col
 
     items = {}
     customers = {}
     pairs = {}
     weekly = defaultdict(lambda: {"units": 0.0, "lines": 0})
     brand_units = defaultdict(float)
+    business_lines = defaultdict(lambda: {"units": 0.0, "lines": 0, "customers": set(), "items": set()})
     max_date = None
     min_order_date = None
     skipped = 0
@@ -170,6 +187,8 @@ def aggregate(rows, warehouse):
         if not conv:  # missing or zero conversion -> already in sold units
             conv = 1.0
         units = qty / conv
+        bl_name = r[col[COL_BUSINESS_LINE]].strip() if has_business_line else ""
+        bl_cat = line_category(bl_name)
         # While the export still carries the fulfill-based "Min Date", clamp
         # to the earliest order date we actually observe for the row, so a
         # first order can never postdate a real order (or land in the future).
@@ -195,12 +214,18 @@ def aggregate(rows, warehouse):
                 "firstOrder": None,
                 "lastOrder": None,
                 "weekly": defaultdict(float),
+                "localUnits": 0.0,
+                "ecommUnits": 0.0,
             },
         )
         it["units"] += units
         it["lines"] += 1
         it["customers"].add(account_uuid)
         it["weekly"][wk] += units
+        if bl_cat == "local":
+            it["localUnits"] += units
+        elif bl_cat == "ecomm":
+            it["ecommUnits"] += units
         if it["firstOrder"] is None or (pair_min_date and pair_min_date < it["firstOrder"]):
             it["firstOrder"] = pair_min_date
         if it["lastOrder"] is None or order_date > it["lastOrder"]:
@@ -218,12 +243,15 @@ def aggregate(rows, warehouse):
                 "lastOrder": None,
                 "weekly": defaultdict(float),
                 "enterprise": False,
+                "blUnits": defaultdict(float),
             },
         )
         cu["units"] += units
         cu["lines"] += 1
         cu["items"].add(item_uuid)
         cu["weekly"][wk] += units
+        if bl_name:
+            cu["blUnits"][bl_name] += units
         if has_enterprise and str(r[col[COL_ENTERPRISE]]).strip().upper() == "TRUE":
             cu["enterprise"] = True
         if cu["firstOrder"] is None or (pair_min_date and pair_min_date < cu["firstOrder"]):
@@ -246,6 +274,12 @@ def aggregate(rows, warehouse):
         weekly[wk]["lines"] += 1
         if r[col[COL_BRAND]]:
             brand_units[r[col[COL_BRAND]]] += units
+        if bl_name:
+            bl = business_lines[bl_name]
+            bl["units"] += units
+            bl["lines"] += 1
+            bl["customers"].add(account_uuid)
+            bl["items"].add(item_uuid)
 
     if not items:
         raise ValueError(f"no rows matched warehouse {warehouse}")
@@ -289,6 +323,21 @@ def aggregate(rows, warehouse):
     weeks = sorted(weekly)
     top_brands = sorted(brand_units.items(), key=lambda x: -x[1])[:10]
 
+    business_lines_out = [
+        {
+            "name": name,
+            "category": line_category(name),
+            "units": round(bl["units"], 1),
+            "lines": bl["lines"],
+            "customers": len(bl["customers"]),
+            "items": len(bl["items"]),
+        }
+        for name, bl in sorted(business_lines.items(), key=lambda kv: -kv[1]["units"])
+    ]
+
+    def primary_business_line(bl_units):
+        return max(bl_units.items(), key=lambda kv: kv[1])[0] if bl_units else None
+
     # Trend window: last 4 complete weeks (a week is complete once its Sunday
     # has passed), so the in-progress week doesn't drag every trend down.
     complete_weeks = [w for w in weeks if w + timedelta(days=6) <= max_date]
@@ -327,6 +376,7 @@ def aggregate(rows, warehouse):
             for w in weeks
         ],
         "topBrands": [{"brand": b, "units": round(u, 1)} for b, u in top_brands],
+        "businessLines": business_lines_out,
         "items": [
             {
                 "uuid": it["uuid"],
@@ -336,6 +386,8 @@ def aggregate(rows, warehouse):
                 "lines": it["lines"],
                 "customers": len(it["customers"]),
                 "newLocations": item_new_locations.get(it["uuid"], 0),
+                "localUnits": round(it["localUnits"], 1),
+                "ecommUnits": round(it["ecommUnits"], 1),
                 "firstOrder": iso(it["firstOrder"]),
                 "lastOrder": iso(it["lastOrder"]),
                 **trend_fields(it["weekly"]),
@@ -350,6 +402,7 @@ def aggregate(rows, warehouse):
                 "lines": cu["lines"],
                 "items": len(cu["items"]),
                 "enterprise": cu["enterprise"],
+                "businessLine": primary_business_line(cu["blUnits"]),
                 "firstOrder": iso(cu["firstOrder"]),
                 "lastOrder": iso(cu["lastOrder"]),
                 **trend_fields(cu["weekly"]),
