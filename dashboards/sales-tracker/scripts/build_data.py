@@ -79,8 +79,8 @@ COL_BUSINESS_LINE = "Business Line"  # optional
 
 # Business-line categories. Local delivery and ecomm (shipping) are the two
 # we split items on; everything else rolls up to "other".
-LOCAL_LINES = {"metrobi", "local distribution"}
-ECOMM_LINES = {"shipping", "odeko shipping"}
+LOCAL_LINES = {"metrobi", "local distribution", "roadie", "pickup"}
+ECOMM_LINES = {"shipping", "odeko shipping", "parcel - bulk", "drop ship"}
 
 
 def line_category(name):
@@ -485,7 +485,25 @@ def main(out_dir):
                 f"{wh}: {data['summary']['itemCount']} items, "
                 f"{data['summary']['customerCount']} customers ({skipped} rows skipped)"
             )
-        except Exception as e:  # bad export (e.g. Looker SQL error) -> skip
+        except Exception as e:
+            # A transient bad export (Looker mid-refresh returns no rows, a
+            # momentary SQL error) shouldn't drop a market that already has
+            # good data. Carry the previously built file forward and keep the
+            # market live; only mark "error" when there's nothing to fall back
+            # to.
+            existing_path = os.path.join(out_dir, f"{wh}.json")
+            if os.path.exists(existing_path):
+                try:
+                    with open(existing_path) as f:
+                        prev = json.load(f)
+                    manifest["warehouses"].append(
+                        {"code": wh, "status": "ok", "stale": True,
+                         "summary": prev["summary"], "dateRange": prev["dateRange"]}
+                    )
+                    print(f"{wh}: export unavailable ({e}); kept previous data", file=sys.stderr)
+                    continue
+                except Exception:
+                    pass
             failures += 1
             manifest["warehouses"].append(
                 {"code": wh, "status": "error", "error": str(e)[:300]}
