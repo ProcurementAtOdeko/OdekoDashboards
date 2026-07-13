@@ -262,11 +262,24 @@ def main(out_path):
         s["lines"] += 1
         s["_custs"].add(uuid)
 
-        ca = cust_agg.setdefault(uuid, {"units": 0.0, "skus": set(), "gapSkus": set()})
+        ca = cust_agg.setdefault(
+            uuid, {"units": 0.0, "skus": set(), "gapSkus": set(), "items": {}}
+        )
         ca["units"] += units
         ca["skus"].add(key)
         if key not in carried:
             ca["gapSkus"].add(key)
+        ci = ca["items"].get(key)
+        if ci is None:
+            ci = ca["items"][key] = {
+                "name": name,
+                "brand": (r[c_brand] if c_brand is not None and len(r) > c_brand else "") or "",
+                "units": 0.0,
+                "lines": 0,
+                "inDca1": key in carried,
+            }
+        ci["units"] += units
+        ci["lines"] += 1
 
     sku_list = []
     for s in skus.values():
@@ -298,6 +311,17 @@ def main(out_path):
     customers = []
     for uuid in CUSTOMER_UUIDS:
         ca = cust_agg.get(uuid)
+        items = []
+        if ca:
+            for it in ca["items"].values():
+                items.append({
+                    "name": it["name"],
+                    "brand": it["brand"],
+                    "units": round(it["units"], 1),
+                    "lines": it["lines"],
+                    "inDca1": it["inDca1"],
+                })
+            items.sort(key=lambda x: -x["units"])
         customers.append({
             "uuid": uuid,
             "name": cust_names.get(uuid, ""),
@@ -305,6 +329,7 @@ def main(out_path):
             "skus": len(ca["skus"]) if ca else 0,
             "gapSkus": len(ca["gapSkus"]) if ca else 0,
             "units": round(ca["units"], 1) if ca else 0.0,
+            "items": items,
         })
     customers.sort(key=lambda c: (-c["units"], c["name"]))
 
