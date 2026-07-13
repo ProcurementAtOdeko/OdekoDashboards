@@ -41,6 +41,7 @@ document.body.innerHTML = `
       <button data-tab="items" class="active">Items</button>
       <button data-tab="customers">Customers</button>
       <button data-tab="placements">New Placements</button>
+      <button data-tab="businessLines" id="tab-bl" hidden>Business Lines</button>
     </div>
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search…" />
@@ -81,6 +82,7 @@ const TABS = {
       { key: "name", label: "Item" },
       { key: "brand", label: "Brand", hideSm: true },
       { key: "units", label: "Units Sold", num: true },
+      { key: "localShare", label: "Local / Ecomm", num: true, needsBL: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "customers", label: "Customers", num: true, hideSm: true },
@@ -93,12 +95,25 @@ const TABS = {
   customers: {
     columns: [
       { key: "name", label: "Customer" },
+      { key: "businessLine", label: "Business Line", needsBL: true },
       { key: "units", label: "Units Sold", num: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "items", label: "SKUs", num: true, hideSm: true },
       { key: "firstOrder", label: "First Order", hideSm: true },
       { key: "lastOrder", label: "Last Order", hideSm: true },
+    ],
+    defaultSort: "units",
+  },
+  businessLines: {
+    columns: [
+      { key: "name", label: "Business Line" },
+      { key: "category", label: "Type", hideSm: true },
+      { key: "units", label: "Units Sold", num: true },
+      { key: "share", label: "% of Units", num: true },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "customers", label: "Customers", num: true },
+      { key: "items", label: "SKUs", num: true, hideSm: true },
     ],
     defaultSort: "units",
   },
@@ -130,11 +145,40 @@ async function init() {
       itemName: DATA.items[p.i].name,
       brand: DATA.items[p.i].brand,
     }));
+  if (hasBL()) {
+    DATA.items.forEach(i => {
+      const t = (i.localUnits || 0) + (i.ecommUnits || 0);
+      i.localShare = t ? i.localUnits / t : null;
+    });
+    const total = DATA.businessLines.reduce((s, b) => s + b.units, 0) || 1;
+    DATA.businessLines.forEach(b => { b.share = b.units / total; });
+    document.getElementById("tab-bl").hidden = false;
+  }
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.dateRange.start} → ${DATA.dateRange.end}`;
   renderKpis();
   renderTable();
   try { renderCharts(); } catch (e) { console.error("Charts failed to render:", e); }
+}
+
+const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
+const activeColumns = (spec) => spec.columns.filter(c => !c.needsBL || hasBL());
+
+const BL_COLOR = { local: "#1F7A33", ecomm: "#B5660A", other: "#A89684" };
+
+function splitBar(r) {
+  const local = r.localUnits || 0, ecomm = r.ecommUnits || 0, t = local + ecomm;
+  if (!t) return '<span class="muted">—</span>';
+  const pct = Math.round((local / t) * 100);
+  const title = `Local ${fmt(local)} · Ecomm ${fmt(ecomm)}`;
+  return `<span class="split" title="${title}">` +
+    `<span class="split-bar"><span style="width:${pct}%;background:${BL_COLOR.local}"></span>` +
+    `<span style="width:${100 - pct}%;background:${BL_COLOR.ecomm}"></span></span>` +
+    `<span class="split-pct">${pct}% loc</span></span>`;
+}
+
+function blDot(cat) {
+  return `<span class="bl-dot" style="background:${BL_COLOR[cat] || BL_COLOR.other}"></span>`;
 }
 
 function renderKpis() {
@@ -233,12 +277,14 @@ function renderCharts() {
 function rowsForTab() {
   if (tab === "items") return DATA.items;
   if (tab === "customers") return DATA.customers;
+  if (tab === "businessLines") return DATA.businessLines;
   return DATA.placements;
 }
 
 function searchableText(row) {
   if (tab === "placements") return `${row.customerName} ${row.itemName} ${row.brand || ""}`;
-  return `${row.name} ${row.brand || ""} ${row.uuid}${row.enterprise ? " enterprise" : ""}`;
+  if (tab === "businessLines") return `${row.name} ${row.category}`;
+  return `${row.name} ${row.brand || ""} ${row.uuid}${row.enterprise ? " enterprise" : ""}${row.businessLine ? " " + row.businessLine : ""}`;
 }
 
 function renderTable() {
@@ -257,9 +303,10 @@ function renderTable() {
 
   document.getElementById("table-count").textContent =
     `${fmtInt(rows.length)}${rows.length !== rowsForTab().length ? ` of ${fmtInt(rowsForTab().length)}` : ""} rows`;
-  document.getElementById("table-hint").style.display = tab === "placements" ? "none" : "";
+  document.getElementById("table-hint").style.display =
+    tab === "placements" || tab === "businessLines" ? "none" : "";
 
-  document.getElementById("grid-head").innerHTML = "<tr>" + spec.columns.map(c =>
+  document.getElementById("grid-head").innerHTML = "<tr>" + activeColumns(spec).map(c =>
     `<th class="${c.num ? "num" : ""} ${c.hideSm ? "hide-sm" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
   ).join("") + "</tr>";
 
@@ -315,12 +362,25 @@ function renderRow(r, spec) {
     </tr>`;
   }
 
+  if (tab === "businessLines") {
+    return `<tr>
+      <td>${blDot(r.category)}${escapeHtml(r.name)}</td>
+      <td class="hide-sm" style="text-transform:capitalize">${escapeHtml(r.category)}</td>
+      <td class="num">${fmt(r.units)}</td>
+      <td class="num">${Math.round(r.share * 100)}%</td>
+      <td class="num hide-sm">${fmtInt(r.lines)}</td>
+      <td class="num">${fmtInt(r.customers)}</td>
+      <td class="num hide-sm">${fmtInt(r.items)}</td>
+    </tr>`;
+  }
+
   const isItem = tab === "items";
   const main = isItem
     ? `<tr class="row" data-id="${r.uuid}">
         <td>${escapeHtml(r.name)}${/^[0-9a-f]{8}-/.test(r.uuid) ? `<div class="uuid">${r.uuid.slice(0, 8)}</div>` : ""}</td>
         <td class="hide-sm">${escapeHtml(r.brand || "")}</td>
         <td class="num">${fmt(r.units)}</td>
+        ${hasBL() ? `<td class="num">${splitBar(r)}</td>` : ""}
         <td class="num">${sparkline(r)}</td>
         <td class="num hide-sm">${fmtInt(r.lines)}</td>
         <td class="num hide-sm">${fmtInt(r.customers)}</td>
@@ -330,6 +390,7 @@ function renderRow(r, spec) {
       </tr>`
     : `<tr class="row" data-id="${r.uuid}">
         <td>${escapeHtml(r.name)}${r.enterprise ? '<span class="badge-ent">Ent</span>' : ""}${/^[0-9a-f]{8}-/.test(r.uuid) ? `<div class="uuid">${r.uuid.slice(0, 8)}</div>` : ""}</td>
+        ${hasBL() ? `<td>${r.businessLine ? blDot(lineCategory(r.businessLine)) + escapeHtml(r.businessLine) : '<span class="muted">—</span>'}</td>` : ""}
         <td class="num">${fmt(r.units)}</td>
         <td class="num">${sparkline(r)}</td>
         <td class="num hide-sm">${fmtInt(r.lines)}</td>
@@ -339,7 +400,16 @@ function renderRow(r, spec) {
       </tr>`;
 
   if (!expanded.has(r.uuid)) return main;
-  return main + renderDetail(r, spec.columns.length);
+  return main + renderDetail(r, activeColumns(spec).length);
+}
+
+const LOCAL_LINES = new Set(["metrobi", "local distribution"]);
+const ECOMM_LINES = new Set(["shipping", "odeko shipping"]);
+function lineCategory(name) {
+  const k = (name || "").trim().toLowerCase();
+  if (LOCAL_LINES.has(k)) return "local";
+  if (ECOMM_LINES.has(k)) return "ecomm";
+  return "other";
 }
 
 function renderDetail(r, colspan) {
