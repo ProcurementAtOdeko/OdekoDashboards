@@ -106,6 +106,34 @@
   .badge.muted { background: var(--panel-2); color: var(--muted); }
   .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
   .tablewrap { overflow: auto; max-height: 640px; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable td:first-child .name-link { color: var(--ink-2); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  tr.clickable:hover td:first-child .name-link { text-decoration-color: var(--ink-2); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(42,20,8,.45); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 40px 16px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    max-width: 860px; width: 100%; box-shadow: 0 20px 50px rgba(42,20,8,.25);
+  }
+  .modal .mhead {
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    position: sticky; top: 0; background: var(--panel); border-radius: 10px 10px 0 0;
+  }
+  .modal .mtitle { font-size: 16px; font-weight: 700; color: var(--ink-2); letter-spacing: -.01em; }
+  .modal .mchips { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip b { font-variant-numeric: tabular-nums; }
+  .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
+  .mclose:hover { background: var(--line); }
+  .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .modal .mbody { max-height: 62vh; overflow: auto; }
 
   @media (max-width: 700px) {
     header { padding: 12px 14px; }
@@ -197,6 +225,33 @@
     </div>
   </section>
 </main>
+
+<div class="modal-backdrop" id="cust-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="mhead">
+      <div>
+        <div class="mtitle" id="m-title"></div>
+        <div class="uuid" id="m-uuid"></div>
+        <div class="mchips" id="m-chips"></div>
+      </div>
+      <button class="mclose" id="m-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mbody tablewrap">
+      <table id="m-items">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Brand</th>
+            <th>In DCA1?</th>
+            <th class="num">Order Lines</th>
+            <th class="num">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <script>
 const fmt = (n) =>
@@ -380,8 +435,11 @@ function renderCustTable() {
     const status = c.hasHistory
       ? `<span class="badge carried">Purchasing</span>`
       : `<span class="badge muted">No history</span>`;
-    return `<tr>
-      <td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td>
+    const nameCell = c.hasHistory
+      ? `<span class="name-link">${escapeHtml(c.name || "(unknown)")}</span>`
+      : escapeHtml(c.name || "(unknown)");
+    return `<tr class="${c.hasHistory ? "clickable" : ""}" data-uuid="${c.uuid}">
+      <td>${nameCell}<div class="uuid">${c.uuid}</div></td>
       <td>${status}</td>
       <td class="num">${fmt(c.skus)}</td>
       <td class="num">${fmt(c.gapSkus)}</td>
@@ -389,6 +447,62 @@ function renderCustTable() {
     </tr>`;
   }).join("");
 }
+
+let modalGapsOnly = false;
+let modalCust = null;
+
+function openCustModal(uuid) {
+  const c = DATA.customers.find(x => x.uuid === uuid);
+  if (!c || !c.hasHistory) return;
+  modalCust = c;
+  modalGapsOnly = false;
+  document.getElementById("m-title").textContent = c.name || "(unknown)";
+  document.getElementById("m-uuid").textContent = c.uuid;
+  document.getElementById("m-chips").innerHTML =
+    `<span class="chip"><b>${fmt(c.skus)}</b> SKUs bought</span>` +
+    `<span class="chip gap"><b>${fmt(c.gapSkus)}</b> gap SKUs</span>` +
+    `<span class="chip"><b>${fmt(c.units)}</b> units</span>` +
+    `<label class="mtoggle"><input type="checkbox" id="m-gaponly"> Show only DCA1 gaps</label>`;
+  document.getElementById("m-gaponly").addEventListener("change", (e) => {
+    modalGapsOnly = e.target.checked;
+    renderModalItems();
+  });
+  renderModalItems();
+  document.getElementById("cust-modal").classList.add("open");
+}
+
+function renderModalItems() {
+  const items = modalGapsOnly ? modalCust.items.filter(i => !i.inDca1) : modalCust.items;
+  document.querySelector("#m-items tbody").innerHTML = items.map(i => {
+    const badge = i.inDca1
+      ? `<span class="badge carried">Carried</span>`
+      : `<span class="badge gap">Gap</span>`;
+    return `<tr>
+      <td>${escapeHtml(i.name)}</td>
+      <td class="brand-cell">${escapeHtml(i.brand || "—")}</td>
+      <td>${badge}</td>
+      <td class="num">${fmt(i.lines)}</td>
+      <td class="num">${fmt(i.units)}</td>
+    </tr>`;
+  }).join("");
+}
+
+function closeCustModal() {
+  document.getElementById("cust-modal").classList.remove("open");
+  modalCust = null;
+}
+
+document.querySelector("#custs tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.clickable");
+  if (tr) openCustModal(tr.dataset.uuid);
+});
+document.getElementById("m-close").addEventListener("click", closeCustModal);
+document.getElementById("cust-modal").addEventListener("click", (e) => {
+  if (e.target.id === "cust-modal") closeCustModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeCustModal();
+});
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
