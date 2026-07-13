@@ -22,7 +22,7 @@ import json
 import os
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 
 from google.oauth2 import service_account
@@ -129,17 +129,37 @@ def aggregate(rows, warehouse):
     min_order_date = None
     skipped = 0
 
+    # Some lines (legacy / off-platform sales) come without uuids. Map names
+    # to the uuid they most often appear with, so those lines merge into the
+    # same item/customer instead of creating a duplicate name-keyed row.
+    item_uuid_votes = defaultdict(Counter)
+    cust_uuid_votes = defaultdict(Counter)
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
         if r[col[COL_WAREHOUSE]] != warehouse:
             continue
-        # Some lines (legacy / off-platform sales) have no uuids; fall back to
-        # name-based keys so their volume still counts.
-        item_uuid = r[col[COL_ITEM_UUID]].strip() or (
-            r[col[COL_ITEM_NAME]].strip() and "n:" + r[col[COL_ITEM_NAME]].strip()
+        if r[col[COL_ITEM_UUID]].strip() and r[col[COL_ITEM_NAME]].strip():
+            item_uuid_votes[r[col[COL_ITEM_NAME]].strip()][r[col[COL_ITEM_UUID]].strip()] += 1
+        if r[col[COL_ACCOUNT_UUID]].strip() and r[col[COL_CUSTOMER]].strip():
+            cust_uuid_votes[r[col[COL_CUSTOMER]].strip()][r[col[COL_ACCOUNT_UUID]].strip()] += 1
+    item_name_to_uuid = {n: c.most_common(1)[0][0] for n, c in item_uuid_votes.items()}
+    cust_name_to_uuid = {n: c.most_common(1)[0][0] for n, c in cust_uuid_votes.items()}
+
+    for r in rows[1:]:
+        r = r + [""] * (len(header) - len(r))
+        if r[col[COL_WAREHOUSE]] != warehouse:
+            continue
+        item_name = r[col[COL_ITEM_NAME]].strip()
+        cust_name = r[col[COL_CUSTOMER]].strip()
+        item_uuid = (
+            r[col[COL_ITEM_UUID]].strip()
+            or item_name_to_uuid.get(item_name)
+            or (item_name and "n:" + item_name)
         )
-        account_uuid = r[col[COL_ACCOUNT_UUID]].strip() or (
-            r[col[COL_CUSTOMER]].strip() and "n:" + r[col[COL_CUSTOMER]].strip()
+        account_uuid = (
+            r[col[COL_ACCOUNT_UUID]].strip()
+            or cust_name_to_uuid.get(cust_name)
+            or (cust_name and "n:" + cust_name)
         )
         qty = parse_num(r[col[COL_QTY]])
         order_date = parse_date(r[col[COL_DATE]])
