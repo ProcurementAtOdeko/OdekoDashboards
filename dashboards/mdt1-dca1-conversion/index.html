@@ -86,6 +86,15 @@
   .seg button:last-child { border-right: 0; }
   .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
 
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+  .toolbar .btn { margin-left: 10px; }
+
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
   th {
@@ -185,6 +194,7 @@
       </div>
       <input id="search" type="search" placeholder="Search item or brand…" />
       <span class="count" id="table-count"></span>
+      <button class="btn" id="dl-skus" title="Download the SKUs currently shown">⬇ Download CSV</button>
     </div>
     <div class="tablewrap">
       <table id="skus">
@@ -208,6 +218,7 @@
     <div class="toolbar">
       <input id="search-cust" type="search" placeholder="Search customer…" />
       <span class="count" id="cust-count"></span>
+      <button class="btn" id="dl-custs" title="Download the customers currently shown">⬇ Download CSV</button>
     </div>
     <div class="tablewrap">
       <table id="custs">
@@ -267,6 +278,32 @@ const PALETTE = {
 let DATA = null;
 let sortKey = "units", sortDir = "desc", filterText = "", skuFilter = "gap";
 let custSortKey = "units", custSortDir = "desc", custFilterText = "";
+let lastSkuRows = [], lastCustRows = [];
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadCSV(filename, headers, rows) {
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) lines.push(r.map(csvCell).join(","));
+  // BOM so Excel reads UTF-8 correctly
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function safeSlug(s) {
+  return String(s).replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 60).toLowerCase() || "export";
+}
 
 async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
@@ -389,6 +426,7 @@ function renderTable() {
     return sortDir === "asc" ? av - bv : bv - av;
   });
 
+  lastSkuRows = rows;
   document.getElementById("table-count").textContent =
     `${rows.length} of ${DATA.skus.length} SKUs`;
 
@@ -423,6 +461,7 @@ function renderCustTable() {
     return custSortDir === "asc" ? av - bv : bv - av;
   });
 
+  lastCustRows = rows;
   document.getElementById("cust-count").textContent =
     `${rows.length} of ${DATA.customers.length} customers`;
 
@@ -462,10 +501,21 @@ function openCustModal(uuid) {
     `<span class="chip"><b>${fmt(c.skus)}</b> SKUs bought</span>` +
     `<span class="chip gap"><b>${fmt(c.gapSkus)}</b> gap SKUs</span>` +
     `<span class="chip"><b>${fmt(c.units)}</b> units</span>` +
-    `<label class="mtoggle"><input type="checkbox" id="m-gaponly"> Show only DCA1 gaps</label>`;
+    `<label class="mtoggle"><input type="checkbox" id="m-gaponly"> Show only DCA1 gaps</label>` +
+    `<button class="btn" id="m-dl" title="Download this customer's SKUs">⬇ CSV</button>`;
   document.getElementById("m-gaponly").addEventListener("change", (e) => {
     modalGapsOnly = e.target.checked;
     renderModalItems();
+  });
+  document.getElementById("m-dl").addEventListener("click", () => {
+    const items = modalGapsOnly ? modalCust.items.filter(i => !i.inDca1) : modalCust.items;
+    const suffix = modalGapsOnly ? "-gaps" : "";
+    downloadCSV(
+      `${safeSlug(modalCust.name)}-skus${suffix}.csv`,
+      ["Customer", "Location UUID", "Item", "Brand", "In DCA1", "Order Lines", "Units"],
+      items.map(i => [modalCust.name, modalCust.uuid, i.name, i.brand,
+                      i.inDca1 ? "Yes" : "No (gap)", i.lines, i.units]),
+    );
   });
   renderModalItems();
   document.getElementById("cust-modal").classList.add("open");
@@ -496,6 +546,25 @@ document.querySelector("#custs tbody").addEventListener("click", (e) => {
   const tr = e.target.closest("tr.clickable");
   if (tr) openCustModal(tr.dataset.uuid);
 });
+document.getElementById("dl-skus").addEventListener("click", () => {
+  const label = skuFilter === "gap" ? "gaps" : skuFilter === "carried" ? "carried" : "all";
+  downloadCSV(
+    `mdt1-dca1-skus-${label}.csv`,
+    ["Item", "Brand", "In DCA1", "DCA1 Sources", "Customers", "Order Lines", "Units"],
+    lastSkuRows.map(s => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                          (s.dca1Sources || []).join(" / "), s.customers, s.lines, s.units]),
+  );
+});
+
+document.getElementById("dl-custs").addEventListener("click", () => {
+  downloadCSV(
+    "mdt1-dca1-customers.csv",
+    ["Customer", "Location UUID", "Status", "SKUs Bought", "Gap SKUs", "Units"],
+    lastCustRows.map(c => [c.name, c.uuid, c.hasHistory ? "Purchasing" : "No history",
+                           c.skus, c.gapSkus, c.units]),
+  );
+});
+
 document.getElementById("m-close").addEventListener("click", closeCustModal);
 document.getElementById("cust-modal").addEventListener("click", (e) => {
   if (e.target.id === "cust-modal") closeCustModal();
