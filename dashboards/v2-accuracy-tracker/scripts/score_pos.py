@@ -252,28 +252,39 @@ def main():
     print(f"PO export covers {po_dates[0]} .. {po_dates[-1]} "
           f"({sum(len(v) for v in po_by_date.values())} aggregated lines)")
 
-    today = datetime.now(ET).strftime("%Y-%m-%d")
-    if args.all:
-        to_score = sorted(snapshots.keys())
-    else:
-        cutoff = (datetime.now(ET) - timedelta(days=args.rescore_days)).strftime("%Y-%m-%d")
-        to_score = sorted(d for d in snapshots if cutoff <= d <= today)
-    # Only score dates the PO export can actually see. Dates past the
-    # export's max (it refreshes early morning, so "today" usually lands
-    # tomorrow) stay pending and get picked up by the rescore window.
-    pending = [d for d in to_score if d > po_dates[-1]]
-    if pending:
-        print(f"Pending (PO export not caught up yet): {', '.join(pending)}")
-    to_score = [d for d in to_score if po_dates[0] <= d <= po_dates[-1]]
-    if not to_score:
-        sys.exit("No snapshot dates fall inside the PO export's date range")
-
     history_path = dash / "history.json"
     history = {"days": []}
     if history_path.exists():
         with open(history_path) as f:
             history = json.load(f)
     days = {d["date"]: d for d in history.get("days", [])}
+
+    po_min, po_max = po_dates[0], po_dates[-1]
+    if args.all:
+        to_score = sorted(snapshots)
+    else:
+        # The PO export refreshes early morning, so it lags "today" by a day
+        # or two. Anchor the re-score window on the export's newest date
+        # (the freshest data we can actually score against) rather than on
+        # the calendar, and additionally pick up any older snapshot that has
+        # never been scored — e.g. a day that was still ahead of the PO
+        # export when its own 8pm job ran.
+        window_start = (
+            datetime.strptime(po_max, "%Y-%m-%d") - timedelta(days=args.rescore_days)
+        ).strftime("%Y-%m-%d")
+        to_score = sorted(
+            d for d in snapshots
+            if po_min <= d <= po_max and (d >= window_start or d not in days)
+        )
+    # Snapshots newer than the PO export can't be scored yet; they'll be
+    # picked up automatically once the export catches up.
+    ahead = sorted(d for d in snapshots if d > po_max)
+    if ahead:
+        print(f"Ahead of PO export ({po_max}); will score once POs arrive: {', '.join(ahead)}")
+    if not to_score:
+        print("Nothing new to score; PO export has not advanced past already-scored "
+              "days. Leaving data unchanged.")
+        return
 
     latest_detail = None
     for date in to_score:

@@ -146,7 +146,7 @@
 
   <section class="charts">
     <div class="card chart full">
-      <h3>Accuracy Over Time <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)"> — model recs (8am ET) vs POs created that day</span></h3>
+      <h3>Accuracy Over Time <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)"> — judged against POs actually placed each day</span></h3>
       <div class="body"><canvas id="chart-trend"></canvas></div>
     </div>
     <div class="card tall">
@@ -154,8 +154,7 @@
         <span>Warehouse Accuracy — <span id="wh-latest-label"></span></span>
         <span style="display:flex;gap:6px">
           <button class="chip wh-metric-chip active" data-metric="qtyAcc">Qty accuracy</button>
-          <button class="chip wh-metric-chip" data-metric="precision">Precision</button>
-          <button class="chip wh-metric-chip" data-metric="hitRate">Hit rate</button>
+          <button class="chip wh-metric-chip" data-metric="precision">PO coverage</button>
         </span>
       </h3>
       <div class="body"><canvas id="chart-wh"></canvas></div>
@@ -180,11 +179,10 @@
         <thead>
           <tr>
             <th data-sort="name">Vendor</th>
-            <th class="num" data-sort="rec">Recommended</th>
-            <th class="num" data-sort="ord">Ordered</th>
-            <th class="num" data-sort="match">Matched</th>
-            <th class="num" data-sort="hitRate">Hit Rate</th>
-            <th class="num" data-sort="precision">Precision</th>
+            <th class="num" data-sort="ord">Ordered Lines</th>
+            <th class="num" data-sort="match">Predicted</th>
+            <th class="num" data-sort="rec">Model Recs</th>
+            <th class="num" data-sort="precision">PO Coverage</th>
             <th class="num" data-sort="qtyAcc">Qty Accuracy</th>
           </tr>
         </thead>
@@ -268,7 +266,7 @@ let DATA = null;
 let whBarChart = null;
 let whTrendChart = null;
 let whBarMetric = "qtyAcc";
-const METRIC_LABEL = { hitRate: "Hit rate", precision: "Precision", qtyAcc: "Qty accuracy" };
+const METRIC_LABEL = { precision: "PO coverage", qtyAcc: "Qty accuracy" };
 const tableState = {
   vendors: { sortKey: "qtyAcc", sortDir: "desc", q: "", rows: [] },
   pos: { sortKey: "poAcc", sortDir: "desc", q: "", rows: [] },
@@ -281,7 +279,7 @@ async function load() {
   DATA = await res.json();
   const L = DATA.latest;
   document.getElementById("meta").textContent =
-    `Model @ 8am ET vs POs at end of day · latest scored day ${L.date} · updated ${new Date(DATA.generatedAt).toLocaleString()}`;
+    `Accuracy judged against POs actually placed · latest scored day ${L.date} · updated ${new Date(DATA.generatedAt).toLocaleString()}`;
   document.querySelectorAll(".latest-label").forEach(el => el.textContent = L.date);
   document.getElementById("wh-latest-label").textContent = L.date;
   renderKpis();
@@ -291,18 +289,18 @@ async function load() {
   renderLines();
 }
 
+const scoreCls = (v) => v == null ? "" : v >= 0.7 ? "green" : v >= 0.4 ? "amber" : "red";
+
 function renderKpis() {
   const L = DATA.latest;
   const kpis = [
-    { label: "Hit Rate", value: pct(L.hitRate), cls: L.hitRate >= 0.7 ? "green" : L.hitRate >= 0.4 ? "amber" : "red",
-      hint: "recommended lines ordered same day" },
-    { label: "Precision", value: pct(L.precision), cls: L.precision >= 0.7 ? "green" : L.precision >= 0.4 ? "amber" : "red",
-      hint: "ordered lines the model predicted" },
-    { label: "Qty Accuracy", value: pct(L.qtyAcc), cls: L.qtyAcc >= 0.7 ? "green" : L.qtyAcc >= 0.4 ? "amber" : "red",
-      hint: "on matched lines" },
-    { label: "Recommended Lines", value: fmt(L.rec), cls: "accent", hint: "model order triggers" },
-    { label: "Ordered Lines", value: fmt(L.ord), cls: "accent", hint: `${fmt(L.poCount)} POs` },
-    { label: "Matched Lines", value: fmt(L.match), cls: "accent", hint: "recommended & ordered" },
+    { label: "Qty Accuracy", value: pct(L.qtyAcc), cls: scoreCls(L.qtyAcc),
+      hint: "vs POs placed, on lines the model predicted" },
+    { label: "PO Coverage", value: pct(L.precision), cls: scoreCls(L.precision),
+      hint: "of PO lines placed, % the model predicted" },
+    { label: "POs Placed", value: fmt(L.poCount), cls: "accent", hint: `${fmt(L.ord)} order lines` },
+    { label: "Predicted Lines", value: fmt(L.match), cls: "accent", hint: "ordered & recommended" },
+    { label: "Model Recommended", value: fmt(L.rec), cls: "accent", hint: "order triggers (not scored)" },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`
@@ -328,9 +326,8 @@ function renderCharts() {
     data: {
       labels,
       datasets: [
-        { label: "Hit rate", data: H.map(d => toPct(d.hitRate)), borderColor: PALETTE.red, backgroundColor: PALETTE.red, tension: .25 },
-        { label: "Precision", data: H.map(d => toPct(d.precision)), borderColor: PALETTE.ink, backgroundColor: PALETTE.ink, tension: .25 },
         { label: "Qty accuracy", data: H.map(d => toPct(d.qtyAcc)), borderColor: PALETTE.green, backgroundColor: PALETTE.green, tension: .25 },
+        { label: "PO coverage", data: H.map(d => toPct(d.precision)), borderColor: PALETTE.ink, backgroundColor: PALETTE.ink, tension: .25 },
       ],
     },
     options: {
@@ -393,9 +390,8 @@ function renderWhTrend() {
     data: {
       labels: H.map(d => d.date.slice(5)),
       datasets: [
-        { label: "Hit rate", data: H.map(d => pick(d, "hitRate")), borderColor: PALETTE.red, backgroundColor: PALETTE.red, tension: .25 },
-        { label: "Precision", data: H.map(d => pick(d, "precision")), borderColor: PALETTE.ink, backgroundColor: PALETTE.ink, tension: .25 },
         { label: "Qty accuracy", data: H.map(d => pick(d, "qtyAcc")), borderColor: PALETTE.green, backgroundColor: PALETTE.green, tension: .25 },
+        { label: "PO coverage", data: H.map(d => pick(d, "precision")), borderColor: PALETTE.ink, backgroundColor: PALETTE.ink, tension: .25 },
       ],
     },
     options: {
@@ -472,17 +468,20 @@ function toggleDetail(tr, colspan, buildHtml) {
 function renderVendors() {
   const st = tableState.vendors;
   const q = st.q.toLowerCase();
-  const rows = sortRows(DATA.latest.byVendor.filter(v => !q || v.name.toLowerCase().includes(q)), st);
+  // Only vendors that actually had POs placed — accuracy is judged against
+  // real orders, so recommend-only vendors aren't scored here.
+  const rows = sortRows(DATA.latest.byVendor.filter(v =>
+    v.ord > 0 && (!q || v.name.toLowerCase().includes(q))), st);
   st.rows = rows;
-  document.getElementById("vendor-count").textContent = `${rows.length} vendors · click a row for line detail`;
+  document.getElementById("vendor-count").textContent =
+    `${rows.length} vendors with POs placed · click a row for line detail`;
   markSortHeaders("vendors", st);
   document.querySelector("#vendors tbody").innerHTML = rows.map((v, i) => `
     <tr class="expandable" data-idx="${i}">
       <td><span class="caret">▸</span>${escapeHtml(v.name)}</td>
-      <td class="num">${fmt(v.rec)}</td>
       <td class="num">${fmt(v.ord)}</td>
       <td class="num">${fmt(v.match)}</td>
-      <td class="num ${rateClass(v.hitRate)}">${pct(v.hitRate)}</td>
+      <td class="num">${fmt(v.rec)}</td>
       <td class="num ${rateClass(v.precision)}">${pct(v.precision)}</td>
       <td class="num ${rateClass(v.qtyAcc)}">${pct(v.qtyAcc)}</td>
     </tr>
@@ -516,7 +515,7 @@ document.querySelector("#vendors tbody").addEventListener("click", (e) => {
   const tr = e.target.closest("tr.expandable");
   if (!tr) return;
   const v = tableState.vendors.rows[+tr.dataset.idx];
-  toggleDetail(tr, 7, () =>
+  toggleDetail(tr, 6, () =>
     detailLinesHtml(DATA.latest.lines.filter(l => l.vendor === v.name).sort(byAccDesc)));
 });
 
