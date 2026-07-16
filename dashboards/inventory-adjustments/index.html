@@ -101,6 +101,38 @@
     display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px;
     background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line);
   }
+  .lines-btn {
+    cursor: pointer; color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line); border-radius: 6px; padding: 1px 8px; background: var(--panel);
+    white-space: nowrap; user-select: none;
+  }
+  .lines-btn:hover { border-color: var(--ink-2); background: #FAF4E4; }
+  .lines-btn .caret { color: var(--muted); font-size: 10px; margin-left: 3px; }
+  tr.is-open .lines-btn { background: var(--ink-2); color: #fff; border-color: var(--ink-2); }
+  tr.is-open .lines-btn .caret { color: rgba(255,255,255,.8); }
+  tr.detail-row td { padding: 0; background: var(--bg); }
+  tr.detail-row:hover td { background: var(--bg); }
+  .detail-panel { padding: 6px 14px 12px 24px; }
+  .detail-panel table { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--panel); }
+  .detail-panel th { background: var(--panel-2); cursor: default; }
+  .detail-panel th, .detail-panel td { padding: 6px 10px; font-size: 12px; border-bottom: 1px solid var(--line); }
+  .detail-panel tr:last-child td { border-bottom: 0; }
+  .detail-panel tr:hover td { background: #FAF4E4; }
+  .detail-memo { color: var(--ink); max-width: 460px; }
+  .yesno { font-weight: 600; }
+  .yesno.yes { color: var(--green); }
+  .export-hint { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+  .export-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+  .exp-btn {
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 11px; display: inline-flex; align-items: baseline; gap: 6px;
+  }
+  .exp-btn:hover { border-color: var(--ink-2); background: #FAF4E4; }
+  .exp-btn::before { content: "⬇"; font-size: 11px; color: var(--muted); }
+  .exp-btn .exp-sub { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .exp-btn.all { background: var(--ink-2); color: #fff; border-color: var(--ink-2); }
+  .exp-btn.all::before { color: rgba(255,255,255,.85); }
 
   /* heatmap */
   .heat-wrap { overflow-x: auto; padding: 4px 2px; }
@@ -173,6 +205,14 @@
     </div>
   </section>
 
+  <section class="card" style="margin-bottom:20px">
+    <h3>Export Market Detail (CSV)</h3>
+    <div class="body">
+      <p class="export-hint">Download the individual expiration adjustment lines (date, memo, employee, cycle count, units, $ loss) for a market.</p>
+      <div id="export-buttons" class="export-buttons"></div>
+    </div>
+  </section>
+
   <section class="card">
     <h3>Top Expired Items</h3>
     <div class="toolbar">
@@ -221,11 +261,13 @@ let filterText = "";
 let marketFilter = "";
 let marketChart = null;
 let marketMetric = "value";
+let expanded = new Set();
 
 async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
   if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
   DATA = await res.json();
+  DATA.items.forEach((it, i) => { it._id = i; });
   const dr = DATA.dateRange || {};
   document.getElementById("meta").textContent =
     `Expired/Donated adjustments · ${dr.start || "?"} → ${dr.end || "?"} · ` +
@@ -233,6 +275,7 @@ async function load() {
   renderKpis();
   renderCharts();
   renderHeatmap();
+  renderExportButtons();
   populateMarketFilter();
   renderTable();
 }
@@ -407,15 +450,42 @@ function renderTable() {
     if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
   });
 
-  document.querySelector("#items tbody").innerHTML = shown.map(i => `
-    <tr>
+  document.querySelector("#items tbody").innerHTML = shown.map(i => {
+    const open = expanded.has(i._id);
+    const main = `
+    <tr class="${open ? "is-open" : ""}">
       <td>${escapeHtml(i.item)}</td>
       <td><span class="tag">${escapeHtml(i.market)}</span></td>
       <td class="num">${num(i.units)}</td>
       <td class="num">${usd(i.value)}</td>
-      <td class="num">${num(i.lines)}</td>
-    </tr>
-  `).join("");
+      <td class="num"><span class="lines-btn" role="button" tabindex="0" data-id="${i._id}"
+        title="Show ${num(i.lines)} adjustment line(s)">${num(i.lines)}<span class="caret">${open ? "▾" : "▸"}</span></span></td>
+    </tr>`;
+    return open ? main + detailRowHtml(i) : main;
+  }).join("");
+}
+
+function detailRowHtml(i) {
+  const rows = (i.detail || []).map(d => `
+    <tr>
+      <td>${escapeHtml(d.date || "—")}</td>
+      <td>${escapeHtml(d.shipmentReceived || "—")}</td>
+      <td class="detail-memo">${escapeHtml(d.memo || "—")}</td>
+      <td>${escapeHtml(d.employee || "—")}</td>
+      <td><span class="yesno ${/^y/i.test(d.cycleCount) ? "yes" : ""}">${escapeHtml(d.cycleCount || "—")}</span></td>
+      <td class="num">${num(d.units)}</td>
+      <td class="num">${usd(d.value)}</td>
+    </tr>`).join("");
+  return `
+    <tr class="detail-row"><td colspan="5"><div class="detail-panel">
+      <table>
+        <thead><tr>
+          <th>Adj. Date</th><th>Shipment Rcvd</th><th>Transaction Memo</th>
+          <th>Employee</th><th>Cycle Count</th><th class="num">Units</th><th class="num">$ Loss</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div></td></tr>`;
 }
 
 function escapeHtml(s) {
@@ -444,6 +514,76 @@ document.querySelectorAll("#items th[data-sort]").forEach(th => {
     renderTable();
   });
 });
+
+// Expand/collapse detail when the Adj. Lines count is clicked
+function toggleRow(el) {
+  const id = Number(el.dataset.id);
+  if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
+  renderTable();
+}
+document.querySelector("#items tbody").addEventListener("click", (e) => {
+  const btn = e.target.closest(".lines-btn");
+  if (btn) toggleRow(btn);
+});
+document.querySelector("#items tbody").addEventListener("keydown", (e) => {
+  const btn = e.target.closest(".lines-btn");
+  if (btn && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleRow(btn); }
+});
+
+// ---- CSV export ----
+function csvCell(v) {
+  const s = v == null ? "" : String(v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function downloadCsv(filename, header, rows) {
+  const lines = [header, ...rows].map(r => r.map(csvCell).join(",")).join("\r\n");
+  const blob = new Blob(["﻿" + lines], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Export the individual expiration adjustment lines for a market (or all markets)
+function exportMarket(market) {
+  const header = [
+    "Market", "Item Name", "Adjustment Date", "Shipment Received",
+    "Transaction Memo", "Employee Last Name", "Cycle Count", "Units Expired", "Net Loss USD",
+  ];
+  const rows = [];
+  DATA.items
+    .filter(i => !market || i.market === market)
+    .forEach(i => (i.detail || []).forEach(d => {
+      rows.push([
+        i.market, i.item, d.date, d.shipmentReceived,
+        d.memo, d.employee, d.cycleCount, d.units, d.value.toFixed(2),
+      ]);
+    }));
+  // sort by date desc, then loss desc for a tidy file
+  rows.sort((a, b) => (b[2] || "").localeCompare(a[2] || "") || b[8] - a[8]);
+  const dr = DATA.dateRange || {};
+  const tag = market || "all-markets";
+  downloadCsv(`expirations-${tag}-${dr.start || ""}_to_${dr.end || ""}.csv`, header, rows);
+}
+
+function renderExportButtons() {
+  const wrap = document.getElementById("export-buttons");
+  const all = document.createElement("button");
+  all.className = "exp-btn all";
+  all.textContent = "All markets";
+  all.addEventListener("click", () => exportMarket(""));
+  wrap.appendChild(all);
+  DATA.markets.forEach(m => {
+    const b = document.createElement("button");
+    b.className = "exp-btn";
+    b.innerHTML = `${escapeHtml(m.market)} <span class="exp-sub">${compact(m.value)}</span>`;
+    b.title = `Download ${m.lines} expiration line(s) for ${m.market} (${usd(m.value)})`;
+    b.addEventListener("click", () => exportMarket(m.market));
+    wrap.appendChild(b);
+  });
+}
 
 load();
 </script>

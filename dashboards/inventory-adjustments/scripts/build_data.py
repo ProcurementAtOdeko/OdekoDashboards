@@ -105,12 +105,21 @@ def main(out_path):
     ci_item = col["Item Name"]
     ci_count = col["Total Item Count"]
     ci_net = col["Total Net Amount"]
+    # Optional detail columns (present in the export; guarded in case names shift)
+    ci_memo = col.get("Transaction Memo")
+    ci_cycle = col.get("Cycle Count? (Yes / No)")
+    ci_emp = col.get("Employee Last Name")
+    ci_ship = col.get("Shipment Received Date Date")
+
+    def cell(row, idx):
+        return (row[idx] or "").strip() if idx is not None else ""
 
     # Expiration aggregates (loss reported as positive magnitude)
     exp_market = defaultdict(lambda: {"value": 0.0, "units": 0, "lines": 0})
     exp_month = defaultdict(lambda: {"value": 0.0, "units": 0, "lines": 0})
     exp_heat = defaultdict(lambda: defaultdict(float))  # market -> month -> value
     exp_item = defaultdict(lambda: {"value": 0.0, "units": 0, "lines": 0})  # (item, market)
+    exp_detail = defaultdict(list)  # (item, market) -> individual adjustment lines
 
     # All-type comparison (signed net; loss shown separately)
     type_agg = defaultdict(lambda: {"net": 0.0, "units": 0, "lines": 0})
@@ -153,6 +162,17 @@ def main(out_path):
             it["value"] += loss
             it["units"] += uloss
             it["lines"] += 1
+            exp_detail[(item, wh)].append(
+                {
+                    "date": date,
+                    "shipmentReceived": cell(r, ci_ship),
+                    "memo": cell(r, ci_memo),
+                    "employee": cell(r, ci_emp),
+                    "cycleCount": cell(r, ci_cycle),
+                    "units": uloss,
+                    "value": round(loss, 2),
+                }
+            )
 
     # --- shape output ---
     markets = sorted(
@@ -189,6 +209,11 @@ def main(out_path):
                 "value": round(v["value"], 2),
                 "units": v["units"],
                 "lines": v["lines"],
+                "detail": sorted(
+                    exp_detail[(item, wh)],
+                    key=lambda d: (d["date"], d["value"]),
+                    reverse=True,
+                ),
             }
             for (item, wh), v in exp_item.items()
         ),
