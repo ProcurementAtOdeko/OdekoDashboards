@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Inventory Adjustments — Market Expirations</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .foot { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .card .body { padding: 16px; }
+  .card.tall .body { height: 460px; position: relative; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 5px 10px; border: 0; background: var(--panel); color: var(--muted); cursor: pointer;
+  }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button.on { background: var(--ink-2); color: #fff; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 220px; }
+  .toolbar input:focus, .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px;
+    background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line);
+  }
+
+  /* heatmap */
+  .heat-wrap { overflow-x: auto; padding: 4px 2px; }
+  table.heat { border-collapse: separate; border-spacing: 3px; }
+  table.heat th { background: transparent; cursor: default; text-transform: none; letter-spacing: 0; font-size: 11px; padding: 4px 6px; }
+  table.heat th.rowhead { text-align: left; color: var(--ink-2); font-weight: 700; }
+  table.heat td { border: 0; padding: 0; }
+  .heat-cell {
+    width: 62px; height: 34px; border-radius: 5px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-variant-numeric: tabular-nums; color: var(--ink-2); font-weight: 600;
+  }
+  .heat-legend { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); font-weight: 600; }
+  .heat-legend .bar { width: 90px; height: 10px; border-radius: 3px;
+    background: linear-gradient(90deg, #FBF7EC, #F0C24A 55%, #B42318); border: 1px solid var(--line); }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Inventory Adjustments — Market Expirations</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart full">
+      <h3>
+        <span>Expiration by Market</span>
+        <span class="seg" id="market-metric">
+          <button data-metric="value" class="on">$ Loss</button>
+          <button data-metric="units">Units</button>
+        </span>
+      </h3>
+      <div class="body"><canvas id="chart-markets"></canvas></div>
+    </div>
+
+    <div class="card chart">
+      <h3>Monthly Expiration Trend</h3>
+      <div class="body"><canvas id="chart-trend"></canvas></div>
+    </div>
+
+    <div class="card chart">
+      <h3>Adjustment Types — Net Impact</h3>
+      <div class="body"><canvas id="chart-types"></canvas></div>
+    </div>
+
+    <div class="card full">
+      <h3>
+        <span>Expiration $ Loss — Market × Month</span>
+        <span class="heat-legend">low <span class="bar"></span> high</span>
+      </h3>
+      <div class="body">
+        <div class="heat-wrap"><div id="heatmap"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Top Expired Items</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item…" />
+      <select id="market-filter"><option value="">All markets</option></select>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="item">Item</th>
+            <th data-sort="market">Market</th>
+            <th class="num" data-sort="units">Units Expired</th>
+            <th class="num" data-sort="value" data-default="desc">$ Loss</th>
+            <th class="num" data-sort="lines">Adj. Lines</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const usd0 = (n) => n == null ? "—" : "$" + Math.round(n).toLocaleString();
+const usd = (n) => n == null ? "—" :
+  "$" + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const num = (n) => n == null ? "—" : n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+const compact = (n) => {
+  if (n == null) return "—";
+  const a = Math.abs(n);
+  if (a >= 1000) return "$" + (n / 1000).toLocaleString(undefined, { maximumFractionDigits: 1 }) + "k";
+  return "$" + Math.round(n);
+};
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let sortKey = "value";
+let sortDir = "desc";
+let filterText = "";
+let marketFilter = "";
+let marketChart = null;
+let marketMetric = "value";
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  const dr = DATA.dateRange || {};
+  document.getElementById("meta").textContent =
+    `Expired/Donated adjustments · ${dr.start || "?"} → ${dr.end || "?"} · ` +
+    `updated ${new Date(DATA.generatedAt).toLocaleString()}`;
+  renderKpis();
+  renderCharts();
+  renderHeatmap();
+  populateMarketFilter();
+  renderTable();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Total Expiration Loss", value: usd0(s.expiredValue), cls: "accent red",
+      foot: `${s.monthsCovered} months` },
+    { label: "Units Expired", value: num(s.expiredUnits), cls: "" },
+    { label: "Adjustment Lines", value: num(s.expiredLines), cls: "" },
+    { label: "Markets Affected", value: num(s.marketCount), cls: "" },
+    { label: "Worst Market", value: s.worstMarket || "—", cls: "amber",
+      foot: usd0(s.worstMarketValue) + " lost" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
+    `<div class="value">${k.value}</div>` +
+    `${k.foot ? `<div class="foot">${k.foot}</div>` : ""}</div>`
+  ).join("");
+}
+
+function renderCharts() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  renderMarketChart();
+
+  // Monthly trend (dual: $ loss line)
+  const mo = DATA.monthly;
+  new Chart(document.getElementById("chart-trend"), {
+    type: "line",
+    data: {
+      labels: mo.map(m => m.month),
+      datasets: [{
+        label: "$ Loss",
+        data: mo.map(m => m.value),
+        borderColor: PALETTE.red,
+        backgroundColor: "rgba(180,35,24,.10)",
+        fill: true, tension: .3, pointRadius: 3, pointBackgroundColor: PALETTE.red, borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: (c) => usd(c.raw) + " lost" } } },
+      scales: { y: { beginAtZero: true, ticks: { callback: (v) => compact(v) } } },
+    },
+  });
+
+  // Adjustment types — net impact ($). Losses negative, gains positive.
+  const bt = DATA.byType;
+  new Chart(document.getElementById("chart-types"), {
+    type: "bar",
+    data: {
+      labels: bt.map(t => t.type),
+      datasets: [{
+        data: bt.map(t => t.net),
+        backgroundColor: bt.map(t =>
+          t.type === "Expired/Donated" ? PALETTE.red : t.net < 0 ? PALETTE.amber : PALETTE.green),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: (c) => (c.raw < 0 ? "Loss " : "Gain ") + usd(Math.abs(c.raw)) } } },
+      scales: { x: { ticks: { callback: (v) => compact(v) },
+        title: { display: true, text: "Net $ impact (loss ◀ · ▶ gain)" } } },
+    },
+  });
+}
+
+function renderMarketChart() {
+  const rows = DATA.markets;
+  const isVal = marketMetric === "value";
+  const data = rows.map(m => isVal ? m.value : m.units);
+  if (marketChart) marketChart.destroy();
+  marketChart = new Chart(document.getElementById("chart-markets"), {
+    type: "bar",
+    data: {
+      labels: rows.map(m => m.market),
+      datasets: [{
+        data,
+        backgroundColor: rows.map((_, i) => i === 0 ? PALETTE.red : i < 3 ? PALETTE.amber : PALETTE.ink),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: (c) => isVal ? usd(c.raw) + " lost" : num(c.raw) + " units" } } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: (v) => isVal ? compact(v) : num(v) },
+          title: { display: true, text: isVal ? "$ expiration loss" : "units expired" } },
+      },
+    },
+  });
+}
+
+function renderHeatmap() {
+  const { markets, months, matrix } = DATA.heatmap;
+  let max = 0;
+  markets.forEach(wh => months.forEach(mo => { max = Math.max(max, matrix[wh]?.[mo] || 0); }));
+
+  const color = (v) => {
+    if (!v) return "background:var(--panel-2);color:var(--muted)";
+    const t = max ? v / max : 0;
+    // cream -> yellow -> red ramp
+    let r, g, b;
+    if (t < 0.5) {
+      const k = t / 0.5;
+      r = Math.round(251 + (240 - 251) * k);
+      g = Math.round(247 + (194 - 247) * k);
+      b = Math.round(236 + (74 - 236) * k);
+    } else {
+      const k = (t - 0.5) / 0.5;
+      r = Math.round(240 + (180 - 240) * k);
+      g = Math.round(194 + (35 - 194) * k);
+      b = Math.round(74 + (24 - 74) * k);
+    }
+    const ink = t > 0.55 ? "#fff" : "var(--ink-2)";
+    return `background:rgb(${r},${g},${b});color:${ink}`;
+  };
+
+  let html = "<table class='heat'><thead><tr><th class='rowhead'>Market</th>";
+  months.forEach(mo => { html += `<th>${mo.slice(5)}·${mo.slice(2, 4)}</th>`; });
+  html += "</tr></thead><tbody>";
+  markets.forEach(wh => {
+    html += `<tr><th class='rowhead'>${wh}</th>`;
+    months.forEach(mo => {
+      const v = matrix[wh]?.[mo] || 0;
+      html += `<td><div class="heat-cell" style="${color(v)}" title="${wh} · ${mo}: ${usd(v)}">` +
+        `${v ? compact(v) : ""}</div></td>`;
+    });
+    html += "</tr>";
+  });
+  html += "</tbody></table>";
+  document.getElementById("heatmap").innerHTML = html;
+}
+
+function populateMarketFilter() {
+  const sel = document.getElementById("market-filter");
+  DATA.markets.forEach(m => {
+    const o = document.createElement("option");
+    o.value = m.market; o.textContent = m.market;
+    sel.appendChild(o);
+  });
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.items.filter(i =>
+    (!q || i.item.toLowerCase().includes(q)) &&
+    (!marketFilter || i.market === marketFilter)
+  );
+
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const shown = rows.slice(0, 250);
+  document.getElementById("table-count").textContent =
+    `${rows.length} item·market rows${rows.length > 250 ? " (showing top 250)" : ""}`;
+
+  document.querySelectorAll("#items th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#items tbody").innerHTML = shown.map(i => `
+    <tr>
+      <td>${escapeHtml(i.item)}</td>
+      <td><span class="tag">${escapeHtml(i.market)}</span></td>
+      <td class="num">${num(i.units)}</td>
+      <td class="num">${usd(i.value)}</td>
+      <td class="num">${num(i.lines)}</td>
+    </tr>
+  `).join("");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value; renderTable();
+});
+document.getElementById("market-filter").addEventListener("change", (e) => {
+  marketFilter = e.target.value; renderTable();
+});
+document.querySelectorAll("#market-metric button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#market-metric button").forEach(b => b.classList.remove("on"));
+    btn.classList.add("on");
+    marketMetric = btn.dataset.metric;
+    renderMarketChart();
+  });
+});
+document.querySelectorAll("#items th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
