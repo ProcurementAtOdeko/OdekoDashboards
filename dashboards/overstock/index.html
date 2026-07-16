@@ -115,8 +115,12 @@
   th {
     color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
     letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
-    white-space: nowrap;
+    white-space: nowrap; position: sticky; top: 0; z-index: 5;
   }
+  /* Scroll box: ~30 rows visible (rows run two lines, ≈58.5px each, plus the
+     sticky header); the rest of the list scrolls inside the card instead of
+     growing the page. */
+  .table-scroll { overflow: auto; max-height: 1790px; }
   th:hover { color: var(--ink-2); }
   th.sort-asc::after { content: " ▲"; color: var(--accent); }
   th.sort-desc::after { content: " ▼"; color: var(--accent); }
@@ -185,7 +189,7 @@
       <button id="export-csv" class="exp-btn" type="button" title="Download the current filtered view as CSV">Export CSV</button>
       <span class="count" id="table-count"></span>
     </div>
-    <div style="overflow-x:auto">
+    <div class="table-scroll">
       <table id="items">
         <thead>
           <tr>
