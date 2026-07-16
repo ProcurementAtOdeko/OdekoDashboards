@@ -218,6 +218,7 @@
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search item…" />
       <select id="market-filter"><option value="">All markets</option></select>
+      <button id="export-filtered" class="exp-btn" type="button" title="Download the current filtered view as CSV">Export CSV</button>
       <span class="count" id="table-count"></span>
     </div>
     <div style="overflow-x:auto">
@@ -428,19 +429,22 @@ function populateMarketFilter() {
   });
 }
 
-function renderTable() {
+function filteredSortedItems() {
   const q = filterText.toLowerCase();
-  let rows = DATA.items.filter(i =>
+  const rows = DATA.items.filter(i =>
     (!q || i.item.toLowerCase().includes(q)) &&
     (!marketFilter || i.market === marketFilter)
   );
-
   rows.sort((a, b) => {
     const av = a[sortKey], bv = b[sortKey];
     if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortDir === "asc" ? av - bv : bv - av;
   });
+  return rows;
+}
 
+function renderTable() {
+  const rows = filteredSortedItems();
   const shown = rows.slice(0, 250);
   document.getElementById("table-count").textContent =
     `${rows.length} item·market rows${rows.length > 250 ? " (showing top 250)" : ""}`;
@@ -498,6 +502,7 @@ document.getElementById("search").addEventListener("input", (e) => {
 document.getElementById("market-filter").addEventListener("change", (e) => {
   marketFilter = e.target.value; renderTable();
 });
+document.getElementById("export-filtered").addEventListener("click", exportFilteredItems);
 document.querySelectorAll("#market-metric button").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll("#market-metric button").forEach(b => b.classList.remove("on"));
@@ -566,6 +571,18 @@ function exportMarket(market) {
   const dr = DATA.dateRange || {};
   const tag = market || "all-markets";
   downloadCsv(`expirations-${tag}-${dr.start || ""}_to_${dr.end || ""}.csv`, header, rows);
+}
+
+// Export the current filtered/sorted Top Expired Items view (item x market aggregates)
+function exportFilteredItems() {
+  const rows = filteredSortedItems();
+  const header = ["Item Name", "Market", "Units Expired", "Net Loss USD", "Adjustment Lines"];
+  const data = rows.map(i => [i.item, i.market, i.units, i.value.toFixed(2), i.lines]);
+  const parts = ["expired-items"];
+  if (marketFilter) parts.push(marketFilter);
+  const term = filterText.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  if (term) parts.push(term.slice(0, 30));
+  downloadCsv(parts.join("-") + ".csv", header, data);
 }
 
 function renderExportButtons() {
