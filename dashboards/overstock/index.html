@@ -115,8 +115,12 @@
   th {
     color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
     letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
-    white-space: nowrap;
+    white-space: nowrap; position: sticky; top: 0; z-index: 5;
   }
+  /* Scroll box: ~30 rows visible (rows run two lines, ≈58.5px each, plus the
+     sticky header); the rest of the list scrolls inside the card instead of
+     growing the page. */
+  .table-scroll { overflow: auto; max-height: 1790px; }
   th:hover { color: var(--ink-2); }
   th.sort-asc::after { content: " ▲"; color: var(--accent); }
   th.sort-desc::after { content: " ▼"; color: var(--accent); }
@@ -131,6 +135,22 @@
   .pill.cold { background: var(--green-soft); color: var(--green); }
   .sub2 { color: var(--muted); font-size: 11px; margin-top: 2px; }
   .mkt { font-weight: 700; color: var(--ink-2); }
+
+  /* Expandable buyer detail */
+  #items tbody tr.item-row { cursor: pointer; }
+  td.chev, th.chev { width: 26px; padding-right: 0; }
+  .chev-icon { color: var(--muted); font-size: 10px; display: inline-block; transition: transform .12s ease; }
+  tr.open .chev-icon { transform: rotate(90deg); color: var(--ink-2); }
+  tr.detail-row > td { background: var(--panel-2); padding: 12px 16px 14px 38px; }
+  tr.detail-row:hover > td { background: var(--panel-2); }
+  .buyers-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 6px; }
+  .buyers-table { width: auto; min-width: 560px; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+  .buyers-table th { position: static; background: var(--bg); cursor: default; font-size: 10px; padding: 6px 12px; }
+  .buyers-table td { padding: 6px 12px; font-size: 12px; }
+  .buyers-table tr:last-child td { border-bottom: 0; }
+  .buyers-table tr:hover td { background: var(--panel); }
+  .buyers-empty { color: var(--muted); font-size: 12px; }
+  .share-bar { display: inline-block; height: 6px; background: var(--accent-yellow); border-radius: 3px; vertical-align: middle; margin-right: 6px; }
 
   @media (max-width: 700px) {
     header { flex-wrap: wrap; padding: 12px 14px; }
@@ -185,10 +205,11 @@
       <button id="export-csv" class="exp-btn" type="button" title="Download the current filtered view as CSV">Export CSV</button>
       <span class="count" id="table-count"></span>
     </div>
-    <div style="overflow-x:auto">
+    <div class="table-scroll">
       <table id="items">
         <thead>
           <tr>
+            <th class="chev"></th>
             <th data-sort="name">Item</th>
             <th data-sort="vendor">Vendor</th>
             <th data-sort="mkt" class="mkt-col">Mkt</th>
@@ -228,6 +249,7 @@ let sortKey = "excessValue";
 let sortDir = "desc";
 let filterText = "";
 let marketFilter = "";      // table-level market filter (network scope only)
+const expanded = new Set(); // expanded item rows, keyed by "MKT:uuid"
 let chartMarket = null, chartDoc = null;
 
 function decorate(it, mkt) {
@@ -308,7 +330,8 @@ function renderNote() {
     `anything over <b>${DATA.docThreshold} DOC</b> is flagged, market by market. <b>Next 30d</b> bends the burn by the model's ` +
     `seasonal shape (next-month vs current-month prediction) as a year-over-year proxy. <b>Expiring $</b> is the nearest lot that ` +
     `won't sell before its expiration date at the current burn — the headline counts lots expiring within ${DATA.expHorizonDays || 90} days. ` +
-    `Non-movers (zero sales) are shown as overstock with no finite DOC.`;
+    `Non-movers (zero sales) are shown as overstock with no finite DOC. ` +
+    `<b>Click any row</b> to see who's buying the item (top buyers, trailing ${DATA.salesWindowDays} days).`;
 }
 
 function renderCharts() {
@@ -419,8 +442,13 @@ function renderTable() {
     if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
   });
 
-  document.querySelector("#items tbody").innerHTML = rows.map(it => `
-    <tr>
+  const nCols = showMkt ? 12 : 11;
+  document.querySelector("#items tbody").innerHTML = rows.map(it => {
+    const key = rowKey(it);
+    const open = expanded.has(key);
+    return `
+    <tr class="item-row${open ? " open" : ""}" data-key="${key}">
+      <td class="chev"><span class="chev-icon">▶</span></td>
       <td>${escapeHtml(it.name)}${it.refrig && it.refrig !== "Room Temperature" ? `<span class="pill cold">${escapeHtml(it.refrig)}</span>` : ""}<div class="sub2">${escapeHtml(it.cls || "")}</div></td>
       <td>${escapeHtml(it.vendor || "")}</td>
       <td class="mkt mkt-col"${showMkt ? "" : ' style="display:none"'}>${it.mkt}</td>
@@ -433,7 +461,42 @@ function renderTable() {
       <td class="num">${expCell(it)}</td>
       <td class="num ${it.expSoon ? "exp-soon" : ""}">${it.expValue ? money(it.expValue) : "—"}</td>
     </tr>
-  `).join("");
+    ${open ? `<tr class="detail-row"><td colspan="${nCols}">${buyersPanel(it)}</td></tr>` : ""}`;
+  }).join("");
+}
+
+function rowKey(it) {
+  return it.mkt + ":" + it.uuid;
+}
+
+// Buyer detail for one item: who bought it in the trailing window.
+function buyersPanel(it) {
+  const buyers = it.buyers || [];
+  const title = `<div class="buyers-title">Who's buying — trailing ${DATA.salesWindowDays} days</div>`;
+  if (!buyers.length) {
+    return title + `<div class="buyers-empty">No sales in the trailing ${DATA.salesWindowDays} days — no buyers to show.</div>`;
+  }
+  const totalUnits = buyers.reduce((s, b) => s + b.units, 0) + (it.othersUnits || 0);
+  const bar = (u) => {
+    const pct = totalUnits > 0 ? u / totalUnits : 0;
+    return `<span class="share-bar" style="width:${Math.max(2, Math.round(pct * 60))}px"></span>${Math.round(pct * 100)}%`;
+  };
+  const rows = buyers.map(b => `
+    <tr>
+      <td>${escapeHtml(b.name)}</td>
+      <td class="num">${num(b.units)}</td>
+      <td class="num">${b.lines}</td>
+      <td class="num">${b.last || "—"}</td>
+      <td>${bar(b.units)}</td>
+    </tr>`).join("");
+  const others = it.othersCount
+    ? `<tr><td class="buyers-empty">+ ${it.othersCount} more buyer${it.othersCount > 1 ? "s" : ""}</td><td class="num">${num(it.othersUnits)}</td><td class="num">—</td><td class="num">—</td><td>${bar(it.othersUnits)}</td></tr>`
+    : "";
+  return title + `
+    <table class="buyers-table">
+      <thead><tr><th>Customer</th><th class="num">Units (PU)</th><th class="num">Orders</th><th class="num">Last Order</th><th>Share</th></tr></thead>
+      <tbody>${rows}${others}</tbody>
+    </table>`;
 }
 
 function escapeHtml(s) {
@@ -484,6 +547,15 @@ document.getElementById("search").addEventListener("input", (e) => {
 });
 
 document.getElementById("export-csv").addEventListener("click", exportCsv);
+
+document.querySelector("#items tbody").addEventListener("click", (e) => {
+  if (window.getSelection && String(window.getSelection())) return; // let users copy text
+  const tr = e.target.closest("tr.item-row");
+  if (!tr) return;
+  const key = tr.dataset.key;
+  if (expanded.has(key)) expanded.delete(key); else expanded.add(key);
+  renderTable();
+});
 
 document.getElementById("seg").addEventListener("click", (e) => {
   const b = e.target.closest("button");
