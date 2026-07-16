@@ -96,6 +96,19 @@
   }
   .seg button:last-child { border-right: 0; }
   .seg button.active { background: var(--ink-2); color: #fff; }
+  .exp-btn {
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 11px; display: inline-flex; align-items: baseline; gap: 6px;
+  }
+  .exp-btn:hover { border-color: var(--ink-2); background: #FAF4E4; }
+  .exp-btn::before { content: "⬇"; font-size: 11px; color: var(--muted); }
+  .toolbar select {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    font-family: inherit; outline: none; cursor: pointer;
+  }
+  .toolbar select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -167,7 +180,9 @@
         <button data-seg="slow">Slow-movers</button>
         <button data-seg="none">Non-movers</button>
       </div>
+      <select id="market-filter"><option value="">All markets</option></select>
       <input id="search" type="search" placeholder="Search item, vendor, or class…" />
+      <button id="export-csv" class="exp-btn" type="button" title="Download the current filtered view as CSV">Export CSV</button>
       <span class="count" id="table-count"></span>
     </div>
     <div style="overflow-x:auto">
@@ -212,6 +227,7 @@ let segment = "all";        // all | slow | none
 let sortKey = "excessValue";
 let sortDir = "desc";
 let filterText = "";
+let marketFilter = "";      // table-level market filter (network scope only)
 let chartMarket = null, chartDoc = null;
 
 function decorate(it, mkt) {
@@ -248,7 +264,12 @@ async function load() {
     DATA.markets.map(m =>
       `<option value="${m.code}">${m.code}${m.stale ? " (stale)" : ""} · ${m.kpis.overstockSkus} SKUs</option>`
     ).join("");
-  sel.addEventListener("change", () => { scope = sel.value; renderAll(); });
+  sel.addEventListener("change", () => { scope = sel.value; marketFilter = ""; document.getElementById("market-filter").value = ""; renderAll(); });
+
+  const mf = document.getElementById("market-filter");
+  mf.innerHTML = `<option value="">All markets</option>` +
+    DATA.markets.map(m => `<option value="${m.code}">${m.code}</option>`).join("");
+  mf.addEventListener("change", () => { marketFilter = mf.value; renderTable(); });
 
   document.getElementById("meta").textContent =
     `As of ${DATA.asOf} · burn = trailing ${DATA.salesWindowDays}-day sales · overstock > ${DATA.docThreshold} DOC` +
@@ -359,11 +380,12 @@ function expCell(it) {
   return `<span class="${cls}">${it.expDate}</span>${days}`;
 }
 
-function renderTable() {
+function filteredSortedItems() {
   const q = filterText.toLowerCase();
-  let rows = scopedItems().filter(it => {
+  const rows = scopedItems().filter(it => {
     if (segment === "slow" && it.noSales) return false;
     if (segment === "none" && !it.noSales) return false;
+    if (marketFilter && it.mkt !== marketFilter) return false;
     return !q || it.name.toLowerCase().includes(q) ||
       (it.vendor || "").toLowerCase().includes(q) || (it.cls || "").toLowerCase().includes(q);
   });
@@ -376,6 +398,11 @@ function renderTable() {
     if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortDir === "asc" ? av - bv : bv - av;
   });
+  return rows;
+}
+
+function renderTable() {
+  const rows = filteredSortedItems();
 
   const total = scopedItems().length;
   document.getElementById("table-count").textContent =
@@ -385,6 +412,7 @@ function renderTable() {
 
   const showMkt = scope === "network";
   document.querySelectorAll(".mkt-col").forEach(el => el.style.display = showMkt ? "" : "none");
+  document.getElementById("market-filter").style.display = showMkt ? "" : "none";
 
   document.querySelectorAll("th").forEach(th => {
     th.classList.remove("sort-asc", "sort-desc");
@@ -412,10 +440,50 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 }
 
+function csvCell(v) {
+  const s = v == null ? "" : String(v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function downloadCsv(filename, header, rows) {
+  const lines = [header, ...rows].map(r => r.map(csvCell).join(",")).join("\r\n");
+  const blob = new Blob(["﻿" + lines], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Export the current filtered/sorted table view — every matching row.
+function exportCsv() {
+  const rows = filteredSortedItems();
+  const header = [
+    "Item Name", "Item Class", "Vendor", "Market", "Refrigeration",
+    "On Hand PU", "On Hand USD", "Daily Burn PU", "Days of Cover", "No Sales (T90)",
+    "Seasonal Factor", "Next 30d Demand PU", "Excess Units PU", "Excess USD",
+    "Nearest Expiration", "Days to Expiration", "Expiring Units PU", "Expiring USD", "Expiring <=90d",
+  ];
+  const data = rows.map(it => [
+    it.name, it.cls, it.vendor, it.mkt, it.refrig,
+    it.onHandPU, it.onHandValue, it.dailyBurn, it.noSales ? "" : it.doc, it.noSales ? "TRUE" : "FALSE",
+    it.seasonalFactor, it.next30Demand, it.excessUnits, it.excessValue,
+    it.expDate, it.expDays, it.expUnits, it.expValue, it.expSoon ? "TRUE" : "FALSE",
+  ]);
+  const parts = ["overstock", scope === "network" ? (marketFilter || "network") : scope];
+  if (segment !== "all") parts.push(segment === "none" ? "non-movers" : "slow-movers");
+  const term = filterText.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  if (term) parts.push(term.slice(0, 30));
+  parts.push(DATA.asOf);
+  downloadCsv(parts.join("-") + ".csv", header, data);
+}
+
 document.getElementById("search").addEventListener("input", (e) => {
   filterText = e.target.value;
   renderTable();
 });
+
+document.getElementById("export-csv").addEventListener("click", exportCsv);
 
 document.getElementById("seg").addEventListener("click", (e) => {
   const b = e.target.closest("button");
