@@ -54,6 +54,7 @@ SALES_WINDOW_DAYS = 90     # trailing sales window that defines the burn rate
 DOC_THRESHOLD = 180        # DOC above this is overstock, market by market
 NEXT_30_DAYS = 30
 EXP_HORIZON_DAYS = 90      # "expiring soon" window for the headline KPI
+TOP_BUYERS = 10            # buyers listed per item; the rest roll up to "others"
 SEASONAL_FACTOR_CLAMP = (0.1, 5.0)  # keep pred ratios sane
 
 SCOPES = [
@@ -67,6 +68,7 @@ COL_WAREHOUSE = "Warehouse Name"
 COL_QTY = "SO Item Qty"
 COL_ITEM_UUID = "Item Uuid"
 COL_CONVERSION = "Conversion Rate"
+COL_CUSTOMER = "Customer Name"
 
 
 def parse_num(s):
@@ -121,14 +123,15 @@ def discover_sales_sources(drive):
 
 
 def sales_burn_for_warehouse(rows, warehouse):
-    """Return {item_uuid: daily_burn_PU} from trailing-90 sales, plus the
-    sheet's max sale date."""
+    """Return ({item_uuid: daily_burn_PU}, {item_uuid: {customer: stats}})
+    from trailing-90 sales, plus the sheet's max sale date."""
     header = rows[0]
     col = {name: i for i, name in enumerate(header)}
     required = [COL_DATE, COL_WAREHOUSE, COL_QTY, COL_ITEM_UUID, COL_CONVERSION]
     missing = [c for c in required if c not in col]
     if missing:
         raise ValueError(f"missing expected columns: {missing}")
+    has_customer = COL_CUSTOMER in col
 
     # First pass: find the latest sale date so the window is anchored to the
     # data, not the clock (Looker exports lag a day or two).
@@ -142,6 +145,7 @@ def sales_burn_for_warehouse(rows, warehouse):
     window_start = max_date - timedelta(days=SALES_WINDOW_DAYS - 1)
 
     units = defaultdict(float)
+    buyers = defaultdict(dict)  # uuid -> {customer: {units, lines, last}}
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
         if r[col[COL_WAREHOUSE]].strip() != warehouse:
@@ -156,10 +160,18 @@ def sales_burn_for_warehouse(rows, warehouse):
         conv = parse_num(r[col[COL_CONVERSION]])
         if not conv:  # missing/zero conversion -> qty already in purchase units
             conv = 1.0
-        units[uuid] += qty / conv
+        sold = qty / conv
+        units[uuid] += sold
+        cust = r[col[COL_CUSTOMER]].strip() if has_customer else ""
+        if cust:
+            b = buyers[uuid].setdefault(cust, {"units": 0.0, "lines": 0, "last": None})
+            b["units"] += sold
+            b["lines"] += 1
+            if b["last"] is None or d > b["last"]:
+                b["last"] = d
 
     burn = {u: total / SALES_WINDOW_DAYS for u, total in units.items()}
-    return burn, max_date
+    return burn, buyers, max_date
 
 
 # --- Inventory side ----------------------------------------------------------
@@ -247,7 +259,7 @@ def seasonal_factor(rec, today):
     return max(lo, min(hi, f))
 
 
-def build_market(wh, inv_records, burn, today):
+def build_market(wh, inv_records, burn, buyers, today):
     """Compute overstock items + KPIs for one warehouse."""
     items = []
     on_hand_value_total = 0.0
@@ -283,6 +295,18 @@ def build_market(wh, inv_records, burn, today):
             exp_value = exp_units * cost if cost is not None else None
             exp_soon = exp_units > 0 and exp_days <= EXP_HORIZON_DAYS
 
+        # Who is buying this item (trailing window): top buyers by units,
+        # remainder rolled up so the payload stays bounded.
+        blist = sorted(
+            buyers.get(rec["uuid"], {}).items(), key=lambda kv: -kv[1]["units"]
+        )
+        top = [
+            {"name": n, "units": round(v["units"], 1), "lines": v["lines"],
+             "last": iso(v["last"])}
+            for n, v in blist[:TOP_BUYERS]
+        ]
+        rest = blist[TOP_BUYERS:]
+
         items.append({
             "uuid": rec["uuid"],
             "name": rec["name"],
@@ -303,6 +327,9 @@ def build_market(wh, inv_records, burn, today):
             "expUnits": round(exp_units, 1) if exp_units is not None else None,
             "expValue": round(exp_value, 2) if exp_value is not None else None,
             "expSoon": exp_soon,
+            "buyers": top,
+            "othersCount": len(rest),
+            "othersUnits": round(sum(v["units"] for _, v in rest), 1),
         })
 
     # Worst first: non-movers (no sales) pinned on top by excess $, then the
@@ -368,7 +395,7 @@ def main(out_path):
             rows = res.get("values", [])
             if not rows:
                 raise ValueError("sales sheet returned no rows")
-            burn, sales_max = sales_burn_for_warehouse(rows, wh)
+            burn, buyers, sales_max = sales_burn_for_warehouse(rows, wh)
         except Exception as e:
             if wh in prev_markets:
                 stale = dict(prev_markets[wh])
@@ -378,7 +405,7 @@ def main(out_path):
             else:
                 print(f"{wh}: sales unavailable ({e}); skipped", file=sys.stderr)
             continue
-        market = build_market(wh, inv_records, burn, today)
+        market = build_market(wh, inv_records, burn, buyers, today)
         market["salesThrough"] = iso(sales_max)
         markets.append(market)
         print(
