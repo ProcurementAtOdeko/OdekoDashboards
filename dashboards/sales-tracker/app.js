@@ -47,6 +47,7 @@ document.body.innerHTML = `
       <input id="search" type="search" placeholder="Search…" />
       <span class="count" id="table-count"></span>
       <span class="count muted" id="table-hint">Click a row to see its breakdown</span>
+      <button id="dl-csv" class="dl-csv" type="button" title="Download the current view as CSV">⬇ CSV</button>
     </div>
     <div style="overflow-x:auto">
       <table id="grid">
@@ -287,12 +288,10 @@ function searchableText(row) {
   return `${row.name} ${row.brand || ""} ${row.uuid}${row.enterprise ? " enterprise" : ""}${row.businessLine ? " " + row.businessLine : ""}`;
 }
 
-function renderTable() {
-  const spec = TABS[tab];
+function filteredSortedRows() {
   const q = filterText.toLowerCase();
-  let rows = rowsForTab().filter(r => !q || searchableText(r).toLowerCase().includes(q));
-
-  rows = rows.slice().sort((a, b) => {
+  const rows = rowsForTab().filter(r => !q || searchableText(r).toLowerCase().includes(q));
+  return rows.slice().sort((a, b) => {
     const av = a[sortKey], bv = b[sortKey];
     if (av == null && bv == null) return 0;
     if (av == null) return 1;
@@ -300,6 +299,11 @@ function renderTable() {
     if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortDir === "asc" ? av - bv : bv - av;
   });
+}
+
+function renderTable() {
+  const spec = TABS[tab];
+  const rows = filteredSortedRows();
 
   document.getElementById("table-count").textContent =
     `${fmtInt(rows.length)}${rows.length !== rowsForTab().length ? ` of ${fmtInt(rowsForTab().length)}` : ""} rows`;
@@ -444,6 +448,94 @@ function renderDetail(r, colspan) {
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 }
+
+// --- CSV export -----------------------------------------------------------
+// Column defs pull the underlying data values (not the rendered widgets), so
+// the download is analysis-ready. BL columns are included only when present.
+function csvColumns() {
+  const localPct = (r) => {
+    const t = (r.localUnits || 0) + (r.ecommUnits || 0);
+    return t ? Math.round((r.localUnits / t) * 100) : "";
+  };
+  if (tab === "items") {
+    return [
+      ["Item", r => r.name],
+      ["Brand", r => r.brand || ""],
+      ["Item UUID", r => /^[0-9a-f]{8}-/.test(r.uuid) ? r.uuid : ""],
+      ["Units Sold", r => r.units],
+      ...(hasBL() ? [
+        ["Local Units", r => r.localUnits],
+        ["Ecomm Units", r => r.ecommUnits],
+        ["Local %", localPct],
+      ] : []),
+      ["Trend 4w Delta", r => r.trendDelta],
+      ["Trend Dir", r => r.trendDir],
+      ["Order Lines", r => r.lines],
+      ["Customers", r => r.customers],
+      ["New Locations 14d", r => r.newLocations],
+      ["First Order", r => r.firstOrder || ""],
+      ["Last Order", r => r.lastOrder || ""],
+    ];
+  }
+  if (tab === "customers") {
+    return [
+      ["Customer", r => r.name],
+      ...(hasBL() ? [["Business Line", r => r.businessLine || ""]] : []),
+      ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
+      ["Account UUID", r => /^[0-9a-f]{8}-/.test(r.uuid) ? r.uuid : ""],
+      ["Units Sold", r => r.units],
+      ["Trend 4w Delta", r => r.trendDelta],
+      ["Trend Dir", r => r.trendDir],
+      ["Order Lines", r => r.lines],
+      ["SKUs", r => r.items],
+      ["First Order", r => r.firstOrder || ""],
+      ["Last Order", r => r.lastOrder || ""],
+    ];
+  }
+  if (tab === "businessLines") {
+    return [
+      ["Business Line", r => r.name],
+      ["Type", r => r.category],
+      ["Units Sold", r => r.units],
+      ["% of Units", r => Math.round(r.share * 100)],
+      ["Order Lines", r => r.lines],
+      ["Customers", r => r.customers],
+      ["SKUs", r => r.items],
+    ];
+  }
+  return [ // placements
+    ["Customer", r => r.customerName],
+    ["Item", r => r.itemName],
+    ["Brand", r => r.brand || ""],
+    ["First Order", r => r.minDate || ""],
+    ["Units Since", r => r.units],
+    ["Order Lines", r => r.lines],
+    ["Last Order", r => r.lastOrder || ""],
+  ];
+}
+
+function csvCell(v) {
+  const s = v == null ? "" : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function exportCsv() {
+  const cols = csvColumns();
+  const rows = filteredSortedRows();
+  const lines = [cols.map(c => csvCell(c[0])).join(",")];
+  for (const r of rows) lines.push(cols.map(c => csvCell(c[1](r))).join(","));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${WAREHOUSE}-sales-tracker-${tab}-${DATA.dateRange.end}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.getElementById("dl-csv").addEventListener("click", exportCsv);
 
 document.getElementById("search").addEventListener("input", (e) => {
   filterText = e.target.value;
