@@ -316,8 +316,13 @@ function renderKpis() {
     { label: "Non-Movers", value: num(k.noSalesSkus, 0), cls: k.noSalesSkus > 0 ? "amber" : "green", hint: "stock, zero trailing-90 sales" },
     { label: "Expiring ≤90d $", value: money(k.expiringValue), cls: k.expiringValue > 0 ? "red" : "green", hint: `${num(k.expiringSkus,0)} SKUs won't sell in time` },
   ];
+  const m = scope === "network" ? null : DATA.markets.find(x => x.code === scope);
+  const scopeHint = m
+    ? `sales through ${m.salesThrough || "?"}` +
+      (m.source === "snapshot" ? " · snapshot" : m.source === "carryforward" ? " · carried forward" : "")
+    : `${DATA.markets.filter(x => (x.source || "live") === "live").length} of ${DATA.markets.length} markets on live exports`;
   document.getElementById("kpis").innerHTML =
-    `<div class="kpi"><div class="label">Scope</div><div class="value" style="font-size:20px">${label}</div><div class="hint">market by market</div></div>` +
+    `<div class="kpi"><div class="label">Scope</div><div class="value" style="font-size:20px">${label}</div><div class="hint">${scopeHint}</div></div>` +
     kpis.map(k =>
       `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`
     ).join("");

@@ -47,7 +47,17 @@ SALES_RANGE = "A1:N"
 # Warehouses whose sales export doesn't follow the network naming convention.
 STATIC_SALES_SOURCES = {
     "DCA1": "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs",
+    "BOS1": "1Kf3G7NztpiE08zfbOA_os0lLipqukIGqsZ61b0N9LoE",
 }
+# The network Sales Tracker dashboard commits per-warehouse aggregates of the
+# same Looker exports hourly (with its own last-known-good carry-forward).
+# When a market's live export is mid-refresh/empty we rebuild burn + buyers
+# from that snapshot instead of dropping the market.
+REPO_ROOT = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")
+)
+SALES_SNAPSHOT_DIR = os.path.join(REPO_ROOT, "dashboards", "sales-tracker", "data")
+STALE_AFTER_DAYS = 3       # sales ending further back than this flag the market
 
 # --- Model knobs -------------------------------------------------------------
 SALES_WINDOW_DAYS = 90     # trailing sales window that defines the burn rate
@@ -100,7 +110,9 @@ def iso(d):
 
 # --- Sales side --------------------------------------------------------------
 def discover_sales_sources(drive):
-    """Newest 'Network Sales Tracker - <WH>.csv' per warehouse, plus statics."""
+    """Candidate sales exports per warehouse, newest first. Every matching
+    file is kept (not just the newest) so an older duplicate export can serve
+    a market whose newest file is mid-refresh."""
     res = drive.files().list(
         q=(
             f"'{LOOKER_FOLDER_ID}' in parents"
@@ -112,14 +124,59 @@ def discover_sales_sources(drive):
         fields="files(id, name, modifiedTime)",
         pageSize=100,
     ).execute()
-    sources = {}
-    for f in res.get("files", []):  # newest first: keep first file per WH
+    sources = defaultdict(list)
+    for f in res.get("files", []):  # newest first
         m = SALES_FILE_PATTERN.match(f["name"])
         if m:
-            sources.setdefault(m.group(1).upper(), f["id"])
+            sources[m.group(1).upper()].append(f["id"])
     for wh, file_id in STATIC_SALES_SOURCES.items():
-        sources.setdefault(wh, file_id)
-    return sources
+        if file_id not in sources[wh]:
+            sources[wh].append(file_id)
+    return dict(sources)
+
+
+def snapshot_burn_for_warehouse(wh):
+    """Rebuild (burn, buyers, sales_max) from the sales-tracker dashboard's
+    committed per-warehouse aggregate. Returns None when no usable snapshot."""
+    path = os.path.join(SALES_SNAPSHOT_DIR, f"{wh}.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            snap = json.load(f)
+    except (OSError, ValueError):
+        return None
+    dr = snap.get("dateRange") or {}
+    start, end = parse_date(dr.get("start")), parse_date(dr.get("end"))
+    if not start or not end or end < start:
+        return None
+    window = max(1, (end - start).days + 1)
+
+    items = snap.get("items", [])
+    customers = snap.get("customers", [])
+    burn = {}
+    for it in items:
+        uuid = it.get("uuid") or ""
+        # "n:<name>"-keyed rows are legacy lines without uuids; they can't be
+        # joined to inventory, so they don't contribute burn.
+        if uuid and not uuid.startswith("n:"):
+            burn[uuid] = (it.get("units") or 0.0) / window
+    buyers = defaultdict(dict)
+    for p in snap.get("pairs", []):
+        try:
+            item = items[p["i"]]
+            cust = customers[p["c"]]
+        except (KeyError, IndexError, TypeError):
+            continue
+        uuid = item.get("uuid") or ""
+        if not uuid or uuid.startswith("n:"):
+            continue
+        buyers[uuid][cust.get("name") or "Unknown"] = {
+            "units": p.get("units") or 0.0,
+            "lines": p.get("lines") or 0,
+            "last": parse_date(p.get("lastOrder")),
+        }
+    return burn, buyers, end
 
 
 def sales_burn_for_warehouse(rows, warehouse):
@@ -386,30 +443,55 @@ def main(out_path):
         if not inv_records:
             print(f"{wh}: no inventory rows in models dump; skipped", file=sys.stderr)
             continue
-        try:
-            res = (
-                sheets.spreadsheets().values()
-                .get(spreadsheetId=sources[wh], range=SALES_RANGE)
-                .execute()
-            )
-            rows = res.get("values", [])
-            if not rows:
-                raise ValueError("sales sheet returned no rows")
-            burn, buyers, sales_max = sales_burn_for_warehouse(rows, wh)
-        except Exception as e:
+
+        # Source chain: each live export candidate (newest first), then the
+        # sales-tracker snapshot, then the previous overstock build.
+        burn = buyers = sales_max = None
+        source = None
+        last_err = "no sales export found"
+        for file_id in sources[wh]:
+            try:
+                res = (
+                    sheets.spreadsheets().values()
+                    .get(spreadsheetId=file_id, range=SALES_RANGE)
+                    .execute()
+                )
+                rows = res.get("values", [])
+                if not rows:
+                    raise ValueError("sales sheet returned no rows")
+                burn, buyers, sales_max = sales_burn_for_warehouse(rows, wh)
+                source = "live"
+                break
+            except Exception as e:
+                last_err = e
+        if burn is None:
+            snap = snapshot_burn_for_warehouse(wh)
+            if snap:
+                burn, buyers, sales_max = snap
+                source = "snapshot"
+                print(f"{wh}: live export unavailable ({last_err}); "
+                      f"using sales-tracker snapshot through {iso(sales_max)}",
+                      file=sys.stderr)
+        if burn is None:
             if wh in prev_markets:
                 stale = dict(prev_markets[wh])
                 stale["stale"] = True
+                stale["source"] = "carryforward"
                 markets.append(stale)
-                print(f"{wh}: sales unavailable ({e}); kept previous data", file=sys.stderr)
+                print(f"{wh}: sales unavailable ({last_err}); kept previous data", file=sys.stderr)
             else:
-                print(f"{wh}: sales unavailable ({e}); skipped", file=sys.stderr)
+                print(f"{wh}: sales unavailable ({last_err}); skipped", file=sys.stderr)
             continue
+
         market = build_market(wh, inv_records, burn, buyers, today)
         market["salesThrough"] = iso(sales_max)
+        market["source"] = source
+        if sales_max and (today - sales_max).days > STALE_AFTER_DAYS:
+            market["stale"] = True
         markets.append(market)
         print(
-            f"{wh}: {market['kpis']['overstockSkus']} overstock SKUs "
+            f"{wh} [{source}, through {iso(sales_max)}]: "
+            f"{market['kpis']['overstockSkus']} overstock SKUs "
             f"(${market['kpis']['overstockValue']:,.0f} excess, "
             f"${market['kpis']['expiringValue']:,.0f} expiring)"
         )
