@@ -377,7 +377,9 @@ function renderNote() {
     `won't sell before its expiration date at the current burn — the headline counts lots expiring within ${DATA.expHorizonDays || 90} days. ` +
     `Non-movers (zero sales) are shown as overstock with no finite DOC. ` +
     `<b>Click any row</b> to see who's buying the item (top buyers, trailing ${DATA.salesWindowDays} days). ` +
-    `<b>Branded paper</b> is split out into its own table and chart at the bottom of the page.`;
+    `<b>Branded paper</b> is split out into its own table and chart at the bottom of the page. ` +
+    `Expiration shows <b>n/a</b> for non-expiring classes (paper, cafe &amp; cleaning supplies — their WMS lot dates ` +
+    `are placeholders), and dates more than 2 years out are treated as no meaningful expiration.`;
 }
 
 function renderCharts() {
@@ -485,6 +487,7 @@ function docCell(it) {
 }
 
 function expCell(it) {
+  if (it.neverExpires) return `<span class="sub2" title="Non-expiring class — WMS lot dates are placeholders">n/a</span>`;
   if (!it.expDate) return "—";
   const cls = it.expSoon ? "exp-soon" : (it.expUnits > 0 ? "exp-later" : "");
   const days = it.expDays == null ? "" : `<div class="sub2">${it.expDays < 0 ? "expired" : it.expDays + "d"}</div>`;

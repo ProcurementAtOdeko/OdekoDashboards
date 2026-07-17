@@ -65,6 +65,20 @@ DOC_THRESHOLD = 180        # DOC above this is overstock, market by market
 NEXT_30_DAYS = 30
 EXP_HORIZON_DAYS = 90      # "expiring soon" window for the headline KPI
 TOP_BUYERS = 10            # buyers listed per item; the rest roll up to "others"
+# The WMS requires an expiration date on every received lot, so non-perishables
+# get placeholders (typically receipt date + 365d; audit found every Paper &
+# Disposables / Cleaning Supplies date lands 91-365d out, with junk to 2033).
+# These classes never really expire -> their lot data is suppressed entirely.
+NON_EXPIRING_CLASS_PREFIXES = (
+    "Paper & Disposables",
+    "Cafe Supplies",
+    "Cleaning Supplies",
+    "Gelato : Cups & Lids",   # hardware subclasses under a food class
+    "Gelato : Supplies",
+)
+# For classes that do expire, dates beyond this horizon are beyond any
+# planning window and usually data-entry junk -> treated as no expiration.
+EXP_MAX_HORIZON_DAYS = 730
 SEASONAL_FACTOR_CLAMP = (0.1, 5.0)  # keep pred ratios sane
 
 SCOPES = [
@@ -341,14 +355,21 @@ def build_market(wh, inv_records, burn, buyers, today):
         next30_demand = next30_burn * NEXT_30_DAYS
 
         # Expiration at the current SALES burn: of the nearest-expiring lot,
-        # how many units won't sell before they expire?
-        exp_days = (rec["expDate"] - today).days if rec["expDate"] else None
+        # how many units won't sell before they expire? Placeholder lot dates
+        # (non-expiring classes; dates beyond the max horizon) are suppressed.
+        exp_date, exp_qty = rec["expDate"], rec["expQty"]
+        never_expires = (rec["cls"] or "").startswith(NON_EXPIRING_CLASS_PREFIXES)
+        if never_expires or (
+            exp_date and (exp_date - today).days > EXP_MAX_HORIZON_DAYS
+        ):
+            exp_date, exp_qty = None, None
+        exp_days = (exp_date - today).days if exp_date else None
         exp_units = None
         exp_value = None
         exp_soon = False
-        if rec["expQty"] and rec["expQty"] > 0 and exp_days is not None:
+        if exp_qty and exp_qty > 0 and exp_days is not None:
             consumed = daily_burn * max(0, exp_days)
-            exp_units = max(0.0, rec["expQty"] - consumed)
+            exp_units = max(0.0, exp_qty - consumed)
             exp_value = exp_units * cost if cost is not None else None
             exp_soon = exp_units > 0 and exp_days <= EXP_HORIZON_DAYS
 
@@ -379,8 +400,9 @@ def build_market(wh, inv_records, burn, buyers, today):
             "next30Demand": round(next30_demand, 1),
             "excessUnits": round(excess_units, 1),
             "excessValue": round(excess_value, 2) if excess_value is not None else None,
-            "expDate": iso(rec["expDate"]),
+            "expDate": iso(exp_date),
             "expDays": exp_days,
+            "neverExpires": never_expires,
             "expUnits": round(exp_units, 1) if exp_units is not None else None,
             "expValue": round(exp_value, 2) if exp_value is not None else None,
             "expSoon": exp_soon,
