@@ -77,6 +77,13 @@ main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
 }
 .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
 .toolbar .count { color: var(--muted); font-size: 12px; }
+.toolbar .dl-csv {
+  margin-left: auto; background: var(--panel); color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px;
+  font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+  white-space: nowrap;
+}
+.toolbar .dl-csv:hover { background: #FAF4E4; border-color: var(--ink-2); }
 
 .tabs { display: flex; gap: 6px; padding: 12px 16px 0; }
 .tabs button {
