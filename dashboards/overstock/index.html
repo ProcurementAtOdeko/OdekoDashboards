@@ -227,6 +227,42 @@
       </table>
     </div>
   </section>
+
+  <section class="card full" style="margin-top:20px">
+    <h3 id="branded-title">Branded Paper — Overstock</h3>
+    <div class="toolbar">
+      <button id="branded-export" class="exp-btn" type="button" title="Download the branded paper view as CSV">Export CSV</button>
+      <span class="count" id="branded-count"></span>
+    </div>
+    <div class="table-scroll" style="max-height:900px">
+      <table id="branded-items">
+        <thead>
+          <tr>
+            <th class="chev"></th>
+            <th data-sort="name">Item</th>
+            <th data-sort="vendor">Vendor</th>
+            <th data-sort="mkt" class="mkt-col">Mkt</th>
+            <th class="num" data-sort="onHandPU">On Hand (PU)</th>
+            <th class="num" data-sort="onHandValue">On Hand $</th>
+            <th class="num" data-sort="dailyBurn">Burn/day</th>
+            <th class="num" data-sort="docSort" data-default="desc">Days Cover</th>
+            <th class="num" data-sort="next30Demand">Next 30d</th>
+            <th class="num" data-sort="excessValue" data-default="desc">Excess $</th>
+            <th class="num" data-sort="expDaysSort" data-default="asc">Nearest Exp</th>
+            <th class="num" data-sort="expValue" data-default="desc">Expiring $</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="charts" style="margin-top:20px">
+    <div class="card chart full">
+      <h3 id="chart-branded-title">Branded Paper — Excess $ by Market</h3>
+      <div class="body"><canvas id="chart-branded"></canvas></div>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -247,10 +283,14 @@ let scope = "network";      // "network" or a market code
 let segment = "all";        // all | slow | none
 let sortKey = "excessValue";
 let sortDir = "desc";
+let sortKeyB = "excessValue"; // branded paper table sorts independently
+let sortDirB = "desc";
+const BRANDED_CLS = "Paper & Disposables : Branded Paper";
+const isBranded = (it) => (it.cls || "") === BRANDED_CLS;
 let filterText = "";
 let marketFilter = "";      // table-level market filter (network scope only)
 const expanded = new Set(); // expanded item rows, keyed by "MKT:uuid"
-let chartMarket = null, chartDoc = null;
+let chartMarket = null, chartDoc = null, chartBranded = null;
 
 function decorate(it, mkt) {
   // add derived sort helpers without mutating source semantics
@@ -336,10 +376,14 @@ function renderNote() {
     `seasonal shape (next-month vs current-month prediction) as a year-over-year proxy. <b>Expiring $</b> is the nearest lot that ` +
     `won't sell before its expiration date at the current burn — the headline counts lots expiring within ${DATA.expHorizonDays || 90} days. ` +
     `Non-movers (zero sales) are shown as overstock with no finite DOC. ` +
-    `<b>Click any row</b> to see who's buying the item (top buyers, trailing ${DATA.salesWindowDays} days).`;
+    `<b>Click any row</b> to see who's buying the item (top buyers, trailing ${DATA.salesWindowDays} days). ` +
+    `<b>Branded paper</b> is split out into its own table and chart at the bottom of the page.`;
 }
 
 function renderCharts() {
+  document.getElementById("chart-branded-title").textContent =
+    scope === "network" ? "Branded Paper — Excess $ by Market"
+                        : `Branded Paper — Top SKUs by Excess $ (${scope})`;
   if (typeof Chart === "undefined") return;
   Chart.defaults.color = PALETTE.muted;
   Chart.defaults.borderColor = PALETTE.line;
@@ -393,6 +437,45 @@ function renderCharts() {
       scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
     },
   });
+
+  // Branded paper chart (bottom): excess $ by market network-wide, or the
+  // top branded SKUs when scoped to one market.
+  const branded = scopedItems().filter(isBranded);
+  const bCtx = document.getElementById("chart-branded");
+  if (chartBranded) chartBranded.destroy();
+  if (scope === "network") {
+    const byMkt = {};
+    for (const it of branded) byMkt[it.mkt] = (byMkt[it.mkt] || 0) + (it.excessValue || 0);
+    const mk = Object.entries(byMkt).map(([code, v]) => ({ code, v })).sort((a, b) => b.v - a.v);
+    chartBranded = new Chart(bCtx, {
+      type: "bar",
+      data: {
+        labels: mk.map(m => m.code),
+        datasets: [{ data: mk.map(m => m.v), backgroundColor: PALETTE.yellow, borderColor: PALETTE.ink, borderWidth: 1, borderRadius: 4 }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        onClick: (e, els) => { if (els.length) { scope = mk[els[0].index].code; document.getElementById("market").value = scope; renderAll(); } },
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.raw) } } },
+        scales: { y: { beginAtZero: true, ticks: { callback: v => "$" + (v / 1000) + "k" } } },
+      },
+    });
+  } else {
+    const top = branded.slice().sort((a, b) => (b.excessValue || 0) - (a.excessValue || 0)).slice(0, 12);
+    chartBranded = new Chart(bCtx, {
+      type: "bar",
+      data: {
+        labels: top.map(i => i.name.length > 55 ? i.name.slice(0, 53) + "…" : i.name),
+        datasets: [{ data: top.map(i => i.excessValue || 0), backgroundColor: PALETTE.yellow, borderColor: PALETTE.ink, borderWidth: 1, borderRadius: 4 }],
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.raw) } } },
+        scales: { x: { beginAtZero: true, ticks: { callback: v => "$" + (v / 1000) + "k" } } },
+      },
+    });
+  }
 }
 
 function docCell(it) {
@@ -408,47 +491,49 @@ function expCell(it) {
   return `<span class="${cls}">${it.expDate}</span>${days}`;
 }
 
-function filteredSortedItems() {
-  const q = filterText.toLowerCase();
-  const rows = scopedItems().filter(it => {
-    if (segment === "slow" && it.noSales) return false;
-    if (segment === "none" && !it.noSales) return false;
-    if (marketFilter && it.mkt !== marketFilter) return false;
-    return !q || it.name.toLowerCase().includes(q) ||
-      (it.vendor || "").toLowerCase().includes(q) || (it.cls || "").toLowerCase().includes(q);
-  });
-
+function sortRows(rows, key, dir) {
   rows.sort((a, b) => {
-    const av = a[sortKey], bv = b[sortKey];
+    const av = a[key], bv = b[key];
     if (av == null && bv == null) return 0;
     if (av == null) return 1;
     if (bv == null) return -1;
-    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
-    return sortDir === "asc" ? av - bv : bv - av;
+    if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return dir === "asc" ? av - bv : bv - av;
   });
   return rows;
 }
 
-function renderTable() {
-  const rows = filteredSortedItems();
+function matchesSearch(it) {
+  const q = filterText.toLowerCase();
+  return !q || it.name.toLowerCase().includes(q) ||
+    (it.vendor || "").toLowerCase().includes(q) || (it.cls || "").toLowerCase().includes(q);
+}
 
-  const total = scopedItems().length;
-  document.getElementById("table-count").textContent =
-    `${rows.length}${rows.length !== total ? ` of ${total}` : ""} items`;
-  document.getElementById("table-title").textContent =
-    scope === "network" ? "Overstock Items — All Markets" : `Overstock Items — ${scope}`;
-
-  const showMkt = scope === "network";
-  document.querySelectorAll(".mkt-col").forEach(el => el.style.display = showMkt ? "" : "none");
-  document.getElementById("market-filter").style.display = showMkt ? "" : "none";
-
-  document.querySelectorAll("th").forEach(th => {
-    th.classList.remove("sort-asc", "sort-desc");
-    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+// Main table: everything except branded paper. The slow/non-mover segment
+// applies here only.
+function filteredSortedItems() {
+  const rows = scopedItems().filter(it => {
+    if (isBranded(it)) return false;
+    if (segment === "slow" && it.noSales) return false;
+    if (segment === "none" && !it.noSales) return false;
+    if (marketFilter && it.mkt !== marketFilter) return false;
+    return matchesSearch(it);
   });
+  return sortRows(rows, sortKey, sortDir);
+}
 
+// Branded paper table: branded items only; respects scope, market filter,
+// and search (not the segment control).
+function filteredSortedBranded() {
+  const rows = scopedItems().filter(it =>
+    isBranded(it) && (!marketFilter || it.mkt === marketFilter) && matchesSearch(it)
+  );
+  return sortRows(rows, sortKeyB, sortDirB);
+}
+
+function rowsHtml(rows, showMkt) {
   const nCols = showMkt ? 12 : 11;
-  document.querySelector("#items tbody").innerHTML = rows.map(it => {
+  return rows.map(it => {
     const key = rowKey(it);
     const open = expanded.has(key);
     return `
@@ -468,6 +553,45 @@ function renderTable() {
     </tr>
     ${open ? `<tr class="detail-row"><td colspan="${nCols}">${buyersPanel(it)}</td></tr>` : ""}`;
   }).join("");
+}
+
+function markSortHeader(tableId, key, dir) {
+  document.querySelectorAll(`#${tableId} thead th`).forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === key) th.classList.add(dir === "asc" ? "sort-asc" : "sort-desc");
+  });
+}
+
+function renderTable() {
+  const showMkt = scope === "network";
+  document.querySelectorAll(".mkt-col").forEach(el => el.style.display = showMkt ? "" : "none");
+  document.getElementById("market-filter").style.display = showMkt ? "" : "none";
+
+  const rows = filteredSortedItems();
+  const total = scopedItems().filter(it => !isBranded(it)).length;
+  document.getElementById("table-count").textContent =
+    `${rows.length}${rows.length !== total ? ` of ${total}` : ""} items`;
+  document.getElementById("table-title").textContent =
+    (scope === "network" ? "Overstock Items — All Markets" : `Overstock Items — ${scope}`) +
+    " (excl. branded paper)";
+  markSortHeader("items", sortKey, sortDir);
+  document.querySelector("#items tbody").innerHTML = rowsHtml(rows, showMkt);
+
+  renderBrandedTable(showMkt);
+}
+
+function renderBrandedTable(showMkt) {
+  const rows = filteredSortedBranded();
+  const total = scopedItems().filter(isBranded).length;
+  document.getElementById("branded-count").textContent =
+    `${rows.length}${rows.length !== total ? ` of ${total}` : ""} items · ` +
+    `${money(rows.reduce((s, it) => s + (it.excessValue || 0), 0))} excess`;
+  document.getElementById("branded-title").textContent =
+    scope === "network" ? "Branded Paper — Overstock, All Markets" : `Branded Paper — Overstock, ${scope}`;
+  markSortHeader("branded-items", sortKeyB, sortDirB);
+  document.querySelector("#branded-items tbody").innerHTML = rows.length
+    ? rowsHtml(rows, showMkt)
+    : `<tr><td colspan="${showMkt ? 12 : 11}" class="buyers-empty" style="padding:16px">No branded paper overstock in this view.</td></tr>`;
 }
 
 function rowKey(it) {
@@ -524,8 +648,8 @@ function downloadCsv(filename, header, rows) {
 }
 
 // Export the current filtered/sorted table view — every matching row.
-function exportCsv() {
-  const rows = filteredSortedItems();
+function exportCsv(branded = false) {
+  const rows = branded ? filteredSortedBranded() : filteredSortedItems();
   const header = [
     "Item Name", "Item Class", "Vendor", "Market", "Refrigeration",
     "On Hand PU", "On Hand USD", "Daily Burn PU", "Days of Cover", "No Sales (T90)",
@@ -538,8 +662,10 @@ function exportCsv() {
     it.seasonalFactor, it.next30Demand, it.excessUnits, it.excessValue,
     it.expDate, it.expDays, it.expUnits, it.expValue, it.expSoon ? "TRUE" : "FALSE",
   ]);
-  const parts = ["overstock", scope === "network" ? (marketFilter || "network") : scope];
-  if (segment !== "all") parts.push(segment === "none" ? "non-movers" : "slow-movers");
+  const parts = ["overstock"];
+  if (branded) parts.push("branded-paper");
+  parts.push(scope === "network" ? (marketFilter || "network") : scope);
+  if (!branded && segment !== "all") parts.push(segment === "none" ? "non-movers" : "slow-movers");
   const term = filterText.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   if (term) parts.push(term.slice(0, 30));
   parts.push(DATA.asOf);
@@ -551,16 +677,19 @@ document.getElementById("search").addEventListener("input", (e) => {
   renderTable();
 });
 
-document.getElementById("export-csv").addEventListener("click", exportCsv);
+document.getElementById("export-csv").addEventListener("click", () => exportCsv(false));
+document.getElementById("branded-export").addEventListener("click", () => exportCsv(true));
 
-document.querySelector("#items tbody").addEventListener("click", (e) => {
-  if (window.getSelection && String(window.getSelection())) return; // let users copy text
-  const tr = e.target.closest("tr.item-row");
-  if (!tr) return;
-  const key = tr.dataset.key;
-  if (expanded.has(key)) expanded.delete(key); else expanded.add(key);
-  renderTable();
-});
+for (const sel of ["#items tbody", "#branded-items tbody"]) {
+  document.querySelector(sel).addEventListener("click", (e) => {
+    if (window.getSelection && String(window.getSelection())) return; // let users copy text
+    const tr = e.target.closest("tr.item-row");
+    if (!tr) return;
+    const key = tr.dataset.key;
+    if (expanded.has(key)) expanded.delete(key); else expanded.add(key);
+    renderTable();
+  });
+}
 
 document.getElementById("seg").addEventListener("click", (e) => {
   const b = e.target.closest("button");
@@ -570,11 +699,20 @@ document.getElementById("seg").addEventListener("click", (e) => {
   renderTable();
 });
 
-document.querySelectorAll("th[data-sort]").forEach(th => {
+document.querySelectorAll("#items thead th[data-sort]").forEach(th => {
   th.addEventListener("click", () => {
     const key = th.dataset.sort;
     if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
     else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+document.querySelectorAll("#branded-items thead th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKeyB === key) sortDirB = sortDirB === "asc" ? "desc" : "asc";
+    else { sortKeyB = key; sortDirB = th.dataset.default || "desc"; }
     renderTable();
   });
 });
