@@ -183,11 +183,11 @@
 
   <section class="charts">
     <div class="card chart">
-      <h3>Excess $ by Market</h3>
+      <h3>Excess $ by Market <span style="color:var(--muted);font-weight:600">· excl. branded paper</span></h3>
       <div class="body"><canvas id="chart-market"></canvas></div>
     </div>
     <div class="card chart">
-      <h3>Days-of-Cover Distribution</h3>
+      <h3>Days-of-Cover Distribution <span style="color:var(--muted);font-weight:600">· excl. branded paper</span></h3>
       <div class="body"><canvas id="chart-doc"></canvas></div>
     </div>
   </section>
@@ -308,10 +308,22 @@ function scopedItems() {
   return m ? m.items.map(it => decorate(it, m.code)) : [];
 }
 
+// Topline KPIs are computed client-side over the NON-branded scoped items so
+// the headline reflects the general catalog; branded paper has its own tallies
+// in its section. (Server-side m.kpis still include branded.)
+function computeKpis(items) {
+  const k = { overstockSkus: 0, overstockValue: 0, noSalesSkus: 0, expiringSkus: 0, expiringValue: 0 };
+  for (const it of items) {
+    k.overstockSkus++;
+    k.overstockValue += it.excessValue || 0;
+    if (it.noSales) k.noSalesSkus++;
+    if (it.expSoon) { k.expiringSkus++; k.expiringValue += it.expValue || 0; }
+  }
+  return k;
+}
+
 function scopedKpis() {
-  if (scope === "network") return DATA.network;
-  const m = DATA.markets.find(x => x.code === scope);
-  return m ? m.kpis : DATA.network;
+  return computeKpis(scopedItems().filter(it => !isBranded(it)));
 }
 
 async function load() {
@@ -391,8 +403,13 @@ function renderCharts() {
   Chart.defaults.borderColor = PALETTE.line;
   Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
 
-  // Excess $ by market
-  const mk = DATA.markets.map(m => ({ code: m.code, v: m.kpis.overstockValue }))
+  // Excess $ by market (excluding branded paper — it has its own chart below)
+  const exBrandedByMkt = {};
+  for (const m of DATA.markets) {
+    exBrandedByMkt[m.code] = m.items.reduce(
+      (s, it) => s + (isBranded(it) ? 0 : (it.excessValue || 0)), 0);
+  }
+  const mk = Object.entries(exBrandedByMkt).map(([code, v]) => ({ code, v }))
     .sort((a, b) => b.v - a.v);
   const mCtx = document.getElementById("chart-market");
   if (chartMarket) chartMarket.destroy();
@@ -414,8 +431,8 @@ function renderCharts() {
     },
   });
 
-  // DOC distribution for scope
-  const items = scopedItems();
+  // DOC distribution for scope (excluding branded paper)
+  const items = scopedItems().filter(it => !isBranded(it));
   const buckets = { "Non-mover": 0, "180–270": 0, "270–365": 0, "365+": 0 };
   for (const it of items) {
     if (it.noSales) buckets["Non-mover"]++;
