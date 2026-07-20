@@ -264,6 +264,7 @@ def load_inventory(sheets):
         "warehouse_name", "item_name", "item_uuid", "vendor_name", "item_class",
         "in_catalog", "inventory", "net_inventory", "on_hand_value",
         "min_expiration_date", "min_expiration_quantity",
+        "minimum_deliverable_shelf_life", "shelf_life",
         "pred_current_month", "pred_next_month", "refrigeration_state", "as_of",
     ]
     missing = [c for c in required if c not in col]
@@ -310,6 +311,8 @@ def load_inventory(sheets):
             "predNext": parse_num(get(r, "pred_next_month")),
             "expDate": parse_date(get(r, "min_expiration_date")),
             "expQty": parse_num(get(r, "min_expiration_quantity")),
+            "mdslDays": parse_num(get(r, "minimum_deliverable_shelf_life")),
+            "shelfLife": parse_num(get(r, "shelf_life")),
         })
     return by_wh, as_of
 
