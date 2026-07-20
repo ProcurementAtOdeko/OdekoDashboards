@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Overstock Transfer Mitigation</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC; --panel: #FFFFFF; --panel-2: #F5EFE0; --line: #E6DFCC;
+    --ink: #2A1408; --ink-2: #40180B; --muted: #8A7B6A; --accent: #40180B;
+    --accent-yellow: #FFD100; --green: #1F7A33; --green-soft: rgba(31,122,51,.12);
+    --red: #B42318; --red-soft: rgba(180,35,24,.10); --amber: #B5660A; --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header .controls { display: flex; align-items: center; gap: 10px; }
+  select {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    font-family: inherit; outline: none; cursor: pointer;
+  }
+  select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .note {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 20px; color: var(--muted); font-size: 12px; line-height: 1.6;
+  }
+  .note b { color: var(--ink-2); }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 240px; font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .toolbar select {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: inherit; outline: none; cursor: pointer;
+  }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    background: var(--panel); color: var(--muted); border: 0; padding: 7px 12px;
+    font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; }
+  .exp-btn {
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 11px; display: inline-flex; align-items: baseline; gap: 6px;
+  }
+  .exp-btn:hover { border-color: var(--ink-2); background: #FAF4E4; }
+  .exp-btn::before { content: "⬇"; font-size: 11px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    white-space: nowrap; position: sticky; top: 0; z-index: 5;
+  }
+  .table-scroll { overflow: auto; max-height: 1790px; }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .doc-mid { color: var(--amber); font-weight: 600; }
+  .doc-high { color: var(--red); font-weight: 700; }
+  .nosales { color: var(--red); font-weight: 700; }
+  .sub2 { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .mkt { font-weight: 700; color: var(--ink-2); }
+
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .badge.transfer { background: var(--green-soft); color: var(--green); }
+  .badge.urgent { background: var(--amber-soft); color: var(--amber); }
+  .badge.mdsl { background: var(--red-soft); color: var(--red); }
+  .badge.none { background: rgba(138,123,106,.15); color: var(--muted); }
+  .dest { font-weight: 600; color: var(--ink-2); }
+
+  #items tbody tr.item-row { cursor: pointer; }
+  td.chev, th.chev { width: 26px; padding-right: 0; }
+  .chev-icon { color: var(--muted); font-size: 10px; display: inline-block; transition: transform .12s ease; }
+  tr.open .chev-icon { transform: rotate(90deg); color: var(--ink-2); }
+  tr.detail-row > td { background: var(--panel-2); padding: 12px 16px 14px 38px; }
+  tr.detail-row:hover > td { background: var(--panel-2); }
+  .rx-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 6px; }
+  .rx-table { width: auto; min-width: 620px; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+  .rx-table th { position: static; background: var(--bg); cursor: default; font-size: 10px; padding: 6px 12px; }
+  .rx-table td { padding: 6px 12px; font-size: 12px; }
+  .rx-table tr:last-child td { border-bottom: 0; }
+  .rx-empty { color: var(--muted); font-size: 12px; }
+  .tag { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 999px; margin-left: 4px; }
+  .tag.under { background: var(--green-soft); color: var(--green); }
+  .tag.faster { background: var(--amber-soft); color: var(--amber); }
+
+  @media (max-width: 700px) {
+    header { flex-wrap: wrap; padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Overstock Transfer Mitigation</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <div class="controls"><select id="market"></select></div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+  <div class="note" id="note"></div>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3 id="chart-origin-title">Transferable $ by Origin Market</h3>
+      <div class="body"><canvas id="chart-origin"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Inbound $ by Destination Market</h3>
+      <div class="body"><canvas id="chart-dest"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card full">
+    <h3 id="table-title">Transfer Recommendations</h3>
+    <div class="toolbar">
+      <div class="seg" id="seg">
+        <button data-seg="all" class="active">All</button>
+        <button data-seg="transfer">Transferable</button>
+        <button data-seg="urgent">Urgent</button>
+        <button data-seg="none">No destination</button>
+      </div>
+      <select id="market-filter"><option value="">All origin markets</option></select>
+      <input id="search" type="search" placeholder="Search item, vendor, or class…" />
+      <button id="export-csv" class="exp-btn" type="button" title="Download the current filtered view as CSV">Export CSV</button>
+      <span class="count" id="table-count"></span>
+    </div>
+    <div class="table-scroll">
+      <table id="items">
+        <thead>
+          <tr>
+            <th class="chev"></th>
+            <th data-sort="name">Item</th>
+            <th data-sort="vendor">Vendor</th>
+            <th data-sort="mkt" class="mkt-col">From</th>
+            <th class="num" data-sort="excessValue" data-default="desc">Excess $</th>
+            <th class="num" data-sort="burn">Burn/day</th>
+            <th class="num" data-sort="docSort" data-default="desc">DOC</th>
+            <th class="num" data-sort="ageDays">Age (d)</th>
+            <th class="num" data-sort="deadlineSort" data-default="asc">Days to MDSL</th>
+            <th data-sort="action">Action</th>
+            <th class="num" data-sort="transferValue" data-default="desc">Transfer $</th>
+            <th data-sort="topDest">Move to</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const money = (n) => n == null ? "—" : "$" + Math.round(n).toLocaleString();
+const num = (n, d = 1) => n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: d });
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let scope = "network";
+let segment = "all";
+let sortKey = "transferValue";
+let sortDir = "desc";
+let filterText = "";
+let marketFilter = "";
+const expanded = new Set();
+let chartOrigin = null, chartDest = null;
+
+function decorate(it, mkt) {
+  return {
+    ...it, mkt,
+    docSort: it.noSales ? Infinity : (it.doc || 0),
+    deadlineSort: it.daysToDeadline == null ? Infinity : it.daysToDeadline,
+    topDest: (it.receivers[0] && it.receivers[0].take > 0) ? it.receivers[0].mkt : "",
+  };
+}
+
+function scopedItems() {
+  if (scope === "network")
+    return DATA.markets.flatMap(m => m.items.map(it => decorate(it, m.code)));
+  const m = DATA.markets.find(x => x.code === scope);
+  return m ? m.items.map(it => decorate(it, m.code)) : [];
+}
+
+function scopedKpis() {
+  if (scope === "network") return DATA.network;
+  const m = DATA.markets.find(x => x.code === scope);
+  return m ? m.kpis : DATA.network;
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+
+  const sel = document.getElementById("market");
+  sel.innerHTML = `<option value="network">All markets (network)</option>` +
+    DATA.markets.map(m => `<option value="${m.code}">${m.code}${m.stale ? " (stale)" : ""} · ${m.kpis.transferSkus} moves</option>`).join("");
+  sel.addEventListener("change", () => { scope = sel.value; marketFilter = ""; document.getElementById("market-filter").value = ""; renderAll(); });
+
+  const mf = document.getElementById("market-filter");
+  mf.innerHTML = `<option value="">All origin markets</option>` +
+    DATA.markets.map(m => `<option value="${m.code}">${m.code}</option>`).join("");
+  mf.addEventListener("change", () => { marketFilter = mf.value; renderTable(); });
+
+  document.getElementById("meta").textContent =
+    `As of ${DATA.asOf} · omit SKUs < ${DATA.ageMinDays}d old & refrigerated · aim to move ≥ ${DATA.mdslLeadDays}d before MDSL`;
+  renderAll();
+}
+
+function renderAll() {
+  renderKpis();
+  renderNote();
+  renderTable();
+  try { renderCharts(); } catch (e) { console.error("chart render failed", e); }
+}
+
+function renderKpis() {
+  const k = scopedKpis();
+  const label = scope === "network" ? `${DATA.network.marketsCount} markets` : scope;
+  const m = scope === "network" ? null : DATA.markets.find(x => x.code === scope);
+  const scopeHint = m
+    ? `sales through ${m.salesThrough || "?"}` + (m.source === "snapshot" ? " · snapshot" : "")
+    : `${DATA.markets.length} origin markets`;
+  const kpis = [
+    { label: "Transferable SKUs", value: num(k.transferSkus, 0), cls: "accent", hint: `of ${num(k.donorSkus,0)} overstock donors` },
+    { label: "Transferable $", value: money(k.transferValue), cls: "green", hint: `${num(k.transferUnits,0)} purchase units` },
+    { label: "Urgent (< " + DATA.mdslLeadDays + "d to MDSL)", value: num(k.urgentSkus, 0), cls: k.urgentSkus > 0 ? "amber" : "green", hint: "move ASAP to keep shelf life" },
+    { label: "No destination", value: num(k.noDestSkus, 0), cls: k.noDestSkus > 0 ? "red" : "green", hint: `+ ${num(k.pastMdslSkus,0)} past MDSL → markdown` },
+  ];
+  document.getElementById("kpis").innerHTML =
+    `<div class="kpi"><div class="label">Scope</div><div class="value" style="font-size:20px">${label}</div><div class="hint">${scopeHint}</div></div>` +
+    kpis.map(k => `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join("");
+}
+
+function renderNote() {
+  document.getElementById("note").innerHTML =
+    `<b>What this shows.</b> Overstock SKUs (&gt; ${DATA.docThreshold} DOC on trailing-${DATA.salesWindowDays}-day sales burn) that could be ` +
+    `<b>transferred</b> to a market that will actually sell them. Excluded: SKUs first fulfilled less than <b>${DATA.ageMinDays} days</b> ago ` +
+    `(too new, via the First Fulfillment Ledger) and <b>refrigerated</b> items (cold-chain). A destination qualifies if it already sells the SKU ` +
+    `and is under ${DATA.docThreshold} DOC (room to absorb) <b>or</b> simply moves it faster than the origin; the origin's excess is allocated across ` +
+    `destinations by room. <b>Days to MDSL</b> is the runway before the lot's last shippable day (expiration − MDSL); we aim to move with ` +
+    `≥ ${DATA.mdslLeadDays} days left (green), else it's <b>urgent</b>, and past that it's markdown/donate. <b>Click a row</b> for all candidate destinations.`;
+}
+
+function docCell(it) {
+  if (it.noSales) return `<span class="nosales">No sales</span>`;
+  const cls = it.doc >= 365 ? "doc-high" : it.doc >= 270 ? "doc-mid" : "";
+  return `<span class="${cls}">${num(it.doc, 0)}</span>`;
+}
+
+function deadlineCell(it) {
+  if (it.daysToDeadline == null) return `<span class="sub2">n/a</span>`;
+  const d = it.daysToDeadline;
+  const cls = d < 0 ? "doc-high" : d < DATA.mdslLeadDays ? "doc-mid" : "";
+  return `<span class="${cls}">${d < 0 ? "past" : d + "d"}</span>`;
+}
+
+function actionCell(it) {
+  if (it.action === "TRANSFER") return `<span class="badge ${it.timing === "urgent" ? "urgent" : "transfer"}">${it.timing === "urgent" ? "TRANSFER · URGENT" : "TRANSFER"}</span>`;
+  if (it.action === "MARKDOWN / DONATE") return `<span class="badge mdsl">MARKDOWN / DONATE</span>`;
+  return `<span class="badge none">NO DESTINATION</span>`;
+}
+
+function destCell(it) {
+  const taken = it.receivers.filter(r => r.take > 0);
+  if (!taken.length) return "—";
+  const first = taken[0];
+  const extra = taken.length > 1 ? ` +${taken.length - 1}` : "";
+  return `<span class="dest">${first.mkt}</span> <span class="sub2">${num(first.take)} PU${extra}</span>`;
+}
+
+function sortRows(rows) {
+  rows.sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+  return rows;
+}
+
+function filteredSortedItems() {
+  const q = filterText.toLowerCase();
+  const rows = scopedItems().filter(it => {
+    if (segment === "transfer" && it.action !== "TRANSFER") return false;
+    if (segment === "urgent" && !(it.action === "TRANSFER" && it.timing === "urgent")) return false;
+    if (segment === "none" && it.action !== "NO DESTINATION") return false;
+    if (marketFilter && it.mkt !== marketFilter) return false;
+    return !q || it.name.toLowerCase().includes(q) ||
+      (it.vendor || "").toLowerCase().includes(q) || (it.cls || "").toLowerCase().includes(q);
+  });
+  return sortRows(rows);
+}
+
+function rowKey(it) { return it.mkt + ":" + it.uuid; }
+
+function receiverPanel(it) {
+  const title = `<div class="rx-title">Transfer destinations — sells it, has room</div>`;
+  if (!it.receivers.length) {
+    const why = it.action === "MARKDOWN / DONATE"
+      ? "Past its MDSL ship-by date — mark down or donate, don't transfer."
+      : "No other market sells this SKU fast enough / with room to take it.";
+    return title + `<div class="rx-empty">${why}</div>`;
+  }
+  const rows = it.receivers.map(r => `
+    <tr>
+      <td class="mkt">${r.mkt}</td>
+      <td class="num">${num(r.burn, 2)}</td>
+      <td class="num">${r.doc == null ? "—" : num(r.doc, 0)}</td>
+      <td class="num">${num(r.absorb)}</td>
+      <td class="num"><b>${r.take > 0 ? num(r.take) : "—"}</b></td>
+      <td>${r.under ? `<span class="tag under">under-covered</span>` : ""}${r.faster ? `<span class="tag faster">faster mover</span>` : ""}</td>
+    </tr>`).join("");
+  return title + `
+    <table class="rx-table">
+      <thead><tr><th>Market</th><th class="num">Burn/day</th><th class="num">DOC</th><th class="num">Room (PU)</th><th class="num">Take (PU)</th><th>Why</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function markSort() {
+  document.querySelectorAll("#items thead th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+}
+
+function renderTable() {
+  const showMkt = scope === "network";
+  document.querySelectorAll(".mkt-col").forEach(el => el.style.display = showMkt ? "" : "none");
+  document.getElementById("market-filter").style.display = showMkt ? "" : "none";
+
+  const rows = filteredSortedItems();
+  const total = scopedItems().length;
+  document.getElementById("table-count").textContent = `${rows.length}${rows.length !== total ? ` of ${total}` : ""} SKUs`;
+  document.getElementById("table-title").textContent =
+    scope === "network" ? "Transfer Recommendations — All Markets" : `Transfer Recommendations — ${scope}`;
+  markSort();
+
+  const nCols = showMkt ? 12 : 11;
+  document.querySelector("#items tbody").innerHTML = rows.map(it => {
+    const key = rowKey(it);
+    const open = expanded.has(key);
+    return `
+    <tr class="item-row${open ? " open" : ""}" data-key="${key}">
+      <td class="chev"><span class="chev-icon">▶</span></td>
+      <td>${escapeHtml(it.name)}<div class="sub2">${escapeHtml(it.cls || "")}</div></td>
+      <td>${escapeHtml(it.vendor || "")}</td>
+      <td class="mkt mkt-col"${showMkt ? "" : ' style="display:none"'}>${it.mkt}</td>
+      <td class="num">${money(it.excessValue)}</td>
+      <td class="num">${it.burn ? num(it.burn, 2) : "0"}</td>
+      <td class="num">${docCell(it)}</td>
+      <td class="num">${it.ageDays == null ? "—" : num(it.ageDays, 0)}</td>
+      <td class="num">${deadlineCell(it)}</td>
+      <td>${actionCell(it)}</td>
+      <td class="num">${it.transferValue ? money(it.transferValue) : "—"}</td>
+      <td>${destCell(it)}</td>
+    </tr>
+    ${open ? `<tr class="detail-row"><td colspan="${nCols}">${receiverPanel(it)}</td></tr>` : ""}`;
+  }).join("");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+function csvCell(v) { const s = v == null ? "" : String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+function downloadCsv(filename, header, rows) {
+  const lines = [header, ...rows].map(r => r.map(csvCell).join(",")).join("\r\n");
+  const blob = new Blob(["﻿" + lines], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function exportCsv() {
+  const rows = filteredSortedItems();
+  const header = ["Item Name", "Item Class", "Vendor", "From Market", "On Hand PU", "Excess PU", "Excess USD",
+    "Daily Burn PU", "Days of Cover", "Age Days", "Days to MDSL Deadline", "Action", "Timing",
+    "Transfer Units PU", "Transfer USD", "Destinations"];
+  const data = rows.map(it => [
+    it.name, it.cls, it.vendor, it.mkt, it.onHandPU, it.excessUnits, it.excessValue,
+    it.burn, it.noSales ? "" : it.doc, it.ageDays, it.daysToDeadline, it.action, it.timing,
+    it.transferUnits, it.transferValue,
+    it.receivers.filter(r => r.take > 0).map(r => `${r.mkt}:${num(r.take)}`).join(" | "),
+  ]);
+  const parts = ["overstock-mitigation", scope === "network" ? (marketFilter || "network") : scope];
+  if (segment !== "all") parts.push(segment);
+  parts.push(DATA.asOf);
+  downloadCsv(parts.join("-") + ".csv", header, data);
+}
+
+function renderCharts() {
+  document.getElementById("chart-origin-title").textContent =
+    scope === "network" ? "Transferable $ by Origin Market" : `Top Transfers by $ (${scope})`;
+  if (typeof Chart === "undefined") return;
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const oCtx = document.getElementById("chart-origin");
+  if (chartOrigin) chartOrigin.destroy();
+  if (scope === "network") {
+    const mk = DATA.markets.map(m => ({ code: m.code, v: m.kpis.transferValue }))
+      .filter(m => m.v > 0).sort((a, b) => b.v - a.v);
+    chartOrigin = new Chart(oCtx, {
+      type: "bar",
+      data: { labels: mk.map(m => m.code), datasets: [{ data: mk.map(m => m.v),
+        backgroundColor: mk.map(m => (scope !== "network" && m.code === scope) ? PALETTE.yellow : PALETTE.ink), borderRadius: 4 }] },
+      options: { responsive: true, maintainAspectRatio: false,
+        onClick: (e, els) => { if (els.length) { scope = mk[els[0].index].code; document.getElementById("market").value = scope; renderAll(); } },
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.raw) } } },
+        scales: { y: { beginAtZero: true, ticks: { callback: v => "$" + (v / 1000) + "k" } } } },
+    });
+  } else {
+    const top = scopedItems().filter(i => i.action === "TRANSFER")
+      .sort((a, b) => (b.transferValue || 0) - (a.transferValue || 0)).slice(0, 12);
+    chartOrigin = new Chart(oCtx, {
+      type: "bar",
+      data: { labels: top.map(i => i.name.length > 50 ? i.name.slice(0, 48) + "…" : i.name),
+        datasets: [{ data: top.map(i => i.transferValue || 0), backgroundColor: PALETTE.ink, borderRadius: 4 }] },
+      options: { indexAxis: "y", responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.raw) } } },
+        scales: { x: { beginAtZero: true, ticks: { callback: v => "$" + (v / 1000) + "k" } } } },
+    });
+  }
+
+  // Inbound $ by destination market (network aggregate; highlights scope)
+  const dCtx = document.getElementById("chart-dest");
+  if (chartDest) chartDest.destroy();
+  const dests = (DATA.destinations || []).filter(d => d.inboundValue > 0);
+  chartDest = new Chart(dCtx, {
+    type: "bar",
+    data: { labels: dests.map(d => d.code), datasets: [{ data: dests.map(d => d.inboundValue),
+      backgroundColor: dests.map(d => (scope !== "network" && d.code === scope) ? PALETTE.yellow : PALETTE.green), borderRadius: 4 }] },
+    options: { responsive: true, maintainAspectRatio: false,
+      onClick: (e, els) => { if (els.length) { scope = dests[els[0].index].code; document.getElementById("market").value = scope; renderAll(); } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => money(c.raw) } } },
+      scales: { y: { beginAtZero: true, ticks: { callback: v => "$" + (v / 1000) + "k" } } } },
+  });
+}
+
+document.getElementById("search").addEventListener("input", (e) => { filterText = e.target.value; renderTable(); });
+document.getElementById("export-csv").addEventListener("click", exportCsv);
+document.querySelector("#items tbody").addEventListener("click", (e) => {
+  if (window.getSelection && String(window.getSelection())) return;
+  const tr = e.target.closest("tr.item-row");
+  if (!tr) return;
+  const key = tr.dataset.key;
+  if (expanded.has(key)) expanded.delete(key); else expanded.add(key);
+  renderTable();
+});
+document.getElementById("seg").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  segment = b.dataset.seg;
+  document.querySelectorAll("#seg button").forEach(x => x.classList.toggle("active", x === b));
+  renderTable();
+});
+document.querySelectorAll("#items thead th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
