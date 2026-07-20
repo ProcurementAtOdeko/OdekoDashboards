@@ -106,6 +106,9 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 tr.row { cursor: pointer; }
 tr.row:hover td { background: #FAF4E4; }
 tr.detail td { background: var(--panel-2); padding: 0 12px 0 32px; }
+.detail-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 4px 0; }
+.detail-title { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.dl-detail { padding: 4px 10px; font-size: 11px; }
 .detail-table { width: 100%; margin: 8px 0; }
 .detail-table td, .detail-table th { padding: 6px 10px; font-size: 12px; border-bottom: 1px solid var(--line); cursor: default; }
 .detail-table tr:last-child td { border-bottom: none; }

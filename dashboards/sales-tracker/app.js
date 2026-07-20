@@ -332,6 +332,15 @@ function renderTable() {
       renderTable();
     });
   });
+
+  document.querySelectorAll("#grid-body .dl-detail").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const list = tab === "items" ? DATA.items : DATA.customers;
+      const r = list.find(x => x.uuid === btn.dataset.id);
+      if (r) exportDetailCsv(r);
+    });
+  });
 }
 
 function sparkline(r) {
@@ -416,25 +425,36 @@ function lineCategory(name) {
   return "other";
 }
 
-function renderDetail(r, colspan) {
-  const idx = tab === "items"
+// Related pairs for an expanded item/customer row, each joined to the "other"
+// entity. Shared by the detail render and its CSV export.
+function detailPairs(r) {
+  const isItem = tab === "items";
+  const idx = isItem
     ? DATA.items.findIndex(i => i.uuid === r.uuid)
     : DATA.customers.findIndex(c => c.uuid === r.uuid);
-  const rel = DATA.pairs.filter(p => (tab === "items" ? p.i === idx : p.c === idx));
-  const rows = rel.map(p => {
-    const other = tab === "items" ? DATA.customers[p.c] : DATA.items[p.i];
-    return `<tr>
+  return DATA.pairs
+    .filter(p => (isItem ? p.i === idx : p.c === idx))
+    .map(p => ({ p, other: isItem ? DATA.customers[p.c] : DATA.items[p.i] }))
+    .sort((a, b) => b.p.units - a.p.units);
+}
+
+function renderDetail(r, colspan) {
+  const otherLabel = tab === "items" ? "Customer" : "Item";
+  const rows = detailPairs(r).map(({ p, other }) => `<tr>
       <td>${escapeHtml(other.name)}${p.new ? '<span class="badge-new">New</span>' : ""}</td>
       <td class="num">${fmt(p.units)}</td>
       <td class="num hide-sm">${fmtInt(p.lines)}</td>
       <td>${fmtDate(p.minDate)}</td>
       <td class="hide-sm">${fmtDate(p.lastOrder)}</td>
-    </tr>`;
-  }).join("");
+    </tr>`).join("");
   return `<tr class="detail"><td colspan="${colspan}">
+    <div class="detail-head">
+      <span class="detail-title">${escapeHtml(r.name)} · by ${otherLabel.toLowerCase()}</span>
+      <button class="dl-csv dl-detail" type="button" data-id="${escapeHtml(r.uuid)}" title="Download this breakdown as CSV">⬇ CSV</button>
+    </div>
     <table class="detail-table">
       <thead><tr>
-        <th>${tab === "items" ? "Customer" : "Item"}</th>
+        <th>${otherLabel}</th>
         <th class="num">Units</th>
         <th class="num hide-sm">Lines</th>
         <th>First Order</th>
@@ -443,6 +463,20 @@ function renderDetail(r, colspan) {
       <tbody>${rows}</tbody>
     </table>
   </td></tr>`;
+}
+
+function exportDetailCsv(r) {
+  const otherLabel = tab === "items" ? "Customer" : "Item";
+  const header = [otherLabel, "New", "Units", "Order Lines", "First Order", "Last Order"];
+  const lines = [header.map(csvCell).join(",")];
+  for (const { p, other } of detailPairs(r)) {
+    lines.push([
+      other.name, p.new ? "TRUE" : "FALSE", p.units, p.lines, p.minDate || "", p.lastOrder || "",
+    ].map(csvCell).join(","));
+  }
+  const kind = tab === "items" ? "item" : "customer";
+  const slug = r.name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || r.uuid.slice(0, 8);
+  downloadCsv(lines, `${WAREHOUSE}-${kind}-${slug}-${DATA.dateRange.end}.csv`);
 }
 
 function escapeHtml(s) {
@@ -519,20 +553,24 @@ function csvCell(v) {
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
+function downloadCsv(lines, filename) {
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function exportCsv() {
   const cols = csvColumns();
   const rows = filteredSortedRows();
   const lines = [cols.map(c => csvCell(c[0])).join(",")];
   for (const r of rows) lines.push(cols.map(c => csvCell(c[1](r))).join(","));
-  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${WAREHOUSE}-sales-tracker-${tab}-${DATA.dateRange.end}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  downloadCsv(lines, `${WAREHOUSE}-sales-tracker-${tab}-${DATA.dateRange.end}.csv`);
 }
 
 document.getElementById("dl-csv").addEventListener("click", exportCsv);
