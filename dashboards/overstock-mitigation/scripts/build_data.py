@@ -177,6 +177,12 @@ def main(out_path):
                 continue
             if is_cold(p["refrig"]):
                 continue
+            # Non-expiring classes (paper, cafe & cleaning supplies, gelato
+            # hardware) have no real MDSL clock — a "move before it expires"
+            # view doesn't apply to them (same suppression as the overstock
+            # dashboard).
+            if (p["cls"] or "").startswith(ov.NON_EXPIRING_CLASS_PREFIXES):
+                continue
             if p["ageDays"] is not None and p["ageDays"] < AGE_MIN_DAYS:
                 continue  # too new to judge / act on
 
