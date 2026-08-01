@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T22:30:16+00:00",
+  "generatedAt": "2026-08-01T01:00:02+00:00",
   "dateRange": {
     "min": "2026-05-03",
     "max": "2026-07-30"
@@ -8,20 +8,20 @@
     "customersListed": 77,
     "customersActive": 55,
     "skusPurchased": 458,
-    "skusCarried": 126,
-    "skusGap": 332,
+    "skusCarried": 127,
+    "skusGap": 331,
     "coveragePct": 28,
     "unitsTotal": 13412.0,
-    "gapUnitsTotal": 5759.0
+    "gapUnitsTotal": 5757.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 126
+      "count": 127
     },
     {
       "status": "Not carried (gap)",
-      "count": 332
+      "count": 331
     }
   ],
   "topGapSkus": [
@@ -129,8 +129,8 @@
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 2364.0,
-      "skus": 95
+      "units": 2362.0,
+      "skus": 94
     },
     {
       "brand": "Torani",
@@ -281,6 +281,7 @@
       "lines": 14,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "customers": 4
@@ -4302,8 +4303,10 @@
       "itemUuid": "58da4f71-477d-4bb4-8212-7a4012f75b6f",
       "units": 2.0,
       "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 2
     },
     {
@@ -6992,7 +6995,7 @@
       "name": "Dublin Roasters Coffee, Inc : 1780 N Market St",
       "hasHistory": true,
       "skus": 60,
-      "gapSkus": 46,
+      "gapSkus": 45,
       "units": 608.0,
       "items": [
         {
@@ -7392,7 +7395,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Rose Syrup 750ml Glass",
@@ -11506,7 +11509,7 @@
       "name": "Casey's Coffee : College Park",
       "hasHistory": true,
       "skus": 16,
-      "gapSkus": 8,
+      "gapSkus": 7,
       "units": 91.0,
       "items": [
         {
@@ -11605,7 +11608,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Sugar Free Vanilla Syrup 750ml Glass",
