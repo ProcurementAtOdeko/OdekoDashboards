@@ -1,27 +1,27 @@
 {
-  "generatedAt": "2026-08-01T07:39:48+00:00",
+  "generatedAt": "2026-08-01T10:13:40+00:00",
   "dateRange": {
-    "min": "2026-05-03",
-    "max": "2026-07-30"
+    "min": "2026-05-04",
+    "max": "2026-07-31"
   },
   "summary": {
     "customersListed": 77,
     "customersActive": 55,
-    "skusPurchased": 458,
-    "skusCarried": 127,
-    "skusGap": 331,
+    "skusPurchased": 456,
+    "skusCarried": 126,
+    "skusGap": 330,
     "coveragePct": 28,
-    "unitsTotal": 13412.0,
-    "gapUnitsTotal": 5757.0
+    "unitsTotal": 13387.0,
+    "gapUnitsTotal": 5732.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 127
+      "count": 126
     },
     {
       "status": "Not carried (gap)",
-      "count": 331
+      "count": 330
     }
   ],
   "topGapSkus": [
@@ -129,13 +129,8 @@
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 2362.0,
-      "skus": 94
-    },
-    {
-      "brand": "Torani",
-      "units": 760.0,
-      "skus": 57
+      "units": 2435.0,
+      "skus": 95
     },
     {
       "brand": "Dr. Smoothie",
@@ -143,8 +138,13 @@
       "skus": 20
     },
     {
+      "brand": "Torani",
+      "units": 727.0,
+      "skus": 55
+    },
+    {
       "brand": "DaVinci Gourmet",
-      "units": 544.0,
+      "units": 540.0,
       "skus": 28
     },
     {
@@ -159,8 +159,8 @@
     },
     {
       "brand": "(no brand)",
-      "units": 176.0,
-      "skus": 7
+      "units": 131.0,
+      "skus": 8
     },
     {
       "brand": "Big Train",
@@ -179,8 +179,8 @@
     },
     {
       "brand": "Uglies Kettle Chips",
-      "units": 101.0,
-      "skus": 7
+      "units": 90.0,
+      "skus": 6
     },
     {
       "brand": "Stroopie Co.",
@@ -401,20 +401,6 @@
       "customers": 3
     },
     {
-      "name": "Oatly Barista Oat Milk 32oz",
-      "brand": "Oatly",
-      "itemUuid": "6e4d348f-0bd4-49d2-a361-6b348ff2aaf3",
-      "units": 173.0,
-      "lines": 39,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 8
-    },
-    {
       "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
       "brand": "Monin",
       "itemUuid": "cb8b3dff-af59-458a-8d7d-4f1c54b62b14",
@@ -423,6 +409,20 @@
       "inDca1": false,
       "dca1Sources": [],
       "customers": 2
+    },
+    {
+      "name": "Oatly Barista Oat Milk 32oz",
+      "brand": "Oatly",
+      "itemUuid": "6e4d348f-0bd4-49d2-a361-6b348ff2aaf3",
+      "units": 169.0,
+      "lines": 38,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 8
     },
     {
       "name": "Monin Cucumber Syrup 1L Plastic",
@@ -536,7 +536,7 @@
     },
     {
       "name": "Monin Raspberry Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "7522ae8c-ba62-43c4-943b-3e149150dc29",
       "units": 114.0,
       "lines": 39,
@@ -586,8 +586,8 @@
       "name": "Monin Pistachio Syrup 750 ml Glass",
       "brand": "Monin",
       "itemUuid": "74ef30fb-0cab-49e5-ace5-1501e6566858",
-      "units": 106.0,
-      "lines": 34,
+      "units": 105.0,
+      "lines": 33,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
@@ -600,15 +600,15 @@
       "name": "1883 Lavender Syrup 1L Plastic",
       "brand": "1883",
       "itemUuid": "b8c5a410-b84f-40f5-8945-ec88f6c3f7f6",
-      "units": 100.0,
-      "lines": 45,
+      "units": 99.0,
+      "lines": 44,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 6
+      "customers": 5
     },
     {
       "name": "Monin Cinnamon Syrup 750ml Glass",
@@ -712,7 +712,7 @@
     },
     {
       "name": "Monin Tiramisu Syrup 750 ml Glass Bottle",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "fb99b897-89d7-4e0f-a990-2226204758e3",
       "units": 78.0,
       "lines": 11,
@@ -722,7 +722,7 @@
     },
     {
       "name": "Torani Vanilla Syrup 750ml Glass Bottle",
-      "brand": "",
+      "brand": "Torani",
       "itemUuid": "6e335c32-ac98-4efd-849b-4be1a8c3712c",
       "units": 73.0,
       "lines": 14,
@@ -772,7 +772,7 @@
     },
     {
       "name": "Torani Real Fruit Strawberry Banana Smoothie Mix 64 oz. Bottle(s)",
-      "brand": "Torani",
+      "brand": "",
       "itemUuid": "1a4e6953-4b20-4fcb-9114-263b036bbd6d",
       "units": 70.0,
       "lines": 16,
@@ -883,20 +883,6 @@
       "customers": 4
     },
     {
-      "name": "Lenka Bar-Chocolate Peanut Butter",
-      "brand": "Lenka Bar",
-      "itemUuid": "dfe1b559-6835-4c68-af30-04cf1b20b355",
-      "units": 55.0,
-      "lines": 37,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 11
-    },
-    {
       "name": "Monin Passion Fruit Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "itemUuid": "a6512c6b-78eb-4695-b110-f125aec43826",
@@ -905,6 +891,34 @@
       "inDca1": false,
       "dca1Sources": [],
       "customers": 4
+    },
+    {
+      "name": "Boylan Bottling Co. Root Beer Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
+      "units": 54.0,
+      "lines": 38,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 9
+    },
+    {
+      "name": "Lenka Bar-Chocolate Peanut Butter",
+      "brand": "Lenka Bar",
+      "itemUuid": "dfe1b559-6835-4c68-af30-04cf1b20b355",
+      "units": 54.0,
+      "lines": 36,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 11
     },
     {
       "name": "Monin Cherry Syrup 750ml Glass",
@@ -939,20 +953,6 @@
         "sold90"
       ],
       "customers": 3
-    },
-    {
-      "name": "Boylan Bottling Co. Root Beer Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
-      "units": 52.0,
-      "lines": 37,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 9
     },
     {
       "name": "Monin Strawberry Syrup 750ml Glass",
@@ -1135,6 +1135,20 @@
       "customers": 8
     },
     {
+      "name": "Boylan Bottling Co. Ginger Ale Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
+      "units": 42.0,
+      "lines": 31,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 10
+    },
+    {
       "name": "Monin Mango Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "0a8d848f-10c8-43d9-a02a-80e1a96848fa",
@@ -1147,20 +1161,6 @@
         "sold90"
       ],
       "customers": 3
-    },
-    {
-      "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
-      "units": 40.0,
-      "lines": 30,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 10
     },
     {
       "name": "Monin Pina Colada Smoothie 46oz",
@@ -1269,6 +1269,20 @@
       "customers": 2
     },
     {
+      "name": "Boylan Bottling Co. Orange Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "81549fa2-3b01-4b00-aff5-7159993865f5",
+      "units": 33.0,
+      "lines": 25,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 10
+    },
+    {
       "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
       "brand": "Dr. Smoothie",
       "itemUuid": "7bc96441-b18d-4dcb-a491-2415076e42c4",
@@ -1291,6 +1305,20 @@
         "sold90"
       ],
       "customers": 6
+    },
+    {
+      "name": "Boylan Bottling Co. Black Cherry Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "7c6e20d3-ac40-41f6-a38b-979d81e87097",
+      "units": 32.0,
+      "lines": 22,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 7
     },
     {
       "name": "Boylan Bottling Co. Creme Soda 12oz Bottle",
@@ -1335,34 +1363,6 @@
       "inDca1": false,
       "dca1Sources": [],
       "customers": 2
-    },
-    {
-      "name": "Boylan Bottling Co. Orange Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "81549fa2-3b01-4b00-aff5-7159993865f5",
-      "units": 31.0,
-      "lines": 24,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 10
-    },
-    {
-      "name": "Boylan Bottling Co. Black Cherry Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "7c6e20d3-ac40-41f6-a38b-979d81e87097",
-      "units": 30.0,
-      "lines": 21,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 7
     },
     {
       "name": "Monin Blueberry Syrup 750ml Glass",
@@ -1475,16 +1475,6 @@
       "customers": 1
     },
     {
-      "name": "Torani Coconut Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "faf06148-1c27-4f2d-854c-e409d2c0e470",
-      "units": 27.0,
-      "lines": 13,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2
-    },
-    {
       "name": "UGLIES Original Sea Salt 2oz Bag",
       "brand": "Uglies Kettle Chips",
       "itemUuid": "38f52604-ebf9-4d52-b94b-ca2e1044fb1c",
@@ -1492,6 +1482,20 @@
       "lines": 24,
       "inDca1": false,
       "dca1Sources": [],
+      "customers": 5
+    },
+    {
+      "name": "Boylan Bottling Co. Diet Cola Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
+      "units": 26.0,
+      "lines": 18,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
       "customers": 5
     },
     {
@@ -1595,20 +1599,6 @@
       "customers": 4
     },
     {
-      "name": "Boylan Bottling Co. Diet Cola Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
-      "units": 25.0,
-      "lines": 17,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 5
-    },
-    {
       "name": "Califia Farms Barista Almond Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "7337eebb-4a48-4fef-894b-d41188665b96",
@@ -1641,6 +1631,16 @@
       "inDca1": false,
       "dca1Sources": [],
       "customers": 3
+    },
+    {
+      "name": "Torani Coconut Syrup 750ml Glass Bottle",
+      "brand": "Torani",
+      "itemUuid": "faf06148-1c27-4f2d-854c-e409d2c0e470",
+      "units": 25.0,
+      "lines": 12,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
     },
     {
       "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
@@ -1890,7 +1890,7 @@
     },
     {
       "name": "Torani SUGAR FREE Vanilla Syrup 750ml Glass Bottle",
-      "brand": "Torani",
+      "brand": "",
       "itemUuid": "6a5fb810-6237-40fd-9b7c-06e55752c1d9",
       "units": 20.0,
       "lines": 6,
@@ -2157,16 +2157,6 @@
       "customers": 2
     },
     {
-      "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
-      "brand": "Monin",
-      "itemUuid": "c4f216af-d5a7-4453-8137-b00913424d1e",
-      "units": 15.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
       "name": "Torani Cheesecake Syrup 750ml Glass Bottle",
       "brand": "Torani",
       "itemUuid": "a1b1dfba-8e91-471b-bc4f-11908beb489b",
@@ -2239,16 +2229,6 @@
         "sold90"
       ],
       "customers": 3
-    },
-    {
-      "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "460ed804-0a54-4cfb-b3eb-9dd6add45c9f",
-      "units": 14.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2
     },
     {
       "name": "Torani Toasted Marshmallow Syrup 750ml Glass Bottle",
@@ -2328,6 +2308,26 @@
       "name": "Monin Toasted Almond Mocha Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "fc6cadf4-a445-4f53-805d-9c21b93f15c6",
+      "units": 13.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 2
+    },
+    {
+      "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
+      "brand": "Monin",
+      "itemUuid": "c4f216af-d5a7-4453-8137-b00913424d1e",
+      "units": 13.0,
+      "lines": 7,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
+    },
+    {
+      "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
+      "brand": "Torani",
+      "itemUuid": "460ed804-0a54-4cfb-b3eb-9dd6add45c9f",
       "units": 13.0,
       "lines": 2,
       "inDca1": false,
@@ -2582,7 +2582,7 @@
     },
     {
       "name": "UGLIES Buffalo Ranch 2oz Bag",
-      "brand": "Uglies Kettle Chips",
+      "brand": "",
       "itemUuid": "e4fda8de-0a0e-4a5d-bd1e-f13fd486c378",
       "units": 11.0,
       "lines": 8,
@@ -2703,16 +2703,6 @@
       "customers": 2
     },
     {
-      "name": "Da Vinci SUGAR FREE Banana Syrup 750 ml Plastic Bottle(s)",
-      "brand": "DaVinci Gourmet",
-      "itemUuid": "745796da-4c63-481e-a3c8-2c493d3a96d0",
-      "units": 9.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2
-    },
-    {
       "name": "Da Vinci Toasted Marshmallow Syrup 750 ml PLASTIC Bottle",
       "brand": "DaVinci Gourmet",
       "itemUuid": "10a873b2-4af9-4342-b066-12ba0391f2eb",
@@ -2780,16 +2770,6 @@
       "name": "Torani Blackberry Syrup 750ml Glass Bottle",
       "brand": "Torani",
       "itemUuid": "bafe4a2a-d570-4b95-8166-ded9277a8d20",
-      "units": 9.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2
-    },
-    {
-      "name": "Torani SUGAR FREE Vanilla Bean Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "1c917395-3103-4161-b069-1c99adc2d859",
       "units": 9.0,
       "lines": 6,
       "inDca1": false,
@@ -2875,16 +2855,6 @@
       "customers": 2
     },
     {
-      "name": "Monin Green Mint Syrup 750mL Glass",
-      "brand": "Monin",
-      "itemUuid": "0606b918-da08-46d1-92a4-0a6af9f31f93",
-      "units": 8.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
       "name": "Monin Peppermint Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "itemUuid": "28d81957-a64c-446c-9f1c-24798cbdebce",
@@ -2963,6 +2933,16 @@
       "customers": 2
     },
     {
+      "name": "Torani SUGAR FREE Vanilla Bean Syrup 750ml Glass Bottle",
+      "brand": "Torani",
+      "itemUuid": "1c917395-3103-4161-b069-1c99adc2d859",
+      "units": 8.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 2
+    },
+    {
       "name": "Torani Salted Caramel Syrup 750ml Glass Bottle",
       "brand": "Torani",
       "itemUuid": "0d15298b-3e3e-4aad-bbcc-c71106703f67",
@@ -3028,7 +3008,7 @@
     },
     {
       "name": "Hollander White Chocolate Sauce 64oz",
-      "brand": "Hollander",
+      "brand": "",
       "itemUuid": "03a7bcef-1447-44b1-8a84-956b54c1c29b",
       "units": 7.0,
       "lines": 4,
@@ -3055,6 +3035,16 @@
       "inDca1": false,
       "dca1Sources": [],
       "customers": 2
+    },
+    {
+      "name": "Monin Green Mint Syrup 750mL Glass",
+      "brand": "Monin",
+      "itemUuid": "0606b918-da08-46d1-92a4-0a6af9f31f93",
+      "units": 7.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
     },
     {
       "name": "Monin Irish Cream Syrup 750ml Glass",
@@ -3207,16 +3197,6 @@
       "customers": 3
     },
     {
-      "name": "Monin Espresso (Coffee) Syrup 750ml Glass",
-      "brand": "Monin",
-      "itemUuid": "ecf92ece-192b-4c59-9313-20b45ad0611d",
-      "units": 6.0,
-      "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
       "name": "Monin Hawaiian Island Syrup 750 ml Glass Bottle",
       "brand": "Monin",
       "itemUuid": "f6fa9089-9152-4d8e-ae41-f36997d1c7f3",
@@ -3251,16 +3231,6 @@
       "customers": 5
     },
     {
-      "name": "Monin Pineapple Syrup 750ml Glass",
-      "brand": "Monin",
-      "itemUuid": "1e63568f-c19f-4558-84b5-16acc41bbfb4",
-      "units": 6.0,
-      "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3
-    },
-    {
       "name": "Strange Water Coconut Water 330ml Can",
       "brand": "Strange Water",
       "itemUuid": "feaf7a30-dc0a-4928-89d6-3ca525e3c265",
@@ -3276,16 +3246,6 @@
       "itemUuid": "3078c1aa-e8bd-4f87-b4f7-d87a53c2454d",
       "units": 6.0,
       "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
-      "name": "Torani CLASSIC HAZELNUT Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "1ef791d5-c990-4602-a68b-6552c9acc886",
-      "units": 6.0,
-      "lines": 3,
       "inDca1": false,
       "dca1Sources": [],
       "customers": 1
@@ -3331,19 +3291,19 @@
       "customers": 1
     },
     {
-      "name": "Torani Vanilla Bean Syrup 750 ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "e5142387-52dd-4382-b8c2-adebd81d4937",
-      "units": 6.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
       "name": "Big Train CARAMEL Blended Iced Coffee 3.5 lb. Bag(s)",
       "brand": "Big Train",
       "itemUuid": "2b03a323-8225-46a5-b670-6dc712289b7a",
+      "units": 5.0,
+      "lines": 3,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 2
+    },
+    {
+      "name": "Da Vinci SUGAR FREE Banana Syrup 750 ml Plastic Bottle(s)",
+      "brand": "DaVinci Gourmet",
+      "itemUuid": "745796da-4c63-481e-a3c8-2c493d3a96d0",
       "units": 5.0,
       "lines": 3,
       "inDca1": false,
@@ -3399,6 +3359,26 @@
       "customers": 2
     },
     {
+      "name": "Monin Espresso (Coffee) Syrup 750ml Glass",
+      "brand": "Monin",
+      "itemUuid": "ecf92ece-192b-4c59-9313-20b45ad0611d",
+      "units": 5.0,
+      "lines": 4,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
+    },
+    {
+      "name": "Monin Pineapple Syrup 750ml Glass",
+      "brand": "Monin",
+      "itemUuid": "1e63568f-c19f-4558-84b5-16acc41bbfb4",
+      "units": 5.0,
+      "lines": 4,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 3
+    },
+    {
       "name": "South Forty Snacks Pistachio Bar",
       "brand": "South Forty Snack Company",
       "itemUuid": "51246398-5e84-4550-b3e7-38c7bdbabe49",
@@ -3424,26 +3404,6 @@
       "itemUuid": "9b2d0883-3051-4155-881b-abf29bf32f24",
       "units": 5.0,
       "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1
-    },
-    {
-      "name": "Torani Peppermint Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "d50cc8b1-b0ad-449f-8d48-ade7c361e5bd",
-      "units": 5.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2
-    },
-    {
-      "name": "Torani Puremade Cane Sugar Syrup 750mL Plastic Bottle",
-      "brand": "Torani",
-      "itemUuid": "0ff60267-70bf-4a7d-8d84-8ec1cc653603",
-      "units": 5.0,
-      "lines": 2,
       "inDca1": false,
       "dca1Sources": [],
       "customers": 1
@@ -3612,7 +3572,7 @@
     },
     {
       "name": "Monin Gingerbread Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "16c0224d-2b72-44bd-9018-ee78d67d3bf8",
       "units": 4.0,
       "lines": 4,
@@ -3766,6 +3726,16 @@
       "customers": 1
     },
     {
+      "name": "Torani CLASSIC HAZELNUT Syrup 750ml Glass Bottle",
+      "brand": "Torani",
+      "itemUuid": "1ef791d5-c990-4602-a68b-6552c9acc886",
+      "units": 4.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
+    },
+    {
       "name": "Torani Cane Sugar Sweetener 1L Plastic Bottle",
       "brand": "Torani",
       "itemUuid": "901d5693-7861-48c8-a02e-2d38fe49b9c0",
@@ -3779,6 +3749,16 @@
       "name": "Torani Cherry Lime Syrup 750ml Glass Bottle",
       "brand": "Torani",
       "itemUuid": "27f151bc-d010-48a1-9d64-39b3098b4958",
+      "units": 4.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
+    },
+    {
+      "name": "Torani Peppermint Syrup 750ml Glass Bottle",
+      "brand": "Torani",
+      "itemUuid": "d50cc8b1-b0ad-449f-8d48-ade7c361e5bd",
       "units": 4.0,
       "lines": 2,
       "inDca1": false,
@@ -4334,20 +4314,6 @@
       "customers": 1
     },
     {
-      "name": "Mylk Labs Banana Nut Oatmeal Cup 1.85oz",
-      "brand": "Mylk Labs",
-      "itemUuid": "9677f5e7-d053-4218-a2c1-041b7f8de2dc",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1
-    },
-    {
       "name": "Righteous Felon - Ancho Villa - Spicy Biltong 2oz Bag",
       "brand": "Righteous Felon",
       "itemUuid": "041c4fa1-f5aa-49b0-af99-905bb026a5ba",
@@ -4409,7 +4375,7 @@
     },
     {
       "name": "Sample Request",
-      "brand": "",
+      "brand": "Odeko",
       "itemUuid": "df1c82e4-6ef4-4e58-bafa-6647b4bb282b",
       "units": 2.0,
       "lines": 2,
@@ -4492,6 +4458,16 @@
       "customers": 1
     },
     {
+      "name": "Torani Puremade Cane Sugar Syrup 750mL Plastic Bottle",
+      "brand": "Torani",
+      "itemUuid": "0ff60267-70bf-4a7d-8d84-8ec1cc653603",
+      "units": 2.0,
+      "lines": 1,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1
+    },
+    {
       "name": "Torani Puremade Vanilla Syrup 750mL Glass Bottle",
       "brand": "Torani",
       "itemUuid": "1623cc9a-7855-474d-a510-74cf8d21ffa1",
@@ -4522,9 +4498,9 @@
       "customers": 1
     },
     {
-      "name": "Torani Shortbread Syrup 750ml Glass Bottle",
+      "name": "Torani Vanilla Bean Syrup 750 ml Glass Bottle",
       "brand": "Torani",
-      "itemUuid": "2984b55f-8b5a-43ee-9be3-aa10cc74e8fa",
+      "itemUuid": "e5142387-52dd-4382-b8c2-adebd81d4937",
       "units": 2.0,
       "lines": 1,
       "inDca1": false,
@@ -5052,9 +5028,9 @@
       "customers": 1
     },
     {
-      "name": "Mylk Labs Mixed Berry Oatmeal Cup 1.83oz",
+      "name": "Mylk Labs Banana Nut Oatmeal Cup 1.85oz",
       "brand": "Mylk Labs",
-      "itemUuid": "b6248a63-fce0-463b-b361-0d7dc74fb4d0",
+      "itemUuid": "9677f5e7-d053-4218-a2c1-041b7f8de2dc",
       "units": 1.0,
       "lines": 1,
       "inDca1": true,
@@ -5066,9 +5042,9 @@
       "customers": 1
     },
     {
-      "name": "Mylk Labs Nut Free Apple Cinnamon Oatmeal Cup 1.9oz",
+      "name": "Mylk Labs Mixed Berry Oatmeal Cup 1.83oz",
       "brand": "Mylk Labs",
-      "itemUuid": "21aa9feb-82fa-4c5f-944e-ffbb4bc9ede0",
+      "itemUuid": "b6248a63-fce0-463b-b361-0d7dc74fb4d0",
       "units": 1.0,
       "lines": 1,
       "inDca1": true,
@@ -5262,7 +5238,7 @@
       "brand": "",
       "itemUuid": "",
       "units": 0.0,
-      "lines": 32,
+      "lines": 31,
       "inDca1": true,
       "dca1Sources": [
         "sold90"
@@ -5351,7 +5327,7 @@
         },
         {
           "name": "Monin Tiramisu Syrup 750 ml Glass Bottle",
-          "brand": "",
+          "brand": "Monin",
           "units": 75.0,
           "lines": 10,
           "inDca1": false
@@ -6053,7 +6029,7 @@
         },
         {
           "name": "Torani Real Fruit Strawberry Banana Smoothie Mix 64 oz. Bottle(s)",
-          "brand": "Torani",
+          "brand": "",
           "units": 70.0,
           "lines": 16,
           "inDca1": false
@@ -6221,7 +6197,7 @@
         },
         {
           "name": "Monin Cherry Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 10.0,
           "lines": 9,
           "inDca1": false
@@ -7161,7 +7137,7 @@
         },
         {
           "name": "Torani SUGAR FREE Vanilla Syrup 750ml Glass Bottle",
-          "brand": "Torani",
+          "brand": "",
           "units": 8.0,
           "lines": 5,
           "inDca1": false
@@ -10761,359 +10737,6 @@
       ]
     },
     {
-      "uuid": "1544bb63-e61d-422d-86c2-387ff379820e",
-      "name": "Order and Chaos Coffee : 1410 Key Hwy",
-      "hasHistory": true,
-      "skus": 49,
-      "gapSkus": 26,
-      "units": 126.0,
-      "items": [
-        {
-          "name": "Oatly Barista Oat Milk 32oz",
-          "brand": "Oatly",
-          "units": 17.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 6.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Da Vinci SUGAR FREE Banana Syrup 750 ml Plastic Bottle(s)",
-          "brand": "DaVinci Gourmet",
-          "units": 6.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Torani CLASSIC HAZELNUT Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 6.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Vanilla Bean Syrup 750 ml Glass Bottle",
-          "brand": "Torani",
-          "units": 6.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Vanilla Syrup 750ml Glass Bottle",
-          "brand": "",
-          "units": 6.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Pistachio Syrup 750 ml Glass",
-          "brand": "Monin",
-          "units": 5.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Torani Puremade Cane Sugar Syrup 750mL Plastic Bottle",
-          "brand": "Torani",
-          "units": 5.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Cane Sugar Sweetener 1L Plastic Bottle",
-          "brand": "Torani",
-          "units": 4.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie 100% Crushed Strawberry 46oz",
-          "brand": "Dr. Smoothie",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie Peach Mango Refreshers 46 oz. Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Humankind Orange Juice 10oz",
-          "brand": "Humankind",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Humankind Spring Water 23oz",
-          "brand": "Humankind",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Coconut Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Torani SUGAR FREE Vanilla Bean Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie 100% Crushed Mango Tropics 46oz",
-          "brand": "Dr. Smoothie",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Humankind Apple Juice 10oz",
-          "brand": "Humankind",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Chocolate Peanut Butter",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Caramel Sauce 64oz",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Dark Chocolate Sauce 64oz",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin White Chocolate Sauce 64oz",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Mylk Labs Banana Nut Oatmeal Cup 1.85oz",
-          "brand": "Mylk Labs",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Torani Brown Sugar Cinnamon Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Coconut Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Creme de Banana Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Shortbread Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Toasted Marshmallow Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "1883 Lavender Syrup 1L Plastic",
-          "brand": "1883",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Dr. Smoothie 100% Crushed Guava & Passion Fruit 46oz Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie 100% Crushed Peach Pear Apricot 46oz Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie 100% Crushed Tropical Sunshine 46oz Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Dr. Smoothie Watermelon Cucumber Mint Refreshers 46 oz. Bottle",
-          "brand": "Dr. Smoothie",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Lenka Bar-Nuts and Berries",
-          "brand": "Lenka Bar",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Salted Caramel",
-          "brand": "Lenka Bar",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Vanilla Espresso",
-          "brand": "Lenka Bar",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Glass Bottle Pump",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Kiwi Syrup 750mL Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Strawberry Puree 1L",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Mylk Labs Nut Free Apple Cinnamon Oatmeal Cup 1.9oz",
-          "brand": "Mylk Labs",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Pacific Barista Coconut Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
-          "brand": "Righteous Felon",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Righteous Felon - O.G. Hickory Beef Stick 24pk",
-          "brand": "Righteous Felon",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Torani Irish Cream Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Peppermint Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani Rose Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Torani SUGAR FREE CLASSIC CARAMEL Syrup with Splenda 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        }
-      ]
-    },
-    {
       "uuid": "36c9263a-f603-4de4-ac7a-b8879aca5e14",
       "name": "The Perfect Blend Cafe : 31 W Patrick St",
       "hasHistory": true,
@@ -11446,6 +11069,324 @@
       ]
     },
     {
+      "uuid": "1544bb63-e61d-422d-86c2-387ff379820e",
+      "name": "Order and Chaos Coffee : 1410 Key Hwy",
+      "hasHistory": true,
+      "skus": 44,
+      "gapSkus": 23,
+      "units": 97.0,
+      "items": [
+        {
+          "name": "Oatly Barista Oat Milk 32oz",
+          "brand": "Oatly",
+          "units": 13.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 6.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Torani Vanilla Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 6.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Pistachio Syrup 750 ml Glass",
+          "brand": "Monin",
+          "units": 4.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Torani CLASSIC HAZELNUT Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 4.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Cane Sugar Sweetener 1L Plastic Bottle",
+          "brand": "Torani",
+          "units": 4.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie 100% Crushed Strawberry 46oz",
+          "brand": "Dr. Smoothie",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie Peach Mango Refreshers 46 oz. Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Humankind Orange Juice 10oz",
+          "brand": "Humankind",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Humankind Spring Water 23oz",
+          "brand": "Humankind",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Coconut Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Da Vinci SUGAR FREE Banana Syrup 750 ml Plastic Bottle(s)",
+          "brand": "DaVinci Gourmet",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie 100% Crushed Mango Tropics 46oz",
+          "brand": "Dr. Smoothie",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Humankind Apple Juice 10oz",
+          "brand": "Humankind",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Caramel Sauce 64oz",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Dark Chocolate Sauce 64oz",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin White Chocolate Sauce 64oz",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Torani Brown Sugar Cinnamon Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Creme de Banana Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Puremade Cane Sugar Syrup 750mL Plastic Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Torani SUGAR FREE Vanilla Bean Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Toasted Marshmallow Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Vanilla Bean Syrup 750 ml Glass Bottle",
+          "brand": "Torani",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie 100% Crushed Guava & Passion Fruit 46oz Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie 100% Crushed Peach Pear Apricot 46oz Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie 100% Crushed Tropical Sunshine 46oz Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Dr. Smoothie Watermelon Cucumber Mint Refreshers 46 oz. Bottle",
+          "brand": "Dr. Smoothie",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Lenka Bar-Chocolate Peanut Butter",
+          "brand": "Lenka Bar",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Nuts and Berries",
+          "brand": "Lenka Bar",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Salted Caramel",
+          "brand": "Lenka Bar",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Vanilla Espresso",
+          "brand": "Lenka Bar",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Glass Bottle Pump",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Kiwi Syrup 750mL Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Strawberry Puree 1L",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Mylk Labs Banana Nut Oatmeal Cup 1.85oz",
+          "brand": "Mylk Labs",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Pacific Barista Coconut Milk 32oz",
+          "brand": "Pacific Foods",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
+          "brand": "Righteous Felon",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Righteous Felon - O.G. Hickory Beef Stick 24pk",
+          "brand": "Righteous Felon",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
+          "brand": "Rishi",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Irish Cream Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Torani Rose Syrup 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Torani SUGAR FREE CLASSIC CARAMEL Syrup with Splenda 750ml Glass Bottle",
+          "brand": "Torani",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        }
+      ]
+    },
+    {
       "uuid": "e881d827-7e01-4112-a55a-02bfd2983a18",
       "name": "Zeke's Coffee : Montebello Terrace",
       "hasHistory": true,
@@ -11514,7 +11455,7 @@
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 36.0,
           "lines": 2,
           "inDca1": true
@@ -11528,14 +11469,14 @@
         },
         {
           "name": "Monin Lavender Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 5.0,
           "lines": 2,
           "inDca1": true
         },
         {
           "name": "Monin Honey Syrup 750mL Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 4.0,
           "lines": 2,
           "inDca1": true
@@ -11549,7 +11490,7 @@
         },
         {
           "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 4.0,
           "lines": 2,
           "inDca1": false
@@ -11563,7 +11504,7 @@
         },
         {
           "name": "UGLIES Salt & Vinegar 2oz Bag",
-          "brand": "Uglies Kettle Chips",
+          "brand": "",
           "units": 4.0,
           "lines": 2,
           "inDca1": false
@@ -11623,219 +11564,6 @@
           "units": 1.0,
           "lines": 1,
           "inDca1": false
-        }
-      ]
-    },
-    {
-      "uuid": "3e6436c3-8748-4842-85d2-0c54ed97a33a",
-      "name": "Gino's : 8600 Lasalle Rd",
-      "hasHistory": true,
-      "skus": 29,
-      "gapSkus": 14,
-      "units": 90.0,
-      "items": [
-        {
-          "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
-          "brand": "Monin",
-          "units": 15.0,
-          "lines": 8,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Green Mint Syrup 750mL Glass",
-          "brand": "Monin",
-          "units": 8.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Raspberry Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 7.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Espresso (Coffee) Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 6.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Salted Caramel Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 6.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Banana Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 5.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Blackberry Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin White Chocolate Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Apple Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Coconut Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Orange Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Pineapple Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Amaretto Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Cherry Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Classic Watermelon Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Hazelnut Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Kiwi Syrup 750mL Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Peach Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Pistachio Syrup 750 ml Glass",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Almond Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Blue Cotton Candy Syrup 1L Plastic Bottle",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Blueberry Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Gingerbread Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Irish Cream Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Mango Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Peppermint Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Pumpkin Spice Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Toffee Nut Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 10,
-          "inDca1": true
         }
       ]
     },
@@ -11943,6 +11671,278 @@
           "brand": "Lenka Bar",
           "units": 1.0,
           "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "3e6436c3-8748-4842-85d2-0c54ed97a33a",
+      "name": "Gino's : 8600 Lasalle Rd",
+      "hasHistory": true,
+      "skus": 29,
+      "gapSkus": 14,
+      "units": 85.0,
+      "items": [
+        {
+          "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
+          "brand": "Monin",
+          "units": 13.0,
+          "lines": 7,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Green Mint Syrup 750mL Glass",
+          "brand": "Monin",
+          "units": 7.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Raspberry Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 7.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Salted Caramel Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 6.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Banana Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 5.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Espresso (Coffee) Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 5.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Blackberry Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 4.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Monin White Chocolate Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 4.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Apple Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Coconut Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Orange Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Amaretto Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Cherry Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Classic Watermelon Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Hazelnut Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Kiwi Syrup 750mL Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Peach Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Pineapple Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Pistachio Syrup 750 ml Glass",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Almond Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Blue Cotton Candy Syrup 1L Plastic Bottle",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Blueberry Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Gingerbread Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Irish Cream Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Mango Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Peppermint Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Pumpkin Spice Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Toffee Nut Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 9,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+      "name": "Takoma Beverage Company : 6917 Laurel Ave",
+      "hasHistory": true,
+      "skus": 7,
+      "gapSkus": 0,
+      "units": 81.0,
+      "items": [
+        {
+          "name": "Boylan Bottling Co. Black Cherry Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 14.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 14.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Orange Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 14.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 14.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Diet Cola Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 13.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Cane Cola Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 12.0,
+          "lines": 7,
+          "inDca1": true
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 2,
           "inDca1": true
         }
       ]
@@ -12217,65 +12217,6 @@
       ]
     },
     {
-      "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-      "name": "Takoma Beverage Company : 6917 Laurel Ave",
-      "hasHistory": true,
-      "skus": 7,
-      "gapSkus": 0,
-      "units": 72.0,
-      "items": [
-        {
-          "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Cane Cola Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Diet Cola Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Orange Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
-          "inDca1": true
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 2,
-          "inDca1": true
-        }
-      ]
-    },
-    {
       "uuid": "b5479af9-506d-449e-ae21-fcfc12623666",
       "name": "John Brown General & Butchery : 13501 Falls Rd",
       "hasHistory": true,
@@ -12351,7 +12292,7 @@
         },
         {
           "name": "Humankind Apple Juice 10oz",
-          "brand": "",
+          "brand": "Humankind",
           "units": 3.0,
           "lines": 2,
           "inDca1": true
