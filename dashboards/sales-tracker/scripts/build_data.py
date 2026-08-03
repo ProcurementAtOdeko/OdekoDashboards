@@ -141,6 +141,11 @@ def aggregate(rows, warehouse):
     pairs = {}
     weekly = defaultdict(lambda: {"units": 0.0, "lines": 0})
     brand_units = defaultdict(float)
+    brands = defaultdict(lambda: {
+        "units": 0.0, "lines": 0, "customers": set(), "items": set(),
+        "localUnits": 0.0, "ecommUnits": 0.0, "weekly": defaultdict(float),
+        "firstOrder": None, "lastOrder": None,
+    })
     business_lines = defaultdict(lambda: {"units": 0.0, "lines": 0, "customers": set(), "items": set()})
     max_date = None
     min_order_date = None
@@ -272,8 +277,23 @@ def aggregate(rows, warehouse):
 
         weekly[wk]["units"] += units
         weekly[wk]["lines"] += 1
-        if r[col[COL_BRAND]]:
-            brand_units[r[col[COL_BRAND]]] += units
+        brand_name = r[col[COL_BRAND]].strip()
+        if brand_name:
+            brand_units[brand_name] += units
+            br = brands[brand_name]
+            br["units"] += units
+            br["lines"] += 1
+            br["customers"].add(account_uuid)
+            br["items"].add(item_uuid)
+            br["weekly"][wk] += units
+            if bl_cat == "local":
+                br["localUnits"] += units
+            elif bl_cat == "ecomm":
+                br["ecommUnits"] += units
+            if br["firstOrder"] is None or (pair_min_date and pair_min_date < br["firstOrder"]):
+                br["firstOrder"] = pair_min_date
+            if br["lastOrder"] is None or order_date > br["lastOrder"]:
+                br["lastOrder"] = order_date
         if bl_name:
             bl = business_lines[bl_name]
             bl["units"] += units
@@ -355,6 +375,22 @@ def aggregate(rows, warehouse):
         direction = "up" if delta > eps else "down" if delta < -eps else "flat"
         return {"trend": series, "trendDelta": round(delta, 1), "trendDir": direction}
 
+    brands_out = [
+        {
+            "name": name,
+            "units": round(br["units"], 2),
+            "lines": br["lines"],
+            "customers": len(br["customers"]),
+            "items": len(br["items"]),
+            "localUnits": round(br["localUnits"], 1),
+            "ecommUnits": round(br["ecommUnits"], 1),
+            "firstOrder": iso(br["firstOrder"]),
+            "lastOrder": iso(br["lastOrder"]),
+            **trend_fields(br["weekly"]),
+        }
+        for name, br in sorted(brands.items(), key=lambda kv: -kv[1]["units"])
+    ]
+
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "warehouse": warehouse,
@@ -377,6 +413,7 @@ def aggregate(rows, warehouse):
         ],
         "topBrands": [{"brand": b, "units": round(u, 1)} for b, u in top_brands],
         "businessLines": business_lines_out,
+        "brands": brands_out,
         "items": [
             {
                 "uuid": it["uuid"],
