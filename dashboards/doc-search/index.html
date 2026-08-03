@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · DOC Search</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search], .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none;
+    font-family: inherit;
+  }
+  .toolbar input[type=search] { min-width: 300px; flex: 1 1 300px; }
+  .toolbar input:focus, .toolbar select:focus {
+    border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08);
+  }
+  .toolbar label.check {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted);
+    cursor: pointer; user-select: none;
+  }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; background: var(--bg); white-space: nowrap;
+  }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* item group header row */
+  tr.item-head td {
+    background: var(--panel-2); border-top: 1px solid var(--line);
+    font-weight: 600; color: var(--ink-2);
+  }
+  td.vendor-cell {
+    color: var(--muted); font-size: 12px;
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  tr.item-head .uuid {
+    color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; font-weight: 400;
+  }
+  tr.wh-row:hover td { background: #FAF4E4; }
+  td.wh { font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+
+  .doc-bad { color: var(--red); font-weight: 700; }
+  .doc-warn { color: var(--amber); font-weight: 700; }
+  .doc-good { color: var(--green); }
+  .doc-none { color: var(--muted); }
+  .arrow { color: var(--muted); padding: 0 2px; }
+
+  .pos { display: flex; flex-wrap: wrap; gap: 4px; }
+  .po {
+    display: inline-flex; align-items: baseline; gap: 5px; font-size: 11px;
+    border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+    background: var(--bg); white-space: nowrap;
+  }
+  .po b { font-weight: 600; color: var(--ink-2); font-size: 11px; }
+  .po .eta { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .po.overdue { border-color: var(--red); background: var(--red-soft); }
+  .po.overdue .eta { color: var(--red); font-weight: 600; }
+  .po.soon { border-color: var(--green); background: var(--green-soft); }
+  .po .qty { color: var(--muted); }
+  .no-po { color: var(--muted); font-size: 12px; font-style: italic; }
+  .badge-partial { color: var(--amber); font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .more {
+    padding: 14px 16px; color: var(--muted); font-size: 12px; text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .empty { padding: 40px 16px; text-align: center; color: var(--muted); }
+  .note { color: var(--muted); font-size: 12px; padding: 10px 16px 0; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .toolbar input[type=search] { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>DOC Search — Current &amp; Pipeline Days of Cover</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>DOC Distribution — Current vs Pipeline</h3>
+      <div class="body"><canvas id="chart-dist"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Items Under 7 DOC by Warehouse</h3>
+      <div class="body"><canvas id="chart-wh"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Item Search</h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item name, UUID, vendor, or PO number…" autocomplete="off" />
+      <select id="warehouse"><option value="">All warehouses</option></select>
+      <select id="status">
+        <option value="">Any DOC</option>
+        <option value="critical">Critical — under 7 DOC</option>
+        <option value="exposed">Critical &amp; no PO cover</option>
+        <option value="warn">Low — 7 to 14 DOC</option>
+        <option value="incoming">Has incoming PO</option>
+        <option value="overdue">Has overdue PO</option>
+      </select>
+      <label class="check"><input type="checkbox" id="hide-unknown" checked /> Hide items with no demand signal</label>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="note" id="note"></div>
+    <div style="overflow-x:auto">
+      <table id="results">
+        <thead>
+          <tr>
+            <th>Warehouse</th>
+            <th>Source / vendor</th>
+            <th class="num">Available (ea)</th>
+            <th class="num">Daily use</th>
+            <th class="num">Current DOC</th>
+            <th class="num">Pipeline DOC</th>
+            <th class="num">On order</th>
+            <th>Incoming POs &amp; ETAs</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="more"></div>
+  </section>
+</main>
+
+<script>
+const MAX_GROUPS = 60;      // item groups rendered per view
+const SOON_DAYS  = 7;       // an ETA within this many days is highlighted green
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318",
+  yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let ITEMS = [];             // decoded item groups
+let RED = 7, AMBER = 14;
+let TODAY = new Date().toISOString().slice(0, 10);
+
+const state = { q: "", warehouse: "", status: "", hideUnknown: true };
+
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+const docClass = (d) =>
+  d == null ? "doc-none" : d < RED ? "doc-bad" : d < AMBER ? "doc-warn" : "doc-good";
+
+function escapeHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+function daysUntil(iso) {
+  if (!iso) return null;
+  return Math.round((new Date(iso + "T00:00:00Z") - new Date(TODAY + "T00:00:00Z")) / 86400000);
+}
+
+/* ---------- load & decode ------------------------------------------------ */
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) {
+    document.getElementById("meta").textContent = "Failed to load data.json";
+    return;
+  }
+  DATA = await res.json();
+  RED = DATA.thresholds.red;
+  AMBER = DATA.thresholds.amber;
+
+  decode();
+
+  const s = DATA.summary;
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ` +
+    `${fmt(s.rowCount)} warehouse/item rows · ${fmt(s.itemCount)} items · ` +
+    `${s.warehouseCount} warehouses`;
+
+  const sel = document.getElementById("warehouse");
+  DATA.warehouses.forEach(w => {
+    const o = document.createElement("option");
+    o.value = w; o.textContent = w;
+    sel.appendChild(o);
+  });
+
+  renderKpis();
+  // The table is the point of this page, so never let a chart failure (e.g.
+  // the Chart.js CDN being unreachable) stop it from rendering.
+  try {
+    renderCharts();
+  } catch (err) {
+    console.error("chart rendering failed", err);
+    document.querySelectorAll(".card.chart .body").forEach(b => {
+      b.innerHTML = `<div class="empty">Charts unavailable</div>`;
+    });
+  }
+  render();
+}
+
+// Rows ship as index-referenced arrays; rebuild them into item groups, each
+// holding one entry per warehouse that stocks the item.
+function decode() {
+  const groups = new Map();
+  for (const r of DATA.rows) {
+    const [whI, itemI, vendorI, avail, onOrderPU, incoming, cons60, daily,
+           docCur, docPipe, nextEta, pos, posNoEta] = r;
+    let g = groups.get(itemI);
+    if (!g) {
+      const [name, uuid] = DATA.items[itemI];
+      g = { name, uuid, rows: [], haystack: "" };
+      groups.set(itemI, g);
+    }
+    g.rows.push({
+      warehouse: DATA.warehouses[whI],
+      vendor: DATA.vendors[vendorI] || "",
+      availableEach: avail, onOrderPU, incomingEach: incoming,
+      consumption60: cons60, dailyUse: daily,
+      docCurrent: docCur, docPipeline: docPipe, nextEta,
+      pos: (pos || []).map(p => ({
+        po: p[0], eta: p[1], units: p[2],
+        unit: DATA.units[p[3]] || "", partial: !!p[4],
+      })),
+      posWithoutEta: posNoEta || [],
+    });
+    groups.set(itemI, g);
+  }
+
+  ITEMS = [...groups.values()];
+  for (const g of ITEMS) {
+    // Precomputed lowercase search target: name, uuid, vendor, warehouses, POs.
+    const pos = g.rows.flatMap(r => r.pos.map(p => p.po).concat(r.posWithoutEta));
+    g.haystack = [
+      g.name, g.uuid,
+      ...g.rows.map(r => r.warehouse), ...g.rows.map(r => r.vendor), ...pos,
+    ].join(" ").toLowerCase();
+    g.minDoc = Math.min(...g.rows.map(r => r.docCurrent == null ? Infinity : r.docCurrent));
+  }
+  // Worst-covered items first so the default view is the action list.
+  ITEMS.sort((a, b) => (a.minDoc - b.minDoc) || a.name.localeCompare(b.name));
+}
+
+/* ---------- KPIs & charts ----------------------------------------------- */
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Items tracked", value: s.itemCount, cls: "accent",
+      hint: `${fmt(s.rowCount)} warehouse rows` },
+    { label: "Critical (<7 DOC)", value: s.criticalCount,
+      cls: s.criticalCount ? "red" : "green", hint: "current cover" },
+    { label: "Still exposed", value: s.exposedCount,
+      cls: s.exposedCount ? "red" : "green", hint: "under 7 even with POs" },
+    { label: "Covered by pipeline", value: s.rescuedByPipeline,
+      cls: "green", hint: "incoming POs clear the risk" },
+    { label: "Low (7–14 DOC)", value: s.warnCount, cls: s.warnCount ? "amber" : "green" },
+    { label: "Open POs", value: s.openPoCount, hint: "pending receipt" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k => `
+    <div class="kpi ${k.cls || ""}">
+      <div class="label">${k.label}</div>
+      <div class="value">${fmt(k.value)}</div>
+      ${k.hint ? `<div class="hint">${k.hint}</div>` : ""}
+    </div>`).join("");
+}
+
+function renderCharts() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family =
+    '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const dist = DATA.docDistribution.filter(b => b.bucket !== "unknown");
+  new Chart(document.getElementById("chart-dist"), {
+    type: "bar",
+    data: {
+      labels: dist.map(b => b.bucket + " days"),
+      datasets: [
+        { label: "Current", data: dist.map(b => b.current),
+          backgroundColor: PALETTE.red, borderRadius: 4 },
+        { label: "With pipeline", data: dist.map(b => b.pipeline),
+          backgroundColor: PALETTE.green, borderRadius: 4 },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+
+  const wh = DATA.warehouseSummary.filter(w => w.critical > 0).slice(0, 14);
+  new Chart(document.getElementById("chart-wh"), {
+    type: "bar",
+    data: {
+      labels: wh.map(w => w.warehouse),
+      datasets: [
+        { label: "Still exposed", data: wh.map(w => w.exposed),
+          backgroundColor: PALETTE.red, borderRadius: 4, stack: "s" },
+        { label: "Covered by incoming PO", data: wh.map(w => w.critical - w.exposed),
+          backgroundColor: PALETTE.amber, borderRadius: 4, stack: "s" },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
+      scales: {
+        x: { beginAtZero: true, stacked: true, ticks: { precision: 0 },
+             title: { display: true, text: "Items under 7 DOC" } },
+        y: { stacked: true },
+      },
+    },
+  });
+}
+
+/* ---------- filtering & table ------------------------------------------- */
+
+function rowMatchesStatus(r) {
+  switch (state.status) {
+    case "critical": return r.docCurrent != null && r.docCurrent < RED;
+    case "exposed":
+      return r.docCurrent != null && r.docCurrent < RED &&
+             (r.docPipeline == null || r.docPipeline < RED);
+    case "warn":
+      return r.docCurrent != null && r.docCurrent >= RED && r.docCurrent < AMBER;
+    case "incoming": return r.pos.length > 0;
+    case "overdue": return r.pos.some(p => p.eta && p.eta < TODAY);
+    default: return true;
+  }
+}
+
+function filtered() {
+  const q = state.q.trim().toLowerCase();
+  const terms = q ? q.split(/\s+/) : [];
+  const out = [];
+
+  for (const g of ITEMS) {
+    if (terms.length && !terms.every(t => g.haystack.includes(t))) continue;
+
+    let rows = g.rows;
+    if (state.warehouse) rows = rows.filter(r => r.warehouse === state.warehouse);
+    if (state.status) rows = rows.filter(rowMatchesStatus);
+    if (state.hideUnknown) rows = rows.filter(r => r.docCurrent != null);
+    if (!rows.length) continue;
+
+    rows = rows.slice().sort((a, b) => {
+      const av = a.docCurrent == null ? Infinity : a.docCurrent;
+      const bv = b.docCurrent == null ? Infinity : b.docCurrent;
+      return (av - bv) || a.warehouse.localeCompare(b.warehouse);
+    });
+    out.push({ ...g, rows });
+  }
+  return out;
+}
+
+function poChips(r) {
+  if (!r.pos.length) {
+    if (r.posWithoutEta.length) {
+      return `<span class="no-po">${r.posWithoutEta.map(escapeHtml).join(", ")} — no ETA in PO feed</span>`;
+    }
+    return `<span class="no-po">no incoming PO</span>`;
+  }
+  return `<div class="pos">` + r.pos.map(p => {
+    const d = daysUntil(p.eta);
+    const cls = p.eta == null ? "" : d < 0 ? "overdue" : d <= SOON_DAYS ? "soon" : "";
+    const when = p.eta == null ? "no ETA"
+      : d < 0 ? `${p.eta} · ${Math.abs(d)}d overdue`
+      : d === 0 ? `${p.eta} · today`
+      : `${p.eta} · in ${d}d`;
+    return `<span class="po ${cls}" title="${escapeHtml(p.po)} — ${fmt(p.units)} ${escapeHtml(p.unit)}${p.partial ? " (partially received)" : ""}">
+      <b>${escapeHtml(p.po)}</b>
+      <span class="eta">${when}</span>
+      <span class="qty">${fmt(p.units)} ${escapeHtml(p.unit)}</span>
+      ${p.partial ? `<span class="badge-partial">part</span>` : ""}
+    </span>`;
+  }).join("") + `</div>`;
+}
+
+function render() {
+  const groups = filtered();
+  const shown = groups.slice(0, MAX_GROUPS);
+  const totalRows = groups.reduce((n, g) => n + g.rows.length, 0);
+
+  document.getElementById("count").textContent =
+    `${fmt(groups.length)} item${groups.length === 1 ? "" : "s"} · ${fmt(totalRows)} warehouse rows`;
+
+  const note = document.getElementById("note");
+  note.textContent = state.hideUnknown
+    ? "Items with no 60-day consumption have no DOC and are hidden — untick to include them."
+    : "";
+
+  const tbody = document.querySelector("#results tbody");
+
+  if (!shown.length) {
+    tbody.innerHTML = `<tr><td colspan="8" class="empty">No items match those filters.</td></tr>`;
+    document.getElementById("more").innerHTML = "";
+    return;
+  }
+
+  tbody.innerHTML = shown.map(g => {
+    const head = `
+      <tr class="item-head">
+        <td colspan="8">
+          ${escapeHtml(g.name)}
+          <span class="uuid"> · ${escapeHtml(g.uuid)}</span>
+        </td>
+      </tr>`;
+    const body = g.rows.map(r => `
+      <tr class="wh-row">
+        <td class="wh">${escapeHtml(r.warehouse)}</td>
+        <td class="vendor-cell" title="${escapeHtml(r.vendor)}">${escapeHtml(r.vendor) || "—"}</td>
+        <td class="num">${fmt(r.availableEach)}</td>
+        <td class="num">${fmt(r.dailyUse)}</td>
+        <td class="num ${docClass(r.docCurrent)}">${fmt(r.docCurrent)}</td>
+        <td class="num">
+          <span class="${docClass(r.docPipeline)}">${fmt(r.docPipeline)}</span>
+          ${r.docPipeline != null && r.docCurrent != null && r.docPipeline > r.docCurrent
+            ? `<span class="arrow">▲</span>` : ""}
+        </td>
+        <td class="num">${fmt(r.onOrderPU)}</td>
+        <td>${poChips(r)}</td>
+      </tr>`).join("");
+    return head + body;
+  }).join("");
+
+  document.getElementById("more").innerHTML =
+    groups.length > MAX_GROUPS
+      ? `<div class="more">Showing the ${MAX_GROUPS} lowest-cover items of ${fmt(groups.length)} matches — refine your search to narrow this down.</div>`
+      : "";
+}
+
+/* ---------- events ------------------------------------------------------ */
+
+let debounce;
+document.getElementById("search").addEventListener("input", (e) => {
+  clearTimeout(debounce);
+  const v = e.target.value;
+  debounce = setTimeout(() => { state.q = v; render(); }, 120);
+});
+document.getElementById("warehouse").addEventListener("change", (e) => {
+  state.warehouse = e.target.value; render();
+});
+document.getElementById("status").addEventListener("change", (e) => {
+  state.status = e.target.value; render();
+});
+document.getElementById("hide-unknown").addEventListener("change", (e) => {
+  state.hideUnknown = e.target.checked; render();
+});
+
+load();
+</script>
+</body>
+</html>
