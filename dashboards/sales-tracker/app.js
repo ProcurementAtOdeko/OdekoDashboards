@@ -166,6 +166,7 @@ async function init() {
   // Share of the warehouse's total units, for customers and brands.
   const whUnits = DATA.summary.totalUnits || 1;
   DATA.customers.forEach(c => { c.share = c.units / whUnits; });
+  DATA.items.forEach(i => { i.share = i.units / whUnits; });
   if (DATA.brands && DATA.brands.length) {
     DATA.brands.forEach(b => { b.share = b.units / whUnits; });
     document.getElementById("tab-brands").hidden = false;
@@ -484,15 +485,34 @@ function detailPairs(r) {
     .sort((a, b) => b.p.units - a.p.units);
 }
 
+// Two shares per drill-down row:
+//  ofThis  – this row's cut of the expanded entity (who dominates THIS item /
+//            what this customer buys most)
+//  ofMkt   – the other entity's own share of the whole market's units (how big
+//            that customer / item is overall)
+function detailShares(r, p, other) {
+  return {
+    ofThis: r.units ? p.units / r.units : null,
+    ofMkt: other.share == null ? null : other.share,
+  };
+}
+
 function renderDetail(r, colspan) {
-  const otherLabel = tab === "items" ? "Customer" : "Item";
-  const rows = detailPairs(r).map(({ p, other }) => `<tr>
+  const isItem = tab === "items";
+  const otherLabel = isItem ? "Customer" : "Item";
+  const thisLabel = isItem ? "% of Item" : "% of Customer";
+  const rows = detailPairs(r).map(({ p, other }) => {
+    const s = detailShares(r, p, other);
+    return `<tr>
       <td>${escapeHtml(other.name)}${p.new ? '<span class="badge-new">New</span>' : ""}</td>
       <td class="num">${fmt(p.units)}</td>
+      <td class="num share">${fmtPct(s.ofThis)}</td>
+      <td class="num">${fmtPct(s.ofMkt)}</td>
       <td class="num hide-sm">${fmtInt(p.lines)}</td>
       <td>${fmtDate(p.minDate)}</td>
       <td class="hide-sm">${fmtDate(p.lastOrder)}</td>
-    </tr>`).join("");
+    </tr>`;
+  }).join("");
   return `<tr class="detail"><td colspan="${colspan}">
     <div class="detail-head">
       <span class="detail-title">${escapeHtml(r.name)} · by ${otherLabel.toLowerCase()}</span>
@@ -502,6 +522,8 @@ function renderDetail(r, colspan) {
       <thead><tr>
         <th>${otherLabel}</th>
         <th class="num">Units</th>
+        <th class="num" title="This ${otherLabel.toLowerCase()}'s share of ${escapeHtml(r.name)}">${thisLabel}</th>
+        <th class="num" title="This ${otherLabel.toLowerCase()}'s total share of the market's units, across everything">% of Market</th>
         <th class="num hide-sm">Lines</th>
         <th>First Order</th>
         <th class="hide-sm">Last Order</th>
@@ -512,15 +534,21 @@ function renderDetail(r, colspan) {
 }
 
 function exportDetailCsv(r) {
-  const otherLabel = tab === "items" ? "Customer" : "Item";
-  const header = [otherLabel, "New", "Units", "Order Lines", "First Order", "Last Order"];
+  const isItem = tab === "items";
+  const otherLabel = isItem ? "Customer" : "Item";
+  const thisLabel = isItem ? "% of Item" : "% of Customer";
+  const header = [otherLabel, "New", "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order"];
   const lines = [header.map(csvCell).join(",")];
   for (const { p, other } of detailPairs(r)) {
+    const s = detailShares(r, p, other);
     lines.push([
-      other.name, p.new ? "TRUE" : "FALSE", p.units, p.lines, p.minDate || "", p.lastOrder || "",
+      other.name, p.new ? "TRUE" : "FALSE", p.units,
+      s.ofThis == null ? "" : (s.ofThis * 100).toFixed(2),
+      s.ofMkt == null ? "" : (s.ofMkt * 100).toFixed(2),
+      p.lines, p.minDate || "", p.lastOrder || "",
     ].map(csvCell).join(","));
   }
-  const kind = tab === "items" ? "item" : "customer";
+  const kind = isItem ? "item" : "customer";
   const slug = r.name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || r.uuid.slice(0, 8);
   downloadCsv(lines, `${WAREHOUSE}-${kind}-${slug}-${DATA.dateRange.end}.csv`);
 }
