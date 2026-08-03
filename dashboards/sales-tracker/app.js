@@ -40,6 +40,7 @@ document.body.innerHTML = `
     <div class="tabs" id="tabs">
       <button data-tab="items" class="active">Items</button>
       <button data-tab="customers">Customers</button>
+      <button data-tab="brands" id="tab-brands" hidden>Brands</button>
       <button data-tab="placements">New Placements</button>
       <button data-tab="businessLines" id="tab-bl" hidden>Business Lines</button>
     </div>
@@ -98,8 +99,24 @@ const TABS = {
       { key: "name", label: "Customer" },
       { key: "businessLine", label: "Business Line", needsBL: true },
       { key: "units", label: "Units Sold", num: true },
+      { key: "share", label: "% of WH Sales", num: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "items", label: "SKUs", num: true, hideSm: true },
+      { key: "firstOrder", label: "First Order", hideSm: true },
+      { key: "lastOrder", label: "Last Order", hideSm: true },
+    ],
+    defaultSort: "units",
+  },
+  brands: {
+    columns: [
+      { key: "name", label: "Brand" },
+      { key: "units", label: "Units Sold", num: true },
+      { key: "share", label: "% of WH Sales", num: true },
+      { key: "localShare", label: "Local / Ecomm", num: true, needsBL: true },
+      { key: "trendDelta", label: "Trend (4w)", num: true },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "customers", label: "Customers", num: true },
       { key: "items", label: "SKUs", num: true, hideSm: true },
       { key: "firstOrder", label: "First Order", hideSm: true },
       { key: "lastOrder", label: "Last Order", hideSm: true },
@@ -146,11 +163,20 @@ async function init() {
       itemName: DATA.items[p.i].name,
       brand: DATA.items[p.i].brand,
     }));
+  // Share of the warehouse's total units, for customers and brands.
+  const whUnits = DATA.summary.totalUnits || 1;
+  DATA.customers.forEach(c => { c.share = c.units / whUnits; });
+  if (DATA.brands && DATA.brands.length) {
+    DATA.brands.forEach(b => { b.share = b.units / whUnits; });
+    document.getElementById("tab-brands").hidden = false;
+  }
   if (hasBL()) {
-    DATA.items.forEach(i => {
-      const t = (i.localUnits || 0) + (i.ecommUnits || 0);
-      i.localShare = t ? i.localUnits / t : null;
-    });
+    const splitShare = (r) => {
+      const t = (r.localUnits || 0) + (r.ecommUnits || 0);
+      r.localShare = t ? r.localUnits / t : null;
+    };
+    DATA.items.forEach(splitShare);
+    (DATA.brands || []).forEach(splitShare);
     const total = DATA.businessLines.reduce((s, b) => s + b.units, 0) || 1;
     DATA.businessLines.forEach(b => { b.share = b.units / total; });
     document.getElementById("tab-bl").hidden = false;
@@ -278,6 +304,7 @@ function renderCharts() {
 function rowsForTab() {
   if (tab === "items") return DATA.items;
   if (tab === "customers") return DATA.customers;
+  if (tab === "brands") return DATA.brands || [];
   if (tab === "businessLines") return DATA.businessLines;
   return DATA.placements;
 }
@@ -285,8 +312,11 @@ function rowsForTab() {
 function searchableText(row) {
   if (tab === "placements") return `${row.customerName} ${row.itemName} ${row.brand || ""}`;
   if (tab === "businessLines") return `${row.name} ${row.category}`;
+  if (tab === "brands") return row.name;
   return `${row.name} ${row.brand || ""} ${row.uuid}${row.enterprise ? " enterprise" : ""}${row.businessLine ? " " + row.businessLine : ""}`;
 }
+
+const fmtPct = (v) => v == null ? "—" : (v >= 0.1 ? Math.round(v * 100) : (v * 100).toFixed(1)) + "%";
 
 function filteredSortedRows() {
   const q = filterText.toLowerCase();
@@ -308,7 +338,7 @@ function renderTable() {
   document.getElementById("table-count").textContent =
     `${fmtInt(rows.length)}${rows.length !== rowsForTab().length ? ` of ${fmtInt(rowsForTab().length)}` : ""} rows`;
   document.getElementById("table-hint").style.display =
-    tab === "placements" || tab === "businessLines" ? "none" : "";
+    tab === "items" || tab === "customers" ? "" : "none";
 
   document.getElementById("grid-head").innerHTML = "<tr>" + activeColumns(spec).map(c =>
     `<th class="${c.num ? "num" : ""} ${c.hideSm ? "hide-sm" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
@@ -387,6 +417,21 @@ function renderRow(r, spec) {
     </tr>`;
   }
 
+  if (tab === "brands") {
+    return `<tr>
+      <td>${escapeHtml(r.name)}</td>
+      <td class="num">${fmt(r.units)}</td>
+      <td class="num share">${fmtPct(r.share)}</td>
+      ${hasBL() ? `<td class="num">${splitBar(r)}</td>` : ""}
+      <td class="num">${sparkline(r)}</td>
+      <td class="num hide-sm">${fmtInt(r.lines)}</td>
+      <td class="num">${fmtInt(r.customers)}</td>
+      <td class="num hide-sm">${fmtInt(r.items)}</td>
+      <td class="hide-sm">${fmtDate(r.firstOrder)}</td>
+      <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
+    </tr>`;
+  }
+
   const isItem = tab === "items";
   const main = isItem
     ? `<tr class="row" data-id="${r.uuid}">
@@ -405,6 +450,7 @@ function renderRow(r, spec) {
         <td>${escapeHtml(r.name)}${r.enterprise ? '<span class="badge-ent">Ent</span>' : ""}${/^[0-9a-f]{8}-/.test(r.uuid) ? `<div class="uuid">${r.uuid.slice(0, 8)}</div>` : ""}</td>
         ${hasBL() ? `<td>${r.businessLine ? blDot(lineCategory(r.businessLine)) + escapeHtml(r.businessLine) : '<span class="muted">—</span>'}</td>` : ""}
         <td class="num">${fmt(r.units)}</td>
+        <td class="num share">${fmtPct(r.share)}</td>
         <td class="num">${sparkline(r)}</td>
         <td class="num hide-sm">${fmtInt(r.lines)}</td>
         <td class="num hide-sm">${fmtInt(r.items)}</td>
@@ -511,6 +557,25 @@ function csvColumns() {
       ["Last Order", r => r.lastOrder || ""],
     ];
   }
+  if (tab === "brands") {
+    return [
+      ["Brand", r => r.name],
+      ["Units Sold", r => r.units],
+      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasBL() ? [
+        ["Local Units", r => r.localUnits],
+        ["Ecomm Units", r => r.ecommUnits],
+        ["Local %", localPct],
+      ] : []),
+      ["Trend 4w Delta", r => r.trendDelta],
+      ["Trend Dir", r => r.trendDir],
+      ["Order Lines", r => r.lines],
+      ["Customers", r => r.customers],
+      ["SKUs", r => r.items],
+      ["First Order", r => r.firstOrder || ""],
+      ["Last Order", r => r.lastOrder || ""],
+    ];
+  }
   if (tab === "customers") {
     return [
       ["Customer", r => r.name],
@@ -518,6 +583,7 @@ function csvColumns() {
       ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
       ["Account UUID", r => /^[0-9a-f]{8}-/.test(r.uuid) ? r.uuid : ""],
       ["Units Sold", r => r.units],
+      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
       ["Trend 4w Delta", r => r.trendDelta],
       ["Trend Dir", r => r.trendDir],
       ["Order Lines", r => r.lines],
