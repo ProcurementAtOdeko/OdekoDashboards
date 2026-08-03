@@ -254,13 +254,17 @@ def main(out_path):
                 "itemUuid": (r[c_item_uuid] if c_item_uuid is not None and len(r) > c_item_uuid else "") or "",
                 "units": 0.0,
                 "lines": 0,
-                "_custs": set(),
+                "_custs": {},
                 "inDca1": key in carried,
                 "dca1Sources": sorted(carried.get(key, [])),
             }
         s["units"] += units
         s["lines"] += 1
-        s["_custs"].add(uuid)
+        sc = s["_custs"].get(uuid)
+        if sc is None:
+            sc = s["_custs"][uuid] = {"units": 0.0, "lines": 0}
+        sc["units"] += units
+        sc["lines"] += 1
 
         ca = cust_agg.setdefault(
             uuid, {"units": 0.0, "skus": set(), "gapSkus": set(), "items": {}}
@@ -283,7 +287,20 @@ def main(out_path):
 
     sku_list = []
     for s in skus.values():
-        s["customers"] = len(s.pop("_custs"))
+        cust_map = s.pop("_custs")
+        s["customers"] = len(cust_map)
+        s["custDetail"] = sorted(
+            (
+                {
+                    "uuid": u,
+                    "name": cust_names.get(u, ""),
+                    "units": round(v["units"], 1),
+                    "lines": v["lines"],
+                }
+                for u, v in cust_map.items()
+            ),
+            key=lambda x: -x["units"],
+        )
         s["units"] = round(s["units"], 1)
         sku_list.append(s)
     sku_list.sort(key=lambda x: -x["units"])

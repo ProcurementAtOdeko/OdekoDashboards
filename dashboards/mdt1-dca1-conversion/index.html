@@ -264,6 +264,30 @@
   </div>
 </div>
 
+<div class="modal-backdrop" id="sku-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="s-title">
+    <div class="mhead">
+      <div>
+        <div class="mtitle" id="s-title"></div>
+        <div class="mchips" id="s-chips"></div>
+      </div>
+      <button class="mclose" id="s-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mbody tablewrap">
+      <table id="s-items">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th class="num">Order Lines</th>
+            <th class="num">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <script>
 const fmt = (n) =>
   n == null ? "—" :
@@ -309,6 +333,7 @@ async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
   if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
   DATA = await res.json();
+  DATA.skus.forEach((s, i) => { s._i = i; });
   const dr = DATA.dateRange || {};
   const range = dr.min && dr.max ? ` · orders ${dr.min} → ${dr.max}` : "";
   document.getElementById("meta").textContent =
@@ -439,8 +464,12 @@ function renderTable() {
     const badge = s.inDca1
       ? `<span class="badge carried" title="${s.dca1Sources.join(', ')}">Carried</span>`
       : `<span class="badge gap">Gap</span>`;
-    return `<tr>
-      <td>${escapeHtml(s.name)}</td>
+    const clickable = s.custDetail && s.custDetail.length;
+    const nameCell = clickable
+      ? `<span class="name-link">${escapeHtml(s.name)}</span>`
+      : escapeHtml(s.name);
+    return `<tr class="${clickable ? "clickable" : ""}" data-idx="${s._i}">
+      <td>${nameCell}</td>
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${badge}</td>
       <td class="num">${fmt(s.customers)}</td>
@@ -542,9 +571,48 @@ function closeCustModal() {
   modalCust = null;
 }
 
+function openSkuModal(idx) {
+  const s = DATA.skus[idx];
+  if (!s || !s.custDetail || !s.custDetail.length) return;
+  document.getElementById("s-title").textContent = s.name;
+  const statusChip = s.inDca1
+    ? `<span class="chip"><b>Carried</b> in DCA1</span>`
+    : `<span class="chip gap"><b>Gap</b> — not in DCA1</span>`;
+  document.getElementById("s-chips").innerHTML =
+    (s.brand ? `<span class="chip">${escapeHtml(s.brand)}</span>` : "") +
+    statusChip +
+    `<span class="chip"><b>${fmt(s.customers)}</b> customers</span>` +
+    `<span class="chip"><b>${fmt(s.lines)}</b> order lines</span>` +
+    `<span class="chip"><b>${fmt(s.units)}</b> units</span>` +
+    `<button class="btn" id="s-dl" title="Download the customers buying this SKU">⬇ CSV</button>`;
+  document.getElementById("s-dl").addEventListener("click", () => {
+    downloadCSV(
+      `${safeSlug(s.name)}-customers.csv`,
+      ["Item", "Brand", "In DCA1", "Customer", "Location UUID", "Order Lines", "Units"],
+      s.custDetail.map(c => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                             c.name, c.uuid, c.lines, c.units]),
+    );
+  });
+  document.querySelector("#s-items tbody").innerHTML = s.custDetail.map(c => `
+    <tr>
+      <td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td>
+      <td class="num">${fmt(c.lines)}</td>
+      <td class="num">${fmt(c.units)}</td>
+    </tr>`).join("");
+  document.getElementById("sku-modal").classList.add("open");
+}
+
+function closeSkuModal() {
+  document.getElementById("sku-modal").classList.remove("open");
+}
+
 document.querySelector("#custs tbody").addEventListener("click", (e) => {
   const tr = e.target.closest("tr.clickable");
   if (tr) openCustModal(tr.dataset.uuid);
+});
+document.querySelector("#skus tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.clickable");
+  if (tr) openSkuModal(Number(tr.dataset.idx));
 });
 document.getElementById("dl-skus").addEventListener("click", () => {
   const label = skuFilter === "gap" ? "gaps" : skuFilter === "carried" ? "carried" : "all";
@@ -569,8 +637,12 @@ document.getElementById("m-close").addEventListener("click", closeCustModal);
 document.getElementById("cust-modal").addEventListener("click", (e) => {
   if (e.target.id === "cust-modal") closeCustModal();
 });
+document.getElementById("s-close").addEventListener("click", closeSkuModal);
+document.getElementById("sku-modal").addEventListener("click", (e) => {
+  if (e.target.id === "sku-modal") closeSkuModal();
+});
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeCustModal();
+  if (e.key === "Escape") { closeCustModal(); closeSkuModal(); }
 });
 
 function escapeHtml(s) {
