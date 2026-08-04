@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · EWR1 → DCA1 Conversion</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.tall .body { height: 520px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 240px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: 0; background: var(--panel); color: var(--muted); font: inherit; font-size: 13px;
+    padding: 7px 14px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
+
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+  .toolbar .btn { margin-left: 10px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .brand-cell { color: var(--muted); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.carried { background: var(--green-soft); color: var(--green); }
+  .badge.gap { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+  .tablewrap { overflow: auto; max-height: 640px; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable td:first-child .name-link { color: var(--ink-2); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  tr.clickable:hover td:first-child .name-link { text-decoration-color: var(--ink-2); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(42,20,8,.45); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 40px 16px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    max-width: 860px; width: 100%; box-shadow: 0 20px 50px rgba(42,20,8,.25);
+  }
+  .modal .mhead {
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    position: sticky; top: 0; background: var(--panel); border-radius: 10px 10px 0 0;
+  }
+  .modal .mtitle { font-size: 16px; font-weight: 700; color: var(--ink-2); letter-spacing: -.01em; }
+  .modal .mchips { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip b { font-variant-numeric: tabular-nums; }
+  .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
+  .mclose:hover { background: var(--line); }
+  .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .modal .mbody { max-height: 62vh; overflow: auto; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .toolbar .count { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>EWR1 → DCA1 Conversion — Customer Purchases &amp; Catalog Gaps</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>DCA1 Catalog Coverage <span class="note">of purchased SKUs</span></h3>
+      <div class="body"><canvas id="chart-coverage"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Top Gap Brands <span class="note">units purchased, not carried in DCA1</span></h3>
+      <div class="body"><canvas id="chart-brands"></canvas></div>
+    </div>
+    <div class="card tall full">
+      <h3>Top 20 Bring-In Candidates <span class="note">highest-volume SKUs not carried in DCA1</span></h3>
+      <div class="body"><canvas id="chart-gapskus"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Purchased SKUs</h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-filter">
+        <button data-f="gap" class="active">Gaps only</button>
+        <button data-f="all">All</button>
+        <button data-f="carried">Carried</button>
+      </div>
+      <input id="search" type="search" placeholder="Search item or brand…" />
+      <span class="count" id="table-count"></span>
+      <button class="btn" id="dl-skus" title="Download the SKUs currently shown">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="skus">
+        <thead>
+          <tr>
+            <th data-sort="name">Item</th>
+            <th data-sort="brand">Brand</th>
+            <th data-sort="inDca1">In DCA1?</th>
+            <th class="num" data-sort="customers">Customers</th>
+            <th class="num" data-sort="lines">Order Lines</th>
+            <th class="num" data-sort="units" data-default="desc">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Converting Customers <span class="note">purchase footprint per location</span></h3>
+    <div class="toolbar">
+      <input id="search-cust" type="search" placeholder="Search customer…" />
+      <span class="count" id="cust-count"></span>
+      <button class="btn" id="dl-custs" title="Download the customers currently shown">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="custs">
+        <thead>
+          <tr>
+            <th data-sortc="name">Customer</th>
+            <th data-sortc="hasHistory">Status</th>
+            <th class="num" data-sortc="skus">SKUs Bought</th>
+            <th class="num" data-sortc="gapSkus">Gap SKUs</th>
+            <th class="num" data-sortc="units" data-default="desc">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="cust-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="mhead">
+      <div>
+        <div class="mtitle" id="m-title"></div>
+        <div class="uuid" id="m-uuid"></div>
+        <div class="mchips" id="m-chips"></div>
+      </div>
+      <button class="mclose" id="m-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mbody tablewrap">
+      <table id="m-items">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Brand</th>
+            <th>In DCA1?</th>
+            <th class="num">Order Lines</th>
+            <th class="num">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="sku-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="s-title">
+    <div class="mhead">
+      <div>
+        <div class="mtitle" id="s-title"></div>
+        <div class="mchips" id="s-chips"></div>
+      </div>
+      <button class="mclose" id="s-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mbody tablewrap">
+      <table id="s-items">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th class="num">Order Lines</th>
+            <th class="num">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let sortKey = "units", sortDir = "desc", filterText = "", skuFilter = "gap";
+let custSortKey = "units", custSortDir = "desc", custFilterText = "";
+let lastSkuRows = [], lastCustRows = [];
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadCSV(filename, headers, rows) {
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) lines.push(r.map(csvCell).join(","));
+  // BOM so Excel reads UTF-8 correctly
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function safeSlug(s) {
+  return String(s).replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 60).toLowerCase() || "export";
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  DATA.skus.forEach((s, i) => { s._i = i; });
+  const dr = DATA.dateRange || {};
+  const range = dr.min && dr.max ? ` · orders ${dr.min} → ${dr.max}` : "";
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()}${range}`;
+  renderKpis();
+  renderTable();
+  renderCustTable();
+  renderCharts();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Customers Converting", value: s.customersListed, cls: "accent",
+      hint: `${s.customersActive} with purchase history` },
+    { label: "SKUs Purchased", value: s.skusPurchased, cls: "" },
+    { label: "Carried in DCA1", value: s.skusCarried, cls: "green",
+      hint: `${s.coveragePct}% catalog coverage` },
+    { label: "Bring-In Gaps", value: s.skusGap, cls: "red",
+      hint: "SKUs not carried in DCA1" },
+    { label: "Total Units", value: s.unitsTotal, cls: "",
+      hint: "actual sold units" },
+    { label: "Units in Gap SKUs", value: s.gapUnitsTotal, cls: "amber",
+      hint: "volume at risk without bring-in" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
+    `<div class="value">${fmt(k.value)}</div>` +
+    (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`
+  ).join("");
+}
+
+function renderCharts() {
+  if (typeof Chart === "undefined") return;  // chart CDN unavailable; tables still work
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const cov = DATA.coverage;
+  new Chart(document.getElementById("chart-coverage"), {
+    type: "doughnut",
+    data: {
+      labels: cov.map(c => c.status),
+      datasets: [{
+        data: cov.map(c => c.count),
+        backgroundColor: [PALETTE.green, PALETTE.red],
+        borderColor: "#fff", borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw} SKUs` } },
+      },
+    },
+  });
+
+  const tb = DATA.topGapBrands;
+  new Chart(document.getElementById("chart-brands"), {
+    type: "bar",
+    data: {
+      labels: tb.map(b => b.brand.length > 22 ? b.brand.slice(0, 20) + "…" : b.brand),
+      datasets: [{ data: tb.map(b => b.units), backgroundColor: PALETTE.amber, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          label: (c) => `${fmt(c.raw)} units · ${tb[c.dataIndex].skus} SKUs`,
+        } },
+      },
+      scales: { x: { beginAtZero: true, title: { display: true, text: "Units purchased" } } },
+    },
+  });
+
+  const gs = DATA.topGapSkus;
+  new Chart(document.getElementById("chart-gapskus"), {
+    type: "bar",
+    data: {
+      labels: gs.map(s => s.name.length > 52 ? s.name.slice(0, 50) + "…" : s.name),
+      datasets: [{ data: gs.map(s => s.units), backgroundColor: PALETTE.red, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          label: (c) => `${fmt(c.raw)} units · bought by ${gs[c.dataIndex].customers} customers`,
+        } },
+      },
+      scales: { x: { beginAtZero: true, title: { display: true, text: "Units purchased (last ~90 days)" } } },
+    },
+  });
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.skus.filter(s => {
+    if (skuFilter === "gap" && s.inDca1) return false;
+    if (skuFilter === "carried" && !s.inDca1) return false;
+    return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
+  });
+
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (typeof av === "boolean") { av = av ? 1 : 0; bv = bv ? 1 : 0; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  lastSkuRows = rows;
+  document.getElementById("table-count").textContent =
+    `${rows.length} of ${DATA.skus.length} SKUs`;
+
+  document.querySelectorAll("#skus th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#skus tbody").innerHTML = rows.map(s => {
+    const badge = s.inDca1
+      ? `<span class="badge carried" title="${s.dca1Sources.join(', ')}">Carried</span>`
+      : `<span class="badge gap">Gap</span>`;
+    const clickable = s.custDetail && s.custDetail.length;
+    const nameCell = clickable
+      ? `<span class="name-link">${escapeHtml(s.name)}</span>`
+      : escapeHtml(s.name);
+    return `<tr class="${clickable ? "clickable" : ""}" data-idx="${s._i}">
+      <td>${nameCell}</td>
+      <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
+      <td>${badge}</td>
+      <td class="num">${fmt(s.customers)}</td>
+      <td class="num">${fmt(s.lines)}</td>
+      <td class="num">${fmt(s.units)}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderCustTable() {
+  const q = custFilterText.toLowerCase();
+  let rows = DATA.customers.filter(c => !q || (c.name || "").toLowerCase().includes(q) || c.uuid.includes(q));
+
+  rows.sort((a, b) => {
+    let av = a[custSortKey], bv = b[custSortKey];
+    if (typeof av === "boolean") { av = av ? 1 : 0; bv = bv ? 1 : 0; }
+    if (typeof av === "string") return custSortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return custSortDir === "asc" ? av - bv : bv - av;
+  });
+
+  lastCustRows = rows;
+  document.getElementById("cust-count").textContent =
+    `${rows.length} of ${DATA.customers.length} customers`;
+
+  document.querySelectorAll("#custs th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sortc === custSortKey) th.classList.add(custSortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#custs tbody").innerHTML = rows.map(c => {
+    const status = c.hasHistory
+      ? `<span class="badge carried">Purchasing</span>`
+      : `<span class="badge muted">No history</span>`;
+    const nameCell = c.hasHistory
+      ? `<span class="name-link">${escapeHtml(c.name || "(unknown)")}</span>`
+      : escapeHtml(c.name || "(unknown)");
+    return `<tr class="${c.hasHistory ? "clickable" : ""}" data-uuid="${c.uuid}">
+      <td>${nameCell}<div class="uuid">${c.uuid}</div></td>
+      <td>${status}</td>
+      <td class="num">${fmt(c.skus)}</td>
+      <td class="num">${fmt(c.gapSkus)}</td>
+      <td class="num">${fmt(c.units)}</td>
+    </tr>`;
+  }).join("");
+}
+
+let modalGapsOnly = false;
+let modalCust = null;
+
+function openCustModal(uuid) {
+  const c = DATA.customers.find(x => x.uuid === uuid);
+  if (!c || !c.hasHistory) return;
+  modalCust = c;
+  modalGapsOnly = false;
+  document.getElementById("m-title").textContent = c.name || "(unknown)";
+  document.getElementById("m-uuid").textContent = c.uuid;
+  document.getElementById("m-chips").innerHTML =
+    `<span class="chip"><b>${fmt(c.skus)}</b> SKUs bought</span>` +
+    `<span class="chip gap"><b>${fmt(c.gapSkus)}</b> gap SKUs</span>` +
+    `<span class="chip"><b>${fmt(c.units)}</b> units</span>` +
+    `<label class="mtoggle"><input type="checkbox" id="m-gaponly"> Show only DCA1 gaps</label>` +
+    `<button class="btn" id="m-dl" title="Download this customer's SKUs">⬇ CSV</button>`;
+  document.getElementById("m-gaponly").addEventListener("change", (e) => {
+    modalGapsOnly = e.target.checked;
+    renderModalItems();
+  });
+  document.getElementById("m-dl").addEventListener("click", () => {
+    const items = modalGapsOnly ? modalCust.items.filter(i => !i.inDca1) : modalCust.items;
+    const suffix = modalGapsOnly ? "-gaps" : "";
+    downloadCSV(
+      `${safeSlug(modalCust.name)}-skus${suffix}.csv`,
+      ["Customer", "Location UUID", "Item", "Brand", "In DCA1", "Order Lines", "Units"],
+      items.map(i => [modalCust.name, modalCust.uuid, i.name, i.brand,
+                      i.inDca1 ? "Yes" : "No (gap)", i.lines, i.units]),
+    );
+  });
+  renderModalItems();
+  document.getElementById("cust-modal").classList.add("open");
+}
+
+function renderModalItems() {
+  const items = modalGapsOnly ? modalCust.items.filter(i => !i.inDca1) : modalCust.items;
+  document.querySelector("#m-items tbody").innerHTML = items.map(i => {
+    const badge = i.inDca1
+      ? `<span class="badge carried">Carried</span>`
+      : `<span class="badge gap">Gap</span>`;
+    return `<tr>
+      <td>${escapeHtml(i.name)}</td>
+      <td class="brand-cell">${escapeHtml(i.brand || "—")}</td>
+      <td>${badge}</td>
+      <td class="num">${fmt(i.lines)}</td>
+      <td class="num">${fmt(i.units)}</td>
+    </tr>`;
+  }).join("");
+}
+
+function closeCustModal() {
+  document.getElementById("cust-modal").classList.remove("open");
+  modalCust = null;
+}
+
+function openSkuModal(idx) {
+  const s = DATA.skus[idx];
+  if (!s || !s.custDetail || !s.custDetail.length) return;
+  document.getElementById("s-title").textContent = s.name;
+  const statusChip = s.inDca1
+    ? `<span class="chip"><b>Carried</b> in DCA1</span>`
+    : `<span class="chip gap"><b>Gap</b> — not in DCA1</span>`;
+  document.getElementById("s-chips").innerHTML =
+    (s.brand ? `<span class="chip">${escapeHtml(s.brand)}</span>` : "") +
+    statusChip +
+    `<span class="chip"><b>${fmt(s.customers)}</b> customers</span>` +
+    `<span class="chip"><b>${fmt(s.lines)}</b> order lines</span>` +
+    `<span class="chip"><b>${fmt(s.units)}</b> units</span>` +
+    `<button class="btn" id="s-dl" title="Download the customers buying this SKU">⬇ CSV</button>`;
+  document.getElementById("s-dl").addEventListener("click", () => {
+    downloadCSV(
+      `${safeSlug(s.name)}-customers.csv`,
+      ["Item", "Brand", "In DCA1", "Customer", "Location UUID", "Order Lines", "Units"],
+      s.custDetail.map(c => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                             c.name, c.uuid, c.lines, c.units]),
+    );
+  });
+  document.querySelector("#s-items tbody").innerHTML = s.custDetail.map(c => `
+    <tr>
+      <td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td>
+      <td class="num">${fmt(c.lines)}</td>
+      <td class="num">${fmt(c.units)}</td>
+    </tr>`).join("");
+  document.getElementById("sku-modal").classList.add("open");
+}
+
+function closeSkuModal() {
+  document.getElementById("sku-modal").classList.remove("open");
+}
+
+document.querySelector("#custs tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.clickable");
+  if (tr) openCustModal(tr.dataset.uuid);
+});
+document.querySelector("#skus tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr.clickable");
+  if (tr) openSkuModal(Number(tr.dataset.idx));
+});
+document.getElementById("dl-skus").addEventListener("click", () => {
+  const label = skuFilter === "gap" ? "gaps" : skuFilter === "carried" ? "carried" : "all";
+  downloadCSV(
+    `mdt1-dca1-skus-${label}.csv`,
+    ["Item", "Brand", "In DCA1", "DCA1 Sources", "Customers", "Order Lines", "Units"],
+    lastSkuRows.map(s => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                          (s.dca1Sources || []).join(" / "), s.customers, s.lines, s.units]),
+  );
+});
+
+document.getElementById("dl-custs").addEventListener("click", () => {
+  downloadCSV(
+    "mdt1-dca1-customers.csv",
+    ["Customer", "Location UUID", "Status", "SKUs Bought", "Gap SKUs", "Units"],
+    lastCustRows.map(c => [c.name, c.uuid, c.hasHistory ? "Purchasing" : "No history",
+                           c.skus, c.gapSkus, c.units]),
+  );
+});
+
+document.getElementById("m-close").addEventListener("click", closeCustModal);
+document.getElementById("cust-modal").addEventListener("click", (e) => {
+  if (e.target.id === "cust-modal") closeCustModal();
+});
+document.getElementById("s-close").addEventListener("click", closeSkuModal);
+document.getElementById("sku-modal").addEventListener("click", (e) => {
+  if (e.target.id === "sku-modal") closeSkuModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeCustModal(); closeSkuModal(); }
+});
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+document.getElementById("seg-filter").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  skuFilter = btn.dataset.f;
+  document.querySelectorAll("#seg-filter button").forEach(b => b.classList.toggle("active", b === btn));
+  renderTable();
+});
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value; renderTable();
+});
+document.getElementById("search-cust").addEventListener("input", (e) => {
+  custFilterText = e.target.value; renderCustTable();
+});
+
+document.querySelectorAll("#skus th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+document.querySelectorAll("#custs th[data-sortc]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sortc;
+    if (custSortKey === key) custSortDir = custSortDir === "asc" ? "desc" : "asc";
+    else { custSortKey = key; custSortDir = th.dataset.default || "desc"; }
+    renderCustTable();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
