@@ -305,6 +305,17 @@ def main(out_path):
         sku_list.append(s)
     sku_list.sort(key=lambda x: -x["units"])
 
+    # Guard: the Looker export is periodically cleared and rewritten. If we
+    # catch it mid-refresh (header row present but no data rows, or no rows
+    # for any target customer), do NOT overwrite the last-good data.json with
+    # an empty snapshot — fail loudly so the caller keeps the existing file.
+    if not sku_list:
+        sys.exit(
+            "MDT1 sheet has no purchase rows for the target customers "
+            f"(read {len(rows) - 1} data rows) — source likely mid-refresh; "
+            "leaving existing data.json untouched."
+        )
+
     gaps = [s for s in sku_list if not s["inDca1"]]
     covered = [s for s in sku_list if s["inDca1"]]
 
