@@ -37,6 +37,9 @@ STATIC_SOURCES = {
 }
 NEW_PLACEMENT_DAYS = 30
 NEW_LOCATION_DAYS = 14
+# A fresh build with fewer than this fraction of the previous build's order
+# lines is treated as a partially written export rather than real data.
+PARTIAL_READ_RATIO = 0.8
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets.readonly",
     "https://www.googleapis.com/auth/drive.readonly",
@@ -116,6 +119,18 @@ def week_start(d):
 
 def iso(d):
     return d.isoformat() if d else None
+
+
+def read_existing(out_dir, wh):
+    """Previously built data for a warehouse, or None."""
+    path = os.path.join(out_dir, f"{wh}.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return None
 
 
 def aggregate(rows, warehouse):
@@ -506,6 +521,19 @@ def main(out_dir):
             if not rows:
                 raise ValueError("sheet returned no rows")
             data, skipped = aggregate(rows, wh)
+            # Looker rewrites these exports in place, so a read can land while
+            # only part of the file has been written — which looks like a valid
+            # (just much smaller) export and would silently drop SKUs. Treat a
+            # big drop in order lines as a partial read and keep what we have;
+            # a real 90-day window never loses a fifth of its volume in an hour.
+            prev = read_existing(out_dir, wh)
+            if prev:
+                prev_lines = prev["summary"]["orderLines"]
+                if prev_lines and data["summary"]["orderLines"] < PARTIAL_READ_RATIO * prev_lines:
+                    raise ValueError(
+                        f"partial export: {data['summary']['orderLines']} order lines "
+                        f"vs {prev_lines} previously"
+                    )
             with open(os.path.join(out_dir, f"{wh}.json"), "w") as f:
                 json.dump(data, f, separators=(",", ":"))
             page = os.path.join(os.path.dirname(os.path.abspath(out_dir)), wh, "index.html")
@@ -523,24 +551,19 @@ def main(out_dir):
                 f"{data['summary']['customerCount']} customers ({skipped} rows skipped)"
             )
         except Exception as e:
-            # A transient bad export (Looker mid-refresh returns no rows, a
-            # momentary SQL error) shouldn't drop a market that already has
-            # good data. Carry the previously built file forward and keep the
-            # market live; only mark "error" when there's nothing to fall back
-            # to.
-            existing_path = os.path.join(out_dir, f"{wh}.json")
-            if os.path.exists(existing_path):
-                try:
-                    with open(existing_path) as f:
-                        prev = json.load(f)
-                    manifest["warehouses"].append(
-                        {"code": wh, "status": "ok", "stale": True,
-                         "summary": prev["summary"], "dateRange": prev["dateRange"]}
-                    )
-                    print(f"{wh}: export unavailable ({e}); kept previous data", file=sys.stderr)
-                    continue
-                except Exception:
-                    pass
+            # A bad export (Looker mid-refresh returns no rows or a partially
+            # written file, a momentary SQL error) shouldn't drop or shrink a
+            # market that already has good data. Carry the previously built file
+            # forward and keep the market live; only mark "error" when there's
+            # nothing to fall back to.
+            prev = read_existing(out_dir, wh)
+            if prev:
+                manifest["warehouses"].append(
+                    {"code": wh, "status": "ok", "stale": True,
+                     "summary": prev["summary"], "dateRange": prev["dateRange"]}
+                )
+                print(f"{wh}: export unavailable ({e}); kept previous data", file=sys.stderr)
+                continue
             failures += 1
             manifest["warehouses"].append(
                 {"code": wh, "status": "error", "error": str(e)[:300]}
