@@ -1,0 +1,66 @@
+name: Refresh inventory health scorecard data
+
+on:
+  # The underlying exports are monthly and 6-monthly aggregates, so this does
+  # not need the hourly cadence the operational dashboards use. Four times a
+  # day keeps team sunset decisions flowing back into the published data
+  # reasonably promptly without churning ~27MB of JSON every hour.
+  schedule:
+    - cron: "40 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-inventory-health.yml"
+      - "dashboards/inventory-health/scripts/build_data.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-inventory-health
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Build warehouse data
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          # Optional: set once the Sunset Review Log sheet exists (see SETUP.md).
+          # Without it the build skips folding team decisions back in.
+          SUNSET_REVIEW_LOG_ID: ${{ vars.SUNSET_REVIEW_LOG_ID }}
+        run: |
+          python3 dashboards/inventory-health/scripts/build_data.py \
+            dashboards/inventory-health/data
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboards/inventory-health/data
+          # Warehouse files carry no build timestamp, so an unchanged market
+          # stays byte-identical and only manifest.json moves. Skip the commit
+          # when that is all that changed.
+          if git diff --cached --quiet -- dashboards/inventory-health/data; then
+            echo "No data changes."
+            exit 0
+          fi
+          changed=$(git diff --cached --name-only -- dashboards/inventory-health/data)
+          if [ "$changed" = "dashboards/inventory-health/data/manifest.json" ]; then
+            echo "Only the manifest timestamp moved; nothing to publish."
+            git reset --quiet
+            exit 0
+          fi
+          git commit -m "chore: refresh inventory health data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push

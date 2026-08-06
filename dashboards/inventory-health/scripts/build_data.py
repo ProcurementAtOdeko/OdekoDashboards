@@ -753,8 +753,8 @@ def main(out_dir):
         "generatedAt": generated_at,
         "sources": {
             "daysActiveAvailable": bool(days_active),
-            "reviewLogConnected": bool(REVIEW_LOG_ID and decisions is not None
-                                       and REVIEW_LOG_ID != ""),
+            "reviewLogConnected": bool(REVIEW_LOG_ID),
+            "reviewDecisions": len(decisions),
             "abcClassifiedInBuild": abc_filled,
         },
         "warehouses": warehouses,
