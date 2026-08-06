@@ -584,6 +584,10 @@ def build_items(wh, raw, idx, decisions):
             dio_pts = abc_pts = vel_pts = cust_pts = gmroi_pts = 0
             achievable, total, rec = 100, None, ""
 
+        # Keep the purely score-derived call alongside the reviewed one: the
+        # front-end lets someone record a decision and see it immediately,
+        # which means recomputing from the unreviewed baseline.
+        scored_rec = rec
         review = decisions.get(key)
         if review and status == "Active":
             # A SKU the team vetoed becomes WATCH; a confirmed one stays
@@ -634,6 +638,7 @@ def build_items(wh, raw, idx, decisions):
             "scoreGmroi": gmroi_pts,
             "scoreMax": achievable,
             "score": total,
+            "scoredRecommendation": scored_rec,
             "recommendation": rec,
             "review": review,
         })
