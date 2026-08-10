@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-10T09:00:13+00:00",
+  "generatedAt": "2026-08-10T10:46:05+00:00",
   "dateRange": {
-    "min": "2026-05-12",
+    "min": "2026-05-13",
     "max": "2026-08-07"
   },
   "summary": {
@@ -11,8 +11,8 @@
     "skusCarried": 85,
     "skusGap": 81,
     "coveragePct": 51,
-    "unitsTotal": 3735.0,
-    "gapUnitsTotal": 792.0
+    "unitsTotal": 3699.0,
+    "gapUnitsTotal": 771.0
   },
   "coverage": [
     {
@@ -32,12 +32,7 @@
     },
     {
       "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
-      "units": 68.0,
-      "customers": 2
-    },
-    {
-      "name": "Monin Banana Syrup 750ml Glass",
-      "units": 57.0,
+      "units": 64.0,
       "customers": 2
     },
     {
@@ -49,6 +44,11 @@
       "name": "Monin Rose Syrup 750ml Glass",
       "units": 51.0,
       "customers": 1
+    },
+    {
+      "name": "Monin Banana Syrup 750ml Glass",
+      "units": 49.0,
+      "customers": 2
     },
     {
       "name": "Monin Passion Fruit Syrup 1 Liter Plastic Bottle",
@@ -66,18 +66,13 @@
       "customers": 1
     },
     {
-      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
-      "units": 21.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
-      "units": 21.0,
-      "customers": 1
-    },
-    {
       "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
       "units": 20.0,
+      "customers": 1
+    },
+    {
+      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
+      "units": 19.0,
       "customers": 1
     },
     {
@@ -89,6 +84,11 @@
       "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
       "units": 17.0,
       "customers": 2
+    },
+    {
+      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+      "units": 17.0,
+      "customers": 1
     },
     {
       "name": "Monin Peach Smoothie 46oz",
@@ -129,23 +129,18 @@
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 566.0,
+      "units": 545.0,
       "skus": 32
+    },
+    {
+      "brand": "(no brand)",
+      "units": 84.0,
+      "skus": 2
     },
     {
       "brand": "Uglies Kettle Chips",
       "units": 52.0,
       "skus": 7
-    },
-    {
-      "brand": "(no brand)",
-      "units": 44.0,
-      "skus": 1
-    },
-    {
-      "brand": "Almond Breeze",
-      "units": 40.0,
-      "skus": 1
     },
     {
       "brand": "Dr. Smoothie",
@@ -186,6 +181,11 @@
       "brand": "DaVinci Gourmet",
       "units": 3.0,
       "skus": 2
+    },
+    {
+      "brand": "Greenhouse",
+      "units": 3.0,
+      "skus": 2
     }
   ],
   "skus": [
@@ -216,44 +216,16 @@
           "lines": 5
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 4.0,
           "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Monin Vanilla Syrup 1L Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "0248cb50-a6da-4c9f-8f7d-f318b7e23606",
-      "units": 242.0,
-      "lines": 12,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 225.0,
-          "lines": 8
         },
         {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 17.0,
-          "lines": 4
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 4.0,
+          "lines": 3
         }
       ]
     },
@@ -292,8 +264,36 @@
       ]
     },
     {
+      "name": "Monin Vanilla Syrup 1L Plastic Bottle",
+      "brand": "Monin",
+      "itemUuid": "0248cb50-a6da-4c9f-8f7d-f318b7e23606",
+      "units": 236.0,
+      "lines": 11,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 225.0,
+          "lines": 8
+        },
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 11.0,
+          "lines": 3
+        }
+      ]
+    },
+    {
       "name": "Monin Dark Chocolate Sauce 64oz",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "a1d36906-f3d8-4331-9954-46717d9cd0f3",
       "units": 226.0,
       "lines": 20,
@@ -524,30 +524,6 @@
       ]
     },
     {
-      "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "bcb19e6c-5ac1-48b7-b7fb-3ea3f2c42868",
-      "units": 68.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 48.0,
-          "lines": 4
-        },
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 20.0,
-          "lines": 4
-        }
-      ]
-    },
-    {
       "name": "Califia Farms Barista Oat Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "2d05faec-fbce-4a35-b6bf-0df8492976a3",
@@ -576,25 +552,25 @@
       ]
     },
     {
-      "name": "Monin Banana Syrup 750ml Glass",
+      "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "cd7f7a7d-71db-4fd4-9254-bab37cecbb5b",
-      "units": 57.0,
-      "lines": 9,
+      "itemUuid": "bcb19e6c-5ac1-48b7-b7fb-3ea3f2c42868",
+      "units": 64.0,
+      "lines": 7,
       "inDca1": false,
       "dca1Sources": [],
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 54.0,
-          "lines": 6
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 48.0,
+          "lines": 4
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 3.0,
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 16.0,
           "lines": 3
         }
       ]
@@ -625,7 +601,7 @@
     },
     {
       "name": "Monin Caramel Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "e2ba0aa0-0356-44b7-98b2-dfd306639fe8",
       "units": 52.0,
       "lines": 11,
@@ -658,40 +634,6 @@
       ]
     },
     {
-      "name": "Monin Coconut Syrup 750ml Glass",
-      "brand": "Monin",
-      "itemUuid": "fbbf0374-aaf2-407e-94c7-c990da1b044f",
-      "units": 52.0,
-      "lines": 14,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 43.0,
-          "lines": 6
-        },
-        {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 6.0,
-          "lines": 5
-        },
-        {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
-          "units": 3.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Monin Rose Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "0839fae8-1c1d-4a8f-bc44-44014f100e7c",
@@ -706,6 +648,64 @@
           "name": "Quartermaine : 4972 Wyaconda Road",
           "units": 51.0,
           "lines": 6
+        }
+      ]
+    },
+    {
+      "name": "Monin Banana Syrup 750ml Glass",
+      "brand": "Monin",
+      "itemUuid": "cd7f7a7d-71db-4fd4-9254-bab37cecbb5b",
+      "units": 49.0,
+      "lines": 8,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 46.0,
+          "lines": 5
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 3.0,
+          "lines": 3
+        }
+      ]
+    },
+    {
+      "name": "Monin Coconut Syrup 750ml Glass",
+      "brand": "Monin",
+      "itemUuid": "fbbf0374-aaf2-407e-94c7-c990da1b044f",
+      "units": 47.0,
+      "lines": 13,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 38.0,
+          "lines": 5
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 6.0,
+          "lines": 5
+        },
+        {
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
+          "units": 3.0,
+          "lines": 3
         }
       ]
     },
@@ -803,7 +803,7 @@
     },
     {
       "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
-      "brand": "Almond Breeze",
+      "brand": "",
       "itemUuid": "149ca9dc-63bb-426c-b308-0c0c7f8d5370",
       "units": 40.0,
       "lines": 7,
@@ -823,8 +823,8 @@
       "name": "Monin Pina Colada Smoothie 46oz",
       "brand": "Monin",
       "itemUuid": "b4df1712-9251-495e-9711-32044c05750c",
-      "units": 40.0,
-      "lines": 11,
+      "units": 37.0,
+      "lines": 10,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
@@ -836,8 +836,8 @@
         {
           "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
           "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 22.0,
-          "lines": 5
+          "units": 19.0,
+          "lines": 4
         },
         {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
@@ -1104,29 +1104,11 @@
       ]
     },
     {
-      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "685cf993-7178-4674-9f4a-6c49874acb3a",
-      "units": 21.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 21.0,
-          "lines": 6
-        }
-      ]
-    },
-    {
       "name": "Monin Raspberry Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "7522ae8c-ba62-43c4-943b-3e149150dc29",
-      "units": 21.0,
-      "lines": 13,
+      "units": 20.0,
+      "lines": 12,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
@@ -1138,8 +1120,8 @@
         {
           "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
           "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 11.0,
-          "lines": 5
+          "units": 10.0,
+          "lines": 4
         },
         {
           "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
@@ -1158,24 +1140,6 @@
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 2.0,
           "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
-      "brand": "Monin",
-      "itemUuid": "c3c7408f-3c96-4071-92da-070e3093e97b",
-      "units": 21.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 21.0,
-          "lines": 6
         }
       ]
     },
@@ -1216,6 +1180,24 @@
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
           "units": 20.0,
           "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "itemUuid": "685cf993-7178-4674-9f4a-6c49874acb3a",
+      "units": 19.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 19.0,
+          "lines": 5
         }
       ]
     },
@@ -1267,7 +1249,7 @@
     },
     {
       "name": "Monin Sugar Free Vanilla Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "97d5d16e-0030-413c-a4d2-ed006589f345",
       "units": 19.0,
       "lines": 11,
@@ -1388,16 +1370,16 @@
           "lines": 7
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
           "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
           "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 3.0,
           "lines": 1
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 3.0,
+          "lines": 3
         }
       ]
     },
@@ -1422,6 +1404,24 @@
           "name": "Wild Bean Coffee : 1532 Rockville Pike",
           "units": 1.0,
           "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+      "brand": "Monin",
+      "itemUuid": "c3c7408f-3c96-4071-92da-070e3093e97b",
+      "units": 17.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 17.0,
+          "lines": 5
         }
       ]
     },
@@ -1486,14 +1486,14 @@
           "lines": 7
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -2371,24 +2371,6 @@
       ]
     },
     {
-      "name": "Monin Coconut Puree 1L",
-      "brand": "Monin",
-      "itemUuid": "918db7c0-824b-487a-90ad-859a564a2f65",
-      "units": 5.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
-          "units": 5.0,
-          "lines": 4
-        }
-      ]
-    },
-    {
       "name": "Spindrift Lemon",
       "brand": "Spindrift",
       "itemUuid": "a888c197-94b2-46ff-a85f-e168d538d118",
@@ -2537,9 +2519,9 @@
       ]
     },
     {
-      "name": "Monin Iced Coffee Concentrate 1L Plastic Bottle",
+      "name": "Monin Coconut Puree 1L",
       "brand": "Monin",
-      "itemUuid": "0ae86d92-583a-4a60-8aa2-9aefa10dcfe6",
+      "itemUuid": "918db7c0-824b-487a-90ad-859a564a2f65",
       "units": 4.0,
       "lines": 3,
       "inDca1": false,
@@ -2977,6 +2959,24 @@
       ]
     },
     {
+      "name": "Monin Iced Coffee Concentrate 1L Plastic Bottle",
+      "brand": "Monin",
+      "itemUuid": "0ae86d92-583a-4a60-8aa2-9aefa10dcfe6",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "Monin Salted Caramel Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "541abdb2-539c-4dc3-91f5-73a422a620a3",
@@ -3147,14 +3147,14 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         }
@@ -3173,24 +3173,6 @@
         {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Monin Ginger Puree 1 Liter Bottle(s)",
-      "brand": "Monin",
-      "itemUuid": "78967f69-0441-4b14-ad85-6433b746d624",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-          "name": "Kyotomatcha : 33 Maryland Avenue",
           "units": 2.0,
           "lines": 2
         }
@@ -3753,6 +3735,24 @@
         {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Monin Ginger Puree 1 Liter Bottle(s)",
+      "brand": "Monin",
+      "itemUuid": "78967f69-0441-4b14-ad85-6433b746d624",
+      "units": 1.0,
+      "lines": 1,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+          "name": "Kyotomatcha : 33 Maryland Avenue",
           "units": 1.0,
           "lines": 1
         }
@@ -4357,21 +4357,21 @@
         },
         {
           "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
-          "brand": "Almond Breeze",
+          "brand": "",
           "units": 40.0,
           "lines": 7,
           "inDca1": false
         },
         {
           "name": "Monin Dark Chocolate Sauce 64oz",
-          "brand": "",
+          "brand": "Monin",
           "units": 40.0,
           "lines": 6,
           "inDca1": true
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 25.0,
           "lines": 7,
           "inDca1": true
@@ -4441,7 +4441,7 @@
         },
         {
           "name": "Monin Coconut Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 3.0,
           "lines": 3,
           "inDca1": true
@@ -4480,135 +4480,6 @@
           "units": 2.0,
           "lines": 2,
           "inDca1": true
-        }
-      ]
-    },
-    {
-      "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
-      "name": "Kyotomatcha : 33 Maryland Avenue",
-      "hasHistory": true,
-      "skus": 17,
-      "gapSkus": 11,
-      "units": 269.0,
-      "items": [
-        {
-          "name": "Monin Banana Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 54.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Coconut Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 43.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Monin White Peach Syrup 750mL Glass",
-          "brand": "Monin",
-          "units": 27.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Pina Colada Smoothie 46oz",
-          "brand": "Monin",
-          "units": 22.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 21.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
-          "brand": "Monin",
-          "units": 21.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 20.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Vanilla Syrup 1L Plastic Bottle",
-          "brand": "Monin",
-          "units": 17.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Raspberry Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 11.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Lime Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 10.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
-          "brand": "Monin",
-          "units": 8.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Coconut Puree 1L",
-          "brand": "Monin",
-          "units": 5.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Iced Coffee Concentrate 1L Plastic Bottle",
-          "brand": "Monin",
-          "units": 4.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Ginger Puree 1 Liter Bottle(s)",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Golden Turmeric Syrup 750ml Glass Bottle",
-          "brand": "Monin",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Monin Strawberry Puree 1L",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Toasted Almond Mocha Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
         }
       ]
     },
@@ -4864,6 +4735,135 @@
           "units": 1.0,
           "lines": 1,
           "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
+      "name": "Kyotomatcha : 33 Maryland Avenue",
+      "hasHistory": true,
+      "skus": 17,
+      "gapSkus": 11,
+      "units": 233.0,
+      "items": [
+        {
+          "name": "Monin Banana Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 46.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Coconut Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 38.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Monin White Peach Syrup 750mL Glass",
+          "brand": "Monin",
+          "units": 27.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
+          "brand": "Monin",
+          "units": 19.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Pina Colada Smoothie 46oz",
+          "brand": "Monin",
+          "units": 19.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+          "brand": "Monin",
+          "units": 17.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
+          "brand": "Monin",
+          "units": 16.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Vanilla Syrup 1L Plastic Bottle",
+          "brand": "Monin",
+          "units": 11.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Lime Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 10.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Raspberry Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 10.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
+          "brand": "Monin",
+          "units": 8.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Coconut Puree 1L",
+          "brand": "Monin",
+          "units": 4.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Iced Coffee Concentrate 1L Plastic Bottle",
+          "brand": "Monin",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Golden Turmeric Syrup 750ml Glass Bottle",
+          "brand": "Monin",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Ginger Puree 1 Liter Bottle(s)",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Monin Strawberry Puree 1L",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Toasted Almond Mocha Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
         }
       ]
     },
@@ -5348,7 +5348,7 @@
       "items": [
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "",
+          "brand": "Boylan Bottling Company",
           "units": 13.0,
           "lines": 8,
           "inDca1": true
