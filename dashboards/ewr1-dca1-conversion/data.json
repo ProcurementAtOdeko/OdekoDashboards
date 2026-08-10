@@ -12,7 +12,8 @@
     "skusGap": 124,
     "coveragePct": 36,
     "unitsTotal": 8666.0,
-    "gapUnitsTotal": 5626.0
+    "gapUnitsTotal": 5626.0,
+    "formatSubstitutes": 3
   },
   "coverage": [
     {
@@ -186,6 +187,65 @@
       "brand": "David Protein",
       "units": 65.0,
       "skus": 2
+    }
+  ],
+  "formatSubstitutes": [
+    {
+      "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "units": 25.0,
+      "customers": 2,
+      "pack": "1 L plastic",
+      "substitutes": [
+        {
+          "name": "Monin Lavender Syrup 750ml Glass",
+          "sources": [
+            "catalog",
+            "onhand",
+            "sold90"
+          ],
+          "pack": "750 ml glass",
+          "sameSize": false
+        }
+      ]
+    },
+    {
+      "name": "1883 Syrup Pump (Glass)",
+      "brand": "",
+      "units": 6.0,
+      "customers": 2,
+      "pack": "glass",
+      "substitutes": [
+        {
+          "name": "1883 Syrup Pump (Plastic)",
+          "sources": [
+            "catalog",
+            "onhand",
+            "sold90"
+          ],
+          "pack": "plastic",
+          "sameSize": true
+        }
+      ]
+    },
+    {
+      "name": "Monin French Vanilla Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "units": 3.0,
+      "customers": 1,
+      "pack": "1 L plastic",
+      "substitutes": [
+        {
+          "name": "Monin French Vanilla Syrup 750ml Glass",
+          "sources": [
+            "catalog",
+            "onhand",
+            "sold90"
+          ],
+          "pack": "750 ml glass",
+          "sameSize": false
+        }
+      ]
     }
   ],
   "skus": [

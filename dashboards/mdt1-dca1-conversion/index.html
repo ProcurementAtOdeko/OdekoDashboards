@@ -139,6 +139,13 @@
   .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
   .chip b { font-variant-numeric: tabular-nums; }
   .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .chip.sig { padding: 2px 8px; font-size: 11px; color: var(--muted); }
+  #subs td:nth-child(4) { color: var(--green); font-weight: 600; }
+  #subs .sub-alt { position: relative; padding-left: 16px; }
+  #subs .sub-alt::before { content: "\2192"; position: absolute; left: 0; color: var(--muted); font-weight: 400; }
+  #subs .sub-alt + .sub-alt { margin-top: 5px; }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .pack { display: inline-block; font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 500; white-space: nowrap; }
   .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
   .mclose:hover { background: var(--line); }
   .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
@@ -181,6 +188,26 @@
     <div class="card tall full">
       <h3>Top 20 Bring-In Candidates <span class="note">highest-volume SKUs not carried in DCA1</span></h3>
       <div class="body"><canvas id="chart-gapskus"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card" id="subs-section" hidden>
+    <h3>Format Substitutes Already at DCA1
+      <span class="note">bring-in gaps DCA1 already stocks in another pack/size — swap, don't source</span>
+    </h3>
+    <div class="tablewrap">
+      <table id="subs">
+        <thead>
+          <tr>
+            <th>Purchased at MDT1 (gap)</th>
+            <th class="num">Customers</th>
+            <th class="num">Units</th>
+            <th>Already carried at DCA1</th>
+            <th>Signals</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
   </section>
 
@@ -339,9 +366,37 @@ async function load() {
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()}${range}`;
   renderKpis();
+  renderSubs();
   renderTable();
   renderCustTable();
   renderCharts();
+}
+
+function renderSubs() {
+  const subs = DATA.formatSubstitutes || [];
+  const section = document.getElementById("subs-section");
+  if (!subs.length) { section.hidden = true; return; }
+  section.hidden = false;
+  document.querySelector("#subs tbody").innerHTML = subs.map(s => {
+    const purchasedPack = s.pack
+      ? `<span class="pack">${escapeHtml(s.pack)}</span>` : "";
+    const alts = s.substitutes.map(a => {
+      const pack = a.pack ? `<span class="pack">${escapeHtml(a.pack)}</span>` : "";
+      const tag = a.sameSize
+        ? `<span class="badge carried">1:1 swap</span>`
+        : `<span class="badge warn">size differs</span>`;
+      return `<div class="sub-alt">${escapeHtml(a.name)} ${pack} ${tag}</div>`;
+    }).join("");
+    const sig = [...new Set(s.substitutes.flatMap(a => a.sources))]
+      .map(x => `<span class="chip sig">${escapeHtml(x)}</span>`).join(" ");
+    return `<tr>
+      <td>${escapeHtml(s.name)} ${purchasedPack}<div class="brand-cell">${escapeHtml(s.brand || "—")}</div></td>
+      <td class="num">${fmt(s.customers)}</td>
+      <td class="num">${fmt(s.units)}</td>
+      <td>${alts}</td>
+      <td>${sig}</td>
+    </tr>`;
+  }).join("");
 }
 
 function renderKpis() {

@@ -77,6 +77,82 @@ def norm_name(name):
     return _DUP.sub("", str(name).strip()).lower()
 
 
+# --- Format-substitute matching ------------------------------------------
+# A "format substitute" is the same product in a different pack/size/material
+# (e.g. a "1 Liter Plastic Bottle" the customer buys vs a "750ml Glass" DCA1
+# already stocks). We compute a format-agnostic key by stripping size/unit and
+# container/material tokens from the item name while preserving brand, flavor,
+# and any bare spec numbers (so "14 x 5" filters don't collapse into "15 x 5").
+_SIZE = re.compile(
+    r"\b\d+(\.\d+)?\s*(/\s*\d+)?\s*"
+    r"(ml|l|liter|liters|litre|fl\s*oz|oz|gallon|gal|qt|quart|"
+    r"lb|lbs|kg|g|gram|grams|ct|count|pk|pack|pcs)\b"
+)
+_UNITWORD = re.compile(
+    r"\b(ml|l|liter|liters|litre|oz|gallon|gal|qt|quart|lb|lbs|kg|"
+    r"ct|count|pk|pack|pcs)\b"
+)
+_CONT = re.compile(
+    r"\b(glass|plastic|bottle\(s\)|bottles|bottle|can|cans|jug|jugs|jar|jars|"
+    r"pouch|pouches|bag|bags|carton|box|boxes|tub|tubs|container|containers)\b"
+)
+_WS = re.compile(r"\s+")
+
+
+def fmt_key(name):
+    s = norm_name(name).replace("bottle(s)", " ")
+    s = _SIZE.sub(" ", s)
+    s = _UNITWORD.sub(" ", s)
+    s = _CONT.sub(" ", s)
+    s = re.sub(r"[^a-z0-9 ]", " ", s)  # keep digits (brand/spec numbers)
+    return _WS.sub(" ", s).strip()
+
+
+# The container/volume of an item, used to tell a true unit-for-unit swap
+# (same size, only material differs — e.g. glass vs plastic) from a same-flavor
+# match at a different pack size (e.g. 1L plastic vs 750ml glass).
+_SIZE_ONE = re.compile(
+    r"(\d+(?:\.\d+)?)(?:\s*/\s*(\d+))?\s*"
+    r"(ml|l|liter|litre|gallon|gal|fl\s*oz|oz|qt|quart|lb|lbs|kg|g)\b"
+)
+_UNIT_CANON = {"liter": "l", "litre": "l", "gallon": "gal", "quart": "qt",
+               "floz": "oz", "lbs": "lb"}
+_UNIT_DISP = {"ml": "ml", "l": "L", "gal": "gal", "oz": "oz", "qt": "qt",
+              "lb": "lb", "kg": "kg", "g": "g"}
+
+
+def canon_size(name):
+    """Canonical volume token, e.g. '1l', '750ml', '1/2gal'. '' if none."""
+    m = _SIZE_ONE.search(norm_name(name))
+    if not m:
+        return ""
+    num = m.group(1) + (("/" + m.group(2)) if m.group(2) else "")
+    unit = m.group(3).replace(" ", "")
+    unit = _UNIT_CANON.get(unit, unit)
+    return num + unit
+
+
+def pack_material(name):
+    s = norm_name(name)
+    for mat in ("glass", "plastic"):
+        if re.search(r"\b" + mat + r"\b", s):
+            return mat
+    return ""
+
+
+def pack_label(name):
+    """Human pack descriptor, e.g. '1 L plastic', '750 ml glass', 'glass'."""
+    m = _SIZE_ONE.search(norm_name(name))
+    size_disp = ""
+    if m:
+        num = m.group(1) + ((" / " + m.group(2)) if m.group(2) else "")
+        unit = m.group(3).replace(" ", "")
+        unit = _UNIT_CANON.get(unit, unit)
+        size_disp = num + " " + _UNIT_DISP.get(unit, unit)
+    parts = [p for p in (size_disp, pack_material(name)) if p]
+    return " ".join(parts)
+
+
 def parse_num(s):
     if s is None or s == "":
         return None
@@ -119,13 +195,25 @@ def find_sales_file(drive):
 
 
 def build_carried_set(svc):
-    """Normalized names of SKUs DCA1 already carries (union of 3 signals)."""
+    """SKUs DCA1 already carries (union of 3 signals).
+
+    Returns (carried, carried_named):
+      carried       — norm_name -> {source, ...}
+      carried_named — norm_name -> {"name": display_name, "sources": {...}}
+    carried_named preserves an original display name so we can compute
+    format-substitute keys and show the specific DCA1 item to swap to.
+    """
     carried = defaultdict(set)  # norm_name -> {source, ...}
+    carried_named = {}          # norm_name -> {"name", "sources"}
 
     def add(name, source):
         k = norm_name(name)
         if k:
             carried[k].add(source)
+            info = carried_named.get(k)
+            if info is None:
+                info = carried_named[k] = {"name": str(name).strip(), "sources": set()}
+            info["sources"].add(source)
 
     def truthy(v):
         return str(v).strip().upper() in ("TRUE", "1", "YES", "Y")
@@ -160,7 +248,7 @@ def build_carried_set(svc):
             if ni is not None and len(r) > ni:
                 add(r[ni], "sold90")
 
-    return carried
+    return carried, carried_named
 
 
 def main(out_path):
@@ -174,7 +262,7 @@ def main(out_path):
     drive = build("drive", "v3", credentials=creds, cache_discovery=False)
 
     wanted = set(CUSTOMER_UUIDS)
-    carried = build_carried_set(svc)
+    carried, carried_named = build_carried_set(svc)
 
     sales_id = find_sales_file(drive)
     rows = get_values(svc, sales_id, "A1:M")
@@ -307,6 +395,42 @@ def main(out_path):
         key=lambda x: -x["units"],
     )[:12]
 
+    # Format substitutes: gap SKUs where DCA1 already stocks the same product
+    # in a different pack/size/material (e.g. plastic 1L bought vs 750ml glass
+    # carried). Turns a "bring-in" into a "swap to a SKU we already have".
+    fmt_index = defaultdict(list)  # fmt_key -> [(norm_name, display, sources)]
+    for nn, info in carried_named.items():
+        fmt_index[fmt_key(info["name"])].append(
+            (nn, info["name"], sorted(info["sources"]))
+        )
+    format_subs = []
+    for s in gaps:
+        nk = norm_name(s["name"])
+        fk = fmt_key(s["name"])
+        if len(fk.split()) < 2:  # too generic to match confidently
+            continue
+        p_size = canon_size(s["name"])
+        alts = [
+            {
+                "name": dn,
+                "sources": srcs,
+                "pack": pack_label(dn),
+                "sameSize": canon_size(dn) == p_size,
+            }
+            for (nn, dn, srcs) in fmt_index.get(fk, [])
+            if nn != nk
+        ]
+        if alts:
+            format_subs.append({
+                "name": s["name"],
+                "brand": s["brand"],
+                "units": s["units"],
+                "customers": s["customers"],
+                "pack": pack_label(s["name"]),
+                "substitutes": alts,
+            })
+    format_subs.sort(key=lambda x: -x["units"])
+
     customers = []
     for uuid in CUSTOMER_UUIDS:
         ca = cust_agg.get(uuid)
@@ -352,6 +476,7 @@ def main(out_path):
             "coveragePct": coverage_pct,
             "unitsTotal": total_units,
             "gapUnitsTotal": gap_units,
+            "formatSubstitutes": len(format_subs),
         },
         "coverage": [
             {"status": "Carried in DCA1", "count": len(covered)},
@@ -359,6 +484,7 @@ def main(out_path):
         ],
         "topGapSkus": top_gap_skus,
         "topGapBrands": top_gap_brands,
+        "formatSubstitutes": format_subs,
         "skus": sku_list,
         "customers": customers,
     }
