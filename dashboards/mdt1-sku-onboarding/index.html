@@ -178,6 +178,7 @@
   .bar > i { display: block; height: 100%; background: var(--green); }
   .doc { font-variant-numeric: tabular-nums; font-weight: 600; }
   .doc.hi { color: var(--red); }
+  .doc.floor { color: var(--amber); }
   .po-line { font-size: 11px; color: var(--muted); }
   .po-line b { color: var(--ink-2); font-weight: 600; }
 </style>
@@ -227,6 +228,7 @@
             <th>Item to transfer</th>
             <th>Stage</th>
             <th class="num">MDT1 DOC</th>
+            <th class="num">DOC After</th>
             <th class="num">MDT1 On Hand (cs)</th>
             <th class="num">Case</th>
             <th class="num" id="th-to-units">60-day Units</th>
@@ -406,9 +408,10 @@ function renderKpis() {
     { label: "Live in Catalog", value: s.liveInCatalog, cls: "green",
       hint: `${s.completePct}% complete` },
     { label: "Transfer Cases", value: s.toCasesTotal, cls: "amber",
-      hint: `${s.toRecommended} SKUs · MDT1 DOC > ${DATA.docThreshold}` },
+      hint: `${s.toRecommended} SKUs · MDT1 kept ≥ ${DATA.minRetainDoc} DOC` },
     { label: "Purchase Cases", value: s.poCasesTotal, cls: "red",
-      hint: `${s.poRecommended} SKUs to buy · ${DATA.targetDays}-day cover` },
+      hint: `${s.poRecommended} SKUs to buy` +
+            (s.toShortCases ? ` · +${s.toShortCases} cs short on transfers` : "") },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
@@ -443,21 +446,28 @@ function renderTo() {
   const section = document.getElementById("to-section");
   if (!rows.length) { section.hidden = true; return; }
   section.hidden = false;
+  const s = DATA.summary;
   document.getElementById("to-note").textContent =
-    `MDT1 still holds > ${DATA.docThreshold} days of cover — transfer instead of buying · cases capped by MDT1 on hand`;
+    `MDT1 still holds > ${DATA.docThreshold} days of cover — transfer instead of buying · ` +
+    `never below ${DATA.minRetainDoc} DOC at MDT1`;
   document.getElementById("th-to-units").textContent = `${DATA.targetDays}-day Units`;
   document.getElementById("to-count").textContent =
-    `${rows.length} candidates · ${fmt(DATA.summary.toCasesTotal)} cases`;
+    `${rows.length} candidates · ${fmt(s.toCasesTotal)} cases` +
+    (s.toShortCases ? ` · ${fmt(s.toShortCases)} cases short (buy the remainder)` : "");
   document.querySelector("#to-table tbody").innerHTML = rows.map(r => {
-    const capped = r.toCases != null && r.cases != null && r.toCases < r.cases;
+    const floorHit = r.mdt1DocAfter != null && DATA.minRetainDoc != null
+      && r.mdt1DocAfter <= DATA.minRetainDoc * 1.15;
     return `<tr>
     <td>${escapeHtml(r.name)} <span class="pack">${escapeHtml(r.pack || "—")}</span>${subLine(r)}</td>
     <td><span class="badge ${r.stage === "On PO" ? "stage1" : "stage0"}">${escapeHtml(r.stage)}</span></td>
     <td class="num"><span class="doc hi">${fmt(r.mdt1Doc)}</span></td>
+    <td class="num"><span class="doc${floorHit ? " floor" : ""}">${fmt(r.mdt1DocAfter)}</span></td>
     <td class="num">${fmt(r.mdt1OnHand)}</td>
     <td class="num">${fmt(r.caseSize)}</td>
     <td class="num">${fmt(r.units60)}</td>
-    <td class="num"><b>${fmt(r.toCases)}</b>${capped ? ` <span class="badge warn" title="limited by MDT1 on hand (${fmt(r.cases)} needed)">capped</span>` : ""}</td>
+    <td class="num"><b>${fmt(r.toCases)}</b>${
+      r.toCapped ? ` <span class="badge warn" title="${escapeHtml(r.toCapped)} — ${fmt(r.cases)} needed">reserve</span>` : ""}${
+      r.buyCases ? `<div class="po-line">+ buy <b>${fmt(r.buyCases)}</b> cs</div>` : ""}</td>
   </tr>`;
   }).join("");
 }
@@ -645,19 +655,21 @@ document.getElementById("dl-skus").addEventListener("click", () => {
   downloadCSV("mdt1-sku-onboarding.csv",
     ["Item to onboard", "Pack", "Sub for", "Brand", "Stage", "Off-format", "Expected",
      "Case Size", `${DATA.targetDays}-day Units`, "Cases", "Ordered", "Received",
-     "MDT1 DOC", "MDT1 On Hand", "TO Recommended", "TO Cases", `${DATA.demandWindowDays}-day Units`],
+     "MDT1 DOC", "MDT1 DOC After", "MDT1 On Hand", "TO Recommended", "TO Cases", `${DATA.demandWindowDays}-day Units`],
     lastRows.map(s => [s.target, s.pack, s.formatSwitched ? s.name : "", s.brand, s.stage,
                        s.offFormat, s.nextExpected, s.caseSize, s.units60, s.cases60,
-                       s.ordered, s.received, s.mdt1Doc, s.mdt1OnHand,
+                       s.ordered, s.received, s.mdt1Doc, s.mdt1DocAfter, s.mdt1OnHand,
                        s.toRecommended ? "Yes" : "", s.toCases, s.units]));
 });
 
 document.getElementById("dl-to").addEventListener("click", () => {
   downloadCSV("mdt1-transfer-candidates.csv",
-    ["Item to transfer", "Pack", "Sub for", "Brand", "Stage", "MDT1 DOC", "MDT1 On Hand (cs)",
-     "Case Size", `${DATA.targetDays}-day Units`, "Transfer Cases"],
+    ["Item to transfer", "Pack", "Sub for", "Brand", "Stage", "MDT1 DOC", "MDT1 DOC After",
+     "MDT1 On Hand (cs)", "Case Size", `${DATA.targetDays}-day Units`, "Transfer Cases",
+     "Buy Remainder (cs)", "Reserve Capped"],
     (DATA.transferCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand, r.stage,
-                                              r.mdt1Doc, r.mdt1OnHand, r.caseSize, r.units60, r.toCases]));
+                                              r.mdt1Doc, r.mdt1DocAfter, r.mdt1OnHand, r.caseSize,
+                                              r.units60, r.toCases, r.buyCases, r.toCapped]));
 });
 
 document.getElementById("dl-po").addEventListener("click", () => {
