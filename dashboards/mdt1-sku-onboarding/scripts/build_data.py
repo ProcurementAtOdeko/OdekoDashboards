@@ -36,8 +36,14 @@ Transfer-order recommendation:
   MDT1 is being wound down, so where MDT1 still holds deep stock we would
   rather transfer it than buy new. Any cohort SKU whose MDT1 "Days of Cover
   60 Days Eaches" exceeds TO_DOC_THRESHOLD and which is not already received
-  or live at DCA1 is flagged as a transfer-order candidate, sized in cases
-  and capped by what MDT1 actually holds.
+  or live at DCA1 is flagged as a transfer-order candidate, sized in cases.
+
+  MDT1 is still serving its own customers while it winds down, so a transfer
+  must never strip it below MIN_RETAIN_DOC days of cover. On hand is
+  proportional to days of cover (doc = on_hand_eaches / daily_consumption),
+  so pulling X leaves doc * (1 - X / on_hand); the releasable share is
+  therefore (doc - MIN_RETAIN_DOC) / doc. That fraction also caps at what
+  MDT1 physically holds, so it subsumes a plain on-hand cap.
 
 Sources (all in the Looker Data Dumps folder / Combined models dump):
   - PO Data for Automating.csv   — per-PO-line: item, warehouse, status,
@@ -77,6 +83,7 @@ TO_DOC_THRESHOLD = 50       # MDT1 days-of-cover above which we suggest a TO
 
 DEMAND_WINDOW_DAYS = 90     # the cohort's Units column is trailing 90 days
 TARGET_DAYS = 60            # size opening orders to 60 days of that demand
+MIN_RETAIN_DOC = 20         # never transfer MDT1 below this many days of cover
 
 # Brand → pack format DCA1 would rather carry. Matched on (material, size);
 # a None size means "any size in that material".
@@ -461,13 +468,26 @@ def main(out_path):
         # Recommend pulling from MDT1 rather than buying when cover is deep
         # and the SKU hasn't already landed at DCA1.
         to_rec = doc is not None and doc > TO_DOC_THRESHOLD and stage_i < 2
-        # Can't transfer more than MDT1 actually holds (on hand is in cases).
+
+        # What MDT1 can release without dropping below MIN_RETAIN_DOC.
         mdt1_cases = st.get("onHand")
+        releasable = None
+        if doc and doc > 0 and mdt1_cases is not None:
+            share = max(0.0, (doc - MIN_RETAIN_DOC) / doc)
+            releasable = max(0, math.floor(mdt1_cases * share))
+
         to_cases = None
+        to_capped = ""
         if to_rec and cases60 is not None:
             to_cases = cases60
-            if mdt1_cases is not None:
-                to_cases = max(0, min(cases60, math.floor(mdt1_cases)))
+            if releasable is not None and releasable < cases60:
+                to_cases = releasable
+                to_capped = f"holds MDT1 at {MIN_RETAIN_DOC} DOC"
+
+        # Days of cover MDT1 is left with after the recommended transfer.
+        doc_after = doc
+        if to_cases and doc and mdt1_cases:
+            doc_after = round(doc * (1 - to_cases / mdt1_cases), 1)
 
         lines_sorted = sorted(lines, key=lambda l: l["created"] or "", reverse=True)
         items.append({
@@ -496,6 +516,9 @@ def main(out_path):
             "mdt1Consumption60": st.get("consumption60"),
             "toRecommended": to_rec,
             "toCases": to_cases,
+            "toCapped": to_capped,
+            "mdt1Releasable": releasable,
+            "mdt1DocAfter": doc_after,
             "nextExpected": min(
                 (l["expected"] for l in lines if l["expected"]), default=""
             ),
@@ -508,10 +531,14 @@ def main(out_path):
     counts = defaultdict(int)
     for it in items:
         counts[it["stage"]] += 1
-    to_items = [i for i in items if i["toRecommended"]]
-    # Everything still to source that MDT1 can't cover becomes a buy.
+    # A "transfer" only counts if MDT1 can actually release something once its
+    # MIN_RETAIN_DOC reserve is honoured. Candidates that can release nothing
+    # fall through to the buy list rather than sitting in a list of zeroes.
+    to_items = [i for i in items if i["toRecommended"] and (i["toCases"] or 0) > 0]
+    to_keys = {id(i) for i in to_items}
+    # Everything still to source that a transfer won't cover becomes a buy.
     po_items = [
-        i for i in items if i["stageIndex"] == 0 and not i["toRecommended"]
+        i for i in items if i["stageIndex"] == 0 and id(i) not in to_keys
     ]
     total = len(items)
     done = counts["Live in catalog"]
@@ -519,7 +546,11 @@ def main(out_path):
     off_fmt = [i for i in items if i["offFormat"]]
 
     def rec_row(i):
+        # On a partial transfer the reserve leaves a gap — buy the remainder.
+        shortfall = max(0, (i["cases60"] or 0) - (i["toCases"] or 0)) \
+            if i["toRecommended"] and (i["toCases"] or 0) > 0 else 0
         return {
+            "buyCases": shortfall,
             "name": i["target"],
             "originalName": i["name"] if i["formatSwitched"] else "",
             "brand": i["brand"],
@@ -532,6 +563,9 @@ def main(out_path):
             "mdt1Doc": i["mdt1Doc"],
             "mdt1OnHand": i["mdt1OnHand"],
             "toCases": i["toCases"],
+            "toCapped": i["toCapped"],
+            "mdt1Releasable": i["mdt1Releasable"],
+            "mdt1DocAfter": i["mdt1DocAfter"],
         }
 
     out = {
@@ -539,6 +573,7 @@ def main(out_path):
         "targetWarehouse": TARGET_WAREHOUSE,
         "sourceWarehouse": SOURCE_WAREHOUSE,
         "docThreshold": TO_DOC_THRESHOLD,
+        "minRetainDoc": MIN_RETAIN_DOC,
         "demandWindowDays": DEMAND_WINDOW_DAYS,
         "targetDays": TARGET_DAYS,
         "formatPreferences": {
@@ -558,6 +593,11 @@ def main(out_path):
             "unitsTracked": round(sum(i["units"] for i in items), 1),
             "units60Total": round(sum(i["units60"] for i in items), 1),
             "toCasesTotal": sum(i["toCases"] or 0 for i in to_items),
+            "toCappedByReserve": sum(1 for i in to_items if i["toCapped"]),
+            # Cases a partial transfer can't cover — buy these on top.
+            "toShortCases": sum(
+                max(0, (i["cases60"] or 0) - (i["toCases"] or 0)) for i in to_items
+            ),
             "poCasesTotal": sum(i["cases60"] or 0 for i in po_items),
         },
         "pipeline": [
