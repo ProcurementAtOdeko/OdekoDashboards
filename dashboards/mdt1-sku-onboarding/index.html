@@ -185,6 +185,7 @@
   .banner { margin: 0 16px 12px; padding: 10px 12px; border-radius: 6px; font-size: 12px;
     background: var(--red-soft); color: var(--red); border: 1px solid rgba(180,35,24,.25); }
   .banner b { font-weight: 700; }
+  .banner.warn { background: var(--amber-soft); color: var(--amber); border-color: rgba(181,102,10,.25); }
   .po-line { font-size: 11px; color: var(--muted); }
   .po-line b { color: var(--ink-2); font-weight: 600; }
 </style>
@@ -458,14 +459,24 @@ function renderSteps() {
 function renderBlockedBanner(id, rows) {
   const el = document.getElementById(id);
   const blocked = rows.filter(r => r.needsVendorSetup);
-  if (!blocked.length) { el.hidden = true; return; }
-  const vendors = [...new Set(blocked.map(b => b.vendorName))];
+  const isNew = rows.filter(r => r.vendorNewToDca1);
+  if (!blocked.length && !isNew.length) { el.hidden = true; return; }
   el.hidden = false;
-  el.innerHTML = `<b>${blocked.length} line(s) can't be uploaded yet</b> — no ` +
-    `${escapeHtml(DATA.targetWarehouse)} vendor record for ` +
-    `${vendors.map(escapeHtml).join(", ")}. ` +
-    `The bulk tools need a procurement_vendor_uuid, so these are excluded from the upload CSV ` +
-    `until the vendor is set up (see the Vendor/delivery rules step in the SOP).`;
+  const parts = [];
+  if (blocked.length) {
+    parts.push(`<b>${blocked.length} line(s) can't be uploaded</b> — no vendor UUID found ` +
+      `anywhere in the network for ` +
+      `${[...new Set(blocked.map(b => b.vendorName))].map(escapeHtml).join(", ")}. ` +
+      `These are excluded from the upload CSV.`);
+  }
+  if (isNew.length) {
+    parts.push(`<b>${isNew.length} line(s) use a vendor new to ${escapeHtml(DATA.targetWarehouse)}</b> — ` +
+      `${[...new Set(isNew.map(b => b.vendorName))].map(escapeHtml).join(", ")}. ` +
+      `Vendor UUIDs are universal so these upload fine, but confirm the warehouse/vendor ` +
+      `delivery rules are set (see the PO SOP) before creating the POs.`);
+  }
+  el.className = blocked.length ? "banner" : "banner warn";
+  el.innerHTML = parts.join("<br><br>");
 }
 
 function subLine(r) {
@@ -747,8 +758,8 @@ function downloadUpload(kind) {
     return;
   }
   if (blocked.length && !confirm(
-      `${blocked.length} line(s) are excluded because their vendor isn't set up for ` +
-      `${DATA.targetWarehouse} yet (${[...new Set(blocked.map(b => b.vendorName))].join(", ")}).\n\n` +
+      `${blocked.length} line(s) are excluded — no vendor UUID found anywhere for ` +
+      `${[...new Set(blocked.map(b => b.vendorName))].join(", ")}.\n\n` +
       `Download the remaining ${rows.length} line(s)?`)) return;
   const qtyCol = isTo ? "TO Order QTY" : "Order.QTY";
   downloadCSV(`${isTo ? "to" : "po"}-upload-${DATA.targetWarehouse.toLowerCase()}-${
@@ -762,21 +773,21 @@ document.getElementById("dl-po").addEventListener("click", () => downloadUpload(
 // Full working detail, separate from the upload-shaped files above.
 document.getElementById("dl-to-detail").addEventListener("click", () => {
   downloadCSV("mdt1-transfer-detail.csv",
-    ["Item to transfer", "Pack", "Sub for", "Brand", "Stage", "Vendor", "Vendor Set Up",
+    ["Item to transfer", "Pack", "Sub for", "Brand", "Stage", "Vendor", "Vendor New to DCA1",
      "MDT1 DOC", "MDT1 DOC After", "MDT1 On Hand (cs)", "Case Size",
      `${DATA.targetDays}-day Units`, "Transfer Cases", "Buy Remainder (cs)", "Reserve Capped"],
     (DATA.transferCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand, r.stage,
-                                              r.vendorName, r.needsVendorSetup ? "NO" : "yes",
+                                              r.vendorName, r.vendorNewToDca1 ? "YES - check delivery rules" : "",
                                               r.mdt1Doc, r.mdt1DocAfter, r.mdt1OnHand, r.caseSize,
                                               r.units60, r.toCases, r.buyCases, r.toCapped]));
 });
 
 document.getElementById("dl-po-detail").addEventListener("click", () => {
   downloadCSV("mdt1-purchase-detail.csv",
-    ["Item to buy", "Pack", "Sub for", "Brand", "Vendor", "Vendor Set Up", "Case Size",
+    ["Item to buy", "Pack", "Sub for", "Brand", "Vendor", "Vendor New to DCA1", "Case Size",
      `${DATA.targetDays}-day Units`, "Order Cases"],
     (DATA.purchaseCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand,
-                                              r.vendorName, r.needsVendorSetup ? "NO" : "yes",
+                                              r.vendorName, r.vendorNewToDca1 ? "YES - check delivery rules" : "",
                                               r.caseSize, r.units60, r.cases]));
 });
 

@@ -74,9 +74,16 @@ PO_SPREADSHEET_ID = "1x5T4i6WrO22iGJ2-0tX8N_hrOVC4NwRRCkoA5VWMmOo"
 PO_RANGE = "'PO Data for Automating.csv'!A1:N"
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
 MODELS_RANGE = "'Warehouse Raw'!A1:H"
-# DCA1 ordering model — the only source carrying the NetSuite UUIDs the bulk
-# PO/TO upload tools require (warehouse_uuid, procurement_vendor_uuid).
+# DCA1 ordering model — carries the NetSuite UUIDs the bulk PO/TO upload
+# tools require (warehouse_uuid, procurement_vendor_uuid) for DCA1's own
+# vendors.
 DCA1_MODEL_SPREADSHEET_ID = "162M43zm7D65Z3JqHpPqh1pa5Xrd6NLLvPuDu9qmpM8M"
+# Network-wide V2 model. Vendor UUIDs are universal, so vendors DCA1 doesn't
+# buy from yet can still be resolved from whichever warehouse does buy from
+# them. This sheet has vendor_uuid + vendor_id but no vendor_name, so it is
+# joined to the combined models dump (vendor_id -> vendor_name) by vendor_id.
+V2_SPREADSHEET_ID = "14cQNxWLX4Cqb2Upp-_C6TmRC0-NUNKWYzq4K_3X6mdM"
+V2_RANGE = "'Warehouse Raw'!A1:AR"
 ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:J"
 
@@ -335,6 +342,41 @@ def load_upload_refs(svc):
     return warehouse, vendor_uuids
 
 
+def load_network_vendor_uuids(svc):
+    """vendor_key -> procurement vendor UUID, across every warehouse.
+
+    Vendor UUIDs are universal, so a vendor DCA1 has never bought from still
+    has one wherever else in the network it is used. The V2 model carries
+    vendor_uuid + vendor_id but no vendor name, and the combined models dump
+    carries vendor_id + vendor_name, so the two are joined on vendor_id.
+    """
+    uuid_by_vid = defaultdict(Counter)
+    rows = get_values(svc, V2_SPREADSHEET_ID, V2_RANGE)
+    if rows:
+        header = rows[0]
+        for r in rows[1:]:
+            g = row_getter(header, r)
+            vid, vu = str(g("vendor_id")).strip(), g("vendor_uuid")
+            if vid and vu:
+                uuid_by_vid[vid][vu] += 1
+    if not uuid_by_vid:
+        return {}
+
+    out = {}
+    rows = get_values(svc, MODELS_SPREADSHEET_ID, MODELS_RANGE)
+    if rows:
+        header = rows[0]
+        for r in rows[1:]:
+            g = row_getter(header, r)
+            vid, name = str(g("vendor_id")).strip(), g("vendor_name")
+            if not vid or not name or vid not in uuid_by_vid:
+                continue
+            # An id can appear against more than one uuid across warehouses;
+            # take the most frequently used one.
+            out.setdefault(vendor_key(name), uuid_by_vid[vid].most_common(1)[0][0])
+    return out
+
+
 def load_item_refs(svc, wanted):
     """item name -> {uuid, vendor, purchaseUnit} from the network PO feed.
 
@@ -502,7 +544,8 @@ def main(out_path):
     live = load_catalog(svc, wanted)
     stock = load_mdt1_stock(svc, wanted)
     item_refs = load_item_refs(svc, wanted)
-    wh_ref, vendor_uuids = load_upload_refs(svc)
+    wh_ref, dca1_vendor_uuids = load_upload_refs(svc)
+    network_vendor_uuids = load_network_vendor_uuids(svc)
 
     # Guard: if the PO export is mid-refresh we'd wrongly reset every SKU to
     # "not started". Only trust an empty PO map when the sheet genuinely has
@@ -579,7 +622,13 @@ def main(out_path):
         # NetSuite identifiers for the bulk PO/TO upload templates.
         ref = item_refs.get(key) or item_refs.get(orig_key) or {}
         vendor_name = _VEN_PREFIX.sub("", (ref.get("vendor") or "").strip())
-        vendor_uuid = vendor_uuids.get(vendor_key(vendor_name), "") if vendor_name else ""
+        vk = vendor_key(vendor_name) if vendor_name else ""
+        # DCA1's own record first; otherwise the universal UUID from whichever
+        # warehouse already buys from this vendor.
+        vendor_uuid = dca1_vendor_uuids.get(vk, "") if vk else ""
+        vendor_from_dca1 = bool(vendor_uuid)
+        if not vendor_uuid and vk:
+            vendor_uuid = network_vendor_uuids.get(vk, "")
         purchase_unit = ref.get("purchaseUnit") or ""
         if not purchase_unit and case_size:
             purchase_unit = "Each" if case_size == 1 else f"Case ({int(case_size)}x)"
@@ -590,8 +639,12 @@ def main(out_path):
             "vendorName": vendor_name,
             "vendorUuid": vendor_uuid,
             "purchaseUnit": purchase_unit,
-            # Upload will fail without a vendor DCA1 is set up to buy from.
+            # No UUID anywhere — the row genuinely can't be uploaded.
             "needsVendorSetup": bool(vendor_name) and not vendor_uuid,
+            # Uploadable, but DCA1 has never bought from this vendor, so the
+            # warehouse/vendor delivery rules the PO SOP requires may not be
+            # set up yet.
+            "vendorNewToDca1": bool(vendor_uuid) and not vendor_from_dca1,
             "name": c["name"],
             "target": c["target"],
             "formatSwitched": c["formatSwitched"],
@@ -658,6 +711,7 @@ def main(out_path):
             "vendorUuid": i["vendorUuid"],
             "purchaseUnit": i["purchaseUnit"],
             "needsVendorSetup": i["needsVendorSetup"],
+            "vendorNewToDca1": i["vendorNewToDca1"],
             "name": i["target"],
             "originalName": i["name"] if i["formatSwitched"] else "",
             "brand": i["brand"],
@@ -702,6 +756,9 @@ def main(out_path):
             "offFormatActivity": len(off_fmt),
             "needsVendorSetup": sum(
                 1 for i in to_items + po_items if i["needsVendorSetup"]
+            ),
+            "vendorNewToDca1": sum(
+                1 for i in to_items + po_items if i["vendorNewToDca1"]
             ),
             "unitsTracked": round(sum(i["units"] for i in items), 1),
             "units60Total": round(sum(i["units60"] for i in items), 1),
