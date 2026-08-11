@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · MDT1 SKU Onboarding</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.tall .body { height: 520px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 240px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: 0; background: var(--panel); color: var(--muted); font: inherit; font-size: 13px;
+    padding: 7px 14px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
+
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+  .toolbar .btn { margin-left: 10px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .brand-cell { color: var(--muted); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.carried { background: var(--green-soft); color: var(--green); }
+  .badge.gap { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+  .tablewrap { overflow: auto; max-height: 640px; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable td:first-child .name-link { color: var(--ink-2); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  tr.clickable:hover td:first-child .name-link { text-decoration-color: var(--ink-2); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(42,20,8,.45); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 40px 16px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    max-width: 860px; width: 100%; box-shadow: 0 20px 50px rgba(42,20,8,.25);
+  }
+  .modal .mhead {
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    position: sticky; top: 0; background: var(--panel); border-radius: 10px 10px 0 0;
+  }
+  .modal .mtitle { font-size: 16px; font-weight: 700; color: var(--ink-2); letter-spacing: -.01em; }
+  .modal .mchips { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip b { font-variant-numeric: tabular-nums; }
+  .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .chip.sig { padding: 2px 8px; font-size: 11px; color: var(--muted); }
+  #subs td:nth-child(4) { color: var(--green); font-weight: 600; }
+  #subs .sub-alt { position: relative; padding-left: 16px; }
+  #subs .sub-alt::before { content: "\2192"; position: absolute; left: 0; color: var(--muted); font-weight: 400; }
+  #subs .sub-alt + .sub-alt { margin-top: 5px; }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .pack { display: inline-block; font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 500; white-space: nowrap; }
+  .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
+  .mclose:hover { background: var(--line); }
+  .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .modal .mbody { max-height: 62vh; overflow: auto; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .toolbar .count { margin-left: 0; }
+  }
+  .badge.stage0 { background: var(--panel-2); color: var(--muted); }
+  .badge.stage1 { background: var(--amber-soft); color: var(--amber); }
+  .badge.stage2 { background: rgba(31,122,51,.10); color: var(--green); }
+  .badge.stage3 { background: var(--green-soft); color: var(--green); }
+  .badge.to { background: var(--red-soft); color: var(--red); }
+  .steps { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding: 14px 16px; }
+  .step { flex: 1 1 150px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--bg); position: relative; }
+  .step .n { font-size: 22px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .step .s { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .step.done { border-color: var(--green); }
+  .step.done .n { color: var(--green); }
+  .step.active { border-color: var(--amber); }
+  .step.active .n { color: var(--amber); }
+  .arrow { color: var(--muted); font-size: 16px; flex: 0 0 auto; }
+  .bar { height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; margin-top: 10px; }
+  .bar > i { display: block; height: 100%; background: var(--green); }
+  .doc { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .doc.hi { color: var(--red); }
+  .po-line { font-size: 11px; color: var(--muted); }
+  .po-line b { color: var(--ink-2); font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>MDT1 SKU Onboarding — PO → Receipt → Live in DCA1</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h3>Onboarding Pipeline <span class="note" id="pipe-note"></span></h3>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>Stage Breakdown</h3>
+      <div class="body"><canvas id="chart-stage"></canvas></div>
+    </div>
+    <div class="card chart">
+      <h3>Units by Stage <span class="note">demand still un-onboarded</span></h3>
+      <div class="body"><canvas id="chart-units"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card" id="to-section" hidden>
+    <h3>Transfer Order Candidates
+      <span class="note" id="to-note"></span>
+    </h3>
+    <div class="toolbar">
+      <span class="count" id="to-count"></span>
+      <button class="btn" id="dl-to" title="Download transfer candidates">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="to-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Stage</th>
+            <th class="num">MDT1 Days of Cover</th>
+            <th class="num">MDT1 On Hand</th>
+            <th class="num">Units (MDT1 demand)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>SKU Onboarding Status</h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-filter">
+        <button data-f="all" class="active">All</button>
+        <button data-f="open">Not live</button>
+        <button data-f="po">On PO</button>
+        <button data-f="live">Live</button>
+        <button data-f="to">TO candidates</button>
+      </div>
+      <input id="search" type="search" placeholder="Search item or brand…" />
+      <span class="count" id="table-count"></span>
+      <button class="btn" id="dl-skus" title="Download the SKUs currently shown">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="skus">
+        <thead>
+          <tr>
+            <th data-sort="name">Item</th>
+            <th data-sort="brand">Brand</th>
+            <th data-sort="stageIndex">Stage</th>
+            <th data-sort="nextExpected">Expected</th>
+            <th class="num" data-sort="ordered">Ordered</th>
+            <th class="num" data-sort="received">Received</th>
+            <th class="num" data-sort="mdt1Doc">MDT1 DOC</th>
+            <th class="num" data-sort="units" data-default="desc">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="sku-modal">
+  <div class="modal">
+    <div class="mhead">
+      <div>
+        <div class="mtitle" id="s-title"></div>
+        <div class="mchips" id="s-chips"></div>
+      </div>
+      <button class="mclose" id="s-close" aria-label="Close">✕</button>
+    </div>
+    <div class="tablewrap">
+      <table id="s-items">
+        <thead>
+          <tr>
+            <th>PO</th>
+            <th>Vendor</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Expected</th>
+            <th>Received</th>
+            <th class="num">Ordered</th>
+            <th class="num">Qty Recvd</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const fmt = (n) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100", neutral: "#A89684",
+};
+
+let DATA = null;
+let sortKey = "units", sortDir = "desc", filterText = "", skuFilter = "all";
+let lastRows = [];
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadCSV(filename, headers, rows) {
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) lines.push(r.map(csvCell).join(","));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const STAGES = ["Not started", "On PO", "Received", "Live in catalog"];
+
+function stageBadge(it) {
+  return `<span class="badge stage${it.stageIndex}">${escapeHtml(it.stage)}</span>`;
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  DATA.items.forEach((s, i) => { s._i = i; });
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.skusTracked} SKUs onboarding into ${DATA.targetWarehouse}`;
+  renderKpis();
+  renderSteps();
+  renderTo();
+  renderTable();
+  renderCharts();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "SKUs Tracked", value: s.skusTracked, cls: "accent",
+      hint: `${fmt(s.unitsTracked)} units of MDT1 demand` },
+    { label: "Not Started", value: s.notStarted, cls: "red",
+      hint: "no DCA1 PO yet" },
+    { label: "On PO", value: s.onPo, cls: "amber",
+      hint: "ordered, awaiting receipt" },
+    { label: "Received", value: s.received, cls: "green",
+      hint: "landed, not yet in catalog" },
+    { label: "Live in Catalog", value: s.liveInCatalog, cls: "green",
+      hint: `${s.completePct}% complete` },
+    { label: "Transfer Candidates", value: s.toRecommended, cls: "red",
+      hint: `MDT1 DOC > ${DATA.docThreshold}` },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
+    `<div class="value">${fmt(k.value)}</div>` +
+    (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`
+  ).join("");
+}
+
+function renderSteps() {
+  const s = DATA.summary;
+  const pct = s.completePct;
+  document.getElementById("pipe-note").textContent =
+    `${s.liveInCatalog} of ${s.skusTracked} live in ${DATA.targetWarehouse} · ${pct}% complete`;
+  const steps = DATA.pipeline;
+  document.getElementById("steps").innerHTML = steps.map((st, i) => {
+    const cls = i === 3 ? "done" : (i > 0 && st.count > 0 ? "active" : "");
+    return `<div class="step ${cls}"><div class="n">${fmt(st.count)}</div>` +
+      `<div class="s">${escapeHtml(st.stage)}</div>` +
+      (i === 3 ? `<div class="bar"><i style="width:${pct}%"></i></div>` : "") +
+      `</div>` + (i < steps.length - 1 ? `<div class="arrow">→</div>` : "");
+  }).join("");
+}
+
+function renderTo() {
+  const rows = DATA.transferCandidates || [];
+  const section = document.getElementById("to-section");
+  if (!rows.length) { section.hidden = true; return; }
+  section.hidden = false;
+  document.getElementById("to-note").textContent =
+    `MDT1 still holds > ${DATA.docThreshold} days of cover — transfer instead of buying`;
+  document.getElementById("to-count").textContent = `${rows.length} candidates`;
+  document.querySelector("#to-table tbody").innerHTML = rows.map(r => `<tr>
+    <td>${escapeHtml(r.name)}<div class="brand-cell">${escapeHtml(r.brand || "—")}</div></td>
+    <td><span class="badge ${r.stage === "On PO" ? "stage1" : "stage0"}">${escapeHtml(r.stage)}</span></td>
+    <td class="num"><span class="doc hi">${fmt(r.mdt1Doc)}</span></td>
+    <td class="num">${fmt(r.mdt1OnHand)}</td>
+    <td class="num">${fmt(r.units)}</td>
+  </tr>`).join("");
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.items.filter(s => {
+    if (skuFilter === "open" && s.inCatalog) return false;
+    if (skuFilter === "po" && !s.hasPo) return false;
+    if (skuFilter === "live" && !s.inCatalog) return false;
+    if (skuFilter === "to" && !s.toRecommended) return false;
+    return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
+  });
+
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (typeof av === "boolean") { av = av ? 1 : 0; bv = bv ? 1 : 0; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  lastRows = rows;
+  document.getElementById("table-count").textContent =
+    `${rows.length} of ${DATA.items.length} SKUs`;
+
+  document.querySelectorAll("#skus th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#skus tbody").innerHTML = rows.map(s => {
+    const clickable = s.poLines && s.poLines.length;
+    const nameCell = clickable
+      ? `<span class="name-link">${escapeHtml(s.name)}</span>`
+      : escapeHtml(s.name);
+    const to = s.toRecommended ? ` <span class="badge to">TO</span>` : "";
+    const docCls = (s.mdt1Doc != null && s.mdt1Doc > DATA.docThreshold) ? "doc hi" : "doc";
+    return `<tr class="${clickable ? "clickable" : ""}" data-idx="${s._i}">
+      <td>${nameCell}${to}</td>
+      <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
+      <td>${stageBadge(s)}</td>
+      <td>${escapeHtml(s.nextExpected || "—")}</td>
+      <td class="num">${fmt(s.ordered)}</td>
+      <td class="num">${fmt(s.received)}</td>
+      <td class="num"><span class="${docCls}">${fmt(s.mdt1Doc)}</span></td>
+      <td class="num">${fmt(s.units)}</td>
+    </tr>`;
+  }).join("");
+}
+
+let charts = {};
+function renderCharts() {
+  if (typeof Chart === "undefined") return;  // CDN unavailable — tables still render
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+  const stageColors = [PALETTE.neutral, PALETTE.amber, "#4C9A5E", PALETTE.green];
+  const p = DATA.pipeline;
+
+  if (charts.stage) charts.stage.destroy();
+  charts.stage = new Chart(document.getElementById("chart-stage"), {
+    type: "doughnut",
+    data: {
+      labels: p.map(x => x.stage),
+      datasets: [{ data: p.map(x => x.count), backgroundColor: stageColors, borderWidth: 0 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "58%",
+      plugins: { legend: { position: "right", labels: { boxWidth: 12, padding: 12 } } },
+    },
+  });
+
+  const unitsByStage = STAGES.map(st =>
+    DATA.items.filter(i => i.stage === st).reduce((a, b) => a + b.units, 0));
+  if (charts.units) charts.units.destroy();
+  charts.units = new Chart(document.getElementById("chart-units"), {
+    type: "bar",
+    data: {
+      labels: STAGES,
+      datasets: [{ label: "Units", data: unitsByStage, backgroundColor: stageColors, borderWidth: 0 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, grid: { color: PALETTE.line } }, x: { grid: { display: false } } },
+    },
+  });
+}
+
+function openModal(it) {
+  document.getElementById("s-title").textContent = it.name;
+  document.getElementById("s-chips").innerHTML =
+    `<span class="chip">${escapeHtml(it.brand || "—")}</span>` +
+    `<span class="chip">Stage <b>${escapeHtml(it.stage)}</b></span>` +
+    `<span class="chip">Ordered <b>${fmt(it.ordered)}</b></span>` +
+    `<span class="chip">Received <b>${fmt(it.received)}</b></span>` +
+    (it.mdt1Doc != null ? `<span class="chip${it.mdt1Doc > DATA.docThreshold ? " gap" : ""}">MDT1 DOC <b>${fmt(it.mdt1Doc)}</b></span>` : "") +
+    (it.toRecommended ? `<span class="chip gap">Transfer candidate</span>` : "");
+  document.querySelector("#s-items tbody").innerHTML = (it.poLines || []).map(l => `<tr>
+    <td>${escapeHtml(l.po || "—")}</td>
+    <td class="brand-cell">${escapeHtml(l.vendor || "—")}</td>
+    <td>${escapeHtml(l.status || "—")}</td>
+    <td>${escapeHtml(l.created || "—")}</td>
+    <td>${escapeHtml(l.expected || "—")}</td>
+    <td>${escapeHtml(l.receivedDate || "—")}</td>
+    <td class="num">${fmt(l.ordered)}</td>
+    <td class="num">${fmt(l.received)}</td>
+  </tr>`).join("");
+  document.getElementById("sku-modal").classList.add("open");
+}
+
+document.getElementById("s-close").addEventListener("click", () =>
+  document.getElementById("sku-modal").classList.remove("open"));
+document.getElementById("sku-modal").addEventListener("click", (e) => {
+  if (e.target.id === "sku-modal") e.currentTarget.classList.remove("open");
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") document.getElementById("sku-modal").classList.remove("open");
+});
+
+document.querySelector("#skus tbody").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr[data-idx]");
+  if (!tr) return;
+  const it = DATA.items[+tr.dataset.idx];
+  if (it && it.poLines && it.poLines.length) openModal(it);
+});
+
+document.querySelectorAll("#skus th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const k = th.dataset.sort;
+    if (sortKey === k) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = k; sortDir = th.dataset.default === "desc" || th.classList.contains("num") ? "desc" : "asc"; }
+    renderTable();
+  });
+});
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value; renderTable();
+});
+
+document.querySelectorAll("#seg-filter button").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("#seg-filter button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    skuFilter = b.dataset.f;
+    renderTable();
+  });
+});
+
+document.getElementById("dl-skus").addEventListener("click", () => {
+  downloadCSV("mdt1-sku-onboarding.csv",
+    ["Item", "Brand", "Stage", "Expected", "Ordered", "Received", "MDT1 DOC", "MDT1 On Hand", "TO Recommended", "Units"],
+    lastRows.map(s => [s.name, s.brand, s.stage, s.nextExpected, s.ordered, s.received,
+                       s.mdt1Doc, s.mdt1OnHand, s.toRecommended ? "Yes" : "", s.units]));
+});
+
+document.getElementById("dl-to").addEventListener("click", () => {
+  downloadCSV("mdt1-transfer-candidates.csv",
+    ["Item", "Brand", "Stage", "MDT1 DOC", "MDT1 On Hand", "Units"],
+    (DATA.transferCandidates || []).map(r => [r.name, r.brand, r.stage, r.mdt1Doc, r.mdt1OnHand, r.units]));
+});
+
+load();
+</script>
+</body>
+</html>
