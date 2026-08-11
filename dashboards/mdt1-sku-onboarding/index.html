@@ -481,6 +481,11 @@ function renderBlockedBanner(id, rows) {
   el.innerHTML = parts.join("<br><br>");
 }
 
+function convChip(r) {
+  return (r.salesConversion && Math.abs(r.salesConversion - 1) > 0.001)
+    ? ` <span class="pack" title="sells by the case: ${fmt(r.salesConversion)} eaches per sales unit, so demand is already in cases">1:1</span>` : "";
+}
+
 function mergeNote(r) {
   return (r.mergedFrom && r.mergedFrom.length)
     ? ` · consolidates ${r.mergedFrom.map(escapeHtml).join(", ")}` : "";
@@ -514,7 +519,7 @@ function renderTo() {
     <td class="num"><span class="doc hi">${fmt(r.mdt1Doc)}</span></td>
     <td class="num"><span class="doc${floorHit ? " floor" : ""}">${fmt(r.mdt1DocAfter)}</span></td>
     <td class="num">${fmt(r.mdt1OnHand)}</td>
-    <td class="num">${fmt(r.caseSize)}</td>
+    <td class="num">${fmt(r.caseSize)}${convChip(r)}</td>
     <td class="num">${fmt(r.units60)}</td>
     <td class="num"><b>${fmt(r.toCases)}</b>${
       r.toCapped ? ` <span class="badge warn" title="${escapeHtml(r.toCapped)} — ${fmt(r.cases)} needed">reserve</span>` : ""}${
@@ -542,7 +547,7 @@ function renderPo() {
             mergeNote(r).replace(/^ · /, r.originalName ? " · " : "")}</div>` : ""}</td>
     <td class="brand-cell">${escapeHtml(r.brand || "—")}</td>
     <td><span class="pack">${escapeHtml(r.pack || "—")}</span></td>
-    <td class="num">${fmt(r.caseSize)}</td>
+    <td class="num">${fmt(r.caseSize)}${convChip(r)}</td>
     <td class="num">${fmt(r.units60)}</td>
     <td class="num"><b>${fmt(r.cases)}</b></td>
   </tr>`).join("");
@@ -601,7 +606,7 @@ function renderTable() {
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${stageBadge(s)}</td>
       <td>${escapeHtml(s.nextExpected || "—")}</td>
-      <td class="num">${fmt(s.caseSize)}</td>
+      <td class="num">${fmt(s.caseSize)}${convChip(s)}</td>
       <td class="num">${fmt(s.units60)}</td>
       <td class="num">${fmt(s.cases60)}</td>
       <td class="num"><span class="${docCls}">${fmt(s.mdt1Doc)}</span></td>
@@ -792,16 +797,16 @@ document.getElementById("dl-to-detail").addEventListener("click", () => {
     (DATA.transferCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand, r.stage,
                                               r.vendorName, r.vendorNewToDca1 ? "YES - check delivery rules" : "",
                                               r.mdt1Doc, r.mdt1DocAfter, r.mdt1OnHand, r.caseSize,
-                                              r.units60, r.toCases, r.buyCases, r.toCapped]));
+                                              r.salesConversion, r.units60, r.eaches60, r.toCases, r.buyCases, r.toCapped]));
 });
 
 document.getElementById("dl-po-detail").addEventListener("click", () => {
   downloadCSV("mdt1-purchase-detail.csv",
-    ["Item to buy", "Pack", "Sub for", "Brand", "Vendor", "Vendor New to DCA1", "Case Size",
-     `${DATA.targetDays}-day Units`, "Order Cases"],
+    ["Item to buy", "Pack", "Sub for", "Brand", "Vendor", "Vendor New to DCA1", "Case Size", "Eaches per Sales Unit",
+     `${DATA.targetDays}-day Units`, `${DATA.targetDays}-day Eaches`, "Order Cases"],
     (DATA.purchaseCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand,
                                               r.vendorName, r.vendorNewToDca1 ? "YES - check delivery rules" : "",
-                                              r.caseSize, r.units60, r.cases]));
+                                              r.caseSize, r.salesConversion, r.units60, r.eaches60, r.cases]));
 });
 
 load();
