@@ -110,6 +110,9 @@ PREFERRED_FORMAT = {
 # because words like "concentrate" are meaningful on other items.
 FLAVOUR_ALIASES = {
     "monin chai tea concentrate": "monin chai tea",
+    # The glass pack carries the sweetener in its name, the plastic doesn't.
+    "torani sugar free classic caramel syrup with splenda":
+        "torani sugar free classic caramel syrup",
 }
 
 COHORT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cohort.csv")
@@ -159,7 +162,12 @@ def fmt_key(name):
     s = _CONT.sub(" ", s)
     s = re.sub(r"[^a-z0-9 ]", " ", s)
     s = _WS.sub(" ", s).strip()
-    return FLAVOUR_ALIASES.get(s, s)
+    s = FLAVOUR_ALIASES.get(s, s)
+    # Sort the tokens so word order doesn't split a pack pair: the same syrup
+    # is listed as "Orange Syrup Dairy Friendly" in glass and "Orange Dairy
+    # Friendly Syrup" in plastic. Sizes and containers are already stripped
+    # above, so this only tolerates reordering, not different products.
+    return " ".join(sorted(s.split()))
 
 
 # Millilitres per unit, for translating demand between pack sizes.
