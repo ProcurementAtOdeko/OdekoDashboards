@@ -145,6 +145,7 @@
   #subs .sub-alt::before { content: "\2192"; position: absolute; left: 0; color: var(--muted); font-weight: 400; }
   #subs .sub-alt + .sub-alt { margin-top: 5px; }
   .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .badge.merged { background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
   .pack { display: inline-block; font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 500; white-space: nowrap; }
   .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
   .mclose:hover { background: var(--line); }
@@ -403,6 +404,7 @@ async function load() {
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.skusTracked} SKUs into ${DATA.targetWarehouse}` +
     ` · orders sized to ${DATA.targetDays} days from trailing ${DATA.demandWindowDays}` +
+    (DATA.summary.consolidated ? ` · ${DATA.summary.consolidated} consolidated` : "") +
     (prefs ? ` · format pref: ${prefs}` : "");
   const dd = document.getElementById("delivery-date");
   const d14 = new Date(Date.now() + 14 * 864e5);
@@ -479,10 +481,14 @@ function renderBlockedBanner(id, rows) {
   el.innerHTML = parts.join("<br><br>");
 }
 
+function mergeNote(r) {
+  return (r.mergedFrom && r.mergedFrom.length)
+    ? ` · consolidates ${r.mergedFrom.map(escapeHtml).join(", ")}` : "";
+}
+
 function subLine(r) {
-  return r.originalName
-    ? `<div class="brand-cell">${escapeHtml(r.brand || "—")} · sub for ${escapeHtml(r.originalName)}</div>`
-    : `<div class="brand-cell">${escapeHtml(r.brand || "—")}</div>`;
+  const sub = r.originalName ? ` · sub for ${escapeHtml(r.originalName)}` : "";
+  return `<div class="brand-cell">${escapeHtml(r.brand || "—")}${sub}${mergeNote(r)}</div>`;
 }
 
 function renderTo() {
@@ -530,7 +536,10 @@ function renderPo() {
     `${rows.length} to buy · ${fmt(DATA.summary.poCasesTotal)} cases`;
   document.querySelector("#po-table tbody").innerHTML = rows.map(r => `<tr>
     <td>${escapeHtml(r.name)}${r.originalName ? ` <span class="badge warn">sub</span>` : ""}${
-      r.originalName ? `<div class="brand-cell">sub for ${escapeHtml(r.originalName)}</div>` : ""}</td>
+      (r.mergedFrom && r.mergedFrom.length) ? ` <span class="badge merged">merged</span>` : ""}${
+      (r.originalName || (r.mergedFrom && r.mergedFrom.length))
+        ? `<div class="brand-cell">${r.originalName ? "sub for " + escapeHtml(r.originalName) : ""}${
+            mergeNote(r).replace(/^ · /, r.originalName ? " · " : "")}</div>` : ""}</td>
     <td class="brand-cell">${escapeHtml(r.brand || "—")}</td>
     <td><span class="pack">${escapeHtml(r.pack || "—")}</span></td>
     <td class="num">${fmt(r.caseSize)}</td>
@@ -579,12 +588,16 @@ function renderTable() {
     const off = s.offFormat
       ? ` <span class="badge warn" title="${escapeHtml(s.originalPack)} is ${escapeHtml(s.offFormat)} — not the preferred format">off-format ${escapeHtml(s.offFormat)}</span>`
       : "";
-    const sub = s.formatSwitched
+    const merged = (s.mergedFrom && s.mergedFrom.length)
+      ? ` <span class="badge merged">merged</span>` : "";
+    const mergedLine = (s.mergedFrom && s.mergedFrom.length)
+      ? `<div class="brand-cell">consolidates ${s.mergedFrom.map(escapeHtml).join(", ")}</div>` : "";
+    const sub = (s.formatSwitched
       ? `<div class="brand-cell">sub for ${escapeHtml(s.name)} <span class="pack">${escapeHtml(s.originalPack || "")}</span></div>`
-      : "";
+      : "") + mergedLine;
     const docCls = (s.mdt1Doc != null && s.mdt1Doc > DATA.docThreshold) ? "doc hi" : "doc";
     return `<tr class="${clickable ? "clickable" : ""}" data-idx="${s._i}">
-      <td>${nameCell} <span class="pack">${escapeHtml(s.pack || "—")}</span>${to}${off}${sub}</td>
+      <td>${nameCell} <span class="pack">${escapeHtml(s.pack || "—")}</span>${to}${off}${merged}${sub}</td>
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${stageBadge(s)}</td>
       <td>${escapeHtml(s.nextExpected || "—")}</td>
