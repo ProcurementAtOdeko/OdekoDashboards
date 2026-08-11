@@ -86,6 +86,11 @@ V2_SPREADSHEET_ID = "14cQNxWLX4Cqb2Upp-_C6TmRC0-NUNKWYzq4K_3X6mdM"
 V2_RANGE = "'Warehouse Raw'!A1:AR"
 ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:J"
+# MDT1 sales feed — the cohort's demand came from here, and it's the only
+# source of the sales-to-purchase unit conversion (see load_conversion_rates).
+SALES_SPREADSHEET_ID = "1YjMwL3bvowp3TQjq9IEWEO9hSxWIEwt9nUbp1vELsIY"
+SALES_NAME_COL = "B:B"          # Item Name
+SALES_CONVERSION_COL = "J:J"    # Conversion Rate
 
 TARGET_WAREHOUSE = "DCA1"   # where the SKUs are being onboarded to
 SOURCE_WAREHOUSE = "MDT1"   # the warehouse being wound down
@@ -393,6 +398,44 @@ def load_upload_refs(svc):
     return warehouse, vendor_uuids
 
 
+def load_conversion_rates(svc):
+    """item -> eaches per sales unit, from the MDT1 sales feed.
+
+    The cohort's Units column is "SO Item Qty / Conversion Rate", i.e. a count
+    of *sales* units, and the sales unit isn't always an each. Most items sell
+    by the each (rate 1), but some sell by the case — Pacific Barista Almond
+    Milk has rate 12 against a Case (12x) purchase unit, so its demand is
+    already expressed in cases and dividing by the case pack again would
+    under-order it twelvefold. Ordering therefore needs
+    purchase_units = sales_units * rate / eaches_per_purchase_unit.
+
+    Only two columns are fetched; the feed is hundreds of thousands of rows.
+    """
+    try:
+        res = (
+            svc.spreadsheets()
+            .values()
+            .batchGet(
+                spreadsheetId=SALES_SPREADSHEET_ID,
+                ranges=[SALES_NAME_COL, SALES_CONVERSION_COL],
+            )
+            .execute()
+        )
+    except Exception:
+        return {}
+    ranges = res.get("valueRanges", [])
+    if len(ranges) < 2:
+        return {}
+    names = [r[0] if r else "" for r in ranges[0].get("values", [])]
+    rates = [r[0] if r else "" for r in ranges[1].get("values", [])]
+    votes = defaultdict(Counter)
+    for name, rate in zip(names[1:], rates[1:]):  # skip headers
+        v = parse_num(rate)
+        if name and v and v > 0:
+            votes[norm_name(name)][v] += 1
+    return {k: c.most_common(1)[0][0] for k, c in votes.items()}
+
+
 def load_network_vendor_uuids(svc):
     """vendor_key -> procurement vendor UUID, across every warehouse.
 
@@ -628,6 +671,7 @@ def main(out_path):
     item_refs = load_item_refs(svc, wanted)
     wh_ref, dca1_vendor_uuids = load_upload_refs(svc)
     network_vendor_uuids = load_network_vendor_uuids(svc)
+    conversion_rates = load_conversion_rates(svc)
 
     # Guard: if the PO export is mid-refresh we'd wrongly reset every SKU to
     # "not started". Only trust an empty PO map when the sheet genuinely has
@@ -672,9 +716,14 @@ def main(out_path):
                 off_format = "on PO"
 
         # Opening order sized to TARGET_DAYS of trailing-window demand.
+        # Demand is counted in sales units, so convert to eaches with the
+        # item's sales conversion rate before dividing by the purchase pack;
+        # for an item that already sells by the case the two cancel out (1:1).
         case_size = case_sizes.get(key) or case_sizes.get(orig_key)
+        conv = conversion_rates.get(orig_key) or conversion_rates.get(key) or 1.0
         units60 = c["units"] * scale
-        cases60 = math.ceil(units60 / case_size) if case_size else None
+        eaches60 = units60 * conv
+        cases60 = math.ceil(eaches60 / case_size) if case_size else None
 
         doc = st.get("doc")
         # Recommend pulling from MDT1 rather than buying when cover is deep
@@ -741,6 +790,8 @@ def main(out_path):
             "mergedFrom": c.get("mergedFrom", []),
             "units60": round(units60, 1),
             "caseSize": case_size,
+            "salesConversion": conv,
+            "eaches60": round(eaches60, 1),
             "cases60": cases60,
             "customers": c["customers"],
             "stage": stage,
@@ -806,6 +857,8 @@ def main(out_path):
             "mergedFrom": i["mergedFrom"],
             "units60": i["units60"],
             "caseSize": i["caseSize"],
+            "salesConversion": i["salesConversion"],
+            "eaches60": i["eaches60"],
             "cases": i["cases60"],
             "mdt1Doc": i["mdt1Doc"],
             "mdt1OnHand": i["mdt1OnHand"],
