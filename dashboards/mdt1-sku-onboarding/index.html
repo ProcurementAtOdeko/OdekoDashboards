@@ -224,11 +224,38 @@
       <table id="to-table">
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Item to transfer</th>
             <th>Stage</th>
-            <th class="num">MDT1 Days of Cover</th>
-            <th class="num">MDT1 On Hand</th>
-            <th class="num">Units (MDT1 demand)</th>
+            <th class="num">MDT1 DOC</th>
+            <th class="num">MDT1 On Hand (cs)</th>
+            <th class="num">Case</th>
+            <th class="num" id="th-to-units">60-day Units</th>
+            <th class="num">Transfer Cases</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="po-section" hidden>
+    <h3>Purchase Order Candidates
+      <span class="note" id="po-note"></span>
+    </h3>
+    <div class="toolbar">
+      <span class="count" id="po-count"></span>
+      <button class="btn" id="dl-po" title="Download purchase candidates">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="po-table">
+        <thead>
+          <tr>
+            <th>Item to buy</th>
+            <th>Brand</th>
+            <th>Pack</th>
+            <th class="num">Case</th>
+            <th class="num" id="th-po-units">60-day Units</th>
+            <th class="num">Order Cases</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -245,6 +272,7 @@
         <button data-f="po">On PO</button>
         <button data-f="live">Live</button>
         <button data-f="to">TO candidates</button>
+        <button data-f="sub">Format subs</button>
       </div>
       <input id="search" type="search" placeholder="Search item or brand…" />
       <span class="count" id="table-count"></span>
@@ -254,14 +282,15 @@
       <table id="skus">
         <thead>
           <tr>
-            <th data-sort="name">Item</th>
+            <th data-sort="target">Item to onboard</th>
             <th data-sort="brand">Brand</th>
             <th data-sort="stageIndex">Stage</th>
             <th data-sort="nextExpected">Expected</th>
-            <th class="num" data-sort="ordered">Ordered</th>
-            <th class="num" data-sort="received">Received</th>
+            <th class="num" data-sort="caseSize">Case</th>
+            <th class="num" data-sort="units60">60-day Units</th>
+            <th class="num" data-sort="cases60">Cases</th>
             <th class="num" data-sort="mdt1Doc">MDT1 DOC</th>
-            <th class="num" data-sort="units" data-default="desc">Units</th>
+            <th class="num" data-sort="units" data-default="desc">90-day Units</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -349,11 +378,16 @@ async function load() {
   if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
   DATA = await res.json();
   DATA.items.forEach((s, i) => { s._i = i; });
+  const prefs = Object.entries(DATA.formatPreferences || {})
+    .map(([b, f]) => `${b[0].toUpperCase() + b.slice(1)} → ${f}`).join(" · ");
   document.getElementById("meta").textContent =
-    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.skusTracked} SKUs onboarding into ${DATA.targetWarehouse}`;
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.summary.skusTracked} SKUs into ${DATA.targetWarehouse}` +
+    ` · orders sized to ${DATA.targetDays} days from trailing ${DATA.demandWindowDays}` +
+    (prefs ? ` · format pref: ${prefs}` : "");
   renderKpis();
   renderSteps();
   renderTo();
+  renderPo();
   renderTable();
   renderCharts();
 }
@@ -371,8 +405,10 @@ function renderKpis() {
       hint: "landed, not yet in catalog" },
     { label: "Live in Catalog", value: s.liveInCatalog, cls: "green",
       hint: `${s.completePct}% complete` },
-    { label: "Transfer Candidates", value: s.toRecommended, cls: "red",
-      hint: `MDT1 DOC > ${DATA.docThreshold}` },
+    { label: "Transfer Cases", value: s.toCasesTotal, cls: "amber",
+      hint: `${s.toRecommended} SKUs · MDT1 DOC > ${DATA.docThreshold}` },
+    { label: "Purchase Cases", value: s.poCasesTotal, cls: "red",
+      hint: `${s.poRecommended} SKUs to buy · ${DATA.targetDays}-day cover` },
   ];
   document.getElementById("kpis").innerHTML = kpis.map(k =>
     `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
@@ -396,20 +432,54 @@ function renderSteps() {
   }).join("");
 }
 
+function subLine(r) {
+  return r.originalName
+    ? `<div class="brand-cell">${escapeHtml(r.brand || "—")} · sub for ${escapeHtml(r.originalName)}</div>`
+    : `<div class="brand-cell">${escapeHtml(r.brand || "—")}</div>`;
+}
+
 function renderTo() {
   const rows = DATA.transferCandidates || [];
   const section = document.getElementById("to-section");
   if (!rows.length) { section.hidden = true; return; }
   section.hidden = false;
   document.getElementById("to-note").textContent =
-    `MDT1 still holds > ${DATA.docThreshold} days of cover — transfer instead of buying`;
-  document.getElementById("to-count").textContent = `${rows.length} candidates`;
-  document.querySelector("#to-table tbody").innerHTML = rows.map(r => `<tr>
-    <td>${escapeHtml(r.name)}<div class="brand-cell">${escapeHtml(r.brand || "—")}</div></td>
+    `MDT1 still holds > ${DATA.docThreshold} days of cover — transfer instead of buying · cases capped by MDT1 on hand`;
+  document.getElementById("th-to-units").textContent = `${DATA.targetDays}-day Units`;
+  document.getElementById("to-count").textContent =
+    `${rows.length} candidates · ${fmt(DATA.summary.toCasesTotal)} cases`;
+  document.querySelector("#to-table tbody").innerHTML = rows.map(r => {
+    const capped = r.toCases != null && r.cases != null && r.toCases < r.cases;
+    return `<tr>
+    <td>${escapeHtml(r.name)} <span class="pack">${escapeHtml(r.pack || "—")}</span>${subLine(r)}</td>
     <td><span class="badge ${r.stage === "On PO" ? "stage1" : "stage0"}">${escapeHtml(r.stage)}</span></td>
     <td class="num"><span class="doc hi">${fmt(r.mdt1Doc)}</span></td>
     <td class="num">${fmt(r.mdt1OnHand)}</td>
-    <td class="num">${fmt(r.units)}</td>
+    <td class="num">${fmt(r.caseSize)}</td>
+    <td class="num">${fmt(r.units60)}</td>
+    <td class="num"><b>${fmt(r.toCases)}</b>${capped ? ` <span class="badge warn" title="limited by MDT1 on hand (${fmt(r.cases)} needed)">capped</span>` : ""}</td>
+  </tr>`;
+  }).join("");
+}
+
+function renderPo() {
+  const rows = DATA.purchaseCandidates || [];
+  const section = document.getElementById("po-section");
+  if (!rows.length) { section.hidden = true; return; }
+  section.hidden = false;
+  document.getElementById("po-note").textContent =
+    `not started and MDT1 can't cover them — buy ${DATA.targetDays} days of demand`;
+  document.getElementById("th-po-units").textContent = `${DATA.targetDays}-day Units`;
+  document.getElementById("po-count").textContent =
+    `${rows.length} to buy · ${fmt(DATA.summary.poCasesTotal)} cases`;
+  document.querySelector("#po-table tbody").innerHTML = rows.map(r => `<tr>
+    <td>${escapeHtml(r.name)}${r.originalName ? ` <span class="badge warn">sub</span>` : ""}${
+      r.originalName ? `<div class="brand-cell">sub for ${escapeHtml(r.originalName)}</div>` : ""}</td>
+    <td class="brand-cell">${escapeHtml(r.brand || "—")}</td>
+    <td><span class="pack">${escapeHtml(r.pack || "—")}</span></td>
+    <td class="num">${fmt(r.caseSize)}</td>
+    <td class="num">${fmt(r.units60)}</td>
+    <td class="num"><b>${fmt(r.cases)}</b></td>
   </tr>`).join("");
 }
 
@@ -420,7 +490,9 @@ function renderTable() {
     if (skuFilter === "po" && !s.hasPo) return false;
     if (skuFilter === "live" && !s.inCatalog) return false;
     if (skuFilter === "to" && !s.toRecommended) return false;
-    return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
+    if (skuFilter === "sub" && !s.formatSwitched) return false;
+    return !q || s.name.toLowerCase().includes(q) || s.target.toLowerCase().includes(q)
+      || (s.brand || "").toLowerCase().includes(q);
   });
 
   rows.sort((a, b) => {
@@ -445,17 +517,24 @@ function renderTable() {
   document.querySelector("#skus tbody").innerHTML = rows.map(s => {
     const clickable = s.poLines && s.poLines.length;
     const nameCell = clickable
-      ? `<span class="name-link">${escapeHtml(s.name)}</span>`
-      : escapeHtml(s.name);
+      ? `<span class="name-link">${escapeHtml(s.target)}</span>`
+      : escapeHtml(s.target);
     const to = s.toRecommended ? ` <span class="badge to">TO</span>` : "";
+    const off = s.offFormat
+      ? ` <span class="badge warn" title="${escapeHtml(s.originalPack)} is ${escapeHtml(s.offFormat)} — not the preferred format">off-format ${escapeHtml(s.offFormat)}</span>`
+      : "";
+    const sub = s.formatSwitched
+      ? `<div class="brand-cell">sub for ${escapeHtml(s.name)} <span class="pack">${escapeHtml(s.originalPack || "")}</span></div>`
+      : "";
     const docCls = (s.mdt1Doc != null && s.mdt1Doc > DATA.docThreshold) ? "doc hi" : "doc";
     return `<tr class="${clickable ? "clickable" : ""}" data-idx="${s._i}">
-      <td>${nameCell}${to}</td>
+      <td>${nameCell} <span class="pack">${escapeHtml(s.pack || "—")}</span>${to}${off}${sub}</td>
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${stageBadge(s)}</td>
       <td>${escapeHtml(s.nextExpected || "—")}</td>
-      <td class="num">${fmt(s.ordered)}</td>
-      <td class="num">${fmt(s.received)}</td>
+      <td class="num">${fmt(s.caseSize)}</td>
+      <td class="num">${fmt(s.units60)}</td>
+      <td class="num">${fmt(s.cases60)}</td>
       <td class="num"><span class="${docCls}">${fmt(s.mdt1Doc)}</span></td>
       <td class="num">${fmt(s.units)}</td>
     </tr>`;
@@ -564,15 +643,28 @@ document.querySelectorAll("#seg-filter button").forEach(b => {
 
 document.getElementById("dl-skus").addEventListener("click", () => {
   downloadCSV("mdt1-sku-onboarding.csv",
-    ["Item", "Brand", "Stage", "Expected", "Ordered", "Received", "MDT1 DOC", "MDT1 On Hand", "TO Recommended", "Units"],
-    lastRows.map(s => [s.name, s.brand, s.stage, s.nextExpected, s.ordered, s.received,
-                       s.mdt1Doc, s.mdt1OnHand, s.toRecommended ? "Yes" : "", s.units]));
+    ["Item to onboard", "Pack", "Sub for", "Brand", "Stage", "Off-format", "Expected",
+     "Case Size", `${DATA.targetDays}-day Units`, "Cases", "Ordered", "Received",
+     "MDT1 DOC", "MDT1 On Hand", "TO Recommended", "TO Cases", `${DATA.demandWindowDays}-day Units`],
+    lastRows.map(s => [s.target, s.pack, s.formatSwitched ? s.name : "", s.brand, s.stage,
+                       s.offFormat, s.nextExpected, s.caseSize, s.units60, s.cases60,
+                       s.ordered, s.received, s.mdt1Doc, s.mdt1OnHand,
+                       s.toRecommended ? "Yes" : "", s.toCases, s.units]));
 });
 
 document.getElementById("dl-to").addEventListener("click", () => {
   downloadCSV("mdt1-transfer-candidates.csv",
-    ["Item", "Brand", "Stage", "MDT1 DOC", "MDT1 On Hand", "Units"],
-    (DATA.transferCandidates || []).map(r => [r.name, r.brand, r.stage, r.mdt1Doc, r.mdt1OnHand, r.units]));
+    ["Item to transfer", "Pack", "Sub for", "Brand", "Stage", "MDT1 DOC", "MDT1 On Hand (cs)",
+     "Case Size", `${DATA.targetDays}-day Units`, "Transfer Cases"],
+    (DATA.transferCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand, r.stage,
+                                              r.mdt1Doc, r.mdt1OnHand, r.caseSize, r.units60, r.toCases]));
+});
+
+document.getElementById("dl-po").addEventListener("click", () => {
+  downloadCSV("mdt1-purchase-candidates.csv",
+    ["Item to buy", "Pack", "Sub for", "Brand", "Case Size", `${DATA.targetDays}-day Units`, "Order Cases"],
+    (DATA.purchaseCandidates || []).map(r => [r.name, r.pack, r.originalName, r.brand,
+                                              r.caseSize, r.units60, r.cases]));
 });
 
 load();
