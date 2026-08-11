@@ -74,6 +74,9 @@ PO_SPREADSHEET_ID = "1x5T4i6WrO22iGJ2-0tX8N_hrOVC4NwRRCkoA5VWMmOo"
 PO_RANGE = "'PO Data for Automating.csv'!A1:N"
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
 MODELS_RANGE = "'Warehouse Raw'!A1:H"
+# DCA1 ordering model — the only source carrying the NetSuite UUIDs the bulk
+# PO/TO upload tools require (warehouse_uuid, procurement_vendor_uuid).
+DCA1_MODEL_SPREADSHEET_ID = "162M43zm7D65Z3JqHpPqh1pa5Xrd6NLLvPuDu9qmpM8M"
 ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:J"
 
@@ -284,6 +287,88 @@ def load_pos(svc, wanted):
     return pos, case_sizes
 
 
+_VEN_PREFIX = re.compile(r"^VEN\d+\s+")
+
+
+def vendor_key(name):
+    """Vendor names appear with and without a 'VEN00001293 ' NetSuite prefix."""
+    return _VEN_PREFIX.sub("", str(name).strip()).lower()
+
+
+def load_upload_refs(svc):
+    """NetSuite identifiers the bulk PO/TO upload tools require.
+
+    Returns (warehouse, vendor_uuids) where warehouse is the DCA1
+    location id / uuid pair and vendor_uuids maps vendor_key -> uuid.
+
+    Read from the newest dated tab of the DCA1 ordering model. Vendor UUIDs
+    only exist for vendors DCA1 already buys from — a SKU sourced from a
+    vendor DCA1 has no relationship with yet cannot be uploaded until that
+    vendor is set up, so we surface the gap rather than emit a blank field.
+    """
+    warehouse = {"locationId": "", "uuid": ""}
+    vendor_uuids = {}
+    try:
+        meta = svc.spreadsheets().get(spreadsheetId=DCA1_MODEL_SPREADSHEET_ID).execute()
+    except Exception:
+        return warehouse, vendor_uuids
+    # Dated tabs look like "Tue 08-11"; the sheet lists newest first.
+    dated = [
+        s["properties"]["title"] for s in meta.get("sheets", [])
+        if re.match(r"^[A-Z][a-z]{2} \d{2}-\d{2}$", s["properties"]["title"])
+    ]
+    for tab in dated[:3]:  # fall back a couple of days if the newest is empty
+        rows = get_values(svc, DCA1_MODEL_SPREADSHEET_ID, f"'{tab}'!A1:CF")
+        if not rows:
+            continue
+        header = rows[0]
+        for r in rows[1:]:
+            g = row_getter(header, r)
+            if not warehouse["uuid"] and g("warehouse_uuid"):
+                warehouse["uuid"] = g("warehouse_uuid")
+                warehouse["locationId"] = g("warehouse_location_id")
+            vn, vu = g("vendor_name"), g("procurement_vendor_uuid")
+            if vn and vu:
+                vendor_uuids.setdefault(vendor_key(vn), vu)
+        if vendor_uuids:
+            break
+    return warehouse, vendor_uuids
+
+
+def load_item_refs(svc, wanted):
+    """item name -> {uuid, vendor, purchaseUnit} from the network PO feed.
+
+    The PO export is the only source that carries item UUIDs for SKUs DCA1
+    doesn't stock yet, which is most of this cohort.
+    """
+    refs = {}
+    rows = get_values(svc, PO_SPREADSHEET_ID, PO_RANGE)
+    if rows:
+        header = rows[0]
+        for r in rows[1:]:
+            g = row_getter(header, r)
+            key = norm_name(g("Item Name"))
+            if key not in wanted:
+                continue
+            ref = refs.setdefault(key, {"uuid": "", "vendor": "", "purchaseUnit": ""})
+            ref["uuid"] = ref["uuid"] or g("Item Uuid")
+            ref["vendor"] = ref["vendor"] or g("Full Vendor Name")
+            ref["purchaseUnit"] = ref["purchaseUnit"] or g("Purchase Unit Name")
+    # On Hand & ETA fills in the procurement vendor where no PO exists.
+    rows = get_values(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
+    if rows:
+        header = rows[0]
+        for r in rows[1:]:
+            g = row_getter(header, r)
+            key = norm_name(g("Item Name"))
+            if key not in wanted:
+                continue
+            ref = refs.setdefault(key, {"uuid": "", "vendor": "", "purchaseUnit": ""})
+            ref["uuid"] = ref["uuid"] or g("Item Extid")
+            ref["vendor"] = ref["vendor"] or g("Procurement Vendor")
+    return refs
+
+
 def load_universe(svc):
     """Every item name we know of, for resolving preferred-format variants.
 
@@ -416,6 +501,8 @@ def main(out_path):
     pos, case_sizes = load_pos(svc, wanted)
     live = load_catalog(svc, wanted)
     stock = load_mdt1_stock(svc, wanted)
+    item_refs = load_item_refs(svc, wanted)
+    wh_ref, vendor_uuids = load_upload_refs(svc)
 
     # Guard: if the PO export is mid-refresh we'd wrongly reset every SKU to
     # "not started". Only trust an empty PO map when the sheet genuinely has
@@ -489,8 +576,22 @@ def main(out_path):
         if to_cases and doc and mdt1_cases:
             doc_after = round(doc * (1 - to_cases / mdt1_cases), 1)
 
+        # NetSuite identifiers for the bulk PO/TO upload templates.
+        ref = item_refs.get(key) or item_refs.get(orig_key) or {}
+        vendor_name = _VEN_PREFIX.sub("", (ref.get("vendor") or "").strip())
+        vendor_uuid = vendor_uuids.get(vendor_key(vendor_name), "") if vendor_name else ""
+        purchase_unit = ref.get("purchaseUnit") or ""
+        if not purchase_unit and case_size:
+            purchase_unit = "Each" if case_size == 1 else f"Case ({int(case_size)}x)"
+
         lines_sorted = sorted(lines, key=lambda l: l["created"] or "", reverse=True)
         items.append({
+            "itemUuid": ref.get("uuid", ""),
+            "vendorName": vendor_name,
+            "vendorUuid": vendor_uuid,
+            "purchaseUnit": purchase_unit,
+            # Upload will fail without a vendor DCA1 is set up to buy from.
+            "needsVendorSetup": bool(vendor_name) and not vendor_uuid,
             "name": c["name"],
             "target": c["target"],
             "formatSwitched": c["formatSwitched"],
@@ -551,6 +652,12 @@ def main(out_path):
             if i["toRecommended"] and (i["toCases"] or 0) > 0 else 0
         return {
             "buyCases": shortfall,
+            # Fields the bulk PO/TO upload templates require verbatim.
+            "itemUuid": i["itemUuid"],
+            "vendorName": i["vendorName"],
+            "vendorUuid": i["vendorUuid"],
+            "purchaseUnit": i["purchaseUnit"],
+            "needsVendorSetup": i["needsVendorSetup"],
             "name": i["target"],
             "originalName": i["name"] if i["formatSwitched"] else "",
             "brand": i["brand"],
@@ -579,6 +686,9 @@ def main(out_path):
         "formatPreferences": {
             b: p["label"] for b, p in sorted(PREFERRED_FORMAT.items())
         },
+        # Constants the bulk upload templates need for the destination WH.
+        "warehouseLocationId": wh_ref["locationId"],
+        "warehouseUuid": wh_ref["uuid"],
         "summary": {
             "skusTracked": total,
             "notStarted": counts["Not started"],
@@ -590,6 +700,9 @@ def main(out_path):
             "poRecommended": len(po_items),
             "formatSwitched": switched,
             "offFormatActivity": len(off_fmt),
+            "needsVendorSetup": sum(
+                1 for i in to_items + po_items if i["needsVendorSetup"]
+            ),
             "unitsTracked": round(sum(i["units"] for i in items), 1),
             "units60Total": round(sum(i["units60"] for i in items), 1),
             "toCasesTotal": sum(i["toCases"] or 0 for i in to_items),
