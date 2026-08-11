@@ -102,6 +102,16 @@ PREFERRED_FORMAT = {
     "torani": {"material": "plastic", "size": "1l", "label": "1L plastic"},
 }
 
+# Same product, but named differently enough that the flavour key doesn't
+# collapse them on its own — e.g. "Monin Chai Tea Concentrate 1 Liter Plastic
+# Bottle" and "Monin Chai Tea 750ml Glass" are one product in two packs, but
+# the word "Concentrate" splits the key. Maps alias flavour key -> canonical.
+# Kept as an explicit list rather than stripping descriptor words generally,
+# because words like "concentrate" are meaningful on other items.
+FLAVOUR_ALIASES = {
+    "monin chai tea concentrate": "monin chai tea",
+}
+
 COHORT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cohort.csv")
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
@@ -148,7 +158,40 @@ def fmt_key(name):
     s = _UNITWORD.sub(" ", s)
     s = _CONT.sub(" ", s)
     s = re.sub(r"[^a-z0-9 ]", " ", s)
-    return _WS.sub(" ", s).strip()
+    s = _WS.sub(" ", s).strip()
+    return FLAVOUR_ALIASES.get(s, s)
+
+
+# Millilitres per unit, for translating demand between pack sizes.
+_ML = {"ml": 1.0, "l": 1000.0, "gal": 3785.41, "qt": 946.353, "oz": 29.5735}
+
+
+def size_ml(name):
+    """Volume of one unit in ml, or None if the pack isn't a volume."""
+    m = _SIZE_ONE.search(norm_name(name))
+    if not m:
+        return None
+    unit = _UNIT_CANON.get(m.group(3).replace(" ", ""), m.group(3).replace(" ", ""))
+    if unit not in _ML:
+        return None
+    qty = float(m.group(1))
+    if m.group(2):  # "1/2 gal" style
+        qty = qty / float(m.group(2))
+    return qty * _ML[unit]
+
+
+def pack_ratio(from_name, to_name):
+    """How many target units equal one source unit, by volume.
+
+    Switching a customer from 1 L bottles to 750 ml bottles means they need
+    more bottles for the same volume, so demand has to be translated rather
+    than carried across as a raw count. Returns 1.0 when either pack isn't a
+    comparable volume.
+    """
+    a, b = size_ml(from_name), size_ml(to_name)
+    if not a or not b:
+        return 1.0
+    return a / b
 
 
 def canon_size(name):
@@ -535,6 +578,37 @@ def main(out_path):
         c["formatPref"] = label
         c["formatSwitched"] = bool(target)
 
+    # Demand was measured in the pack the customer used to buy. Where we're
+    # onboarding a different pack size, translate it by volume so the order
+    # covers the same consumption.
+    for c in cohort:
+        c["unitsRaw"] = c["units"]
+        c["packRatio"] = pack_ratio(c["name"], c["target"])
+        c["units"] = c["units"] * c["packRatio"]
+        c["mergedFrom"] = []
+
+    # Two cohort rows can resolve to the same target — either the same product
+    # listed in two packs, or an alias pair. Consolidate them into one tracked
+    # line so it isn't ordered twice.
+    consolidated = {}
+    for c in cohort:
+        k = norm_name(c["target"])
+        base = consolidated.get(k)
+        if base is None:
+            consolidated[k] = c
+            continue
+        # Keep the row already in the preferred format as the surviving one.
+        if c["formatSwitched"] is False and base["formatSwitched"] is True:
+            c["units"] += base["units"]
+            c["customers"] = max(c["customers"], base["customers"])
+            c["mergedFrom"] = base["mergedFrom"] + [base["name"]]
+            consolidated[k] = c
+        else:
+            base["units"] += c["units"]
+            base["customers"] = max(base["customers"], c["customers"])
+            base["mergedFrom"] = base["mergedFrom"] + [c["name"]]
+    cohort = list(consolidated.values())
+
     # Look up both the target and the original: activity on the original is
     # off-format and should be flagged, not counted as progress.
     wanted = {norm_name(c["name"]) for c in cohort}
@@ -654,6 +728,9 @@ def main(out_path):
             "offFormat": off_format,
             "brand": c["brand"],
             "units": round(c["units"], 1),
+            "unitsRaw": round(c.get("unitsRaw", c["units"]), 1),
+            "packRatio": round(c.get("packRatio", 1.0), 3),
+            "mergedFrom": c.get("mergedFrom", []),
             "units60": round(units60, 1),
             "caseSize": case_size,
             "cases60": cases60,
@@ -718,6 +795,7 @@ def main(out_path):
             "pack": i["pack"],
             "stage": i["stage"],
             "units": i["units"],
+            "mergedFrom": i["mergedFrom"],
             "units60": i["units60"],
             "caseSize": i["caseSize"],
             "cases": i["cases60"],
@@ -759,6 +837,10 @@ def main(out_path):
             ),
             "vendorNewToDca1": sum(
                 1 for i in to_items + po_items if i["vendorNewToDca1"]
+            ),
+            "consolidated": sum(1 for i in items if i["mergedFrom"]),
+            "packConverted": sum(
+                1 for i in items if abs(i["packRatio"] - 1.0) > 0.001
             ),
             "unitsTracked": round(sum(i["units"] for i in items), 1),
             "units60Total": round(sum(i["units60"] for i in items), 1),
