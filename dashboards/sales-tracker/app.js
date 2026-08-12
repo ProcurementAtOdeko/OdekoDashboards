@@ -160,7 +160,9 @@ async function init() {
     .map(p => ({
       ...p,
       customerName: DATA.customers[p.c].name,
+      customerUuid: DATA.customers[p.c].uuid,
       itemName: DATA.items[p.i].name,
+      itemUuid: DATA.items[p.i].uuid,
       brand: DATA.items[p.i].brand,
     }));
   // Share of the warehouse's total units, for customers and brands.
@@ -537,12 +539,22 @@ function exportDetailCsv(r) {
   const isItem = tab === "items";
   const otherLabel = isItem ? "Customer" : "Item";
   const thisLabel = isItem ? "% of Item" : "% of Customer";
-  const header = [otherLabel, "New", "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order"];
+  // Every row is one customer x item pair, so carry both identities: the
+  // drilled-into entity repeats down the file, making each row joinable on
+  // its own without needing the filename for context.
+  const parentUuidLabel = isItem ? "Item UUID" : "Account UUID";
+  const otherUuidLabel = isItem ? "Account UUID" : "Item UUID";
+  const parentLabel = isItem ? "Item" : "Customer";
+  const header = [
+    parentLabel, parentUuidLabel, otherLabel, otherUuidLabel,
+    "New", "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order",
+  ];
   const lines = [header.map(csvCell).join(",")];
   for (const { p, other } of detailPairs(r)) {
     const s = detailShares(r, p, other);
     lines.push([
-      other.name, p.new ? "TRUE" : "FALSE", p.units,
+      r.name, uuidOf(r.uuid), other.name, uuidOf(other.uuid),
+      p.new ? "TRUE" : "FALSE", p.units,
       s.ofThis == null ? "" : (s.ofThis * 100).toFixed(2),
       s.ofMkt == null ? "" : (s.ofMkt * 100).toFixed(2),
       p.lines, p.minDate || "", p.lastOrder || "",
@@ -560,6 +572,12 @@ function escapeHtml(s) {
 // --- CSV export -----------------------------------------------------------
 // Column defs pull the underlying data values (not the rendered widgets), so
 // the download is analysis-ready. BL columns are included only when present.
+// Rows whose source row carried no uuid are keyed by name instead, so only
+// emit a value that actually looks like one.
+function uuidOf(v) {
+  return /^[0-9a-f]{8}-/.test(v || "") ? v : "";
+}
+
 function csvColumns() {
   const localPct = (r) => {
     const t = (r.localUnits || 0) + (r.ecommUnits || 0);
@@ -569,7 +587,7 @@ function csvColumns() {
     return [
       ["Item", r => r.name],
       ["Brand", r => r.brand || ""],
-      ["Item UUID", r => /^[0-9a-f]{8}-/.test(r.uuid) ? r.uuid : ""],
+      ["Item UUID", r => uuidOf(r.uuid)],
       ["Units Sold", r => r.units],
       ...(hasBL() ? [
         ["Local Units", r => r.localUnits],
@@ -609,7 +627,7 @@ function csvColumns() {
       ["Customer", r => r.name],
       ...(hasBL() ? [["Business Line", r => r.businessLine || ""]] : []),
       ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
-      ["Account UUID", r => /^[0-9a-f]{8}-/.test(r.uuid) ? r.uuid : ""],
+      ["Account UUID", r => uuidOf(r.uuid)],
       ["Units Sold", r => r.units],
       ["% of WH Sales", r => (r.share * 100).toFixed(2)],
       ["Trend 4w Delta", r => r.trendDelta],
@@ -633,7 +651,9 @@ function csvColumns() {
   }
   return [ // placements
     ["Customer", r => r.customerName],
+    ["Account UUID", r => uuidOf(r.customerUuid)],
     ["Item", r => r.itemName],
+    ["Item UUID", r => uuidOf(r.itemUuid)],
     ["Brand", r => r.brand || ""],
     ["First Order", r => r.minDate || ""],
     ["Units Since", r => r.units],
