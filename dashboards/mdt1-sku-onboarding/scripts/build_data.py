@@ -5,12 +5,18 @@ Tracks a fixed cohort of SKUs (the MDT1 → DCA1 transition list, committed
 alongside this script as cohort.csv) through the onboarding pipeline into
 DCA1:
 
-    Not started  →  On PO  →  Received  →  Live in catalog
+    Not started  →  On PO/TO  →  Received  →  Live in catalog
 
 Stage signals:
-  - On PO           — a DCA1 purchase order exists for the item
-                      ("PO Data for Automating.csv", Warehouse Name == DCA1)
-  - Received        — that PO shows Quantity Received > 0 or a shipment
+  - On PO/TO        — an *open* inbound document exists for the item at DCA1
+                      ("PO Data for Automating.csv", Warehouse Name == DCA1).
+                      Intracompany transfers ride the same feed as purchases
+                      and are identified by the vendor being another Odeko
+                      warehouse, so the stage covers both and each item
+                      records whether it's arriving on a PO, a TO, or both.
+                      Cancelled and fully-billed documents don't count as
+                      inbound — they aren't bringing anything in.
+  - Received        — that document shows Quantity Received > 0 or a shipment
                       received date
   - Live in catalog — Combined Models Dump "Warehouse Raw" row for DCA1 with
                       in_catalog truthy
@@ -345,12 +351,31 @@ def load_pos(svc, wanted):
             "received": parse_num(g("Quantity Received")) or 0.0,
             "unit": g("Purchase Unit Name"),
             "caseSize": cs,
+            "docType": doc_type(g("Full Vendor Name")),
+            "open": is_open_doc(g("Purchase Order Status")),
         })
     case_sizes = {k: v.most_common(1)[0][0] for k, v in case_votes.items()}
     return pos, case_sizes
 
 
 _VEN_PREFIX = re.compile(r"^VEN\d+\s+")
+
+# Intracompany transfers ride the same PO feed as purchases — the only thing
+# distinguishing them is that the "vendor" is another Odeko warehouse (e.g.
+# "VEN00001687 MDT1-VA Warehouse") or the intracompany placeholder the
+# ordering model uses ("Odeko MDT intracompany transfer").
+_TRANSFER_VENDOR = re.compile(r"\bwarehouse\b|\bintracompany\b", re.I)
+# A document only counts as inbound while it can still deliver something.
+CLOSED_STATUSES = {"closed", "fully billed"}
+
+
+def doc_type(vendor_name):
+    """'TO' for an intracompany transfer, otherwise 'PO'."""
+    return "TO" if _TRANSFER_VENDOR.search(str(vendor_name or "")) else "PO"
+
+
+def is_open_doc(status):
+    return str(status or "").strip().lower() not in CLOSED_STATUSES
 
 
 def vendor_key(name):
@@ -694,15 +719,23 @@ def main(out_path):
         ordered = sum(l["ordered"] for l in lines)
         received = sum(l["received"] for l in lines)
         is_live = key in live
-        has_po = bool(lines)
         has_receipt = received > 0 or any(l["receivedDate"] for l in lines)
+
+        # A cancelled or fully-billed document isn't bringing anything in, so
+        # only open ones count as inbound. Transfers ride the same feed as
+        # purchases and are told apart by the warehouse-as-vendor convention.
+        open_lines = [l for l in lines if l["open"]]
+        inbound_po = [l for l in open_lines if l["docType"] == "PO"]
+        inbound_to = [l for l in open_lines if l["docType"] == "TO"]
+        has_po = bool(lines)
+        inbound = bool(open_lines)
 
         if is_live:
             stage, stage_i = "Live in catalog", 3
         elif has_receipt:
             stage, stage_i = "Received", 2
-        elif has_po:
-            stage, stage_i = "On PO", 1
+        elif inbound:
+            stage, stage_i = "On PO/TO", 1
         else:
             stage, stage_i = "Not started", 0
 
@@ -797,6 +830,12 @@ def main(out_path):
             "stage": stage,
             "stageIndex": stage_i,
             "hasPo": has_po,
+            "inbound": inbound,
+            "onTo": bool(inbound_to),
+            "onPo": bool(inbound_po),
+            "inboundDocs": sorted({l["po"] for l in open_lines}),
+            "inboundTypes": sorted({l["docType"] for l in open_lines}),
+            "inboundUnits": round(sum(l["ordered"] for l in open_lines), 1),
             "poCount": len(lines),
             "ordered": round(ordered, 1),
             "received": round(received, 1),
@@ -815,7 +854,7 @@ def main(out_path):
             "poLines": lines_sorted,
         })
 
-    order = {"Not started": 0, "On PO": 1, "Received": 2, "Live in catalog": 3}
+    order = {"Not started": 0, "On PO/TO": 1, "Received": 2, "Live in catalog": 3}
     items.sort(key=lambda x: (order[x["stage"]], -x["units"]))
 
     counts = defaultdict(int)
@@ -853,6 +892,8 @@ def main(out_path):
             "brand": i["brand"],
             "pack": i["pack"],
             "stage": i["stage"],
+            "onTo": i["onTo"],
+            "inboundDocs": i["inboundDocs"],
             "units": i["units"],
             "mergedFrom": i["mergedFrom"],
             "units60": i["units60"],
@@ -885,7 +926,9 @@ def main(out_path):
         "summary": {
             "skusTracked": total,
             "notStarted": counts["Not started"],
-            "onPo": counts["On PO"],
+            "onPo": counts["On PO/TO"],
+            "onTransferOrder": sum(1 for i in items if i["onTo"]),
+            "inbound": sum(1 for i in items if i["inbound"]),
             "received": counts["Received"],
             "liveInCatalog": done,
             "completePct": round(100 * done / total) if total else 0,
@@ -915,7 +958,7 @@ def main(out_path):
         },
         "pipeline": [
             {"stage": "Not started", "count": counts["Not started"]},
-            {"stage": "On PO", "count": counts["On PO"]},
+            {"stage": "On PO/TO", "count": counts["On PO/TO"]},
             {"stage": "Received", "count": counts["Received"]},
             {"stage": "Live in catalog", "count": counts["Live in catalog"]},
         ],
@@ -932,7 +975,8 @@ def main(out_path):
         json.dump(out, f, indent=2)
     print(
         f"Wrote {total} SKUs "
-        f"(not started {counts['Not started']}, on PO {counts['On PO']}, "
+        f"(not started {counts['Not started']}, inbound {counts['On PO/TO']} "
+        f"[{sum(1 for i in items if i['onTo'])} on TO], "
         f"received {counts['Received']}, live {done}; "
         f"{switched} format-switched, {len(off_fmt)} off-format; "
         f"{len(to_items)} TO / {len(po_items)} PO candidates) to {out_path}"

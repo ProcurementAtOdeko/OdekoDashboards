@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T23:41:50+00:00",
+  "generatedAt": "2026-08-25T13:31:51+00:00",
   "targetWarehouse": "DCA1",
   "sourceWarehouse": "MDT1",
   "docThreshold": 50,
@@ -16,6 +16,8 @@
     "skusTracked": 94,
     "notStarted": 33,
     "onPo": 45,
+    "onTransferOrder": 0,
+    "inbound": 46,
     "received": 10,
     "liveInCatalog": 6,
     "completePct": 6,
@@ -29,7 +31,7 @@
     "packConverted": 26,
     "unitsTracked": 4309.4,
     "units60Total": 2873.0,
-    "toCasesTotal": 108,
+    "toCasesTotal": 101,
     "toCappedByReserve": 11,
     "toShortCases": 23,
     "poCasesTotal": 32
@@ -40,7 +42,7 @@
       "count": 33
     },
     {
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "count": 45
     },
     {
@@ -66,6 +68,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 15.0,
       "mergedFrom": [],
       "units60": 10.0,
@@ -82,6 +86,35 @@
     },
     {
       "buyCases": 0,
+      "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
+      "vendorName": "Big Geyser Inc.",
+      "vendorUuid": "4e07350c-08c7-4efd-993c-2b0d98d3fcae",
+      "purchaseUnit": "Case (24x)",
+      "needsVendorSetup": false,
+      "vendorNewToDca1": true,
+      "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
+      "originalName": "",
+      "brand": "Boylan Bottling Company",
+      "pack": "12 oz",
+      "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
+      "units": 13.0,
+      "mergedFrom": [],
+      "units60": 8.7,
+      "caseSize": 24.0,
+      "salesConversion": 1.0,
+      "eaches60": 8.7,
+      "cases": 1,
+      "mdt1Doc": 281.0,
+      "mdt1OnHand": 89.0,
+      "toCases": 1,
+      "toCapped": "",
+      "mdt1Releasable": 82,
+      "mdt1DocAfter": 277.8
+    },
+    {
+      "buyCases": 0,
       "itemUuid": "d8158079-22e0-4d2d-941a-b6dd8b397aa0",
       "vendorName": "Dr. Smoothie Brands LLC dba Sunny Sky Products",
       "vendorUuid": "a5ba0eeb-3b65-4cfe-bae4-e776fd835ac9",
@@ -93,6 +126,8 @@
       "brand": "Dr. Smoothie",
       "pack": "3.5 lb",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 11.0,
       "mergedFrom": [],
       "units60": 7.3,
@@ -109,33 +144,6 @@
     },
     {
       "buyCases": 0,
-      "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
-      "vendorName": "Big Geyser Inc.",
-      "vendorUuid": "4e07350c-08c7-4efd-993c-2b0d98d3fcae",
-      "purchaseUnit": "Case (24x)",
-      "needsVendorSetup": false,
-      "vendorNewToDca1": true,
-      "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
-      "originalName": "",
-      "brand": "Boylan Bottling Company",
-      "pack": "12 oz",
-      "stage": "Not started",
-      "units": 13.0,
-      "mergedFrom": [],
-      "units60": 8.7,
-      "caseSize": 24.0,
-      "salesConversion": 1.0,
-      "eaches60": 8.7,
-      "cases": 1,
-      "mdt1Doc": 254.0,
-      "mdt1OnHand": 89.0,
-      "toCases": 1,
-      "toCapped": "",
-      "mdt1Releasable": 81,
-      "mdt1DocAfter": 251.1
-    },
-    {
-      "buyCases": 0,
       "itemUuid": "74994314-a130-43a5-99b6-b76f25d3f89e",
       "vendorName": "Torani",
       "vendorUuid": "d6cb0c51-7288-436c-a8e3-9a9fe98a3316",
@@ -147,6 +155,8 @@
       "brand": "Torani",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 57.8,
       "mergedFrom": [],
       "units60": 38.5,
@@ -173,7 +183,11 @@
       "originalName": "Torani SUGAR FREE CLASSIC CARAMEL Syrup with Splenda 750ml Glass Bottle",
       "brand": "Torani",
       "pack": "1 L plastic",
-      "stage": "On PO",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113897"
+      ],
       "units": 9.8,
       "mergedFrom": [],
       "units60": 6.5,
@@ -201,6 +215,8 @@
       "brand": "1883",
       "pack": "1 L",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 18.0,
       "mergedFrom": [],
       "units60": 12.0,
@@ -228,6 +244,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 11.0,
       "mergedFrom": [],
       "units60": 7.3,
@@ -243,33 +261,6 @@
       "mdt1DocAfter": 73.3
     },
     {
-      "buyCases": 0,
-      "itemUuid": "3f3e5719-685e-4604-af3e-b4e41526d8f0",
-      "vendorName": "Monin Inc",
-      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
-      "purchaseUnit": "Case (12x)",
-      "needsVendorSetup": false,
-      "vendorNewToDca1": false,
-      "name": "Monin Lemon Syrup 750ml Glass",
-      "originalName": "",
-      "brand": "Monin",
-      "pack": "750 ml glass",
-      "stage": "Not started",
-      "units": 34.0,
-      "mergedFrom": [],
-      "units60": 22.7,
-      "caseSize": 12.0,
-      "salesConversion": 1.0,
-      "eaches60": 22.7,
-      "cases": 2,
-      "mdt1Doc": 142.0,
-      "mdt1OnHand": 4.9,
-      "toCases": 2,
-      "toCapped": "",
-      "mdt1Releasable": 4,
-      "mdt1DocAfter": 84.0
-    },
-    {
       "buyCases": 1,
       "itemUuid": "787d18fd-d16c-40cb-a503-fe99b62320a6",
       "vendorName": "Monin Inc",
@@ -282,6 +273,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 21.0,
       "mergedFrom": [],
       "units60": 14.0,
@@ -298,6 +291,35 @@
     },
     {
       "buyCases": 0,
+      "itemUuid": "3f3e5719-685e-4604-af3e-b4e41526d8f0",
+      "vendorName": "Monin Inc",
+      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
+      "purchaseUnit": "Case (12x)",
+      "needsVendorSetup": false,
+      "vendorNewToDca1": false,
+      "name": "Monin Lemon Syrup 750ml Glass",
+      "originalName": "",
+      "brand": "Monin",
+      "pack": "750 ml glass",
+      "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
+      "units": 34.0,
+      "mergedFrom": [],
+      "units60": 22.7,
+      "caseSize": 12.0,
+      "salesConversion": 1.0,
+      "eaches60": 22.7,
+      "cases": 2,
+      "mdt1Doc": 139.0,
+      "mdt1OnHand": 4.8,
+      "toCases": 2,
+      "toCapped": "",
+      "mdt1Releasable": 4,
+      "mdt1DocAfter": 81.1
+    },
+    {
+      "buyCases": 0,
       "itemUuid": "f9fc9acc-eaef-48d2-82e8-abd4b4a16ea7",
       "vendorName": "Torani",
       "vendorUuid": "d6cb0c51-7288-436c-a8e3-9a9fe98a3316",
@@ -309,6 +331,8 @@
       "brand": "Torani",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 12.8,
       "mergedFrom": [],
       "units60": 8.5,
@@ -316,12 +340,12 @@
       "salesConversion": 1.0,
       "eaches60": 8.5,
       "cases": 2,
-      "mdt1Doc": 125.0,
-      "mdt1OnHand": 12.0,
+      "mdt1Doc": 123.0,
+      "mdt1OnHand": 11.8,
       "toCases": 2,
       "toCapped": "",
-      "mdt1Releasable": 10,
-      "mdt1DocAfter": 104.2
+      "mdt1Releasable": 9,
+      "mdt1DocAfter": 102.2
     },
     {
       "buyCases": 0,
@@ -336,6 +360,8 @@
       "brand": "1883",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 33.0,
       "mergedFrom": [],
       "units60": 22.0,
@@ -343,12 +369,12 @@
       "salesConversion": 1.0,
       "eaches60": 22.0,
       "cases": 4,
-      "mdt1Doc": 115.0,
-      "mdt1OnHand": 10.5,
+      "mdt1Doc": 109.0,
+      "mdt1OnHand": 10.0,
       "toCases": 4,
       "toCapped": "",
       "mdt1Releasable": 8,
-      "mdt1DocAfter": 71.2
+      "mdt1DocAfter": 65.4
     },
     {
       "buyCases": 0,
@@ -362,7 +388,11 @@
       "originalName": "",
       "brand": "Monin",
       "pack": "1 L plastic",
-      "stage": "On PO",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113894"
+      ],
       "units": 19.0,
       "mergedFrom": [],
       "units60": 12.7,
@@ -389,7 +419,11 @@
       "originalName": "",
       "brand": "Monin",
       "pack": "750 ml glass",
-      "stage": "On PO",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113894"
+      ],
       "units": 21.0,
       "mergedFrom": [],
       "units60": 14.0,
@@ -417,6 +451,8 @@
       "brand": "Torani",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 35.2,
       "mergedFrom": [],
       "units60": 23.5,
@@ -444,6 +480,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 36.0,
       "mergedFrom": [],
       "units60": 24.0,
@@ -451,12 +489,12 @@
       "salesConversion": 1.0,
       "eaches60": 24.0,
       "cases": 6,
-      "mdt1Doc": 88.0,
+      "mdt1Doc": 93.0,
       "mdt1OnHand": 21.0,
       "toCases": 6,
       "toCapped": "",
       "mdt1Releasable": 16,
-      "mdt1DocAfter": 62.9
+      "mdt1DocAfter": 66.4
     },
     {
       "buyCases": 1,
@@ -471,6 +509,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 24.0,
       "mergedFrom": [],
       "units60": 16.0,
@@ -478,12 +518,12 @@
       "salesConversion": 1.0,
       "eaches60": 16.0,
       "cases": 2,
-      "mdt1Doc": 87.0,
+      "mdt1Doc": 92.0,
       "mdt1OnHand": 2.4,
       "toCases": 1,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 1,
-      "mdt1DocAfter": 50.7
+      "mdt1DocAfter": 53.7
     },
     {
       "buyCases": 0,
@@ -498,6 +538,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 85.0,
       "mergedFrom": [],
       "units60": 56.7,
@@ -505,12 +547,12 @@
       "salesConversion": 1.0,
       "eaches60": 56.7,
       "cases": 5,
-      "mdt1Doc": 86.0,
-      "mdt1OnHand": 7.7,
+      "mdt1Doc": 82.0,
+      "mdt1OnHand": 7.3,
       "toCases": 5,
       "toCapped": "",
       "mdt1Releasable": 5,
-      "mdt1DocAfter": 30.2
+      "mdt1DocAfter": 25.8
     },
     {
       "buyCases": 2,
@@ -525,6 +567,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 68.0,
       "mergedFrom": [],
       "units60": 45.3,
@@ -552,6 +596,8 @@
       "brand": "Monin",
       "pack": "750 ml",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 27.0,
       "mergedFrom": [],
       "units60": 18.0,
@@ -579,6 +625,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 38.0,
       "mergedFrom": [],
       "units60": 25.3,
@@ -595,33 +643,6 @@
     },
     {
       "buyCases": 0,
-      "itemUuid": "047f3336-57a2-4bdd-97b5-b379cd7c9ee6",
-      "vendorName": "Monin Inc",
-      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
-      "purchaseUnit": "Case (12x)",
-      "needsVendorSetup": false,
-      "vendorNewToDca1": false,
-      "name": "Monin Cherry Syrup 750ml Glass",
-      "originalName": "",
-      "brand": "Monin",
-      "pack": "750 ml glass",
-      "stage": "On PO",
-      "units": 48.0,
-      "mergedFrom": [],
-      "units60": 32.0,
-      "caseSize": 12.0,
-      "salesConversion": 1.0,
-      "eaches60": 32.0,
-      "cases": 3,
-      "mdt1Doc": 65.0,
-      "mdt1OnHand": 8.6,
-      "toCases": 3,
-      "toCapped": "",
-      "mdt1Releasable": 5,
-      "mdt1DocAfter": 42.3
-    },
-    {
-      "buyCases": 0,
       "itemUuid": "fc6cadf4-a445-4f53-805d-9c21b93f15c6",
       "vendorName": "Monin Inc",
       "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
@@ -633,6 +654,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 13.0,
       "mergedFrom": [],
       "units60": 8.7,
@@ -648,6 +671,37 @@
       "mdt1DocAfter": 25.9
     },
     {
+      "buyCases": 0,
+      "itemUuid": "047f3336-57a2-4bdd-97b5-b379cd7c9ee6",
+      "vendorName": "Monin Inc",
+      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
+      "purchaseUnit": "Case (12x)",
+      "needsVendorSetup": false,
+      "vendorNewToDca1": false,
+      "name": "Monin Cherry Syrup 750ml Glass",
+      "originalName": "",
+      "brand": "Monin",
+      "pack": "750 ml glass",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "units": 48.0,
+      "mergedFrom": [],
+      "units60": 32.0,
+      "caseSize": 12.0,
+      "salesConversion": 1.0,
+      "eaches60": 32.0,
+      "cases": 3,
+      "mdt1Doc": 61.0,
+      "mdt1OnHand": 7.8,
+      "toCases": 3,
+      "toCapped": "",
+      "mdt1Releasable": 5,
+      "mdt1DocAfter": 37.5
+    },
+    {
       "buyCases": 3,
       "itemUuid": "8f22ff45-11f7-495f-86aa-232066fa5363",
       "vendorName": "Monin Inc",
@@ -660,6 +714,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 20.0,
       "mergedFrom": [],
       "units60": 13.3,
@@ -675,6 +731,37 @@
       "mdt1DocAfter": 30.0
     },
     {
+      "buyCases": 0,
+      "itemUuid": "ccf1e393-d158-4eeb-89b7-5f481912b178",
+      "vendorName": "Torani",
+      "vendorUuid": "d6cb0c51-7288-436c-a8e3-9a9fe98a3316",
+      "purchaseUnit": "Case (4x)",
+      "needsVendorSetup": false,
+      "vendorNewToDca1": true,
+      "name": "Torani Puremade Dark Chocolate Sauce 64oz Bottle",
+      "originalName": "",
+      "brand": "Torani",
+      "pack": "64 oz",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "units": 28.0,
+      "mergedFrom": [],
+      "units60": 18.7,
+      "caseSize": 4.0,
+      "salesConversion": 1.0,
+      "eaches60": 18.7,
+      "cases": 5,
+      "mdt1Doc": 56.0,
+      "mdt1OnHand": 15.5,
+      "toCases": 5,
+      "toCapped": "",
+      "mdt1Releasable": 9,
+      "mdt1DocAfter": 37.9
+    },
+    {
       "buyCases": 1,
       "itemUuid": "e90c75be-4e3e-4349-b9ef-7c76d8101c73",
       "vendorName": "Dr. Smoothie Brands LLC dba Sunny Sky Products",
@@ -686,7 +773,11 @@
       "originalName": "",
       "brand": "Dr. Smoothie",
       "pack": "46 oz",
-      "stage": "On PO",
+      "stage": "On PO/TO",
+      "onTo": false,
+      "inboundDocs": [
+        "PO113896"
+      ],
       "units": 72.0,
       "mergedFrom": [],
       "units60": 48.0,
@@ -694,12 +785,12 @@
       "salesConversion": 1.0,
       "eaches60": 48.0,
       "cases": 8,
-      "mdt1Doc": 56.0,
-      "mdt1OnHand": 11.8,
+      "mdt1Doc": 55.0,
+      "mdt1OnHand": 11.7,
       "toCases": 7,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 7,
-      "mdt1DocAfter": 22.8
+      "mdt1DocAfter": 22.1
     },
     {
       "buyCases": 3,
@@ -714,6 +805,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 88.0,
       "mergedFrom": [],
       "units60": 58.7,
@@ -729,35 +822,6 @@
       "mdt1DocAfter": 21.6
     },
     {
-      "buyCases": 0,
-      "itemUuid": "6f63ac94-871e-48ea-9a16-b112fb247f28",
-      "vendorName": "Monin Inc",
-      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
-      "purchaseUnit": "Case (12x)",
-      "needsVendorSetup": false,
-      "vendorNewToDca1": false,
-      "name": "Monin Sugar Free Caramel Syrup 750ml Glass",
-      "originalName": "",
-      "brand": "Monin",
-      "pack": "750 ml glass",
-      "stage": "Not started",
-      "units": 87.3,
-      "mergedFrom": [
-        "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle"
-      ],
-      "units60": 58.2,
-      "caseSize": 12.0,
-      "salesConversion": 1.0,
-      "eaches60": 58.2,
-      "cases": 5,
-      "mdt1Doc": 54.0,
-      "mdt1OnHand": 9.8,
-      "toCases": 5,
-      "toCapped": "",
-      "mdt1Releasable": 6,
-      "mdt1DocAfter": 26.4
-    },
-    {
       "buyCases": 5,
       "itemUuid": "685cf993-7178-4674-9f4a-6c49874acb3a",
       "vendorName": "Monin Inc",
@@ -770,6 +834,8 @@
       "brand": "Monin",
       "pack": "1 L plastic",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 66.0,
       "mergedFrom": [],
       "units60": 44.0,
@@ -777,39 +843,43 @@
       "salesConversion": 1.0,
       "eaches60": 44.0,
       "cases": 11,
-      "mdt1Doc": 52.0,
+      "mdt1Doc": 53.0,
       "mdt1OnHand": 10.8,
       "toCases": 6,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 6,
-      "mdt1DocAfter": 23.1
+      "mdt1DocAfter": 23.6
     },
     {
       "buyCases": 0,
-      "itemUuid": "0a167ec3-e026-4124-bcf7-0cd0954044df",
-      "vendorName": "Dr. Smoothie Brands LLC dba Sunny Sky Products",
-      "vendorUuid": "a5ba0eeb-3b65-4cfe-bae4-e776fd835ac9",
-      "purchaseUnit": "Case (6x)",
+      "itemUuid": "6f63ac94-871e-48ea-9a16-b112fb247f28",
+      "vendorName": "Monin Inc",
+      "vendorUuid": "fc77ab50-b10e-47ed-855e-c6982647ad4d",
+      "purchaseUnit": "Case (12x)",
       "needsVendorSetup": false,
-      "vendorNewToDca1": true,
-      "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
+      "vendorNewToDca1": false,
+      "name": "Monin Sugar Free Caramel Syrup 750ml Glass",
       "originalName": "",
-      "brand": "Dr. Smoothie",
-      "pack": "46 oz",
-      "stage": "On PO",
-      "units": 105.0,
-      "mergedFrom": [],
-      "units60": 70.0,
-      "caseSize": 6.0,
+      "brand": "Monin",
+      "pack": "750 ml glass",
+      "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
+      "units": 87.3,
+      "mergedFrom": [
+        "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle"
+      ],
+      "units60": 58.2,
+      "caseSize": 12.0,
       "salesConversion": 1.0,
-      "eaches60": 70.0,
-      "cases": 12,
-      "mdt1Doc": 51.0,
-      "mdt1OnHand": 55.3,
-      "toCases": 12,
+      "eaches60": 58.2,
+      "cases": 5,
+      "mdt1Doc": 52.0,
+      "mdt1OnHand": 9.3,
+      "toCases": 5,
       "toCapped": "",
-      "mdt1Releasable": 33,
-      "mdt1DocAfter": 39.9
+      "mdt1Releasable": 5,
+      "mdt1DocAfter": 24.0
     }
   ],
   "purchaseCandidates": [
@@ -826,6 +896,8 @@
       "brand": "Torani",
       "pack": "64 oz",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 67.0,
       "mergedFrom": [],
       "units60": 44.7,
@@ -833,12 +905,12 @@
       "salesConversion": 1.0,
       "eaches60": 44.7,
       "cases": 8,
-      "mdt1Doc": 27.0,
-      "mdt1OnHand": 8.8,
+      "mdt1Doc": 24.0,
+      "mdt1OnHand": 7.8,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 2,
-      "mdt1DocAfter": 27.0
+      "mdt1Releasable": 1,
+      "mdt1DocAfter": 24.0
     },
     {
       "buyCases": 0,
@@ -853,6 +925,8 @@
       "brand": "Dr. Smoothie",
       "pack": "46 oz",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 46.0,
       "mergedFrom": [],
       "units60": 30.7,
@@ -860,12 +934,12 @@
       "salesConversion": 1.0,
       "eaches60": 30.7,
       "cases": 6,
-      "mdt1Doc": 40.0,
-      "mdt1OnHand": 19.8,
+      "mdt1Doc": 37.0,
+      "mdt1OnHand": 18.3,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 9,
-      "mdt1DocAfter": 40.0
+      "mdt1Releasable": 8,
+      "mdt1DocAfter": 37.0
     },
     {
       "buyCases": 0,
@@ -880,6 +954,8 @@
       "brand": "Dr. Smoothie",
       "pack": "46 oz",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 35.0,
       "mergedFrom": [],
       "units60": 23.3,
@@ -907,6 +983,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 25.0,
       "mergedFrom": [],
       "units60": 16.7,
@@ -934,6 +1012,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 24.0,
       "mergedFrom": [],
       "units60": 16.0,
@@ -961,6 +1041,8 @@
       "brand": "Monin",
       "pack": "64 oz",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 21.0,
       "mergedFrom": [],
       "units60": 14.0,
@@ -988,6 +1070,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 14.0,
       "mergedFrom": [],
       "units60": 9.3,
@@ -995,12 +1079,12 @@
       "salesConversion": 1.0,
       "eaches60": 9.3,
       "cases": 1,
-      "mdt1Doc": 18.0,
-      "mdt1OnHand": 0.4,
+      "mdt1Doc": 11.0,
+      "mdt1OnHand": 0.3,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 18.0
+      "mdt1DocAfter": 11.0
     },
     {
       "buyCases": 0,
@@ -1015,6 +1099,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 14.0,
       "mergedFrom": [],
       "units60": 9.3,
@@ -1042,6 +1128,8 @@
       "brand": "Monin",
       "pack": "750 ml glass",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 13.0,
       "mergedFrom": [],
       "units60": 8.7,
@@ -1049,12 +1137,12 @@
       "salesConversion": 1.0,
       "eaches60": 8.7,
       "cases": 1,
-      "mdt1Doc": 27.0,
+      "mdt1Doc": 28.0,
       "mdt1OnHand": 0.8,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 27.0
+      "mdt1DocAfter": 28.0
     },
     {
       "buyCases": 0,
@@ -1069,6 +1157,8 @@
       "brand": "Monin",
       "pack": "1 L",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 12.0,
       "mergedFrom": [],
       "units60": 8.0,
@@ -1096,6 +1186,8 @@
       "brand": "Pacific Foods",
       "pack": "32 oz",
       "stage": "Not started",
+      "onTo": false,
+      "inboundDocs": [],
       "units": 11.0,
       "mergedFrom": [],
       "units60": 7.3,
@@ -1103,12 +1195,12 @@
       "salesConversion": 1.0,
       "eaches60": 7.3,
       "cases": 1,
-      "mdt1Doc": 32.0,
-      "mdt1OnHand": 61.0,
+      "mdt1Doc": 28.0,
+      "mdt1OnHand": 53.0,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 22,
-      "mdt1DocAfter": 32.0
+      "mdt1Releasable": 15,
+      "mdt1DocAfter": 28.0
     }
   ],
   "items": [
@@ -1140,6 +1232,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1185,18 +1283,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 54.0,
-      "mdt1OnHand": 9.8,
-      "mdt1Consumption60": 130.0,
+      "mdt1Doc": 52.0,
+      "mdt1OnHand": 9.3,
+      "mdt1Consumption60": 129.0,
       "toRecommended": true,
       "toCases": 5,
       "toCapped": "",
-      "mdt1Releasable": 6,
-      "mdt1DocAfter": 26.4,
+      "mdt1Releasable": 5,
+      "mdt1DocAfter": 24.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -1228,18 +1332,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 86.0,
-      "mdt1OnHand": 7.7,
+      "mdt1Doc": 82.0,
+      "mdt1OnHand": 7.3,
       "mdt1Consumption60": 64.0,
       "toRecommended": true,
       "toCases": 5,
       "toCapped": "",
       "mdt1Releasable": 5,
-      "mdt1DocAfter": 30.2,
+      "mdt1DocAfter": 25.8,
       "nextExpected": "",
       "poLines": []
     },
@@ -1271,6 +1381,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1314,18 +1430,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 27.0,
-      "mdt1OnHand": 8.8,
+      "mdt1Doc": 24.0,
+      "mdt1OnHand": 7.8,
       "mdt1Consumption60": 119.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 2,
-      "mdt1DocAfter": 27.0,
+      "mdt1Releasable": 1,
+      "mdt1DocAfter": 24.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -1357,18 +1479,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 52.0,
+      "mdt1Doc": 53.0,
       "mdt1OnHand": 10.8,
-      "mdt1Consumption60": 50.0,
+      "mdt1Consumption60": 49.0,
       "toRecommended": true,
       "toCases": 6,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 6,
-      "mdt1DocAfter": 23.1,
+      "mdt1DocAfter": 23.6,
       "nextExpected": "",
       "poLines": []
     },
@@ -1400,6 +1528,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1443,18 +1577,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 40.0,
-      "mdt1OnHand": 19.8,
+      "mdt1Doc": 37.0,
+      "mdt1OnHand": 18.3,
       "mdt1Consumption60": 178.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 9,
-      "mdt1DocAfter": 40.0,
+      "mdt1Releasable": 8,
+      "mdt1DocAfter": 37.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -1486,6 +1626,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1529,18 +1675,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 88.0,
+      "mdt1Doc": 93.0,
       "mdt1OnHand": 21.0,
-      "mdt1Consumption60": 57.0,
+      "mdt1Consumption60": 54.0,
       "toRecommended": true,
       "toCases": 6,
       "toCapped": "",
       "mdt1Releasable": 16,
-      "mdt1DocAfter": 62.9,
+      "mdt1DocAfter": 66.4,
       "nextExpected": "",
       "poLines": []
     },
@@ -1572,6 +1724,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1615,6 +1773,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1658,18 +1822,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 142.0,
-      "mdt1OnHand": 4.9,
+      "mdt1Doc": 139.0,
+      "mdt1OnHand": 4.8,
       "mdt1Consumption60": 25.0,
       "toRecommended": true,
       "toCases": 2,
       "toCapped": "",
       "mdt1Releasable": 4,
-      "mdt1DocAfter": 84.0,
+      "mdt1DocAfter": 81.1,
       "nextExpected": "",
       "poLines": []
     },
@@ -1701,18 +1871,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 115.0,
-      "mdt1OnHand": 10.5,
+      "mdt1Doc": 109.0,
+      "mdt1OnHand": 10.0,
       "mdt1Consumption60": 33.0,
       "toRecommended": true,
       "toCases": 4,
       "toCapped": "",
       "mdt1Releasable": 8,
-      "mdt1DocAfter": 71.2,
+      "mdt1DocAfter": 65.4,
       "nextExpected": "",
       "poLines": []
     },
@@ -1744,6 +1920,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1787,6 +1969,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1830,6 +2018,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1873,18 +2067,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 87.0,
+      "mdt1Doc": 92.0,
       "mdt1OnHand": 2.4,
-      "mdt1Consumption60": 20.0,
+      "mdt1Consumption60": 19.0,
       "toRecommended": true,
       "toCases": 1,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 1,
-      "mdt1DocAfter": 50.7,
+      "mdt1DocAfter": 53.7,
       "nextExpected": "",
       "poLines": []
     },
@@ -1916,6 +2116,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -1959,6 +2165,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2002,6 +2214,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2045,6 +2263,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2088,6 +2312,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2131,18 +2361,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 18.0,
-      "mdt1OnHand": 0.4,
+      "mdt1Doc": 11.0,
+      "mdt1OnHand": 0.3,
       "mdt1Consumption60": 17.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 18.0,
+      "mdt1DocAfter": 11.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -2174,6 +2410,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2217,18 +2459,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 254.0,
+      "mdt1Doc": 281.0,
       "mdt1OnHand": 89.0,
-      "mdt1Consumption60": 504.0,
+      "mdt1Consumption60": 456.0,
       "toRecommended": true,
       "toCases": 1,
       "toCapped": "",
-      "mdt1Releasable": 81,
-      "mdt1DocAfter": 251.1,
+      "mdt1Releasable": 82,
+      "mdt1DocAfter": 277.8,
       "nextExpected": "",
       "poLines": []
     },
@@ -2260,18 +2508,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 27.0,
+      "mdt1Doc": 28.0,
       "mdt1OnHand": 0.8,
-      "mdt1Consumption60": 20.0,
+      "mdt1Consumption60": 19.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 27.0,
+      "mdt1DocAfter": 28.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -2303,6 +2557,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2346,18 +2606,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 125.0,
-      "mdt1OnHand": 12.0,
+      "mdt1Doc": 123.0,
+      "mdt1OnHand": 11.8,
       "mdt1Consumption60": 69.0,
       "toRecommended": true,
       "toCases": 2,
       "toCapped": "",
-      "mdt1Releasable": 10,
-      "mdt1DocAfter": 104.2,
+      "mdt1Releasable": 9,
+      "mdt1DocAfter": 102.2,
       "nextExpected": "",
       "poLines": []
     },
@@ -2389,6 +2655,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2432,6 +2704,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2475,6 +2753,12 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
@@ -2518,18 +2802,24 @@
       "stage": "Not started",
       "stageIndex": 0,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": false,
-      "mdt1Doc": 32.0,
-      "mdt1OnHand": 61.0,
-      "mdt1Consumption60": 1368.0,
+      "mdt1Doc": 28.0,
+      "mdt1OnHand": 53.0,
+      "mdt1Consumption60": 1356.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 22,
-      "mdt1DocAfter": 32.0,
+      "mdt1Releasable": 15,
+      "mdt1DocAfter": 28.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -2558,21 +2848,31 @@
       "eaches60": 80.0,
       "cases60": 14,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 14.0,
       "poCount": 1,
       "ordered": 14.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 43.0,
-      "mdt1OnHand": 68.8,
-      "mdt1Consumption60": 576.0,
+      "mdt1Doc": 42.0,
+      "mdt1OnHand": 66.3,
+      "mdt1Consumption60": 566.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 36,
-      "mdt1DocAfter": 43.0,
+      "mdt1Releasable": 34,
+      "mdt1DocAfter": 42.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2585,7 +2885,9 @@
           "ordered": 14.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2614,21 +2916,31 @@
       "eaches60": 70.0,
       "cases60": 12,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 12.0,
       "poCount": 1,
       "ordered": 12.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 51.0,
-      "mdt1OnHand": 55.3,
-      "mdt1Consumption60": 391.0,
-      "toRecommended": true,
-      "toCases": 12,
+      "mdt1Doc": 50.0,
+      "mdt1OnHand": 52.8,
+      "mdt1Consumption60": 377.0,
+      "toRecommended": false,
+      "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 33,
-      "mdt1DocAfter": 39.9,
+      "mdt1Releasable": 31,
+      "mdt1DocAfter": 50.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2641,7 +2953,9 @@
           "ordered": 12.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2670,9 +2984,19 @@
       "eaches60": 54.2,
       "cases60": 5,
       "customers": 4,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
@@ -2697,7 +3021,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2726,9 +3052,19 @@
       "eaches60": 49.3,
       "cases60": 10,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 10.0,
       "poCount": 1,
       "ordered": 10.0,
       "received": 0.0,
@@ -2753,7 +3089,9 @@
           "ordered": 10.0,
           "received": 0.0,
           "unit": "Case (5x)",
-          "caseSize": 5.0
+          "caseSize": 5.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2782,21 +3120,31 @@
       "eaches60": 48.7,
       "cases60": 9,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 9.0,
       "poCount": 1,
       "ordered": 9.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 34.0,
-      "mdt1OnHand": 57.5,
-      "mdt1Consumption60": 614.0,
+      "mdt1Doc": 31.0,
+      "mdt1OnHand": 50.7,
+      "mdt1Consumption60": 596.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 23,
-      "mdt1DocAfter": 34.0,
+      "mdt1Releasable": 17,
+      "mdt1DocAfter": 31.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2809,7 +3157,9 @@
           "ordered": 9.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2838,21 +3188,31 @@
       "eaches60": 48.0,
       "cases60": 8,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 8.0,
       "poCount": 1,
       "ordered": 8.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 56.0,
-      "mdt1OnHand": 11.8,
+      "mdt1Doc": 55.0,
+      "mdt1OnHand": 11.7,
       "mdt1Consumption60": 76.0,
       "toRecommended": true,
       "toCases": 7,
       "toCapped": "holds MDT1 at 20 DOC",
       "mdt1Releasable": 7,
-      "mdt1DocAfter": 22.8,
+      "mdt1DocAfter": 22.1,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2865,7 +3225,9 @@
           "ordered": 8.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2894,21 +3256,31 @@
       "eaches60": 43.3,
       "cases60": 8,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113893"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 8.0,
       "poCount": 1,
       "ordered": 8.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 5.0,
-      "mdt1OnHand": 5.5,
-      "mdt1Consumption60": 410.0,
+      "mdt1Doc": 2.0,
+      "mdt1OnHand": 2.0,
+      "mdt1Consumption60": 396.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 5.0,
+      "mdt1DocAfter": 2.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2921,7 +3293,9 @@
           "ordered": 8.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -2950,21 +3324,31 @@
       "eaches60": 40.0,
       "cases60": 7,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 7.0,
       "poCount": 1,
       "ordered": 7.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 45.0,
-      "mdt1OnHand": 10.3,
+      "mdt1Doc": 43.0,
+      "mdt1OnHand": 9.8,
       "mdt1Consumption60": 82.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 5,
-      "mdt1DocAfter": 45.0,
+      "mdt1DocAfter": 43.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -2977,7 +3361,9 @@
           "ordered": 7.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3006,21 +3392,31 @@
       "eaches60": 38.0,
       "cases60": 4,
       "customers": 7,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 4.0,
       "poCount": 1,
       "ordered": 4.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 48.0,
-      "mdt1OnHand": 19.6,
-      "mdt1Consumption60": 292.0,
+      "mdt1Doc": 49.0,
+      "mdt1OnHand": 19.4,
+      "mdt1Consumption60": 286.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 11,
-      "mdt1DocAfter": 48.0,
+      "mdt1DocAfter": 49.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3033,7 +3429,9 @@
           "ordered": 4.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3062,21 +3460,31 @@
       "eaches60": 32.0,
       "cases60": 3,
       "customers": 6,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 3.0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 65.0,
-      "mdt1OnHand": 8.6,
-      "mdt1Consumption60": 95.0,
+      "mdt1Doc": 61.0,
+      "mdt1OnHand": 7.8,
+      "mdt1Consumption60": 92.0,
       "toRecommended": true,
       "toCases": 3,
       "toCapped": "",
       "mdt1Releasable": 5,
-      "mdt1DocAfter": 42.3,
+      "mdt1DocAfter": 37.5,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3089,7 +3497,9 @@
           "ordered": 3.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3118,21 +3528,31 @@
       "eaches60": 30.0,
       "cases60": 5,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113893"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 6.0,
-      "mdt1OnHand": 2.2,
-      "mdt1Consumption60": 139.0,
+      "mdt1Doc": 3.0,
+      "mdt1OnHand": 1.2,
+      "mdt1Consumption60": 134.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 6.0,
+      "mdt1DocAfter": 3.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3145,7 +3565,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3174,9 +3596,19 @@
       "eaches60": 30.0,
       "cases60": 5,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
@@ -3201,7 +3633,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3230,16 +3664,26 @@
       "eaches60": 28.7,
       "cases60": 5,
       "customers": 4,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
       "mdt1Doc": 0.0,
       "mdt1OnHand": 0.0,
-      "mdt1Consumption60": 374.0,
+      "mdt1Consumption60": 368.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
@@ -3257,7 +3701,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3286,9 +3732,19 @@
       "eaches60": 27.5,
       "cases60": 5,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
@@ -3313,7 +3769,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3342,21 +3800,31 @@
       "eaches60": 26.7,
       "cases60": 5,
       "customers": 4,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 28.0,
-      "mdt1OnHand": 62.8,
-      "mdt1Consumption60": 817.0,
+      "mdt1Doc": 27.0,
+      "mdt1OnHand": 59.0,
+      "mdt1Consumption60": 792.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 17,
-      "mdt1DocAfter": 28.0,
+      "mdt1Releasable": 15,
+      "mdt1DocAfter": 27.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3369,7 +3837,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3398,21 +3868,31 @@
       "eaches60": 26.0,
       "cases60": 5,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 38.0,
-      "mdt1OnHand": 17.3,
-      "mdt1Consumption60": 164.0,
+      "mdt1Doc": 39.0,
+      "mdt1OnHand": 17.2,
+      "mdt1Consumption60": 160.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 8,
-      "mdt1DocAfter": 38.0,
+      "mdt1DocAfter": 39.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3425,7 +3905,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3454,21 +3936,31 @@
       "eaches60": 25.5,
       "cases60": 5,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 17.0,
+      "mdt1Doc": 17.27,
       "mdt1OnHand": 1.6,
       "mdt1Consumption60": 66.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 17.0,
+      "mdt1DocAfter": 17.27,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3481,7 +3973,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3510,16 +4004,26 @@
       "eaches60": 22.0,
       "cases60": 4,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113893"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 4.0,
       "poCount": 1,
       "ordered": 4.0,
       "received": 0.0,
       "inCatalog": false,
       "mdt1Doc": 34.0,
-      "mdt1OnHand": 13.3,
-      "mdt1Consumption60": 143.0,
+      "mdt1OnHand": 12.8,
+      "mdt1Consumption60": 137.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
@@ -3537,7 +4041,9 @@
           "ordered": 4.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3566,21 +4072,31 @@
       "eaches60": 18.7,
       "cases60": 5,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 50.0,
+      "mdt1Doc": 56.0,
       "mdt1OnHand": 15.5,
-      "mdt1Consumption60": 75.0,
-      "toRecommended": false,
-      "toCases": null,
+      "mdt1Consumption60": 67.0,
+      "toRecommended": true,
+      "toCases": 5,
       "toCapped": "",
       "mdt1Releasable": 9,
-      "mdt1DocAfter": 50.0,
+      "mdt1DocAfter": 37.9,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3593,7 +4109,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3622,9 +4140,19 @@
       "eaches60": 18.7,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -3649,7 +4177,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3678,16 +4208,26 @@
       "eaches60": 18.5,
       "cases60": 4,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 4.0,
       "poCount": 1,
       "ordered": 4.0,
       "received": 0.0,
       "inCatalog": false,
       "mdt1Doc": 0.0,
       "mdt1OnHand": 0.0,
-      "mdt1Consumption60": 70.0,
+      "mdt1Consumption60": 64.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
@@ -3705,7 +4245,9 @@
           "ordered": 4.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3734,9 +4276,19 @@
       "eaches60": 17.3,
       "cases60": 5,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 5.0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
@@ -3761,7 +4313,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3790,21 +4344,31 @@
       "eaches60": 16.0,
       "cases60": 3,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 3.0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 31.0,
-      "mdt1OnHand": 43.7,
-      "mdt1Consumption60": 500.0,
+      "mdt1Doc": 30.0,
+      "mdt1OnHand": 40.5,
+      "mdt1Consumption60": 486.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 15,
-      "mdt1DocAfter": 31.0,
+      "mdt1Releasable": 13,
+      "mdt1DocAfter": 30.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3817,7 +4381,9 @@
           "ordered": 3.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3846,21 +4412,31 @@
       "eaches60": 14.7,
       "cases60": 2,
       "customers": 4,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 31.0,
-      "mdt1OnHand": 6.0,
-      "mdt1Consumption60": 140.0,
+      "mdt1Doc": 30.0,
+      "mdt1OnHand": 5.7,
+      "mdt1Consumption60": 138.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 2,
-      "mdt1DocAfter": 31.0,
+      "mdt1Releasable": 1,
+      "mdt1DocAfter": 30.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3873,7 +4449,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3902,9 +4480,19 @@
       "eaches60": 14.0,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -3929,7 +4517,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -3958,21 +4548,31 @@
       "eaches60": 13.3,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 11.0,
-      "mdt1OnHand": 0.9,
+      "mdt1Doc": 7.0,
+      "mdt1OnHand": 0.6,
       "mdt1Consumption60": 62.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 11.0,
+      "mdt1DocAfter": 7.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -3985,7 +4585,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4014,21 +4616,31 @@
       "eaches60": 13.3,
       "cases60": 4,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 4.0,
       "poCount": 1,
       "ordered": 4.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 24.0,
-      "mdt1OnHand": 12.0,
+      "mdt1Doc": 21.0,
+      "mdt1OnHand": 10.5,
       "mdt1Consumption60": 122.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 2,
-      "mdt1DocAfter": 24.0,
+      "mdt1Releasable": 0,
+      "mdt1DocAfter": 21.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4041,7 +4653,9 @@
           "ordered": 4.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4070,9 +4684,19 @@
       "eaches60": 12.7,
       "cases60": 4,
       "customers": 3,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 4.0,
       "poCount": 1,
       "ordered": 4.0,
       "received": 0.0,
@@ -4097,7 +4721,9 @@
           "ordered": 4.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4126,21 +4752,31 @@
       "eaches60": 12.0,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 33.0,
-      "mdt1OnHand": 17.0,
+      "mdt1Doc": 26.0,
+      "mdt1OnHand": 13.5,
       "mdt1Consumption60": 187.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 6,
-      "mdt1DocAfter": 33.0,
+      "mdt1Releasable": 3,
+      "mdt1DocAfter": 26.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4153,7 +4789,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4182,21 +4820,31 @@
       "eaches60": 11.3,
       "cases60": 3,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 3.0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 36.0,
-      "mdt1OnHand": 5.3,
+      "mdt1Doc": 33.0,
+      "mdt1OnHand": 4.8,
       "mdt1Consumption60": 35.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 2,
-      "mdt1DocAfter": 36.0,
+      "mdt1Releasable": 1,
+      "mdt1DocAfter": 33.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4209,7 +4857,9 @@
           "ordered": 3.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4238,9 +4888,19 @@
       "eaches60": 10.0,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113896"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4265,7 +4925,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (5x)",
-          "caseSize": 5.0
+          "caseSize": 5.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4294,9 +4956,19 @@
       "eaches60": 8.5,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4321,7 +4993,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4350,9 +5024,19 @@
       "eaches60": 8.5,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4377,7 +5061,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4406,9 +5092,19 @@
       "eaches60": 8.5,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4433,7 +5129,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4462,21 +5160,31 @@
       "eaches60": 8.0,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 16.0,
-      "mdt1OnHand": 5.3,
-      "mdt1Consumption60": 78.0,
+      "mdt1Doc": 9.0,
+      "mdt1OnHand": 3.0,
+      "mdt1Consumption60": 77.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 16.0,
+      "mdt1DocAfter": 9.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4489,7 +5197,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (4x)",
-          "caseSize": 4.0
+          "caseSize": 4.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4518,9 +5228,19 @@
       "eaches60": 7.5,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4545,7 +5265,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4574,21 +5296,31 @@
       "eaches60": 7.5,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 27.0,
-      "mdt1OnHand": 1.3,
+      "mdt1Doc": 22.0,
+      "mdt1OnHand": 1.0,
       "mdt1Consumption60": 33.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 27.0,
+      "mdt1DocAfter": 22.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4601,7 +5333,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4630,21 +5364,31 @@
       "eaches60": 7.5,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 22.0,
-      "mdt1OnHand": 1.8,
+      "mdt1Doc": 18.0,
+      "mdt1OnHand": 1.5,
       "mdt1Consumption60": 61.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 22.0,
+      "mdt1DocAfter": 18.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4657,7 +5401,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4686,9 +5432,19 @@
       "eaches60": 7.3,
       "cases60": 8,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113893"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 8.0,
       "poCount": 1,
       "ordered": 8.0,
       "received": 0.0,
@@ -4713,7 +5469,9 @@
           "ordered": 8.0,
           "received": 0.0,
           "unit": "Each",
-          "caseSize": 1.0
+          "caseSize": 1.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4742,16 +5500,26 @@
       "eaches60": 6.7,
       "cases60": 1,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113894"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 1.0,
       "poCount": 1,
       "ordered": 1.0,
       "received": 0.0,
       "inCatalog": false,
       "mdt1Doc": 18.0,
       "mdt1OnHand": 3.2,
-      "mdt1Consumption60": 125.0,
+      "mdt1Consumption60": 124.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
@@ -4769,7 +5537,9 @@
           "ordered": 1.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4798,21 +5568,31 @@
       "eaches60": 6.5,
       "cases60": 2,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 6.0,
-      "mdt1OnHand": 0.3,
-      "mdt1Consumption60": 41.0,
+      "mdt1Doc": 2.0,
+      "mdt1OnHand": 0.1,
+      "mdt1Consumption60": 35.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 6.0,
+      "mdt1DocAfter": 2.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4825,7 +5605,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4854,9 +5636,19 @@
       "eaches60": 6.5,
       "cases60": 2,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 2.0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -4881,7 +5673,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4910,9 +5704,19 @@
       "eaches60": 6.0,
       "cases60": 1,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 1.0,
       "poCount": 1,
       "ordered": 1.0,
       "received": 0.0,
@@ -4937,7 +5741,9 @@
           "ordered": 1.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -4966,21 +5772,31 @@
       "eaches60": 6.0,
       "cases60": 1,
       "customers": 1,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 1.0,
       "poCount": 1,
       "ordered": 1.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 12.0,
-      "mdt1OnHand": 1.3,
+      "mdt1Doc": 11.0,
+      "mdt1OnHand": 1.2,
       "mdt1Consumption60": 80.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 12.0,
+      "mdt1DocAfter": 11.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -4993,7 +5809,9 @@
           "ordered": 1.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -5022,21 +5840,31 @@
       "eaches60": 5.5,
       "cases60": 1,
       "customers": 2,
-      "stage": "On PO",
+      "stage": "On PO/TO",
       "stageIndex": 1,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO113897"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 1.0,
       "poCount": 1,
       "ordered": 1.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 2.0,
-      "mdt1OnHand": 0.3,
+      "mdt1Doc": 0.0,
+      "mdt1OnHand": 0.1,
       "mdt1Consumption60": 128.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 0,
-      "mdt1DocAfter": 2.0,
+      "mdt1Releasable": null,
+      "mdt1DocAfter": 0.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -5049,7 +5877,9 @@
           "ordered": 1.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": true
         }
       ]
     },
@@ -5083,18 +5913,24 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 1.0,
       "received": 12.0,
       "inCatalog": false,
-      "mdt1Doc": 7.0,
-      "mdt1OnHand": 1.3,
+      "mdt1Doc": 5.0,
+      "mdt1OnHand": 1.0,
       "mdt1Consumption60": 132.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 7.0,
+      "mdt1DocAfter": 5.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5107,7 +5943,9 @@
           "ordered": 1.0,
           "received": 12.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5139,18 +5977,24 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 36.0,
       "inCatalog": false,
-      "mdt1Doc": 29.0,
-      "mdt1OnHand": 20.5,
-      "mdt1Consumption60": 515.0,
+      "mdt1Doc": 27.0,
+      "mdt1OnHand": 19.3,
+      "mdt1Consumption60": 509.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 6,
-      "mdt1DocAfter": 29.0,
+      "mdt1Releasable": 5,
+      "mdt1DocAfter": 27.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5163,7 +6007,9 @@
           "ordered": 3.0,
           "received": 36.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5195,18 +6041,24 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 60.0,
       "inCatalog": false,
-      "mdt1Doc": 34.0,
-      "mdt1OnHand": 14.5,
+      "mdt1Doc": 33.0,
+      "mdt1OnHand": 14.0,
       "mdt1Consumption60": 309.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 5,
-      "mdt1DocAfter": 34.0,
+      "mdt1DocAfter": 33.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5219,7 +6071,9 @@
           "ordered": 5.0,
           "received": 60.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5251,18 +6105,24 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 24.0,
       "inCatalog": false,
-      "mdt1Doc": 26.0,
-      "mdt1OnHand": 4.2,
+      "mdt1Doc": 22.0,
+      "mdt1OnHand": 3.6,
       "mdt1Consumption60": 116.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 26.0,
+      "mdt1DocAfter": 22.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5275,7 +6135,9 @@
           "ordered": 2.0,
           "received": 24.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5307,6 +6169,12 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 36.0,
@@ -5331,7 +6199,9 @@
           "ordered": 3.0,
           "received": 36.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5363,6 +6233,12 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 60.0,
@@ -5387,7 +6263,9 @@
           "ordered": 5.0,
           "received": 60.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5419,6 +6297,12 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 5.0,
       "received": 0.0,
@@ -5443,7 +6327,9 @@
           "ordered": 5.0,
           "received": 0.0,
           "unit": "Case (8x)",
-          "caseSize": 8.0
+          "caseSize": 8.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5475,6 +6361,12 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 24.0,
@@ -5499,7 +6391,9 @@
           "ordered": 2.0,
           "received": 24.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5531,18 +6425,24 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 0.0,
       "inCatalog": false,
-      "mdt1Doc": 16.0,
-      "mdt1OnHand": 6.0,
-      "mdt1Consumption60": 137.0,
+      "mdt1Doc": 15.0,
+      "mdt1OnHand": 5.7,
+      "mdt1Consumption60": 134.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 16.0,
+      "mdt1DocAfter": 15.0,
       "nextExpected": "2026-08-26",
       "poLines": [
         {
@@ -5555,7 +6455,9 @@
           "ordered": 3.0,
           "received": 0.0,
           "unit": "Case (6x)",
-          "caseSize": 6.0
+          "caseSize": 6.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5587,6 +6489,12 @@
       "stage": "Received",
       "stageIndex": 2,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 2.0,
       "received": 0.0,
@@ -5611,7 +6519,9 @@
           "ordered": 2.0,
           "received": 0.0,
           "unit": "Case (8x)",
-          "caseSize": 8.0
+          "caseSize": 8.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5643,18 +6553,28 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": true,
+      "inbound": true,
+      "onTo": false,
+      "onPo": true,
+      "inboundDocs": [
+        "PO114424"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 9.0,
       "poCount": 2,
       "ordered": 17.0,
       "received": 96.0,
       "inCatalog": true,
-      "mdt1Doc": 33.0,
-      "mdt1OnHand": 28.5,
-      "mdt1Consumption60": 622.0,
+      "mdt1Doc": 30.0,
+      "mdt1OnHand": 25.3,
+      "mdt1Consumption60": 614.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 11,
-      "mdt1DocAfter": 33.0,
+      "mdt1Releasable": 8,
+      "mdt1DocAfter": 30.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5667,7 +6587,9 @@
           "ordered": 9.0,
           "received": 0.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
         },
         {
           "po": "PO113604",
@@ -5679,7 +6601,9 @@
           "ordered": 8.0,
           "received": 96.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5711,18 +6635,24 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": true,
-      "mdt1Doc": 65.0,
-      "mdt1OnHand": 42.3,
-      "mdt1Consumption60": 468.0,
+      "mdt1Doc": 61.0,
+      "mdt1OnHand": 39.3,
+      "mdt1Consumption60": 462.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 29,
-      "mdt1DocAfter": 65.0,
+      "mdt1Releasable": 26,
+      "mdt1DocAfter": 61.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -5754,6 +6684,12 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 36.0,
@@ -5778,7 +6714,9 @@
           "ordered": 3.0,
           "received": 36.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     },
@@ -5810,18 +6748,24 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": true,
-      "mdt1Doc": 21.0,
-      "mdt1OnHand": 16.3,
-      "mdt1Consumption60": 552.0,
+      "mdt1Doc": 20.0,
+      "mdt1OnHand": 15.3,
+      "mdt1Consumption60": 549.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
       "mdt1Releasable": 0,
-      "mdt1DocAfter": 21.0,
+      "mdt1DocAfter": 20.0,
       "nextExpected": "",
       "poLines": []
     },
@@ -5853,13 +6797,19 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": false,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 0,
       "ordered": 0,
       "received": 0,
       "inCatalog": true,
       "mdt1Doc": 0.0,
       "mdt1OnHand": 0.0,
-      "mdt1Consumption60": 123.0,
+      "mdt1Consumption60": 120.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
@@ -5896,18 +6846,24 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": true,
+      "inbound": false,
+      "onTo": false,
+      "onPo": false,
+      "inboundDocs": [],
+      "inboundTypes": [],
+      "inboundUnits": 0,
       "poCount": 1,
       "ordered": 3.0,
       "received": 36.0,
       "inCatalog": true,
-      "mdt1Doc": 26.0,
-      "mdt1OnHand": 20.7,
+      "mdt1Doc": 25.0,
+      "mdt1OnHand": 19.8,
       "mdt1Consumption60": 576.0,
       "toRecommended": false,
       "toCases": null,
       "toCapped": "",
-      "mdt1Releasable": 4,
-      "mdt1DocAfter": 26.0,
+      "mdt1Releasable": 3,
+      "mdt1DocAfter": 25.0,
       "nextExpected": "2026-08-17",
       "poLines": [
         {
@@ -5920,7 +6876,9 @@
           "ordered": 3.0,
           "received": 36.0,
           "unit": "Case (12x)",
-          "caseSize": 12.0
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": false
         }
       ]
     }
