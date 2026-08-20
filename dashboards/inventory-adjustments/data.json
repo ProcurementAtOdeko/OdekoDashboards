@@ -1,30 +1,42 @@
 {
-  "generatedAt": "2026-08-20T10:51:12+00:00",
+  "generatedAt": "2026-08-20T13:15:51+00:00",
   "dateRange": {
     "start": "2026-01-01",
-    "end": "2026-08-12"
+    "end": "2026-08-19"
   },
   "summary": {
-    "expiredValue": 596343.85,
-    "expiredUnits": 516620,
-    "expiredLines": 2013,
+    "expiredValue": 635927.21,
+    "expiredUnits": 522419,
+    "expiredLines": 2061,
     "marketCount": 19,
     "worstMarket": "ATL1",
-    "worstMarketValue": 62657.18,
+    "worstMarketValue": 69729.74,
     "monthsCovered": 8
   },
   "markets": [
     {
       "market": "ATL1",
-      "value": 62657.18,
-      "units": 46047,
-      "lines": 199
+      "value": 69729.74,
+      "units": 46363,
+      "lines": 206
+    },
+    {
+      "market": "EWR1",
+      "value": 57840.17,
+      "units": 54298,
+      "lines": 170
     },
     {
       "market": "DFW1",
-      "value": 50006.54,
-      "units": 175633,
-      "lines": 110
+      "value": 51997.34,
+      "units": 175843,
+      "lines": 111
+    },
+    {
+      "market": "AUS1",
+      "value": 51036.33,
+      "units": 4804,
+      "lines": 60
     },
     {
       "market": "MDT1",
@@ -33,40 +45,28 @@
       "lines": 200
     },
     {
-      "market": "EWR1",
-      "value": 46292.78,
-      "units": 52115,
-      "lines": 164
-    },
-    {
       "market": "SDF1",
-      "value": 46045.83,
-      "units": 9672,
-      "lines": 88
+      "value": 48604.31,
+      "units": 9932,
+      "lines": 90
     },
     {
       "market": "DEN1",
-      "value": 42673.51,
-      "units": 11157,
-      "lines": 80
+      "value": 46080.29,
+      "units": 11356,
+      "lines": 87
     },
     {
       "market": "BOS1",
-      "value": 41175.59,
-      "units": 25559,
-      "lines": 123
-    },
-    {
-      "market": "AUS1",
-      "value": 40672.63,
-      "units": 3939,
-      "lines": 49
+      "value": 42171.42,
+      "units": 25788,
+      "lines": 127
     },
     {
       "market": "LAX1",
-      "value": 39296.3,
-      "units": 17920,
-      "lines": 109
+      "value": 39707.04,
+      "units": 18040,
+      "lines": 110
     },
     {
       "market": "PDX1",
@@ -82,9 +82,9 @@
     },
     {
       "market": "CLT1",
-      "value": 33627.26,
-      "units": 28271,
-      "lines": 162
+      "value": 34572.53,
+      "units": 29647,
+      "lines": 167
     },
     {
       "market": "MIA1",
@@ -100,15 +100,15 @@
     },
     {
       "market": "HOU1",
-      "value": 10422.38,
-      "units": 2530,
-      "lines": 37
+      "value": 10449.98,
+      "units": 2542,
+      "lines": 38
     },
     {
       "market": "SEA1",
-      "value": 9906.65,
-      "units": 2916,
-      "lines": 88
+      "value": 10098.69,
+      "units": 2928,
+      "lines": 89
     },
     {
       "market": "SMF1",
@@ -118,9 +118,9 @@
     },
     {
       "market": "BLI1",
-      "value": 5543.95,
-      "units": 4497,
-      "lines": 110
+      "value": 5616.12,
+      "units": 4514,
+      "lines": 112
     },
     {
       "market": "BNA1",
@@ -174,21 +174,21 @@
     },
     {
       "month": "2026-08",
-      "value": 34857.78,
-      "units": 21975,
-      "lines": 120
+      "value": 74441.14,
+      "units": 27774,
+      "lines": 168
     }
   ],
   "heatmap": {
     "markets": [
       "ATL1",
-      "DFW1",
-      "MDT1",
       "EWR1",
+      "DFW1",
+      "AUS1",
+      "MDT1",
       "SDF1",
       "DEN1",
       "BOS1",
-      "AUS1",
       "LAX1",
       "PDX1",
       "DCA1",
@@ -220,7 +220,17 @@
         "2026-05": 19656.5,
         "2026-06": 12949.03,
         "2026-07": 9913.81,
-        "2026-08": 2722.58
+        "2026-08": 9795.14
+      },
+      "EWR1": {
+        "2026-01": 9027.49,
+        "2026-02": 3101.44,
+        "2026-03": 8786.95,
+        "2026-04": 2770.69,
+        "2026-05": 12196.74,
+        "2026-06": 3007.73,
+        "2026-07": 6451.91,
+        "2026-08": 12497.22
       },
       "DFW1": {
         "2026-01": 15717.75,
@@ -230,7 +240,17 @@
         "2026-05": 13849.31,
         "2026-06": 8771.69,
         "2026-07": 1102.74,
-        "2026-08": 27.2
+        "2026-08": 2018.0
+      },
+      "AUS1": {
+        "2026-01": 1780.98,
+        "2026-02": 1534.61,
+        "2026-03": 2706.16,
+        "2026-04": 13359.22,
+        "2026-05": 1363.7,
+        "2026-06": 14909.1,
+        "2026-07": 4489.39,
+        "2026-08": 10893.17
       },
       "MDT1": {
         "2026-01": 2836.65,
@@ -242,16 +262,6 @@
         "2026-07": 5269.14,
         "2026-08": 2044.89
       },
-      "EWR1": {
-        "2026-01": 9027.49,
-        "2026-02": 3101.44,
-        "2026-03": 8786.95,
-        "2026-04": 2770.69,
-        "2026-05": 12196.74,
-        "2026-06": 3007.73,
-        "2026-07": 6451.91,
-        "2026-08": 949.83
-      },
       "SDF1": {
         "2026-01": 2833.83,
         "2026-02": 1362.5,
@@ -260,7 +270,7 @@
         "2026-05": 4639.18,
         "2026-06": 23185.58,
         "2026-07": 2034.72,
-        "2026-08": 5347.63
+        "2026-08": 7906.11
       },
       "DEN1": {
         "2026-01": 928.83,
@@ -270,7 +280,7 @@
         "2026-05": 5192.33,
         "2026-06": 9305.63,
         "2026-07": 1026.91,
-        "2026-08": 10015.01
+        "2026-08": 13421.79
       },
       "BOS1": {
         "2026-01": 0.0,
@@ -280,17 +290,7 @@
         "2026-05": 0.0,
         "2026-06": 33787.22,
         "2026-07": 7179.37,
-        "2026-08": 209.0
-      },
-      "AUS1": {
-        "2026-01": 1780.98,
-        "2026-02": 1534.61,
-        "2026-03": 2706.16,
-        "2026-04": 13359.22,
-        "2026-05": 1363.7,
-        "2026-06": 14909.1,
-        "2026-07": 4489.39,
-        "2026-08": 529.47
+        "2026-08": 1204.83
       },
       "LAX1": {
         "2026-01": 5930.46,
@@ -300,7 +300,7 @@
         "2026-05": 8749.23,
         "2026-06": 1734.81,
         "2026-07": 10237.57,
-        "2026-08": 452.43
+        "2026-08": 863.17
       },
       "PDX1": {
         "2026-01": 2973.4,
@@ -330,7 +330,7 @@
         "2026-05": 4843.41,
         "2026-06": 4284.75,
         "2026-07": 6482.0,
-        "2026-08": 628.61
+        "2026-08": 1573.88
       },
       "MIA1": {
         "2026-01": 5348.28,
@@ -360,7 +360,7 @@
         "2026-05": 2569.56,
         "2026-06": 21.04,
         "2026-07": 2103.21,
-        "2026-08": 0.0
+        "2026-08": 27.6
       },
       "SEA1": {
         "2026-01": 0.0,
@@ -370,7 +370,7 @@
         "2026-05": 982.11,
         "2026-06": 949.58,
         "2026-07": 1402.43,
-        "2026-08": 520.0
+        "2026-08": 712.04
       },
       "SMF1": {
         "2026-01": 727.3,
@@ -390,7 +390,7 @@
         "2026-05": 1276.36,
         "2026-06": 787.48,
         "2026-07": 1191.7,
-        "2026-08": 581.19
+        "2026-08": 653.36
       },
       "BNA1": {
         "2026-01": 0.0,
@@ -424,6 +424,24 @@
       ]
     },
     {
+      "item": "Lakewood Organic Pure Carrot Juice 32oz Bottle",
+      "market": "EWR1",
+      "value": 10673.82,
+      "units": 2052,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "Lakewood IA - D.C.",
+          "employee": "Caballero",
+          "cycleCount": "No",
+          "units": 2052,
+          "value": 10673.82
+        }
+      ]
+    },
+    {
       "item": "Pacific Barista Pistachio Milk 32oz",
       "market": "PDX1",
       "value": 8775.95,
@@ -442,6 +460,24 @@
       ]
     },
     {
+      "item": "Dr Smoothie Spiced Chai 3.5 lb. Bag",
+      "market": "AUS1",
+      "value": 6400.53,
+      "units": 379,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-03-11",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 379,
+          "value": 6400.53
+        }
+      ]
+    },
+    {
       "item": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
       "market": "AUS1",
       "value": 5820.03,
@@ -456,6 +492,24 @@
           "cycleCount": "No",
           "units": 271,
           "value": 5820.03
+        }
+      ]
+    },
+    {
+      "item": "Tenzo Matcha Sweet Blend 1kg Bag",
+      "market": "ATL1",
+      "value": 5818.5,
+      "units": 225,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 225,
+          "value": 5818.5
         }
       ]
     },
@@ -1396,6 +1450,24 @@
       ]
     },
     {
+      "item": "Lotus Skinny Blue Zero Sugar Lotus Concentrate 64oz",
+      "market": "SDF1",
+      "value": 2287.6,
+      "units": 140,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-07-25",
+          "memo": "exp items",
+          "employee": "Mcafee",
+          "cycleCount": "No",
+          "units": 140,
+          "value": 2287.6
+        }
+      ]
+    },
+    {
       "item": "Tache Barista Pistachio Milk 32oz",
       "market": "CLT1",
       "value": 2276.52,
@@ -1491,6 +1563,33 @@
           "cycleCount": "No",
           "units": 61,
           "value": 1141.41
+        }
+      ]
+    },
+    {
+      "item": "Monin Brilliance Dragon Fruit Pink Natural Energy 64oz Bottle",
+      "market": "AUS1",
+      "value": 2136.75,
+      "units": 98,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-01-22",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 85,
+          "value": 1853.69
+        },
+        {
+          "date": "2026-03-11",
+          "shipmentReceived": "2025-07-23",
+          "memo": "Expired - BJL 3/11/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 13,
+          "value": 283.06
         }
       ]
     },
@@ -1671,6 +1770,24 @@
           "cycleCount": "No",
           "units": 1116,
           "value": 2008.8
+        }
+      ]
+    },
+    {
+      "item": "CharlieJoe Chai - 1:1 Original Chai Concentrate 64oz Bottle",
+      "market": "DFW1",
+      "value": 1990.8,
+      "units": 210,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-14",
+          "shipmentReceived": "",
+          "memo": "expired - MD",
+          "employee": "Hawthorne",
+          "cycleCount": "No",
+          "units": 210,
+          "value": 1990.8
         }
       ]
     },
@@ -1899,20 +2016,20 @@
         },
         {
           "date": "2026-08-03",
-          "shipmentReceived": "2026-08-05",
-          "memo": "BLI1 IA August 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 26,
-          "value": -0.0
-        },
-        {
-          "date": "2026-08-03",
           "shipmentReceived": "2026-08-04",
           "memo": "BLI1 IA August 2026",
           "employee": "Swanson",
           "cycleCount": "No",
           "units": 25,
+          "value": -0.0
+        },
+        {
+          "date": "2026-08-03",
+          "shipmentReceived": "2026-08-05",
+          "memo": "BLI1 IA August 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 26,
           "value": -0.0
         },
         {
@@ -2404,6 +2521,96 @@
       ]
     },
     {
+      "item": "Barista 22 Vanilla Powder 3.5lb (Each)",
+      "market": "DEN1",
+      "value": 1419.6,
+      "units": 65,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-01-22",
+          "memo": "expired product (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 65,
+          "value": 1419.6
+        }
+      ]
+    },
+    {
+      "item": "Homeland Cream (40%) 1/2 Gallon",
+      "market": "CLT1",
+      "value": 1413.45,
+      "units": 135,
+      "lines": 7,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-08-05",
+          "memo": "08/13/2026 - Expired Products",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 125.64
+        },
+        {
+          "date": "2026-07-21",
+          "shipmentReceived": "2026-07-08",
+          "memo": "07/21/2026 - Expired Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 125.64
+        },
+        {
+          "date": "2026-06-09",
+          "shipmentReceived": "2026-06-03",
+          "memo": "06/09/2026 - Expired Dairy, Receiver put in incorrect lot code",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 36,
+          "value": 376.92
+        },
+        {
+          "date": "2026-05-20",
+          "shipmentReceived": "2026-05-08",
+          "memo": "05/20/2026 - Expire Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 10,
+          "value": 104.7
+        },
+        {
+          "date": "2026-04-20",
+          "shipmentReceived": "2026-04-10",
+          "memo": "04/20/2026 - Expire Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 8,
+          "value": 83.76
+        },
+        {
+          "date": "2026-02-02",
+          "shipmentReceived": "2026-01-21",
+          "memo": "02/02/2026 - Expire Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 7,
+          "value": 73.29
+        },
+        {
+          "date": "2026-01-07",
+          "shipmentReceived": "2025-12-26",
+          "memo": "01/07/2026 - Expire Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 50,
+          "value": 523.5
+        }
+      ]
+    },
+    {
       "item": "Ghirardelli Sweet Ground Chocolate Sauce 85.9oz Bottle",
       "market": "DEN1",
       "value": 1393.95,
@@ -2787,69 +2994,6 @@
           "cycleCount": "No",
           "units": 5,
           "value": 46.54
-        }
-      ]
-    },
-    {
-      "item": "Homeland Cream (40%) 1/2 Gallon",
-      "market": "CLT1",
-      "value": 1287.81,
-      "units": 123,
-      "lines": 6,
-      "detail": [
-        {
-          "date": "2026-07-21",
-          "shipmentReceived": "2026-07-08",
-          "memo": "07/21/2026 - Expired Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 12,
-          "value": 125.64
-        },
-        {
-          "date": "2026-06-09",
-          "shipmentReceived": "2026-06-03",
-          "memo": "06/09/2026 - Expired Dairy, Receiver put in incorrect lot code",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 36,
-          "value": 376.92
-        },
-        {
-          "date": "2026-05-20",
-          "shipmentReceived": "2026-05-08",
-          "memo": "05/20/2026 - Expire Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 10,
-          "value": 104.7
-        },
-        {
-          "date": "2026-04-20",
-          "shipmentReceived": "2026-04-10",
-          "memo": "04/20/2026 - Expire Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 8,
-          "value": 83.76
-        },
-        {
-          "date": "2026-02-02",
-          "shipmentReceived": "2026-01-21",
-          "memo": "02/02/2026 - Expire Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 7,
-          "value": 73.29
-        },
-        {
-          "date": "2026-01-07",
-          "shipmentReceived": "2025-12-26",
-          "memo": "01/07/2026 - Expire Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 50,
-          "value": 523.5
         }
       ]
     },
@@ -3528,8 +3672,8 @@
         },
         {
           "date": "2026-04-06",
-          "shipmentReceived": "2026-04-06",
-          "memo": "Expired product (RN)",
+          "shipmentReceived": "2026-03-26",
+          "memo": "Lot code correction (RN)",
           "employee": "Niebauer",
           "cycleCount": "No",
           "units": 384,
@@ -3537,8 +3681,8 @@
         },
         {
           "date": "2026-04-06",
-          "shipmentReceived": "2026-03-26",
-          "memo": "Lot code correction (RN)",
+          "shipmentReceived": "2026-04-06",
+          "memo": "Expired product (RN)",
           "employee": "Niebauer",
           "cycleCount": "No",
           "units": 384,
@@ -3588,6 +3732,24 @@
           "cycleCount": "No",
           "units": 210,
           "value": 1095.13
+        }
+      ]
+    },
+    {
+      "item": "Torani SUGAR FREE Caramel Sauce 64oz Bottle",
+      "market": "DEN1",
+      "value": 1093.44,
+      "units": 59,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-14",
+          "shipmentReceived": "2026-07-28",
+          "memo": "Expired products (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 59,
+          "value": 1093.44
         }
       ]
     },
@@ -4348,6 +4510,33 @@
       ]
     },
     {
+      "item": "Whole Liquid Cage Free Eggs 1 Quart",
+      "market": "BOS1",
+      "value": 893.88,
+      "units": 303,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-07-22",
+          "memo": "expired product Milton campos",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 213,
+          "value": 893.88
+        },
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-05-10",
+          "memo": "DB Refer unit Break down",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 90,
+          "value": -0.0
+        }
+      ]
+    },
+    {
       "item": "Holy Kakow 2:1 Chai Concentrate 64oz",
       "market": "SEA1",
       "value": 893.66,
@@ -4959,7 +5148,7 @@
       "detail": [
         {
           "date": "2026-08-12",
-          "shipmentReceived": "",
+          "shipmentReceived": "2026-08-04",
           "memo": "08/12/2026 - Expired Dairy",
           "employee": "Billy",
           "cycleCount": "No",
@@ -5203,6 +5392,24 @@
       ]
     },
     {
+      "item": "Monin Raspberry Syrup 1 Liter Plastic Bottle",
+      "market": "AUS1",
+      "value": 776.61,
+      "units": 104,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-04-25",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 104,
+          "value": 776.61
+        }
+      ]
+    },
+    {
       "item": "Clover Organic Heavy Whipping Cream 1 Pint",
       "market": "LAX1",
       "value": 774.01,
@@ -5244,6 +5451,24 @@
           "cycleCount": "No",
           "units": 1200,
           "value": 768.0
+        }
+      ]
+    },
+    {
+      "item": "Dr Smoothie Spiced Chai 3.5 lb. Bag",
+      "market": "ATL1",
+      "value": 760.05,
+      "units": 45,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 45,
+          "value": 760.05
         }
       ]
     },
@@ -5689,156 +5914,21 @@
       ]
     },
     {
-      "item": "La Fermiere Plain Yogurt",
-      "market": "EWR1",
-      "value": 670.2,
-      "units": 384,
-      "lines": 3,
-      "detail": [
-        {
-          "date": "2026-04-01",
-          "shipmentReceived": "2026-02-27",
-          "memo": "Expired/Not Meeting Guarantee D.C.",
-          "employee": "Caballero",
-          "cycleCount": "No",
-          "units": 264,
-          "value": 469.2
-        },
-        {
-          "date": "2026-03-16",
-          "shipmentReceived": "2026-02-26",
-          "memo": "expired LA 03/16",
-          "employee": "Lorenzana",
-          "cycleCount": "No",
-          "units": 36,
-          "value": 62.4
-        },
-        {
-          "date": "2026-03-10",
-          "shipmentReceived": "2026-02-03",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 84,
-          "value": 138.6
-        }
-      ]
-    },
-    {
-      "item": "Torani Real Fruit Pomegranate Blueberry Smoothie Mix 64 oz. Bottle",
-      "market": "MDT1",
-      "value": 670.02,
-      "units": 52,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-05-21",
-          "shipmentReceived": "2025-08-25",
-          "memo": "May 2026 Expired Inventory",
-          "employee": "Finn",
-          "cycleCount": "No",
-          "units": 52,
-          "value": 670.02
-        }
-      ]
-    },
-    {
-      "item": "Torani Pumpkin Pie Syrup 750 ml Plastic Bottle(s)",
-      "market": "MIA1",
-      "value": 663.04,
-      "units": 148,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2025-11-26",
-          "memo": "AG 6/15 EXPIRED PRODUCTS",
-          "employee": "Jasmine",
-          "cycleCount": "No",
-          "units": 148,
-          "value": 663.04
-        }
-      ]
-    },
-    {
-      "item": "Miller's Kosher Grated Romano 25lb",
-      "market": "BOS1",
-      "value": 662.25,
-      "units": 3,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-05-08",
-          "memo": "DB Refer unit Break down",
-          "employee": "Campos",
-          "cycleCount": "No",
-          "units": 3,
-          "value": 662.25
-        }
-      ]
-    },
-    {
-      "item": "Cotija Cheese 5lb",
-      "market": "BOS1",
-      "value": 659.72,
-      "units": 118,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-05-08",
-          "memo": "DB Refer unit Break down",
-          "employee": "Campos",
-          "cycleCount": "No",
-          "units": 118,
-          "value": 659.72
-        }
-      ]
-    },
-    {
-      "item": "Holy Kakow Pumpkin Spice Syrup 750mL",
-      "market": "SDF1",
-      "value": 659.65,
-      "units": 83,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-29",
-          "shipmentReceived": "2026-05-21",
-          "memo": "exp items",
-          "employee": "Mcafee",
-          "cycleCount": "No",
-          "units": 83,
-          "value": 659.65
-        }
-      ]
-    },
-    {
-      "item": "Holy Kakow Organic Almond Syrup 750mL",
-      "market": "ATL1",
-      "value": 657.36,
-      "units": 81,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-05-12",
-          "shipmentReceived": "2025-10-26",
-          "memo": "Removing expired Items out.",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 81,
-          "value": 657.36
-        }
-      ]
-    },
-    {
       "item": "Homeland Skim Milk 1 Gallon",
       "market": "CLT1",
-      "value": 657.2,
-      "units": 124,
-      "lines": 17,
+      "value": 678.4,
+      "units": 128,
+      "lines": 18,
       "detail": [
+        {
+          "date": "2026-08-18",
+          "shipmentReceived": "2026-08-07",
+          "memo": "05/21/2026 - Expired Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 4,
+          "value": 21.2
+        },
         {
           "date": "2026-08-04",
           "shipmentReceived": "2026-07-24",
@@ -5995,6 +6085,150 @@
       ]
     },
     {
+      "item": "La Fermiere Plain Yogurt",
+      "market": "EWR1",
+      "value": 670.2,
+      "units": 384,
+      "lines": 3,
+      "detail": [
+        {
+          "date": "2026-04-01",
+          "shipmentReceived": "2026-02-27",
+          "memo": "Expired/Not Meeting Guarantee D.C.",
+          "employee": "Caballero",
+          "cycleCount": "No",
+          "units": 264,
+          "value": 469.2
+        },
+        {
+          "date": "2026-03-16",
+          "shipmentReceived": "2026-02-26",
+          "memo": "expired LA 03/16",
+          "employee": "Lorenzana",
+          "cycleCount": "No",
+          "units": 36,
+          "value": 62.4
+        },
+        {
+          "date": "2026-03-10",
+          "shipmentReceived": "2026-02-03",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 84,
+          "value": 138.6
+        }
+      ]
+    },
+    {
+      "item": "Torani Real Fruit Pomegranate Blueberry Smoothie Mix 64 oz. Bottle",
+      "market": "MDT1",
+      "value": 670.02,
+      "units": 52,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-05-21",
+          "shipmentReceived": "2025-08-25",
+          "memo": "May 2026 Expired Inventory",
+          "employee": "Finn",
+          "cycleCount": "No",
+          "units": 52,
+          "value": 670.02
+        }
+      ]
+    },
+    {
+      "item": "Torani Pumpkin Pie Syrup 750 ml Plastic Bottle(s)",
+      "market": "MIA1",
+      "value": 663.04,
+      "units": 148,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2025-11-26",
+          "memo": "AG 6/15 EXPIRED PRODUCTS",
+          "employee": "Jasmine",
+          "cycleCount": "No",
+          "units": 148,
+          "value": 663.04
+        }
+      ]
+    },
+    {
+      "item": "Miller's Kosher Grated Romano 25lb",
+      "market": "BOS1",
+      "value": 662.25,
+      "units": 3,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-05-08",
+          "memo": "DB Refer unit Break down",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 662.25
+        }
+      ]
+    },
+    {
+      "item": "Cotija Cheese 5lb",
+      "market": "BOS1",
+      "value": 659.72,
+      "units": 118,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-05-08",
+          "memo": "DB Refer unit Break down",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 118,
+          "value": 659.72
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Pumpkin Spice Syrup 750mL",
+      "market": "SDF1",
+      "value": 659.65,
+      "units": 83,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-29",
+          "shipmentReceived": "2026-05-21",
+          "memo": "exp items",
+          "employee": "Mcafee",
+          "cycleCount": "No",
+          "units": 83,
+          "value": 659.65
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Organic Almond Syrup 750mL",
+      "market": "ATL1",
+      "value": 657.36,
+      "units": 81,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-05-12",
+          "shipmentReceived": "2025-10-26",
+          "memo": "Removing expired Items out.",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 81,
+          "value": 657.36
+        }
+      ]
+    },
+    {
       "item": "Holy Kakow Organic Coconut Syrup 750mL",
       "market": "ATL1",
       "value": 654.87,
@@ -6063,6 +6297,24 @@
           "cycleCount": "No",
           "units": 30,
           "value": 644.2
+        }
+      ]
+    },
+    {
+      "item": "Wholesome Farms 36% Heavy Whipping Cream 32oz",
+      "market": "CLT1",
+      "value": 638.56,
+      "units": 148,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-18",
+          "shipmentReceived": "2026-06-25",
+          "memo": "05/21/2026 - Expired Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 148,
+          "value": 638.56
         }
       ]
     },
@@ -6157,6 +6409,51 @@
       ]
     },
     {
+      "item": "Atlanta Dairies Brand Whole Milk - 1 gal",
+      "market": "ATL1",
+      "value": 624.75,
+      "units": 105,
+      "lines": 4,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-08-04",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 5.95
+        },
+        {
+          "date": "2026-05-18",
+          "shipmentReceived": "2026-05-05",
+          "memo": "CORRECTING BIN LOCATION-KH",
+          "employee": "Hall",
+          "cycleCount": "No",
+          "units": 17,
+          "value": 101.15
+        },
+        {
+          "date": "2026-02-16",
+          "shipmentReceived": "2026-02-03",
+          "memo": "02/16/26 Unsellable Inventory",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 13,
+          "value": 77.35
+        },
+        {
+          "date": "2026-02-09",
+          "shipmentReceived": "2026-01-27",
+          "memo": "Unsellable Inventory Report 02/09/26",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 74,
+          "value": 440.3
+        }
+      ]
+    },
+    {
       "item": "Oregon Fruit Co. Original 4+1 Lemonade Concentrate 32oz",
       "market": "LAX1",
       "value": 623.22,
@@ -6243,42 +6540,6 @@
           "cycleCount": "No",
           "units": 85,
           "value": 619.2
-        }
-      ]
-    },
-    {
-      "item": "Atlanta Dairies Brand Whole Milk - 1 gal",
-      "market": "ATL1",
-      "value": 618.8,
-      "units": 104,
-      "lines": 3,
-      "detail": [
-        {
-          "date": "2026-05-18",
-          "shipmentReceived": "2026-05-05",
-          "memo": "CORRECTING BIN LOCATION-KH",
-          "employee": "Hall",
-          "cycleCount": "No",
-          "units": 17,
-          "value": 101.15
-        },
-        {
-          "date": "2026-02-16",
-          "shipmentReceived": "2026-02-03",
-          "memo": "02/16/26 Unsellable Inventory",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 13,
-          "value": 77.35
-        },
-        {
-          "date": "2026-02-09",
-          "shipmentReceived": "2026-01-27",
-          "memo": "Unsellable Inventory Report 02/09/26",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 74,
-          "value": 440.3
         }
       ]
     },
@@ -8425,6 +8686,24 @@
       ]
     },
     {
+      "item": "Barista 22 White Chocolate Sauce 64oz",
+      "market": "DEN1",
+      "value": 434.13,
+      "units": 29,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-07-21",
+          "memo": "expired product (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 29,
+          "value": 434.13
+        }
+      ]
+    },
+    {
       "item": "Torani Puremade Pumpkin Pie Sauce 16.5 oz. Squeeze Bottle",
       "market": "EWR1",
       "value": 433.27,
@@ -8542,6 +8821,24 @@
       ]
     },
     {
+      "item": "Wonderful Pistachios Sea Salt & Vinegar - 8 / 2.25 oz pouch",
+      "market": "DCA1",
+      "value": 420.0,
+      "units": 168,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-05-05",
+          "shipmentReceived": "2026-01-30",
+          "memo": "Expired waste",
+          "employee": "Galster",
+          "cycleCount": "No",
+          "units": 168,
+          "value": 420.0
+        }
+      ]
+    },
+    {
       "item": "Siggi's - Vanilla 5.3oz",
       "market": "EWR1",
       "value": 420.0,
@@ -8565,24 +8862,6 @@
           "cycleCount": "No",
           "units": 276,
           "value": 386.4
-        }
-      ]
-    },
-    {
-      "item": "Wonderful Pistachios Sea Salt & Vinegar - 8 / 2.25 oz pouch",
-      "market": "DCA1",
-      "value": 420.0,
-      "units": 168,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-05-05",
-          "shipmentReceived": "2026-01-30",
-          "memo": "Expired waste",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": 168,
-          "value": 420.0
         }
       ]
     },
@@ -8664,6 +8943,24 @@
           "cycleCount": "No",
           "units": 4,
           "value": 413.72
+        }
+      ]
+    },
+    {
+      "item": "Rockview Lactose Free Whole Milk 1/2 Gallon",
+      "market": "LAX1",
+      "value": 410.74,
+      "units": 120,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-06-15",
+          "memo": "Expired ML 8-17-26",
+          "employee": "Linden",
+          "cycleCount": "No",
+          "units": 120,
+          "value": 410.74
         }
       ]
     },
@@ -9253,6 +9550,24 @@
       ]
     },
     {
+      "item": "Monin Pomegranate Syrup 750ml Glass",
+      "market": "AUS1",
+      "value": 378.41,
+      "units": 70,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-05-20",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 70,
+          "value": 378.41
+        }
+      ]
+    },
+    {
       "item": "Schweppes Ginger Ale - 24 / 10 oz btl",
       "market": "DCA1",
       "value": 377.5,
@@ -9325,6 +9640,24 @@
       ]
     },
     {
+      "item": "Monin Cupcake Syrup 1 Liter Plastic Bottle",
+      "market": "AUS1",
+      "value": 373.37,
+      "units": 50,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-04-25",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 50,
+          "value": 373.37
+        }
+      ]
+    },
+    {
       "item": "Goat Cheese 4lb Pail",
       "market": "BOS1",
       "value": 371.1,
@@ -9388,6 +9721,24 @@
       ]
     },
     {
+      "item": "M&M's Peanuts Single - 48 / 1.74 oz pouch",
+      "market": "DCA1",
+      "value": 369.6,
+      "units": 336,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-03",
+          "shipmentReceived": "2026-01-30",
+          "memo": "",
+          "employee": "Galster",
+          "cycleCount": "No",
+          "units": 336,
+          "value": 369.6
+        }
+      ]
+    },
+    {
       "item": "Siggi's - Acai Mixed Berry 5.3oz",
       "market": "EWR1",
       "value": 369.6,
@@ -9411,24 +9762,6 @@
           "cycleCount": "No",
           "units": 144,
           "value": 201.6
-        }
-      ]
-    },
-    {
-      "item": "M&M's Peanuts Single - 48 / 1.74 oz pouch",
-      "market": "DCA1",
-      "value": 369.6,
-      "units": 336,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-03",
-          "shipmentReceived": "2026-01-30",
-          "memo": "",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": 336,
-          "value": 369.6
         }
       ]
     },
@@ -9483,6 +9816,87 @@
           "cycleCount": "No",
           "units": 108,
           "value": 165.44
+        }
+      ]
+    },
+    {
+      "item": "Mayfield Half & Half 1/2 gal",
+      "market": "ATL1",
+      "value": 368.41,
+      "units": 82,
+      "lines": 8,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-08-10",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 22,
+          "value": 98.96
+        },
+        {
+          "date": "2026-07-24",
+          "shipmentReceived": "2026-07-13",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 7,
+          "value": 32.41
+        },
+        {
+          "date": "2026-07-20",
+          "shipmentReceived": "2026-07-16",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 4,
+          "value": 18.52
+        },
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-06-04",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 4,
+          "value": 18.79
+        },
+        {
+          "date": "2026-06-05",
+          "shipmentReceived": "2026-05-28",
+          "memo": "expired inventory",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 18,
+          "value": 83.03
+        },
+        {
+          "date": "2026-06-05",
+          "shipmentReceived": "2026-05-25",
+          "memo": "expired inventory",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 4.61
+        },
+        {
+          "date": "2026-02-02",
+          "shipmentReceived": "2026-01-30",
+          "memo": "02/02/26 SH. DAILY EXPIRED INVENTORY",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 15,
+          "value": 64.65
+        },
+        {
+          "date": "2026-01-28",
+          "shipmentReceived": "2026-01-20",
+          "memo": "Unsellable Inventory Report",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 11,
+          "value": 47.44
         }
       ]
     },
@@ -10144,6 +10558,24 @@
       ]
     },
     {
+      "item": "Torani Sugar Free Chocolate Macadamia Nut Syrup 750 ml Plastic Bottle",
+      "market": "AUS1",
+      "value": 336.0,
+      "units": 75,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-01-28",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 75,
+          "value": 336.0
+        }
+      ]
+    },
+    {
       "item": "1883 Pineapple Smoothie 1L/33.8 oz. Carton",
       "market": "ATL1",
       "value": 335.79,
@@ -10594,6 +11026,33 @@
       ]
     },
     {
+      "item": "Hollander Pumpkin Pie Cafe Sauce 64oz",
+      "market": "SEA1",
+      "value": 320.02,
+      "units": 20,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-08-07",
+          "shipmentReceived": "",
+          "memo": "SEA1 expired August '26",
+          "employee": "Gerstner",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 192.0
+        },
+        {
+          "date": "2026-08-07",
+          "shipmentReceived": "2025-11-06",
+          "memo": "SEA1 expired August '26",
+          "employee": "Gerstner",
+          "cycleCount": "No",
+          "units": 8,
+          "value": 128.02
+        }
+      ]
+    },
+    {
       "item": "1883 Peach Smoothie 1/33.8 oz. Carton",
       "market": "ATL1",
       "value": 317.55,
@@ -10770,6 +11229,51 @@
           "cycleCount": "No",
           "units": 112,
           "value": 312.2
+        }
+      ]
+    },
+    {
+      "item": "Wholesome Farms USDA Grade AA Whipped Butter Cup",
+      "market": "CLT1",
+      "value": 311.37,
+      "units": 2800,
+      "lines": 4,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-06-03",
+          "memo": "08/13/2026 - Expired Products",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 1200,
+          "value": 129.41
+        },
+        {
+          "date": "2026-08-04",
+          "shipmentReceived": "2026-05-29",
+          "memo": "8/4/2026 - Expired product",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 400,
+          "value": 43.48
+        },
+        {
+          "date": "2026-05-22",
+          "shipmentReceived": "2026-03-11",
+          "memo": "05/22/2026 - Expired product",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 400,
+          "value": 46.16
+        },
+        {
+          "date": "2026-02-06",
+          "shipmentReceived": "2025-12-04",
+          "memo": "02/06/2026 - Expire Dairy",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 800,
+          "value": 92.32
         }
       ]
     },
@@ -11116,6 +11620,24 @@
       ]
     },
     {
+      "item": "Ghirardelli Sea Salt Caramel Sauce 87.3oz Bottle",
+      "market": "ATL1",
+      "value": 297.45,
+      "units": 18,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2025-11-28",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 18,
+          "value": 297.45
+        }
+      ]
+    },
+    {
       "item": "Ghirardelli Sweet Ground White Chocolate Powder 3.12lb Can",
       "market": "SDF1",
       "value": 296.25,
@@ -11328,24 +11850,6 @@
           "cycleCount": "No",
           "units": 13,
           "value": 284.05
-        }
-      ]
-    },
-    {
-      "item": "Monin Brilliance Dragon Fruit Pink Natural Energy 64oz Bottle",
-      "market": "AUS1",
-      "value": 283.06,
-      "units": 13,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-11",
-          "shipmentReceived": "2025-07-23",
-          "memo": "Expired - BJL 3/11/26",
-          "employee": "Lacombe",
-          "cycleCount": "No",
-          "units": 13,
-          "value": 283.06
         }
       ]
     },
@@ -11737,74 +12241,38 @@
       ]
     },
     {
-      "item": "Mayfield Half & Half 1/2 gal",
-      "market": "ATL1",
-      "value": 269.45,
-      "units": 60,
-      "lines": 7,
+      "item": "Pacific Barista Soy Milk 32oz",
+      "market": "SDF1",
+      "value": 270.88,
+      "units": 120,
+      "lines": 1,
       "detail": [
         {
-          "date": "2026-07-24",
-          "shipmentReceived": "2026-07-13",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-02-26",
+          "memo": "exp items",
+          "employee": "Mcafee",
           "cycleCount": "No",
-          "units": 7,
-          "value": 32.41
-        },
+          "units": 120,
+          "value": 270.88
+        }
+      ]
+    },
+    {
+      "item": "Spirit Tea - Butterfly Peaflower 1000g Bag",
+      "market": "EWR1",
+      "value": 269.04,
+      "units": 3,
+      "lines": 1,
+      "detail": [
         {
-          "date": "2026-07-20",
-          "shipmentReceived": "2026-07-16",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "EXPIRED ITEMS JG",
+          "employee": "Geraldo",
           "cycleCount": "No",
-          "units": 4,
-          "value": 18.52
-        },
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-06-04",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 4,
-          "value": 18.79
-        },
-        {
-          "date": "2026-06-05",
-          "shipmentReceived": "2026-05-28",
-          "memo": "expired inventory",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 18,
-          "value": 83.03
-        },
-        {
-          "date": "2026-06-05",
-          "shipmentReceived": "2026-05-25",
-          "memo": "expired inventory",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 4.61
-        },
-        {
-          "date": "2026-02-02",
-          "shipmentReceived": "2026-01-30",
-          "memo": "02/02/26 SH. DAILY EXPIRED INVENTORY",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 15,
-          "value": 64.65
-        },
-        {
-          "date": "2026-01-28",
-          "shipmentReceived": "2026-01-20",
-          "memo": "Unsellable Inventory Report",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 11,
-          "value": 47.44
+          "units": 3,
+          "value": 269.04
         }
       ]
     },
@@ -12232,24 +12700,6 @@
       ]
     },
     {
-      "item": "Splittin' Atoms Espresso 1lb GROUND Bag",
-      "market": "ATL1",
-      "value": 255.0,
-      "units": 34,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-26",
-          "shipmentReceived": "2026-06-08",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 34,
-          "value": 255.0
-        }
-      ]
-    },
-    {
       "item": "Holy Kakow Organic Ginger Syrup 750mL",
       "market": "MDT1",
       "value": 255.0,
@@ -12261,6 +12711,24 @@
           "shipmentReceived": "2025-06-17",
           "memo": "January 2026 expired product",
           "employee": "Finn",
+          "cycleCount": "No",
+          "units": 34,
+          "value": 255.0
+        }
+      ]
+    },
+    {
+      "item": "Splittin' Atoms Espresso 1lb GROUND Bag",
+      "market": "ATL1",
+      "value": 255.0,
+      "units": 34,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-26",
+          "shipmentReceived": "2026-06-08",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
           "cycleCount": "No",
           "units": 34,
           "value": 255.0
@@ -12438,7 +12906,7 @@
       "detail": [
         {
           "date": "2026-08-12",
-          "shipmentReceived": "",
+          "shipmentReceived": "2026-08-07",
           "memo": "08/12/2026 - Expired Dairy",
           "employee": "Billy",
           "cycleCount": "No",
@@ -13069,6 +13537,33 @@
       ]
     },
     {
+      "item": "Dr. Smoothie Blood Orange Coconut Ginger Refreshers 46 oz. Bottle(s)",
+      "market": "DEN1",
+      "value": 232.24,
+      "units": 32,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-04-03",
+          "memo": "expired product (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 22,
+          "value": 154.07
+        },
+        {
+          "date": "2026-06-04",
+          "shipmentReceived": "2025-11-19",
+          "memo": "expired products (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 10,
+          "value": 78.17
+        }
+      ]
+    },
+    {
       "item": "Humankind Organic Jasmine Lime Green Tea 16oz",
       "market": "SEA1",
       "value": 231.75,
@@ -13092,24 +13587,6 @@
           "cycleCount": "No",
           "units": 24,
           "value": 39.69
-        }
-      ]
-    },
-    {
-      "item": "Hal's Seltzer Water Lemon  - 20oz Bottle",
-      "market": "EWR1",
-      "value": 231.0,
-      "units": 336,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-08",
-          "shipmentReceived": "2026-06-04",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 336,
-          "value": 231.0
         }
       ]
     },
@@ -13141,20 +13618,20 @@
       ]
     },
     {
-      "item": "Cappuccine Latte Frappe 3 lb. Bag",
-      "market": "MIA1",
-      "value": 230.4,
-      "units": 16,
+      "item": "Hal's Seltzer Water Lemon  - 20oz Bottle",
+      "market": "EWR1",
+      "value": 231.0,
+      "units": 336,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-01-19",
-          "shipmentReceived": "2023-11-14",
-          "memo": "JE 1-19-26 soon to expire",
-          "employee": "Jasmine",
+          "date": "2026-06-08",
+          "shipmentReceived": "2026-06-04",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
           "cycleCount": "No",
-          "units": 16,
-          "value": 230.4
+          "units": 336,
+          "value": 231.0
         }
       ]
     },
@@ -13172,6 +13649,24 @@
           "employee": "Hicks",
           "cycleCount": "No",
           "units": 144,
+          "value": 230.4
+        }
+      ]
+    },
+    {
+      "item": "Cappuccine Latte Frappe 3 lb. Bag",
+      "market": "MIA1",
+      "value": 230.4,
+      "units": 16,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-19",
+          "shipmentReceived": "2023-11-14",
+          "memo": "JE 1-19-26 soon to expire",
+          "employee": "Jasmine",
+          "cycleCount": "No",
+          "units": 16,
           "value": 230.4
         }
       ]
@@ -13524,6 +14019,24 @@
           "cycleCount": "No",
           "units": 10,
           "value": 220.87
+        }
+      ]
+    },
+    {
+      "item": "Mocafe Taro Fruit Smoothie Mix 3 lb. Bag",
+      "market": "EWR1",
+      "value": 220.56,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-12-23",
+          "memo": "EXPIRED ITEMS JG",
+          "employee": "Geraldo",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 220.56
         }
       ]
     },
@@ -14392,6 +14905,24 @@
       ]
     },
     {
+      "item": "Barista 22 Chocolate Beverage Base Powder 3.5 Bag",
+      "market": "DEN1",
+      "value": 204.0,
+      "units": 10,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-04-23",
+          "memo": "expired product (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 10,
+          "value": 204.0
+        }
+      ]
+    },
+    {
       "item": "Peach Oolong Tea Powder",
       "market": "EWR1",
       "value": 204.0,
@@ -14680,24 +15211,6 @@
       ]
     },
     {
-      "item": "Suja Life Ginger Love",
-      "market": "PDX1",
-      "value": 198.0,
-      "units": 72,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-02",
-          "shipmentReceived": "2026-02-02",
-          "memo": "02/02/2026 PDX1 Expired Product PR",
-          "employee": "Runge",
-          "cycleCount": "No",
-          "units": 72,
-          "value": 198.0
-        }
-      ]
-    },
-    {
       "item": "Chookie Orange Pecan",
       "market": "EWR1",
       "value": 198.0,
@@ -14711,6 +15224,24 @@
           "employee": "Walker",
           "cycleCount": "No",
           "units": 220,
+          "value": 198.0
+        }
+      ]
+    },
+    {
+      "item": "Suja Life Ginger Love",
+      "market": "PDX1",
+      "value": 198.0,
+      "units": 72,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-02",
+          "shipmentReceived": "2026-02-02",
+          "memo": "02/02/2026 PDX1 Expired Product PR",
+          "employee": "Runge",
+          "cycleCount": "No",
+          "units": 72,
           "value": 198.0
         }
       ]
@@ -14869,24 +15400,6 @@
       ]
     },
     {
-      "item": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
-      "market": "CLT1",
-      "value": 193.27,
-      "units": 9,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-14",
-          "shipmentReceived": "2024-12-05",
-          "memo": "AG EXPIRED CLT",
-          "employee": "Grobman",
-          "cycleCount": "No",
-          "units": 9,
-          "value": 193.27
-        }
-      ]
-    },
-    {
       "item": "Monin Brilliance Glacier Clear Natural Energy 64oz Bottle",
       "market": "SEA1",
       "value": 193.27,
@@ -14898,6 +15411,24 @@
           "shipmentReceived": "2024-12-23",
           "memo": "sea1 unsellable/expired mar 26",
           "employee": "Gerstner",
+          "cycleCount": "No",
+          "units": 9,
+          "value": 193.27
+        }
+      ]
+    },
+    {
+      "item": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
+      "market": "CLT1",
+      "value": 193.27,
+      "units": 9,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-14",
+          "shipmentReceived": "2024-12-05",
+          "memo": "AG EXPIRED CLT",
+          "employee": "Grobman",
           "cycleCount": "No",
           "units": 9,
           "value": 193.27
@@ -15202,6 +15733,33 @@
       ]
     },
     {
+      "item": "Torani Sugar Free English Toffee Syrup 750mL Plastic Bottle",
+      "market": "ATL1",
+      "value": 188.16,
+      "units": 42,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-07-24",
+          "shipmentReceived": "2026-07-12",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 21,
+          "value": 94.08
+        },
+        {
+          "date": "2026-07-07",
+          "shipmentReceived": "2026-05-16",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 21,
+          "value": 94.08
+        }
+      ]
+    },
+    {
       "item": "Mozzarella House Stracciatella 8oz",
       "market": "BOS1",
       "value": 188.16,
@@ -15234,33 +15792,6 @@
           "cycleCount": "No",
           "units": 12,
           "value": 53.76
-        }
-      ]
-    },
-    {
-      "item": "Torani Sugar Free English Toffee Syrup 750mL Plastic Bottle",
-      "market": "ATL1",
-      "value": 188.16,
-      "units": 42,
-      "lines": 2,
-      "detail": [
-        {
-          "date": "2026-07-24",
-          "shipmentReceived": "2026-07-12",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 21,
-          "value": 94.08
-        },
-        {
-          "date": "2026-07-07",
-          "shipmentReceived": "2026-05-16",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 21,
-          "value": 94.08
         }
       ]
     },
@@ -15472,6 +16003,24 @@
       ]
     },
     {
+      "item": "Mocafe Mango Fruit Smoothie Mix 3 lb. Bag(s)",
+      "market": "EWR1",
+      "value": 183.69,
+      "units": 10,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-12-11",
+          "memo": "EXPIRED ITEMS JG",
+          "employee": "Geraldo",
+          "cycleCount": "No",
+          "units": 10,
+          "value": 183.69
+        }
+      ]
+    },
+    {
       "item": "Torani Pumpkin Spice Syrup 750 ml Glass Bottle",
       "market": "SEA1",
       "value": 183.66,
@@ -15486,42 +16035,6 @@
           "cycleCount": "No",
           "units": 41,
           "value": 183.66
-        }
-      ]
-    },
-    {
-      "item": "Wholesome Farms USDA Grade AA Whipped Butter Cup",
-      "market": "CLT1",
-      "value": 181.96,
-      "units": 1600,
-      "lines": 3,
-      "detail": [
-        {
-          "date": "2026-08-04",
-          "shipmentReceived": "2026-05-29",
-          "memo": "8/4/2026 - Expired product",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 400,
-          "value": 43.48
-        },
-        {
-          "date": "2026-05-22",
-          "shipmentReceived": "2026-03-11",
-          "memo": "05/22/2026 - Expired product",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 400,
-          "value": 46.16
-        },
-        {
-          "date": "2026-02-06",
-          "shipmentReceived": "2025-12-04",
-          "memo": "02/06/2026 - Expire Dairy",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 800,
-          "value": 92.32
         }
       ]
     },
@@ -16228,6 +16741,24 @@
       ]
     },
     {
+      "item": "Mango 3-in-1 Powder",
+      "market": "EWR1",
+      "value": 163.2,
+      "units": 16,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "EXPIRED ITEMS JG",
+          "employee": "Geraldo",
+          "cycleCount": "No",
+          "units": 16,
+          "value": 163.2
+        }
+      ]
+    },
+    {
       "item": "Cappuccine Cinnamon Bun 3 lb. Bag(s)",
       "market": "MDT1",
       "value": 162.6,
@@ -16269,6 +16800,105 @@
           "cycleCount": "No",
           "units": 16,
           "value": 96.0
+        }
+      ]
+    },
+    {
+      "item": "Mayfield 2% Milk Gallon",
+      "market": "ATL1",
+      "value": 162.3,
+      "units": 34,
+      "lines": 10,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-08-03",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 4.85
+        },
+        {
+          "date": "2026-07-24",
+          "shipmentReceived": "2026-07-09",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 4,
+          "value": 19.76
+        },
+        {
+          "date": "2026-07-09",
+          "shipmentReceived": "2026-06-29",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 14.82
+        },
+        {
+          "date": "2026-07-03",
+          "shipmentReceived": "2026-06-22",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 5,
+          "value": 24.7
+        },
+        {
+          "date": "2026-06-03",
+          "shipmentReceived": "2026-05-18",
+          "memo": "expired",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 9.25
+        },
+        {
+          "date": "2026-05-25",
+          "shipmentReceived": "2026-05-11",
+          "memo": "",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 10,
+          "value": 46.22
+        },
+        {
+          "date": "2026-03-12",
+          "shipmentReceived": "2026-02-19",
+          "memo": "Expired Inv",
+          "employee": "West",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 14.11
+        },
+        {
+          "date": "2026-02-12",
+          "shipmentReceived": "2026-02-02",
+          "memo": "02/12/26 SH Unsellable",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 9.41
+        },
+        {
+          "date": "2026-01-19",
+          "shipmentReceived": "2026-01-18",
+          "memo": "",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 9.59
+        },
+        {
+          "date": "2026-01-15",
+          "shipmentReceived": "2026-01-05",
+          "memo": "",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 9.59
         }
       ]
     },
@@ -16440,96 +17070,6 @@
           "cycleCount": "No",
           "units": 7,
           "value": 158.48
-        }
-      ]
-    },
-    {
-      "item": "Mayfield 2% Milk Gallon",
-      "market": "ATL1",
-      "value": 157.45,
-      "units": 33,
-      "lines": 9,
-      "detail": [
-        {
-          "date": "2026-07-24",
-          "shipmentReceived": "2026-07-09",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 4,
-          "value": 19.76
-        },
-        {
-          "date": "2026-07-09",
-          "shipmentReceived": "2026-06-29",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 3,
-          "value": 14.82
-        },
-        {
-          "date": "2026-07-03",
-          "shipmentReceived": "2026-06-22",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 5,
-          "value": 24.7
-        },
-        {
-          "date": "2026-06-03",
-          "shipmentReceived": "2026-05-18",
-          "memo": "expired",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 9.25
-        },
-        {
-          "date": "2026-05-25",
-          "shipmentReceived": "2026-05-11",
-          "memo": "",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 10,
-          "value": 46.22
-        },
-        {
-          "date": "2026-03-12",
-          "shipmentReceived": "2026-02-19",
-          "memo": "Expired Inv",
-          "employee": "West",
-          "cycleCount": "No",
-          "units": 3,
-          "value": 14.11
-        },
-        {
-          "date": "2026-02-12",
-          "shipmentReceived": "2026-02-02",
-          "memo": "02/12/26 SH Unsellable",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 9.41
-        },
-        {
-          "date": "2026-01-19",
-          "shipmentReceived": "2026-01-18",
-          "memo": "",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 9.59
-        },
-        {
-          "date": "2026-01-15",
-          "shipmentReceived": "2026-01-05",
-          "memo": "",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 9.59
         }
       ]
     },
@@ -17218,24 +17758,6 @@
       ]
     },
     {
-      "item": "David Rio Flamingo Vanilla Decaf Sugar Free Chai 11.9 oz. Can(s)",
-      "market": "DEN1",
-      "value": 145.6,
-      "units": 20,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-02",
-          "shipmentReceived": "2025-08-12",
-          "memo": "Expired product (RN)",
-          "employee": "Niebauer",
-          "cycleCount": "No",
-          "units": 20,
-          "value": 145.6
-        }
-      ]
-    },
-    {
       "item": "Good Crisp Company Original Crisps 5.6oz Can",
       "market": "EWR1",
       "value": 145.6,
@@ -17249,6 +17771,24 @@
           "employee": "Geraldo",
           "cycleCount": "No",
           "units": 56,
+          "value": 145.6
+        }
+      ]
+    },
+    {
+      "item": "David Rio Flamingo Vanilla Decaf Sugar Free Chai 11.9 oz. Can(s)",
+      "market": "DEN1",
+      "value": 145.6,
+      "units": 20,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-02",
+          "shipmentReceived": "2025-08-12",
+          "memo": "Expired product (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 20,
           "value": 145.6
         }
       ]
@@ -17686,24 +18226,6 @@
       ]
     },
     {
-      "item": "Mylk Labs Roasted Almond Oatmeal Cup 1.88oz",
-      "market": "ATL1",
-      "value": 135.0,
-      "units": 90,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-06",
-          "shipmentReceived": "2026-01-18",
-          "memo": "EXPIRED INVENTORY 02/06/26 SH",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 90,
-          "value": 135.0
-        }
-      ]
-    },
-    {
       "item": "Weller CBD Sparkling Water - Tangerine (25mg) Case(s) of 12-12 oz. Cans",
       "market": "DEN1",
       "value": 135.0,
@@ -17717,6 +18239,24 @@
           "employee": "Niebauer",
           "cycleCount": "No",
           "units": 60,
+          "value": 135.0
+        }
+      ]
+    },
+    {
+      "item": "Mylk Labs Roasted Almond Oatmeal Cup 1.88oz",
+      "market": "ATL1",
+      "value": 135.0,
+      "units": 90,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-06",
+          "shipmentReceived": "2026-01-18",
+          "memo": "EXPIRED INVENTORY 02/06/26 SH",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 90,
           "value": 135.0
         }
       ]
@@ -18100,24 +18640,6 @@
       ]
     },
     {
-      "item": "Torani SUGAR FREE Peach Syrup with Splenda 750ml Glass Bottle",
-      "market": "AUS1",
-      "value": 128.08,
-      "units": 24,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-14",
-          "shipmentReceived": "2025-07-18",
-          "memo": "Expired - BJL 7/14/26",
-          "employee": "Lacombe",
-          "cycleCount": "No",
-          "units": 24,
-          "value": 128.08
-        }
-      ]
-    },
-    {
       "item": "Monin Black Sugar Syrup 1L Plastic Bottle",
       "market": "PDX1",
       "value": 128.08,
@@ -18136,20 +18658,20 @@
       ]
     },
     {
-      "item": "Hollander Pumpkin Pie Cafe Sauce 64oz",
-      "market": "SEA1",
-      "value": 128.0,
-      "units": 8,
+      "item": "Torani SUGAR FREE Peach Syrup with Splenda 750ml Glass Bottle",
+      "market": "AUS1",
+      "value": 128.08,
+      "units": 24,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-08-07",
-          "shipmentReceived": "",
-          "memo": "SEA1 expired August '26",
-          "employee": "Gerstner",
+          "date": "2026-07-14",
+          "shipmentReceived": "2025-07-18",
+          "memo": "Expired - BJL 7/14/26",
+          "employee": "Lacombe",
           "cycleCount": "No",
-          "units": 8,
-          "value": 128.0
+          "units": 24,
+          "value": 128.08
         }
       ]
     },
@@ -18388,24 +18910,6 @@
       ]
     },
     {
-      "item": "ecoStick Blue - Aspartame",
-      "market": "CLT1",
-      "value": 120.54,
-      "units": 12000,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-08-04",
-          "shipmentReceived": "2024-08-05",
-          "memo": "8/4/2026 - Expired product",
-          "employee": "Billy",
-          "cycleCount": "No",
-          "units": 12000,
-          "value": 120.54
-        }
-      ]
-    },
-    {
       "item": "Torani Blackberry Syrup 750ml Glass Bottle",
       "market": "DFW1",
       "value": 120.54,
@@ -18419,6 +18923,24 @@
           "employee": "Shaw",
           "cycleCount": "No",
           "units": 28,
+          "value": 120.54
+        }
+      ]
+    },
+    {
+      "item": "ecoStick Blue - Aspartame",
+      "market": "CLT1",
+      "value": 120.54,
+      "units": 12000,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-04",
+          "shipmentReceived": "2024-08-05",
+          "memo": "8/4/2026 - Expired product",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 12000,
           "value": 120.54
         }
       ]
@@ -20143,6 +20665,24 @@
       ]
     },
     {
+      "item": "Suja Life Uber Greens",
+      "market": "LAX1",
+      "value": 99.0,
+      "units": 36,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-10",
+          "shipmentReceived": "2026-01-31",
+          "memo": "Expired IV 2/10",
+          "employee": "Villalvazo",
+          "cycleCount": "No",
+          "units": 36,
+          "value": 99.0
+        }
+      ]
+    },
+    {
       "item": "Hal's Seltzer Water Black Cherry - 20oz Bottle",
       "market": "EWR1",
       "value": 99.0,
@@ -20166,24 +20706,6 @@
           "cycleCount": "No",
           "units": 24,
           "value": 16.5
-        }
-      ]
-    },
-    {
-      "item": "Suja Life Uber Greens",
-      "market": "LAX1",
-      "value": 99.0,
-      "units": 36,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-10",
-          "shipmentReceived": "2026-01-31",
-          "memo": "Expired IV 2/10",
-          "employee": "Villalvazo",
-          "cycleCount": "No",
-          "units": 36,
-          "value": 99.0
         }
       ]
     },
@@ -20764,6 +21286,24 @@
       ]
     },
     {
+      "item": "Humankind Organic Lemonade 16oz",
+      "market": "ATL1",
+      "value": 90.0,
+      "units": 60,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-07",
+          "shipmentReceived": "2026-03-26",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 60,
+          "value": 90.0
+        }
+      ]
+    },
+    {
       "item": "Silver Skillet 1lb GROUND Bag",
       "market": "ATL1",
       "value": 90.0,
@@ -20787,24 +21327,6 @@
           "cycleCount": "No",
           "units": 2,
           "value": 15.0
-        }
-      ]
-    },
-    {
-      "item": "Humankind Organic Lemonade 16oz",
-      "market": "ATL1",
-      "value": 90.0,
-      "units": 60,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-07",
-          "shipmentReceived": "2026-03-26",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 60,
-          "value": 90.0
         }
       ]
     },
@@ -21048,6 +21570,24 @@
           "cycleCount": "No",
           "units": 3,
           "value": 43.47
+        }
+      ]
+    },
+    {
+      "item": "Monin Brilliance Berry Blue Natural Energy 64oz Bottle",
+      "market": "ATL1",
+      "value": 86.8,
+      "units": 4,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 4,
+          "value": 86.8
         }
       ]
     },
@@ -21835,6 +22375,24 @@
       ]
     },
     {
+      "item": "Monin Ube Syrup 750ml Glass Bottle",
+      "market": "AUS1",
+      "value": 80.02,
+      "units": 15,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-05-26",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 15,
+          "value": 80.02
+        }
+      ]
+    },
+    {
       "item": "Hal's Chips Buffalo Ranch - 2oz Bag",
       "market": "MIA1",
       "value": 80.0,
@@ -21939,24 +22497,6 @@
           "cycleCount": "No",
           "units": 15,
           "value": 78.65
-        }
-      ]
-    },
-    {
-      "item": "Dr. Smoothie Blood Orange Coconut Ginger Refreshers 46 oz. Bottle(s)",
-      "market": "DEN1",
-      "value": 78.17,
-      "units": 10,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-04",
-          "shipmentReceived": "2025-11-19",
-          "memo": "expired products (RN)",
-          "employee": "Niebauer",
-          "cycleCount": "No",
-          "units": 10,
-          "value": 78.17
         }
       ]
     },
@@ -22123,6 +22663,42 @@
       ]
     },
     {
+      "item": "Maplebrook Feta 8lb",
+      "market": "BOS1",
+      "value": 76.58,
+      "units": 7,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-06-10",
+          "memo": "DB Refer unit Break down",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 7,
+          "value": 76.58
+        }
+      ]
+    },
+    {
+      "item": "Dairy Pure Half & Half 1 Quart",
+      "market": "ATL1",
+      "value": 76.58,
+      "units": 30,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-27",
+          "shipmentReceived": "2026-01-22",
+          "memo": "",
+          "employee": "Hicks",
+          "cycleCount": "No",
+          "units": 30,
+          "value": 76.58
+        }
+      ]
+    },
+    {
       "item": "Ghirardelli Chocolate Sauce 87.3oz Bottle",
       "market": "CLT1",
       "value": 76.58,
@@ -22146,42 +22722,6 @@
           "cycleCount": "No",
           "units": 4,
           "value": 61.26
-        }
-      ]
-    },
-    {
-      "item": "Dairy Pure Half & Half 1 Quart",
-      "market": "ATL1",
-      "value": 76.58,
-      "units": 30,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-27",
-          "shipmentReceived": "2026-01-22",
-          "memo": "",
-          "employee": "Hicks",
-          "cycleCount": "No",
-          "units": 30,
-          "value": 76.58
-        }
-      ]
-    },
-    {
-      "item": "Maplebrook Feta 8lb",
-      "market": "BOS1",
-      "value": 76.58,
-      "units": 7,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-06-10",
-          "memo": "DB Refer unit Break down",
-          "employee": "Campos",
-          "cycleCount": "No",
-          "units": 7,
-          "value": 76.58
         }
       ]
     },
@@ -22296,18 +22836,18 @@
     {
       "item": "Monin Spiced Pumpkin Puree 1L",
       "market": "SEA1",
-      "value": 74.88,
+      "value": 74.9,
       "units": 6,
       "lines": 1,
       "detail": [
         {
           "date": "2026-08-07",
-          "shipmentReceived": "",
+          "shipmentReceived": "2025-11-24",
           "memo": "SEA1 expired August '26",
           "employee": "Gerstner",
           "cycleCount": "No",
           "units": 6,
-          "value": 74.88
+          "value": 74.9
         }
       ]
     },
@@ -22474,24 +23014,6 @@
       ]
     },
     {
-      "item": "Le's Deli & Bakery - Original Marshmallow Bar",
-      "market": "SEA1",
-      "value": 72.0,
-      "units": 24,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-09",
-          "shipmentReceived": "2025-12-04",
-          "memo": "sea1 unsellable/expired mar 26",
-          "employee": "Gerstner",
-          "cycleCount": "No",
-          "units": 24,
-          "value": 72.0
-        }
-      ]
-    },
-    {
       "item": "Cappuccine Caramel Latte 3 lb. Bag",
       "market": "SEA1",
       "value": 72.0,
@@ -22505,6 +23027,24 @@
           "employee": "Gerstner",
           "cycleCount": "No",
           "units": 5,
+          "value": 72.0
+        }
+      ]
+    },
+    {
+      "item": "Le's Deli & Bakery - Original Marshmallow Bar",
+      "market": "SEA1",
+      "value": 72.0,
+      "units": 24,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-09",
+          "shipmentReceived": "2025-12-04",
+          "memo": "sea1 unsellable/expired mar 26",
+          "employee": "Gerstner",
+          "cycleCount": "No",
+          "units": 24,
           "value": 72.0
         }
       ]
@@ -22609,24 +23149,6 @@
       ]
     },
     {
-      "item": "Lotus Pina Colada Concentrate 1/2 Gal",
-      "market": "BLI1",
-      "value": 71.07,
-      "units": 6,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-02",
-          "shipmentReceived": "2025-10-31",
-          "memo": "BLI1 IA Feb 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 6,
-          "value": 71.07
-        }
-      ]
-    },
-    {
       "item": "Lotus Limeade Concentrate 1/2 Gal",
       "market": "AUS1",
       "value": 71.07,
@@ -22638,6 +23160,24 @@
           "shipmentReceived": "2025-06-27",
           "memo": "Expired - BJL 3/23/26",
           "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 6,
+          "value": 71.07
+        }
+      ]
+    },
+    {
+      "item": "Lotus Pina Colada Concentrate 1/2 Gal",
+      "market": "BLI1",
+      "value": 71.07,
+      "units": 6,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-02",
+          "shipmentReceived": "2025-10-31",
+          "memo": "BLI1 IA Feb 2026",
+          "employee": "Swanson",
           "cycleCount": "No",
           "units": 6,
           "value": 71.07
@@ -22978,6 +23518,24 @@
       ]
     },
     {
+      "item": "Monin Orange Tangerine Syrup 1 Liter Plastic Bottle",
+      "market": "DEN1",
+      "value": 64.64,
+      "units": 8,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-14",
+          "shipmentReceived": "2025-10-15",
+          "memo": "Expired products (RN)",
+          "employee": "Niebauer",
+          "cycleCount": "No",
+          "units": 8,
+          "value": 64.64
+        }
+      ]
+    },
+    {
       "item": "PreGel Waffle Cone Mix #95604 4.40lb",
       "market": "HOU1",
       "value": 64.47,
@@ -23239,6 +23797,24 @@
       ]
     },
     {
+      "item": "Garelick Farms 2% Milk 1 Gallon",
+      "market": "BOS1",
+      "value": 62.16,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-19",
+          "shipmentReceived": "",
+          "memo": "expired product Milton campos",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 62.16
+        }
+      ]
+    },
+    {
       "item": "Kohler Corned Beef Flats 1/2 6lb",
       "market": "BOS1",
       "value": 62.0,
@@ -23383,6 +23959,24 @@
       ]
     },
     {
+      "item": "Unity Organic Caffeine Berry Bliss Energy Drink 12oz Can",
+      "market": "AUS1",
+      "value": 60.56,
+      "units": 36,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-05-07",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 36,
+          "value": 60.56
+        }
+      ]
+    },
+    {
       "item": "Torani Real Fruit Lemonade Smoothie Mix 64 oz. Bottle(s)",
       "market": "DEN1",
       "value": 60.19,
@@ -23478,6 +24072,24 @@
           "cycleCount": "No",
           "units": 8,
           "value": 59.74
+        }
+      ]
+    },
+    {
+      "item": "Humankind Organic Lemonade 16oz",
+      "market": "AUS1",
+      "value": 59.7,
+      "units": 36,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-07-17",
+          "memo": "NC 081326 Expired Humankind",
+          "employee": "Christy",
+          "cycleCount": "No",
+          "units": 36,
+          "value": 59.7
         }
       ]
     },
@@ -24859,24 +25471,6 @@
       ]
     },
     {
-      "item": "Lotus Old Fashioned Lemonade Concentrate 1/2 gal",
-      "market": "BNA1",
-      "value": 47.38,
-      "units": 4,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-25",
-          "shipmentReceived": "2026-02-05",
-          "memo": "expired_ab",
-          "employee": "Bryant",
-          "cycleCount": "No",
-          "units": 4,
-          "value": 47.38
-        }
-      ]
-    },
-    {
       "item": "Dakin Dairy Eggnog 1/2 Gal",
       "market": "MIA1",
       "value": 47.38,
@@ -24890,6 +25484,24 @@
           "employee": "Jasmine",
           "cycleCount": "No",
           "units": 9,
+          "value": 47.38
+        }
+      ]
+    },
+    {
+      "item": "Lotus Old Fashioned Lemonade Concentrate 1/2 gal",
+      "market": "BNA1",
+      "value": 47.38,
+      "units": 4,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-25",
+          "shipmentReceived": "2026-02-05",
+          "memo": "expired_ab",
+          "employee": "Bryant",
+          "cycleCount": "No",
+          "units": 4,
           "value": 47.38
         }
       ]
@@ -24972,6 +25584,24 @@
           "cycleCount": "No",
           "units": 18,
           "value": 34.5
+        }
+      ]
+    },
+    {
+      "item": "Medosweet 2% Milk Gallon",
+      "market": "BLI1",
+      "value": 45.96,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-03",
+          "shipmentReceived": "2026-08-03",
+          "memo": "BLI1 IA August 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 45.96
         }
       ]
     },
@@ -25309,24 +25939,6 @@
       ]
     },
     {
-      "item": "Monin Brilliance Sugar Free Berry Blue Natural Energy 64oz Bottle",
-      "market": "MIA1",
-      "value": 42.95,
-      "units": 2,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-09",
-          "shipmentReceived": "2024-12-12",
-          "memo": "JE 3/9/26 - expired",
-          "employee": "Jasmine",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 42.95
-        }
-      ]
-    },
-    {
       "item": "Monin Brilliance Sugar Free Dragon Fruit Pink Natural Energy 64oz Bottle",
       "market": "PWM1",
       "value": 42.95,
@@ -25338,6 +25950,24 @@
           "shipmentReceived": "2026-01-30",
           "memo": "Expired items KF",
           "employee": "Featherstone",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 42.95
+        }
+      ]
+    },
+    {
+      "item": "Monin Brilliance Sugar Free Berry Blue Natural Energy 64oz Bottle",
+      "market": "MIA1",
+      "value": 42.95,
+      "units": 2,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-09",
+          "shipmentReceived": "2024-12-12",
+          "memo": "JE 3/9/26 - expired",
+          "employee": "Jasmine",
           "cycleCount": "No",
           "units": 2,
           "value": 42.95
@@ -25525,24 +26155,6 @@
       ]
     },
     {
-      "item": "Crofters Organic Strawberry Jelly 7kg",
-      "market": "PWM1",
-      "value": 41.75,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-22",
-          "shipmentReceived": "2026-01-06",
-          "memo": "Expired items KF",
-          "employee": "Featherstone",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 41.75
-        }
-      ]
-    },
-    {
       "item": "Karat PET Cold Cup 16oz (C-KC16)",
       "market": "PWM1",
       "value": 41.75,
@@ -25556,6 +26168,24 @@
           "employee": "Lavertu",
           "cycleCount": "No",
           "units": 1000,
+          "value": 41.75
+        }
+      ]
+    },
+    {
+      "item": "Crofters Organic Strawberry Jelly 7kg",
+      "market": "PWM1",
+      "value": 41.75,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-22",
+          "shipmentReceived": "2026-01-06",
+          "memo": "Expired items KF",
+          "employee": "Featherstone",
+          "cycleCount": "No",
+          "units": 1,
           "value": 41.75
         }
       ]
@@ -25633,24 +26263,6 @@
       ]
     },
     {
-      "item": "Peet's Coffee - French Roast K-Cups",
-      "market": "SMF1",
-      "value": 40.97,
-      "units": 60,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-06",
-          "shipmentReceived": "2026-02-03",
-          "memo": "Expired Items",
-          "employee": "Labin",
-          "cycleCount": "No",
-          "units": 60,
-          "value": 40.97
-        }
-      ]
-    },
-    {
       "item": "Peet's Coffee - Decaf House K-Cups",
       "market": "SMF1",
       "value": 40.97,
@@ -25661,6 +26273,24 @@
           "date": "2026-05-07",
           "shipmentReceived": "2026-04-04",
           "memo": "",
+          "employee": "Labin",
+          "cycleCount": "No",
+          "units": 60,
+          "value": 40.97
+        }
+      ]
+    },
+    {
+      "item": "Peet's Coffee - French Roast K-Cups",
+      "market": "SMF1",
+      "value": 40.97,
+      "units": 60,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-06",
+          "shipmentReceived": "2026-02-03",
+          "memo": "Expired Items",
           "employee": "Labin",
           "cycleCount": "No",
           "units": 60,
@@ -26029,6 +26659,24 @@
       ]
     },
     {
+      "item": "Smith Tea Golden Light - Organic Herbal Infusion 15 Sachets",
+      "market": "EWR1",
+      "value": 37.08,
+      "units": 90,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-08-06",
+          "memo": "EXPIRED ITEMS JG",
+          "employee": "Geraldo",
+          "cycleCount": "No",
+          "units": 90,
+          "value": 37.08
+        }
+      ]
+    },
+    {
       "item": "Da Vinci Sugar Free Blueberry Syrup with Splenda 750 ml Bottle(s)",
       "market": "BLI1",
       "value": 37.05,
@@ -26061,6 +26709,24 @@
           "cycleCount": "No",
           "units": 24,
           "value": 36.94
+        }
+      ]
+    },
+    {
+      "item": "1883 Strawberry Smoothie 1L/33.8 oz. Carton",
+      "market": "DEN1",
+      "value": 36.9,
+      "units": 6,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-14",
+          "shipmentReceived": "2026-08-14",
+          "memo": "expired goods EM",
+          "employee": "Mierau",
+          "cycleCount": "No",
+          "units": 6,
+          "value": 36.9
         }
       ]
     },
@@ -26164,7 +26830,7 @@
       ]
     },
     {
-      "item": "Le's Deli & Bakery - Matcha Marshmallow Bar",
+      "item": "Le's Deli & Bakery - Chocolate Marshmallow Bar",
       "market": "SEA1",
       "value": 36.0,
       "units": 12,
@@ -26200,24 +26866,6 @@
       ]
     },
     {
-      "item": "Le's Deli & Bakery - Chocolate Marshmallow Bar",
-      "market": "SEA1",
-      "value": 36.0,
-      "units": 12,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-15",
-          "shipmentReceived": "2025-12-04",
-          "memo": "sea1 unsellable/expired april 26",
-          "employee": "Gerstner",
-          "cycleCount": "No",
-          "units": 12,
-          "value": 36.0
-        }
-      ]
-    },
-    {
       "item": "Mylk Labs Nut Free Maple Strawberry Oatmeal Cup 1.86oz",
       "market": "MDT1",
       "value": 36.0,
@@ -26231,6 +26879,24 @@
           "employee": "Finn",
           "cycleCount": "No",
           "units": 24,
+          "value": 36.0
+        }
+      ]
+    },
+    {
+      "item": "Le's Deli & Bakery - Matcha Marshmallow Bar",
+      "market": "SEA1",
+      "value": 36.0,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-15",
+          "shipmentReceived": "2025-12-04",
+          "memo": "sea1 unsellable/expired april 26",
+          "employee": "Gerstner",
+          "cycleCount": "No",
+          "units": 12,
           "value": 36.0
         }
       ]
@@ -26253,7 +26919,7 @@
         },
         {
           "date": "2026-03-10",
-          "shipmentReceived": "",
+          "shipmentReceived": "2026-08-19",
           "memo": "expired inventory // NW",
           "employee": "Walker",
           "cycleCount": "No",
@@ -26830,24 +27496,6 @@
       ]
     },
     {
-      "item": "Brie Cheese 1kg",
-      "market": "BOS1",
-      "value": 30.6,
-      "units": 6,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-05-19",
-          "memo": "DB Refer unit Break down",
-          "employee": "Campos",
-          "cycleCount": "No",
-          "units": 6,
-          "value": 30.6
-        }
-      ]
-    },
-    {
       "item": "Yami Plain Yogurt 32oz",
       "market": "BLI1",
       "value": 30.6,
@@ -26880,6 +27528,24 @@
           "cycleCount": "No",
           "units": 4,
           "value": 10.2
+        }
+      ]
+    },
+    {
+      "item": "Brie Cheese 1kg",
+      "market": "BOS1",
+      "value": 30.6,
+      "units": 6,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-15",
+          "shipmentReceived": "2026-05-19",
+          "memo": "DB Refer unit Break down",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 6,
+          "value": 30.6
         }
       ]
     },
@@ -26934,6 +27600,24 @@
           "cycleCount": "No",
           "units": 4,
           "value": 30.5
+        }
+      ]
+    },
+    {
+      "item": "Pacific Barista Oat Milk 32oz",
+      "market": "CLT1",
+      "value": 30.46,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-08-06",
+          "memo": "08/13/2026 - Expired Products",
+          "employee": "Billy",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 30.46
         }
       ]
     },
@@ -27136,24 +27820,6 @@
       ]
     },
     {
-      "item": "Gatorade Orange - 24 / 20 oz btl",
-      "market": "DCA1",
-      "value": 28.7,
-      "units": 24,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-06",
-          "shipmentReceived": "2026-01-30",
-          "memo": "",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": 24,
-          "value": 28.7
-        }
-      ]
-    },
-    {
       "item": "Teapigs Green Iced Tea with Peach Pouches",
       "market": "ATL1",
       "value": 28.7,
@@ -27165,6 +27831,24 @@
           "shipmentReceived": "2026-04-16",
           "memo": "EXPIRED ITEMS-KH",
           "employee": "Hall",
+          "cycleCount": "No",
+          "units": 24,
+          "value": 28.7
+        }
+      ]
+    },
+    {
+      "item": "Gatorade Orange - 24 / 20 oz btl",
+      "market": "DCA1",
+      "value": 28.7,
+      "units": 24,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-06",
+          "shipmentReceived": "2026-01-30",
+          "memo": "",
+          "employee": "Galster",
           "cycleCount": "No",
           "units": 24,
           "value": 28.7
@@ -27325,6 +28009,24 @@
       ]
     },
     {
+      "item": "Milkadamia Barista Macadamia Milk 32oz 12ct",
+      "market": "HOU1",
+      "value": 27.6,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-14",
+          "shipmentReceived": "2025-09-09",
+          "memo": "MMA expired",
+          "employee": "Alessandri",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 27.6
+        }
+      ]
+    },
+    {
       "item": "Califia Farms Barista Almond Milk 32oz",
       "market": "BLI1",
       "value": 27.52,
@@ -27478,6 +28180,24 @@
       ]
     },
     {
+      "item": "Torani Pumpkin Pie Syrup 750 ml Plastic Bottle(s)",
+      "market": "BLI1",
+      "value": 26.21,
+      "units": 5,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-03",
+          "shipmentReceived": "2025-10-31",
+          "memo": "BLI1 IA August 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 5,
+          "value": 26.21
+        }
+      ]
+    },
+    {
       "item": "Darigold Whole Milk 1 Gallon",
       "market": "PDX1",
       "value": 26.0,
@@ -27618,6 +28338,24 @@
           "cycleCount": "No",
           "units": 6,
           "value": 24.62
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Organic White Chocolate Syrup 750ml",
+      "market": "AUS1",
+      "value": 24.59,
+      "units": 3,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2025-11-19",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 24.59
         }
       ]
     },
@@ -27874,6 +28612,24 @@
       ]
     },
     {
+      "item": "Soy Sauce Lite Less Sodium 64oz",
+      "market": "BOS1",
+      "value": 22.54,
+      "units": 3,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-17",
+          "shipmentReceived": "2026-05-08",
+          "memo": "expired product Milton campos",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 22.54
+        }
+      ]
+    },
+    {
       "item": "Da Vinci Kiwi Syrup 750 ml Plastic Bottle(s)",
       "market": "EWR1",
       "value": 22.51,
@@ -27892,24 +28648,6 @@
       ]
     },
     {
-      "item": "Karat Flat PET Lid, 12-24oz (C-KC626TS)",
-      "market": "PWM1",
-      "value": 22.5,
-      "units": 1000,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-05-22",
-          "shipmentReceived": "2026-04-30",
-          "memo": "Donation for local community event - Thornton Middle school",
-          "employee": "Lavertu",
-          "cycleCount": "No",
-          "units": 1000,
-          "value": 22.5
-        }
-      ]
-    },
-    {
       "item": "Karat White Toilet Tissue Rolls, Wrapped, 2-ply (JS-TTW500)",
       "market": "ATL1",
       "value": 22.5,
@@ -27923,6 +28661,24 @@
           "employee": "Wheeler Jr",
           "cycleCount": "No",
           "units": 48,
+          "value": 22.5
+        }
+      ]
+    },
+    {
+      "item": "Karat Flat PET Lid, 12-24oz (C-KC626TS)",
+      "market": "PWM1",
+      "value": 22.5,
+      "units": 1000,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-05-22",
+          "shipmentReceived": "2026-04-30",
+          "memo": "Donation for local community event - Thornton Middle school",
+          "employee": "Lavertu",
+          "cycleCount": "No",
+          "units": 1000,
           "value": 22.5
         }
       ]
@@ -27991,6 +28747,24 @@
       ]
     },
     {
+      "item": "Lotus Sugar Free Pink Energy RTD 12oz Can",
+      "market": "BLI1",
+      "value": 22.22,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-02",
+          "shipmentReceived": "2026-05-21",
+          "memo": "BLI1 IA July 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 22.22
+        }
+      ]
+    },
+    {
       "item": "Lotus Sugar Free Orange Energy RTD 12oz Can",
       "market": "BLI1",
       "value": 22.22,
@@ -28009,7 +28783,7 @@
       ]
     },
     {
-      "item": "Lotus Sugar Free Pink Energy RTD 12oz Can",
+      "item": "Lotus Sugar Free Blue Energy RTD 12oz Can",
       "market": "BLI1",
       "value": 22.22,
       "units": 12,
@@ -28036,24 +28810,6 @@
         {
           "date": "2026-07-02",
           "shipmentReceived": "2026-05-06",
-          "memo": "BLI1 IA July 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 12,
-          "value": 22.22
-        }
-      ]
-    },
-    {
-      "item": "Lotus Sugar Free Blue Energy RTD 12oz Can",
-      "market": "BLI1",
-      "value": 22.22,
-      "units": 12,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-02",
-          "shipmentReceived": "2026-05-21",
           "memo": "BLI1 IA July 2026",
           "employee": "Swanson",
           "cycleCount": "No",
@@ -28342,6 +29098,24 @@
       ]
     },
     {
+      "item": "Spindrift Raspberry Lime",
+      "market": "MIA1",
+      "value": 20.25,
+      "units": 24,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-06",
+          "shipmentReceived": "2026-03-21",
+          "memo": "JE 7-6-26 Expired/Donations",
+          "employee": "Jasmine",
+          "cycleCount": "No",
+          "units": 24,
+          "value": 20.25
+        }
+      ]
+    },
+    {
       "item": "Spindrift Nojito",
       "market": "SEA1",
       "value": 20.25,
@@ -28360,20 +29134,20 @@
       ]
     },
     {
-      "item": "Spindrift Raspberry Lime",
-      "market": "MIA1",
-      "value": 20.25,
-      "units": 24,
+      "item": "Unity Organic Caffeine Tropical Paradise Energy Drink 12oz Can",
+      "market": "AUS1",
+      "value": 20.22,
+      "units": 12,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-07-06",
-          "shipmentReceived": "2026-03-21",
-          "memo": "JE 7-6-26 Expired/Donations",
-          "employee": "Jasmine",
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-06-05",
+          "memo": "Expired - BJL 8/13/26",
+          "employee": "Lacombe",
           "cycleCount": "No",
-          "units": 24,
-          "value": 20.25
+          "units": 12,
+          "value": 20.22
         }
       ]
     },
@@ -28783,24 +29557,6 @@
       ]
     },
     {
-      "item": "Lotus Power Up Energy Concentrate 1/2 Gallon",
-      "market": "SMF1",
-      "value": 18.71,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-31",
-          "shipmentReceived": "2026-02-04",
-          "memo": "Expired items",
-          "employee": "Labin",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 18.71
-        }
-      ]
-    },
-    {
       "item": "Lotus Purple Energy Concentrate 1/2 Gal",
       "market": "CLT1",
       "value": 18.71,
@@ -28812,6 +29568,24 @@
           "shipmentReceived": "2025-05-06",
           "memo": "02/11/2026 - Expire Product",
           "employee": "Billy",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 18.71
+        }
+      ]
+    },
+    {
+      "item": "Lotus Power Up Energy Concentrate 1/2 Gallon",
+      "market": "SMF1",
+      "value": 18.71,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-31",
+          "shipmentReceived": "2026-02-04",
+          "memo": "Expired items",
+          "employee": "Labin",
           "cycleCount": "No",
           "units": 1,
           "value": 18.71
@@ -28900,42 +29674,6 @@
       ]
     },
     {
-      "item": "Olipop Prebiotic Soda - Lemon Lime 12 fl oz (Shelf Stable Sleek Cans)",
-      "market": "EWR1",
-      "value": 18.0,
-      "units": 12,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-11",
-          "shipmentReceived": "2026-01-14",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 12,
-          "value": 18.0
-        }
-      ]
-    },
-    {
-      "item": "Harney Organic Supreme Green Iced Tea 16oz Bottle",
-      "market": "SMF1",
-      "value": 18.0,
-      "units": 12,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-06",
-          "shipmentReceived": "2025-09-26",
-          "memo": "",
-          "employee": "Labin",
-          "cycleCount": "No",
-          "units": 12,
-          "value": 18.0
-        }
-      ]
-    },
-    {
       "item": "Olipop Prebiotic Soda - Classic Root Beer 12 fl oz (Shelf Stable Sleek Cans)",
       "market": "CLT1",
       "value": 18.0,
@@ -28954,6 +29692,24 @@
       ]
     },
     {
+      "item": "Olipop Prebiotic Soda - Lemon Lime 12 fl oz (Shelf Stable Sleek Cans)",
+      "market": "EWR1",
+      "value": 18.0,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-11",
+          "shipmentReceived": "2026-01-14",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 18.0
+        }
+      ]
+    },
+    {
       "item": "Swoon Lemon Tea - 12oz Can",
       "market": "EWR1",
       "value": 18.0,
@@ -28965,6 +29721,24 @@
           "shipmentReceived": "2026-03-04",
           "memo": "Expired D.C.",
           "employee": "Caballero",
+          "cycleCount": "No",
+          "units": 12,
+          "value": 18.0
+        }
+      ]
+    },
+    {
+      "item": "Harney Organic Supreme Green Iced Tea 16oz Bottle",
+      "market": "SMF1",
+      "value": 18.0,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-06",
+          "shipmentReceived": "2025-09-26",
+          "memo": "",
+          "employee": "Labin",
           "cycleCount": "No",
           "units": 12,
           "value": 18.0
@@ -29044,24 +29818,6 @@
       ]
     },
     {
-      "item": "Holy Kakow Organic Simple Syrup 750mL",
-      "market": "ATL1",
-      "value": 17.25,
-      "units": 2,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-24",
-          "shipmentReceived": "2026-07-03",
-          "memo": "pass minimum shelf-life date",
-          "employee": "Wheeler Jr",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 17.25
-        }
-      ]
-    },
-    {
       "item": "Tea Zone Dark Brown Sugar Syrup 11.2lb Jug",
       "market": "SMF1",
       "value": 17.25,
@@ -29075,6 +29831,42 @@
           "employee": "Labin",
           "cycleCount": "No",
           "units": 1,
+          "value": 17.25
+        }
+      ]
+    },
+    {
+      "item": "American Nut & Chocolate Dry Fig 3lb",
+      "market": "BOS1",
+      "value": 17.25,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-13",
+          "shipmentReceived": "2026-05-08",
+          "memo": "expired product Milton campos",
+          "employee": "Campos",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 17.25
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Organic Simple Syrup 750mL",
+      "market": "ATL1",
+      "value": 17.25,
+      "units": 2,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-24",
+          "shipmentReceived": "2026-07-03",
+          "memo": "pass minimum shelf-life date",
+          "employee": "Wheeler Jr",
+          "cycleCount": "No",
+          "units": 2,
           "value": 17.25
         }
       ]
@@ -29386,6 +30178,24 @@
       ]
     },
     {
+      "item": "Rishi Tea Bao Zhong (Pouchong) (Organic) 250 Bag",
+      "market": "SMF1",
+      "value": 15.5,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-31",
+          "shipmentReceived": "2025-12-09",
+          "memo": "Expired items",
+          "employee": "Labin",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 15.5
+        }
+      ]
+    },
+    {
       "item": "Holy Kakow Organic Pistachio Syrup 750mL",
       "market": "BLI1",
       "value": 15.5,
@@ -29394,7 +30204,7 @@
       "detail": [
         {
           "date": "2026-08-03",
-          "shipmentReceived": "",
+          "shipmentReceived": "2026-04-01",
           "memo": "BLI1 IA August 2026",
           "employee": "Swanson",
           "cycleCount": "No",
@@ -29412,30 +30222,12 @@
         },
         {
           "date": "2026-04-01",
-          "shipmentReceived": "",
+          "shipmentReceived": "2026-08-03",
           "memo": "BLI1 IA April 2026",
           "employee": "Swanson",
           "cycleCount": "No",
           "units": -2,
           "value": -15.5
-        }
-      ]
-    },
-    {
-      "item": "Rishi Tea Bao Zhong (Pouchong) (Organic) 250 Bag",
-      "market": "SMF1",
-      "value": 15.5,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-31",
-          "shipmentReceived": "2025-12-09",
-          "memo": "Expired items",
-          "employee": "Labin",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 15.5
         }
       ]
     },
@@ -29476,24 +30268,6 @@
       ]
     },
     {
-      "item": "Monin Almond (Orgeat) Syrup 1 Liter Plastic Bottle",
-      "market": "BLI1",
-      "value": 15.36,
-      "units": 2,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-09",
-          "shipmentReceived": "2026-02-06",
-          "memo": "BLI1 IA June 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 15.36
-        }
-      ]
-    },
-    {
       "item": "Monin Wildberry Syrup 1 Liter Bottle",
       "market": "ATL1",
       "value": 15.36,
@@ -29505,6 +30279,24 @@
           "shipmentReceived": "2026-05-05",
           "memo": "expired lot codes",
           "employee": "Hall",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 15.36
+        }
+      ]
+    },
+    {
+      "item": "Monin Almond (Orgeat) Syrup 1 Liter Plastic Bottle",
+      "market": "BLI1",
+      "value": 15.36,
+      "units": 2,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-09",
+          "shipmentReceived": "2026-02-06",
+          "memo": "BLI1 IA June 2026",
+          "employee": "Swanson",
           "cycleCount": "No",
           "units": 2,
           "value": 15.36
@@ -29548,24 +30340,6 @@
       ]
     },
     {
-      "item": "Monin White Chocolate Sauce 12 fl oz. SQUEEZE Bottle(s)",
-      "market": "MDT1",
-      "value": 15.33,
-      "units": 3,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-08",
-          "shipmentReceived": "2026-01-09",
-          "memo": "Expired product - BH",
-          "employee": "Habecker",
-          "cycleCount": "No",
-          "units": 3,
-          "value": 15.33
-        }
-      ]
-    },
-    {
       "item": "Holy Kakow Pumpkin Spice Syrup 750mL",
       "market": "BLI1",
       "value": 15.33,
@@ -29598,6 +30372,24 @@
           "cycleCount": "No",
           "units": -2,
           "value": -15.34
+        }
+      ]
+    },
+    {
+      "item": "Monin White Chocolate Sauce 12 fl oz. SQUEEZE Bottle(s)",
+      "market": "MDT1",
+      "value": 15.33,
+      "units": 3,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-08",
+          "shipmentReceived": "2026-01-09",
+          "memo": "Expired product - BH",
+          "employee": "Habecker",
+          "cycleCount": "No",
+          "units": 3,
+          "value": 15.33
         }
       ]
     },
@@ -29674,24 +30466,6 @@
       ]
     },
     {
-      "item": "Monin Hickory Smoke Syrup 1 Liter Plastic Bottle",
-      "market": "SDF1",
-      "value": 14.94,
-      "units": 2,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-07",
-          "shipmentReceived": "2026-01-06",
-          "memo": "exp items",
-          "employee": "Mcafee",
-          "cycleCount": "No",
-          "units": 2,
-          "value": 14.94
-        }
-      ]
-    },
-    {
       "item": "Monin Blood Orange Syrup 1L Plastic",
       "market": "SDF1",
       "value": 14.94,
@@ -29702,6 +30476,24 @@
           "date": "2026-04-06",
           "shipmentReceived": "2026-03-28",
           "memo": "exp",
+          "employee": "Mcafee",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 14.94
+        }
+      ]
+    },
+    {
+      "item": "Monin Hickory Smoke Syrup 1 Liter Plastic Bottle",
+      "market": "SDF1",
+      "value": 14.94,
+      "units": 2,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-07",
+          "shipmentReceived": "2026-01-06",
+          "memo": "exp items",
           "employee": "Mcafee",
           "cycleCount": "No",
           "units": 2,
@@ -30385,24 +31177,6 @@
       ]
     },
     {
-      "item": "Holy Kakow Organic Raspberry Syrup 750mL",
-      "market": "HOU1",
-      "value": 8.76,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-03",
-          "shipmentReceived": "2026-01-22",
-          "memo": "MMA expired",
-          "employee": "Alessandri",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 8.76
-        }
-      ]
-    },
-    {
       "item": "Alpenrose Half & Half 1 Quart",
       "market": "BLI1",
       "value": 8.76,
@@ -30444,6 +31218,24 @@
           "cycleCount": "No",
           "units": 2,
           "value": 3.0
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Organic Raspberry Syrup 750mL",
+      "market": "HOU1",
+      "value": 8.76,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-03",
+          "shipmentReceived": "2026-01-22",
+          "memo": "MMA expired",
+          "employee": "Alessandri",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 8.76
         }
       ]
     },
@@ -30610,24 +31402,6 @@
       ]
     },
     {
-      "item": "Monin Key Lime Pie Syrup 1 Liter Plastic",
-      "market": "SMF1",
-      "value": 7.67,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-28",
-          "shipmentReceived": "2025-09-26",
-          "memo": "",
-          "employee": "Labin",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 7.67
-        }
-      ]
-    },
-    {
       "item": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
       "market": "CLT1",
       "value": 7.67,
@@ -30639,6 +31413,24 @@
           "shipmentReceived": "2025-06-17",
           "memo": "05/22/2026 - Expired product",
           "employee": "Billy",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 7.67
+        }
+      ]
+    },
+    {
+      "item": "Monin Key Lime Pie Syrup 1 Liter Plastic",
+      "market": "SMF1",
+      "value": 7.67,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-28",
+          "shipmentReceived": "2025-09-26",
+          "memo": "",
+          "employee": "Labin",
           "cycleCount": "No",
           "units": 1,
           "value": 7.67
@@ -30772,24 +31564,6 @@
       ]
     },
     {
-      "item": "Monin Pineapple Syrup 1 Liter Plastic Bottle",
-      "market": "PWM1",
-      "value": 7.21,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-07-06",
-          "shipmentReceived": "2025-04-17",
-          "memo": "Expired items KF",
-          "employee": "Featherstone",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 7.21
-        }
-      ]
-    },
-    {
       "item": "1883 Blue Raspberry Syrup 1L Glass",
       "market": "LAX1",
       "value": 7.21,
@@ -30801,6 +31575,24 @@
           "shipmentReceived": "2025-11-10",
           "memo": "Expired Product IV 2/19",
           "employee": "Villalvazo",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 7.21
+        }
+      ]
+    },
+    {
+      "item": "Monin Pineapple Syrup 1 Liter Plastic Bottle",
+      "market": "PWM1",
+      "value": 7.21,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-07-06",
+          "shipmentReceived": "2025-04-17",
+          "memo": "Expired items KF",
+          "employee": "Featherstone",
           "cycleCount": "No",
           "units": 1,
           "value": 7.21
@@ -30826,24 +31618,6 @@
       ]
     },
     {
-      "item": "Torani Watermelon Syrup 1L Plastic Bottle",
-      "market": "PWM1",
-      "value": 6.99,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-15",
-          "shipmentReceived": "2026-01-12",
-          "memo": "Donations KF",
-          "employee": "Featherstone",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 6.99
-        }
-      ]
-    },
-    {
       "item": "Torani Pomegranate Syrup 1L Plastic Bottle",
       "market": "PWM1",
       "value": 6.99,
@@ -30853,6 +31627,24 @@
         {
           "date": "2026-01-15",
           "shipmentReceived": "2025-12-12",
+          "memo": "Donations KF",
+          "employee": "Featherstone",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 6.99
+        }
+      ]
+    },
+    {
+      "item": "Torani Watermelon Syrup 1L Plastic Bottle",
+      "market": "PWM1",
+      "value": 6.99,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-15",
+          "shipmentReceived": "2026-01-12",
           "memo": "Donations KF",
           "employee": "Featherstone",
           "cycleCount": "No",
@@ -31051,17 +31843,17 @@
       ]
     },
     {
-      "item": "Torani Apple Syrup 750ml Glass Bottle",
-      "market": "SMF1",
+      "item": "Torani Blue Raspberry Syrup Dairy Friendly 750 ml Plastic Bottle",
+      "market": "BLI1",
       "value": 5.24,
       "units": 1,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-08-11",
-          "shipmentReceived": "2025-09-26",
-          "memo": "Samples for Quincy For FTH Market Street",
-          "employee": "Labin",
+          "date": "2026-03-05",
+          "shipmentReceived": "2025-10-31",
+          "memo": "BLI1 IA Mar 2026",
+          "employee": "Swanson",
           "cycleCount": "No",
           "units": 1,
           "value": 5.24
@@ -31087,24 +31879,6 @@
       ]
     },
     {
-      "item": "Torani Watermelon Syrup 750 ml Plastic Bottle(s)",
-      "market": "BLI1",
-      "value": 5.24,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-05",
-          "shipmentReceived": "2025-12-01",
-          "memo": "BLI1 IA Mar 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 1,
-          "value": 5.24
-        }
-      ]
-    },
-    {
       "item": "Torani Raspberry Syrup 750ml Glass Bottle",
       "market": "PWM1",
       "value": 5.24,
@@ -31116,6 +31890,24 @@
           "shipmentReceived": "2025-09-02",
           "memo": "Donations KF",
           "employee": "Featherstone",
+          "cycleCount": "No",
+          "units": 1,
+          "value": 5.24
+        }
+      ]
+    },
+    {
+      "item": "Torani Apple Syrup 750ml Glass Bottle",
+      "market": "SMF1",
+      "value": 5.24,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-11",
+          "shipmentReceived": "2025-09-26",
+          "memo": "Samples for Quincy For FTH Market Street",
+          "employee": "Labin",
           "cycleCount": "No",
           "units": 1,
           "value": 5.24
@@ -31141,7 +31933,7 @@
       ]
     },
     {
-      "item": "Torani Blue Raspberry Syrup Dairy Friendly 750 ml Plastic Bottle",
+      "item": "Torani Watermelon Syrup 750 ml Plastic Bottle(s)",
       "market": "BLI1",
       "value": 5.24,
       "units": 1,
@@ -31149,7 +31941,7 @@
       "detail": [
         {
           "date": "2026-03-05",
-          "shipmentReceived": "2025-10-31",
+          "shipmentReceived": "2025-12-01",
           "memo": "BLI1 IA Mar 2026",
           "employee": "Swanson",
           "cycleCount": "No",
@@ -31348,244 +32140,37 @@
       ]
     },
     {
-      "item": "Monin Caramel Syrup 50mL Bottle (MINI)",
-      "market": "EWR1",
-      "value": 0.0,
-      "units": 39560,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-08",
-          "shipmentReceived": "2025-10-09",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 39560,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Edaleen Chocolate Milk 1/2 Gallon",
-      "market": "BLI1",
-      "value": 0.0,
-      "units": 111,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-02",
-          "shipmentReceived": "2026-02-03",
-          "memo": "BLI1 IA Feb 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 111,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Monin Sugar Free Dark Chocolate Sauce 64oz",
-      "market": "EWR1",
-      "value": 0.0,
-      "units": 2,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-13",
-          "shipmentReceived": "2026-02-10",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 2,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Gossner Whole Milk 32oz",
-      "market": "EWR1",
-      "value": 0.0,
-      "units": 48,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-08",
-          "shipmentReceived": "",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 48,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Justin's Classic Peanut Butter - 12 / 16 oz jar",
-      "market": "DCA1",
-      "value": 0.0,
-      "units": 60,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-03",
-          "shipmentReceived": "2026-02-02",
-          "memo": "DCA1 Expired Product - BH",
-          "employee": "Habecker",
-          "cycleCount": "No",
-          "units": 60,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Medosweet 2% Dispenser 5 Gallon Bag",
-      "market": "BLI1",
-      "value": 0.0,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-23",
-          "shipmentReceived": "2026-01-26",
-          "memo": "BLI1 IA JAN 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 1,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Milkadamia Barista Macadamia Milk 32oz (Sample)",
-      "market": "EWR1",
-      "value": 0.0,
-      "units": 6,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-13",
-          "shipmentReceived": "2025-04-18",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 6,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Compass Coffee Cardinal Roast - Whole Bean - 5 lb bag",
-      "market": "DCA1",
-      "value": 0.0,
-      "units": 0,
-      "lines": 2,
-      "detail": [
-        {
-          "date": "2026-04-13",
-          "shipmentReceived": "2026-03-24",
-          "memo": "Waste",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": 8,
-          "value": 250.24
-        },
-        {
-          "date": "2026-04-13",
-          "shipmentReceived": "2026-04-15",
-          "memo": "Waste",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": -8,
-          "value": -250.24
-        }
-      ]
-    },
-    {
-      "item": "California Pizza Kitchen - Crispy Thin Crust Sicilian Pizza",
-      "market": "BLI1",
-      "value": 0.0,
-      "units": 14,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-01",
-          "shipmentReceived": "2025-12-01",
-          "memo": "BLI1 IA April 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 14,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Milkadamia Barista Unsweetened Macadamia Milk 32oz (Sample)",
-      "market": "EWR1",
-      "value": 0.0,
-      "units": 3,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-16",
-          "shipmentReceived": "2025-04-18",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
-          "cycleCount": "No",
-          "units": 3,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Darigold Half & Half 1 Quart",
-      "market": "BLI1",
-      "value": 0.0,
-      "units": 12,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-05",
-          "shipmentReceived": "2026-03-12",
-          "memo": "BLI1 IA Mar 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 12,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Foam Aroma Black Lid, 12-24 oz",
-      "market": "CLT1",
-      "value": 0.0,
-      "units": 1,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-04-14",
-          "shipmentReceived": "2026-03-04",
-          "memo": "AG EXPIRED CLT",
-          "employee": "Grobman",
-          "cycleCount": "No",
-          "units": 1,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "1883 Pure Cane Sugar Syrup 1L Plastic",
+      "item": "White Rhino PET Flat Lid 98mm (Mt Pack)",
       "market": "DFW1",
       "value": 0.0,
-      "units": 1,
+      "units": 160000,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-02-03",
-          "shipmentReceived": "2026-02-05",
-          "memo": "Less Than 60 day shelf life-JS",
+          "date": "2026-01-02",
+          "shipmentReceived": "2025-01-31",
+          "memo": "shelf stable item expiration - JS",
           "employee": "Shaw",
           "cycleCount": "No",
-          "units": 1,
+          "units": 160000,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Rishi Botanicals Black Lemon 12oz (Sample)",
+      "market": "EWR1",
+      "value": 0.0,
+      "units": 11,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-08",
+          "shipmentReceived": "2025-12-07",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 11,
           "value": -0.0
         }
       ]
@@ -31627,19 +32212,91 @@
       ]
     },
     {
-      "item": "Humankind Organic Jasmine Lime Green Tea 16oz",
-      "market": "DFW1",
+      "item": "1883 Hazelnut Syrup 1L GLASS",
+      "market": "SDF1",
       "value": 0.0,
-      "units": 180,
+      "units": 7,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-03-04",
-          "shipmentReceived": "2026-03-26",
-          "memo": "Less Than 60 day shelf life-JS",
+          "date": "2026-06-17",
+          "shipmentReceived": "2024-06-27",
+          "memo": "exp items",
+          "employee": "Mcafee",
+          "cycleCount": "No",
+          "units": 7,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Milkadamia Barista Macadamia Milk 32oz (Sample)",
+      "market": "EWR1",
+      "value": 0.0,
+      "units": 6,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-13",
+          "shipmentReceived": "2025-04-18",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 6,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "MRKT Space Custom Hot Cup 12oz",
+      "market": "LAX1",
+      "value": 0.0,
+      "units": 6000,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-19",
+          "shipmentReceived": "2024-06-05",
+          "memo": "MRKT Donation",
+          "employee": "Smith",
+          "cycleCount": "No",
+          "units": 6000,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "White Rhino Custom SF Vanilla Syrup",
+      "market": "DFW1",
+      "value": 0.0,
+      "units": 112,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-01-02",
+          "shipmentReceived": "2025-12-29",
+          "memo": "shelf stable item expiration - JS",
           "employee": "Shaw",
           "cycleCount": "No",
-          "units": 180,
+          "units": 112,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Gossner Whole Milk 32oz",
+      "market": "EWR1",
+      "value": 0.0,
+      "units": 48,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-08",
+          "shipmentReceived": "",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 48,
           "value": -0.0
         }
       ]
@@ -31672,73 +32329,109 @@
       ]
     },
     {
-      "item": "Monin Autumn Flavors Syrup 50mL Bottle (MINI)",
-      "market": "MDT1",
-      "value": 0.0,
-      "units": 360,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-03-16",
-          "shipmentReceived": "2025-10-10",
-          "memo": "Expired inventory 2026",
-          "employee": "Finn",
-          "cycleCount": "No",
-          "units": 360,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Snacklins Multi Serve - Salt & Vinegar - 12 / 3 oz bag",
-      "market": "DCA1",
-      "value": 0.0,
-      "units": 360,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-08-07",
-          "shipmentReceived": "2026-02-02",
-          "memo": "",
-          "employee": "Galster",
-          "cycleCount": "No",
-          "units": 360,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "1883 Hazelnut Syrup 1L GLASS",
-      "market": "SDF1",
-      "value": 0.0,
-      "units": 7,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-17",
-          "shipmentReceived": "2024-06-27",
-          "memo": "exp items",
-          "employee": "Mcafee",
-          "cycleCount": "No",
-          "units": 7,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "White Rhino Custom SF Vanilla Syrup",
+      "item": "1883 Pure Cane Sugar Syrup 1L Plastic",
       "market": "DFW1",
       "value": 0.0,
-      "units": 112,
+      "units": 1,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-01-02",
-          "shipmentReceived": "2025-12-29",
-          "memo": "shelf stable item expiration - JS",
+          "date": "2026-02-03",
+          "shipmentReceived": "2026-02-05",
+          "memo": "Less Than 60 day shelf life-JS",
           "employee": "Shaw",
           "cycleCount": "No",
-          "units": 112,
+          "units": 1,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "California Pizza Kitchen - Crispy Thin Crust Sicilian Pizza",
+      "market": "BLI1",
+      "value": 0.0,
+      "units": 14,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-01",
+          "shipmentReceived": "2025-12-01",
+          "memo": "BLI1 IA April 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 14,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Justin's Classic Peanut Butter - 12 / 16 oz jar",
+      "market": "DCA1",
+      "value": 0.0,
+      "units": 60,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-03",
+          "shipmentReceived": "2026-02-02",
+          "memo": "DCA1 Expired Product - BH",
+          "employee": "Habecker",
+          "cycleCount": "No",
+          "units": 60,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Darigold Half & Half 1 Quart",
+      "market": "BLI1",
+      "value": 0.0,
+      "units": 12,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-05",
+          "shipmentReceived": "2026-03-12",
+          "memo": "BLI1 IA Mar 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 12,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Foam Aroma Black Lid, 12-24 oz",
+      "market": "CLT1",
+      "value": 0.0,
+      "units": 1,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-04-14",
+          "shipmentReceived": "2026-03-04",
+          "memo": "AG EXPIRED CLT",
+          "employee": "Grobman",
+          "cycleCount": "No",
+          "units": 1,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Humankind Organic Jasmine Lime Green Tea 16oz",
+      "market": "DFW1",
+      "value": 0.0,
+      "units": 180,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-04",
+          "shipmentReceived": "2026-03-26",
+          "memo": "Less Than 60 day shelf life-JS",
+          "employee": "Shaw",
+          "cycleCount": "No",
+          "units": 180,
           "value": -0.0
         }
       ]
@@ -31762,20 +32455,29 @@
       ]
     },
     {
-      "item": "Rishi Botanicals Black Lemon 12oz (Sample)",
-      "market": "EWR1",
+      "item": "Compass Coffee Cardinal Roast - Whole Bean - 5 lb bag",
+      "market": "DCA1",
       "value": 0.0,
-      "units": 11,
-      "lines": 1,
+      "units": 0,
+      "lines": 2,
       "detail": [
         {
-          "date": "2026-06-08",
-          "shipmentReceived": "2025-12-07",
-          "memo": "expired inventory // NW",
-          "employee": "Walker",
+          "date": "2026-04-13",
+          "shipmentReceived": "2026-03-24",
+          "memo": "Waste",
+          "employee": "Galster",
           "cycleCount": "No",
-          "units": 11,
-          "value": -0.0
+          "units": 8,
+          "value": 250.24
+        },
+        {
+          "date": "2026-04-13",
+          "shipmentReceived": "2026-04-15",
+          "memo": "Waste",
+          "employee": "Galster",
+          "cycleCount": "No",
+          "units": -8,
+          "value": -250.24
         }
       ]
     },
@@ -31798,73 +32500,19 @@
       ]
     },
     {
-      "item": "Whole Liquid Cage Free Eggs 1 Quart",
-      "market": "BOS1",
+      "item": "Milkadamia Barista Unsweetened Macadamia Milk 32oz (Sample)",
+      "market": "EWR1",
       "value": 0.0,
-      "units": 90,
+      "units": 3,
       "lines": 1,
       "detail": [
         {
-          "date": "2026-06-15",
-          "shipmentReceived": "2026-05-10",
-          "memo": "DB Refer unit Break down",
-          "employee": "Campos",
+          "date": "2026-02-16",
+          "shipmentReceived": "2025-04-18",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
           "cycleCount": "No",
-          "units": 90,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "Medosweet Non-Fat 1/2 Pint",
-      "market": "BLI1",
-      "value": 0.0,
-      "units": 150,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-06-09",
-          "shipmentReceived": "2026-06-25",
-          "memo": "BLI1 IA June 2026",
-          "employee": "Swanson",
-          "cycleCount": "No",
-          "units": 150,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "MRKT Space Custom Hot Cup 12oz",
-      "market": "LAX1",
-      "value": 0.0,
-      "units": 6000,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-19",
-          "shipmentReceived": "2024-06-05",
-          "memo": "MRKT Donation",
-          "employee": "Smith",
-          "cycleCount": "No",
-          "units": 6000,
-          "value": -0.0
-        }
-      ]
-    },
-    {
-      "item": "White Rhino PET Flat Lid 98mm (Mt Pack)",
-      "market": "DFW1",
-      "value": 0.0,
-      "units": 160000,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-01-02",
-          "shipmentReceived": "2025-01-31",
-          "memo": "shelf stable item expiration - JS",
-          "employee": "Shaw",
-          "cycleCount": "No",
-          "units": 160000,
+          "units": 3,
           "value": -0.0
         }
       ]
@@ -31888,29 +32536,128 @@
       ]
     },
     {
-      "item": "Holy Kakow Organic Cinnamon Syrup 750mL",
+      "item": "Medosweet 2% Dispenser 5 Gallon Bag",
       "market": "BLI1",
-      "value": -0.01,
-      "units": 0,
-      "lines": 2,
+      "value": 0.0,
+      "units": 1,
+      "lines": 1,
       "detail": [
         {
-          "date": "2026-04-01",
-          "shipmentReceived": "2026-03-05",
-          "memo": "BLI1 IA April 2026",
+          "date": "2026-01-23",
+          "shipmentReceived": "2026-01-26",
+          "memo": "BLI1 IA JAN 2026",
           "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 1,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Monin Autumn Flavors Syrup 50mL Bottle (MINI)",
+      "market": "MDT1",
+      "value": 0.0,
+      "units": 360,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-03-16",
+          "shipmentReceived": "2025-10-10",
+          "memo": "Expired inventory 2026",
+          "employee": "Finn",
+          "cycleCount": "No",
+          "units": 360,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Medosweet Non-Fat 1/2 Pint",
+      "market": "BLI1",
+      "value": 0.0,
+      "units": 150,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-06-09",
+          "shipmentReceived": "2026-06-25",
+          "memo": "BLI1 IA June 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 150,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Snacklins Multi Serve - Salt & Vinegar - 12 / 3 oz bag",
+      "market": "DCA1",
+      "value": 0.0,
+      "units": 360,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-08-07",
+          "shipmentReceived": "2026-02-02",
+          "memo": "",
+          "employee": "Galster",
+          "cycleCount": "No",
+          "units": 360,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Monin Sugar Free Dark Chocolate Sauce 64oz",
+      "market": "EWR1",
+      "value": 0.0,
+      "units": 2,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-13",
+          "shipmentReceived": "2026-02-10",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
           "cycleCount": "No",
           "units": 2,
-          "value": 15.37
-        },
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Monin Caramel Syrup 50mL Bottle (MINI)",
+      "market": "EWR1",
+      "value": 0.0,
+      "units": 39560,
+      "lines": 1,
+      "detail": [
         {
-          "date": "2026-04-01",
-          "shipmentReceived": "",
-          "memo": "BLI1 IA April 2026",
+          "date": "2026-06-08",
+          "shipmentReceived": "2025-10-09",
+          "memo": "expired inventory // NW",
+          "employee": "Walker",
+          "cycleCount": "No",
+          "units": 39560,
+          "value": -0.0
+        }
+      ]
+    },
+    {
+      "item": "Edaleen Chocolate Milk 1/2 Gallon",
+      "market": "BLI1",
+      "value": 0.0,
+      "units": 111,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-02",
+          "shipmentReceived": "2026-02-03",
+          "memo": "BLI1 IA Feb 2026",
           "employee": "Swanson",
           "cycleCount": "No",
-          "units": -2,
-          "value": -15.38
+          "units": 111,
+          "value": -0.0
         }
       ]
     },
@@ -31938,6 +32685,33 @@
           "cycleCount": "No",
           "units": -2,
           "value": -15.44
+        }
+      ]
+    },
+    {
+      "item": "Holy Kakow Organic Cinnamon Syrup 750mL",
+      "market": "BLI1",
+      "value": -0.01,
+      "units": 0,
+      "lines": 2,
+      "detail": [
+        {
+          "date": "2026-04-01",
+          "shipmentReceived": "2026-03-05",
+          "memo": "BLI1 IA April 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": 2,
+          "value": 15.37
+        },
+        {
+          "date": "2026-04-01",
+          "shipmentReceived": "",
+          "memo": "BLI1 IA April 2026",
+          "employee": "Swanson",
+          "cycleCount": "No",
+          "units": -2,
+          "value": -15.38
         }
       ]
     },
@@ -32041,24 +32815,6 @@
       ]
     },
     {
-      "item": "Berg Bites - Dark Chocolate Banana Bread 5 Pack",
-      "market": "DCA1",
-      "value": -21.6,
-      "units": -16,
-      "lines": 1,
-      "detail": [
-        {
-          "date": "2026-02-03",
-          "shipmentReceived": "2026-03-09",
-          "memo": "DCA1 Expired Product - BH",
-          "employee": "Habecker",
-          "cycleCount": "No",
-          "units": -16,
-          "value": -21.6
-        }
-      ]
-    },
-    {
       "item": "Berg Bites - Peanut Butter Dark Chocolate 5 Pack",
       "market": "DCA1",
       "value": -21.6,
@@ -32068,6 +32824,24 @@
         {
           "date": "2026-02-03",
           "shipmentReceived": "2026-02-06",
+          "memo": "DCA1 Expired Product - BH",
+          "employee": "Habecker",
+          "cycleCount": "No",
+          "units": -16,
+          "value": -21.6
+        }
+      ]
+    },
+    {
+      "item": "Berg Bites - Dark Chocolate Banana Bread 5 Pack",
+      "market": "DCA1",
+      "value": -21.6,
+      "units": -16,
+      "lines": 1,
+      "detail": [
+        {
+          "date": "2026-02-03",
+          "shipmentReceived": "2026-03-09",
           "memo": "DCA1 Expired Product - BH",
           "employee": "Habecker",
           "cycleCount": "No",
@@ -32134,38 +32908,38 @@
   "byType": [
     {
       "type": "Expired/Donated",
-      "net": -596343.85,
-      "loss": 596343.85,
-      "units": 516620,
-      "lines": 2013
+      "net": -635927.21,
+      "loss": 635927.21,
+      "units": 522419,
+      "lines": 2061
     },
     {
       "type": "General",
-      "net": -95327.48,
-      "loss": 95327.48,
-      "units": -1504750,
-      "lines": 3417
+      "net": -99222.72,
+      "loss": 99222.72,
+      "units": -1441275,
+      "lines": 3567
     },
     {
       "type": "Damages",
-      "net": -75735.42,
-      "loss": 75735.42,
-      "units": 119971,
-      "lines": 1215
+      "net": -77686.31,
+      "loss": 77686.31,
+      "units": 122800,
+      "lines": 1248
     },
     {
       "type": "Marketing/Promotions",
-      "net": -43405.25,
-      "loss": 43405.25,
-      "units": 57751,
-      "lines": 685
+      "net": -44956.08,
+      "loss": 44956.08,
+      "units": 58468,
+      "lines": 719
     },
     {
       "type": "Gain/Loss",
-      "net": -27369.19,
-      "loss": 27369.19,
-      "units": 880797,
-      "lines": 4999
+      "net": -28997.02,
+      "loss": 28997.02,
+      "units": 879634,
+      "lines": 5027
     },
     {
       "type": "Inventory Cost",
@@ -32176,17 +32950,17 @@
     },
     {
       "type": "Samples",
-      "net": -1103.93,
-      "loss": 1103.93,
-      "units": 556,
-      "lines": 27
+      "net": -1179.27,
+      "loss": 1179.27,
+      "units": 562,
+      "lines": 28
     },
     {
       "type": "Customer Returns",
-      "net": 137672.3,
+      "net": 140105.51,
       "loss": 0.0,
-      "units": -1287037,
-      "lines": 2922
+      "units": -1304362,
+      "lines": 2955
     }
   ]
 }
