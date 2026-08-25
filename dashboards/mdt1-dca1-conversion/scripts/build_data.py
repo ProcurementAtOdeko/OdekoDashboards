@@ -28,6 +28,7 @@ network Sales Tracker convention.
 
 from __future__ import annotations
 
+import csv
 import json
 import os
 import re
@@ -50,6 +51,19 @@ DCA1_SOLD_SPREADSHEET_ID = "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs"
 DCA1_SOLD_RANGE = "A1:C"
 
 WAREHOUSE = "DCA1"
+
+# The MDT1 SKU onboarding tracker's cohort, so this dashboard can show which
+# of these SKUs were already in the bring-in plan and which the roster change
+# newly surfaced. Read from the repo rather than a sheet — same commit, so
+# the two dashboards can't drift apart.
+ONBOARDING_COHORT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "mdt1-sku-onboarding", "scripts", "cohort.csv",
+)
+ONBOARDING_DATA = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "mdt1-sku-onboarding", "data.json",
+)
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets.readonly",
@@ -119,8 +133,105 @@ CUSTOMERS = [
     ("572317a2-65be-45d2-bfe6-df85f05be314", "WildBay kombucha - 4820 Seton Drive"),
 ]
 
+# The roster this dashboard tracked before the Group 2 realignment. Kept so
+# the customer table can show the full picture — which locations carried
+# over, which are new, and which dropped out — rather than silently losing
+# the ones that left. Only the current roster feeds the SKU gap analysis.
+PREVIOUS_CUSTOMERS = [
+    ("6ce85566-76a2-4e37-9819-639debd6288b", "5 West Cafe : 5 W Main St"),
+    ("5fa6fca8-4063-4855-9425-63939993b892", "Aveley Farms : 42 W Chesapeake Ave"),
+    ("b5de424c-3b83-4502-9e0e-5b440041da1a", "Aveley Farms : The Roastery"),
+    ("d8143089-c480-4143-bd2c-a05f54d62cec", "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd"),
+    ("4d886efa-7fc9-4085-a8bd-37e6feec253b", "Bagelmeister : 3443 Sweet Air Road"),
+    ("ad13b290-d24f-4713-9c19-87dd12c49766", "Bean Rush Cafe : Glen Burnie"),
+    ("be0f9db5-a0e0-4469-9052-bb8b088ef23b", "Blue Rooster Cafe : 1372 Cape St Claire Rd"),
+    ("314ec033-41c4-428a-a33a-f794f0ad104d", "Bobapop : Gaithersburg - 312 Main Street"),
+    ("78306611-1468-4cc5-891f-aa1da719167c", "Bobapop : Germantown - 18820 Liberty Mill Road"),
+    ("f062df16-1b93-43bc-82ce-10ac9333428b", "Bon Fresco : Gaither Rd"),
+    ("57dec49c-a9a3-40a4-bfec-ea86abff6fd2", "Bon Fresco : Oakland Mills Rd"),
+    ("2c938724-5256-42e4-8c6a-2e7857dcfc71", "Cafe Nola : 4 E Patrick St"),
+    ("2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c", "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane"),
+    ("48e19e54-5515-4f80-a414-c479b69c493f", "Casey's Coffee : College Park"),
+    ("14ef1d3d-a95a-4bc0-99a1-c806bf0f44e6", "Casey's Coffee : Ellicott City"),
+    ("847b9501-2908-48df-8a65-e5e98a75fe3e", "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard"),
+    ("5d8b9264-fcff-4ab3-b49c-0d89be7ce985", "Coffee Land : 222 N Charles St # A"),
+    ("4b724839-42d8-4742-b7f8-c3e3f2e1836c", "Dragon Distillery : 1341 Hughes Ford Rd"),
+    ("77e70cf1-25a4-4f5d-8ed9-567809488115", "Dublin Roasters Coffee, Inc : 1780 N Market St"),
+    ("2cdb0293-1e1b-4bc9-b17e-84209f455ee3", "Filicori : 12430 Park Potomac Ave R-3"),
+    ("669dfdc6-733a-4240-b1b2-9336b9989f95", "Frederick Coffee Co & Cafe : 100 North East Street"),
+    ("7b890e64-9771-4344-ae84-cb3d03d4ecd9", "French Press : 4918 Saint Elmo Avenue"),
+    ("3e6436c3-8748-4842-85d2-0c54ed97a33a", "Gino's : 8600 Lasalle Rd"),
+    ("b5479af9-506d-449e-ae21-fcfc12623666", "John Brown General & Butchery : 13501 Falls Rd"),
+    ("b601db59-206f-4fbf-a10a-e95041f5c855", "Kettle Krazed & Infused : 4537 Rutherford Way"),
+    ("551e1c3a-69fc-4ec9-8ad1-7216e6d589bb", "Kneads Bakeshop : Canton - 3601 Boston St"),
+    ("afddcebe-179f-49f4-86d8-0643750a0781", "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave"),
+    ("a7746087-0d4b-49a3-8202-8523d14a2c1e", "Kyo Matcha : Columbia"),
+    ("0f33d26d-264d-4e41-8096-99e90ff2bccf", "Kyotomatcha : 33 Maryland Avenue"),
+    ("7c3582a4-6f79-4363-a197-43902f3a7a68", "Market House, LLC : 25 Market Space"),
+    ("074c63cf-744f-4c82-a6e0-ad531181f481", "Morning Mugs Coffee : 15 West Hughes Street"),
+    ("c8041d8f-4427-4624-923d-371da8cbc641", "Old Mill Cafe : Ellicott City"),
+    ("1544bb63-e61d-422d-86c2-387ff379820e", "Order and Chaos Coffee : 1410 Key Hwy"),
+    ("efb7e2b9-1162-45c4-8dd3-3e44e010e6d4", "Quartermaine : 4972 Wyaconda Road"),
+    ("c5a56314-b962-4957-8e08-516db05daf29", "Ragamuffins Coffee House : 385 Main St"),
+    ("8418f15b-ef6c-4243-ac49-a567157b673a", "Rockwell Brewery : 8411 Broadband Drive"),
+    ("6006308b-6ac6-4784-ba1d-5c3bfb014086", "Roggenart : Savage - 8600 Foundry St #2091"),
+    ("5983b2f4-e51e-4c43-b1ab-90c401c715f6", "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd"),
+    ("7a6d3a58-3118-4f4a-b72c-4134e17a12c0", "Simona Cafe : 4520 East-West Highway"),
+    ("fb7f2fd9-4650-449d-9bcc-37230c53cdb0", "Sophomore Coffee : 2223 Maryland Ave"),
+    ("37731787-1336-4837-96ab-71e56a841326", "Stone Silo Brewery : 28800 Kemptown Rd"),
+    ("fa9f6ea7-5d6b-444f-ab65-53069ca01e26", "Sweeteria Bethesda : 7525 Old Georgetown Road"),
+    ("b2ac9bdb-f07c-441f-8eb7-7d8793636cdb", "Takoma Beverage Company : 6917 Laurel Ave"),
+    ("59edebfc-d2d4-4ca7-b28c-a141e777812c", "The Fountain at Drug City : 2805 North Point Rd"),
+    ("6b3cdeb7-75e0-4105-88ed-527b39f42c87", "The French Twist Inc : 732 Oklahoma Ave"),
+    ("92a3d2d5-b765-46cf-8809-0d0724a03105", "The Margaret Cleveland/The Peggy : 4725 Walther Ave"),
+    ("36c9263a-f603-4de4-ac7a-b8879aca5e14", "The Perfect Blend Cafe : 31 W Patrick St"),
+    ("1d4366c4-0a8b-412f-9ca4-401d7510ee02", "The Reister's Daughter : 202 Main St"),
+    ("617c35f2-8993-4d99-bfd7-bccedd929234", "Trifecto Bar : 12250 Clarksville Pike suite a"),
+    ("23664754-8a14-485d-94ef-fa8b0ef5131b", "Veloccino Coffee : 15007 Falls Rd"),
+    ("ed22a26d-5798-4d5c-864e-84a34ed9bd0a", "WHATADAY Cafe : 5420 Klee Mill Rd S"),
+    ("0ee21cde-237f-4f88-84a8-fe238d9ddabe", "Wild Bean Coffee : 1532 Rockville Pike"),
+    ("e881d827-7e01-4112-a55a-02bfd2983a18", "Zeke's Coffee : Montebello Terrace"),
+    ("182b63fe-1cc7-4140-8021-ee67809b970a", "Zi Pani Cafe Bistro : 177 Thomas Johnson Dr"),
+    ("d1a0608e-fe4f-4a66-8fa8-cb97767137b5", ""),
+    ("8e7f4544-6ea6-4397-bc74-1d71bcda1d1c", ""),
+    ("a400ffa1-815c-4817-96eb-c826898b02fd", ""),
+    ("db120cef-b1fe-48a1-8ab3-516688df5cd7", ""),
+    ("4b59e1bb-d052-4820-8202-53a39ff7c4fd", ""),
+    ("7f820124-c597-41b0-9cb7-2d5159a50184", ""),
+    ("1bbd0189-7f80-432c-b88f-f33e9ee6680d", ""),
+    ("f910ed38-49df-498e-b3b1-c4ce48758bcc", ""),
+    ("966024dc-249b-4340-9c79-891c1b45a0df", ""),
+    ("dace9b1c-3f61-4e93-a75c-7312ef992a43", ""),
+    ("6efa988c-bcac-4198-ab11-b9771a1beb89", ""),
+    ("619696e0-1b37-4639-8866-7d88cb188894", ""),
+    ("7cfb5a6b-d049-4124-bf46-202a0284667f", ""),
+    ("4b274a8c-e64c-4852-a53b-3c6f3239eecc", ""),
+    ("499bcc70-8f24-4fa2-99aa-3fd7335a69dd", ""),
+    ("3c1b6ee9-a019-4abb-bf4b-b0de9ecfc524", ""),
+    ("7182a5f1-3811-44ae-8344-138b881ab429", ""),
+    ("9b9cc65d-6d86-45aa-b3de-f85286caf89e", ""),
+    ("fbcbd5a1-958d-4e90-840a-044dbb857916", ""),
+    ("391c7681-9a0b-41c1-b6be-52d38c64f9c8", ""),
+    ("b6d43d93-6f0a-4548-8a2c-3a802044354f", ""),
+    ("2b1dd9f2-bff1-4c6e-bc94-e241bee9e418", ""),
+    ("5d5e1635-a5fe-4054-9f0f-6aed94048b89", ""),
+]
+
 CUSTOMER_UUIDS = [u for u, _ in CUSTOMERS]
-ROSTER_NAMES = dict(CUSTOMERS)
+_CURRENT = {u for u, _ in CUSTOMERS}
+_PREVIOUS = {u for u, _ in PREVIOUS_CUSTOMERS}
+# Current roster first so a refreshed name wins over the historical one.
+ROSTER_NAMES = {**dict(PREVIOUS_CUSTOMERS), **dict(CUSTOMERS)}
+# Everything to show in the customer table: the live cohort plus the leavers.
+ALL_CUSTOMER_UUIDS = CUSTOMER_UUIDS + [u for u, _ in PREVIOUS_CUSTOMERS
+                                       if u not in _CURRENT]
+
+
+def roster_status(uuid):
+    """kept = on both rosters, added = new this round, removed = dropped."""
+    if uuid in _CURRENT:
+        return "kept" if uuid in _PREVIOUS else "added"
+    return "removed"
 
 _DUP = re.compile(r"^\(DUPLICATE\)\s*", re.I)
 
@@ -246,6 +357,33 @@ def find_mdt1_file(drive):
     return files[0]["id"]
 
 
+def load_onboarding_skus():
+    """Normalised names of every SKU the onboarding tracker covers.
+
+    Includes both the cohort's original SKUs and the targets they were
+    retargeted onto (Monin -> glass, Torani -> 1L plastic), so a SKU counts as
+    "already being brought on" whichever pack the conversion feed reports.
+    """
+    names = set()
+    try:
+        with open(ONBOARDING_COHORT, newline="") as f:
+            for row in csv.DictReader(f):
+                item = (row.get("Item") or "").strip()
+                if item:
+                    names.add(norm_name(item))
+    except OSError:
+        return names
+    try:
+        with open(ONBOARDING_DATA) as f:
+            for it in json.load(f).get("items", []):
+                for k in ("name", "target"):
+                    if it.get(k):
+                        names.add(norm_name(it[k]))
+    except (OSError, ValueError):
+        pass
+    return names
+
+
 def build_carried_set(svc):
     """SKUs DCA1 already carries (union of 3 signals).
 
@@ -313,8 +451,13 @@ def main(out_path):
     svc = build("sheets", "v4", credentials=creds, cache_discovery=False)
     drive = build("drive", "v3", credentials=creds, cache_discovery=False)
 
-    wanted = set(CUSTOMER_UUIDS)
+    # Scan the feed for everyone we display, but only the live cohort feeds
+    # the SKU gap analysis — a location that left shouldn't create bring-in
+    # demand at DCA1.
+    wanted = set(ALL_CUSTOMER_UUIDS)
+    cohort = set(CUSTOMER_UUIDS)
     carried, carried_named = build_carried_set(svc)
+    onboarding = load_onboarding_skus()
 
     mdt1_id = find_mdt1_file(drive)
     rows = get_values(svc, mdt1_id, "A1:M")
@@ -357,8 +500,9 @@ def main(out_path):
         conv = parse_num(r[c_conv]) if len(r) > c_conv else None
         units = qty / conv if (qty is not None and conv and conv > 0) else 0.0
 
-        s = skus.get(key)
-        if s is None:
+        in_cohort = uuid in cohort
+        s = skus.get(key) if in_cohort else None
+        if in_cohort and s is None:
             s = skus[key] = {
                 "name": name,
                 "brand": (r[c_brand] if c_brand is not None and len(r) > c_brand else "") or "",
@@ -368,14 +512,17 @@ def main(out_path):
                 "_custs": {},
                 "inDca1": key in carried,
                 "dca1Sources": sorted(carried.get(key, [])),
+                # already covered by the MDT1 SKU onboarding tracker?
+                "inOnboarding": key in onboarding,
             }
-        s["units"] += units
-        s["lines"] += 1
-        sc = s["_custs"].get(uuid)
-        if sc is None:
-            sc = s["_custs"][uuid] = {"units": 0.0, "lines": 0}
-        sc["units"] += units
-        sc["lines"] += 1
+        if in_cohort:
+            s["units"] += units
+            s["lines"] += 1
+            sc = s["_custs"].get(uuid)
+            if sc is None:
+                sc = s["_custs"][uuid] = {"units": 0.0, "lines": 0}
+            sc["units"] += units
+            sc["lines"] += 1
 
         ca = cust_agg.setdefault(
             uuid, {"units": 0.0, "skus": set(), "gapSkus": set(), "items": {}}
@@ -485,7 +632,7 @@ def main(out_path):
     format_subs.sort(key=lambda x: -x["units"])
 
     customers = []
-    for uuid in CUSTOMER_UUIDS:
+    for uuid in ALL_CUSTOMER_UUIDS:
         ca = cust_agg.get(uuid)
         items = []
         if ca:
@@ -501,15 +648,21 @@ def main(out_path):
         customers.append({
             "uuid": uuid,
             "name": cust_names.get(uuid) or ROSTER_NAMES.get(uuid, ""),
+            "rosterStatus": roster_status(uuid),
             "hasHistory": ca is not None,
             "skus": len(ca["skus"]) if ca else 0,
             "gapSkus": len(ca["gapSkus"]) if ca else 0,
             "units": round(ca["units"], 1) if ca else 0.0,
             "items": items,
         })
-    customers.sort(key=lambda c: (-c["units"], c["name"]))
+    # Live cohort first, then the leavers; volume order within each group.
+    _ORDER = {"kept": 0, "added": 0, "removed": 1}
+    customers.sort(key=lambda c: (_ORDER[c["rosterStatus"]], -c["units"], c["name"]))
 
-    active = sum(1 for c in customers if c["hasHistory"])
+    roster_counts = {k: sum(1 for c in customers if c["rosterStatus"] == k)
+                     for k in ("kept", "added", "removed")}
+    active = sum(1 for c in customers
+                 if c["hasHistory"] and c["rosterStatus"] != "removed")
     gap_units = round(sum(s["units"] for s in gaps), 1)
     total_units = round(sum(s["units"] for s in sku_list), 1)
     coverage_pct = round(100 * len(covered) / len(sku_list)) if sku_list else 0
@@ -523,11 +676,18 @@ def main(out_path):
         "summary": {
             "customersListed": len(CUSTOMER_UUIDS),
             "customersActive": active,
+            "customersShown": len(customers),
+            "customersKept": roster_counts["kept"],
+            "customersAdded": roster_counts["added"],
+            "customersRemoved": roster_counts["removed"],
             "skusPurchased": len(sku_list),
             "skusCarried": len(covered),
             "skusGap": len(gaps),
             "coveragePct": coverage_pct,
             "unitsTotal": total_units,
+            "skusInOnboarding": sum(1 for x in sku_list if x["inOnboarding"]),
+            "gapsInOnboarding": sum(1 for x in gaps if x["inOnboarding"]),
+            "gapsNotOnboarding": sum(1 for x in gaps if not x["inOnboarding"]),
             "gapUnitsTotal": gap_units,
             "formatSubstitutes": len(format_subs),
         },

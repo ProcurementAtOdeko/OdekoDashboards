@@ -113,6 +113,11 @@
   .badge.carried { background: var(--green-soft); color: var(--green); }
   .badge.gap { background: var(--red-soft); color: var(--red); }
   .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .badge.roster-kept { background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .badge.roster-added { background: var(--green-soft); color: var(--green); }
+  .badge.roster-removed { background: var(--red-soft); color: var(--red); }
+  tr.off-roster td { opacity: .62; }
+  tr.off-roster:hover td { opacity: 1; }
   .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
   .tablewrap { overflow: auto; max-height: 640px; }
   tr.clickable { cursor: pointer; }
@@ -216,6 +221,8 @@
     <div class="toolbar">
       <div class="seg" id="seg-filter">
         <button data-f="gap" class="active">Gaps only</button>
+        <button data-f="new">New gaps</button>
+        <button data-f="planned">In onboarding</button>
         <button data-f="all">All</button>
         <button data-f="carried">Carried</button>
       </div>
@@ -230,6 +237,7 @@
             <th data-sort="name">Item</th>
             <th data-sort="brand">Brand</th>
             <th data-sort="inDca1">In DCA1?</th>
+            <th data-sort="inOnboarding">Onboarding</th>
             <th class="num" data-sort="customers">Customers</th>
             <th class="num" data-sort="lines">Order Lines</th>
             <th class="num" data-sort="units" data-default="desc">Units</th>
@@ -241,8 +249,15 @@
   </section>
 
   <section class="card">
-    <h3>Converting Customers <span class="note">purchase footprint per location</span></h3>
+    <h3>Converting Customers <span class="note" id="cust-note">purchase footprint per location</span></h3>
     <div class="toolbar">
+      <div class="seg" id="seg-roster">
+        <button data-r="all" class="active">All</button>
+        <button data-r="live">Converting</button>
+        <button data-r="kept">Kept</button>
+        <button data-r="added">Added</button>
+        <button data-r="removed">Removed</button>
+      </div>
       <input id="search-cust" type="search" placeholder="Search customer…" />
       <span class="count" id="cust-count"></span>
       <button class="btn" id="dl-custs" title="Download the customers currently shown">⬇ Download CSV</button>
@@ -252,6 +267,7 @@
         <thead>
           <tr>
             <th data-sortc="name">Customer</th>
+            <th data-sortc="rosterStatus">Roster</th>
             <th data-sortc="hasHistory">Status</th>
             <th class="num" data-sortc="skus">SKUs Bought</th>
             <th class="num" data-sortc="gapSkus">Gap SKUs</th>
@@ -329,6 +345,7 @@ const PALETTE = {
 let DATA = null;
 let sortKey = "units", sortDir = "desc", filterText = "", skuFilter = "gap";
 let custSortKey = "units", custSortDir = "desc", custFilterText = "";
+let rosterFilter = "all";
 let lastSkuRows = [], lastCustRows = [];
 
 function csvCell(v) {
@@ -408,7 +425,7 @@ function renderKpis() {
     { label: "Carried in DCA1", value: s.skusCarried, cls: "green",
       hint: `${s.coveragePct}% catalog coverage` },
     { label: "Bring-In Gaps", value: s.skusGap, cls: "red",
-      hint: "SKUs not carried in DCA1" },
+      hint: `${fmt(s.gapsInOnboarding)} already in the onboarding plan · ${fmt(s.gapsNotOnboarding)} new` },
     { label: "Total Units", value: s.unitsTotal, cls: "",
       hint: "actual sold units" },
     { label: "Units in Gap SKUs", value: s.gapUnitsTotal, cls: "amber",
@@ -493,6 +510,8 @@ function renderTable() {
   let rows = DATA.skus.filter(s => {
     if (skuFilter === "gap" && s.inDca1) return false;
     if (skuFilter === "carried" && !s.inDca1) return false;
+    if (skuFilter === "new" && (s.inDca1 || s.inOnboarding)) return false;
+    if (skuFilter === "planned" && !s.inOnboarding) return false;
     return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
   });
 
@@ -527,6 +546,10 @@ function renderTable() {
       <td>${nameCell}</td>
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${badge}</td>
+      <td>${s.inOnboarding
+        ? `<span class="badge carried" title="already tracked on the MDT1 SKU Onboarding dashboard">planned</span>`
+        : (s.inDca1 ? `<span class="badge muted">—</span>`
+                    : `<span class="badge warn" title="gap that the roster change newly surfaced — not in the onboarding plan">new gap</span>`)}</td>
       <td class="num">${fmt(s.customers)}</td>
       <td class="num">${fmt(s.lines)}</td>
       <td class="num">${fmt(s.units)}</td>
@@ -535,8 +558,9 @@ function renderTable() {
 }
 
 function renderCustTable() {
+  const rf = rosterFilter;
   const q = custFilterText.toLowerCase();
-  let rows = DATA.customers.filter(c => !q || (c.name || "").toLowerCase().includes(q) || c.uuid.includes(q));
+  let rows = DATA.customers.filter(c => rf === "all" || (rf === "live" ? c.rosterStatus !== "removed" : c.rosterStatus === rf)).filter(c => !q || (c.name || "").toLowerCase().includes(q) || c.uuid.includes(q));
 
   rows.sort((a, b) => {
     let av = a[custSortKey], bv = b[custSortKey];
@@ -546,8 +570,12 @@ function renderCustTable() {
   });
 
   lastCustRows = rows;
+  const su = DATA.summary;
   document.getElementById("cust-count").textContent =
-    `${rows.length} of ${DATA.customers.length} customers`;
+    `${rows.length} of ${DATA.customers.length} shown`;
+  document.getElementById("cust-note").textContent =
+    `${su.customersListed} converting (${su.customersKept} kept + ${su.customersAdded} added) · ` +
+    `${su.customersRemoved} removed from the roster`;
 
   document.querySelectorAll("#custs th").forEach(th => {
     th.classList.remove("sort-asc", "sort-desc");
@@ -561,8 +589,10 @@ function renderCustTable() {
     const nameCell = c.hasHistory
       ? `<span class="name-link">${escapeHtml(c.name || "(unknown)")}</span>`
       : escapeHtml(c.name || "(unknown)");
-    return `<tr class="${c.hasHistory ? "clickable" : ""}" data-uuid="${c.uuid}">
+    const roster = `<span class="badge roster-${c.rosterStatus}">${c.rosterStatus}</span>`;
+    return `<tr class="${c.hasHistory ? "clickable" : ""}${c.rosterStatus === "removed" ? " off-roster" : ""}" data-uuid="${c.uuid}">
       <td>${nameCell}<div class="uuid">${c.uuid}</div></td>
+      <td>${roster}</td>
       <td>${status}</td>
       <td class="num">${fmt(c.skus)}</td>
       <td class="num">${fmt(c.gapSkus)}</td>
@@ -596,7 +626,7 @@ function openCustModal(uuid) {
     const suffix = modalGapsOnly ? "-gaps" : "";
     downloadCSV(
       `${safeSlug(modalCust.name)}-skus${suffix}.csv`,
-      ["Customer", "Location UUID", "Item", "Brand", "In DCA1", "Order Lines", "Units"],
+      ["Customer", "Location UUID", "Item", "Brand", "In DCA1", "In Onboarding Plan", "Order Lines", "Units"],
       items.map(i => [modalCust.name, modalCust.uuid, i.name, i.brand,
                       i.inDca1 ? "Yes" : "No (gap)", i.lines, i.units]),
     );
@@ -673,8 +703,9 @@ document.getElementById("dl-skus").addEventListener("click", () => {
   const label = skuFilter === "gap" ? "gaps" : skuFilter === "carried" ? "carried" : "all";
   downloadCSV(
     `mdt1-dca1-skus-${label}.csv`,
-    ["Item", "Brand", "In DCA1", "DCA1 Sources", "Customers", "Order Lines", "Units"],
+    ["Item", "Brand", "In DCA1", "Onboarding Plan", "DCA1 Sources", "Customers", "Order Lines", "Units"],
     lastSkuRows.map(s => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                          s.inOnboarding ? "Planned" : (s.inDca1 ? "n/a" : "New gap"),
                           (s.dca1Sources || []).join(" / "), s.customers, s.lines, s.units]),
   );
 });
@@ -682,8 +713,9 @@ document.getElementById("dl-skus").addEventListener("click", () => {
 document.getElementById("dl-custs").addEventListener("click", () => {
   downloadCSV(
     "mdt1-dca1-customers.csv",
-    ["Customer", "Location UUID", "Status", "SKUs Bought", "Gap SKUs", "Units"],
-    lastCustRows.map(c => [c.name, c.uuid, c.hasHistory ? "Purchasing" : "No history",
+    ["Customer", "Location UUID", "Roster", "Status", "SKUs Bought", "Gap SKUs", "Units"],
+    lastCustRows.map(c => [c.name, c.uuid, c.rosterStatus,
+                           c.hasHistory ? "Purchasing" : "No history",
                            c.skus, c.gapSkus, c.units]),
   );
 });
@@ -715,6 +747,15 @@ document.getElementById("seg-filter").addEventListener("click", (e) => {
 document.getElementById("search").addEventListener("input", (e) => {
   filterText = e.target.value; renderTable();
 });
+document.querySelectorAll("#seg-roster button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#seg-roster button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    rosterFilter = btn.dataset.r;
+    renderCustTable();
+  });
+});
+
 document.getElementById("search-cust").addEventListener("input", (e) => {
   custFilterText = e.target.value; renderCustTable();
 });
