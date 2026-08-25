@@ -286,7 +286,8 @@
       <div class="seg" id="seg-filter">
         <button data-f="all" class="active">All</button>
         <button data-f="open">Not live</button>
-        <button data-f="po">On PO</button>
+        <button data-f="po">Inbound</button>
+        <button data-f="to">On TO</button>
         <button data-f="live">Live</button>
         <button data-f="to">TO candidates</button>
         <button data-f="sub">Format subs</button>
@@ -388,10 +389,15 @@ function downloadCSV(filename, headers, rows, bom = true) {
   URL.revokeObjectURL(url);
 }
 
-const STAGES = ["Not started", "On PO", "Received", "Live in catalog"];
+const STAGES = ["Not started", "On PO/TO", "Received", "Live in catalog"];
 
 function stageBadge(it) {
-  return `<span class="badge stage${it.stageIndex}">${escapeHtml(it.stage)}</span>`;
+  const label = it.stageIndex === 1 && it.inboundTypes && it.inboundTypes.length
+    ? `On ${it.inboundTypes.join(" + ")}` : it.stage;
+  const docs = (it.inboundDocs && it.inboundDocs.length)
+    ? ` title="${escapeHtml(it.inboundDocs.join(", "))}"` : "";
+  return `<span class="badge stage${it.stageIndex}"${docs}>${escapeHtml(label)}</span>` +
+    (it.onTo ? ` <span class="badge to">TO inbound</span>` : "");
 }
 
 async function load() {
@@ -423,9 +429,10 @@ function renderKpis() {
     { label: "SKUs Tracked", value: s.skusTracked, cls: "accent",
       hint: `${fmt(s.unitsTracked)} units of MDT1 demand` },
     { label: "Not Started", value: s.notStarted, cls: "red",
-      hint: "no DCA1 PO yet" },
-    { label: "On PO", value: s.onPo, cls: "amber",
-      hint: "ordered, awaiting receipt" },
+      hint: "nothing inbound yet" },
+    { label: "Inbound (PO/TO)", value: s.onPo, cls: "amber",
+      hint: s.onTransferOrder ? `${s.onTransferOrder} on a transfer order`
+                              : "ordered, awaiting receipt" },
     { label: "Received", value: s.received, cls: "green",
       hint: "landed, not yet in catalog" },
     { label: "Live in Catalog", value: s.liveInCatalog, cls: "green",
@@ -515,7 +522,7 @@ function renderTo() {
       && r.mdt1DocAfter <= DATA.minRetainDoc * 1.15;
     return `<tr>
     <td>${escapeHtml(r.name)} <span class="pack">${escapeHtml(r.pack || "—")}</span>${subLine(r)}</td>
-    <td><span class="badge ${r.stage === "On PO" ? "stage1" : "stage0"}">${escapeHtml(r.stage)}</span></td>
+    <td><span class="badge ${r.stage === "On PO/TO" ? "stage1" : "stage0"}">${escapeHtml(r.stage)}</span>${r.onTo ? ` <span class="badge to">TO</span>` : ""}</td>
     <td class="num"><span class="doc hi">${fmt(r.mdt1Doc)}</span></td>
     <td class="num"><span class="doc${floorHit ? " floor" : ""}">${fmt(r.mdt1DocAfter)}</span></td>
     <td class="num">${fmt(r.mdt1OnHand)}</td>
@@ -557,7 +564,8 @@ function renderTable() {
   const q = filterText.toLowerCase();
   let rows = DATA.items.filter(s => {
     if (skuFilter === "open" && s.inCatalog) return false;
-    if (skuFilter === "po" && !s.hasPo) return false;
+    if (skuFilter === "po" && !s.inbound) return false;
+    if (skuFilter === "to" && !s.onTo) return false;
     if (skuFilter === "live" && !s.inCatalog) return false;
     if (skuFilter === "to" && !s.toRecommended) return false;
     if (skuFilter === "sub" && !s.formatSwitched) return false;
@@ -663,9 +671,11 @@ function openModal(it) {
     `<span class="chip">Ordered <b>${fmt(it.ordered)}</b></span>` +
     `<span class="chip">Received <b>${fmt(it.received)}</b></span>` +
     (it.mdt1Doc != null ? `<span class="chip${it.mdt1Doc > DATA.docThreshold ? " gap" : ""}">MDT1 DOC <b>${fmt(it.mdt1Doc)}</b></span>` : "") +
+    (it.inbound ? `<span class="chip">Inbound <b>${escapeHtml((it.inboundTypes || []).join(" + "))}</b> ${escapeHtml((it.inboundDocs || []).join(", "))}</span>` : "") +
     (it.toRecommended ? `<span class="chip gap">Transfer candidate</span>` : "");
   document.querySelector("#s-items tbody").innerHTML = (it.poLines || []).map(l => `<tr>
-    <td>${escapeHtml(l.po || "—")}</td>
+    <td>${escapeHtml(l.po || "—")} <span class="badge ${l.docType === "TO" ? "to" : "muted"}">${escapeHtml(l.docType || "PO")}</span>${
+      l.open ? "" : ` <span class="badge muted" title="cancelled or fully billed - not inbound">closed</span>`}</td>
     <td class="brand-cell">${escapeHtml(l.vendor || "—")}</td>
     <td>${escapeHtml(l.status || "—")}</td>
     <td>${escapeHtml(l.created || "—")}</td>
