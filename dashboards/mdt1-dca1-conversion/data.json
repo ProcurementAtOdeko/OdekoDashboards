@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T14:30:28+00:00",
+  "generatedAt": "2026-08-28T14:35:20+00:00",
   "dateRange": {
     "min": "2026-05-31",
     "max": "2026-08-27"
@@ -12,24 +12,27 @@
     "customersAdded": 28,
     "customersRemoved": 32,
     "skusPurchased": 317,
-    "skusCarried": 127,
-    "skusGap": 190,
-    "coveragePct": 40,
+    "skusCarried": 125,
+    "skusGap": 192,
+    "coveragePct": 39,
     "unitsTotal": 6562.0,
     "skusInOnboarding": 62,
     "gapsInOnboarding": 56,
-    "gapsNotOnboarding": 134,
-    "gapUnitsTotal": 1903.0,
-    "formatSubstitutes": 7
+    "gapsNotOnboarding": 136,
+    "gapUnitsTotal": 1918.0,
+    "formatSubstitutes": 7,
+    "planResolved": 45,
+    "planResolvedCarried": 6,
+    "planResolvedNoDemand": 39
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 127
+      "count": 125
     },
     {
       "status": "Not carried (gap)",
-      "count": 190
+      "count": 192
     }
   ],
   "topGapSkus": [
@@ -171,6 +174,11 @@
       "skus": 8
     },
     {
+      "brand": "Humankind",
+      "units": 36.0,
+      "skus": 2
+    },
+    {
       "brand": "Ghirardelli",
       "units": 36.0,
       "skus": 11
@@ -189,11 +197,6 @@
       "brand": "Island Oasis",
       "units": 24.0,
       "skus": 2
-    },
-    {
-      "brand": "Humankind",
-      "units": 22.0,
-      "skus": 1
     }
   ],
   "formatSubstitutes": [
@@ -207,7 +210,6 @@
         {
           "name": "Monin Lavender Syrup 750ml Glass",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -225,7 +227,6 @@
         {
           "name": "Monin Hazelnut Syrup 750ml Glass",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -243,7 +244,6 @@
         {
           "name": "Monin Elderflower Syrup 1L Plastic Bottle",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "1 L plastic",
@@ -261,7 +261,6 @@
         {
           "name": "Monin Sugar Free Hazelnut Syrup 750ml Glass",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -279,7 +278,6 @@
         {
           "name": "Monin Cinnamon Bun Syrup 750ml Glass",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -297,7 +295,6 @@
         {
           "name": "Monin Candied Orange Syrup 1L Plastic Bottle",
           "sources": [
-            "catalog",
             "sold90"
           ],
           "pack": "1 L plastic",
@@ -315,13 +312,476 @@
         {
           "name": "1883 Syrup Pump (Plastic)",
           "sources": [
-            "catalog",
             "onhand"
           ],
           "pack": "plastic",
           "sameSize": true
         }
       ]
+    }
+  ],
+  "planResolved": [
+    {
+      "name": "Monin Caramel Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 316.0,
+      "units": 47.0,
+      "customers": 4
+    },
+    {
+      "name": "Monin Lavender Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 149.3,
+      "units": 209.0,
+      "customers": 8
+    },
+    {
+      "name": "Monin Sugar Free Hazelnut Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 36.0,
+      "units": 7.0,
+      "customers": 2
+    },
+    {
+      "name": "Monin Hazelnut Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 24.0,
+      "units": 125.0,
+      "customers": 10
+    },
+    {
+      "name": "Monin Cinnamon Bun Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 18.7,
+      "units": 17.0,
+      "customers": 2
+    },
+    {
+      "name": "Monin French Vanilla Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "sold90"
+      ],
+      "planUnits": 16.0,
+      "units": 88.0,
+      "customers": 6
+    },
+    {
+      "name": "Dr. Smoothie 100% Crushed Strawberry Banana 46oz",
+      "brand": "Dr. Smoothie",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 120.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Rock Melon Cantaloupe Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 88.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Dr. Smoothie 100% Crushed Tropical Sunshine 46oz Bottle",
+      "brand": "Dr. Smoothie",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 72.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Real Fruit Mango Smoothie Mix 64 oz. Bottle(s)",
+      "brand": "Torani",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 67.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Real Fruit Strawberry Banana Smoothie Mix 64 oz. Bottle(s)",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 60.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Strawberry Smoothie 1L/33.8 oz. Carton",
+      "brand": "1883",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 56.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Dr. Smoothie Watermelon Cucumber Mint Refreshers 46 oz. Bottle",
+      "brand": "Dr. Smoothie",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 46.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Ghirardelli Vanilla Sauce 87.3oz Bottle",
+      "brand": "Ghirardelli",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 45.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Real Fruit Strawberry Smoothie Mix 64 oz. Bottle(s)",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 45.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Lavender Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 38.2,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Classic Caramel Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 35.2,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Macadamia Nut Syrup 1 Liter Plastic Bottle",
+      "brand": "1883",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 33.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Puremade Dark Chocolate Sauce 64oz Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 28.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Coconut Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 27.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Lavender Lemon Syrup 750 ml Bottle(s)",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 27.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
+      "brand": "1883",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 24.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Pear Syrup 750mL Glass",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 24.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Mojito Mix Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 21.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Sea Salt Caramel Toffee Sauce 64 oz. Bottle(s)",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 21.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Blackberry Sangria Mix 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Dark Chocolate Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Puremade Caramel Sauce 64oz Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Strawberry Banana Smoothie 1L/33.8 oz. Carton",
+      "brand": "1883",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 18.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
+      "brand": "Monin",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 17.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Mandarin Orange Syrup 750mL Glass",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 14.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Peach Smoothie 1/33.8 oz. Carton",
+      "brand": "1883",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 13.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Almond Orgeat Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 12.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Red Raspberry Dairy Friendly Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 12.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Toasted Marshmallow Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 12.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Puremade White Chocolate Sauce 64oz Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 12.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Cinnamon Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 11.2,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Raspberry Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 11.2,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Strawberry Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 11.2,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Ghirardelli Sweet Ground Chocolate Powder 30lb Box",
+      "brand": "Ghirardelli",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 11.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
+      "brand": "Monin",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 10.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani English Toffee Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 9.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Sugar Free Classic Caramel Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 9.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Orange Dairy Friendly Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 9.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Torani Pineapple Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "On PO/TO",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 9.0,
+      "units": 0.0,
+      "customers": 0
     }
   ],
   "skus": [
@@ -333,7 +793,6 @@
       "lines": 44,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -409,7 +868,6 @@
       "lines": 48,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -485,7 +943,6 @@
       "lines": 25,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -525,7 +982,6 @@
       "lines": 40,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -595,7 +1051,6 @@
       "lines": 19,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -696,7 +1151,6 @@
       "lines": 51,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -772,7 +1226,6 @@
       "lines": 18,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -812,7 +1265,6 @@
       "lines": 17,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -858,7 +1310,6 @@
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -880,7 +1331,6 @@
       "lines": 9,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -921,7 +1371,6 @@
       "lines": 19,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -955,7 +1404,6 @@
       "lines": 34,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1099,7 +1547,6 @@
       "lines": 15,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1170,7 +1617,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1192,7 +1638,6 @@
       "lines": 20,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1281,7 +1726,6 @@
       "lines": 40,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1333,7 +1777,6 @@
       "lines": 21,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1428,7 +1871,6 @@
       "lines": 13,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1474,7 +1916,6 @@
       "lines": 18,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1550,7 +1991,6 @@
       "lines": 24,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1626,7 +2066,6 @@
       "lines": 8,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1730,7 +2169,6 @@
       "lines": 20,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1788,7 +2226,6 @@
       "lines": 22,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1834,7 +2271,6 @@
       "lines": 26,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1904,7 +2340,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1944,7 +2379,6 @@
       "lines": 19,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2077,7 +2511,6 @@
       "lines": 9,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2111,7 +2544,6 @@
       "lines": 26,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2200,7 +2632,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2234,7 +2665,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2300,7 +2730,6 @@
       "lines": 21,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2364,7 +2793,6 @@
       "lines": 18,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2404,7 +2832,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2426,7 +2853,6 @@
       "lines": 24,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2490,7 +2916,6 @@
       "lines": 16,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2555,7 +2980,6 @@
       "lines": 18,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2607,7 +3031,6 @@
       "lines": 20,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2665,7 +3088,6 @@
       "lines": 16,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2809,7 +3231,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2857,7 +3278,6 @@
       "lines": 8,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2904,7 +3324,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2982,7 +3401,6 @@
       "lines": 13,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3028,7 +3446,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3105,7 +3522,6 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3145,7 +3561,6 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3227,10 +3642,8 @@
       "itemUuid": "eaacfb7d-6471-4e51-9ac2-44d40871d405",
       "units": 14.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": false,
       "customers": 2,
       "custDetail": [
@@ -3299,7 +3712,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3396,7 +3808,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3449,7 +3860,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3496,7 +3906,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3518,7 +3927,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3552,7 +3960,6 @@
       "lines": 9,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3598,7 +4005,6 @@
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3632,7 +4038,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3692,7 +4097,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3720,7 +4124,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3742,7 +4145,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3795,7 +4197,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3817,7 +4218,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3839,7 +4239,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3861,7 +4260,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3996,7 +4394,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4092,7 +4489,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4158,7 +4554,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4180,7 +4575,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": true,
@@ -4264,7 +4658,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -4293,7 +4686,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -4316,7 +4708,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -4364,7 +4755,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4473,7 +4863,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -4565,7 +4954,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4639,7 +5027,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4673,7 +5060,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4720,7 +5106,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4742,7 +5127,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4801,7 +5185,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4923,7 +5306,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -5027,7 +5409,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -5132,7 +5513,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5204,7 +5584,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5232,7 +5611,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5254,7 +5632,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5288,7 +5665,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5329,7 +5705,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5351,7 +5726,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5379,7 +5753,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5570,7 +5943,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -5693,7 +6065,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5810,7 +6181,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5920,7 +6290,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5998,7 +6367,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6183,7 +6551,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -6225,7 +6592,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6304,7 +6670,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6332,7 +6697,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6531,7 +6895,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6559,7 +6922,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6644,7 +7006,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6767,7 +7128,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6808,7 +7168,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6944,7 +7303,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7029,7 +7387,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7114,7 +7471,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7194,7 +7550,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7255,7 +7610,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7278,7 +7632,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7453,7 +7806,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7495,7 +7847,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7517,7 +7868,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7559,7 +7909,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -7734,7 +8083,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7754,10 +8102,8 @@
       "itemUuid": "aba9ac8f-81a0-4a69-9537-3e516b89ba1c",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": false,
       "customers": 1,
       "custDetail": [
@@ -7796,7 +8142,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7818,7 +8163,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7840,7 +8184,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7862,7 +8205,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7903,7 +8245,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7925,7 +8266,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8042,7 +8382,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8121,7 +8460,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8162,7 +8500,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8203,7 +8540,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8225,7 +8561,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8361,7 +8696,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8687,7 +9021,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -10582,7 +10915,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 20,
-      "gapSkus": 5,
+      "gapSkus": 6,
       "units": 158.0,
       "items": [
         {
@@ -10688,7 +11021,7 @@
           "brand": "Humankind",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Lenka Bar-Vanilla Espresso",
@@ -11733,7 +12066,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 1,
+      "gapSkus": 2,
       "units": 98.0,
       "items": [
         {
@@ -11755,7 +12088,7 @@
           "brand": "Humankind",
           "units": 13.0,
           "lines": 5,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
@@ -11835,7 +12168,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 45,
-      "gapSkus": 21,
+      "gapSkus": 22,
       "units": 75.0,
       "items": [
         {
@@ -12025,7 +12358,7 @@
           "brand": "",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Karat Clear Plastic Jumbo Straws, Wrapped, 7.75\" (C9093)",
@@ -14635,7 +14968,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 54,
-      "gapSkus": 34,
+      "gapSkus": 35,
       "units": 1058.0,
       "items": [
         {
@@ -14951,7 +15284,7 @@
           "brand": "Humankind",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Real Fruit Lemonade Smoothie Mix 64 oz. Bottle(s)",
@@ -15024,7 +15357,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 63,
-      "gapSkus": 50,
+      "gapSkus": 51,
       "units": 619.0,
       "items": [
         {
@@ -15319,7 +15652,7 @@
           "brand": "Humankind",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani SUGAR FREE Caramel Syrup with Splenda 750 ml Bottle(s)",
