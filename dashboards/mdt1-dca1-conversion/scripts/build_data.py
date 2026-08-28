@@ -400,6 +400,36 @@ def load_onboarding_skus():
     return names
 
 
+def load_onboarding_items():
+    """The onboarding tracker's plan items, with what this dashboard needs to
+    decide whether each one is still an open bring-in gap.
+
+    ``keys`` carries both the original SKU and the format target it was
+    retargeted onto, so a plan item counts as landed whichever pack DCA1
+    ended up stocking.
+    """
+    items = []
+    try:
+        with open(ONBOARDING_DATA) as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return items
+    for it in data.get("items", []):
+        name = (it.get("target") or it.get("name") or "").strip()
+        keys = {norm_name(it[k]) for k in ("name", "target") if it.get(k)}
+        keys.discard("")
+        if not name or not keys:
+            continue
+        items.append({
+            "name": name,
+            "brand": it.get("brand") or "",
+            "stage": it.get("stage") or "",
+            "planUnits": it.get("units") or 0.0,
+            "keys": keys,
+        })
+    return items
+
+
 def build_carried_set(svc):
     """SKUs DCA1 already carries (union of 3 signals).
 
@@ -593,6 +623,36 @@ def main(out_path):
     gaps = [s for s in sku_list if not s["inDca1"]]
     covered = [s for s in sku_list if s["inDca1"]]
 
+    # Onboarding plan items this dashboard no longer counts as a bring-in gap.
+    # Two ways that happens: DCA1 now stocks the item, or the roster change
+    # left it with no converting customer buying it. Everything else is still
+    # an open gap and stays out of this list.
+    plan_resolved = []
+    for it in load_onboarding_items():
+        hit = next((skus[k] for k in it["keys"] if k in skus), None)
+        sources = sorted({s for k in it["keys"] for s in carried.get(k, ())})
+        if sources:
+            reason = "carried"
+        elif hit is None:
+            reason = "no-demand"
+        else:
+            continue
+        plan_resolved.append({
+            "name": it["name"],
+            "brand": it["brand"] or (hit["brand"] if hit else ""),
+            "stage": it["stage"],
+            "reason": reason,
+            "dca1Sources": sources,
+            "planUnits": round(it["planUnits"], 1),
+            "units": hit["units"] if hit else 0.0,
+            "customers": hit["customers"] if hit else 0,
+        })
+    # Landed first, then the ones that simply lost their demand; volume order
+    # within each group so the material ones read first.
+    plan_resolved.sort(
+        key=lambda p: (p["reason"] != "carried", -p["planUnits"], p["name"])
+    )
+
     # Top gap SKUs and brands (bring-in candidates).
     top_gap_skus = [
         {"name": s["name"], "units": s["units"], "customers": s["customers"]}
@@ -706,6 +766,9 @@ def main(out_path):
             "gapsNotOnboarding": sum(1 for x in gaps if not x["inOnboarding"]),
             "gapUnitsTotal": gap_units,
             "formatSubstitutes": len(format_subs),
+            "planResolved": len(plan_resolved),
+            "planResolvedCarried": sum(1 for p in plan_resolved if p["reason"] == "carried"),
+            "planResolvedNoDemand": sum(1 for p in plan_resolved if p["reason"] == "no-demand"),
         },
         "coverage": [
             {"status": "Carried in DCA1", "count": len(covered)},
@@ -714,6 +777,7 @@ def main(out_path):
         "topGapSkus": top_gap_skus,
         "topGapBrands": top_gap_brands,
         "formatSubstitutes": format_subs,
+        "planResolved": plan_resolved,
         "skus": sku_list,
         "customers": customers,
     }

@@ -278,6 +278,37 @@
       </table>
     </div>
   </section>
+
+  <section class="card" id="resolved-section" hidden>
+    <h3>Planned, No Longer a Gap
+      <span class="note" id="resolved-note">onboarding-plan SKUs this conversion no longer needs brought in</span>
+    </h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-resolved">
+        <button data-r="all" class="active">All</button>
+        <button data-r="carried">Now in DCA1</button>
+        <button data-r="no-demand">No converting demand</button>
+      </div>
+      <span class="count" id="resolved-count"></span>
+      <button class="btn" id="dl-resolved" title="Download the rows currently shown">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="resolved">
+        <thead>
+          <tr>
+            <th data-sortr="name">Item</th>
+            <th data-sortr="brand">Brand</th>
+            <th data-sortr="reason">Why it dropped off</th>
+            <th data-sortr="stage">Plan stage</th>
+            <th class="num" data-sortr="planUnits" data-default="desc">Plan Units</th>
+            <th class="num" data-sortr="units">Units on Roster</th>
+            <th class="num" data-sortr="customers">Customers</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
 </main>
 
 <div class="modal-backdrop" id="cust-modal">
@@ -346,7 +377,8 @@ let DATA = null;
 let sortKey = "units", sortDir = "desc", filterText = "", skuFilter = "gap";
 let custSortKey = "units", custSortDir = "desc", custFilterText = "";
 let rosterFilter = "all";
-let lastSkuRows = [], lastCustRows = [];
+let lastSkuRows = [], lastCustRows = [], lastResolvedRows = [];
+let resolvedSortKey = "planUnits", resolvedSortDir = "desc", resolvedFilter = "all";
 
 function csvCell(v) {
   if (v == null) return "";
@@ -387,6 +419,53 @@ async function load() {
   renderTable();
   renderCustTable();
   renderCharts();
+  renderResolved();
+}
+
+const RESOLVED_REASONS = {
+  "carried": ["Now in DCA1", "carried", "DCA1 stocks this now, so the conversion no longer needs it brought in"],
+  "no-demand": ["No converting demand", "muted", "no customer on the current roster buys this any more"],
+};
+
+function renderResolved() {
+  const all = DATA.planResolved || [];
+  const section = document.getElementById("resolved-section");
+  if (!all.length) { section.hidden = true; return; }
+  section.hidden = false;
+
+  let rows = all.filter(p => resolvedFilter === "all" || p.reason === resolvedFilter);
+  rows.sort((a, b) => {
+    let av = a[resolvedSortKey], bv = b[resolvedSortKey];
+    if (av == null) av = ""; if (bv == null) bv = "";
+    if (typeof av === "string") return resolvedSortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return resolvedSortDir === "asc" ? av - bv : bv - av;
+  });
+  lastResolvedRows = rows;
+
+  const su = DATA.summary;
+  document.getElementById("resolved-count").textContent = `${rows.length} of ${all.length} shown`;
+  document.getElementById("resolved-note").textContent =
+    `${su.planResolvedCarried} now stocked in DCA1 · ${su.planResolvedNoDemand} with no demand left on the roster`;
+
+  document.querySelectorAll("#resolved th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sortr === resolvedSortKey) th.classList.add(resolvedSortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#resolved tbody").innerHTML = rows.map(p => {
+    const [label, cls, title] = RESOLVED_REASONS[p.reason] || [p.reason, "muted", ""];
+    const src = (p.dca1Sources || []).length
+      ? `<div class="uuid">${escapeHtml(p.dca1Sources.join(" · "))}</div>` : "";
+    return `<tr>
+      <td>${escapeHtml(p.name)}${src}</td>
+      <td class="brand-cell">${escapeHtml(p.brand || "—")}</td>
+      <td><span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span></td>
+      <td class="brand-cell">${escapeHtml(p.stage || "—")}</td>
+      <td class="num">${fmt(p.planUnits)}</td>
+      <td class="num">${p.units ? fmt(p.units) : "—"}</td>
+      <td class="num">${p.customers || "—"}</td>
+    </tr>`;
+  }).join("");
 }
 
 function renderSubs() {
@@ -775,6 +854,36 @@ document.querySelectorAll("#custs th[data-sortc]").forEach(th => {
     else { custSortKey = key; custSortDir = th.dataset.default || "desc"; }
     renderCustTable();
   });
+});
+document.querySelectorAll("#resolved th[data-sortr]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sortr;
+    if (resolvedSortKey === key) resolvedSortDir = resolvedSortDir === "asc" ? "desc" : "asc";
+    else { resolvedSortKey = key; resolvedSortDir = th.dataset.default || "desc"; }
+    renderResolved();
+  });
+});
+
+document.getElementById("seg-resolved").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  resolvedFilter = btn.dataset.r;
+  document.querySelectorAll("#seg-resolved button").forEach(b => b.classList.toggle("active", b === btn));
+  renderResolved();
+});
+
+document.getElementById("dl-resolved").addEventListener("click", () => {
+  downloadCSV(
+    "mdt1-dca1-planned-no-longer-gaps.csv",
+    ["Item", "Brand", "Why It Dropped Off", "DCA1 Sources", "Plan Stage",
+     "Plan Units", "Units on Roster", "Customers"],
+    lastResolvedRows.map(p => [
+      p.name, p.brand,
+      (RESOLVED_REASONS[p.reason] || [p.reason])[0],
+      (p.dca1Sources || []).join(" / "),
+      p.stage, p.planUnits, p.units, p.customers,
+    ]),
+  );
 });
 
 load();
