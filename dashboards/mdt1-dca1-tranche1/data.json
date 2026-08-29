@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T18:59:01+00:00",
+  "generatedAt": "2026-08-29T02:25:44+00:00",
   "dateRange": {
     "min": "2026-05-31",
     "max": "2026-08-27"
@@ -8,20 +8,20 @@
     "customersListed": 16,
     "customersActive": 16,
     "skusPurchased": 158,
-    "skusCarried": 82,
-    "skusGap": 76,
-    "coveragePct": 52,
+    "skusCarried": 89,
+    "skusGap": 69,
+    "coveragePct": 56,
     "unitsTotal": 3398.0,
-    "gapUnitsTotal": 734.0
+    "gapUnitsTotal": 541.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 82
+      "count": 89
     },
     {
       "status": "Not carried (gap)",
-      "count": 76
+      "count": 69
     }
   ],
   "topGapSkus": [
@@ -36,16 +36,6 @@
       "customers": 2
     },
     {
-      "name": "Monin Banana Syrup 750ml Glass",
-      "units": 52.0,
-      "customers": 2
-    },
-    {
-      "name": "Monin Passion Fruit Syrup 1 Liter Plastic Bottle",
-      "units": 40.0,
-      "customers": 1
-    },
-    {
       "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
       "units": 39.0,
       "customers": 1
@@ -53,21 +43,6 @@
     {
       "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
       "units": 33.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Elderflower Syrup 750ml Glass",
-      "units": 31.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin White Peach Syrup 750mL Glass",
-      "units": 31.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Rose Syrup 750ml Glass",
-      "units": 27.0,
       "customers": 1
     },
     {
@@ -111,11 +86,6 @@
       "customers": 1
     },
     {
-      "name": "Monin Toffee Nut Syrup 750ml Glass",
-      "units": 9.0,
-      "customers": 2
-    },
-    {
       "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
       "units": 8.0,
       "customers": 1
@@ -124,13 +94,43 @@
       "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
       "units": 8.0,
       "customers": 1
+    },
+    {
+      "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
+      "units": 8.0,
+      "customers": 3
+    },
+    {
+      "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
+      "units": 7.0,
+      "customers": 1
+    },
+    {
+      "name": "UGLIES Buffalo Ranch 2oz Bag",
+      "units": 6.0,
+      "customers": 3
+    },
+    {
+      "name": "Monin Peanut Butter Syrup 750ml Glass",
+      "units": 5.0,
+      "customers": 1
+    },
+    {
+      "name": "Monin Sugar Free Caramel Syrup 750ml Glass",
+      "units": 5.0,
+      "customers": 2
+    },
+    {
+      "name": "UGLIES Sweets 1.5oz Bag",
+      "units": 5.0,
+      "customers": 2
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 574.0,
-      "skus": 32
+      "units": 381.0,
+      "skus": 25
     },
     {
       "brand": "Almond Breeze",
@@ -625,8 +625,10 @@
       "itemUuid": "cd7f7a7d-71db-4fd4-9254-bab37cecbb5b",
       "units": 52.0,
       "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 2,
       "custDetail": [
         {
@@ -715,8 +717,10 @@
       "itemUuid": "a6512c6b-78eb-4695-b110-f125aec43826",
       "units": 40.0,
       "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -802,8 +806,10 @@
       "itemUuid": "2674851b-04c7-4268-9026-ac73d0c854b0",
       "units": 31.0,
       "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -820,8 +826,10 @@
       "itemUuid": "91478c97-b21a-410b-baed-b5a5ddbf560e",
       "units": 31.0,
       "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -904,8 +912,10 @@
       "itemUuid": "0839fae8-1c1d-4a8f-bc44-44014f100e7c",
       "units": 27.0,
       "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -1776,8 +1786,10 @@
       "itemUuid": "9b8accca-42de-43a9-8eb3-079be8ca74df",
       "units": 9.0,
       "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 2,
       "custDetail": [
         {
@@ -2691,8 +2703,10 @@
       "itemUuid": "590d07bb-c44d-4635-9f2a-db3684db7d2f",
       "units": 3.0,
       "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -3989,7 +4003,7 @@
       "name": "Quartermaine : 4972 Wyaconda Road",
       "hasHistory": true,
       "skus": 25,
-      "gapSkus": 6,
+      "gapSkus": 2,
       "units": 834.0,
       "items": [
         {
@@ -4025,7 +4039,7 @@
           "brand": "Monin",
           "units": 40.0,
           "lines": 5,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
@@ -4046,7 +4060,7 @@
           "brand": "Monin",
           "units": 31.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
@@ -4060,7 +4074,7 @@
           "brand": "Monin",
           "units": 27.0,
           "lines": 4,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Caramel Sauce 64oz",
@@ -4165,7 +4179,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         }
       ]
     },
@@ -4174,7 +4188,7 @@
       "name": "Kyotomatcha : 33 Maryland Avenue",
       "hasHistory": true,
       "skus": 18,
-      "gapSkus": 12,
+      "gapSkus": 10,
       "units": 264.0,
       "items": [
         {
@@ -4182,7 +4196,7 @@
           "brand": "Monin",
           "units": 50.0,
           "lines": 6,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Coconut Syrup 750ml Glass",
@@ -4196,7 +4210,7 @@
           "brand": "Monin",
           "units": 31.0,
           "lines": 5,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Pina Colada Smoothie 46oz",
@@ -4565,7 +4579,7 @@
       "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
       "hasHistory": true,
       "skus": 32,
-      "gapSkus": 12,
+      "gapSkus": 9,
       "units": 177.0,
       "items": [
         {
@@ -4615,7 +4629,7 @@
           "brand": "Monin",
           "units": 7.0,
           "lines": 4,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Caramel Sauce 64oz",
@@ -4685,14 +4699,14 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Banana Syrup 750ml Glass",
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Pistachio Syrup 750 ml Glass",
