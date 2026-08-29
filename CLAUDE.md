@@ -6,8 +6,9 @@ under `dashboards/`, refreshed hourly by a GitHub Actions workflow.
 ## Layout
 
 ```
-.mcp.json                              # registers google-sheets MCP
+.mcp.json                              # registers google-sheets + looker MCPs
 tools/google-sheets-mcp/               # MCP server (Python, service-account auth)
+tools/looker-mcp/                      # MCP server (Python, Looker API3 key pair)
 .github/workflows/refresh-<name>.yml   # one per dashboard
 dashboards/_shared/odeko-logo.png      # shared logo, referenced as ../_shared/odeko-logo.png
 dashboards/<name>/
@@ -33,6 +34,28 @@ just need to re-read the latest values.
 To browse it, use the Drive MCP `search_files` with
 `parentId = '1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7'`. To filter by name, add
 `and title contains '<keyword>'`.
+
+## Querying Looker directly
+
+The `looker` MCP (`tools/looker-mcp/`) talks to the Looker API 4.0, so a
+dashboard can pull live from an explore instead of waiting on a scheduled
+CSV dump. Prefer it when the data the user wants isn't already in the
+Looker Data Dumps folder, or when they need something fresher than
+Looker's export schedule.
+
+Useful starting points:
+
+- `whoami` — confirm credentials resolve
+- `list_models` → `get_explore(model, explore)` — find queryable field names
+- `run_query(model, explore, fields, filters, sorts, limit)` — pull rows
+- `get_dashboard(id)` — when porting an existing Looker dashboard, this
+  returns each tile's model/explore/fields/filters, which map straight
+  onto a `run_query` call in `build_data.py`
+- `run_sql(connection, sql)` — raw warehouse SQL when no explore fits
+
+Requires `LOOKER_BASE_URL`, `LOOKER_CLIENT_ID`, `LOOKER_CLIENT_SECRET`.
+See `tools/looker-mcp/README.md` for setup. Workflows that build from
+Looker need the same three values as repo secrets, mapped into `env:`.
 
 ## New dashboard intake
 
@@ -88,6 +111,24 @@ Dashboards are deployed to GitHub Pages at
 - Repo secret: `GOOGLE_SERVICE_ACCOUNT_JSON` (already configured) — used by workflows
 - Env var: `GOOGLE_SERVICE_ACCOUNT_JSON` (set in Claude Code on the web env) — used by the MCP
 - Both hold the same minified service-account JSON key
+
+Looker (`tools/looker-mcp/`) uses an API3 key pair generated in Looker under
+Admin → Users → Edit → API Keys:
+
+- `LOOKER_BASE_URL`, `LOOKER_CLIENT_ID`, `LOOKER_CLIENT_SECRET`
+- Set in the Claude Code on the web env for MCP use, and as repo secrets for
+  any workflow that builds from Looker
+- The key inherits its Looker user's permissions — prefer a dedicated
+  read-only service user over a personal key
+
+MCP server venvs are gitignored and built per machine:
+```
+python3 -m venv tools/<server>/.venv
+tools/<server>/.venv/bin/pip install -r tools/<server>/requirements.txt
+```
+Keep `mcp` pinned `<2` — 2.0 removed `mcp.server.fastmcp`, which both servers
+import; an unpinned install makes them fail to start and show as perpetually
+"connecting".
 
 ## Viewing dashboards locally
 
