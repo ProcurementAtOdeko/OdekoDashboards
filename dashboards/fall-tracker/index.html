@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Fall Tracker</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+    --neutral: #A89684;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  header select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
+  }
+  header select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .context {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; margin-bottom: 18px;
+  }
+  .window-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    border-left: 4px solid var(--accent-yellow); padding: 10px 16px; min-width: 210px;
+  }
+  .window-card .name { font-weight: 700; font-size: 14px; color: var(--ink-2); }
+  .window-card .window { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .window-card .status { font-size: 11px; font-weight: 600; margin-top: 2px; color: var(--green); }
+  .segmented { display: flex; gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--panel); }
+  .segmented button {
+    border: 0; background: var(--panel); color: var(--muted); font-family: inherit; font-size: 12px;
+    font-weight: 600; padding: 10px 14px; cursor: pointer; border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 1px; min-width: 120px;
+  }
+  .segmented button:last-child { border-right: 0; }
+  .segmented button .n { font-size: 11px; font-weight: 500; color: var(--neutral); }
+  .segmented button.on { background: var(--panel-2); color: var(--ink-2); }
+  .segmented button.on .n { color: var(--muted); }
+  .segmented button:hover { background: #FAF4E4; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2);
+  }
+  .card h3 .hint {
+    display: block; text-transform: none; letter-spacing: 0; font-weight: 400;
+    color: var(--muted); font-size: 11px; margin-top: 3px;
+  }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 320px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+  .charts .card { margin-bottom: 0; }
+  .empty {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 13px; text-align: center; padding: 0 24px;
+  }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 220px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
+  }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg); white-space: nowrap;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .cls { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .up { color: var(--red); font-weight: 600; }
+  .down { color: var(--ink-2); }
+  .nowrap { white-space: nowrap; }
+  .sub2 { color: var(--muted); font-size: 11px; }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .badge.ok { background: var(--green-soft); color: var(--green); }
+  .badge.tight { background: var(--amber-soft); color: var(--amber); }
+  .badge.gap { background: var(--red-soft); color: var(--red); }
+  .badge.critical { background: var(--red); color: #fff; }
+  .badge.idle { background: var(--panel-2); color: var(--muted); }
+  .badge.over { background: var(--red-soft); color: var(--red); }
+  .badge.under { background: rgba(64,24,11,.10); color: var(--ink-2); }
+  .badge.on { background: var(--green-soft); color: var(--green); }
+  .badge.tier { background: var(--panel-2); color: var(--muted); font-weight: 500; }
+  .badge.dt { background: var(--accent-yellow); color: var(--ink-2); }
+
+  .method { color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .method b { color: var(--ink-2); }
+  .method code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; font-size: 11px; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Fall Tracker</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <select id="wh" aria-label="Market"></select>
+</header>
+
+<main>
+  <section class="context">
+    <div class="window-card">
+      <div class="name" id="season-name">Fall</div>
+      <div class="window" id="season-window"></div>
+      <div class="status" id="season-status"></div>
+    </div>
+    <div class="window-card">
+      <div class="name">Focus window</div>
+      <div class="window" id="focus-window"></div>
+      <div class="status" id="focus-status"></div>
+    </div>
+    <div class="segmented" id="tiers"></div>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <div class="card chart full">
+    <h3>The Ramp — Network Consumption vs Forecast
+      <span class="hint" id="ramp-hint"></span>
+    </h3>
+    <div class="body">
+      <canvas id="chart-ramp"></canvas>
+      <div class="empty" id="ramp-empty" style="display:none"></div>
+    </div>
+  </div>
+
+  <section class="charts">
+    <div class="card chart">
+      <h3>Pipeline — Inbound POs Landing in Window
+        <span class="hint" id="pipe-hint"></span>
+      </h3>
+      <div class="body">
+        <canvas id="chart-pipe"></canvas>
+        <div class="empty" id="pipe-empty" style="display:none"></div>
+      </div>
+    </div>
+    <div class="card chart">
+      <h3>Over / Under Forecast — Biggest Movers
+        <span class="hint" id="var-hint"></span>
+      </h3>
+      <div class="body">
+        <canvas id="chart-var"></canvas>
+        <div class="empty" id="var-empty" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Double Tap SKUs
+      <span class="hint">Stock is already inbound <b>and</b> the model still trips a reorder — the first PO will not cover the ramp. Order again on top of it.</span>
+    </h3>
+    <div class="toolbar">
+      <span class="count" id="dt-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="dt-table">
+        <thead>
+          <tr>
+            <th data-sort="n">Item</th>
+            <th data-sort="w">Market</th>
+            <th class="num" data-sort="inv">On Hand</th>
+            <th class="num" data-sort="onOrder">Inbound</th>
+            <th data-sort="poDate">Lands</th>
+            <th data-sort="oosDays">Model OOS</th>
+            <th class="num" data-sort="oq" data-default="desc">Order Again</th>
+            <th class="num" data-sort="missVal" data-default="desc">$ at Risk</th>
+            <th data-sort="band">vs Fcst</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>All Fall SKUs
+      <span class="hint" id="all-hint"></span>
+    </h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, vendor, or class…" />
+      <select id="statusFilter">
+        <option value="ALL">All cover states</option>
+        <option value="atrisk">At risk (dry before cover lands)</option>
+        <option value="critical">Dry before a new order lands</option>
+        <option value="gap">Order now to bridge</option>
+        <option value="tight">Inbound PO covers it</option>
+        <option value="ok">Covered past window</option>
+        <option value="idle">No movement</option>
+      </select>
+      <select id="bandFilter">
+        <option value="ALL">Over &amp; under</option>
+        <option value="over">Running over forecast</option>
+        <option value="under">Running under forecast</option>
+        <option value="on">On forecast</option>
+      </select>
+      <select id="dtFilter">
+        <option value="ALL">All items</option>
+        <option value="dt">Double tap only</option>
+        <option value="pipe">Has inbound pipeline</option>
+        <option value="nopipe">Nothing inbound</option>
+      </select>
+      <span class="count" id="all-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="all-table">
+        <thead>
+          <tr>
+            <th data-sort="n">Item</th>
+            <th data-sort="w">Market</th>
+            <th class="num" data-sort="rec">Rate 2wk</th>
+            <th class="num" data-sort="fc">Fcst</th>
+            <th class="num" data-sort="var" data-default="desc">vs Fcst</th>
+            <th class="num" data-sort="ramp" data-default="desc">Ramp</th>
+            <th class="num" data-sort="inv">On Hand</th>
+            <th class="num" data-sort="onOrder">Inbound</th>
+            <th data-sort="oosDays">Model OOS</th>
+            <th class="num" data-sort="dryDays" data-default="desc">Days Dry</th>
+            <th class="num" data-sort="missVal" data-default="desc">$ at Risk</th>
+            <th data-sort="st">Cover</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>How these numbers are built</h3>
+    <div class="body method" id="method"></div>
+  </section>
+</main>
+
+<script>
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318",
+  yellow: "#FFD100", neutral: "#A89684",
+};
+const STATUS = {
+  critical: { label: "Dry before ETA", color: "#7A1109" },
+  gap:      { label: "Order now",      color: PALETTE.red },
+  tight:    { label: "PO covers",      color: PALETTE.amber },
+  ok:       { label: "Covered",        color: PALETTE.green },
+  idle:     { label: "No movement",    color: PALETTE.neutral },
+};
+const STATUS_ORDER = ["critical", "gap", "tight", "ok", "idle"];
+const STATUS_RANK = Object.fromEntries(STATUS_ORDER.map((k, i) => [k, i]));
+const BAND = {
+  over:  { label: "Over",  color: PALETTE.red },
+  under: { label: "Under", color: PALETTE.ink },
+  on:    { label: "On",    color: PALETTE.green },
+};
+const TIERS = [
+  { key: "ALL",  label: "All fall items", hint: "flavors + hot-bev" },
+  { key: "core", label: "Core flavors",   hint: "pumpkin, maple, spice…" },
+  { key: "adj",  label: "Hot-bev & chai", hint: "cups, chai, cocoa" },
+];
+const MAX_ROWS = 400;
+
+const fmt = (n, d = 1) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: d });
+const fmtMoney = (n) =>
+  n == null ? "—" : "$" + Math.round(n).toLocaleString();
+const fmtPct = (u) => {
+  if (u == null) return "—";
+  if (Math.abs(u) >= 10) return (u > 0 ? "+" : "−") + "×" + Math.abs(u).toFixed(0);
+  return (u >= 0 ? "+" : "") + (u * 100).toFixed(0) + "%";
+};
+const fmtDate = (iso) =>
+  iso ? new Date(iso + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "—";
+const fmtDateY = (iso) =>
+  iso ? new Date(iso + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "—";
+const escapeHtml = (s) =>
+  String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const shorten = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
+
+let DATA = null;
+let selectedWh = "ALL";
+let tier = "ALL";
+let filterText = "";
+let statusFilter = "ALL";
+let bandFilter = "ALL";
+let dtFilter = "ALL";
+let sortKey = "missVal", sortDir = "desc";
+let dtSortKey = "missVal", dtSortDir = "desc";
+let charts = {};
+
+/** Lines in scope for headline numbers: market + tier only. */
+function scoped() {
+  return DATA.lines.filter(l =>
+    (selectedWh === "ALL" || l.w === selectedWh) &&
+    (tier === "ALL" || l.tier === tier));
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) {
+    document.getElementById("meta").textContent = "Failed to load data.json";
+    return;
+  }
+  DATA = await res.json();
+
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · model as of ${fmtDateY(DATA.asOf)}`;
+
+  const s = DATA.season, w = DATA.window;
+  document.getElementById("season-name").textContent = `${s.label} season`;
+  document.getElementById("season-window").textContent =
+    `${fmtDate(s.start)} – ${fmtDateY(s.end)}`;
+  document.getElementById("season-status").textContent = s.active
+    ? `● In season — day ${s.dayOf} of ${s.length}`
+    : `Starts in ${Math.max(0, Math.ceil((new Date(s.start) - new Date(DATA.asOf)) / 864e5))}d`;
+  document.getElementById("focus-window").textContent =
+    `${fmtDate(w.start)} – ${fmtDateY(w.end)}`;
+  document.getElementById("focus-status").textContent = `Next ${w.days} days`;
+
+  const sel = document.getElementById("wh");
+  sel.innerHTML = `<option value="ALL">All markets</option>` +
+    DATA.warehouses.map(x => `<option value="${x}">${x}</option>`).join("");
+  sel.value = selectedWh;
+  sel.addEventListener("change", e => { selectedWh = e.target.value; renderAll(); });
+
+  renderMethod();
+  renderAll();
+}
+
+function renderAll() {
+  renderTiers();
+  renderKpis();
+  // Tables first, and charts individually guarded: the double-tap list is the
+  // actionable part of this page and must not go blank because a CDN blip
+  // took Chart.js down with it.
+  renderDoubleTap();
+  renderAllTable();
+  renderCharts();
+}
+
+function renderCharts() {
+  const panes = [["chart-ramp", "ramp-empty"], ["chart-pipe", "pipe-empty"], ["chart-var", "var-empty"]];
+  if (typeof Chart === "undefined") {
+    panes.forEach(([c, e]) => showEmpty(c, e, "Charts unavailable — Chart.js could not be loaded."));
+    return;
+  }
+  for (const [fn, pane] of [[renderRamp, panes[0]], [renderPipeline, panes[1]], [renderVariance, panes[2]]]) {
+    try {
+      fn();
+    } catch (err) {
+      console.error(err);
+      showEmpty(pane[0], pane[1], "This chart could not be drawn.");
+    }
+  }
+}
+
+function renderTiers() {
+  const base = DATA.lines.filter(l => selectedWh === "ALL" || l.w === selectedWh);
+  document.getElementById("tiers").innerHTML = TIERS.map(t => {
+    const n = t.key === "ALL" ? base.length : base.filter(l => l.tier === t.key).length;
+    return `<button class="${t.key === tier ? "on" : ""}" data-tier="${t.key}">
+      <span>${t.label}</span><span class="n">${n} lines · ${t.hint}</span></button>`;
+  }).join("");
+  document.querySelectorAll("#tiers button").forEach(b =>
+    b.addEventListener("click", () => { tier = b.dataset.tier; renderAll(); }));
+}
+
+function renderKpis() {
+  const rows = scoped();
+  const skus = new Set(rows.map(l => l.id)).size;
+  const markets = new Set(rows.map(l => l.w)).size;
+
+  // Network ramp: trailing 2 weeks vs the 2 before, over lines with both.
+  let rec = 0, pri = 0;
+  for (const l of rows) {
+    if (l.rec != null && l.pri != null) { rec += l.rec; pri += l.pri; }
+  }
+  const ramp = pri > 0 ? (rec - pri) / pri : null;
+
+  const over = rows.filter(l => l.band === "over");
+  const under = rows.filter(l => l.band === "under");
+  const overGap = over.reduce((t, l) => t + ((l.rec || 0) - (l.fc || 0)), 0);
+  const underGap = under.reduce((t, l) => t + ((l.fc || 0) - (l.rec || 0)), 0);
+
+  const dt = rows.filter(l => l.dt);
+  const dtUnits = dt.reduce((t, l) => t + (l.oq || 0), 0);
+
+  const risk = rows.reduce((t, l) => t + (l.missVal || 0), 0);
+  const riskLines = rows.filter(l => (l.dryDays || 0) > 0).length;
+
+  const inbound = rows.filter(l => l.poIn);
+  const inboundUnits = inbound.reduce((t, l) => t + (l.poQty || 0), 0);
+  const inboundVal = inbound.reduce((t, l) => t + (l.poVal || 0), 0);
+
+  const kpis = [
+    { label: "Fall SKUs", value: fmt(skus, 0),
+      note: `${rows.length} SKU-market lines · ${markets} markets`, cls: "accent" },
+    { label: `Ramp — last 2wk`, value: fmtPct(ramp),
+      note: `${fmt(rec, 1)} vs ${fmt(pri, 1)} PU/day network`,
+      cls: ramp == null ? "" : ramp > 0 ? "green" : "amber" },
+    { label: "Pipeline in Window", value: fmt(inboundUnits, 0) + " PU",
+      note: `${inbound.length} POs landing · ${fmtMoney(inboundVal)}`, cls: "" },
+    { label: "Over Forecast", value: fmt(over.length, 0),
+      note: `+${fmt(overGap, 1)} PU/day above plan`, cls: over.length ? "red" : "green" },
+    { label: "Under Forecast", value: fmt(under.length, 0),
+      note: `−${fmt(underGap, 1)} PU/day below plan`, cls: "" },
+    { label: "Double Tap SKUs", value: fmt(dt.length, 0),
+      note: `${fmt(dtUnits, 0)} PU recommended on top of inbound`,
+      cls: dt.length ? "amber" : "green" },
+    { label: "$ at Risk in Window", value: fmtMoney(risk),
+      note: `${riskLines} lines dry before cover lands`, cls: risk > 0 ? "red" : "green" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>
+     <div class="value">${k.value}</div><div class="note">${k.note}</div></div>`).join("");
+}
+
+function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function chartDefaults() {
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+}
+
+function showEmpty(canvasId, emptyId, msg) {
+  document.getElementById(canvasId).style.display = "none";
+  const el = document.getElementById(emptyId);
+  el.style.display = "flex";
+  el.textContent = msg;
+}
+function hideEmpty(canvasId, emptyId) {
+  document.getElementById(canvasId).style.display = "";
+  document.getElementById(emptyId).style.display = "none";
+}
+
+/* --- The ramp: 4 trailing actual weeks, then next month's forecast. --- */
+function renderRamp() {
+  chartDefaults();
+  destroyChart("ramp");
+  // Only lines carrying all four weeks and both forecasts, so every bar is
+  // summed over an identical population.
+  const rows = scoped().filter(l =>
+    l.wk && l.wk.every(v => v != null) && l.fc != null && l.fcn != null);
+  const hint = document.getElementById("ramp-hint");
+  if (!rows.length) {
+    hint.textContent = "";
+    return showEmpty("chart-ramp", "ramp-empty", "No lines with a full 4-week history in this view.");
+  }
+  hideEmpty("chart-ramp", "ramp-empty");
+
+  const weekly = [0, 1, 2, 3].map(i => rows.reduce((t, l) => t + l.wk[i], 0));
+  const fcCur = rows.reduce((t, l) => t + l.fc, 0);
+  const fcNext = rows.reduce((t, l) => t + l.fcn, 0);
+  const fm = DATA.fcstMonths;
+
+  const labels = DATA.weekWindows.map(w => `${fmtDate(w.start)}–${fmtDate(w.end)}`)
+    .concat([`${fm.next.label} forecast`]);
+
+  hint.textContent =
+    `${rows.length} lines with a full 4-week history · bars are actual PU/day, `
+    + `final bar is the model's ${fm.next.label} forecast · dashed line is the `
+    + `${fm.current.label} forecast it should have hit`;
+
+  charts.ramp = new Chart(document.getElementById("chart-ramp"), {
+    data: {
+      labels,
+      datasets: [
+        {
+          type: "bar",
+          label: "Actual PU/day",
+          data: weekly.concat([null]),
+          backgroundColor: PALETTE.ink,
+          borderRadius: 4,
+          order: 2,
+        },
+        {
+          type: "bar",
+          label: `${fm.next.label} forecast PU/day`,
+          data: [null, null, null, null, fcNext],
+          backgroundColor: PALETTE.yellow,
+          borderColor: PALETTE.ink,
+          borderWidth: 1,
+          borderRadius: 4,
+          order: 2,
+        },
+        {
+          type: "line",
+          label: `${fm.current.label} forecast PU/day`,
+          data: labels.map(() => fcCur),
+          borderColor: PALETTE.amber,
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: false,
+          order: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12 } },
+        tooltip: {
+          callbacks: {
+            label: (c) => c.raw == null ? null : `${c.dataset.label}: ${fmt(c.raw, 1)} PU/day`,
+            afterBody: (items) => {
+              const i = items[0].dataIndex;
+              if (i > 0 && i < 4 && weekly[i - 1] > 0) {
+                const wow = (weekly[i] - weekly[i - 1]) / weekly[i - 1];
+                return `Week over week: ${fmtPct(wow)}`;
+              }
+              return null;
+            },
+          },
+        },
+      },
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: "Network PU / day" } },
+      },
+    },
+  });
+}
+
+/* --- Pipeline: inbound POs by arrival week, split by landing in time. --- */
+function renderPipeline() {
+  chartDefaults();
+  destroyChart("pipe");
+  const rows = scoped().filter(l => l.poIn && l.poDate);
+  const hint = document.getElementById("pipe-hint");
+  if (!rows.length) {
+    hint.textContent = "";
+    return showEmpty("chart-pipe", "pipe-empty", "No purchase orders land inside the window for this view.");
+  }
+  hideEmpty("chart-pipe", "pipe-empty");
+
+  const start = new Date(DATA.window.start + "T00:00:00");
+  const nBuckets = Math.ceil(DATA.window.days / 7);
+  const inTime = new Array(nBuckets).fill(0);
+  const late = new Array(nBuckets).fill(0);
+  const labels = [];
+  for (let i = 0; i < nBuckets; i++) {
+    const a = new Date(start); a.setDate(a.getDate() + i * 7);
+    const b = new Date(start); b.setDate(Math.min(b.getDate() + i * 7 + 6, start.getDate() + DATA.window.days - 1));
+    labels.push(`${a.toLocaleDateString(undefined, { month: "short", day: "numeric" })}–${b.toLocaleDateString(undefined, { day: "numeric" })}`);
+  }
+  let lateVal = 0, inTimeVal = 0;
+  for (const l of rows) {
+    const idx = Math.min(nBuckets - 1,
+      Math.floor((new Date(l.poDate + "T00:00:00") - start) / 864e5 / 7));
+    // "Late" = the item is already projected dry before this PO shows up.
+    const isLate = l.oos && l.poDate > l.oos;
+    if (isLate) { late[idx] += l.poQty || 0; lateVal += l.poVal || 0; }
+    else { inTime[idx] += l.poQty || 0; inTimeVal += l.poVal || 0; }
+  }
+  hint.textContent =
+    `${rows.length} POs · ${fmt(inTime.reduce((a, b) => a + b, 0), 0)} PU land before the item runs dry, `
+    + `${fmt(late.reduce((a, b) => a + b, 0), 0)} PU land after it already has`;
+
+  charts.pipe = new Chart(document.getElementById("chart-pipe"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "Lands in time", data: inTime, backgroundColor: PALETTE.green, stack: "p", borderRadius: 3 },
+        { label: "Lands after it runs dry", data: late, backgroundColor: PALETTE.red, stack: "p", borderRadius: 3 },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12 } },
+        tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${fmt(c.raw, 0)} PU` } },
+      },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, title: { display: true, text: "Purchase units arriving" } },
+      },
+    },
+  });
+}
+
+/* --- Over / under forecast, in PU/day so the scale stays readable. --- */
+function renderVariance() {
+  chartDefaults();
+  destroyChart("var");
+  const rows = scoped().filter(l => l.band && l.band !== "on" && l.rec != null && l.fc != null);
+  const hint = document.getElementById("var-hint");
+  if (!rows.length) {
+    hint.textContent = "";
+    return showEmpty("chart-var", "var-empty", "No lines are meaningfully off forecast in this view.");
+  }
+  hideEmpty("chart-var", "var-empty");
+
+  const withDiff = rows.map(l => ({ l, diff: l.rec - l.fc }));
+  const overs = withDiff.filter(x => x.diff > 0).sort((a, b) => b.diff - a.diff).slice(0, 7);
+  const unders = withDiff.filter(x => x.diff < 0).sort((a, b) => a.diff - b.diff).slice(0, 7);
+  const picked = overs.concat(unders.reverse()).sort((a, b) => b.diff - a.diff);
+
+  hint.textContent =
+    `Gap between the trailing 2-week actual rate and the ${DATA.fcstMonths.current.label} `
+    + `forecast rate, in purchase units per day`;
+
+  charts.var = new Chart(document.getElementById("chart-var"), {
+    type: "bar",
+    data: {
+      labels: picked.map(x => shorten(x.l.n, 26) + (selectedWh === "ALL" ? ` (${x.l.w})` : "")),
+      datasets: [{
+        data: picked.map(x => x.diff),
+        backgroundColor: picked.map(x => x.diff > 0 ? PALETTE.red : PALETTE.ink),
+        borderRadius: 3,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const x = picked[c.dataIndex];
+              return `${x.diff > 0 ? "Over" : "Under"} by ${fmt(Math.abs(x.diff), 2)} PU/day `
+                + `(${fmtPct(x.l.var)}) · actual ${fmt(x.l.rec, 2)} vs forecast ${fmt(x.l.fc, 2)}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { title: { display: true, text: "PU/day vs forecast (right = running hot)" } },
+        y: { ticks: { autoSkip: false, font: { size: 10 } } },
+      },
+    },
+  });
+}
+
+function sortRows(rows, key, dir) {
+  return rows.sort((a, b) => {
+    let av = a[key], bv = b[key];
+    if (key === "st") { av = STATUS_RANK[a.st]; bv = STATUS_RANK[b.st]; }
+    if (key === "band") { av = a.var; bv = b.var; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return dir === "asc" ? av - bv : bv - av;
+  });
+}
+
+function oosCell(l) {
+  if (!l.oos) return `<td class="sub2">—</td>`;
+  const soon = l.oosDays != null && l.oosDays <= 7;
+  return `<td class="nowrap"${soon ? ' style="color:var(--red);font-weight:600"' : ""}>`
+    + `${fmtDate(l.oos)} <span class="sub2">(${l.oosDays}d)</span></td>`;
+}
+
+function renderDoubleTap() {
+  const rows = sortRows(scoped().filter(l => l.dt), dtSortKey, dtSortDir);
+  document.getElementById("dt-count").textContent =
+    rows.length ? `${rows.length} line${rows.length === 1 ? "" : "s"} · `
+                  + `${fmtMoney(rows.reduce((t, l) => t + (l.missVal || 0), 0))} at risk`
+                : "none in this view";
+
+  document.querySelectorAll("#dt-table th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === dtSortKey) th.classList.add(dtSortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#dt-table tbody").innerHTML = rows.length ? rows.map(l => `<tr>
+    <td>${escapeHtml(l.n)}<div class="cls">${escapeHtml(l.cls || "")}${l.v ? " · " + escapeHtml(l.v) : ""}</div></td>
+    <td>${escapeHtml(l.w)}</td>
+    <td class="num">${fmt(l.inv)}</td>
+    <td class="num">${fmt(l.onOrder)}</td>
+    <td class="nowrap">${fmtDate(l.poDate)}${l.poQty ? ` <span class="sub2">${fmt(l.poQty, 0)} PU</span>` : ""}</td>
+    ${oosCell(l)}
+    <td class="num">${l.oq ? `<b>${fmt(l.oq, 0)}</b> <span class="sub2">PU</span>`
+      : `<span class="sub2">qty not set</span>`}</td>
+    <td class="num">${l.missVal ? fmtMoney(l.missVal) : "—"}</td>
+    <td>${l.band ? `<span class="badge ${l.band}">${BAND[l.band].label} ${fmtPct(l.var)}</span>` : "—"}</td>
+  </tr>`).join("") : `<tr><td colspan="9" class="sub2">No double-tap lines — nothing has both inbound stock and an open reorder trigger in this view.</td></tr>`;
+}
+
+function renderAllTable() {
+  const q = filterText.toLowerCase();
+  let rows = scoped().filter(l => {
+    if (statusFilter === "atrisk") { if (l.st !== "critical" && l.st !== "gap") return false; }
+    else if (statusFilter !== "ALL" && l.st !== statusFilter) return false;
+    if (bandFilter !== "ALL" && l.band !== bandFilter) return false;
+    if (dtFilter === "dt" && !l.dt) return false;
+    if (dtFilter === "pipe" && !(l.onOrder > 0 || l.poQty > 0)) return false;
+    if (dtFilter === "nopipe" && (l.onOrder > 0 || l.poQty > 0)) return false;
+    return !q || l.n.toLowerCase().includes(q)
+      || (l.v || "").toLowerCase().includes(q)
+      || (l.cls || "").toLowerCase().includes(q);
+  });
+  rows = sortRows(rows, sortKey, sortDir);
+
+  const total = rows.length;
+  const shown = rows.slice(0, MAX_ROWS);
+  document.getElementById("all-count").textContent =
+    total > MAX_ROWS ? `showing ${MAX_ROWS} of ${total} lines — refine filters`
+                     : `${total} line${total === 1 ? "" : "s"}`;
+  document.getElementById("all-hint").textContent =
+    `Every fall SKU-market line in scope. "Days Dry" is how long the item sits at zero inside the `
+    + `${DATA.window.days}-day window before anything lands.`;
+
+  document.querySelectorAll("#all-table th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#all-table tbody").innerHTML = shown.map(l => `<tr>
+    <td>${escapeHtml(l.n)}
+      <div class="cls">${escapeHtml(l.cls || "")}${l.v ? " · " + escapeHtml(l.v) : ""}
+      ${l.dt ? ' <span class="badge dt">double tap</span>' : ""}</div></td>
+    <td>${escapeHtml(l.w)}</td>
+    <td class="num">${fmt(l.rec, 2)}</td>
+    <td class="num">${fmt(l.fc, 2)}</td>
+    <td class="num ${l.var == null ? "" : l.var >= 0 ? "up" : "down"}">${fmtPct(l.var)}</td>
+    <td class="num ${l.ramp == null ? "" : l.ramp >= 0 ? "up" : "down"}">${l.new ? '<span class="sub2">new</span>' : fmtPct(l.ramp)}</td>
+    <td class="num">${fmt(l.inv)}</td>
+    <td class="num">${fmt(l.onOrder)}${l.poDate ? `<div class="sub2">${fmtDate(l.poDate)}</div>` : ""}</td>
+    ${oosCell(l)}
+    <td class="num">${l.dryDays ? l.dryDays + "d" : "—"}</td>
+    <td class="num">${l.missVal ? fmtMoney(l.missVal) : "—"}</td>
+    <td><span class="badge ${l.st}">${STATUS[l.st].label}</span></td>
+  </tr>`).join("");
+}
+
+function renderMethod() {
+  const t = DATA.thresholds, fm = DATA.fcstMonths, w = DATA.window;
+  document.getElementById("method").innerHTML = `
+    <p><b>Scope.</b> Fall SKUs are matched on item name, on whole words so brand
+    names do not leak in. <b>Core flavors</b> are ${DATA.keywords.core.length} fall
+    terms (${DATA.keywords.core.slice(0, 5).join(", ")}…); <b>hot-bev &amp; chai</b>
+    covers ${DATA.keywords.adjacent.join(", ")} — these ramp with the season but are
+    not fall-exclusive, so they are tiered separately rather than mixed in.</p>
+
+    <p><b>The ramp / over-under forecast.</b> The dump carries four trailing weekly
+    actuals (<code>rate_-4</code>…<code>rate_-1</code>) as purchase units per day.
+    "Rate 2wk" averages the last two; the prior two are the ramp baseline. The
+    forecast rate is <code>pred_current_month</code> ÷ days in ${fm.current.label},
+    which puts a monthly total on the same PU/day footing. A line is flagged
+    <b>over</b> or <b>under</b> once it is ${(t.varianceBand * 100).toFixed(0)}% off that
+    forecast, and only when the larger of the two rates clears
+    ${t.minBandRate} PU/day — below that, percentages swing on rounding.</p>
+
+    <p><b>Pipeline.</b> Inbound is <code>outstanding_restock_quantity</code> with the
+    next arrival dated by <code>next_po_delivery_date</code>. A PO "lands in time"
+    when it arrives on or before the model's projected stockout date; otherwise the
+    stock shows up after the shelf is already empty.</p>
+
+    <p><b>Double tap.</b> Stock is already inbound <i>and</i>
+    <code>v2_order_trigger</code> is still set — the open PO makes these look handled,
+    which is exactly why they get missed. "Order again" is the model's own
+    <code>v2_order_quantity_pu</code>, on top of what is already coming.</p>
+
+    <p><b>$ at risk.</b> Model OOS date is <code>date_out_of_stock</code> from the
+    dump — a model output, not a re-derivation of on-hand ÷ rate, and it runs ahead
+    of that naive math because it prices in the ramp. "Days Dry" counts days at zero
+    before the earliest arrival (an open PO, or a fresh order at the model's own lead
+    time), clipped to the ${w.days}-day window, so the dollar figure only ever claims
+    exposure inside the window. Units missed are valued at average on-hand cost.</p>
+
+    <p><b>Reading it.</b> Cover states run
+    <span class="badge critical">Dry before ETA</span> (even ordering today lands
+    late), <span class="badge gap">Order now</span> (nothing inbound in time, but a
+    fresh order still bridges), <span class="badge tight">PO covers</span> (inbound
+    arrives first), <span class="badge ok">Covered</span> (no stockout inside the
+    window).</p>`;
+}
+
+document.getElementById("search").addEventListener("input", e => { filterText = e.target.value; renderAllTable(); });
+document.getElementById("statusFilter").addEventListener("change", e => { statusFilter = e.target.value; renderAllTable(); });
+document.getElementById("bandFilter").addEventListener("change", e => { bandFilter = e.target.value; renderAllTable(); });
+document.getElementById("dtFilter").addEventListener("change", e => { dtFilter = e.target.value; renderAllTable(); });
+
+document.querySelectorAll("#all-table th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "asc"; }
+    renderAllTable();
+  });
+});
+document.querySelectorAll("#dt-table th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (dtSortKey === key) dtSortDir = dtSortDir === "asc" ? "desc" : "asc";
+    else { dtSortKey = key; dtSortDir = th.dataset.default || "asc"; }
+    renderDoubleTap();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
