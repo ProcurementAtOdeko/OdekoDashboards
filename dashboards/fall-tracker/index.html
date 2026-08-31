@@ -230,6 +230,15 @@
         <div class="empty" id="var-empty" style="display:none"></div>
       </div>
     </div>
+    <div class="card chart">
+      <h3>Model vs Last Fall — Biggest Shortfalls
+        <span class="hint" id="ly-hint"></span>
+      </h3>
+      <div class="body">
+        <canvas id="chart-ly"></canvas>
+        <div class="empty" id="ly-empty" style="display:none"></div>
+      </div>
+    </div>
   </section>
 
   <section class="card">
@@ -253,6 +262,7 @@
         <option value="over">Running over forecast</option>
         <option value="under">Running under forecast</option>
         <option value="on">On forecast</option>
+        <option value="under-ly">Model under last fall</option>
       </select>
       <select id="dt-urgency">
         <option value="ALL">Any stockout date</option>
@@ -304,6 +314,7 @@
         <option value="over">Running over forecast</option>
         <option value="under">Running under forecast</option>
         <option value="on">On forecast</option>
+        <option value="under-ly">Model under last fall</option>
       </select>
       <select id="dtFilter">
         <option value="ALL">All items</option>
@@ -327,6 +338,8 @@
             <th class="num" data-sort="fc">Fcst</th>
             <th class="num" data-sort="var" data-default="desc">vs Fcst</th>
             <th class="num" data-sort="ramp" data-default="desc">Ramp</th>
+            <th class="num" data-sort="lyLift" data-default="desc">Last Fall</th>
+            <th class="num" data-sort="sFc" data-default="desc">Seasonal Fcst</th>
             <th class="num" data-sort="inv">On Hand</th>
             <th class="num" data-sort="onOrder">Inbound</th>
             <th data-sort="oosDays">Model OOS</th>
@@ -457,12 +470,14 @@ function renderAll() {
 }
 
 function renderCharts() {
-  const panes = [["chart-ramp", "ramp-empty"], ["chart-pipe", "pipe-empty"], ["chart-var", "var-empty"]];
+  const panes = [["chart-ramp", "ramp-empty"], ["chart-pipe", "pipe-empty"],
+                 ["chart-var", "var-empty"], ["chart-ly", "ly-empty"]];
   if (typeof Chart === "undefined") {
     panes.forEach(([c, e]) => showEmpty(c, e, "Charts unavailable — Chart.js could not be loaded."));
     return;
   }
-  for (const [fn, pane] of [[renderRamp, panes[0]], [renderPipeline, panes[1]], [renderVariance, panes[2]]]) {
+  for (const [fn, pane] of [[renderRamp, panes[0]], [renderPipeline, panes[1]],
+                            [renderVariance, panes[2]], [renderLastFall, panes[3]]]) {
     try {
       fn();
     } catch (err) {
@@ -503,6 +518,10 @@ function renderKpis() {
   const dt = rows.filter(l => l.dt);
   const dtUnits = dt.reduce((t, l) => t + (l.oq || 0), 0);
 
+  // Lines the model forecasts materially below what last fall's lift implies.
+  const underLy = rows.filter(l => l.under && l.sFc != null && l.fcn != null);
+  const underLyShort = underLy.reduce((t, l) => t + (l.sFc - l.fcn), 0);
+
   const risk = rows.reduce((t, l) => t + (l.missVal || 0), 0);
   const riskLines = rows.filter(l => (l.dryDays || 0) > 0).length;
 
@@ -522,6 +541,11 @@ function renderKpis() {
       note: `+${fmt(overGap, 1)} PU/day above plan`, cls: over.length ? "red" : "green" },
     { label: "Under Forecast", value: fmt(under.length, 0),
       note: `−${fmt(underGap, 1)} PU/day below plan`, cls: "" },
+    { label: "Under Last Fall", value: fmt(underLy.length, 0),
+      note: underLy.length
+        ? `model is ${fmt(underLyShort, 1)} PU/day below last fall's shape`
+        : "model keeps up with last fall",
+      cls: underLy.length ? "red" : "green" },
     { label: "Double Tap SKUs", value: fmt(dt.length, 0),
       note: `${fmt(dtUnits, 0)} PU recommended on top of inbound`,
       cls: dt.length ? "amber" : "green" },
@@ -752,6 +776,68 @@ function renderVariance() {
   });
 }
 
+/* --- Where the model's own forecast sits under last fall's shape. --- */
+function renderLastFall() {
+  chartDefaults();
+  destroyChart("ly");
+  const hint = document.getElementById("ly-hint");
+  const src = DATA.sources && DATA.sources.seasonal;
+  if (!src || !src.available) {
+    hint.textContent = "";
+    return showEmpty("chart-ly", "ly-empty",
+      "Last fall's history was not available for this build.");
+  }
+  const rows = scoped()
+    .filter(l => l.under && l.sFc != null && l.fcn != null)
+    .map(l => ({ l, gap: l.sFc - l.fcn }))
+    .sort((a, b) => b.gap - a.gap)
+    .slice(0, 12);
+  if (!rows.length) {
+    hint.textContent = "";
+    return showEmpty("chart-ly", "ly-empty",
+      "Nothing here is forecast materially under last fall's pace.");
+  }
+  hideEmpty("chart-ly", "ly-empty");
+  hint.textContent =
+    `Items whose ${DATA.fcstMonths.next.label} model forecast falls at least `
+    + `${(DATA.thresholds.underSeasonalBand * 100).toFixed(0)}% under what last `
+    + `fall's lift implies. Bar is the shortfall in purchase units per day.`;
+
+  charts.ly = new Chart(document.getElementById("chart-ly"), {
+    type: "bar",
+    data: {
+      labels: rows.map(x => shorten(x.l.n, 26) + (selectedWh === "ALL" ? ` (${x.l.w})` : "")),
+      datasets: [
+        { label: `${DATA.fcstMonths.next.label} model forecast`,
+          data: rows.map(x => x.l.fcn), backgroundColor: PALETTE.neutral, borderRadius: 3, stack: "s" },
+        { label: "Shortfall vs last fall", data: rows.map(x => x.gap),
+          backgroundColor: PALETTE.yellow, borderColor: PALETTE.ink, borderWidth: 1,
+          borderRadius: 3, stack: "s" },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12 } },
+        tooltip: {
+          callbacks: {
+            afterBody: (items) => {
+              const x = rows[items[0].dataIndex];
+              return `Last fall lifted ×${fmt(x.l.lyLift, 2)} (${x.l.lyBasis})\n`
+                + `Now ${fmt(x.l.rec, 2)}/day → last fall implies ${fmt(x.l.sFc, 2)}/day`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { stacked: true, beginAtZero: true, title: { display: true, text: "PU / day" } },
+        y: { stacked: true, ticks: { autoSkip: false, font: { size: 10 } } },
+      },
+    },
+  });
+}
+
 function sortRows(rows, key, dir) {
   return rows.sort((a, b) => {
     let av = a[key], bv = b[key];
@@ -793,17 +879,26 @@ const CSV_COLUMNS = [
   { h: "Next-month forecast (PU/day)", f: l => l.fcn },
   { h: "Variance vs forecast %", f: l => pctOut(l.var) },
   { h: "Forecast band", f: l => (l.band ? BAND[l.band].label : "") },
+  { h: "Last fall lift (x)", f: l => l.lyLift },
+  { h: "Last fall lift basis", f: l => l.lyBasis || "" },
+  { h: "Seasonal forecast (PU/day)", f: l => l.sFc },
+  { h: "Model vs seasonal %", f: l => pctOut(l.sGap) },
+  { h: "Model under last fall", f: l => (l.under ? "yes" : "no") },
   { h: "On hand (PU)", f: l => l.inv },
   { h: "On order (PU)", f: l => l.onOrder },
   { h: "Arriving today (PU)", f: l => l.arr },
   { h: "Past due (PU)", f: l => l.past },
   { h: "Next PO date", f: l => l.poDate },
+  { h: "Next PO date (slip-adjusted)", f: l => l.poAdj },
+  { h: "Vendor slip (days)", f: l => l.vslip },
+  { h: "Vendor slip sample", f: l => l.vslipN },
   { h: "Next PO qty (PU)", f: l => l.poQty },
   { h: "Next PO lands in window", f: l => (l.poIn ? "yes" : "no") },
   { h: "Next PO value", f: l => l.poVal },
   { h: "Model OOS date", f: l => l.oos },
   { h: "Days to OOS", f: l => l.oosDays },
   { h: "Earliest new-order ETA", f: l => l.eta },
+  { h: "Earliest new-order ETA (slip-adjusted)", f: l => l.etaAdj },
   { h: "Covered thru", f: l => l.thru },
   { h: "Days of cover", f: l => l.cover },
   { h: "Days dry in window", f: l => l.dryDays },
@@ -881,7 +976,9 @@ function dtFilteredRows() {
     if (dtStatus === "atrisk") {
       if (l.st !== "critical" && l.st !== "gap") return false;
     } else if (dtStatus !== "ALL" && l.st !== dtStatus) return false;
-    if (dtBand !== "ALL" && l.band !== dtBand) return false;
+    if (dtBand === "under-ly") {
+      if (!l.under) return false;
+    } else if (dtBand !== "ALL" && l.band !== dtBand) return false;
     if (dtUrgency === "dry") {
       if (!(l.dryDays > 0)) return false;
     } else if (dtUrgency !== "ALL") {
@@ -897,7 +994,9 @@ function allFilteredRows() {
     if (statusFilter === "atrisk") {
       if (l.st !== "critical" && l.st !== "gap") return false;
     } else if (statusFilter !== "ALL" && l.st !== statusFilter) return false;
-    if (bandFilter !== "ALL" && l.band !== bandFilter) return false;
+    if (bandFilter === "under-ly") {
+      if (!l.under) return false;
+    } else if (bandFilter !== "ALL" && l.band !== bandFilter) return false;
     if (dtFilter === "dt" && !l.dt) return false;
     if (dtFilter === "pipe" && !(l.onOrder > 0 || l.poQty > 0)) return false;
     if (dtFilter === "nopipe" && (l.onOrder > 0 || l.poQty > 0)) return false;
@@ -939,11 +1038,13 @@ function renderDoubleTap() {
   });
 
   document.querySelector("#dt-table tbody").innerHTML = rows.length ? rows.map(l => `<tr>
-    <td>${escapeHtml(l.n)}<div class="cls">${escapeHtml(l.cls || "")}${l.v ? " · " + escapeHtml(l.v) : ""}</div></td>
+    <td>${escapeHtml(l.n)}<div class="cls">${escapeHtml(l.cls || "")}${l.v ? " · " + escapeHtml(l.v) : ""}
+      ${l.under ? ' <span class="badge over">under last fall</span>' : ""}</div></td>
     <td>${escapeHtml(l.w)}</td>
     <td class="num">${fmt(l.inv)}</td>
     <td class="num">${fmt(l.onOrder)}</td>
-    <td class="nowrap">${fmtDate(l.poDate)}${l.poQty ? ` <span class="sub2">${fmt(l.poQty, 0)} PU</span>` : ""}</td>
+    <td class="nowrap">${fmtDate(l.poDate)}${l.poQty ? ` <span class="sub2">${fmt(l.poQty, 0)} PU</span>` : ""}${
+      l.vslip ? `<div class="sub2">+${l.vslip}d vendor slip</div>` : ""}</td>
     ${oosCell(l)}
     <td class="num">${l.oq ? `<b>${fmt(l.oq, 0)}</b> <span class="sub2">PU</span>`
       : `<span class="sub2">qty not set</span>`}</td>
@@ -987,6 +1088,10 @@ function renderAllTable() {
     <td class="num">${fmt(l.fc, 2)}</td>
     <td class="num ${l.var == null ? "" : l.var >= 0 ? "up" : "down"}">${fmtPct(l.var)}</td>
     <td class="num ${l.ramp == null ? "" : l.ramp >= 0 ? "up" : "down"}">${l.new ? '<span class="sub2">new</span>' : fmtPct(l.ramp)}</td>
+    <td class="num">${l.lyLift == null ? "—" : "×" + fmt(l.lyLift, 2)
+      + (l.lyBasis === "category" ? '<div class="sub2">category</div>' : "")}</td>
+    <td class="num ${l.under ? "up" : ""}">${fmt(l.sFc, 2)}${l.under
+      ? '<div class="sub2">model under</div>' : ""}</td>
     <td class="num">${fmt(l.inv)}</td>
     <td class="num">${fmt(l.onOrder)}${l.poDate ? `<div class="sub2">${fmtDate(l.poDate)}</div>` : ""}</td>
     ${oosCell(l)}
@@ -998,6 +1103,10 @@ function renderAllTable() {
 
 function renderMethod() {
   const t = DATA.thresholds, fm = DATA.fcstMonths, w = DATA.window;
+  const sources = DATA.sources || {};
+  const src = sources.seasonal || {};
+  const dist = src.distribution || {};
+  const slip = sources.vendorSlip || {};
   document.getElementById("method").innerHTML = `
     <p><b>Scope.</b> Fall SKUs are matched on item name, on whole words so brand
     names do not leak in. <b>Core flavors</b> are ${DATA.keywords.core.length} fall
@@ -1014,10 +1123,36 @@ function renderMethod() {
     forecast, and only when the larger of the two rates clears
     ${t.minBandRate} PU/day — below that, percentages swing on rounding.</p>
 
+    <p><b>Last fall (the seasonal forecast).</b> The model's <code>pred_*</code>
+    columns are a short-horizon projection with no seasonal memory — they cannot
+    know pumpkin syrup went up six-fold last September because it did last
+    September. <b>ABC Automation</b> carries monthly invoiced dollars per item and
+    warehouse going back through last fall, so the lift is
+    ${fm.next.label === "September" ? "Sep–Nov" : "last fall"} 2025 against
+    August 2025${src.items ? `, over ${src.items.toLocaleString()} items and
+    ${src.categories} sub-categories` : ""}. It pools warehouses (markets were
+    re-routed over that period, and pooling washes that out), falls back to the
+    item's sub-category where the item itself has no history, and is capped at
+    ×${src.liftCap || 6}. Because it is a <i>revenue</i> ratio it assumes price is
+    roughly stable year over year — it is a demand <i>shape</i>, not a units
+    forecast, which is why it is applied to this year's actual rate rather than
+    used as a level. <b>Ordering-customer counts</b> divide the network's own size
+    change over the same window back out${dist.shape
+      ? ` (×${dist.shape} — the network was smaller by late fall)` : ""}, leaving
+    the part that is genuinely seasonal. "Seasonal Fcst" is that per-cafe shape on
+    today's rate; a line is flagged <b>model under last fall</b> when the model's
+    own ${fm.next.label} number sits ${(t.underSeasonalBand * 100).toFixed(0)}% or
+    more below it.</p>
+
     <p><b>Pipeline.</b> Inbound is <code>outstanding_restock_quantity</code> with the
-    next arrival dated by <code>next_po_delivery_date</code>. A PO "lands in time"
-    when it arrives on or before the model's projected stockout date; otherwise the
-    stock shows up after the shelf is already empty.</p>
+    next arrival dated by <code>next_po_delivery_date</code>. Those dates are
+    promises, so they are pushed out by how late each vendor actually runs —
+    the median gap between promised and actual receipt in <b>PO Expected vs Actual
+    Receive Deviation</b>${slip.vendors ? `, covering ${slip.vendors} vendors with at
+    least ${slip.minSample} receipts each across ${slip.receipts.toLocaleString()}
+    receipts` : ""}. Only lateness carries forward: a vendor that habitually arrives
+    early should not make the projection optimistic. A PO "lands in time" when its
+    slip-adjusted date is on or before the model's projected stockout date.</p>
 
     <p><b>Double tap.</b> Stock is already inbound <i>and</i>
     <code>v2_order_trigger</code> is still set — the open PO makes these look handled,
@@ -1027,9 +1162,12 @@ function renderMethod() {
     <p><b>$ at risk.</b> Model OOS date is <code>date_out_of_stock</code> from the
     dump — a model output, not a re-derivation of on-hand ÷ rate, and it runs ahead
     of that naive math because it prices in the ramp. "Days Dry" counts days at zero
-    before the earliest arrival (an open PO, or a fresh order at the model's own lead
-    time), clipped to the ${w.days}-day window, so the dollar figure only ever claims
-    exposure inside the window. Units missed are valued at average on-hand cost.</p>
+    before the earliest slip-adjusted arrival (an open PO, or a fresh order at the
+    model's own lead time), clipped to the ${w.days}-day window, so the dollar figure
+    only ever claims exposure inside the window. Those days are priced at the best
+    forward rate available — the seasonal projection where there is one, the model's
+    forecast otherwise — and valued at average on-hand cost, so it reflects stock
+    that will not be there rather than margin foregone.</p>
 
     <p><b>Reading it.</b> Cover states run
     <span class="badge critical">Dry before ETA</span> (even ordering today lands
