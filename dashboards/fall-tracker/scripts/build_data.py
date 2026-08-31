@@ -49,6 +49,32 @@ SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
 SHEET_RANGE = "'Warehouse Raw'!A1:BU"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
+# --- supporting sources, all from the same Looker Data Dumps folder ---
+# The model's pred_* columns are a short-horizon statistical projection with no
+# seasonal memory: they cannot know that pumpkin syrup goes up 6x in September
+# because it did last year. These three fill that in.
+
+# Monthly invoiced amount per item/warehouse, reaching back through last fall.
+ABC_SPREADSHEET_ID = "1hssj04ntj3cNMdPGedOfoNpnfo26HaYMUNnEDHxpKzE"
+ABC_RANGE = "'ABC Automation.csv'!A1:U"
+# Expected vs actual PO receipt dates - how late a vendor actually runs.
+PO_DEV_SPREADSHEET_ID = "1Q1ChGZ8PQZGhoohnBBVuaGtcdzdhLmgRodmpOOSN8bs"
+PO_DEV_RANGE = "'PO Expected Vs Actual Receive Deviation.csv'!A1:G"
+# Ordering customers per warehouse per month, 30 months back.
+CUST_SPREADSHEET_ID = "1wqtgoEnHqcmA-KUCEQFWm85qjWcqZJplzQqTGF5wJz8"
+CUST_RANGE = ("'Total Ordering Customer Counts By WH "
+              "(Trailing 30 Full Months).csv'!A1:AF40")
+
+# Last fall, measured against the August immediately before it.
+SEASON_BASE_MONTH = "2025-08"
+SEASON_FALL_MONTHS = ["2025-09", "2025-10", "2025-11"]
+LIFT_CAP = 6.0          # a single item's seasonal multiple, capped
+MIN_LIFT_BASE = 50.0    # $ of base invoiced before an item lift is trusted
+MIN_SLIP_SAMPLE = 8     # receipts before a vendor's slip is trusted
+SLIP_CAP = 21           # days of slip adjustment, capped
+# How far the model has to sit under the seasonal projection to be called out.
+UNDER_SEASONAL_BAND = 0.25
+
 # Short-term lens. The whole point of this dashboard vs the seasonality
 # tracker: score what happens inside the next month, not the whole season.
 SHORT_TERM_DAYS = 30
@@ -147,6 +173,186 @@ def r(v, d=1):
     return round(v, d) if v is not None else None
 
 
+def fetch(svc, spreadsheet_id, rng):
+    return (
+        svc.spreadsheets().values()
+        .get(spreadsheetId=spreadsheet_id, range=rng)
+        .execute()
+        .get("values", [])
+    )
+
+
+def month_key(label):
+    """'2025-9' and '2025-09' both mean September."""
+    try:
+        y, m = str(label).strip().split("-")
+        return f"{int(y):04d}-{int(m):02d}"
+    except (ValueError, AttributeError):
+        return None
+
+
+def load_customer_shape(svc):
+    """Ordering customers per month, network-wide.
+
+    Used to turn last fall's raw lift into a per-cafe seasonal shape. The
+    network was not the same size in November as in August, and that size
+    change is baked into a raw revenue ratio; dividing it out leaves the part
+    that is actually seasonal. Per-warehouse counts are deliberately not used
+    - markets were being consolidated over this period (one shows -84%, another
+    +5080%), so only the network total is stable enough to divide by.
+    """
+    rows = fetch(svc, CUST_SPREADSHEET_ID, CUST_RANGE)
+    if len(rows) < 3:
+        return None, {}
+    header = rows[0]
+    cols = {}
+    for i, h in enumerate(header):
+        k = month_key(h) if h and "-" in str(h) else None
+        if k:
+            cols[k] = i
+
+    def total(key):
+        c = cols.get(key)
+        if c is None:
+            return None
+        s = 0.0
+        for r in rows[2:]:
+            wh = r[1] if len(r) > 1 else ""
+            if wh in ("Unknown", "Not Applicable"):
+                continue
+            v = parse_num(r[c]) if c < len(r) else None
+            if v:
+                s += v
+        return s or None
+
+    base = total(SEASON_BASE_MONTH)
+    fall = [t for t in (total(m) for m in SEASON_FALL_MONTHS) if t]
+    if not base or not fall:
+        return None, {}
+    shape = (sum(fall) / len(fall)) / base
+    return shape, {
+        "baseCustomers": round(base),
+        "fallCustomers": round(sum(fall) / len(fall)),
+        "shape": round(shape, 4),
+    }
+
+
+def load_seasonal_index(svc, cust_shape):
+    """Last fall's demand shape, per item and per sub-category.
+
+    ABC Automation is a pivot: row 0 carries month labels, row 1 the field
+    names, data from row 2. The measure is invoiced dollars, so a lift is a
+    revenue ratio and assumes price is roughly stable year over year - it is a
+    shape, not a units forecast, which is why it is applied to this year's
+    actual rate rather than used as a level.
+
+    Item lifts pool across warehouses: individual markets were re-routed over
+    this period, and pooling washes that out.
+    """
+    rows = fetch(svc, ABC_SPREADSHEET_ID, ABC_RANGE)
+    if len(rows) < 3:
+        return {}, {}, {"available": False}
+    months, data = rows[0], rows[2:]
+    mcol = {}
+    for i, label in enumerate(months):
+        if i >= 7 and label:
+            k = month_key(label)
+            if k:
+                mcol[k] = i
+    if SEASON_BASE_MONTH not in mcol:
+        return {}, {}, {"available": False}
+
+    def val(row, key):
+        c = mcol.get(key)
+        return parse_num(row[c]) if c is not None and c < len(row) else None
+
+    item = defaultdict(lambda: {"base": 0.0, "fall": defaultdict(float)})
+    cat = defaultdict(lambda: {"base": 0.0, "fall": defaultdict(float)})
+    for r in data:
+        if not r or len(r) < 6:
+            continue
+        iid = str(r[0]).strip()
+        sub = str(r[5]).strip() if len(r) > 5 else ""
+        base = val(r, SEASON_BASE_MONTH)
+        if base and base > 0:
+            item[iid]["base"] += base
+            if sub:
+                cat[sub]["base"] += base
+        for m in SEASON_FALL_MONTHS:
+            v = val(r, m)
+            if v:
+                item[iid]["fall"][m] += v
+                if sub:
+                    cat[sub]["fall"][m] += v
+
+    def lifts(agg, min_base):
+        out = {}
+        for key, a in agg.items():
+            if not key or a["base"] < min_base or not a["fall"]:
+                continue
+            raw = (sum(a["fall"].values()) / len(a["fall"])) / a["base"]
+            # Divide out the network's own size change over the same window so
+            # what remains is per-cafe seasonality, then cap the outliers.
+            if cust_shape:
+                raw /= cust_shape
+            out[key] = min(raw, LIFT_CAP)
+        return out
+
+    item_lift = lifts(item, MIN_LIFT_BASE)
+    cat_lift = lifts(cat, MIN_LIFT_BASE)
+    return item_lift, cat_lift, {
+        "available": True,
+        "baseMonth": SEASON_BASE_MONTH,
+        "fallMonths": SEASON_FALL_MONTHS,
+        "items": len(item_lift),
+        "categories": len(cat_lift),
+        "liftCap": LIFT_CAP,
+    }
+
+
+def load_vendor_slip(svc):
+    """Median days a vendor lands after its own promised receive-by date.
+
+    Only lateness is carried forward: a vendor that habitually arrives early
+    should not make the projection optimistic, so negative slip is floored at
+    zero when applied.
+    """
+    rows = fetch(svc, PO_DEV_SPREADSHEET_ID, PO_DEV_RANGE)
+    if len(rows) < 2:
+        return {}, {"available": False}
+    by_vendor = defaultdict(list)
+    for r in rows[1:]:
+        if len(r) < 7:
+            continue
+        vendor, expected, received = r[3], r[4], r[6]
+        if not (vendor and expected and received):
+            continue
+        exp, got = parse_date(expected), parse_date(received)
+        if not (exp and got):
+            continue
+        by_vendor[normalize_vendor(vendor)].append((got - exp).days)
+
+    slip = {}
+    for vendor, days in by_vendor.items():
+        if len(days) >= MIN_SLIP_SAMPLE:
+            days.sort()
+            mid = len(days) // 2
+            median = (days[mid] if len(days) % 2
+                      else (days[mid - 1] + days[mid]) / 2)
+            slip[vendor] = (max(0, min(int(round(median)), SLIP_CAP)), len(days))
+    return slip, {
+        "available": True,
+        "vendors": len(slip),
+        "receipts": sum(len(v) for v in by_vendor.values()),
+        "minSample": MIN_SLIP_SAMPLE,
+    }
+
+
+def normalize_vendor(name):
+    """PO exports prefix the vendor code ('VEN00000175 Monin Inc')."""
+    return re.sub(r"^VEN\d+\s*", "", str(name or "")).strip().upper()
+
+
 def main(out_path):
     raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
     if not raw:
@@ -164,6 +370,24 @@ def main(out_path):
     rows = res.get("values", [])
     if not rows:
         sys.exit("Sheet returned no rows")
+
+    # Supporting sources are enrichment, not the spine: if one is unavailable
+    # the dashboard still builds, just without that signal.
+    try:
+        cust_shape, cust_meta = load_customer_shape(svc)
+    except Exception as exc:                                  # noqa: BLE001
+        print(f"warning: customer counts unavailable ({exc})", file=sys.stderr)
+        cust_shape, cust_meta = None, {}
+    try:
+        item_lift, cat_lift, seasonal_meta = load_seasonal_index(svc, cust_shape)
+    except Exception as exc:                                  # noqa: BLE001
+        print(f"warning: seasonal index unavailable ({exc})", file=sys.stderr)
+        item_lift, cat_lift, seasonal_meta = {}, {}, {"available": False}
+    try:
+        vendor_slip, slip_meta = load_vendor_slip(svc)
+    except Exception as exc:                                  # noqa: BLE001
+        print(f"warning: vendor slip unavailable ({exc})", file=sys.stderr)
+        vendor_slip, slip_meta = {}, {"available": False}
 
     header = rows[0]
     col = {name: i for i, name in enumerate(header)}
@@ -278,6 +502,32 @@ def main(out_path):
         if fcst_next is not None and recent is not None and recent > 0:
             exp_ramp = (fcst_next - recent) / recent
 
+        # Seasonal projection. Last fall's shape applied to this year's actual
+        # rate: the anchor already carries this year's distribution and pricing,
+        # so only the shape is borrowed. Prefer the item's own history, fall
+        # back to its sub-category.
+        sub_category = (get(row, "item_class") or "").split(" : ")[-1].strip()
+        item_id = get(row, "item_id")
+        lift, lift_basis = None, None
+        if item_id in item_lift:
+            lift, lift_basis = item_lift[item_id], "item"
+        elif sub_category in cat_lift:
+            lift, lift_basis = cat_lift[sub_category], "category"
+
+        seasonal_rate = None
+        seasonal_gap = None
+        under_seasonal = False
+        if lift is not None and recent is not None and recent > 0:
+            seasonal_rate = recent * lift
+            # Does the model's own next-month number keep up with what last
+            # fall did? A model sitting well under it is the buy signal.
+            if fcst_next is not None and seasonal_rate > 0:
+                seasonal_gap = (fcst_next - seasonal_rate) / seasonal_rate
+                under_seasonal = (
+                    seasonal_gap <= -UNDER_SEASONAL_BAND
+                    and seasonal_rate >= MIN_BAND_RATE
+                )
+
         on_order = parse_num(get(row, "outstanding_restock_quantity")) or 0.0
         arriving = parse_num(get(row, "arriving_today")) or 0.0
         past_due = parse_num(get(row, "past_due")) or 0.0
@@ -299,6 +549,13 @@ def main(out_path):
         eta = parse_date(get(row, "delivery_date"))
         thru = parse_date(get(row, "thru_date"))
 
+        # Both of those dates are promises. Push them out by how late this
+        # vendor actually runs, so "lands in time" means lands in time.
+        slip_days, slip_n = vendor_slip.get(
+            normalize_vendor(get(row, "vendor_name")), (0, 0))
+        po_date_adj = po_date + timedelta(days=slip_days) if po_date else None
+        eta_adj = eta + timedelta(days=slip_days) if eta else None
+
         # Short-term status. Running dry inside the window is normal here -
         # the model reorders continuously, so most lines project a stockout
         # within a month. What matters is whether anything lands in time:
@@ -306,14 +563,14 @@ def main(out_path):
         #   gap       nothing inbound in time, but ordering now still bridges
         #   critical  even a fresh order lands after the dry date
         dry_in_window = oos_days is not None and oos_days <= SHORT_TERM_DAYS
-        po_saves = bool(po_date and oos and po_date <= oos)
+        po_saves = bool(po_date_adj and oos and po_date_adj <= oos)
         gap_days = None
         if dry_in_window and po_saves:
             status = "tight"
         elif dry_in_window:
-            status = "critical" if (eta and oos and eta > oos) else "gap"
-            if po_date and oos:
-                gap_days = (po_date - oos).days
+            status = "critical" if (eta_adj and oos and eta_adj > oos) else "gap"
+            if po_date_adj and oos:
+                gap_days = (po_date_adj - oos).days
         elif oos_days is None and rate <= 0:
             status = "idle"
         else:
@@ -324,7 +581,7 @@ def main(out_path):
         # actually sits at zero before anything lands, and what that costs.
         # A past-due PO is clamped to today rather than trusted at its stale
         # date - `past` carries the past-due units for anyone checking.
-        arrivals = [max(d, today) for d in (po_date, eta) if d]
+        arrivals = [max(d, today) for d in (po_date_adj, eta_adj) if d]
         arrival = min(arrivals) if arrivals else None
         # Exposure is clipped to the window on both ends: this dashboard only
         # claims what is at risk inside the next SHORT_TERM_DAYS. An item with
@@ -334,10 +591,12 @@ def main(out_path):
             dry_start = max(oos, today)
             dry_end = min(arrival, win_end) if arrival else win_end
             dry_days = max(0, (dry_end - dry_start).days)
-        # Prefer the forward-looking rate: this is demand that has not
-        # happened yet, and fall rates are climbing.
+        # Value the miss at the best forward rate available: the seasonal
+        # projection first, since this is demand that has not happened yet and
+        # last fall is a better guide to it than a model with no seasonal memory.
         miss_rate = next(
-            (x for x in (fcst_next, recent, rate) if x not in (None, 0)), 0.0
+            (x for x in (seasonal_rate, fcst_next, recent, rate)
+             if x not in (None, 0)), 0.0
         )
         miss_units = dry_days * miss_rate
         miss_val = miss_units * unit_value if unit_value is not None else None
@@ -368,6 +627,12 @@ def main(out_path):
             "var": r(variance, 4),
             "band": band,
             "xRamp": r(exp_ramp, 4),
+            # last fall's shape, and what it implies for this fall
+            "lyLift": r(lift, 3),
+            "lyBasis": lift_basis,
+            "sFc": r(seasonal_rate, 4),
+            "sGap": r(seasonal_gap, 4),
+            "under": under_seasonal,
             # stock + pipeline
             "inv": r(net_inv, 1),
             "onOrder": r(on_order, 1),
@@ -379,6 +644,10 @@ def main(out_path):
             "oos": oos.isoformat() if oos else None,
             "oosDays": oos_days,
             "eta": eta.isoformat() if eta else None,
+            "etaAdj": eta_adj.isoformat() if eta_adj else None,
+            "poAdj": po_date_adj.isoformat() if po_date_adj else None,
+            "vslip": slip_days,
+            "vslipN": slip_n,
             "thru": thru.isoformat() if thru else None,
             "cover": r(cover, 1),
             "val": r(on_hand_value, 2),
@@ -432,6 +701,11 @@ def main(out_path):
             "varianceBand": VARIANCE_BAND,
             "minBandRate": MIN_BAND_RATE,
             "shortTermDays": SHORT_TERM_DAYS,
+            "underSeasonalBand": UNDER_SEASONAL_BAND,
+        },
+        "sources": {
+            "seasonal": {**seasonal_meta, "distribution": cust_meta},
+            "vendorSlip": slip_meta,
         },
         "keywords": {"core": CORE_KEYWORDS, "adjacent": ADJACENT_KEYWORDS},
         "warehouses": warehouses,
@@ -449,10 +723,26 @@ def main(out_path):
             counts["doubleTap"] += 1
         if ln["band"]:
             counts[ln["band"]] += 1
+        if ln["lyBasis"]:
+            counts["lift_" + ln["lyBasis"]] += 1
+        if ln["under"]:
+            counts["underSeasonal"] += 1
+        if ln["vslip"]:
+            counts["slipAdjusted"] += 1
     print(
         f"Wrote {len(lines)} fall lines to {out_path} "
         f"({dict(counts)}, {len(warehouses)} markets, as_of {today}, "
         f"window {today}..{win_end})"
+    )
+    print(
+        f"  seasonal index: {seasonal_meta.get('items', 0)} items / "
+        f"{seasonal_meta.get('categories', 0)} categories from "
+        f"{SEASON_BASE_MONTH} -> {'/'.join(SEASON_FALL_MONTHS)}"
+        f" · distribution shape {cust_meta.get('shape')}"
+    )
+    print(
+        f"  vendor slip: {slip_meta.get('vendors', 0)} vendors over "
+        f"{slip_meta.get('receipts', 0)} receipts"
     )
 
 
