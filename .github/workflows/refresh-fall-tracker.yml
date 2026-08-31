@@ -47,4 +47,18 @@ jobs:
             exit 0
           fi
           git commit -m "chore: refresh fall tracker data ($(date -u +%Y-%m-%dT%H:%MZ))"
-          git push
+          # Refresh workflows all push to main and do overlap in practice, and a
+          # plain push just loses the race: the second one is rejected with
+          # "fetch first" and that hour's refresh is dropped. Rebase onto
+          # whatever landed first and try again. Each dashboard owns its own
+          # data.json, so there is nothing for the rebase to conflict over.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt) — rebasing onto origin/main"
+            git pull --rebase origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push fall tracker data after 5 attempts"
+          exit 1
