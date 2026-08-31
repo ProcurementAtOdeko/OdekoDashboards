@@ -116,6 +116,16 @@
     padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
   }
   .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .toolbar .btn {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    font-family: inherit; cursor: pointer; white-space: nowrap;
+  }
+  .toolbar .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .toolbar .btn.primary { background: var(--accent-yellow); border-color: var(--accent-yellow); }
+  .toolbar .btn.primary:hover { background: #F0C500; border-color: var(--ink-2); }
+  .toolbar .btn:disabled { opacity: .45; cursor: default; background: var(--panel); border-color: var(--line); }
+  .toolbar .count + .btn { margin-left: 0; }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -227,7 +237,32 @@
       <span class="hint">Stock is already inbound <b>and</b> the model still trips a reorder — the first PO will not cover the ramp. Order again on top of it.</span>
     </h3>
     <div class="toolbar">
+      <input id="dt-search" type="search" placeholder="Search item, vendor, or class…" />
+      <select id="dt-class"><option value="ALL">All classes</option></select>
+      <select id="dt-vendor"><option value="ALL">All vendors</option></select>
+      <select id="dt-status">
+        <option value="ALL">All cover states</option>
+        <option value="atrisk">At risk (dry before cover lands)</option>
+        <option value="critical">Dry before a new order lands</option>
+        <option value="gap">Order now to bridge</option>
+        <option value="tight">Inbound PO covers it</option>
+        <option value="ok">Covered past window</option>
+      </select>
+      <select id="dt-band">
+        <option value="ALL">Any vs forecast</option>
+        <option value="over">Running over forecast</option>
+        <option value="under">Running under forecast</option>
+        <option value="on">On forecast</option>
+      </select>
+      <select id="dt-urgency">
+        <option value="ALL">Any stockout date</option>
+        <option value="7">Runs dry within 7 days</option>
+        <option value="14">Runs dry within 14 days</option>
+        <option value="30">Runs dry within 30 days</option>
+        <option value="dry">Already has dry days</option>
+      </select>
       <span class="count" id="dt-count"></span>
+      <button class="btn primary" id="dt-csv" type="button">Download CSV</button>
     </div>
     <div style="overflow-x:auto">
       <table id="dt-table">
@@ -276,7 +311,11 @@
         <option value="pipe">Has inbound pipeline</option>
         <option value="nopipe">Nothing inbound</option>
       </select>
+      <select id="all-class"><option value="ALL">All classes</option></select>
+      <select id="all-vendor"><option value="ALL">All vendors</option></select>
       <span class="count" id="all-count"></span>
+      <button class="btn primary" id="all-csv" type="button">Download CSV</button>
+      <button class="btn" id="full-csv" type="button">Full dataset</button>
     </div>
     <div style="overflow-x:auto">
       <table id="all-table">
@@ -360,6 +399,9 @@ let filterText = "";
 let statusFilter = "ALL";
 let bandFilter = "ALL";
 let dtFilter = "ALL";
+let allClass = "ALL", allVendor = "ALL";
+let dtSearch = "", dtClass = "ALL", dtVendor = "ALL";
+let dtStatus = "ALL", dtBand = "ALL", dtUrgency = "ALL";
 let sortKey = "missVal", sortDir = "desc";
 let dtSortKey = "missVal", dtSortDir = "desc";
 let charts = {};
@@ -723,6 +765,148 @@ function sortRows(rows, key, dir) {
   });
 }
 
+/* ---------- CSV export ----------
+   One column spec drives every export, so a filtered download and the full
+   dataset carry identical columns — only the row set differs. */
+const pctOut = (v) => (v == null ? "" : +(v * 100).toFixed(1));
+const wkAt = (l, i) => (l.wk && l.wk[i] != null ? l.wk[i] : "");
+
+const CSV_COLUMNS = [
+  { h: "Item", f: l => l.n },
+  { h: "Item ID", f: l => l.id },
+  { h: "Market", f: l => l.w },
+  { h: "Class", f: l => l.cls },
+  { h: "Vendor", f: l => l.v },
+  { h: "Purchase Unit", f: l => l.pu },
+  { h: "Tier", f: l => (l.tier === "core" ? "Core flavor" : "Hot-bev & chai") },
+  { h: "In Catalog", f: l => (l.cat ? "yes" : "no") },
+  { h: "Rate last 2wk (PU/day)", f: l => l.rec },
+  { h: "Rate prior 2wk (PU/day)", f: l => l.pri },
+  { h: "Ramp %", f: l => pctOut(l.ramp) },
+  { h: "New demand", f: l => (l.new ? "yes" : "") },
+  { h: "Current rate (PU/day)", f: l => l.rate },
+  { h: "Week -4 (PU/day)", f: l => wkAt(l, 0) },
+  { h: "Week -3 (PU/day)", f: l => wkAt(l, 1) },
+  { h: "Week -2 (PU/day)", f: l => wkAt(l, 2) },
+  { h: "Week -1 (PU/day)", f: l => wkAt(l, 3) },
+  { h: "Forecast rate (PU/day)", f: l => l.fc },
+  { h: "Next-month forecast (PU/day)", f: l => l.fcn },
+  { h: "Variance vs forecast %", f: l => pctOut(l.var) },
+  { h: "Forecast band", f: l => (l.band ? BAND[l.band].label : "") },
+  { h: "On hand (PU)", f: l => l.inv },
+  { h: "On order (PU)", f: l => l.onOrder },
+  { h: "Arriving today (PU)", f: l => l.arr },
+  { h: "Past due (PU)", f: l => l.past },
+  { h: "Next PO date", f: l => l.poDate },
+  { h: "Next PO qty (PU)", f: l => l.poQty },
+  { h: "Next PO lands in window", f: l => (l.poIn ? "yes" : "no") },
+  { h: "Next PO value", f: l => l.poVal },
+  { h: "Model OOS date", f: l => l.oos },
+  { h: "Days to OOS", f: l => l.oosDays },
+  { h: "Earliest new-order ETA", f: l => l.eta },
+  { h: "Covered thru", f: l => l.thru },
+  { h: "Days of cover", f: l => l.cover },
+  { h: "Days dry in window", f: l => l.dryDays },
+  { h: "Units missed (PU)", f: l => l.missUnits },
+  { h: "$ at risk", f: l => l.missVal },
+  { h: "Cover state", f: l => (STATUS[l.st] ? STATUS[l.st].label : l.st) },
+  { h: "Reorder trigger", f: l => (l.trig ? "yes" : "no") },
+  { h: "Order again (PU)", f: l => l.oq },
+  { h: "Vendor min", f: l => l.vmin },
+  { h: "Double tap", f: l => (l.dt ? "yes" : "no") },
+  { h: "On-hand value", f: l => l.val },
+];
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function toCsv(rows) {
+  return [CSV_COLUMNS.map(c => csvCell(c.h)).join(",")]
+    .concat(rows.map(l => CSV_COLUMNS.map(c => csvCell(c.f(l))).join(",")))
+    .join("\r\n");
+}
+
+function downloadCsv(name, rows) {
+  // Lead with a BOM: item names carry × and –, and Excel mangles UTF-8 without it.
+  const blob = new Blob(["\uFEFF" + toCsv(rows)], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+/** Filename records the scope, so downloads taken at different filters
+ *  don't overwrite each other in the browser's downloads folder. */
+function csvName(part) {
+  const bits = ["fall-tracker", part];
+  if (selectedWh !== "ALL") bits.push(selectedWh.toLowerCase());
+  if (tier !== "ALL") bits.push(tier);
+  bits.push(DATA.asOf);
+  return bits.join("-") + ".csv";
+}
+
+/** Rebuild a dropdown from what is actually present in the current scope,
+ *  keeping the active choice when it survives that scope. */
+function syncSelect(id, allLabel, values, current) {
+  const el = document.getElementById(id);
+  const keep = values.includes(current) ? current : "ALL";
+  el.innerHTML = `<option value="ALL">${escapeHtml(allLabel)}</option>`
+    + values.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+  el.value = keep;
+  return keep;
+}
+
+const matchesText = (l, q) =>
+  !q || l.n.toLowerCase().includes(q)
+  || (l.v || "").toLowerCase().includes(q)
+  || (l.cls || "").toLowerCase().includes(q);
+
+const uniqSorted = (rows, key) =>
+  [...new Set(rows.map(l => l[key]).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+
+/** Double-tap rows after every double-tap-specific filter. */
+function dtFilteredRows() {
+  const q = dtSearch.toLowerCase();
+  return scoped().filter(l => {
+    if (!l.dt) return false;
+    if (dtClass !== "ALL" && l.cls !== dtClass) return false;
+    if (dtVendor !== "ALL" && l.v !== dtVendor) return false;
+    if (dtStatus === "atrisk") {
+      if (l.st !== "critical" && l.st !== "gap") return false;
+    } else if (dtStatus !== "ALL" && l.st !== dtStatus) return false;
+    if (dtBand !== "ALL" && l.band !== dtBand) return false;
+    if (dtUrgency === "dry") {
+      if (!(l.dryDays > 0)) return false;
+    } else if (dtUrgency !== "ALL") {
+      if (l.oosDays == null || l.oosDays > +dtUrgency) return false;
+    }
+    return matchesText(l, q);
+  });
+}
+
+function allFilteredRows() {
+  const q = filterText.toLowerCase();
+  return scoped().filter(l => {
+    if (statusFilter === "atrisk") {
+      if (l.st !== "critical" && l.st !== "gap") return false;
+    } else if (statusFilter !== "ALL" && l.st !== statusFilter) return false;
+    if (bandFilter !== "ALL" && l.band !== bandFilter) return false;
+    if (dtFilter === "dt" && !l.dt) return false;
+    if (dtFilter === "pipe" && !(l.onOrder > 0 || l.poQty > 0)) return false;
+    if (dtFilter === "nopipe" && (l.onOrder > 0 || l.poQty > 0)) return false;
+    if (allClass !== "ALL" && l.cls !== allClass) return false;
+    if (allVendor !== "ALL" && l.v !== allVendor) return false;
+    return matchesText(l, q);
+  });
+}
+
 function oosCell(l) {
   if (!l.oos) return `<td class="sub2">—</td>`;
   const soon = l.oosDays != null && l.oosDays <= 7;
@@ -731,11 +915,23 @@ function oosCell(l) {
 }
 
 function renderDoubleTap() {
-  const rows = sortRows(scoped().filter(l => l.dt), dtSortKey, dtSortDir);
+  // Option lists cover the double-tap population only: offering a vendor with
+  // no double taps would just be a dead end.
+  const pool = scoped().filter(l => l.dt);
+  dtClass = syncSelect("dt-class", "All classes", uniqSorted(pool, "cls"), dtClass);
+  dtVendor = syncSelect("dt-vendor", "All vendors", uniqSorted(pool, "v"), dtVendor);
+
+  const rows = sortRows(dtFilteredRows(), dtSortKey, dtSortDir);
+  const risk = rows.reduce((t, l) => t + (l.missVal || 0), 0);
+  const units = rows.reduce((t, l) => t + (l.oq || 0), 0);
+  const filtered = rows.length !== pool.length;
   document.getElementById("dt-count").textContent =
-    rows.length ? `${rows.length} line${rows.length === 1 ? "" : "s"} · `
-                  + `${fmtMoney(rows.reduce((t, l) => t + (l.missVal || 0), 0))} at risk`
-                : "none in this view";
+    rows.length ? `${rows.length}${filtered ? ` of ${pool.length}` : ""} line`
+                  + `${rows.length === 1 ? "" : "s"} · ${fmt(units, 0)} PU to order · `
+                  + `${fmtMoney(risk)} at risk`
+                : pool.length ? `no matches — ${pool.length} double taps before filters`
+                              : "none in this view";
+  document.getElementById("dt-csv").disabled = !rows.length;
 
   document.querySelectorAll("#dt-table th").forEach(th => {
     th.classList.remove("sort-asc", "sort-desc");
@@ -753,23 +949,20 @@ function renderDoubleTap() {
       : `<span class="sub2">qty not set</span>`}</td>
     <td class="num">${l.missVal ? fmtMoney(l.missVal) : "—"}</td>
     <td>${l.band ? `<span class="badge ${l.band}">${BAND[l.band].label} ${fmtPct(l.var)}</span>` : "—"}</td>
-  </tr>`).join("") : `<tr><td colspan="9" class="sub2">No double-tap lines — nothing has both inbound stock and an open reorder trigger in this view.</td></tr>`;
+  </tr>`).join("") : `<tr><td colspan="9" class="sub2">${pool.length
+    ? "No double taps match these filters — widen them to see the other "
+      + pool.length + " in this view."
+    : "No double-tap lines — nothing here has both inbound stock and an open reorder trigger."
+  }</td></tr>`;
 }
 
 function renderAllTable() {
-  const q = filterText.toLowerCase();
-  let rows = scoped().filter(l => {
-    if (statusFilter === "atrisk") { if (l.st !== "critical" && l.st !== "gap") return false; }
-    else if (statusFilter !== "ALL" && l.st !== statusFilter) return false;
-    if (bandFilter !== "ALL" && l.band !== bandFilter) return false;
-    if (dtFilter === "dt" && !l.dt) return false;
-    if (dtFilter === "pipe" && !(l.onOrder > 0 || l.poQty > 0)) return false;
-    if (dtFilter === "nopipe" && (l.onOrder > 0 || l.poQty > 0)) return false;
-    return !q || l.n.toLowerCase().includes(q)
-      || (l.v || "").toLowerCase().includes(q)
-      || (l.cls || "").toLowerCase().includes(q);
-  });
-  rows = sortRows(rows, sortKey, sortDir);
+  const pool = scoped();
+  allClass = syncSelect("all-class", "All classes", uniqSorted(pool, "cls"), allClass);
+  allVendor = syncSelect("all-vendor", "All vendors", uniqSorted(pool, "v"), allVendor);
+
+  const rows = sortRows(allFilteredRows(), sortKey, sortDir);
+  document.getElementById("all-csv").disabled = !rows.length;
 
   const total = rows.length;
   const shown = rows.slice(0, MAX_ROWS);
@@ -850,6 +1043,25 @@ document.getElementById("search").addEventListener("input", e => { filterText = 
 document.getElementById("statusFilter").addEventListener("change", e => { statusFilter = e.target.value; renderAllTable(); });
 document.getElementById("bandFilter").addEventListener("change", e => { bandFilter = e.target.value; renderAllTable(); });
 document.getElementById("dtFilter").addEventListener("change", e => { dtFilter = e.target.value; renderAllTable(); });
+document.getElementById("all-class").addEventListener("change", e => { allClass = e.target.value; renderAllTable(); });
+document.getElementById("all-vendor").addEventListener("change", e => { allVendor = e.target.value; renderAllTable(); });
+
+document.getElementById("dt-search").addEventListener("input", e => { dtSearch = e.target.value; renderDoubleTap(); });
+document.getElementById("dt-class").addEventListener("change", e => { dtClass = e.target.value; renderDoubleTap(); });
+document.getElementById("dt-vendor").addEventListener("change", e => { dtVendor = e.target.value; renderDoubleTap(); });
+document.getElementById("dt-status").addEventListener("change", e => { dtStatus = e.target.value; renderDoubleTap(); });
+document.getElementById("dt-band").addEventListener("change", e => { dtBand = e.target.value; renderDoubleTap(); });
+document.getElementById("dt-urgency").addEventListener("change", e => { dtUrgency = e.target.value; renderDoubleTap(); });
+
+// Downloads follow what is on screen: the table exports carry the current
+// filters and sort, the full dataset ignores both.
+document.getElementById("dt-csv").addEventListener("click", () =>
+  downloadCsv(csvName("double-tap"), sortRows(dtFilteredRows(), dtSortKey, dtSortDir)));
+document.getElementById("all-csv").addEventListener("click", () =>
+  downloadCsv(csvName("skus"), sortRows(allFilteredRows(), sortKey, sortDir)));
+document.getElementById("full-csv").addEventListener("click", () =>
+  downloadCsv(`fall-tracker-full-${DATA.asOf}.csv`,
+    sortRows(DATA.lines.slice(), "missVal", "desc")));
 
 document.querySelectorAll("#all-table th[data-sort]").forEach(th => {
   th.addEventListener("click", () => {
