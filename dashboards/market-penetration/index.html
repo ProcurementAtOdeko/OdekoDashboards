@@ -126,6 +126,11 @@
     font-weight: 600; font-variant-numeric: tabular-nums;
   }
   .pill.opp { background: var(--amber-soft); color: var(--amber); }
+  .pill.low { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); cursor: help; }
+  .pill.unsure {
+    background: transparent; color: var(--muted);
+    border: 1px dashed var(--amber); cursor: help;
+  }
   .pill.none { background: var(--green-soft); color: var(--green); }
 
   .warn {
@@ -136,6 +141,18 @@
   .warn details { margin-top: 6px; }
   .warn summary { cursor: pointer; font-size: 12px; }
   .warn ul { margin: 6px 0 0; padding-left: 18px; font-size: 12px; color: var(--ink); }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
+    padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--bg);
+  }
+  .drill-chart { padding: 16px; height: 300px; position: relative; }
+  tr.me td { background: rgba(255,209,0,.16); }
+  tr.me td:first-child::after {
+    content: " selected"; color: var(--muted); font-size: 10px;
+    text-transform: uppercase; letter-spacing: .06em; font-weight: 600;
+  }
+  tr.me:hover td { background: rgba(255,209,0,.24); }
 
   .heat-wrap { overflow-x: auto; }
   table.heat { border-collapse: separate; border-spacing: 0; }
@@ -233,6 +250,41 @@
 
   <section class="card">
     <h3>
+      Category Drill — All Markets
+      <span class="note" id="drill-note"></span>
+    </h3>
+    <div class="toolbar">
+      <div class="field">
+        <label for="drill-cat">Category</label>
+        <select id="drill-cat"></select>
+      </div>
+      <div class="field">
+        <label for="drill-sub">Sub-category</label>
+        <select id="drill-sub"></select>
+      </div>
+    </div>
+    <div class="body drill-chart"><canvas id="chart-drill"></canvas></div>
+    <div style="overflow-x:auto">
+      <table id="drill">
+        <thead>
+          <tr>
+            <th data-sort="name">Market</th>
+            <th class="num" data-sort="active">Active accounts</th>
+            <th class="num" data-sort="accounts">Buying</th>
+            <th class="num" data-sort="pen" data-default="desc">Penetration</th>
+            <th class="num" data-sort="gap">Gap</th>
+            <th class="num" data-sort="opp">Opportunity</th>
+            <th class="num" data-sort="revShare">Rev share</th>
+            <th class="num" data-sort="revenue">Revenue</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>
       Network Heatmap
       <span class="legend">
         <span id="heat-mode-label">Penetration</span>
@@ -272,6 +324,11 @@ let whKey = NETWORK_KEY;
 let win = "90";
 let heatMode = "pen";
 let sortKey = "pen";
+let drillCat = null;
+let drillSub = "";
+let drillSortKey = "pen";
+let drillSortDir = "desc";
+let drillChart = null;
 let sortDir = "desc";
 const expanded = new Set();
 let gapChart = null;
@@ -315,6 +372,31 @@ async function load() {
       if (sortKey === k) sortDir = sortDir === "asc" ? "desc" : "asc";
       else { sortKey = k; sortDir = th.dataset.default || (k === "name" ? "asc" : "desc"); }
       renderTable();
+    });
+  });
+
+  drillCat = DATA.catalog.length ? DATA.catalog[0].name : null;
+  const catSel = document.getElementById("drill-cat");
+  catSel.innerHTML = DATA.catalog
+    .map((c) => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  catSel.value = drillCat;
+  catSel.addEventListener("change", () => {
+    drillCat = catSel.value;
+    drillSub = "";
+    fillSubSelect();
+    renderDrill();
+  });
+  document.getElementById("drill-sub").addEventListener("change", (e) => {
+    drillSub = e.target.value;
+    renderDrill();
+  });
+  fillSubSelect();
+  document.querySelectorAll("#drill th").forEach((th) => {
+    th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      if (drillSortKey === k) drillSortDir = drillSortDir === "asc" ? "desc" : "asc";
+      else { drillSortKey = k; drillSortDir = th.dataset.default || (k === "name" ? "asc" : "desc"); }
+      renderDrill();
     });
   });
 
@@ -389,6 +471,7 @@ function render() {
   renderKpis();
   renderGapChart();
   renderTable();
+  renderDrill();
   renderHeat();
 }
 
@@ -575,6 +658,183 @@ function renderTable() {
   document.querySelectorAll("#cats th").forEach((th) => {
     th.classList.remove("sort-asc", "sort-desc");
     if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+}
+
+function fillSubSelect() {
+  const cat = DATA.catalog.find((c) => c.name === drillCat);
+  const sel = document.getElementById("drill-sub");
+  sel.innerHTML =
+    `<option value="">All sub-categories</option>` +
+    (cat ? cat.subs.map((x) => `<option value="${esc(x)}">${esc(x)}</option>`).join("") : "");
+  sel.value = drillSub;
+}
+
+/** The selected category (or sub-category) across every market, so one
+ *  category can be read down the network instead of across one market. */
+function drillRows() {
+  const net = DATA.network[win];
+  const pick = (slice) => {
+    const c = slice.categories[drillCat];
+    if (!c) return null;
+    return drillSub ? c.subs[drillSub] || null : c;
+  };
+  const netEntry = pick(net);
+  const netPen = netEntry ? netEntry.pen : 0;
+  const rows = Object.keys(DATA.warehouses).map((w) => {
+    const slice = DATA.warehouses[w].windows[win];
+    const e = pick(slice);
+    const pen = e ? e.pen : 0;
+    const gap = pen - netPen;
+    return {
+      name: w,
+      active: slice.activeAccounts,
+      accounts: e ? e.accounts : 0,
+      pen,
+      gap,
+      opp: gap < 0 ? Math.ceil(-gap * slice.activeAccounts) : 0,
+      revShare: e ? e.revShare : 0,
+      revenue: e ? e.revenue : 0,
+      // A market whose catalog coverage is poor understates every category,
+      // so flag it rather than let it read as a genuine laggard.
+      lowCoverage: slice.classifiedUnitShare < 0.9,
+    };
+  });
+  return { rows, netPen };
+}
+
+// Draws the network rate as a reference line across the market bars, so every
+// bar is read against the benchmark without leaving the chart.
+const netLinePlugin = {
+  id: "netLine",
+  afterDatasetsDraw(chart, _args, opts) {
+    if (opts == null || opts.value == null) return;
+    // Bars are vertical here, so the value axis is y and the line is horizontal.
+    const { ctx, chartArea, scales } = chart;
+    const y = scales.y.getPixelForValue(opts.value);
+    if (!isFinite(y) || y < chartArea.top || y > chartArea.bottom) return;
+    ctx.save();
+    ctx.strokeStyle = "#40180B";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(chartArea.left, y);
+    ctx.lineTo(chartArea.right, y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const text = `Network ${opts.value.toFixed(1)}%`;
+    ctx.font = "600 10px Inter, sans-serif";
+    const w = ctx.measureText(text).width;
+    const ty = y < chartArea.top + 14 ? y + 12 : y - 4;
+    ctx.fillStyle = "rgba(251,247,236,.9)";
+    ctx.fillRect(chartArea.right - w - 6, ty - 9, w + 6, 11);
+    ctx.fillStyle = "#40180B";
+    ctx.textAlign = "right";
+    ctx.fillText(text, chartArea.right - 2, ty);
+    ctx.restore();
+  },
+};
+
+/** Opportunity for one market in the drill. Where catalog coverage is poor the
+ *  gap may be an artefact of uncategorised volume rather than a real absence —
+ *  SEA1 sells plenty of dairy, it just arrives off-catalog — so the number is
+ *  marked uncertain instead of reading as a target to go chase. */
+function drillOppCell(r) {
+  if (!r.opp) return `<td class="num"><span class="pill none">\u2713</span></td>`;
+  if (r.lowCoverage) {
+    return `<td class="num"><span class="pill unsure" title="${esc(r.name)} categorises only ` +
+           `${pct(DATA.warehouses[r.name].windows[win].classifiedUnitShare)} of its units, so this ` +
+           `gap may be uncategorised volume rather than a real absence — verify before acting">` +
+           `+${int(r.opp)}?</span></td>`;
+  }
+  return `<td class="num"><span class="pill opp">+${int(r.opp)}</span></td>`;
+}
+
+function renderDrill() {
+  if (!drillCat) return;
+  const { rows, netPen } = drillRows();
+  const label = drillSub ? `${drillCat} → ${drillSub}` : drillCat;
+  document.getElementById("drill-note").textContent =
+    `${label} · network ${pct(netPen)} of active accounts · ${win}-day window`;
+
+  const chartRows = rows.slice().sort((a, b) => b.pen - a.pen);
+  const vals = chartRows.map((r) => +(r.pen * 100).toFixed(1));
+  if (drillChart) drillChart.destroy();
+  drillChart = new Chart(document.getElementById("chart-drill"), {
+    type: "bar",
+    plugins: [netLinePlugin],
+    data: {
+      labels: chartRows.map((r) => r.name),
+      datasets: [{
+        data: vals,
+        backgroundColor: chartRows.map((r) =>
+          r.name === whKey ? "rgba(255,209,0,.95)"
+            : r.gap >= 0 ? "rgba(31,122,51,.7)" : "rgba(180,35,24,.7)"),
+        borderColor: chartRows.map((r) =>
+          r.name === whKey ? "#40180B" : r.gap >= 0 ? PALETTE.green : PALETTE.red),
+        borderWidth: 1,
+        borderRadius: 2,
+      }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        netLine: { value: +(netPen * 100).toFixed(1) },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const r = chartRows[c.dataIndex];
+              return [
+                `${int(r.accounts)} of ${int(r.active)} accounts (${pct(r.pen)})`,
+                `Gap vs network: ${pts(r.gap)} pts`,
+                r.opp ? `${int(r.opp)} accounts to reach network` : "At or above network",
+                r.lowCoverage ? "Low catalog coverage — reads as a floor" : "",
+              ].filter(Boolean);
+            },
+          },
+        },
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: {
+          title: { display: true, text: "% of active accounts buying" },
+          grid: { color: "#E6DFCC" },
+          ticks: { callback: (v) => v + "%" },
+        },
+      },
+    },
+  });
+
+  const dir = drillSortDir === "asc" ? 1 : -1;
+  const sorted = rows.slice().sort((a, b) =>
+    drillSortKey === "name"
+      ? dir * a.name.localeCompare(b.name)
+      : dir * (a[drillSortKey] - b[drillSortKey]));
+  const maxPen = Math.max(...sorted.map((r) => r.pen), 0.0001);
+
+  document.querySelector("#drill tbody").innerHTML = sorted.map((r) =>
+    `<tr class="${r.name === whKey ? "me" : ""}">` +
+    `<td>${r.name}${r.lowCoverage
+        ? ` <span class="pill low" title="Only ${pct(
+            DATA.warehouses[r.name].windows[win].classifiedUnitShare
+          )} of units carry a catalog category — this reads as a floor">floor</span>`
+        : ""}</td>` +
+    `<td class="num">${int(r.active)}</td>` +
+    `<td class="num">${int(r.accounts)}</td>` +
+    penCell(r.pen, maxPen) +
+    gapCell(r.gap, false) +
+    drillOppCell(r) +
+    `<td class="num">${pct(r.revShare)}</td>` +
+    `<td class="num">${money(r.revenue)}</td>` +
+    `</tr>`
+  ).join("");
+
+  document.querySelectorAll("#drill th").forEach((th) => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === drillSortKey) {
+      th.classList.add(drillSortDir === "asc" ? "sort-asc" : "sort-desc");
+    }
   });
 }
 
