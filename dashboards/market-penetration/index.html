@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Market Penetration</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 20px;
+  }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    color: var(--muted); font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; font-weight: 600;
+  }
+  select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
+    outline: none; min-width: 220px;
+  }
+  select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    background: var(--panel); color: var(--muted); border: 0; padding: 7px 14px;
+    font: inherit; font-size: 13px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.on { background: var(--accent-yellow); color: var(--ink-2); font-weight: 600; }
+  .spacer { flex: 1 1 auto; }
+  .asof { color: var(--muted); font-size: 12px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .foot { color: var(--muted); font-size: 11px; margin-top: 3px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between;
+    gap: 8px 12px; flex-wrap: wrap;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 340px; position: relative; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0; z-index: 1;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.cat { cursor: pointer; }
+  tr.cat:hover td { background: #FAF4E4; }
+  tr.cat td:first-child { font-weight: 600; color: var(--ink-2); }
+  .twist { display: inline-block; width: 12px; color: var(--muted); font-size: 10px; }
+  tr.sub td { background: var(--panel-2); font-size: 13px; }
+  tr.sub td:first-child { padding-left: 34px; color: var(--ink); font-weight: 400; }
+  tr.sub:hover td { background: #EFE7D4; }
+
+  /* A td is not a reliable percentage containing block in every engine, so the
+     penetration bar is anchored to an inner block instead. */
+  .pen-box { position: relative; display: block; }
+  .pen-fill {
+    position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px;
+    background: rgba(255,209,0,.5); z-index: 0; min-width: 2px;
+  }
+  .pen-val { position: relative; z-index: 1; }
+  tr.sub .pen-fill { background: rgba(255,209,0,.75); }
+  .gap-pos { color: var(--green); font-weight: 600; }
+  .gap-neg { color: var(--red); font-weight: 600; }
+  .gap-flat { color: var(--muted); }
+  .pill {
+    display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 11px;
+    font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .pill.opp { background: var(--amber-soft); color: var(--amber); }
+  .pill.none { background: var(--green-soft); color: var(--green); }
+
+  .warn {
+    background: var(--amber-soft); border: 1px solid rgba(181,102,10,.3); color: var(--amber);
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; font-size: 13px;
+  }
+  .warn b { color: var(--amber); }
+  .warn details { margin-top: 6px; }
+  .warn summary { cursor: pointer; font-size: 12px; }
+  .warn ul { margin: 6px 0 0; padding-left: 18px; font-size: 12px; color: var(--ink); }
+
+  .heat-wrap { overflow-x: auto; }
+  table.heat { border-collapse: separate; border-spacing: 0; }
+  table.heat th, table.heat td { border-bottom: 1px solid var(--line); white-space: nowrap; }
+  table.heat th.rot {
+    height: 128px; padding: 0 0 8px; vertical-align: bottom; cursor: default;
+    font-size: 10px; text-align: left;
+  }
+  table.heat th.rot > div { writing-mode: vertical-rl; transform: rotate(180deg); }
+  table.heat td.wh {
+    font-weight: 600; color: var(--ink-2); position: sticky; left: 0;
+    background: var(--panel); z-index: 1; border-right: 1px solid var(--line);
+  }
+  table.heat th.corner { position: sticky; left: 0; background: var(--bg); z-index: 2; }
+  table.heat td.cell {
+    text-align: center; font-variant-numeric: tabular-nums; font-size: 12px;
+    min-width: 52px; padding: 7px 6px;
+  }
+  table.heat tr.netrow td { border-top: 2px solid var(--ink-2); font-weight: 600; }
+
+  .legend { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .legend .ramp { width: 120px; height: 10px; border-radius: 2px; border: 1px solid var(--line); }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    select { min-width: 150px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Market Penetration — Category &amp; Sub-Category</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="controls">
+    <div class="field">
+      <label for="wh">Market</label>
+      <select id="wh"></select>
+    </div>
+    <div class="field">
+      <label>Trailing window</label>
+      <div class="seg" id="window-seg">
+        <button data-w="30">30 days</button>
+        <button data-w="90">90 days</button>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="asof" id="asof"></div>
+  </section>
+
+  <div id="coverage"></div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card chart">
+    <h3>Penetration Gap vs Network <span class="note" id="gap-note"></span></h3>
+    <div class="body"><canvas id="chart-gap"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h3>
+      Categories
+      <span class="note">Click a row to expand sub-categories</span>
+    </h3>
+    <div style="overflow-x:auto">
+      <table id="cats">
+        <thead>
+          <tr>
+            <th data-sort="name">Category</th>
+            <th class="num" data-sort="accounts">Accounts</th>
+            <th class="num" data-sort="pen" data-default="desc">Penetration</th>
+            <th class="num" data-sort="net">Network</th>
+            <th class="num" data-sort="gap">Gap</th>
+            <th class="num" data-sort="opp">Opportunity</th>
+            <th class="num" data-sort="revShare">Rev share</th>
+            <th class="num" data-sort="revenue">Revenue</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>
+      Network Heatmap
+      <span class="legend">
+        <span id="heat-mode-label">Penetration</span>
+        <span class="ramp" id="heat-ramp"></span>
+        <span id="heat-range"></span>
+        <span class="seg" id="heat-seg">
+          <button data-m="pen" class="on">Penetration</button>
+          <button data-m="gap">Gap vs network</button>
+        </span>
+      </span>
+    </h3>
+    <div class="heat-wrap" id="heat"></div>
+  </section>
+</main>
+
+<script>
+Chart.defaults.color = "#8A7B6A";
+Chart.defaults.borderColor = "#E6DFCC";
+Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100",
+};
+
+const NETWORK_KEY = "__network__";
+const pct = (v) => (v == null ? "—" : (v * 100).toFixed(1) + "%");
+const pts = (v) => (v == null ? "—" : (v >= 0 ? "+" : "") + (v * 100).toFixed(1));
+const int = (n) => (n == null ? "—" : Math.round(n).toLocaleString());
+const money = (n) =>
+  n == null ? "—" :
+  n >= 1e6 ? "$" + (n / 1e6).toFixed(2) + "M" :
+  n >= 1e3 ? "$" + (n / 1e3).toFixed(0) + "k" : "$" + n.toFixed(0);
+
+let DATA = null;
+let whKey = NETWORK_KEY;
+let win = "90";
+let heatMode = "pen";
+let sortKey = "pen";
+let sortDir = "desc";
+const expanded = new Set();
+let gapChart = null;
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) {
+    document.getElementById("meta").textContent = "Failed to load data.json";
+    return;
+  }
+  DATA = await res.json();
+  win = DATA.windows.includes("90") ? "90" : DATA.windows[0];
+
+  // Largest market leads: it is the one most people open the dashboard for.
+  const whs = Object.keys(DATA.warehouses).sort();
+  const biggest = whs.slice().sort((a, b) =>
+    active(DATA.warehouses[b]) - active(DATA.warehouses[a]))[0];
+  whKey = biggest || NETWORK_KEY;
+
+  const sel = document.getElementById("wh");
+  sel.innerHTML =
+    `<option value="${NETWORK_KEY}">Network — all markets</option>` +
+    whs.map((w) => `<option value="${w}">${w}</option>`).join("");
+  sel.value = whKey;
+  sel.addEventListener("change", () => { whKey = sel.value; expanded.clear(); render(); });
+
+  document.querySelectorAll("#window-seg button").forEach((b) => {
+    b.addEventListener("click", () => { win = b.dataset.w; render(); });
+  });
+  document.querySelectorAll("#heat-seg button").forEach((b) => {
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      heatMode = b.dataset.m;
+      document.querySelectorAll("#heat-seg button").forEach((x) => x.classList.toggle("on", x === b));
+      renderHeat();
+    });
+  });
+  document.querySelectorAll("#cats th").forEach((th) => {
+    th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      if (sortKey === k) sortDir = sortDir === "asc" ? "desc" : "asc";
+      else { sortKey = k; sortDir = th.dataset.default || (k === "name" ? "asc" : "desc"); }
+      renderTable();
+    });
+  });
+
+  const errs = Object.keys(DATA.errors || {});
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ` +
+    `${whs.length} markets · ${DATA.catalog.length} categories · ` +
+    `${DATA.businessLines.join(" + ")}` +
+    (errs.length ? ` · ${errs.length} market(s) unavailable: ${errs.join(", ")}` : "");
+  render();
+}
+
+const active = (entry) => {
+  const w = entry.windows["90"] || entry.windows[Object.keys(entry.windows)[0]];
+  return w ? w.activeAccounts : 0;
+};
+
+// The selected market's window slice, and the network slice to benchmark it
+// against. Selecting "Network" makes the two identical, which correctly
+// flattens every gap to zero rather than hiding the columns.
+function slices() {
+  const net = DATA.network[win];
+  const cur = whKey === NETWORK_KEY ? net : DATA.warehouses[whKey].windows[win];
+  return { cur, net };
+}
+
+/** Category rows for the current market, joined to the network benchmark. */
+function rows() {
+  const { cur, net } = slices();
+  return DATA.catalog.map((c) => {
+    const m = cur.categories[c.name];
+    const n = net.categories[c.name];
+    const pen = m ? m.pen : 0;
+    const netPen = n ? n.pen : 0;
+    const gap = pen - netPen;
+    return {
+      name: c.name,
+      accounts: m ? m.accounts : 0,
+      pen, net: netPen, gap,
+      // Accounts that would have to start buying the category for this market
+      // to sit exactly on the network rate. Zero when already at or above it.
+      opp: gap < 0 ? Math.ceil(-gap * cur.activeAccounts) : 0,
+      revShare: m ? m.revShare : 0,
+      revenue: m ? m.revenue : 0,
+      subs: c.subs.map((s) => {
+        const ms = m && m.subs[s];
+        const ns = n && n.subs[s];
+        const sp = ms ? ms.pen : 0;
+        const sn = ns ? ns.pen : 0;
+        const sg = sp - sn;
+        return {
+          name: s,
+          accounts: ms ? ms.accounts : 0,
+          pen: sp, net: sn, gap: sg,
+          opp: sg < 0 ? Math.ceil(-sg * cur.activeAccounts) : 0,
+          revShare: ms ? ms.revShare : 0,
+          revenue: ms ? ms.revenue : 0,
+        };
+      }),
+    };
+  });
+}
+
+function render() {
+  document.querySelectorAll("#window-seg button").forEach((b) =>
+    b.classList.toggle("on", b.dataset.w === win));
+  const entry = whKey === NETWORK_KEY ? null : DATA.warehouses[whKey];
+  document.getElementById("asof").textContent = entry
+    ? `${whKey} data through ${entry.asOf}`
+    : "Pooled across all available markets";
+  renderCoverage(entry);
+  renderKpis();
+  renderGapChart();
+  renderTable();
+  renderHeat();
+}
+
+/** Non-inventory items carry no category, which understates the categories
+ *  they belong to. Say so where it is big enough to change a read. */
+function renderCoverage(entry) {
+  const box = document.getElementById("coverage");
+  const { cur } = slices();
+  const share = cur.classifiedUnitShare;
+  if (!entry || share >= 0.9) { box.innerHTML = ""; return; }
+  const top = (entry.topUnclassified || []).slice(0, 6);
+  box.innerHTML =
+    `<div class="warn">Only <b>${pct(share)}</b> of ${whKey}'s units carry a catalog category, ` +
+    `so penetration here is a <b>floor, not a ceiling</b> — the categories these items belong to are understated. ` +
+    `Uncategorised volume is typically non-inventory local supply (fresh bakery, direct-ship dairy) that never enters the procurement catalog.` +
+    (top.length
+      ? `<details><summary>Largest uncategorised items</summary><ul>` +
+        top.map((u) => `<li>${esc(u.item)} — ${int(u.units)} units</li>`).join("") +
+        `</ul></details>`
+      : "") +
+    `</div>`;
+}
+
+function renderKpis() {
+  const { cur, net } = slices();
+  const rs = rows();
+  const behind = rs.filter((r) => r.gap < -0.02);
+  const worst = behind.slice().sort((a, b) => a.gap - b.gap)[0];
+  const totalOpp = rs.reduce((s, r) => s + r.opp, 0);
+  const avgPen = rs.length ? rs.reduce((s, r) => s + r.pen, 0) / rs.length : 0;
+  const netAvgPen = rs.length ? rs.reduce((s, r) => s + r.net, 0) / rs.length : 0;
+  const isNet = whKey === NETWORK_KEY;
+
+  const kpis = [
+    { label: "Active accounts", value: int(cur.activeAccounts), cls: "accent",
+      foot: `${win}-day window` },
+    { label: "Avg category penetration", value: pct(avgPen),
+      cls: isNet ? "" : avgPen >= netAvgPen ? "green" : "amber",
+      foot: isNet ? "across all markets" : `network ${pct(netAvgPen)}` },
+    { label: "Categories below network", value: isNet ? "—" : int(behind.length),
+      cls: isNet ? "" : behind.length ? "amber" : "green",
+      foot: isNet ? "network is the benchmark" : `of ${rs.length} tracked` },
+    { label: "Biggest gap", value: isNet || !worst ? "—" : worst.name,
+      cls: isNet || !worst ? "" : "red",
+      foot: isNet || !worst ? "" : `${pts(worst.gap)} pts · ${int(worst.opp)} accounts` },
+    { label: "Accounts to reach network", value: isNet ? "—" : int(totalOpp),
+      cls: isNet ? "" : "amber", foot: "summed across categories" },
+    { label: "Revenue in window", value: money(cur.revenue), foot: "categorised units only" },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map((k) =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
+    `<div class="value" style="${k.label === "Biggest gap" ? "font-size:15px;line-height:1.3" : ""}">${k.value}</div>` +
+    `<div class="foot">${k.foot || ""}</div></div>`
+  ).join("");
+}
+
+function renderGapChart() {
+  const rs = rows().slice().sort((a, b) => a.gap - b.gap);
+  document.getElementById("gap-note").textContent =
+    whKey === NETWORK_KEY
+      ? "Select a market to compare against the network"
+      : `${whKey} minus network, in percentage points`;
+  const labels = rs.map((r) => r.name);
+  const vals = rs.map((r) => +(r.gap * 100).toFixed(1));
+  if (gapChart) gapChart.destroy();
+  gapChart = new Chart(document.getElementById("chart-gap"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        data: vals,
+        backgroundColor: vals.map((v) => (v >= 0 ? "rgba(31,122,51,.75)" : "rgba(180,35,24,.75)")),
+        borderColor: vals.map((v) => (v >= 0 ? PALETTE.green : PALETTE.red)),
+        borderWidth: 1,
+        borderRadius: 2,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const r = rs[c.dataIndex];
+              return [
+                `${whKey}: ${pct(r.pen)} of accounts`,
+                `Network: ${pct(r.net)}`,
+                `Gap: ${pts(r.gap)} pts`,
+                r.opp ? `${int(r.opp)} accounts to reach network` : "At or above network",
+              ];
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          title: { display: true, text: "Percentage points vs network" },
+          grid: { color: "#E6DFCC" },
+        },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } },
+      },
+    },
+  });
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function gapCell(gap, isNet) {
+  if (isNet) return `<td class="num gap-flat">—</td>`;
+  const cls = gap > 0.005 ? "gap-pos" : gap < -0.005 ? "gap-neg" : "gap-flat";
+  return `<td class="num ${cls}">${pts(gap)}</td>`;
+}
+
+function oppCell(opp, isNet) {
+  if (isNet) return `<td class="num gap-flat">—</td>`;
+  return `<td class="num">${
+    opp ? `<span class="pill opp">+${int(opp)}</span>` : `<span class="pill none">✓</span>`
+  }</td>`;
+}
+
+function penCell(pen, maxPen) {
+  const w = maxPen ? Math.max(0, Math.min(1, pen / maxPen)) * 100 : 0;
+  return `<td class="num"><span class="pen-box">` +
+         `<span class="pen-fill" style="width:${w.toFixed(1)}%"></span>` +
+         `<span class="pen-val">${pct(pen)}</span></span></td>`;
+}
+
+function renderTable() {
+  const isNet = whKey === NETWORK_KEY;
+  const rs = rows();
+  const dir = sortDir === "asc" ? 1 : -1;
+  rs.sort((a, b) =>
+    sortKey === "name" ? dir * a.name.localeCompare(b.name) : dir * (a[sortKey] - b[sortKey]));
+  const maxPen = Math.max(...rs.map((r) => r.pen), 0.0001);
+
+  const html = [];
+  for (const r of rs) {
+    const open = expanded.has(r.name);
+    html.push(
+      `<tr class="cat" data-cat="${esc(r.name)}">` +
+      `<td><span class="twist">${open ? "▼" : "▶"}</span> ${esc(r.name)}</td>` +
+      `<td class="num">${int(r.accounts)}</td>` +
+      penCell(r.pen, maxPen) +
+      `<td class="num">${pct(r.net)}</td>` +
+      gapCell(r.gap, isNet) +
+      oppCell(r.opp, isNet) +
+      `<td class="num">${pct(r.revShare)}</td>` +
+      `<td class="num">${money(r.revenue)}</td>` +
+      `</tr>`
+    );
+    if (!open) continue;
+    const subs = r.subs.slice().sort((a, b) =>
+      sortKey === "name" ? dir * a.name.localeCompare(b.name) : dir * (a[sortKey] - b[sortKey]));
+    const subMax = Math.max(...subs.map((s) => s.pen), 0.0001);
+    for (const s of subs) {
+      html.push(
+        `<tr class="sub">` +
+        `<td>${esc(s.name)}</td>` +
+        `<td class="num">${int(s.accounts)}</td>` +
+        penCell(s.pen, subMax) +
+        `<td class="num">${pct(s.net)}</td>` +
+        gapCell(s.gap, isNet) +
+        oppCell(s.opp, isNet) +
+        `<td class="num">${pct(s.revShare)}</td>` +
+        `<td class="num">${money(s.revenue)}</td>` +
+        `</tr>`
+      );
+    }
+  }
+  const tbody = document.querySelector("#cats tbody");
+  tbody.innerHTML = html.join("");
+  tbody.querySelectorAll("tr.cat").forEach((tr) => {
+    tr.addEventListener("click", () => {
+      const c = tr.dataset.cat;
+      if (expanded.has(c)) expanded.delete(c); else expanded.add(c);
+      renderTable();
+    });
+  });
+  document.querySelectorAll("#cats th").forEach((th) => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+}
+
+// Warm cream -> Odeko brown for absolute penetration; red/green diverging for
+// gap, so "below network" reads the same colour here as in the bar chart.
+function heatColor(v, max) {
+  if (heatMode === "gap") {
+    const m = Math.max(max, 0.0001);
+    const t = Math.min(Math.abs(v) / m, 1);
+    return v >= 0
+      ? `rgba(31,122,51,${(0.08 + 0.62 * t).toFixed(3)})`
+      : `rgba(180,35,24,${(0.08 + 0.62 * t).toFixed(3)})`;
+  }
+  const t = Math.min(v / Math.max(max, 0.0001), 1);
+  const c = [
+    [251, 247, 236],
+    [255, 209, 0],
+    [64, 24, 11],
+  ];
+  const seg = t < 0.5 ? 0 : 1;
+  const f = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5;
+  const mix = c[seg].map((a, i) => Math.round(a + (c[seg + 1][i] - a) * f));
+  return `rgb(${mix.join(",")})`;
+}
+
+function heatText(v, max) {
+  if (heatMode === "gap") return "var(--ink)";
+  return v / Math.max(max, 0.0001) > 0.62 ? "#FFF" : "var(--ink)";
+}
+
+function renderHeat() {
+  const cats = DATA.catalog.map((c) => c.name);
+  const whs = Object.keys(DATA.warehouses).sort();
+  const net = DATA.network[win];
+
+  const cell = (slice) => (cat) => {
+    const m = slice.categories[cat];
+    const pen = m ? m.pen : 0;
+    const n = net.categories[cat];
+    return heatMode === "gap" ? pen - (n ? n.pen : 0) : pen;
+  };
+
+  let max = 0;
+  for (const w of whs) {
+    const slice = DATA.warehouses[w].windows[win];
+    for (const c of cats) max = Math.max(max, Math.abs(cell(slice)(c)));
+  }
+
+  const head =
+    `<tr><th class="corner">Market</th>` +
+    cats.map((c) => `<th class="rot"><div>${esc(c)}</div></th>`).join("") +
+    `</tr>`;
+
+  const body = whs.map((w) => {
+    const slice = DATA.warehouses[w].windows[win];
+    const f = cell(slice);
+    return `<tr${w === whKey ? ' style="outline:2px solid var(--accent-yellow);outline-offset:-2px"' : ""}>` +
+      `<td class="wh">${w}</td>` +
+      cats.map((c) => {
+        const v = f(c);
+        return `<td class="cell" style="background:${heatColor(v, max)};color:${heatText(v, max)}" ` +
+               `title="${esc(w)} · ${esc(c)} · ${heatMode === "gap" ? pts(v) + " pts vs network" : pct(v)}">` +
+               `${heatMode === "gap" ? pts(v) : (v * 100).toFixed(0)}</td>`;
+      }).join("") +
+      `</tr>`;
+  }).join("");
+
+  // The network row always shows absolute penetration: in gap mode it is the
+  // baseline every other row is measured against, so a row of zeros would say
+  // nothing. It is scaled on the penetration ramp in both modes.
+  const penMax = Math.max(
+    ...whs.map((w) => {
+      const slice = DATA.warehouses[w].windows[win];
+      return Math.max(...cats.map((c) => (slice.categories[c] ? slice.categories[c].pen : 0)));
+    }),
+    0.0001
+  );
+  const savedMode = heatMode;
+  heatMode = "pen";
+  const netRow =
+    `<tr class="netrow"><td class="wh">Network</td>` +
+    cats.map((c) => {
+      const n = net.categories[c];
+      const v = n ? n.pen : 0;
+      return `<td class="cell" style="background:${heatColor(v, penMax)};color:${heatText(v, penMax)}" ` +
+             `title="Network baseline · ${esc(c)} · ${pct(v)}">${(v * 100).toFixed(0)}</td>`;
+    }).join("") +
+    `</tr>`;
+  heatMode = savedMode;
+
+  document.getElementById("heat").innerHTML =
+    `<table class="heat"><thead>${head}</thead><tbody>${body}${netRow}</tbody></table>`;
+
+  document.getElementById("heat-ramp").style.background =
+    heatMode === "gap"
+      ? "linear-gradient(90deg, rgba(180,35,24,.7), rgba(180,35,24,.08), rgba(31,122,51,.08), rgba(31,122,51,.7))"
+      : "linear-gradient(90deg, #FBF7EC, #FFD100, #40180B)";
+  document.getElementById("heat-range").textContent =
+    heatMode === "gap" ? `±${(max * 100).toFixed(0)} pts` : `0–${(max * 100).toFixed(0)}%`;
+  document.getElementById("heat-mode-label").textContent =
+    heatMode === "gap" ? "Gap vs network" : "Penetration";
+}
+
+load();
+</script>
+</body>
+</html>
