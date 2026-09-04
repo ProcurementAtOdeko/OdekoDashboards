@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-04T09:46:18+00:00",
+  "generatedAt": "2026-09-04T14:26:01+00:00",
   "dateRange": {
-    "min": "2026-06-06",
-    "max": "2026-09-02"
+    "min": "2026-06-07",
+    "max": "2026-09-03"
   },
   "summary": {
     "customersListed": 73,
@@ -12,27 +12,27 @@
     "customersAdded": 28,
     "customersRemoved": 32,
     "skusPurchased": 323,
-    "skusCarried": 165,
-    "skusGap": 158,
-    "coveragePct": 51,
-    "unitsTotal": 6607.0,
+    "skusCarried": 137,
+    "skusGap": 186,
+    "coveragePct": 42,
+    "unitsTotal": 6621.0,
     "skusInOnboarding": 62,
-    "gapsInOnboarding": 22,
-    "gapsNotOnboarding": 136,
-    "gapUnitsTotal": 1280.0,
-    "formatSubstitutes": 8,
-    "planResolved": 79,
-    "planResolvedCarried": 54,
-    "planResolvedNoDemand": 25
+    "gapsInOnboarding": 48,
+    "gapsNotOnboarding": 138,
+    "gapUnitsTotal": 1527.0,
+    "formatSubstitutes": 7,
+    "planResolved": 53,
+    "planResolvedCarried": 14,
+    "planResolvedNoDemand": 39
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 165
+      "count": 137
     },
     {
       "status": "Not carried (gap)",
-      "count": 158
+      "count": 186
     }
   ],
   "topGapSkus": [
@@ -62,6 +62,11 @@
       "customers": 1
     },
     {
+      "name": "Monin Tiramisu Syrup 750 ml Glass Bottle",
+      "units": 55.0,
+      "customers": 5
+    },
+    {
       "name": "Torani Creme de Banana Syrup 750ml Glass Bottle",
       "units": 47.0,
       "customers": 1
@@ -87,8 +92,28 @@
       "customers": 7
     },
     {
+      "name": "Humankind Organic Lavender Lemonade 16oz",
+      "units": 22.0,
+      "customers": 5
+    },
+    {
+      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+      "units": 22.0,
+      "customers": 1
+    },
+    {
+      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
+      "units": 19.0,
+      "customers": 1
+    },
+    {
       "name": "Monin Sugar Free Hazelnut Syrup 1 Liter Plastic Bottle",
       "units": 19.0,
+      "customers": 1
+    },
+    {
+      "name": "Monin Peach Smoothie 46oz",
+      "units": 18.0,
       "customers": 1
     },
     {
@@ -107,41 +132,16 @@
       "customers": 1
     },
     {
-      "name": "Rishi Tea Sweet Matcha 1kg Bag",
+      "name": "Monin Cherry Syrup 750ml Glass",
       "units": 13.0,
       "customers": 2
-    },
-    {
-      "name": "Island Oasis Mango Aseptic Liter(s)",
-      "units": 12.0,
-      "customers": 1
-    },
-    {
-      "name": "Island Oasis Peach Fruit Puree 1L",
-      "units": 12.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Huckleberry Syrup 750 ml Glass Bottle",
-      "units": 12.0,
-      "customers": 2
-    },
-    {
-      "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
-      "units": 12.0,
-      "customers": 3
-    },
-    {
-      "name": "Pacific Barista Unsweetened Almond Milk 32oz",
-      "units": 10.0,
-      "customers": 1
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 408.0,
-      "skus": 26
+      "units": 596.0,
+      "skus": 49
     },
     {
       "brand": "DaVinci Gourmet",
@@ -149,29 +149,29 @@
       "skus": 6
     },
     {
+      "brand": "Dr. Smoothie",
+      "units": 131.0,
+      "skus": 12
+    },
+    {
       "brand": "Torani",
       "units": 128.0,
       "skus": 13
     },
     {
-      "brand": "Dr. Smoothie",
-      "units": 116.0,
-      "skus": 10
+      "brand": "(no brand)",
+      "units": 53.0,
+      "skus": 12
+    },
+    {
+      "brand": "Uglies Kettle Chips",
+      "units": 50.0,
+      "skus": 6
     },
     {
       "brand": "1883",
       "units": 50.0,
       "skus": 24
-    },
-    {
-      "brand": "Uglies Kettle Chips",
-      "units": 43.0,
-      "skus": 5
-    },
-    {
-      "brand": "(no brand)",
-      "units": 43.0,
-      "skus": 12
     },
     {
       "brand": "Rishi",
@@ -190,8 +190,8 @@
     },
     {
       "brand": "Stroopie Co.",
-      "units": 30.0,
-      "skus": 7
+      "units": 25.0,
+      "skus": 5
     },
     {
       "brand": "Island Oasis",
@@ -211,7 +211,6 @@
           "name": "Monin Lavender Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -230,7 +229,6 @@
           "name": "Monin Hazelnut Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -249,7 +247,6 @@
           "name": "Monin Sugar Free Hazelnut Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -268,7 +265,6 @@
           "name": "Monin Cinnamon Bun Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -287,7 +283,6 @@
           "name": "Monin Pumpkin Spice Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "750 ml glass",
@@ -306,7 +301,6 @@
           "name": "Monin Candied Orange Syrup 1L Plastic Bottle",
           "sources": [
             "catalog",
-            "onhand",
             "sold90"
           ],
           "pack": "1 L plastic",
@@ -324,28 +318,10 @@
         {
           "name": "1883 Syrup Pump (Plastic)",
           "sources": [
-            "catalog",
-            "onhand"
+            "catalog"
           ],
           "pack": "plastic",
           "sameSize": true
-        }
-      ]
-    },
-    {
-      "name": "Monin Pineapple Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "units": 1.0,
-      "customers": 1,
-      "pack": "1 L plastic",
-      "substitutes": [
-        {
-          "name": "Monin Pineapple Syrup 750ml Glass",
-          "sources": [
-            "onhand"
-          ],
-          "pack": "750 ml glass",
-          "sameSize": false
         }
       ]
     }
@@ -357,8 +333,7 @@
       "stage": "Live in catalog",
       "reason": "carried",
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "planUnits": 413.0,
       "units": 80.0,
@@ -371,12 +346,11 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 316.0,
-      "units": 176.0,
-      "customers": 1
+      "units": 50.0,
+      "customers": 4
     },
     {
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
@@ -385,7 +359,6 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 205.0,
@@ -399,7 +372,6 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 167.0,
@@ -413,7 +385,6 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 149.3,
@@ -426,36 +397,11 @@
       "stage": "Live in catalog",
       "reason": "carried",
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "planUnits": 91.0,
       "units": 65.0,
       "customers": 2
-    },
-    {
-      "name": "Monin Rock Melon Cantaloupe Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 88.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Tiramisu Syrup 750 ml Glass Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 85.0,
-      "units": 55.0,
-      "customers": 5
     },
     {
       "name": "Monin Passion Fruit Syrup 750ml Glass",
@@ -463,48 +409,11 @@
       "stage": "Received",
       "reason": "carried",
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "planUnits": 81.3,
       "units": 48.0,
       "customers": 2
-    },
-    {
-      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 68.0,
-      "units": 22.0,
-      "customers": 1
-    },
-    {
-      "name": "Torani Real Fruit Mango Smoothie Mix 64 oz. Bottle(s)",
-      "brand": "Torani",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 67.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 66.0,
-      "units": 19.0,
-      "customers": 1
     },
     {
       "name": "Monin Rose Syrup 750ml Glass",
@@ -512,8 +421,7 @@
       "stage": "Live in catalog",
       "reason": "carried",
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "planUnits": 63.0,
       "units": 23.0,
@@ -525,60 +433,11 @@
       "stage": "Live in catalog",
       "reason": "carried",
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "planUnits": 62.0,
       "units": 12.0,
       "customers": 1
-    },
-    {
-      "name": "Torani Vanilla Syrup 1L Plastic Bottle",
-      "brand": "Torani",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 57.8,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Blackberry Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 57.0,
-      "units": 3.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Cherry Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 48.0,
-      "units": 13.0,
-      "customers": 2
-    },
-    {
-      "name": "Dr. Smoothie Watermelon Cucumber Mint Refreshers 46 oz. Bottle",
-      "brand": "Dr. Smoothie",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 46.0,
-      "units": 0.0,
-      "customers": 0
     },
     {
       "name": "Monin Toffee Nut Syrup 750ml Glass",
@@ -587,35 +446,11 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand"
+        "sold90"
       ],
       "planUnits": 43.0,
       "units": 26.0,
       "customers": 7
-    },
-    {
-      "name": "Monin Blood Orange Syrup 1L Plastic",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 38.0,
-      "units": 2.0,
-      "customers": 2
-    },
-    {
-      "name": "Monin Blue Cotton Candy Syrup 1L Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 36.0,
-      "units": 2.0,
-      "customers": 1
     },
     {
       "name": "Monin Sugar Free Hazelnut Syrup 750ml Glass",
@@ -624,95 +459,10 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 36.0,
-      "units": 5.0,
-      "customers": 2
-    },
-    {
-      "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
-      "brand": "Dr. Smoothie",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 35.0,
-      "units": 6.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Lemon Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 34.0,
-      "units": 10.0,
-      "customers": 1
-    },
-    {
-      "name": "1883 Macadamia Nut Syrup 1 Liter Plastic Bottle",
-      "brand": "1883",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 33.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Classic Watermelon Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 28.0,
-      "units": 4.0,
-      "customers": 2
-    },
-    {
-      "name": "Monin Lavender Lemon Syrup 750 ml Bottle(s)",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 27.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 26.0,
-      "units": 12.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Brown Butter Toffee Syrup 750 ml Glass Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 25.0,
-      "units": 1.0,
+      "units": 19.0,
       "customers": 1
     },
     {
@@ -722,120 +472,11 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 24.0,
       "units": 115.0,
       "customers": 11
-    },
-    {
-      "name": "Monin Pear Syrup 750mL Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 24.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Pineapple Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 24.0,
-      "units": 1.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Cookie Butter Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 22.0,
-      "units": 4.0,
-      "customers": 3
-    },
-    {
-      "name": "Monin French Raspberry Syrup 750mL Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 21.0,
-      "units": 6.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Mojito Mix Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 21.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Sea Salt Caramel Toffee Sauce 64 oz. Bottle(s)",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 21.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Blackberry Sangria Mix 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 20.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Dark Chocolate Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 20.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Blue Raspberry Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 19.0,
-      "units": 2.0,
-      "customers": 1
     },
     {
       "name": "Monin Cinnamon Bun Syrup 750ml Glass",
@@ -844,48 +485,11 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 18.7,
       "units": 17.0,
       "customers": 2
-    },
-    {
-      "name": "1883 Strawberry Banana Smoothie 1L/33.8 oz. Carton",
-      "brand": "1883",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 18.0,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "Monin Peach Smoothie 46oz",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 18.0,
-      "units": 18.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 17.0,
-      "units": 0.0,
-      "customers": 0
     },
     {
       "name": "Monin French Vanilla Syrup 750ml Glass",
@@ -894,132 +498,11 @@
       "reason": "carried",
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "planUnits": 16.0,
       "units": 80.0,
       "customers": 6
-    },
-    {
-      "name": "Monin Wild Grape Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 15.0,
-      "units": 2.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Granny Smith Apple Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 14.0,
-      "units": 1.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Mandarin Orange Syrup 750mL Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 14.0,
-      "units": 3.0,
-      "customers": 1
-    },
-    {
-      "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
-      "brand": "Boylan Bottling Company",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 13.0,
-      "units": 7.0,
-      "customers": 4
-    },
-    {
-      "name": "Monin Pomegranate Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 13.0,
-      "units": 2.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Toasted Almond Mocha Syrup 750ml Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 13.0,
-      "units": 1.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Coconut Puree 1L",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 12.0,
-      "units": 3.0,
-      "customers": 1
-    },
-    {
-      "name": "Dr. Smoothie Jamocha 3.5 lb. Bag(s)",
-      "brand": "Dr. Smoothie",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 11.0,
-      "units": 9.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Sugar Free Strawberry Syrup 750mL Glass",
-      "brand": "Monin",
-      "stage": "Not started",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 11.0,
-      "units": 2.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
-      "brand": "Monin",
-      "stage": "Received",
-      "reason": "carried",
-      "dca1Sources": [
-        "onhand"
-      ],
-      "planUnits": 10.0,
-      "units": 0.0,
-      "customers": 0
     },
     {
       "name": "Dr. Smoothie 100% Crushed Strawberry Banana 46oz",
@@ -1028,6 +511,16 @@
       "reason": "no-demand",
       "dca1Sources": [],
       "planUnits": 120.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Rock Melon Cantaloupe Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 88.0,
       "units": 0.0,
       "customers": 0
     },
@@ -1042,6 +535,16 @@
       "customers": 0
     },
     {
+      "name": "Torani Real Fruit Mango Smoothie Mix 64 oz. Bottle(s)",
+      "brand": "Torani",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 67.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "Torani Real Fruit Strawberry Banana Smoothie Mix 64 oz. Bottle(s)",
       "brand": "Torani",
       "stage": "On PO/TO",
@@ -1052,12 +555,32 @@
       "customers": 0
     },
     {
+      "name": "Torani Vanilla Syrup 1L Plastic Bottle",
+      "brand": "Torani",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 57.8,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "1883 Strawberry Smoothie 1L/33.8 oz. Carton",
       "brand": "1883",
       "stage": "Received",
       "reason": "no-demand",
       "dca1Sources": [],
       "planUnits": 56.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Dr. Smoothie Watermelon Cucumber Mint Refreshers 46 oz. Bottle",
+      "brand": "Dr. Smoothie",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 46.0,
       "units": 0.0,
       "customers": 0
     },
@@ -1102,6 +625,16 @@
       "customers": 0
     },
     {
+      "name": "1883 Macadamia Nut Syrup 1 Liter Plastic Bottle",
+      "brand": "1883",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 33.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "Torani Puremade Dark Chocolate Sauce 64oz Bottle",
       "brand": "Torani",
       "stage": "On PO/TO",
@@ -1122,6 +655,16 @@
       "customers": 0
     },
     {
+      "name": "Monin Lavender Lemon Syrup 750 ml Bottle(s)",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 27.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
       "brand": "1883",
       "stage": "Received",
@@ -1132,12 +675,82 @@
       "customers": 0
     },
     {
+      "name": "Monin Pear Syrup 750mL Glass",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 24.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Mojito Mix Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 21.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Sea Salt Caramel Toffee Sauce 64 oz. Bottle(s)",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 21.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Blackberry Sangria Mix 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Dark Chocolate Syrup 750ml Glass",
+      "brand": "Monin",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "Torani Puremade Caramel Sauce 64oz Bottle",
       "brand": "Torani",
       "stage": "On PO/TO",
       "reason": "no-demand",
       "dca1Sources": [],
       "planUnits": 20.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "1883 Strawberry Banana Smoothie 1L/33.8 oz. Carton",
+      "brand": "1883",
+      "stage": "Not started",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 18.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
+      "name": "Monin Wild Strawberry Syrup 1 Liter Bottle(s)",
+      "brand": "Monin",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 17.0,
       "units": 0.0,
       "customers": 0
     },
@@ -1232,6 +845,16 @@
       "customers": 0
     },
     {
+      "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
+      "brand": "Monin",
+      "stage": "Received",
+      "reason": "no-demand",
+      "dca1Sources": [],
+      "planUnits": 10.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "Torani English Toffee Syrup 1L Plastic Bottle",
       "brand": "Torani",
       "stage": "On PO/TO",
@@ -1275,14 +898,13 @@
   "skus": [
     {
       "name": "Monin Vanilla Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "7543b198-a987-42c7-aa02-f209c3023738",
       "units": 536.0,
       "lines": 47,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1359,7 +981,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1430,7 +1051,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1471,7 +1091,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1551,16 +1170,16 @@
           "lines": 10
         },
         {
-          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
-          "name": "Roggenart : Baltimore - 1001 North Charles",
-          "units": 25.0,
-          "lines": 5
-        },
-        {
           "uuid": "58a10284-52b8-41e7-9222-420ef7d352c3",
           "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
           "units": 25.0,
           "lines": 6
+        },
+        {
+          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
+          "name": "Roggenart : Baltimore - 1001 North Charles",
+          "units": 25.0,
+          "lines": 5
         },
         {
           "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
@@ -1579,7 +1198,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1622,14 +1240,14 @@
           "lines": 1
         },
         {
-          "uuid": "6006308b-6ac6-4784-ba1d-5c3bfb014086",
-          "name": "Roggenart : Savage - 8600 Foundry St #2091",
+          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
+          "name": "Roggenart : Catonsville 706 Frederick Road",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
-          "name": "Roggenart : Catonsville 706 Frederick Road",
+          "uuid": "6006308b-6ac6-4784-ba1d-5c3bfb014086",
+          "name": "Roggenart : Savage - 8600 Foundry St #2091",
           "units": 1.0,
           "lines": 1
         }
@@ -1644,7 +1262,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1721,7 +1338,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1762,7 +1378,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1809,7 +1424,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1851,7 +1465,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -1886,7 +1499,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -1911,16 +1523,16 @@
           "lines": 4
         },
         {
-          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
-          "name": "Roggenart : Catonsville 706 Frederick Road",
-          "units": 5.0,
-          "lines": 4
-        },
-        {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 5.0,
           "lines": 3
+        },
+        {
+          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
+          "name": "Roggenart : Catonsville 706 Frederick Road",
+          "units": 5.0,
+          "lines": 4
         },
         {
           "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
@@ -1939,7 +1551,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -2000,14 +1611,14 @@
           "lines": 1
         },
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
+          "name": "Roggenart : Catonsville 706 Frederick Road",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
-          "name": "Roggenart : Catonsville 706 Frederick Road",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         }
@@ -2022,7 +1633,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2045,7 +1655,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2117,7 +1726,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -2158,7 +1766,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2180,8 +1787,7 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": true,
       "customers": 1,
@@ -2203,7 +1809,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -2228,16 +1833,16 @@
           "lines": 5
         },
         {
-          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
-          "name": "Roggenart : Baltimore - 1001 North Charles",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
           "uuid": "a7746087-0d4b-49a3-8202-8523d14a2c1e",
           "name": "Kyo Matcha : Columbia",
           "units": 4.0,
           "lines": 1
+        },
+        {
+          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
+          "name": "Roggenart : Baltimore - 1001 North Charles",
+          "units": 4.0,
+          "lines": 4
         },
         {
           "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
@@ -2256,7 +1861,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2309,7 +1913,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2356,7 +1959,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2369,6 +1971,12 @@
           "lines": 6
         },
         {
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
+          "units": 4.0,
+          "lines": 1
+        },
+        {
           "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
           "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
           "units": 4.0,
@@ -2379,12 +1987,6 @@
           "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
           "units": 4.0,
           "lines": 3
-        },
-        {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
-          "units": 4.0,
-          "lines": 1
         },
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
@@ -2405,14 +2007,14 @@
           "lines": 1
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 1.0,
           "lines": 1
         },
@@ -2432,8 +2034,7 @@
       "lines": 9,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": true,
       "customers": 2,
@@ -2461,7 +2062,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2510,8 +2110,8 @@
           "lines": 3
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
+          "name": "The Fountain at Drug City : 2805 North Point Rd",
           "units": 1.0,
           "lines": 1
         },
@@ -2522,8 +2122,8 @@
           "lines": 1
         },
         {
-          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
-          "name": "The Fountain at Drug City : 2805 North Point Rd",
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -2573,10 +2173,8 @@
       "itemUuid": "fb99b897-89d7-4e0f-a990-2226204758e3",
       "units": 55.0,
       "lines": 18,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 5,
       "custDetail": [
@@ -2613,6 +2211,46 @@
       ]
     },
     {
+      "name": "Tenzo Matcha 500g Bag",
+      "brand": "Tenzo",
+      "itemUuid": "c5a92a6b-63bd-4f5a-86eb-29f580d68133",
+      "units": 55.0,
+      "lines": 9,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "sold90"
+      ],
+      "inOnboarding": false,
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
+          "name": "Wild Bean Coffee : 1532 Rockville Pike",
+          "units": 27.0,
+          "lines": 5
+        },
+        {
+          "uuid": "fa9f6ea7-5d6b-444f-ab65-53069ca01e26",
+          "name": "Sweeteria Bethesda : 7525 Old Georgetown Road",
+          "units": 20.0,
+          "lines": 1
+        },
+        {
+          "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
+          "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
+          "units": 7.0,
+          "lines": 2
+        },
+        {
+          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
+          "name": "French Press : 4918 Saint Elmo Avenue",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Monin Cinnamon Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "9ac6ceb6-3e46-4bff-bac8-8a12ed39a98d",
@@ -2621,7 +2259,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2660,56 +2297,14 @@
       ]
     },
     {
-      "name": "Tenzo Matcha 500g Bag",
-      "brand": "Tenzo",
-      "itemUuid": "c5a92a6b-63bd-4f5a-86eb-29f580d68133",
-      "units": 51.0,
-      "lines": 8,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "inOnboarding": false,
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
-          "name": "Wild Bean Coffee : 1532 Rockville Pike",
-          "units": 27.0,
-          "lines": 5
-        },
-        {
-          "uuid": "fa9f6ea7-5d6b-444f-ab65-53069ca01e26",
-          "name": "Sweeteria Bethesda : 7525 Old Georgetown Road",
-          "units": 20.0,
-          "lines": 1
-        },
-        {
-          "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
-          "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
-          "units": 3.0,
-          "lines": 1
-        },
-        {
-          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
-          "name": "French Press : 4918 Saint Elmo Avenue",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Monin Caramel Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "e2ba0aa0-0356-44b7-98b2-dfd306639fe8",
       "units": 50.0,
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -2749,8 +2344,7 @@
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": true,
       "customers": 2,
@@ -2778,7 +2372,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2813,7 +2406,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2891,7 +2483,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2932,7 +2523,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -2997,7 +2587,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3016,12 +2605,6 @@
           "lines": 2
         },
         {
-          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-          "name": "Ragamuffins Coffee House : 385 Main St",
-          "units": 5.0,
-          "lines": 5
-        },
-        {
           "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
           "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
           "units": 5.0,
@@ -3034,20 +2617,26 @@
           "lines": 1
         },
         {
+          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+          "name": "Ragamuffins Coffee House : 385 Main St",
+          "units": 5.0,
+          "lines": 5
+        },
+        {
           "uuid": "2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c",
           "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
           "units": 4.0,
           "lines": 1
         },
         {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
           "units": 2.0,
           "lines": 2
         },
@@ -3061,14 +2650,13 @@
     },
     {
       "name": "Califia Farms Barista Almond Milk 32oz",
-      "brand": "Califia Farms",
+      "brand": "",
       "itemUuid": "7337eebb-4a48-4fef-894b-d41188665b96",
       "units": 40.0,
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3159,7 +2747,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3212,7 +2799,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3235,7 +2821,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3278,14 +2863,14 @@
           "lines": 1
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+          "name": "Ragamuffins Coffee House : 385 Main St",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-          "name": "Ragamuffins Coffee House : 385 Main St",
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -3300,7 +2885,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3325,14 +2909,14 @@
           "lines": 4
         },
         {
-          "uuid": "58a10284-52b8-41e7-9222-420ef7d352c3",
-          "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
+          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
+          "name": "Roggenart : Baltimore - 1001 North Charles",
           "units": 3.0,
           "lines": 3
         },
         {
-          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
-          "name": "Roggenart : Baltimore - 1001 North Charles",
+          "uuid": "58a10284-52b8-41e7-9222-420ef7d352c3",
+          "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
           "units": 3.0,
           "lines": 3
         },
@@ -3358,14 +2942,13 @@
     },
     {
       "name": "Boylan Bottling Co. Root Beer Soda",
-      "brand": "Boylan Bottling Company",
+      "brand": "",
       "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
       "units": 26.0,
       "lines": 17,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3406,7 +2989,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3429,7 +3011,7 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand"
+        "sold90"
       ],
       "inOnboarding": true,
       "customers": 7,
@@ -3512,7 +3094,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3559,7 +3140,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3612,7 +3192,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3637,14 +3216,14 @@
           "lines": 2
         },
         {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
+          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
+          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
           "units": 3.0,
           "lines": 3
         },
         {
-          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
-          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
           "units": 3.0,
           "lines": 3
         },
@@ -3670,8 +3249,7 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": true,
       "customers": 2,
@@ -3732,14 +3310,14 @@
           "lines": 2
         },
         {
-          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
-          "name": "Roggenart : Baltimore - 1001 North Charles",
+          "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
+          "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
-          "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
+          "uuid": "dd3c4d7c-267b-4897-bdba-ef99994a53d0",
+          "name": "Roggenart : Baltimore - 1001 North Charles",
           "units": 1.0,
           "lines": 1
         }
@@ -3754,7 +3332,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3798,10 +3375,8 @@
       "itemUuid": "1b82f65f-24fe-489e-aa9a-aadf3e3da1c7",
       "units": 22.0,
       "lines": 12,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": false,
       "customers": 5,
       "custDetail": [
@@ -3824,16 +3399,16 @@
           "lines": 4
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
           "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
           "name": "Old Mill Cafe : Ellicott City",
           "units": 3.0,
           "lines": 3
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
@@ -3843,10 +3418,8 @@
       "itemUuid": "c3c7408f-3c96-4071-92da-070e3093e97b",
       "units": 22.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -3867,7 +3440,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3896,7 +3468,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3925,7 +3496,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -3963,10 +3533,8 @@
       "itemUuid": "685cf993-7178-4674-9f4a-6c49874acb3a",
       "units": 19.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -4003,10 +3571,8 @@
       "itemUuid": "fae7bb7f-8dd2-40ee-936e-132f745eae1a",
       "units": 18.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -4063,94 +3629,6 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Cane Cola Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "ec0c839c-ac65-465e-a886-29ee54401a4f",
-      "units": 16.0,
-      "lines": 12,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "inOnboarding": false,
-      "customers": 5,
-      "custDetail": [
-        {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 11.0,
-          "lines": 7
-        },
-        {
-          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
-          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-          "name": "Ragamuffins Coffee House : 385 Main St",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Boylan Bottling Co. Diet Cola Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
-      "units": 16.0,
-      "lines": 12,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "inOnboarding": false,
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 12.0,
-          "lines": 8
-        },
-        {
-          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
-          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Humankind Organic Lemonade 16oz",
       "brand": "Humankind",
       "itemUuid": "17f4509a-69d7-487f-9034-b4f8f53a32b5",
@@ -4159,7 +3637,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4184,6 +3661,12 @@
           "lines": 3
         },
         {
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
           "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
           "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
@@ -4194,25 +3677,18 @@
           "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
-        },
-        {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
-          "units": 1.0,
-          "lines": 1
         }
       ]
     },
     {
       "name": "Humankind Organic Peach Iced Tea 16oz",
-      "brand": "",
+      "brand": "Humankind",
       "itemUuid": "a5ee5f89-b448-4aee-a2fb-0aa102c53e8b",
       "units": 16.0,
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4245,6 +3721,52 @@
       ]
     },
     {
+      "name": "Boylan Bottling Co. Cane Cola Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "ec0c839c-ac65-465e-a886-29ee54401a4f",
+      "units": 15.0,
+      "lines": 12,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "sold90"
+      ],
+      "inOnboarding": false,
+      "customers": 5,
+      "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 10.0,
+          "lines": 7
+        },
+        {
+          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
+          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+          "name": "Ragamuffins Coffee House : 385 Main St",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Boylan Bottling Co. Creme Soda 12oz Bottle",
       "brand": "Boylan Bottling Company",
       "itemUuid": "3dcb9372-2610-47b1-9710-787db17ddc3a",
@@ -4253,7 +3775,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4272,12 +3793,6 @@
           "lines": 3
         },
         {
-          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
-          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
           "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
           "name": "Bon Fresco : Gaither Rd",
           "units": 2.0,
@@ -4287,6 +3802,52 @@
           "uuid": "2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c",
           "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
           "units": 2.0,
+          "lines": 1
+        },
+        {
+          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
+          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
+          "units": 2.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "Boylan Bottling Co. Diet Cola Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
+      "units": 15.0,
+      "lines": 12,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "sold90"
+      ],
+      "inOnboarding": false,
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 11.0,
+          "lines": 8
+        },
+        {
+          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
+          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 1.0,
           "lines": 1
         }
       ]
@@ -4319,7 +3880,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4354,7 +3914,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4386,10 +3945,8 @@
       "itemUuid": "047f3336-57a2-4bdd-97b5-b379cd7c9ee6",
       "units": 13.0,
       "lines": 5,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 2,
       "custDetail": [
@@ -4416,7 +3973,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4439,7 +3995,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4524,8 +4079,7 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": true,
       "customers": 1,
@@ -4544,10 +4098,8 @@
       "itemUuid": "2a036f4b-ff4e-46c0-8a11-d81570264210",
       "units": 12.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -4623,8 +4175,7 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": false,
       "customers": 2,
@@ -4652,7 +4203,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4699,7 +4249,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4721,14 +4270,13 @@
     },
     {
       "name": "Monin Honey Syrup 750mL Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "4b269777-4bec-4db7-9b02-2ced9350cb8d",
       "units": 10.0,
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4754,10 +4302,8 @@
       "itemUuid": "3f3e5719-685e-4604-af3e-b4e41526d8f0",
       "units": 10.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -4797,7 +4343,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4844,7 +4389,7 @@
     },
     {
       "name": "UGLIES Salt & Vinegar 2oz Bag",
-      "brand": "",
+      "brand": "Uglies Kettle Chips",
       "itemUuid": "358835ab-a795-4f41-b81c-35ba9b1f44ab",
       "units": 10.0,
       "lines": 4,
@@ -4876,7 +4421,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4896,10 +4440,8 @@
       "itemUuid": "d8158079-22e0-4d2d-941a-b6dd8b397aa0",
       "units": 9.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -4920,7 +4462,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4955,7 +4496,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -4995,6 +4535,43 @@
       ]
     },
     {
+      "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
+      "brand": "Stroopie Co.",
+      "itemUuid": "ca27cfba-0103-4449-b4af-a62756271da5",
+      "units": 9.0,
+      "lines": 7,
+      "inDca1": false,
+      "dca1Sources": [],
+      "inOnboarding": false,
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
+          "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
+          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "1883 Dragon Fruit Lime Refresher 1L Bottle",
       "brand": "1883",
       "itemUuid": "f5f43b0b-c3f4-41d5-a2bd-5e505b66cfb9",
@@ -5003,7 +4580,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5026,7 +4602,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5049,7 +4624,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5160,25 +4734,18 @@
     },
     {
       "name": "Lenka Bar-Berry Omega",
-      "brand": "Lenka Bar",
+      "brand": "",
       "itemUuid": "ec4b645c-cd21-4d91-bfcc-c32eb7d89093",
       "units": 8.0,
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
       "customers": 4,
       "custDetail": [
-        {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
-          "units": 2.0,
-          "lines": 2
-        },
         {
           "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
           "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
@@ -5186,14 +4753,20 @@
           "lines": 2
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
           "units": 2.0,
-          "lines": 1
+          "lines": 2
         },
         {
           "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
           "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+          "units": 2.0,
+          "lines": 1
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 2.0,
           "lines": 1
         }
@@ -5220,7 +4793,7 @@
     },
     {
       "name": "UGLIES Original Sea Salt 2oz Bag",
-      "brand": "Uglies Kettle Chips",
+      "brand": "",
       "itemUuid": "38f52604-ebf9-4d52-b94b-ca2e1044fb1c",
       "units": 8.0,
       "lines": 3,
@@ -5252,7 +4825,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5272,10 +4844,8 @@
       "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
       "units": 7.0,
       "lines": 7,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 4,
       "custDetail": [
@@ -5292,14 +4862,14 @@
           "lines": 2
         },
         {
-          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-          "name": "Ragamuffins Coffee House : 385 Main St",
+          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
+          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
-          "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
+          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+          "name": "Ragamuffins Coffee House : 385 Main St",
           "units": 1.0,
           "lines": 1
         }
@@ -5314,7 +4884,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5342,7 +4911,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5371,7 +4939,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5406,7 +4973,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5429,7 +4995,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5450,37 +5015,25 @@
       ]
     },
     {
-      "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
-      "brand": "Stroopie Co.",
-      "itemUuid": "ca27cfba-0103-4449-b4af-a62756271da5",
+      "name": "Stroopie Co. - Pecan",
+      "brand": "",
+      "itemUuid": "c4709fef-31dc-43fd-ac16-14731cb677da",
       "units": 7.0,
-      "lines": 6,
+      "lines": 3,
       "inDca1": false,
       "dca1Sources": [],
       "inOnboarding": false,
-      "customers": 4,
+      "customers": 2,
       "custDetail": [
-        {
-          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
-          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
-          "units": 3.0,
-          "lines": 3
-        },
         {
           "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
           "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
-          "units": 2.0,
-          "lines": 1
+          "units": 6.0,
+          "lines": 2
         },
         {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
+          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
           "units": 1.0,
           "lines": 1
         }
@@ -5539,7 +5092,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5568,7 +5120,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5591,7 +5142,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5617,10 +5167,8 @@
       "itemUuid": "7bc96441-b18d-4dcb-a491-2415076e42c4",
       "units": 6.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -5638,10 +5186,8 @@
       "itemUuid": "787d18fd-d16c-40cb-a503-fe99b62320a6",
       "units": 6.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -5680,14 +5226,13 @@
     },
     {
       "name": "Monin Strawberry Puree 1L",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "4f42ce59-7e46-4855-86d8-280f007a928b",
       "units": 6.0,
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5703,6 +5248,37 @@
           "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
           "name": "Kyotomatcha : 33 Maryland Avenue",
           "units": 2.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Stroopie Co. - Plain/Traditional",
+      "brand": "",
+      "itemUuid": "c24df490-b0c7-4384-ab96-a47e3c22309c",
+      "units": 6.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "inOnboarding": false,
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
+          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
+          "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+          "units": 2.0,
+          "lines": 1
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 1.0,
           "lines": 1
         }
       ]
@@ -5747,7 +5323,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5781,6 +5356,25 @@
         {
           "uuid": "8261c545-198b-4cd4-9c52-49ce3fc10346",
           "name": "ROCO Kitchen + Coffee : 6430 Freetown Road",
+          "units": 5.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
+      "brand": "",
+      "itemUuid": "60f145c9-6f38-43a8-94b4-2ccb96764c35",
+      "units": 5.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "inOnboarding": false,
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
+          "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
           "units": 5.0,
           "lines": 2
         }
@@ -5839,7 +5433,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -5887,21 +5480,20 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
       "customers": 3,
       "custDetail": [
         {
-          "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
-          "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 2.0,
           "lines": 1
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
+          "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
           "units": 2.0,
           "lines": 1
         },
@@ -5960,7 +5552,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": true,
@@ -6020,7 +5611,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6085,20 +5675,20 @@
       ]
     },
     {
-      "name": "Stroopie Co. - Pecan",
+      "name": "Stroopie Co. - Dark Chocolate Gluten Free",
       "brand": "Stroopie Co.",
-      "itemUuid": "c4709fef-31dc-43fd-ac16-14731cb677da",
+      "itemUuid": "51d8fddb-c368-4970-be34-b6d96b39ba74",
       "units": 5.0,
-      "lines": 2,
+      "lines": 4,
       "inDca1": false,
       "dca1Sources": [],
       "inOnboarding": false,
-      "customers": 2,
+      "customers": 4,
       "custDetail": [
         {
           "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
           "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
-          "units": 4.0,
+          "units": 2.0,
           "lines": 1
         },
         {
@@ -6106,12 +5696,24 @@
           "name": "Kneads Bakeshop : Canton - 3601 Boston St",
           "units": 1.0,
           "lines": 1
+        },
+        {
+          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
+          "name": "Old Mill Cafe : Ellicott City",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 1.0,
+          "lines": 1
         }
       ]
     },
     {
       "name": "UGLIES BBQ 2oz Bag",
-      "brand": "",
+      "brand": "Uglies Kettle Chips",
       "itemUuid": "8849a586-4252-46ad-848c-6d513381b6d8",
       "units": 5.0,
       "lines": 2,
@@ -6143,7 +5745,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6216,7 +5817,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6321,7 +5921,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6350,7 +5949,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6376,10 +5974,8 @@
       "itemUuid": "71b5454f-8d95-4920-9f35-ca8804e1d114",
       "units": 4.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 2,
       "custDetail": [
@@ -6399,14 +5995,12 @@
     },
     {
       "name": "Monin Cookie Butter Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "9ee9449d-b041-4e7a-a857-e9bfa0b52c92",
       "units": 4.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 3,
       "custDetail": [
@@ -6417,14 +6011,14 @@
           "lines": 2
         },
         {
-          "uuid": "e1186f80-fb5d-4cf9-896e-8a3d6b6a25c9",
-          "name": "Magothy roasting company : 8116 Forest Glen Drive",
+          "uuid": "a7746087-0d4b-49a3-8202-8523d14a2c1e",
+          "name": "Kyo Matcha : Columbia",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "a7746087-0d4b-49a3-8202-8523d14a2c1e",
-          "name": "Kyo Matcha : Columbia",
+          "uuid": "e1186f80-fb5d-4cf9-896e-8a3d6b6a25c9",
+          "name": "Magothy roasting company : 8116 Forest Glen Drive",
           "units": 1.0,
           "lines": 1
         }
@@ -6464,7 +6058,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6493,7 +6086,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6506,14 +6098,14 @@
           "lines": 2
         },
         {
-          "uuid": "58a10284-52b8-41e7-9222-420ef7d352c3",
-          "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
+          "uuid": "6006308b-6ac6-4784-ba1d-5c3bfb014086",
+          "name": "Roggenart : Savage - 8600 Foundry St #2091",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "6006308b-6ac6-4784-ba1d-5c3bfb014086",
-          "name": "Roggenart : Savage - 8600 Foundry St #2091",
+          "uuid": "58a10284-52b8-41e7-9222-420ef7d352c3",
+          "name": "Roggenart : Columbia - 6476 Dobbin Center Way",
           "units": 1.0,
           "lines": 1
         }
@@ -6528,7 +6120,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6601,7 +6192,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6630,7 +6220,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6682,31 +6271,6 @@
       ]
     },
     {
-      "name": "Stroopie Co. - Plain/Traditional",
-      "brand": "Stroopie Co.",
-      "itemUuid": "c24df490-b0c7-4384-ab96-a47e3c22309c",
-      "units": 4.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "inOnboarding": false,
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
-          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Tenzo Organic Ceremonial Matcha 400g Bag",
       "brand": "",
       "itemUuid": "01fe2e09-40cd-4f6f-a351-d4e0b1f86db5",
@@ -6715,7 +6279,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6820,7 +6383,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6849,7 +6411,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -6997,7 +6558,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7058,7 +6618,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7138,7 +6697,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7183,10 +6741,8 @@
       "itemUuid": "16fb6f36-67e9-4897-b684-19a99ffb4585",
       "units": 3.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -7223,10 +6779,8 @@
       "itemUuid": "918db7c0-824b-487a-90ad-859a564a2f65",
       "units": 3.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -7244,10 +6798,8 @@
       "itemUuid": "e977c049-f8a3-49a7-882e-768c4dcc6708",
       "units": 3.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -7265,16 +6817,14 @@
       "itemUuid": "1e63568f-c19f-4558-84b5-16acc41bbfb4",
       "units": 3.0,
       "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 3,
       "custDetail": [
         {
-          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
-          "name": "The Fountain at Drug City : 2805 North Point Rd",
+          "uuid": "8261c545-198b-4cd4-9c52-49ce3fc10346",
+          "name": "ROCO Kitchen + Coffee : 6430 Freetown Road",
           "units": 1.0,
           "lines": 1
         },
@@ -7285,8 +6835,8 @@
           "lines": 1
         },
         {
-          "uuid": "8261c545-198b-4cd4-9c52-49ce3fc10346",
-          "name": "ROCO Kitchen + Coffee : 6430 Freetown Road",
+          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
+          "name": "The Fountain at Drug City : 2805 North Point Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -7327,37 +6877,6 @@
           "name": "Ragamuffins Coffee House : 385 Main St",
           "units": 3.0,
           "lines": 3
-        }
-      ]
-    },
-    {
-      "name": "Stroopie Co. - Dark Chocolate Gluten Free",
-      "brand": "Stroopie Co.",
-      "itemUuid": "51d8fddb-c368-4970-be34-b6d96b39ba74",
-      "units": 3.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "inOnboarding": false,
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "c8041d8f-4427-4624-923d-371da8cbc641",
-          "name": "Old Mill Cafe : Ellicott City",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "551e1c3a-69fc-4ec9-8ad1-7216e6d589bb",
-          "name": "Kneads Bakeshop : Canton - 3601 Boston St",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
         }
       ]
     },
@@ -7439,7 +6958,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7481,7 +6999,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7542,7 +7059,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7767,7 +7283,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7796,7 +7311,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7819,7 +7333,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7839,10 +7352,8 @@
       "itemUuid": "f751ae80-1e84-4ab4-aabe-dc1083d3c70a",
       "units": 2.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 2,
       "custDetail": [
@@ -7866,10 +7377,8 @@
       "itemUuid": "f00ac104-25af-4e98-ac8a-b0c94cb37c2a",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -7887,10 +7396,8 @@
       "itemUuid": "b245b0f0-20a9-4d8a-8f66-3fa81bb90cd3",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -7911,7 +7418,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -7946,7 +7452,7 @@
     },
     {
       "name": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "33d7834f-378b-4755-97cc-37d4b5f57b11",
       "units": 2.0,
       "lines": 2,
@@ -8029,21 +7535,20 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
           "units": 1.0,
           "lines": 1
         }
@@ -8058,7 +7563,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8097,10 +7601,8 @@
       "itemUuid": "fe5fca23-bf7b-4568-ba44-39dbd3b20f29",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -8121,7 +7623,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8144,7 +7645,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8167,7 +7667,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8225,10 +7724,8 @@
       "itemUuid": "04c3f341-1b8e-492d-b2cf-f1ea38c6f47f",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -8246,10 +7743,8 @@
       "itemUuid": "f6747594-0937-4a79-bb25-faf0da69c6d5",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -8320,7 +7815,7 @@
     },
     {
       "name": "Righteous Felon - Bootlegin' BBQ 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "faa05a49-bbc3-44ef-9f56-33ed2936c0ab",
       "units": 2.0,
       "lines": 2,
@@ -8339,14 +7834,13 @@
     },
     {
       "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "911e7720-530d-4e95-bc66-5d0287b2c25b",
       "units": 2.0,
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8369,7 +7863,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8420,14 +7913,14 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
-          "name": "French Press : 4918 Saint Elmo Avenue",
+          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+          "name": "Ragamuffins Coffee House : 385 Main St",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-          "name": "Ragamuffins Coffee House : 385 Main St",
+          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
+          "name": "French Press : 4918 Saint Elmo Avenue",
           "units": 1.0,
           "lines": 1
         }
@@ -8480,7 +7973,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8503,7 +7995,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8621,7 +8112,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8682,7 +8172,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8705,7 +8194,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8872,27 +8360,6 @@
       ]
     },
     {
-      "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
-      "brand": "1883",
-      "itemUuid": "60f145c9-6f38-43a8-94b4-2ccb96764c35",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
-      "inOnboarding": false,
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
-          "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "1883 Roasted Hazelnut Syrup 1L Plastic",
       "brand": "1883",
       "itemUuid": "57a54f01-e6d5-4131-aa8c-8213dc240244",
@@ -8901,7 +8368,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8924,7 +8390,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -8966,7 +8431,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9122,7 +8586,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9144,8 +8607,7 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": false,
       "customers": 1,
@@ -9186,7 +8648,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9209,7 +8670,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9232,7 +8692,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9254,8 +8713,7 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "inOnboarding": false,
       "customers": 1,
@@ -9296,7 +8754,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9354,10 +8811,8 @@
       "itemUuid": "8db6b2e2-51ef-4a44-9902-04c8d0f7d65e",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -9378,7 +8833,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9417,10 +8871,8 @@
       "itemUuid": "d4d09a60-2761-4a3c-bfd1-917eb57deff1",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -9460,7 +8912,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9502,7 +8953,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9522,10 +8972,8 @@
       "itemUuid": "fc6cadf4-a445-4f53-805d-9c21b93f15c6",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "inOnboarding": true,
       "customers": 1,
       "custDetail": [
@@ -9546,7 +8994,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9569,7 +9016,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9680,7 +9126,7 @@
     },
     {
       "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "427b6515-ccce-4450-9461-7c3df22de2d3",
       "units": 1.0,
       "lines": 1,
@@ -9699,14 +9145,13 @@
     },
     {
       "name": "Righteous Felon - Maryland Monroe 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "2ebd0135-afe8-486c-b7f7-df7587ea9ebf",
       "units": 1.0,
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -9995,7 +9440,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "inOnboarding": false,
@@ -10014,14 +9458,20 @@
       "brand": "",
       "itemUuid": "",
       "units": 0.0,
-      "lines": 24,
+      "lines": 25,
       "inDca1": true,
       "dca1Sources": [
         "sold90"
       ],
       "inOnboarding": false,
-      "customers": 13,
+      "customers": 14,
       "custDetail": [
+        {
+          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
+          "name": "The Fountain at Drug City : 2805 North Point Rd",
+          "units": 0.0,
+          "lines": 2
+        },
         {
           "uuid": "e1186f80-fb5d-4cf9-896e-8a3d6b6a25c9",
           "name": "Magothy roasting company : 8116 Forest Glen Drive",
@@ -10047,34 +9497,10 @@
           "lines": 4
         },
         {
-          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
-          "name": "Wild Bean Coffee : 1532 Rockville Pike",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
           "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
           "name": "Sidamo Coffee and Tea : Fulton - 8180 Maple Lawn Blvd",
           "units": 0.0,
           "lines": 5
-        },
-        {
-          "uuid": "7a6d3a58-3118-4f4a-b72c-4134e17a12c0",
-          "name": "Simona Cafe : 4520 East-West Highway",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
-          "uuid": "a7746087-0d4b-49a3-8202-8523d14a2c1e",
-          "name": "Kyo Matcha : Columbia",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
-          "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
-          "name": "The Fountain at Drug City : 2805 North Point Rd",
-          "units": 0.0,
-          "lines": 2
         },
         {
           "uuid": "ecb938dd-12ef-4ace-89b6-f44bf5ba95ac",
@@ -10097,6 +9523,30 @@
         {
           "uuid": "badd9cf5-d195-4135-a05f-07cfcf34562a",
           "name": "Roggenart : Catonsville 706 Frederick Road",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
+          "name": "Wild Bean Coffee : 1532 Rockville Pike",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
+          "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "7a6d3a58-3118-4f4a-b72c-4134e17a12c0",
+          "name": "Simona Cafe : 4520 East-West Highway",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "a7746087-0d4b-49a3-8202-8523d14a2c1e",
+          "name": "Kyo Matcha : Columbia",
           "units": 0.0,
           "lines": 1
         }
@@ -10240,7 +9690,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 31,
-      "gapSkus": 5,
+      "gapSkus": 7,
       "units": 1192.0,
       "items": [
         {
@@ -10304,7 +9754,7 @@
           "brand": "Monin",
           "units": 45.0,
           "lines": 8,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cinnamon Syrup 750ml Glass",
@@ -10374,7 +9824,7 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Pacific Barista Almond Milk 32oz",
@@ -10522,7 +9972,7 @@
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 24.0,
           "lines": 7,
           "inDca1": true
@@ -10654,7 +10104,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 31,
-      "gapSkus": 12,
+      "gapSkus": 14,
       "units": 389.0,
       "items": [
         {
@@ -10788,7 +10238,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Peach Syrup 750ml Glass",
@@ -10844,7 +10294,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
@@ -10882,7 +10332,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 17,
-      "gapSkus": 4,
+      "gapSkus": 9,
       "units": 265.0,
       "items": [
         {
@@ -10918,7 +10368,7 @@
           "brand": "Monin",
           "units": 22.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
@@ -10932,7 +10382,7 @@
           "brand": "Monin",
           "units": 19.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Vanilla Syrup 1L Plastic Bottle",
@@ -10946,7 +10396,7 @@
           "brand": "Monin",
           "units": 12.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lime Syrup 750ml Glass",
@@ -10974,7 +10424,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Puree 1L",
@@ -11002,7 +10452,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         }
       ]
     },
@@ -11012,7 +10462,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 8,
+      "gapSkus": 10,
       "units": 230.0,
       "items": [
         {
@@ -11083,7 +10533,7 @@
           "brand": "Dr. Smoothie",
           "units": 6.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Orange Juice 10oz",
@@ -11188,7 +10638,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Brilliance Concentrate & Neutral Base Pump",
@@ -11261,7 +10711,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 6,
+      "gapSkus": 10,
       "units": 213.0,
       "items": [
         {
@@ -11273,14 +10723,14 @@
         },
         {
           "name": "Monin Strawberry Smoothie 46oz",
-          "brand": "",
+          "brand": "Monin",
           "units": 30.0,
           "lines": 6,
           "inDca1": true
         },
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 28.0,
           "lines": 6,
           "inDca1": true
@@ -11290,11 +10740,11 @@
           "brand": "Monin",
           "units": 18.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pina Colada Smoothie 46oz",
-          "brand": "Monin",
+          "brand": "",
           "units": 16.0,
           "lines": 4,
           "inDca1": true
@@ -11399,7 +10849,7 @@
         },
         {
           "name": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
-          "brand": "",
+          "brand": "Monin",
           "units": 2.0,
           "lines": 2,
           "inDca1": false
@@ -11409,14 +10859,14 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cookie Butter Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Macadamia Nut Syrup 750ml Glass",
@@ -11458,7 +10908,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Raspberry Syrup 750ml Glass",
@@ -11510,7 +10960,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 35,
-      "gapSkus": 10,
+      "gapSkus": 11,
       "units": 211.0,
       "items": [
         {
@@ -11553,7 +11003,7 @@
           "brand": "Dr. Smoothie",
           "units": 9.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Dr. Smoothie 100% Crushed Mango Tropics 46oz",
@@ -11766,12 +11216,12 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 22,
-      "gapSkus": 3,
+      "gapSkus": 4,
       "units": 184.0,
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 26.0,
           "lines": 5,
           "inDca1": true
@@ -11792,7 +11242,7 @@
         },
         {
           "name": "Monin Caramel Sauce 64oz",
-          "brand": "Monin",
+          "brand": "",
           "units": 19.0,
           "lines": 6,
           "inDca1": true
@@ -11858,7 +11308,7 @@
           "brand": "Monin",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin White Chocolate Sauce 64oz",
@@ -11931,7 +11381,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 27,
-      "gapSkus": 7,
+      "gapSkus": 9,
       "units": 165.0,
       "items": [
         {
@@ -12002,7 +11452,7 @@
           "brand": "Humankind",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Pacific Barista Soy Milk 32oz",
@@ -12093,7 +11543,7 @@
           "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
@@ -12131,7 +11581,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 45,
-      "gapSkus": 19,
+      "gapSkus": 31,
       "units": 157.0,
       "items": [
         {
@@ -12146,7 +11596,7 @@
           "brand": "Monin",
           "units": 12.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lime Syrup 750ml Glass",
@@ -12160,7 +11610,7 @@
           "brand": "Monin",
           "units": 10.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Syrup 750ml Glass",
@@ -12237,7 +11687,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Butterscotch Syrup 1L Plastic",
@@ -12265,7 +11715,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Blueberry Syrup 750ml Glass",
@@ -12286,7 +11736,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cranberry Syrup 750mL Glass",
@@ -12321,7 +11771,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sugar Free Mango Syrup 1 Liter Bottle(s)",
@@ -12342,7 +11792,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sugar Free Vanilla Syrup 750ml Glass",
@@ -12356,7 +11806,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci Chocolate Sauce 1 Gallon Bottle(s)",
@@ -12377,7 +11827,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Blue Curacao Syrup 750ml Glass",
@@ -12398,7 +11848,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
@@ -12419,7 +11869,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Raspberry Syrup 750ml Glass",
@@ -12433,7 +11883,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani SUGAR FREE Strawberry Syrup with Splenda 750ml Glass Bottle",
@@ -12457,7 +11907,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 10,
-      "gapSkus": 2,
+      "gapSkus": 3,
       "units": 156.0,
       "items": [
         {
@@ -12521,7 +11971,7 @@
           "brand": "",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Delivery Fee",
@@ -12538,7 +11988,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 20,
-      "gapSkus": 3,
+      "gapSkus": 5,
       "units": 154.0,
       "items": [
         {
@@ -12588,7 +12038,7 @@
           "brand": "Humankind",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Lenka Bar-Chocolate Peanut Butter",
@@ -12602,7 +12052,7 @@
           "brand": "Boylan Bottling Company",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Organic Peach Iced Tea 16oz",
@@ -12689,7 +12139,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 21,
-      "gapSkus": 3,
+      "gapSkus": 4,
       "units": 154.0,
       "items": [
         {
@@ -12795,7 +12245,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Toffee Nut Syrup 750ml Glass",
@@ -12852,14 +12302,14 @@
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 24.0,
           "lines": 2,
           "inDca1": true
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 18.0,
           "lines": 2,
           "inDca1": true
@@ -12873,7 +12323,7 @@
         },
         {
           "name": "UGLIES Buffalo Ranch 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 7.0,
           "lines": 2,
           "inDca1": false
@@ -12901,7 +12351,7 @@
         },
         {
           "name": "UGLIES Jalapeno 2oz Bag",
-          "brand": "Uglies Kettle Chips",
+          "brand": "",
           "units": 6.0,
           "lines": 2,
           "inDca1": false
@@ -12915,7 +12365,7 @@
         },
         {
           "name": "Monin Honey Syrup 750mL Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 4.0,
           "lines": 2,
           "inDca1": true
@@ -12936,7 +12386,7 @@
         },
         {
           "name": "Monin Cinnamon Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -12977,7 +12427,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 40,
-      "gapSkus": 28,
+      "gapSkus": 29,
       "units": 102.0,
       "items": [
         {
@@ -13230,7 +12680,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Oregon Chai 1:1 Original Chai Latte 32oz",
@@ -13268,7 +12718,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 45,
-      "gapSkus": 19,
+      "gapSkus": 20,
       "units": 85.0,
       "items": [
         {
@@ -13287,7 +12737,7 @@
         },
         {
           "name": "Oatly Barista Oat Milk 32oz",
-          "brand": "",
+          "brand": "Oatly",
           "units": 8.0,
           "lines": 4,
           "inDca1": true
@@ -13301,7 +12751,7 @@
         },
         {
           "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
+          "brand": "",
           "units": 4.0,
           "lines": 3,
           "inDca1": true
@@ -13364,7 +12814,7 @@
         },
         {
           "name": "Pacific Barista Soy Milk 32oz",
-          "brand": "",
+          "brand": "Pacific Foods",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -13535,7 +12985,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
@@ -13594,7 +13044,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 81.0,
       "items": [
         {
@@ -13641,7 +13091,7 @@
         },
         {
           "name": "Humankind Orange Juice 10oz",
-          "brand": "",
+          "brand": "Humankind",
           "units": 5.0,
           "lines": 4,
           "inDca1": true
@@ -13665,7 +13115,7 @@
           "brand": "Boylan Bottling Company",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Ginger Ale Soda",
@@ -13696,7 +13146,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 21,
-      "gapSkus": 6,
+      "gapSkus": 7,
       "units": 72.0,
       "items": [
         {
@@ -13708,7 +13158,7 @@
         },
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 10.0,
           "lines": 5,
           "inDca1": true
@@ -13722,7 +13172,7 @@
         },
         {
           "name": "Monin Caramel Sauce 64oz",
-          "brand": "Monin",
+          "brand": "",
           "units": 6.0,
           "lines": 4,
           "inDca1": true
@@ -13736,7 +13186,7 @@
         },
         {
           "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 5.0,
           "lines": 4,
           "inDca1": true
@@ -13767,11 +13217,11 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Toffee Nut Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -13855,17 +13305,10 @@
       "hasHistory": true,
       "skus": 7,
       "gapSkus": 0,
-      "units": 71.0,
+      "units": 69.0,
       "items": [
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 8,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Diet Cola Soda",
           "brand": "Boylan Bottling Company",
           "units": 12.0,
           "lines": 8,
@@ -13887,15 +13330,22 @@
         },
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
+          "brand": "",
           "units": 12.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Diet Cola Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 11.0,
           "lines": 8,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Cane Cola Soda",
           "brand": "Boylan Bottling Company",
-          "units": 11.0,
+          "units": 10.0,
           "lines": 7,
           "inDca1": true
         },
@@ -13919,7 +13369,7 @@
       "items": [
         {
           "name": "Humankind Organic Peach Iced Tea 16oz",
-          "brand": "",
+          "brand": "Humankind",
           "units": 9.0,
           "lines": 3,
           "inDca1": true
@@ -13954,7 +13404,7 @@
         },
         {
           "name": "UGLIES Salt & Vinegar 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 3.0,
           "lines": 2,
           "inDca1": false
@@ -13982,14 +13432,14 @@
         },
         {
           "name": "Righteous Felon - Bootlegin' BBQ 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 2.0,
           "lines": 2,
           "inDca1": false
         },
         {
           "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -14094,14 +13544,14 @@
         },
         {
           "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
         },
         {
           "name": "Righteous Felon - Maryland Monroe 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 1.0,
           "lines": 1,
           "inDca1": true
@@ -14431,7 +13881,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 12,
-      "gapSkus": 3,
+      "gapSkus": 4,
       "units": 34.0,
       "items": [
         {
@@ -14446,7 +13896,7 @@
           "brand": "Humankind",
           "units": 5.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
@@ -14526,7 +13976,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 17,
-      "gapSkus": 9,
+      "gapSkus": 10,
       "units": 33.0,
       "items": [
         {
@@ -14541,7 +13991,7 @@
           "brand": "Humankind",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Spindrift Grapefruit",
@@ -14656,7 +14106,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 20,
-      "gapSkus": 8,
+      "gapSkus": 9,
       "units": 30.0,
       "items": [
         {
@@ -14762,7 +14212,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Syrup 750ml Glass",
@@ -14802,12 +14252,107 @@
       ]
     },
     {
+      "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
+      "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
+      "rosterStatus": "kept",
+      "hasHistory": true,
+      "skus": 12,
+      "gapSkus": 6,
+      "units": 28.0,
+      "items": [
+        {
+          "name": "Stroopie Co. - Pecan",
+          "brand": "",
+          "units": 6.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
+          "brand": "Stroopie Co.",
+          "units": 4.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Lenka Bar-Berry Omega",
+          "brand": "Lenka Bar",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Chocolate Peanut Butter",
+          "brand": "Lenka Bar",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Cranberry & Chocolate",
+          "brand": "Lenka Bar",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Nuts and Berries",
+          "brand": "Lenka Bar",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Lenka Bar-Vanilla Espresso",
+          "brand": "Lenka Bar",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate Gluten Free",
+          "brand": "",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate with Espresso",
+          "brand": "Stroopie Co.",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Fall Seasonal - Pumpkin Spice",
+          "brand": "Stroopie Co.",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Plain/Traditional",
+          "brand": "",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
       "uuid": "617c35f2-8993-4d99-bfd7-bccedd929234",
       "name": "Trifecto Bar : 12250 Clarksville Pike suite a",
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 7,
-      "gapSkus": 2,
+      "gapSkus": 3,
       "units": 26.0,
       "items": [
         {
@@ -14856,80 +14401,6 @@
           "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
           "brand": "Boylan Bottling Company",
           "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        }
-      ]
-    },
-    {
-      "uuid": "afddcebe-179f-49f4-86d8-0643750a0781",
-      "name": "Kneads Bakeshop : Harbor East - 506 S Ctrl Ave",
-      "rosterStatus": "kept",
-      "hasHistory": true,
-      "skus": 9,
-      "gapSkus": 4,
-      "units": 20.0,
-      "items": [
-        {
-          "name": "Stroopie Co. - Pecan",
-          "brand": "Stroopie Co.",
-          "units": 4.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Lenka Bar-Berry Omega",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Chocolate Peanut Butter",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Cranberry & Chocolate",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Nuts and Berries",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Vanilla Espresso",
-          "brand": "Lenka Bar",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
-          "brand": "Stroopie Co.",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Stroopie Co. - Dark Chocolate with Espresso",
-          "brand": "Stroopie Co.",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Stroopie Co. - Fall Seasonal - Pumpkin Spice",
-          "brand": "Stroopie Co.",
-          "units": 2.0,
           "lines": 1,
           "inDca1": false
         }
@@ -15047,7 +14518,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 3,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 13.0,
       "items": [
         {
@@ -15055,7 +14526,7 @@
           "brand": "Humankind",
           "units": 7.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Organic Strawberry Lemonade 16oz",
@@ -15106,6 +14577,38 @@
       ]
     },
     {
+      "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
+      "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
+      "rosterStatus": "added",
+      "hasHistory": true,
+      "skus": 3,
+      "gapSkus": 1,
+      "units": 12.0,
+      "items": [
+        {
+          "name": "Tenzo Matcha 500g Bag",
+          "brand": "Tenzo",
+          "units": 7.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
+          "brand": "",
+          "units": 5.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
       "uuid": "7a6d3a58-3118-4f4a-b72c-4134e17a12c0",
       "name": "Simona Cafe : 4520 East-West Highway",
       "rosterStatus": "kept",
@@ -15136,7 +14639,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 7,
-      "gapSkus": 2,
+      "gapSkus": 3,
       "units": 6.0,
       "items": [
         {
@@ -15151,7 +14654,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Hazelnut Syrup 750ml Glass",
@@ -15180,38 +14683,6 @@
           "units": 1.0,
           "lines": 1,
           "inDca1": false
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
-          "inDca1": true
-        }
-      ]
-    },
-    {
-      "uuid": "db56c472-4b05-497a-86d6-632c17d852db",
-      "name": "Centrado Cafe Shop : 15530 Old Columbia Pike",
-      "rosterStatus": "added",
-      "hasHistory": true,
-      "skus": 3,
-      "gapSkus": 0,
-      "units": 4.0,
-      "items": [
-        {
-          "name": "Tenzo Matcha 500g Bag",
-          "brand": "Tenzo",
-          "units": 3.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
-          "brand": "1883",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
         },
         {
           "name": "Delivery Fee",
@@ -15588,7 +15059,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 66,
-      "gapSkus": 32,
+      "gapSkus": 41,
       "units": 1049.0,
       "items": [
         {
@@ -15645,7 +15116,7 @@
           "brand": "Dr. Smoothie",
           "units": 35.0,
           "lines": 8,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Chai Tea 750ml Glass",
@@ -15659,7 +15130,7 @@
           "brand": "Dr. Smoothie",
           "units": 28.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin White Chocolate Sauce 64oz",
@@ -15680,14 +15151,14 @@
           "brand": "Monin",
           "units": 23.0,
           "lines": 9,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Ghirardelli White Frappe  3.12lb Can",
           "brand": "Ghirardelli",
           "units": 22.0,
           "lines": 8,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lavender Syrup 750ml Glass",
@@ -15708,7 +15179,7 @@
           "brand": "Monin",
           "units": 20.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Spring Water 23oz",
@@ -15747,10 +15218,10 @@
         },
         {
           "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
-          "brand": "",
+          "brand": "Monin",
           "units": 13.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pistachio Syrup 750 ml Glass",
@@ -15939,7 +15410,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Ghirardelli Chocolate Frapp 10lb",
@@ -15967,7 +15438,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
@@ -16051,7 +15522,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         }
       ]
     },
@@ -16061,7 +15532,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 53,
-      "gapSkus": 22,
+      "gapSkus": 33,
       "units": 1022.0,
       "items": [
         {
@@ -16076,21 +15547,21 @@
           "brand": "DaVinci Gourmet",
           "units": 138.0,
           "lines": 23,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Real Fruit Mango Smoothie Mix 64 oz. Bottle(s)",
           "brand": "Torani",
           "units": 90.0,
           "lines": 17,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci Caramel Syrup 750 ml PLASTIC Bottle",
           "brand": "DaVinci Gourmet",
           "units": 56.0,
           "lines": 13,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Real Fruit Strawberry Banana Smoothie Mix 64 oz. Bottle(s)",
@@ -16118,7 +15589,7 @@
           "brand": "DaVinci Gourmet",
           "units": 30.0,
           "lines": 13,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "1883 Salted Caramel Syrup 1L PLASTIC",
@@ -16146,14 +15617,14 @@
           "brand": "DaVinci Gourmet",
           "units": 23.0,
           "lines": 13,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Blackberry Syrup 750ml Glass",
           "brand": "Monin",
           "units": 22.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Ghirardelli White Chocolate Sauce 87.3oz Bottle",
@@ -16216,7 +15687,7 @@
           "brand": "DaVinci Gourmet",
           "units": 11.0,
           "lines": 9,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
@@ -16279,7 +15750,7 @@
           "brand": "Big Train",
           "units": 9.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci Amaretto Syrup 750 ml PLASTIC Bottle",
@@ -16307,7 +15778,7 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "UGLIES BBQ 2oz Bag",
@@ -16356,7 +15827,7 @@
           "brand": "Humankind",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Real Fruit Lemonade Smoothie Mix 64 oz. Bottle(s)",
@@ -16426,7 +15897,7 @@
           "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
@@ -16443,7 +15914,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 64,
-      "gapSkus": 46,
+      "gapSkus": 49,
       "units": 619.0,
       "items": [
         {
@@ -16451,7 +15922,7 @@
           "brand": "Big Train",
           "units": 65.0,
           "lines": 10,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Vanilla Syrup 750ml Glass Bottle",
@@ -16469,7 +15940,7 @@
         },
         {
           "name": "Torani Hazelnut Syrup 750ml Glass Bottle",
-          "brand": "",
+          "brand": "Torani",
           "units": 28.0,
           "lines": 13,
           "inDca1": false
@@ -16518,7 +15989,7 @@
         },
         {
           "name": "Ghirardelli Caramel Sauce 16oz Squeeze Bottle",
-          "brand": "Ghirardelli",
+          "brand": "",
           "units": 14.0,
           "lines": 9,
           "inDca1": false
@@ -16532,7 +16003,7 @@
         },
         {
           "name": "Humankind Spring Water 23oz",
-          "brand": "Humankind",
+          "brand": "",
           "units": 14.0,
           "lines": 13,
           "inDca1": true
@@ -16693,14 +16164,14 @@
         },
         {
           "name": "Humankind Organic Sweet Iced Tea 16oz",
-          "brand": "Humankind",
+          "brand": "",
           "units": 4.0,
           "lines": 4,
           "inDca1": true
         },
         {
           "name": "Monin Toffee Nut Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 4.0,
           "lines": 4,
           "inDca1": true
@@ -16728,10 +16199,10 @@
         },
         {
           "name": "Da Vinci Coconut Syrup 750 ml PLASTIC Bottle",
-          "brand": "DaVinci Gourmet",
+          "brand": "",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci SUGAR FREE Vanilla Syrup with Splenda 750 ml PLASTIC Bottle(s)",
@@ -16749,7 +16220,7 @@
         },
         {
           "name": "Monin Caramel Sauce 12 fl oz. SQUEEZE Bottle(s)",
-          "brand": "",
+          "brand": "Monin",
           "units": 3.0,
           "lines": 2,
           "inDca1": false
@@ -16798,7 +16269,7 @@
         },
         {
           "name": "Lenka Bar-Cranberry & Chocolate",
-          "brand": "Lenka Bar",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -16864,7 +16335,7 @@
           "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci Strawberry Syrup 750 ml PLASTIC Bottle(s)",
@@ -16902,7 +16373,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 41,
-      "gapSkus": 7,
+      "gapSkus": 26,
       "units": 553.0,
       "items": [
         {
@@ -16924,21 +16395,21 @@
           "brand": "Monin",
           "units": 33.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cherry Syrup 750ml Glass",
           "brand": "Monin",
           "units": 32.0,
           "lines": 9,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lavender Lemon Syrup 750 ml Bottle(s)",
           "brand": "Monin",
           "units": 26.0,
           "lines": 8,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Mango Syrup 750ml Glass",
@@ -16959,14 +16430,14 @@
           "brand": "Monin",
           "units": 24.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lemon Syrup 750ml Glass",
           "brand": "Monin",
           "units": 20.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Syrup 750ml Glass",
@@ -16994,28 +16465,28 @@
           "brand": "Monin",
           "units": 17.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Dark Chocolate Syrup 750ml Glass",
           "brand": "Monin",
           "units": 16.0,
           "lines": 5,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Mojito Mix Syrup 750ml Glass",
           "brand": "Monin",
           "units": 16.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Blood Orange Syrup 1L Plastic",
           "brand": "Monin",
           "units": 14.0,
           "lines": 7,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin French Vanilla Syrup 750ml Glass",
@@ -17036,49 +16507,49 @@
           "brand": "Monin",
           "units": 13.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Granny Smith Apple Syrup 750ml Glass",
           "brand": "Monin",
           "units": 13.0,
           "lines": 5,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Mandarin Orange Syrup 750mL Glass",
           "brand": "Monin",
           "units": 11.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Wild Grape Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
           "units": 10.0,
           "lines": 5,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin French Raspberry Syrup 750mL Glass",
           "brand": "Monin",
           "units": 9.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
           "brand": "Monin",
           "units": 9.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sugar Free Strawberry Syrup 750mL Glass",
           "brand": "Monin",
           "units": 8.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Violet Syrup 750ml Glass",
@@ -17092,7 +16563,7 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pineapple Syrup 1 Liter Plastic Bottle",
@@ -17106,7 +16577,7 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sugar Free Vanilla Syrup 1 Liter Plastic Bottle",
@@ -17190,7 +16661,7 @@
           "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         }
       ]
     },
@@ -17200,7 +16671,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 3,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 432.0,
       "items": [
         {
@@ -17215,7 +16686,7 @@
           "brand": "Monin",
           "units": 88.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cucumber Syrup 1L Plastic",
@@ -17232,7 +16703,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 18,
-      "gapSkus": 6,
+      "gapSkus": 9,
       "units": 426.0,
       "items": [
         {
@@ -17289,7 +16760,7 @@
           "brand": "1883",
           "units": 17.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
@@ -17314,7 +16785,7 @@
         },
         {
           "name": "1883 Toasted Marshmallow Syrup 1L PLASTIC",
-          "brand": "",
+          "brand": "1883",
           "units": 7.0,
           "lines": 2,
           "inDca1": false
@@ -17328,10 +16799,10 @@
         },
         {
           "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
-          "brand": "",
+          "brand": "1883",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
@@ -17342,7 +16813,7 @@
         },
         {
           "name": "1883 Sauce Pump",
-          "brand": "",
+          "brand": "1883",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
@@ -17352,7 +16823,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Sauce Pump(s) for Dark Chocolate Sauce 1/2oz. Sauce Pump",
@@ -17369,7 +16840,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 2,
+      "gapSkus": 4,
       "units": 312.0,
       "items": [
         {
@@ -17398,7 +16869,7 @@
           "brand": "1883",
           "units": 26.0,
           "lines": 7,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
@@ -17409,7 +16880,7 @@
         },
         {
           "name": "1883 Blackberry Syrup 1L PLASTIC",
-          "brand": "",
+          "brand": "1883",
           "units": 19.0,
           "lines": 7,
           "inDca1": true
@@ -17451,7 +16922,7 @@
         },
         {
           "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
-          "brand": "1883",
+          "brand": "",
           "units": 3.0,
           "lines": 2,
           "inDca1": false
@@ -17461,7 +16932,7 @@
           "brand": "",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         }
       ]
     },
@@ -17471,7 +16942,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 17,
+      "gapSkus": 18,
       "units": 271.0,
       "items": [
         {
@@ -17497,7 +16968,7 @@
         },
         {
           "name": "Dr. Smoothie 100% Crushed Strawberry Banana 46oz",
-          "brand": "Dr. Smoothie",
+          "brand": "",
           "units": 18.0,
           "lines": 2,
           "inDca1": false
@@ -17623,7 +17094,7 @@
         },
         {
           "name": "Ghirardelli Sweet Ground Chocolate Powder 10lb Box",
-          "brand": "",
+          "brand": "Ghirardelli",
           "units": 4.0,
           "lines": 2,
           "inDca1": false
@@ -17654,11 +17125,11 @@
           "brand": "Big Train",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cinnamon Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -17720,7 +17191,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 23,
-      "gapSkus": 6,
+      "gapSkus": 10,
       "units": 219.0,
       "items": [
         {
@@ -17756,7 +17227,7 @@
           "brand": "Monin",
           "units": 16.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Coconut Syrup 750ml Glass",
@@ -17791,7 +17262,7 @@
           "brand": "Monin",
           "units": 7.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pistachio Syrup 750 ml Glass",
@@ -17805,7 +17276,7 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
@@ -17875,7 +17346,7 @@
           "brand": "Dr. Smoothie",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Dr. Smoothie Peach Mango Refreshers 46 oz. Bottle",
@@ -17892,7 +17363,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 4,
+      "gapSkus": 8,
       "units": 204.0,
       "items": [
         {
@@ -17907,14 +17378,14 @@
           "brand": "Monin",
           "units": 28.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
           "brand": "Monin",
           "units": 26.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pina Colada Smoothie 46oz",
@@ -17949,7 +17420,7 @@
           "brand": "Monin",
           "units": 12.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
@@ -17970,7 +17441,7 @@
           "brand": "Monin",
           "units": 8.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
@@ -17994,7 +17465,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 17,
+      "gapSkus": 18,
       "units": 147.0,
       "items": [
         {
@@ -18034,14 +17505,14 @@
         },
         {
           "name": "Hollander Caramel Sauce 64oz",
-          "brand": "",
+          "brand": "Hollander",
           "units": 7.0,
           "lines": 5,
           "inDca1": false
         },
         {
           "name": "Monin Raspberry Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 7.0,
           "lines": 3,
           "inDca1": true
@@ -18083,21 +17554,21 @@
         },
         {
           "name": "UGLIES Buffalo Ranch 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 3.0,
           "lines": 3,
           "inDca1": false
         },
         {
           "name": "Da Vinci Pumpkin Pie Sauce 1/2 Gallon Bottle",
-          "brand": "",
+          "brand": "DaVinci Gourmet",
           "units": 2.0,
           "lines": 1,
           "inDca1": false
         },
         {
           "name": "Hollander White Chocolate Sauce 64oz",
-          "brand": "",
+          "brand": "Hollander",
           "units": 2.0,
           "lines": 1,
           "inDca1": false
@@ -18174,10 +17645,10 @@
         },
         {
           "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
-          "brand": "",
+          "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pistachio Syrup 750 ml Glass",
@@ -18188,7 +17659,7 @@
         },
         {
           "name": "Mylk Labs Roasted Almond Oatmeal Cup 1.88oz",
-          "brand": "",
+          "brand": "Mylk Labs",
           "units": 1.0,
           "lines": 1,
           "inDca1": true
@@ -18209,7 +17680,7 @@
         },
         {
           "name": "UGLIES Jalapeno 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
@@ -18243,7 +17714,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 48,
-      "gapSkus": 25,
+      "gapSkus": 27,
       "units": 147.0,
       "items": [
         {
@@ -18251,7 +17722,7 @@
           "brand": "1883",
           "units": 21.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Lenka Bar-Chocolate Peanut Butter",
@@ -18314,7 +17785,7 @@
           "brand": "Monin",
           "units": 4.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin White Chocolate Sauce 12 fl oz. SQUEEZE Bottle(s)",
@@ -18671,12 +18142,12 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 21,
-      "gapSkus": 8,
+      "gapSkus": 12,
       "units": 136.0,
       "items": [
         {
           "name": "Karat PET Cold Cup 16oz (C-KC16)",
-          "brand": "",
+          "brand": "Karat",
           "units": 28.0,
           "lines": 8,
           "inDca1": true
@@ -18686,7 +18157,7 @@
           "brand": "Monin",
           "units": 16.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Ginger Syrup 750ml Glass",
@@ -18700,7 +18171,7 @@
           "brand": "Monin",
           "units": 8.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Coconut Syrup 750ml Glass",
@@ -18742,7 +18213,7 @@
           "brand": "Monin",
           "units": 4.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Guava Syrup 750mL Glass",
@@ -18791,7 +18262,7 @@
           "brand": "Monin",
           "units": 4.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin White Peach Syrup 750mL Glass",
@@ -18829,7 +18300,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 42,
-      "gapSkus": 20,
+      "gapSkus": 22,
       "units": 135.0,
       "items": [
         {
@@ -18841,7 +18312,7 @@
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 12.0,
           "lines": 1,
           "inDca1": true
@@ -18935,7 +18406,7 @@
           "brand": "Humankind",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Organic Strawberry Lemonade 16oz",
@@ -19002,7 +18473,7 @@
         },
         {
           "name": "Da Vinci Pumpkin Pie Sauce 1/2 Gallon Bottle",
-          "brand": "",
+          "brand": "DaVinci Gourmet",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
@@ -19016,7 +18487,7 @@
         },
         {
           "name": "Hollander Pumpkin Pie Cafe Sauce 15oz Squeeze Bottle",
-          "brand": "",
+          "brand": "Hollander",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
@@ -19082,7 +18553,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Spiced Pumpkin Puree 1L",
@@ -19134,7 +18605,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 15,
-      "gapSkus": 9,
+      "gapSkus": 11,
       "units": 112.0,
       "items": [
         {
@@ -19163,7 +18634,7 @@
           "brand": "DaVinci Gourmet",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci SUGAR FREE Vanilla Syrup with Splenda 750 ml PLASTIC Bottle(s)",
@@ -19212,7 +18683,7 @@
           "brand": "DaVinci Gourmet",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci Peppermint Syrup 750 ml PLASTIC Bottle(s)",
@@ -19250,7 +18721,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 27,
-      "gapSkus": 6,
+      "gapSkus": 12,
       "units": 75.0,
       "items": [
         {
@@ -19258,7 +18729,7 @@
           "brand": "Monin",
           "units": 17.0,
           "lines": 7,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Green Mint Syrup 750mL Glass",
@@ -19293,14 +18764,14 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Blue Cotton Candy Syrup 1L Plastic Bottle",
           "brand": "Monin",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Espresso (Coffee) Syrup 750ml Glass",
@@ -19356,7 +18827,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pumpkin Spice Syrup 750ml Glass",
@@ -19370,14 +18841,14 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Classic Watermelon Syrup 750ml Glass",
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Coconut Syrup 750ml Glass",
@@ -19451,41 +18922,41 @@
       "hasHistory": true,
       "skus": 6,
       "gapSkus": 0,
-      "units": 65.0,
+      "units": 56.0,
       "items": [
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
           "brand": "Boylan Bottling Company",
-          "units": 13.0,
-          "lines": 6,
+          "units": 11.0,
+          "lines": 5,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Birch Beer 12oz Bottle",
           "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
+          "units": 10.0,
+          "lines": 6,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Ginger Ale Soda",
           "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 7,
+          "units": 10.0,
+          "lines": 6,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Creme Soda 12oz Bottle",
           "brand": "Boylan Bottling Company",
-          "units": 11.0,
-          "lines": 7,
+          "units": 9.0,
+          "lines": 6,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Cane Cola Soda",
           "brand": "Boylan Bottling Company",
-          "units": 9.0,
-          "lines": 7,
+          "units": 8.0,
+          "lines": 6,
           "inDca1": true
         },
         {
@@ -19619,7 +19090,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 22,
-      "gapSkus": 13,
+      "gapSkus": 14,
       "units": 37.0,
       "items": [
         {
@@ -19690,7 +19161,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Desert Pear Syrup 1 Liter Plastic",
@@ -19784,7 +19255,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 4,
-      "gapSkus": 3,
+      "gapSkus": 4,
       "units": 31.0,
       "items": [
         {
@@ -19799,7 +19270,7 @@
           "brand": "DaVinci Gourmet",
           "units": 12.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Da Vinci SUGAR FREE Chocolate Syrup 750 ml PLASTIC Bottle",
@@ -19897,7 +19368,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 10,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 18.0,
       "items": [
         {
@@ -19940,7 +19411,7 @@
           "brand": "Humankind",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Organic Lemonade 16oz",
