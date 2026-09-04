@@ -1,27 +1,27 @@
 {
-  "generatedAt": "2026-09-04T06:30:46+00:00",
+  "generatedAt": "2026-09-04T11:42:23+00:00",
   "dateRange": {
-    "min": "2026-06-06",
-    "max": "2026-09-01"
+    "min": "2026-06-08",
+    "max": "2026-09-03"
   },
   "summary": {
     "customersListed": 16,
     "customersActive": 16,
     "skusPurchased": 162,
-    "skusCarried": 105,
-    "skusGap": 57,
-    "coveragePct": 65,
-    "unitsTotal": 3364.0,
-    "gapUnitsTotal": 470.0
+    "skusCarried": 91,
+    "skusGap": 71,
+    "coveragePct": 56,
+    "unitsTotal": 3362.0,
+    "gapUnitsTotal": 577.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 105
+      "count": 91
     },
     {
       "status": "Not carried (gap)",
-      "count": 57
+      "count": 71
     }
   ],
   "topGapSkus": [
@@ -51,13 +51,38 @@
       "customers": 1
     },
     {
+      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+      "units": 22.0,
+      "customers": 1
+    },
+    {
+      "name": "Monin Dragon Fruit Syrup 1 Liter Plastic Bottle",
+      "units": 19.0,
+      "customers": 1
+    },
+    {
       "name": "Monin Sugar Free Hazelnut Syrup 1 Liter Plastic Bottle",
       "units": 19.0,
       "customers": 1
     },
     {
+      "name": "Monin Peach Smoothie 46oz",
+      "units": 18.0,
+      "customers": 1
+    },
+    {
       "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
       "units": 16.0,
+      "customers": 1
+    },
+    {
+      "name": "Humankind Organic Lavender Lemonade 16oz",
+      "units": 15.0,
+      "customers": 3
+    },
+    {
+      "name": "Monin Guava Fruit Puree 1 Liter Bottle(s)",
+      "units": 12.0,
       "customers": 1
     },
     {
@@ -99,52 +124,37 @@
       "name": "UGLIES Jalapeno 2oz Bag",
       "units": 7.0,
       "customers": 2
-    },
-    {
-      "name": "UGLIES Sweets 1.5oz Bag",
-      "units": 6.0,
-      "customers": 3
-    },
-    {
-      "name": "Monin Iced Coffee Concentrate 1L Plastic Bottle",
-      "units": 5.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Peanut Butter Syrup 750ml Glass",
-      "units": 5.0,
-      "customers": 1
-    },
-    {
-      "name": "UGLIES BBQ 2oz Bag",
-      "units": 5.0,
-      "customers": 2
-    },
-    {
-      "name": "Monin Lychee Syrup 1L Plastic",
-      "units": 4.0,
-      "customers": 2
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 249.0,
-      "skus": 11
+      "units": 332.0,
+      "skus": 22
     },
     {
       "brand": "(no brand)",
-      "units": 82.0,
-      "skus": 7
+      "units": 72.0,
+      "skus": 4
     },
     {
       "brand": "Uglies Kettle Chips",
-      "units": 43.0,
-      "skus": 5
+      "units": 50.0,
+      "skus": 6
     },
     {
       "brand": "Almond Breeze",
       "units": 35.0,
+      "skus": 1
+    },
+    {
+      "brand": "Dr. Smoothie",
+      "units": 16.0,
+      "skus": 3
+    },
+    {
+      "brand": "Humankind",
+      "units": 15.0,
       "skus": 1
     },
     {
@@ -153,19 +163,19 @@
       "skus": 1
     },
     {
-      "brand": "Dr. Smoothie",
-      "units": 10.0,
-      "skus": 2
+      "brand": "Boylan Bottling Company",
+      "units": 8.0,
+      "skus": 4
+    },
+    {
+      "brand": "Righteous Felon",
+      "units": 7.0,
+      "skus": 6
     },
     {
       "brand": "Stroopie Co.",
       "units": 6.0,
       "skus": 5
-    },
-    {
-      "brand": "Boylan Bottling Company",
-      "units": 5.0,
-      "skus": 3
     },
     {
       "brand": "1883",
@@ -176,16 +186,6 @@
       "brand": "Torani",
       "units": 5.0,
       "skus": 3
-    },
-    {
-      "brand": "DaVinci Gourmet",
-      "units": 4.0,
-      "skus": 2
-    },
-    {
-      "brand": "Righteous Felon",
-      "units": 4.0,
-      "skus": 4
     }
   ],
   "skus": [
@@ -198,7 +198,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -226,7 +225,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -266,7 +264,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -293,14 +290,13 @@
     },
     {
       "name": "Monin Vanilla Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "7543b198-a987-42c7-aa02-f209c3023738",
       "units": 188.0,
       "lines": 16,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -340,7 +336,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -380,7 +375,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -402,7 +396,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -436,7 +429,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -488,7 +480,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -510,7 +501,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -532,7 +522,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -554,7 +543,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -606,7 +594,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -627,14 +614,13 @@
     },
     {
       "name": "Monin Caramel Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "e2ba0aa0-0356-44b7-98b2-dfd306639fe8",
       "units": 48.0,
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -668,7 +654,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -702,7 +687,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -736,7 +720,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -769,8 +752,7 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -826,8 +808,7 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -848,7 +829,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -870,7 +850,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 5,
@@ -934,7 +913,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -953,10 +931,8 @@
       "itemUuid": "c3c7408f-3c96-4071-92da-070e3093e97b",
       "units": 22.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -969,14 +945,13 @@
     },
     {
       "name": "Boylan Bottling Co. Root Beer Soda",
-      "brand": "Boylan Bottling Company",
+      "brand": "",
       "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
       "units": 20.0,
       "lines": 13,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1010,7 +985,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -1043,14 +1017,13 @@
     },
     {
       "name": "Monin Raspberry Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "7522ae8c-ba62-43c4-943b-3e149150dc29",
       "units": 20.0,
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -1090,7 +1063,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 5,
@@ -1133,10 +1105,8 @@
       "itemUuid": "685cf993-7178-4674-9f4a-6c49874acb3a",
       "units": 19.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -1155,8 +1125,7 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -1195,7 +1164,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -1232,10 +1200,8 @@
       "itemUuid": "fae7bb7f-8dd2-40ee-936e-132f745eae1a",
       "units": 18.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -1255,7 +1221,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1289,7 +1254,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1323,7 +1287,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1368,14 +1331,13 @@
     },
     {
       "name": "Humankind Orange Juice 10oz",
-      "brand": "",
+      "brand": "Humankind",
       "itemUuid": "39463c99-4668-4540-8843-cf62ab6a669f",
       "units": 15.0,
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1406,10 +1368,8 @@
       "itemUuid": "1b82f65f-24fe-489e-aa9a-aadf3e3da1c7",
       "units": 15.0,
       "lines": 5,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 3,
       "custDetail": [
         {
@@ -1441,7 +1401,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -1458,12 +1417,11 @@
       "name": "Boylan Bottling Co. Diet Cola Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
-      "units": 14.0,
+      "units": 13.0,
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1471,7 +1429,7 @@
         {
           "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
           "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 12.0,
+          "units": 11.0,
           "lines": 8
         },
         {
@@ -1492,12 +1450,11 @@
       "name": "Boylan Bottling Co. Cane Cola Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "ec0c839c-ac65-465e-a886-29ee54401a4f",
-      "units": 13.0,
+      "units": 12.0,
       "lines": 9,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1505,7 +1462,7 @@
         {
           "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
           "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 11.0,
+          "units": 10.0,
           "lines": 7
         },
         {
@@ -1531,7 +1488,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -1570,8 +1526,7 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -1592,7 +1547,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -1611,10 +1565,8 @@
       "itemUuid": "2a036f4b-ff4e-46c0-8a11-d81570264210",
       "units": 12.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -1634,7 +1586,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1727,8 +1678,7 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -1742,14 +1692,13 @@
     },
     {
       "name": "Monin Honey Syrup 750mL Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "4b269777-4bec-4db7-9b02-2ced9350cb8d",
       "units": 10.0,
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -1777,7 +1726,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -1799,7 +1747,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -1833,7 +1780,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 4,
@@ -1851,14 +1797,14 @@
           "lines": 1
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 1.0,
           "lines": 1
         }
@@ -1914,7 +1860,7 @@
     },
     {
       "name": "UGLIES Salt & Vinegar 2oz Bag",
-      "brand": "",
+      "brand": "Uglies Kettle Chips",
       "itemUuid": "358835ab-a795-4f41-b81c-35ba9b1f44ab",
       "units": 10.0,
       "lines": 4,
@@ -1945,7 +1891,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -1960,14 +1905,13 @@
     },
     {
       "name": "Humankind Organic Peach Iced Tea 16oz",
-      "brand": "",
+      "brand": "Humankind",
       "itemUuid": "a5ee5f89-b448-4aee-a2fb-0aa102c53e8b",
       "units": 9.0,
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -1989,7 +1933,7 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand"
+        "sold90"
       ],
       "customers": 2,
       "custDetail": [
@@ -2034,7 +1978,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2049,7 +1992,7 @@
     },
     {
       "name": "UGLIES Original Sea Salt 2oz Bag",
-      "brand": "Uglies Kettle Chips",
+      "brand": "",
       "itemUuid": "38f52604-ebf9-4d52-b94b-ca2e1044fb1c",
       "units": 8.0,
       "lines": 3,
@@ -2080,7 +2023,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2102,7 +2044,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 3,
@@ -2157,10 +2098,8 @@
       "itemUuid": "7bc96441-b18d-4dcb-a491-2415076e42c4",
       "units": 6.0,
       "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -2173,14 +2112,13 @@
     },
     {
       "name": "Lenka Bar-Chocolate Peanut Butter",
-      "brand": "Lenka Bar",
+      "brand": "",
       "itemUuid": "dfe1b559-6835-4c68-af30-04cf1b20b355",
       "units": 6.0,
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2237,7 +2175,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2259,7 +2196,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2323,7 +2259,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2351,7 +2286,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2366,7 +2300,7 @@
     },
     {
       "name": "UGLIES BBQ 2oz Bag",
-      "brand": "",
+      "brand": "Uglies Kettle Chips",
       "itemUuid": "8849a586-4252-46ad-848c-6d513381b6d8",
       "units": 5.0,
       "lines": 2,
@@ -2397,7 +2331,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2419,7 +2352,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2441,7 +2373,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2469,7 +2400,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2515,7 +2445,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2543,7 +2472,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
@@ -2592,10 +2520,8 @@
       "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
       "units": 3.0,
       "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -2615,7 +2541,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2637,7 +2562,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2677,7 +2601,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2699,7 +2622,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2721,7 +2643,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2740,10 +2661,8 @@
       "itemUuid": "918db7c0-824b-487a-90ad-859a564a2f65",
       "units": 3.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -2763,7 +2682,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2785,7 +2703,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2825,7 +2742,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2901,7 +2817,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2923,7 +2838,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2945,7 +2859,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -2964,10 +2877,8 @@
       "itemUuid": "b245b0f0-20a9-4d8a-8f66-3fa81bb90cd3",
       "units": 2.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -2987,7 +2898,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3020,7 +2930,7 @@
     },
     {
       "name": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "33d7834f-378b-4755-97cc-37d4b5f57b11",
       "units": 2.0,
       "lines": 2,
@@ -3042,10 +2952,8 @@
       "itemUuid": "71b5454f-8d95-4920-9f35-ca8804e1d114",
       "units": 2.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -3058,14 +2966,12 @@
     },
     {
       "name": "Monin Cookie Butter Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "9ee9449d-b041-4e7a-a857-e9bfa0b52c92",
       "units": 2.0,
       "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -3085,20 +2991,19 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
           "units": 1.0,
           "lines": 1
         }
@@ -3131,7 +3036,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3153,7 +3057,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3175,7 +3078,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3197,7 +3099,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3212,7 +3113,7 @@
     },
     {
       "name": "Righteous Felon - Bootlegin' BBQ 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "faa05a49-bbc3-44ef-9f56-33ed2936c0ab",
       "units": 2.0,
       "lines": 2,
@@ -3230,14 +3131,13 @@
     },
     {
       "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "911e7720-530d-4e95-bc66-5d0287b2c25b",
       "units": 2.0,
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3349,7 +3249,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3371,7 +3270,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3393,7 +3291,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3415,7 +3312,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3455,7 +3351,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3549,7 +3444,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3570,8 +3464,7 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "catalog"
       ],
       "customers": 1,
       "custDetail": [
@@ -3592,7 +3485,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3611,10 +3503,8 @@
       "itemUuid": "047f3336-57a2-4bdd-97b5-b379cd7c9ee6",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -3649,10 +3539,8 @@
       "itemUuid": "1e63568f-c19f-4558-84b5-16acc41bbfb4",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -3672,7 +3560,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3691,10 +3578,8 @@
       "itemUuid": "fc6cadf4-a445-4f53-805d-9c21b93f15c6",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
@@ -3743,7 +3628,7 @@
     },
     {
       "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "427b6515-ccce-4450-9461-7c3df22de2d3",
       "units": 1.0,
       "lines": 1,
@@ -3761,14 +3646,13 @@
     },
     {
       "name": "Righteous Felon - Maryland Monroe 2oz Bag",
-      "brand": "",
+      "brand": "Righteous Felon",
       "itemUuid": "2ebd0135-afe8-486c-b7f7-df7587ea9ebf",
       "units": 1.0,
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -3988,7 +3872,6 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand",
         "sold90"
       ],
       "customers": 1,
@@ -4265,7 +4148,7 @@
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 24.0,
           "lines": 7,
           "inDca1": true
@@ -4396,7 +4279,7 @@
       "name": "Kyotomatcha : 33 Maryland Avenue",
       "hasHistory": true,
       "skus": 17,
-      "gapSkus": 4,
+      "gapSkus": 9,
       "units": 265.0,
       "items": [
         {
@@ -4432,7 +4315,7 @@
           "brand": "Monin",
           "units": 22.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
@@ -4446,7 +4329,7 @@
           "brand": "Monin",
           "units": 19.0,
           "lines": 6,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Vanilla Syrup 1L Plastic Bottle",
@@ -4460,7 +4343,7 @@
           "brand": "Monin",
           "units": 12.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Lime Syrup 750ml Glass",
@@ -4488,7 +4371,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Puree 1L",
@@ -4516,7 +4399,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         }
       ]
     },
@@ -4525,7 +4408,7 @@
       "name": "Filicori : 12430 Park Potomac Ave R-3",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 8,
+      "gapSkus": 10,
       "units": 230.0,
       "items": [
         {
@@ -4596,7 +4479,7 @@
           "brand": "Dr. Smoothie",
           "units": 6.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Orange Juice 10oz",
@@ -4701,7 +4584,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Brilliance Concentrate & Neutral Base Pump",
@@ -4773,7 +4656,7 @@
       "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 6,
+      "gapSkus": 10,
       "units": 213.0,
       "items": [
         {
@@ -4785,14 +4668,14 @@
         },
         {
           "name": "Monin Strawberry Smoothie 46oz",
-          "brand": "",
+          "brand": "Monin",
           "units": 30.0,
           "lines": 6,
           "inDca1": true
         },
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 28.0,
           "lines": 6,
           "inDca1": true
@@ -4802,11 +4685,11 @@
           "brand": "Monin",
           "units": 18.0,
           "lines": 4,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Pina Colada Smoothie 46oz",
-          "brand": "Monin",
+          "brand": "",
           "units": 16.0,
           "lines": 4,
           "inDca1": true
@@ -4911,7 +4794,7 @@
         },
         {
           "name": "Monin Brilliance Yumberry Red Natural Energy 64oz Bottle",
-          "brand": "",
+          "brand": "Monin",
           "units": 2.0,
           "lines": 2,
           "inDca1": false
@@ -4921,14 +4804,14 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Cookie Butter Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Macadamia Nut Syrup 750ml Glass",
@@ -4970,7 +4853,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Raspberry Syrup 750ml Glass",
@@ -5026,14 +4909,14 @@
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 24.0,
           "lines": 2,
           "inDca1": true
         },
         {
           "name": "Monin Caramel Syrup 750ml Glass",
-          "brand": "",
+          "brand": "Monin",
           "units": 18.0,
           "lines": 2,
           "inDca1": true
@@ -5047,7 +4930,7 @@
         },
         {
           "name": "UGLIES Buffalo Ranch 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 7.0,
           "lines": 2,
           "inDca1": false
@@ -5075,7 +4958,7 @@
         },
         {
           "name": "UGLIES Jalapeno 2oz Bag",
-          "brand": "Uglies Kettle Chips",
+          "brand": "",
           "units": 6.0,
           "lines": 2,
           "inDca1": false
@@ -5089,7 +4972,7 @@
         },
         {
           "name": "Monin Honey Syrup 750mL Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 4.0,
           "lines": 2,
           "inDca1": true
@@ -5110,7 +4993,7 @@
         },
         {
           "name": "Monin Cinnamon Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -5150,7 +5033,7 @@
       "name": "Market House, LLC : 25 Market Space",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 81.0,
       "items": [
         {
@@ -5197,7 +5080,7 @@
         },
         {
           "name": "Humankind Orange Juice 10oz",
-          "brand": "",
+          "brand": "Humankind",
           "units": 5.0,
           "lines": 4,
           "inDca1": true
@@ -5221,7 +5104,7 @@
           "brand": "Boylan Bottling Company",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Ginger Ale Soda",
@@ -5252,17 +5135,10 @@
       "hasHistory": true,
       "skus": 7,
       "gapSkus": 0,
-      "units": 71.0,
+      "units": 69.0,
       "items": [
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 12.0,
-          "lines": 8,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Diet Cola Soda",
           "brand": "Boylan Bottling Company",
           "units": 12.0,
           "lines": 8,
@@ -5284,15 +5160,22 @@
         },
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
+          "brand": "",
           "units": 12.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Diet Cola Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 11.0,
           "lines": 8,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Cane Cola Soda",
           "brand": "Boylan Bottling Company",
-          "units": 11.0,
+          "units": 10.0,
           "lines": 7,
           "inDca1": true
         },
@@ -5315,7 +5198,7 @@
       "items": [
         {
           "name": "Humankind Organic Peach Iced Tea 16oz",
-          "brand": "",
+          "brand": "Humankind",
           "units": 9.0,
           "lines": 3,
           "inDca1": true
@@ -5350,7 +5233,7 @@
         },
         {
           "name": "UGLIES Salt & Vinegar 2oz Bag",
-          "brand": "",
+          "brand": "Uglies Kettle Chips",
           "units": 3.0,
           "lines": 2,
           "inDca1": false
@@ -5378,14 +5261,14 @@
         },
         {
           "name": "Righteous Felon - Bootlegin' BBQ 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 2.0,
           "lines": 2,
           "inDca1": false
         },
         {
           "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -5490,14 +5373,14 @@
         },
         {
           "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
         },
         {
           "name": "Righteous Felon - Maryland Monroe 2oz Bag",
-          "brand": "",
+          "brand": "Righteous Felon",
           "units": 1.0,
           "lines": 1,
           "inDca1": true
@@ -5617,7 +5500,7 @@
       "name": "Bon Fresco : Gaither Rd",
       "hasHistory": true,
       "skus": 12,
-      "gapSkus": 3,
+      "gapSkus": 4,
       "units": 34.0,
       "items": [
         {
@@ -5632,7 +5515,7 @@
           "brand": "Humankind",
           "units": 5.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
@@ -5711,7 +5594,7 @@
       "name": "Bean Rush Cafe : Glen Burnie",
       "hasHistory": true,
       "skus": 17,
-      "gapSkus": 9,
+      "gapSkus": 10,
       "units": 33.0,
       "items": [
         {
@@ -5726,7 +5609,7 @@
           "brand": "Humankind",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Spindrift Grapefruit",
@@ -5840,7 +5723,7 @@
       "name": "French Press : 4918 Saint Elmo Avenue",
       "hasHistory": true,
       "skus": 20,
-      "gapSkus": 8,
+      "gapSkus": 9,
       "units": 30.0,
       "items": [
         {
@@ -5946,7 +5829,7 @@
           "brand": "Monin",
           "units": 1.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Monin Strawberry Syrup 750ml Glass",
@@ -6007,7 +5890,7 @@
       "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
       "hasHistory": true,
       "skus": 3,
-      "gapSkus": 0,
+      "gapSkus": 1,
       "units": 13.0,
       "items": [
         {
@@ -6015,7 +5898,7 @@
           "brand": "Humankind",
           "units": 7.0,
           "lines": 1,
-          "inDca1": true
+          "inDca1": false
         },
         {
           "name": "Humankind Organic Strawberry Lemonade 16oz",
