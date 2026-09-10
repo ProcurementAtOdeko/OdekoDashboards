@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · MDT1 → DCA1 Seasonal Gaps</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.tall .body { height: 520px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 240px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: 0; background: var(--panel); color: var(--muted); font: inherit; font-size: 13px;
+    padding: 7px 14px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
+
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+  .toolbar .btn { margin-left: 10px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .brand-cell { color: var(--muted); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.carried { background: var(--green-soft); color: var(--green); }
+  .badge.gap { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .badge.roster-kept { background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .badge.roster-added { background: var(--green-soft); color: var(--green); }
+  .badge.roster-removed { background: var(--red-soft); color: var(--red); }
+  tr.off-roster td { opacity: .62; }
+  tr.off-roster:hover td { opacity: 1; }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+  .tablewrap { overflow: auto; max-height: 640px; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable td:first-child .name-link { color: var(--ink-2); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  tr.clickable:hover td:first-child .name-link { text-decoration-color: var(--ink-2); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(42,20,8,.45); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 40px 16px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    max-width: 860px; width: 100%; box-shadow: 0 20px 50px rgba(42,20,8,.25);
+  }
+  .modal .mhead {
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    position: sticky; top: 0; background: var(--panel); border-radius: 10px 10px 0 0;
+  }
+  .modal .mtitle { font-size: 16px; font-weight: 700; color: var(--ink-2); letter-spacing: -.01em; }
+  .modal .mchips { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip b { font-variant-numeric: tabular-nums; }
+  .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .chip.sig { padding: 2px 8px; font-size: 11px; color: var(--muted); }
+  #subs td:nth-child(4) { color: var(--green); font-weight: 600; }
+  #subs .sub-alt { position: relative; padding-left: 16px; }
+  #subs .sub-alt::before { content: "\2192"; position: absolute; left: 0; color: var(--muted); font-weight: 400; }
+  #subs .sub-alt + .sub-alt { margin-top: 5px; }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .pack { display: inline-block; font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 500; white-space: nowrap; }
+  .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
+  .mclose:hover { background: var(--line); }
+  .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .modal .mbody { max-height: 62vh; overflow: auto; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .toolbar .count { margin-left: 0; }
+  }
+
+  .badge.plan { background: var(--amber-soft); color: var(--amber); }
+  .lift { font-weight: 600; }
+  .lift.up { color: var(--red); }
+  .lift.flat { color: var(--muted); }
+  .warnbar {
+    display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px;
+    background: var(--amber-soft); border-bottom: 1px solid var(--line);
+    color: var(--ink-2); font-size: 13px;
+  }
+  .warnbar b { color: var(--amber); }
+  /* display:flex above would otherwise beat the hidden attribute's UA rule. */
+  .warnbar[hidden] { display: none; }
+  .toolbar label { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .toolbar input[type=date] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 6px 9px; border-radius: 6px; font: inherit; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>MDT1 → DCA1 Seasonal Gaps — Next Month, Last Year</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="warnbar" id="degraded" hidden>
+    <span>⚠</span>
+    <div><b>Current-demand comparison unavailable.</b>
+      <span id="degraded-note"></span></div>
+  </div>
+
+  <div class="charts">
+    <section class="card chart">
+      <h3>October 2025 SKU Coverage <span class="note">of what the cohort bought</span></h3>
+      <div class="body"><canvas id="chart-coverage"></canvas></div>
+    </section>
+    <section class="card chart">
+      <h3>Top Seasonal Gap Brands <span class="note">units bought last October, not carried and not planned</span></h3>
+      <div class="body"><canvas id="chart-brands"></canvas></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h3>Top 20 Seasonal Gaps <span class="note">highest-volume SKUs the conversion has no plan for</span></h3>
+    <div class="body" style="height:520px;position:relative"><canvas id="chart-gaps"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h3>October 2025 Demand <span class="note" id="table-note"></span></h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-filter">
+        <button data-f="gap" class="active">Seasonal gaps</button>
+        <button data-f="only" id="btn-only">Only last year</button>
+        <button data-f="planned">In the plan</button>
+        <button data-f="carried">Carried</button>
+        <button data-f="all">All</button>
+      </div>
+      <input id="search" type="search" placeholder="Search item or brand…" />
+      <span class="count" id="table-count"></span>
+      <button class="btn" id="dl-items" title="Download the SKUs currently shown">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="items">
+        <thead>
+          <tr>
+            <th data-sort="name">Item</th>
+            <th data-sort="brand">Brand</th>
+            <th data-sort="status">Status</th>
+            <th class="num" data-sort="octUnits" data-default="desc">Last Oct Units</th>
+            <th class="num" data-sort="octCustomers">Customers</th>
+            <th class="num" data-sort="expectedUnits">Now, per 31d</th>
+            <th class="num" data-sort="lift">Lift</th>
+            <th class="num" data-sort="cases">Cases to Cover</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Bulk PO — Seasonal Gaps
+      <span class="note" id="po-note"></span>
+    </h3>
+    <div class="toolbar">
+      <label for="delivery-date">Delivery date
+        <input type="date" id="delivery-date" />
+      </label>
+      <span class="count" id="po-count"></span>
+      <button class="btn" id="dl-po" title="Bulk PO Generation Tool upload file">⬇ Download PO upload</button>
+    </div>
+    <div class="tablewrap">
+      <table id="po">
+        <thead>
+          <tr>
+            <th data-sortp="name">Item</th>
+            <th data-sortp="vendorName">Vendor</th>
+            <th data-sortp="purchaseUnit">Purchase Unit</th>
+            <th class="num" data-sortp="octUnits">Last Oct Units</th>
+            <th class="num" data-sortp="cases" data-default="desc">Order Qty</th>
+            <th data-sortp="vendorKnownToDca1">Ready?</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Customers <span class="note">October 2025 footprint across the converting roster</span></h3>
+    <div class="toolbar">
+      <input id="search-cust" type="search" placeholder="Search customer…" />
+      <span class="count" id="cust-count"></span>
+      <button class="btn" id="dl-custs">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="custs">
+        <thead>
+          <tr>
+            <th data-sortc="name">Customer</th>
+            <th class="num" data-sortc="octSkus">SKUs Last Oct</th>
+            <th class="num" data-sortc="octGapSkus">Gap SKUs</th>
+            <th class="num" data-sortc="octUnits" data-default="desc">Units Last Oct</th>
+            <th class="num" data-sortc="curUnits">Units Now</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+let DATA = null;
+let sortKey = "octUnits", sortDir = "desc", filterText = "", itemFilter = "gap";
+let poSortKey = "cases", poSortDir = "desc";
+let custSortKey = "octUnits", custSortDir = "desc", custFilterText = "";
+let lastItemRows = [], lastPoRows = [], lastCustRows = [];
+
+const fmt = n => n == null ? "—" :
+  (Math.round(n * 10) / 10).toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+// bom=true prepends a UTF-8 BOM so Excel reads accents correctly. The PO upload
+// file is parsed by the Bulk PO Generation Tool, not opened in Excel, and a BOM
+// would corrupt the first header name and break its column matching.
+function downloadCSV(filename, headers, rows, bom = true) {
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) lines.push(r.map(csvCell).join(","));
+  const blob = new Blob([(bom ? "﻿" : "") + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const STATUS = {
+  gap: ["Seasonal gap", "gap", "bought last October, not carried at DCA1 and not in the bring-in plan"],
+  planned: ["In the plan", "plan", "already tracked on the MDT1 SKU onboarding dashboard"],
+  carried: ["Carried", "carried", "DCA1 already stocks this"],
+};
+
+async function load() {
+  const res = await fetch("data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  DATA.items.forEach((s, i) => { s._i = i; });
+
+  const b = DATA.baselineRange || {}, c = DATA.currentRange || {};
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · baseline ${b.min} → ${b.max}` +
+    (DATA.currentAvailable && c.min ? ` · current ${c.min} → ${c.max} (${c.days}d)` : "");
+
+  if (!DATA.currentAvailable) {
+    document.getElementById("btn-only").hidden = true;
+    document.getElementById("degraded").hidden = false;
+    document.getElementById("degraded-note").textContent =
+      "The MDT1 sales export was empty when this data was built, so “Now, per 31d” and " +
+      "“Lift” are blank. The October baseline and the gap classification are unaffected. " +
+      "The next hourly refresh fills the comparison in once the export repopulates.";
+  }
+
+  // Default the PO delivery date to a week out.
+  const d = new Date(); d.setDate(d.getDate() + 7);
+  document.getElementById("delivery-date").value = d.toISOString().slice(0, 10);
+
+  renderKpis();
+  renderTable();
+  renderPo();
+  renderCustTable();
+  renderCharts();
+}
+
+function renderKpis() {
+  const s = DATA.summary;
+  const kpis = [
+    { label: "Cohort Buying Last Oct", value: s.octCustomers, cls: "accent",
+      hint: `of ${s.cohortSize} converting locations` },
+    { label: "SKUs Bought Last Oct", value: s.octSkus, cls: "",
+      hint: `${fmt(s.octUnits)} units` },
+    { label: "Carried in DCA1", value: s.skusCarried, cls: "green",
+      hint: `${s.coveragePct}% of the October list` },
+    { label: "In the Bring-In Plan", value: s.skusPlanned, cls: "amber",
+      hint: "already being onboarded" },
+    { label: "Seasonal Gaps", value: s.skusGap, cls: "red",
+      hint: s.gapOnlyLastYear == null
+        ? `${fmt(s.gapUnits)} units last October`
+        : `${fmt(s.gapUnits)} units · ${s.gapOnlyLastYear} not bought since` },
+    { label: "Cases to Cover", value: s.gapCases, cls: "",
+      hint: `${s.gapOrderable} of ${s.skusGap} gap SKUs orderable` },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div>` +
+    `<div class="value">${fmt(k.value)}</div>` +
+    (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`
+  ).join("");
+}
+
+function liftCell(s) {
+  if (!DATA.currentAvailable) return `<td class="num">—</td>`;
+  if (s.lift == null) {
+    return `<td class="num"><span class="lift up" title="no current demand at all — this is a purely seasonal SKU">new</span></td>`;
+  }
+  const cls = s.lift >= 1.5 ? "up" : "flat";
+  return `<td class="num"><span class="lift ${cls}">${s.lift.toFixed(2)}×</span></td>`;
+}
+
+function renderTable() {
+  const q = filterText.toLowerCase();
+  let rows = DATA.items.filter(s => {
+    if (itemFilter === "gap" && s.status !== "gap") return false;
+    if (itemFilter === "planned" && s.status !== "planned") return false;
+    if (itemFilter === "carried" && s.status !== "carried") return false;
+    if (itemFilter === "only" && s.onlyLastYear !== true) return false;
+    return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
+  });
+
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+  lastItemRows = rows;
+
+  document.getElementById("table-count").textContent = `${rows.length} of ${DATA.items.length} SKUs`;
+  document.getElementById("table-note").textContent =
+    `what the converting cohort bought ${DATA.baselineRange.min} → ${DATA.baselineRange.max}`;
+
+  document.querySelectorAll("#items th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#items tbody").innerHTML = rows.map(s => {
+    const [label, cls, title] = STATUS[s.status];
+    const src = s.dca1Sources && s.dca1Sources.length
+      ? `<div class="uuid">${escapeHtml(s.dca1Sources.join(" · "))}</div>` : "";
+    return `<tr>
+      <td>${escapeHtml(s.name)}${src}</td>
+      <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
+      <td><span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span></td>
+      <td class="num">${fmt(s.octUnits)}</td>
+      <td class="num">${s.octCustomers}</td>
+      <td class="num">${DATA.currentAvailable ? fmt(s.expectedUnits) : "—"}</td>
+      ${liftCell(s)}
+      <td class="num">${s.cases == null ? "—" : fmt(s.cases)}</td>
+    </tr>`;
+  }).join("");
+}
+
+// Shaped for the Bulk PO Generation Tool. Per the SOP the template columns must
+// not be removed or reordered (extra columns are allowed), and only rows with a
+// quantity > 0 trigger a document; the tool groups by vendor, one PO per vendor.
+const UPLOAD_COLUMNS = [
+  "warehouse_location_id", "warehouse_uuid", "warehouse_name",
+  "procurement_vendor_uuid", "vendor_name", "delivery_date",
+  "item_uuid", "item_name", "purchase_unit", "Order.QTY",
+];
+
+function deliveryDate() {
+  const v = document.getElementById("delivery-date").value;
+  if (!v) return "";
+  // Template expects M/D/YYYY with no leading zeros.
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+  return m ? `${+m[2]}/${+m[3]}/${m[1]}` : v;
+}
+
+function poRows() {
+  return DATA.items.filter(s => s.status === "gap" && s.cases > 0);
+}
+
+function renderPo() {
+  let rows = poRows();
+  rows.sort((a, b) => {
+    let av = a[poSortKey], bv = b[poSortKey];
+    if (typeof av === "boolean") { av = av ? 1 : 0; bv = bv ? 1 : 0; }
+    if (av == null) av = ""; if (bv == null) bv = "";
+    if (typeof av === "string") return poSortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return poSortDir === "asc" ? av - bv : bv - av;
+  });
+  lastPoRows = rows;
+
+  const blocked = rows.filter(r => !r.vendorUuid).length;
+  const vendors = new Set(rows.map(r => r.vendorName || "—")).size;
+  document.getElementById("po-count").textContent =
+    `${rows.length} lines · ${rows.reduce((n, r) => n + r.cases, 0)} cases · ${vendors} vendors`;
+  const s = DATA.summary;
+  const excluded = [];
+  if (s.gapNoCasePack) excluded.push(`${s.gapNoCasePack} with no known case pack`);
+  if (s.gapNeedsVendor) excluded.push(`${s.gapNeedsVendor} with no vendor UUID`);
+  document.getElementById("po-note").textContent =
+    "sized to repeat last October's volume" +
+    (excluded.length ? ` · ${excluded.join(", ")} left off` : "") +
+    (blocked ? ` · ${blocked} shown line${blocked === 1 ? "" : "s"} cannot be uploaded` : "");
+
+  document.querySelectorAll("#po th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sortp === poSortKey) th.classList.add(poSortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#po tbody").innerHTML = rows.map(r => `<tr>
+      <td>${escapeHtml(r.name)}</td>
+      <td class="brand-cell">${escapeHtml(r.vendorName || "—")}</td>
+      <td class="brand-cell">${escapeHtml(r.purchaseUnit || "—")}</td>
+      <td class="num">${fmt(r.octUnits)}</td>
+      <td class="num">${fmt(r.cases)}</td>
+      <td>${r.vendorUuid
+        ? (r.vendorKnownToDca1
+            ? `<span class="badge carried">Ready</span>`
+            : `<span class="badge plan" title="vendor UUID resolved from another warehouse — DCA1 has no order history with them yet">New vendor</span>`)
+        : `<span class="badge gap" title="no vendor UUID anywhere in the network — cannot be uploaded">Needs setup</span>`}</td>
+    </tr>`).join("");
+}
+
+function renderCustTable() {
+  const q = custFilterText.toLowerCase();
+  let rows = (DATA.customers || []).filter(c =>
+    !q || (c.name || "").toLowerCase().includes(q) || c.uuid.includes(q));
+  rows.sort((a, b) => {
+    let av = a[custSortKey], bv = b[custSortKey];
+    if (typeof av === "string") return custSortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return custSortDir === "asc" ? av - bv : bv - av;
+  });
+  lastCustRows = rows;
+  document.getElementById("cust-count").textContent = `${rows.length} of ${DATA.customers.length} shown`;
+
+  document.querySelectorAll("#custs th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sortc === custSortKey) th.classList.add(custSortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+
+  document.querySelector("#custs tbody").innerHTML = rows.map(c => `<tr>
+      <td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td>
+      <td class="num">${fmt(c.octSkus)}</td>
+      <td class="num">${fmt(c.octGapSkus)}</td>
+      <td class="num">${fmt(c.octUnits)}</td>
+      <td class="num">${DATA.currentAvailable ? fmt(c.curUnits) : "—"}</td>
+    </tr>`).join("");
+}
+
+function renderCharts() {
+  // Chart.js comes from a CDN; if it is blocked the tables are still the point
+  // of this page, so skip the charts rather than throwing and killing the rest.
+  if (typeof Chart === "undefined") return;
+  Chart.defaults.color = "#8A7B6A";
+  Chart.defaults.borderColor = "#E6DFCC";
+  Chart.defaults.font.family = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+  new Chart(document.getElementById("chart-coverage"), {
+    type: "doughnut",
+    data: {
+      labels: DATA.coverage.map(c => c.status),
+      datasets: [{
+        data: DATA.coverage.map(c => c.count),
+        backgroundColor: ["#1F7A33", "#B5660A", "#B42318"],
+        borderWidth: 0,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, padding: 14 } } },
+    },
+  });
+
+  new Chart(document.getElementById("chart-brands"), {
+    type: "bar",
+    data: {
+      labels: DATA.topGapBrands.map(b => b.brand),
+      datasets: [{ label: "Units last October", data: DATA.topGapBrands.map(b => b.units),
+                   backgroundColor: "#B42318", borderRadius: 3 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { grid: { display: false } }, y: { beginAtZero: true } },
+    },
+  });
+
+  new Chart(document.getElementById("chart-gaps"), {
+    type: "bar",
+    data: {
+      labels: DATA.topGaps.map(g => g.name),
+      datasets: [{ label: "Units last October", data: DATA.topGaps.map(g => g.units),
+                   backgroundColor: "#40180B", borderRadius: 3 }],
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { afterLabel: ctx => `${DATA.topGaps[ctx.dataIndex].customers} customers` } },
+      },
+      scales: { x: { beginAtZero: true }, y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 11 } } } },
+    },
+  });
+}
+
+document.getElementById("seg-filter").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  itemFilter = btn.dataset.f;
+  document.querySelectorAll("#seg-filter button").forEach(b => b.classList.toggle("active", b === btn));
+  renderTable();
+});
+document.getElementById("search").addEventListener("input", (e) => {
+  filterText = e.target.value; renderTable();
+});
+document.getElementById("search-cust").addEventListener("input", (e) => {
+  custFilterText = e.target.value; renderCustTable();
+});
+document.getElementById("delivery-date").addEventListener("change", renderPo);
+
+document.querySelectorAll("#items th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = key; sortDir = th.dataset.default || "desc"; }
+    renderTable();
+  });
+});
+document.querySelectorAll("#po th[data-sortp]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sortp;
+    if (poSortKey === key) poSortDir = poSortDir === "asc" ? "desc" : "asc";
+    else { poSortKey = key; poSortDir = th.dataset.default || "desc"; }
+    renderPo();
+  });
+});
+document.querySelectorAll("#custs th[data-sortc]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.sortc;
+    if (custSortKey === key) custSortDir = custSortDir === "asc" ? "desc" : "asc";
+    else { custSortKey = key; custSortDir = th.dataset.default || "desc"; }
+    renderCustTable();
+  });
+});
+
+document.getElementById("dl-items").addEventListener("click", () => {
+  downloadCSV(
+    `mdt1-dca1-seasonal-${itemFilter}.csv`,
+    ["Item", "Brand", "Status", "In DCA1", "DCA1 Sources", "In Bring-In Plan",
+     "Last Oct Units", "Last Oct Customers", "Current Units (per 31d)", "Lift",
+     "Only Last Year", "Vendor", "Purchase Unit", "Cases to Cover"],
+    lastItemRows.map(s => [
+      s.name, s.brand, STATUS[s.status][0], s.inDca1 ? "Yes" : "No",
+      (s.dca1Sources || []).join(" / "), s.inPlan ? "Yes" : "No",
+      s.octUnits, s.octCustomers,
+      DATA.currentAvailable ? s.expectedUnits : "",
+      DATA.currentAvailable ? (s.lift == null ? "new" : s.lift) : "",
+      s.onlyLastYear ? "Yes" : "No", s.vendorName, s.purchaseUnit, s.cases,
+    ]),
+  );
+});
+
+document.getElementById("dl-po").addEventListener("click", () => {
+  const dd = deliveryDate();
+  // The SOP asks for the model sorted before export so the generated PO reads
+  // sensibly: vendor A-Z, then quantity high to low. Lines with no vendor UUID
+  // cannot be uploaded, so they are left out rather than sent with a blank key.
+  const rows = poRows()
+    .filter(r => r.vendorUuid)
+    .sort((a, b) => (a.vendorName || "").localeCompare(b.vendorName || "") || b.cases - a.cases)
+    .map(r => [
+      DATA.warehouseLocationId, DATA.warehouseUuid, DATA.targetWarehouse,
+      r.vendorUuid, r.vendorName, dd,
+      r.itemUuid, r.name, r.purchaseUnit, r.cases,
+    ]);
+  downloadCSV("dca1-seasonal-gaps-po-upload.csv", UPLOAD_COLUMNS, rows, false);
+});
+
+document.getElementById("dl-custs").addEventListener("click", () => {
+  downloadCSV(
+    "mdt1-dca1-seasonal-customers.csv",
+    ["Customer", "Location UUID", "SKUs Last Oct", "Gap SKUs", "Units Last Oct", "Units Now"],
+    lastCustRows.map(c => [c.name, c.uuid, c.octSkus, c.octGapSkus, c.octUnits,
+                           DATA.currentAvailable ? c.curUnits : ""]),
+  );
+});
+
+load();
+</script>
+</body>
+</html>
