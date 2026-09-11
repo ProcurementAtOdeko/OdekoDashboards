@@ -1,39 +1,44 @@
 {
-  "generatedAt": "2026-09-09T00:31:41+00:00",
+  "generatedAt": "2026-09-11T14:35:48+00:00",
   "dateRange": {
-    "min": "2026-06-11",
-    "max": "2026-09-07"
+    "min": "2026-06-15",
+    "max": "2026-09-08"
   },
   "summary": {
     "customersListed": 16,
     "customersActive": 16,
-    "skusPurchased": 161,
-    "skusCarried": 105,
-    "skusGap": 56,
-    "coveragePct": 65,
-    "unitsTotal": 3188.0,
-    "gapUnitsTotal": 433.0
+    "skusPurchased": 160,
+    "skusCarried": 106,
+    "skusGap": 54,
+    "coveragePct": 66,
+    "unitsTotal": 3397.0,
+    "gapUnitsTotal": 459.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 105
+      "count": 106
     },
     {
       "status": "Not carried (gap)",
-      "count": 56
+      "count": 54
     }
   ],
   "topGapSkus": [
     {
       "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
-      "units": 112.0,
+      "units": 120.0,
       "customers": 1
     },
     {
       "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
-      "units": 52.0,
+      "units": 62.0,
       "customers": 2
+    },
+    {
+      "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
+      "units": 51.0,
+      "customers": 1
     },
     {
       "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
@@ -41,8 +46,8 @@
       "customers": 1
     },
     {
-      "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
-      "units": 33.0,
+      "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
+      "units": 20.0,
       "customers": 1
     },
     {
@@ -51,19 +56,9 @@
       "customers": 1
     },
     {
-      "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
-      "units": 16.0,
-      "customers": 1
-    },
-    {
       "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
       "units": 12.0,
       "customers": 1
-    },
-    {
-      "name": "Monin Sugar Free Caramel Syrup 750ml Glass",
-      "units": 12.0,
-      "customers": 3
     },
     {
       "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
@@ -121,21 +116,31 @@
       "customers": 2
     },
     {
-      "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
+      "name": "Da Vinci Caramel Sauce 1 Gallon Bottle(s)",
       "units": 3.0,
-      "customers": 2
+      "customers": 1
+    },
+    {
+      "name": "1883 Caramel Sauce 1.89L Bottle *NEW",
+      "units": 2.0,
+      "customers": 1
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 274.0,
-      "skus": 14
+      "units": 251.0,
+      "skus": 12
     },
     {
       "brand": "Uglies Kettle Chips",
       "units": 58.0,
       "skus": 7
+    },
+    {
+      "brand": "(no brand)",
+      "units": 55.0,
+      "skus": 3
     },
     {
       "brand": "Almond Breeze",
@@ -154,8 +159,8 @@
     },
     {
       "brand": "Righteous Felon",
-      "units": 7.0,
-      "skus": 6
+      "units": 6.0,
+      "skus": 5
     },
     {
       "brand": "Stroopie Co.",
@@ -174,18 +179,13 @@
     },
     {
       "brand": "Boylan Bottling Company",
-      "units": 4.0,
+      "units": 3.0,
       "skus": 2
     },
     {
-      "brand": "(no brand)",
+      "brand": "Rishi",
       "units": 3.0,
-      "skus": 1
-    },
-    {
-      "brand": "Spindrift",
-      "units": 3.0,
-      "skus": 2
+      "skus": 3
     }
   ],
   "skus": [
@@ -193,11 +193,10 @@
       "name": "Monin Vanilla Syrup 1L Plastic Bottle",
       "brand": "Monin",
       "itemUuid": "0248cb50-a6da-4c9f-8f7d-f318b7e23606",
-      "units": 242.0,
-      "lines": 11,
+      "units": 260.0,
+      "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -206,8 +205,8 @@
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 229.0,
-          "lines": 7
+          "units": 247.0,
+          "lines": 8
         },
         {
           "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
@@ -221,11 +220,10 @@
       "name": "Monin Caramel Sauce 64oz",
       "brand": "Monin",
       "itemUuid": "0caa33ba-94b2-4e21-bc1f-d57bb3d29049",
-      "units": 208.0,
-      "lines": 17,
+      "units": 220.0,
+      "lines": 18,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -234,8 +232,8 @@
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 180.0,
-          "lines": 7
+          "units": 192.0,
+          "lines": 8
         },
         {
           "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
@@ -265,7 +263,6 @@
       "lines": 13,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -292,6 +289,45 @@
       ]
     },
     {
+      "name": "Monin Dark Chocolate Sauce 64oz",
+      "brand": "Monin",
+      "itemUuid": "a1d36906-f3d8-4331-9954-46717d9cd0f3",
+      "units": 197.0,
+      "lines": 19,
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand",
+        "sold90"
+      ],
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 147.0,
+          "lines": 6
+        },
+        {
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
+          "units": 32.0,
+          "lines": 5
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 10.0,
+          "lines": 4
+        },
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 8.0,
+          "lines": 4
+        }
+      ]
+    },
+    {
       "name": "Monin Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "7543b198-a987-42c7-aa02-f209c3023738",
@@ -299,7 +335,6 @@
       "lines": 16,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -332,42 +367,23 @@
       ]
     },
     {
-      "name": "Monin Dark Chocolate Sauce 64oz",
+      "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "a1d36906-f3d8-4331-9954-46717d9cd0f3",
-      "units": 169.0,
-      "lines": 18,
+      "itemUuid": "c32059d1-05a7-4cb0-b043-5df1a52c6708",
+      "units": 180.0,
+      "lines": 7,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 4,
+      "customers": 1,
       "custDetail": [
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 119.0,
-          "lines": 5
-        },
-        {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
-          "units": 32.0,
-          "lines": 5
-        },
-        {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 10.0,
-          "lines": 4
-        },
-        {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 8.0,
-          "lines": 4
+          "units": 180.0,
+          "lines": 7
         }
       ]
     },
@@ -379,7 +395,6 @@
       "lines": 14,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -413,7 +428,6 @@
       "lines": 13,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -440,23 +454,19 @@
       ]
     },
     {
-      "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
+      "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "c32059d1-05a7-4cb0-b043-5df1a52c6708",
-      "units": 156.0,
+      "itemUuid": "cb8b3dff-af59-458a-8d7d-4f1c54b62b14",
+      "units": 120.0,
       "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 156.0,
+          "units": 120.0,
           "lines": 6
         }
       ]
@@ -469,7 +479,6 @@
       "lines": 8,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -484,24 +493,6 @@
       ]
     },
     {
-      "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "cb8b3dff-af59-458a-8d7d-4f1c54b62b14",
-      "units": 112.0,
-      "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 112.0,
-          "lines": 5
-        }
-      ]
-    },
-    {
       "name": "Monin Strawberry Banana Smoothie 46oz",
       "brand": "Monin",
       "itemUuid": "59fc5340-42e0-4816-9721-052af471c8f8",
@@ -509,7 +500,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -524,14 +514,40 @@
       ]
     },
     {
+      "name": "Oatly Barista Oat Milk 32oz",
+      "brand": "Oatly",
+      "itemUuid": "6e4d348f-0bd4-49d2-a361-6b348ff2aaf3",
+      "units": 75.0,
+      "lines": 6,
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand",
+        "sold90"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 60.0,
+          "lines": 1
+        },
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 15.0,
+          "lines": 5
+        }
+      ]
+    },
+    {
       "name": "Califia Farms Barista Oat Milk 32oz",
-      "brand": "",
+      "brand": "Califia Farms",
       "itemUuid": "2d05faec-fbce-4a35-b6bf-0df8492976a3",
       "units": 62.0,
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -555,8 +571,8 @@
       "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "itemUuid": "bcb19e6c-5ac1-48b7-b7fb-3ea3f2c42868",
-      "units": 52.0,
-      "lines": 7,
+      "units": 62.0,
+      "lines": 8,
       "inDca1": false,
       "dca1Sources": [],
       "customers": 2,
@@ -564,13 +580,31 @@
         {
           "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
           "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 32.0,
-          "lines": 3
+          "units": 42.0,
+          "lines": 4
         },
         {
           "uuid": "0f33d26d-264d-4e41-8096-99e90ff2bccf",
           "name": "Kyotomatcha : 33 Maryland Avenue",
           "units": 20.0,
+          "lines": 4
+        }
+      ]
+    },
+    {
+      "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
+      "brand": "",
+      "itemUuid": "1c9bcc35-aa0c-47a7-8109-10c887ce6ff4",
+      "units": 51.0,
+      "lines": 4,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 51.0,
           "lines": 4
         }
       ]
@@ -583,7 +617,6 @@
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -611,7 +644,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -645,7 +677,6 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -679,7 +710,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -713,8 +743,8 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand"
+        "onhand",
+        "sold90"
       ],
       "customers": 1,
       "custDetail": [
@@ -734,7 +764,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -756,7 +785,6 @@
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -801,24 +829,6 @@
       ]
     },
     {
-      "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "1c9bcc35-aa0c-47a7-8109-10c887ce6ff4",
-      "units": 33.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 33.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Monin White Peach Syrup 750mL Glass",
       "brand": "Monin",
       "itemUuid": "91478c97-b21a-410b-baed-b5a5ddbf560e",
@@ -826,7 +836,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -847,11 +856,10 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 5,
+      "customers": 4,
       "custDetail": [
         {
           "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
@@ -860,21 +868,15 @@
           "lines": 4
         },
         {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 9.0,
+          "lines": 3
+        },
+        {
           "uuid": "2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c",
           "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
           "units": 8.0,
-          "lines": 1
-        },
-        {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 7.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 2.0,
           "lines": 1
         },
         {
@@ -886,6 +888,45 @@
       ]
     },
     {
+      "name": "Monin White Chocolate Sauce 64oz",
+      "brand": "Monin",
+      "itemUuid": "a60a59a2-770c-4454-8187-b34c2c50f870",
+      "units": 28.0,
+      "lines": 5,
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand",
+        "sold90"
+      ],
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 22.0,
+          "lines": 2
+        },
+        {
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
+          "units": 4.0,
+          "lines": 1
+        },
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Monin Neutral Base 64 oz. Bottle",
       "brand": "Monin",
       "itemUuid": "37e89f80-1c1f-4c5d-8e60-729f610ac0ec",
@@ -893,7 +934,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -915,7 +955,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -936,7 +975,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1005,6 +1043,24 @@
       ]
     },
     {
+      "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "itemUuid": "d6d6b152-a6f0-4ae8-a227-518b3011956d",
+      "units": 20.0,
+      "lines": 4,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 20.0,
+          "lines": 4
+        }
+      ]
+    },
+    {
       "name": "Monin Raspberry Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "7522ae8c-ba62-43c4-943b-3e149150dc29",
@@ -1012,7 +1068,6 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1072,7 +1127,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1085,16 +1139,16 @@
           "lines": 7
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 3.0,
-          "lines": 1
-        },
-        {
           "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
           "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 3.0,
           "lines": 2
+        },
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 3.0,
+          "lines": 1
         },
         {
           "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
@@ -1112,7 +1166,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -1144,8 +1197,28 @@
       ]
     },
     {
+      "name": "Monin Blackberry Syrup 750ml Glass",
+      "brand": "",
+      "itemUuid": "16fb6f36-67e9-4897-b684-19a99ffb4585",
+      "units": 18.0,
+      "lines": 1,
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 18.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
+      "brand": "",
       "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
       "units": 17.0,
       "lines": 13,
@@ -1164,20 +1237,20 @@
           "lines": 8
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
           "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
           "name": "Market House, LLC : 25 Market Space",
           "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -1191,7 +1264,6 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1218,58 +1290,6 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Orange Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "81549fa2-3b01-4b00-aff5-7159993865f5",
-      "units": 16.0,
-      "lines": 11,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 12.0,
-          "lines": 8
-        },
-        {
-          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
-          "name": "Market House, LLC : 25 Market Space",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
-      "itemUuid": "d6d6b152-a6f0-4ae8-a227-518b3011956d",
-      "units": 16.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 16.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Monin Sugar Free Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "97d5d16e-0030-413c-a4d2-ed006589f345",
@@ -1277,7 +1297,6 @@
       "lines": 10,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1311,11 +1330,10 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 4,
+      "customers": 3,
       "custDetail": [
         {
           "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
@@ -1324,22 +1342,44 @@
           "lines": 8
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 2.0,
+          "lines": 2
         },
         {
           "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
           "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Boylan Bottling Co. Orange Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "81549fa2-3b01-4b00-aff5-7159993865f5",
+      "units": 15.0,
+      "lines": 10,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 12.0,
+          "lines": 8
         },
         {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 1.0,
-          "lines": 1
+          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
+          "name": "Market House, LLC : 25 Market Space",
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
@@ -1351,7 +1391,6 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1378,64 +1417,40 @@
       ]
     },
     {
-      "name": "Oatly Barista Oat Milk 32oz",
-      "brand": "Oatly",
-      "itemUuid": "6e4d348f-0bd4-49d2-a361-6b348ff2aaf3",
-      "units": 15.0,
-      "lines": 5,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 15.0,
-          "lines": 5
-        }
-      ]
-    },
-    {
-      "name": "Boylan Bottling Co. Diet Cola Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
+      "name": "Humankind Organic Lavender Lemonade 16oz",
+      "brand": "Humankind",
+      "itemUuid": "1b82f65f-24fe-489e-aa9a-aadf3e3da1c7",
       "units": 14.0,
-      "lines": 10,
+      "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
+        "onhand"
       ],
       "customers": 3,
       "custDetail": [
         {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 12.0,
-          "lines": 8
-        },
-        {
           "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
           "name": "Bon Fresco : Gaither Rd",
-          "units": 1.0,
+          "units": 7.0,
+          "lines": 3
+        },
+        {
+          "uuid": "2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c",
+          "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
+          "units": 4.0,
           "lines": 1
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
     {
       "name": "Boylan Bottling Co. Cane Cola Soda",
-      "brand": "",
+      "brand": "Boylan Bottling Company",
       "itemUuid": "ec0c839c-ac65-465e-a886-29ee54401a4f",
       "units": 13.0,
       "lines": 9,
@@ -1454,48 +1469,43 @@
           "lines": 7
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
         }
       ]
     },
     {
-      "name": "Humankind Organic Lavender Lemonade 16oz",
-      "brand": "Humankind",
-      "itemUuid": "1b82f65f-24fe-489e-aa9a-aadf3e3da1c7",
-      "units": 12.0,
-      "lines": 5,
+      "name": "Boylan Bottling Co. Diet Cola Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "0779edfb-f6c1-4fa7-ae1c-c51e3ec16314",
+      "units": 13.0,
+      "lines": 9,
       "inDca1": true,
       "dca1Sources": [
-        "onhand"
+        "onhand",
+        "sold90"
       ],
-      "customers": 3,
+      "customers": 2,
       "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 12.0,
+          "lines": 8
+        },
         {
           "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
           "name": "Bon Fresco : Gaither Rd",
-          "units": 5.0,
-          "lines": 2
-        },
-        {
-          "uuid": "2c3b698a-7b67-4afc-8dbe-a6a617d4ed5c",
-          "name": "Capo Italian Deli - Potomac - Cabin John : 7731 Tuckerman Lane",
-          "units": 4.0,
+          "units": 1.0,
           "lines": 1
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 3.0,
-          "lines": 2
         }
       ]
     },
@@ -1503,15 +1513,14 @@
       "name": "Humankind Organic Lemonade 16oz",
       "brand": "Humankind",
       "itemUuid": "17f4509a-69d7-487f-9034-b4f8f53a32b5",
-      "units": 12.0,
+      "units": 13.0,
       "lines": 6,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 4,
+      "customers": 3,
       "custDetail": [
         {
           "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
@@ -1522,18 +1531,12 @@
         {
           "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
           "name": "Bon Fresco : Gaither Rd",
-          "units": 4.0,
-          "lines": 1
+          "units": 6.0,
+          "lines": 2
         },
         {
           "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
           "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -1547,7 +1550,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1609,7 +1611,6 @@
       "lines": 8,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1622,14 +1623,14 @@
           "lines": 6
         },
         {
-          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
-          "name": "French Press : 4918 Saint Elmo Avenue",
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
+          "name": "French Press : 4918 Saint Elmo Avenue",
           "units": 1.0,
           "lines": 1
         }
@@ -1659,8 +1660,10 @@
       "itemUuid": "6f63ac94-871e-48ea-9a16-b112fb247f28",
       "units": 12.0,
       "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand"
+      ],
       "customers": 3,
       "custDetail": [
         {
@@ -1721,7 +1724,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -1742,7 +1744,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1770,7 +1771,6 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -1781,46 +1781,6 @@
           "name": "Kyotomatcha : 33 Maryland Avenue",
           "units": 10.0,
           "lines": 4
-        }
-      ]
-    },
-    {
-      "name": "Monin White Chocolate Sauce 64oz",
-      "brand": "Monin",
-      "itemUuid": "a60a59a2-770c-4454-8187-b34c2c50f870",
-      "units": 10.0,
-      "lines": 4,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
-          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
-          "units": 4.0,
-          "lines": 1
-        },
-        {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
-          "units": 4.0,
-          "lines": 1
-        },
-        {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 1.0,
-          "lines": 1
         }
       ]
     },
@@ -1919,28 +1879,6 @@
       ]
     },
     {
-      "name": "Humankind Organic Peach Iced Tea 16oz",
-      "brand": "Humankind",
-      "itemUuid": "a5ee5f89-b448-4aee-a2fb-0aa102c53e8b",
-      "units": 9.0,
-      "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 9.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Monin Pistachio Syrup 750 ml Glass",
       "brand": "Monin",
       "itemUuid": "74ef30fb-0cab-49e5-ace5-1501e6566858",
@@ -1948,7 +1886,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2024,7 +1961,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2046,7 +1982,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2111,30 +2046,23 @@
       ]
     },
     {
-      "name": "Lenka Bar-Chocolate Peanut Butter",
-      "brand": "Lenka Bar",
-      "itemUuid": "dfe1b559-6835-4c68-af30-04cf1b20b355",
+      "name": "Monin Glass Bottle Pump",
+      "brand": "",
+      "itemUuid": "ad0a5813-0981-432a-abfd-19786e44512c",
       "units": 6.0,
-      "lines": 4,
+      "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 2,
+      "customers": 1,
       "custDetail": [
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 4.0,
-          "lines": 2
-        },
-        {
-          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
-          "name": "Market House, LLC : 25 Market Space",
-          "units": 2.0,
-          "lines": 2
+          "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
+          "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
+          "units": 6.0,
+          "lines": 1
         }
       ]
     },
@@ -2203,11 +2131,11 @@
       ]
     },
     {
-      "name": "Humankind Organic Jasmine Lime Green Tea 16oz",
+      "name": "Humankind Organic Peach Iced Tea 16oz",
       "brand": "Humankind",
-      "itemUuid": "11bef534-3795-4669-9189-df647986ce2e",
+      "itemUuid": "a5ee5f89-b448-4aee-a2fb-0aa102c53e8b",
       "units": 5.0,
-      "lines": 3,
+      "lines": 2,
       "inDca1": true,
       "dca1Sources": [
         "onhand",
@@ -2219,7 +2147,7 @@
           "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
           "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 5.0,
-          "lines": 3
+          "lines": 2
         }
       ]
     },
@@ -2231,7 +2159,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2295,7 +2222,6 @@
       "lines": 5,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2323,7 +2249,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2369,7 +2294,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2384,6 +2308,60 @@
       ]
     },
     {
+      "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
+      "brand": "",
+      "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
+      "units": 4.0,
+      "lines": 4,
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
+          "name": "Market House, LLC : 25 Market Space",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Lenka Bar-Chocolate Peanut Butter",
+      "brand": "Lenka Bar",
+      "itemUuid": "dfe1b559-6835-4c68-af30-04cf1b20b355",
+      "units": 4.0,
+      "lines": 3,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
+          "name": "Market House, LLC : 25 Market Space",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 2.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Monin Amaretto Syrup 750ml Glass",
       "brand": "Monin",
       "itemUuid": "92fb4bf4-1f7c-40ed-9066-1e301e7f818b",
@@ -2391,7 +2369,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2419,7 +2396,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2441,7 +2417,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2456,106 +2431,6 @@
       ]
     },
     {
-      "name": "Spindrift Grapefruit",
-      "brand": "Spindrift",
-      "itemUuid": "c4e59ec2-d614-483e-ac6e-06937f57cc8c",
-      "units": 4.0,
-      "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Spindrift Raspberry Lime",
-      "brand": "Spindrift",
-      "itemUuid": "dce718ab-5ba4-47e0-903a-d378e936ad5d",
-      "units": 4.0,
-      "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "13cf141f-2843-48f7-b4f8-39e250567969",
-      "units": 3.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "d90f161c-964c-43aa-bdc6-58ec12c224ab",
-      "units": 3.0,
-      "lines": 3,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
-          "name": "Market House, LLC : 25 Market Space",
-          "units": 3.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Boylan Bottling Co. Seltzer Lemon 12oz Bottle",
       "brand": "Boylan Bottling Company",
       "itemUuid": "41b3260a-e5e7-44e0-915d-09776c7ce098",
@@ -2563,7 +2438,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2574,6 +2448,28 @@
           "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 3.0,
           "lines": 3
+        }
+      ]
+    },
+    {
+      "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
+      "brand": "",
+      "itemUuid": "0f89cfd0-106f-4a52-a19d-6a1061243783",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
@@ -2603,7 +2499,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2618,14 +2513,13 @@
       ]
     },
     {
-      "name": "Lenka Bar-Vanilla Espresso",
-      "brand": "Lenka Bar",
-      "itemUuid": "5f312d8e-483d-437f-9e9e-e5a2c9b0f9df",
+      "name": "Humankind Organic Jasmine Lime Green Tea 16oz",
+      "brand": "Humankind",
+      "itemUuid": "11bef534-3795-4669-9189-df647986ce2e",
       "units": 3.0,
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2647,7 +2541,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2689,7 +2582,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2711,7 +2603,6 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2722,6 +2613,50 @@
           "name": "French Press : 4918 Saint Elmo Avenue",
           "units": 3.0,
           "lines": 3
+        }
+      ]
+    },
+    {
+      "name": "Spindrift Grapefruit",
+      "brand": "Spindrift",
+      "itemUuid": "c4e59ec2-d614-483e-ac6e-06937f57cc8c",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "Spindrift Raspberry Lime",
+      "brand": "Spindrift",
+      "itemUuid": "dce718ab-5ba4-47e0-903a-d378e936ad5d",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
@@ -2751,7 +2686,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2784,24 +2718,20 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
+      "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
       "brand": "Boylan Bottling Company",
-      "itemUuid": "0f89cfd0-106f-4a52-a19d-6a1061243783",
+      "itemUuid": "13cf141f-2843-48f7-b4f8-39e250567969",
       "units": 2.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
           "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
           "name": "Bon Fresco : Gaither Rd",
           "units": 2.0,
-          "lines": 1
+          "lines": 2
         }
       ]
     },
@@ -2813,7 +2743,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -2860,28 +2789,6 @@
           "name": "Bean Rush Cafe : Glen Burnie",
           "units": 2.0,
           "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Lenka Bar-Berry Omega",
-      "brand": "Lenka Bar",
-      "itemUuid": "ec4b645c-cd21-4d91-bfcc-c32eb7d89093",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 2.0,
-          "lines": 1
         }
       ]
     },
@@ -2957,7 +2864,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3055,21 +2961,20 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
           "units": 1.0,
           "lines": 1
         }
@@ -3101,7 +3006,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3123,7 +3027,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3145,7 +3048,6 @@
       "lines": 2,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3167,7 +3069,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3189,28 +3090,6 @@
       "lines": 2,
       "inDca1": false,
       "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-      "brand": "Righteous Felon",
-      "itemUuid": "911e7720-530d-4e95-bc66-5d0287b2c25b",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
       "customers": 1,
       "custDetail": [
         {
@@ -3319,7 +3198,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3341,7 +3219,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3363,7 +3240,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3385,7 +3261,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3418,22 +3293,18 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Birch Beer 12oz Bottle",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "0b3ae415-4347-4e54-95da-3a7d9359ed11",
+      "name": "Boylan Bottling Co. Creamy Red Birch Beer 12oz Bottle",
+      "brand": "",
+      "itemUuid": "6fd62147-eb85-4fe1-8d0f-ecc969762b8e",
       "units": 1.0,
       "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 1,
       "custDetail": [
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -3501,7 +3372,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3523,7 +3393,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -3553,6 +3422,28 @@
         {
           "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
           "name": "Market House, LLC : 25 Market Space",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Lenka Bar-Vanilla Espresso",
+      "brand": "Lenka Bar",
+      "itemUuid": "5f312d8e-483d-437f-9e9e-e5a2c9b0f9df",
+      "units": 1.0,
+      "lines": 1,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -3642,7 +3533,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3677,9 +3567,9 @@
       ]
     },
     {
-      "name": "Righteous Felon - Ancho Villa - Spicy Biltong 2oz Bag",
+      "name": "Righteous Felon - Darth Garlic - Black Garlic Biltong 2oz Bag",
       "brand": "Righteous Felon",
-      "itemUuid": "041c4fa1-f5aa-49b0-af99-905bb026a5ba",
+      "itemUuid": "9af78a28-524b-4e4f-8b23-9ee31eb15c26",
       "units": 1.0,
       "lines": 1,
       "inDca1": false,
@@ -3695,13 +3585,16 @@
       ]
     },
     {
-      "name": "Righteous Felon - Darth Garlic - Black Garlic Biltong 2oz Bag",
+      "name": "Righteous Felon - Habanero Escobar 2oz Bag",
       "brand": "Righteous Felon",
-      "itemUuid": "9af78a28-524b-4e4f-8b23-9ee31eb15c26",
+      "itemUuid": "911e7720-530d-4e95-bc66-5d0287b2c25b",
       "units": 1.0,
       "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand",
+        "sold90"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -3738,7 +3631,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -3843,24 +3735,6 @@
       ]
     },
     {
-      "name": "Spindrift Nojito",
-      "brand": "Spindrift",
-      "itemUuid": "54fcb696-0b45-471b-a18e-fb67d8548ed3",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Stroopie Co. - Dark Chocolate Gluten Free",
       "brand": "Stroopie Co.",
       "itemUuid": "51d8fddb-c368-4970-be34-b6d96b39ba74",
@@ -3958,7 +3832,6 @@
       "lines": 1,
       "inDca1": true,
       "dca1Sources": [
-        "catalog",
         "onhand",
         "sold90"
       ],
@@ -4052,43 +3925,43 @@
       "uuid": "847b9501-2908-48df-8a65-e5e98a75fe3e",
       "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
       "hasHistory": true,
-      "skus": 17,
+      "skus": 20,
       "gapSkus": 6,
-      "units": 1262.0,
+      "units": 1486.0,
       "items": [
         {
           "name": "Monin Vanilla Syrup 1L Plastic Bottle",
           "brand": "Monin",
-          "units": 229.0,
-          "lines": 7,
+          "units": 247.0,
+          "lines": 8,
           "inDca1": true
         },
         {
           "name": "Monin Caramel Sauce 64oz",
+          "brand": "Monin",
+          "units": 192.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
           "units": 180.0,
           "lines": 7,
           "inDca1": true
         },
         {
-          "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 156.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
           "name": "Monin Dark Chocolate Sauce 64oz",
           "brand": "Monin",
-          "units": 119.0,
-          "lines": 5,
+          "units": 147.0,
+          "lines": 6,
           "inDca1": true
         },
         {
           "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
           "brand": "Monin",
-          "units": 112.0,
-          "lines": 5,
+          "units": 120.0,
+          "lines": 6,
           "inDca1": false
         },
         {
@@ -4113,6 +3986,20 @@
           "inDca1": true
         },
         {
+          "name": "Oatly Barista Oat Milk 32oz",
+          "brand": "",
+          "units": 60.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
+          "brand": "",
+          "units": 51.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
           "name": "Monin Pure Cane Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
           "units": 44.0,
@@ -4120,17 +4007,10 @@
           "inDca1": true
         },
         {
-          "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 33.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
-          "units": 32.0,
-          "lines": 3,
+          "units": 42.0,
+          "lines": 4,
           "inDca1": false
         },
         {
@@ -4141,6 +4021,20 @@
           "inDca1": true
         },
         {
+          "name": "Monin White Chocolate Sauce 64oz",
+          "brand": "",
+          "units": 22.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
+          "brand": "Monin",
+          "units": 20.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
           "name": "Monin Sugar Free Hazelnut Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
           "units": 19.0,
@@ -4148,11 +4042,11 @@
           "inDca1": false
         },
         {
-          "name": "Monin Cinnamon Bun Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 16.0,
-          "lines": 3,
-          "inDca1": false
+          "name": "Monin Blackberry Syrup 750ml Glass",
+          "brand": "",
+          "units": 18.0,
+          "lines": 1,
+          "inDca1": true
         },
         {
           "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
@@ -4162,14 +4056,14 @@
           "inDca1": false
         },
         {
-          "name": "Monin Sugar Free Vanilla Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
-          "units": 4.0,
+          "name": "Monin Glass Bottle Pump",
+          "brand": "",
+          "units": 6.0,
           "lines": 1,
           "inDca1": true
         },
         {
-          "name": "Monin White Chocolate Sauce 64oz",
+          "name": "Monin Sugar Free Vanilla Syrup 1 Liter Plastic Bottle",
           "brand": "Monin",
           "units": 4.0,
           "lines": 1,
@@ -4182,7 +4076,7 @@
       "name": "Quartermaine : 4972 Wyaconda Road",
       "hasHistory": true,
       "skus": 25,
-      "gapSkus": 2,
+      "gapSkus": 1,
       "units": 772.0,
       "items": [
         {
@@ -4208,7 +4102,7 @@
         },
         {
           "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "",
+          "brand": "Califia Farms",
           "units": 61.0,
           "lines": 9,
           "inDca1": true
@@ -4344,7 +4238,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Toffee Nut Syrup 750ml Glass",
@@ -4744,7 +4638,7 @@
       "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 6,
+      "gapSkus": 5,
       "units": 177.0,
       "items": [
         {
@@ -4913,7 +4807,7 @@
           "brand": "Monin",
           "units": 2.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Amaretto Syrup 750ml Glass",
@@ -4992,7 +4886,7 @@
       "name": "Casey's Coffee : College Park",
       "hasHistory": true,
       "skus": 17,
-      "gapSkus": 8,
+      "gapSkus": 7,
       "units": 107.0,
       "items": [
         {
@@ -5014,7 +4908,7 @@
           "brand": "Monin",
           "units": 8.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "UGLIES Buffalo Ranch 2oz Bag",
@@ -5262,7 +5156,7 @@
         },
         {
           "name": "Boylan Bottling Co. Cane Cola Soda",
-          "brand": "",
+          "brand": "Boylan Bottling Company",
           "units": 11.0,
           "lines": 7,
           "inDca1": true
@@ -5280,34 +5174,20 @@
       "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
       "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
       "hasHistory": true,
-      "skus": 36,
-      "gapSkus": 17,
-      "units": 64.0,
+      "skus": 23,
+      "gapSkus": 14,
+      "units": 38.0,
       "items": [
         {
           "name": "Humankind Organic Peach Iced Tea 16oz",
           "brand": "Humankind",
-          "units": 9.0,
-          "lines": 3,
+          "units": 5.0,
+          "lines": 2,
           "inDca1": true
         },
         {
           "name": "Humankind Organic Jasmine Lime Green Tea 16oz",
           "brand": "Humankind",
-          "units": 5.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Chocolate Peanut Butter",
-          "brand": "Lenka Bar",
-          "units": 4.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Vanilla Espresso",
-          "brand": "Lenka Bar",
           "units": 3.0,
           "lines": 2,
           "inDca1": true
@@ -5327,14 +5207,7 @@
           "inDca1": false
         },
         {
-          "name": "Humankind Organic Strawberry Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Lenka Bar-Berry Omega",
+          "name": "Lenka Bar-Chocolate Peanut Butter",
           "brand": "Lenka Bar",
           "units": 2.0,
           "lines": 1,
@@ -5355,13 +5228,6 @@
           "inDca1": false
         },
         {
-          "name": "Righteous Felon - Habanero Escobar 2oz Bag",
-          "brand": "Righteous Felon",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
           "name": "Torani Puremade Vanilla Syrup 750mL Glass Bottle",
           "brand": "Torani",
           "units": 2.0,
@@ -5376,42 +5242,7 @@
           "inDca1": false
         },
         {
-          "name": "Boylan Bottling Co. Birch Beer 12oz Bottle",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
           "name": "Boylan Bottling Co. Cane Cola Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Diet Cola Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
           "brand": "Boylan Bottling Company",
           "units": 1.0,
           "lines": 1,
@@ -5425,13 +5256,6 @@
           "inDca1": false
         },
         {
-          "name": "Boylan Bottling Co. Orange Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
           "name": "Califia Farms Barista Oat Milk 32oz",
           "brand": "Califia Farms",
           "units": 1.0,
@@ -5439,18 +5263,11 @@
           "inDca1": true
         },
         {
-          "name": "Humankind Organic Lemonade 16oz",
-          "brand": "Humankind",
+          "name": "Lenka Bar-Vanilla Espresso",
+          "brand": "Lenka Bar",
           "units": 1.0,
           "lines": 1,
           "inDca1": true
-        },
-        {
-          "name": "Righteous Felon - Ancho Villa - Spicy Biltong 2oz Bag",
-          "brand": "Righteous Felon",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
         },
         {
           "name": "Righteous Felon - Darth Garlic - Black Garlic Biltong 2oz Bag",
@@ -5458,6 +5275,13 @@
           "units": 1.0,
           "lines": 1,
           "inDca1": false
+        },
+        {
+          "name": "Righteous Felon - Habanero Escobar 2oz Bag",
+          "brand": "Righteous Felon",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
         },
         {
           "name": "Righteous Felon - Lemon Pepper Turkey Stick 24pk",
@@ -5488,27 +5312,6 @@
           "inDca1": false
         },
         {
-          "name": "Spindrift Grapefruit",
-          "brand": "Spindrift",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Spindrift Nojito",
-          "brand": "Spindrift",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Spindrift Raspberry Lime",
-          "brand": "Spindrift",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
           "name": "UGLIES BBQ 2oz Bag",
           "brand": "Uglies Kettle Chips",
           "units": 1.0,
@@ -5532,6 +5335,107 @@
         {
           "name": "UGLIES Original Sea Salt 2oz Bag",
           "brand": "Uglies Kettle Chips",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        }
+      ]
+    },
+    {
+      "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+      "name": "Bon Fresco : Gaither Rd",
+      "hasHistory": true,
+      "skus": 13,
+      "gapSkus": 3,
+      "units": 36.0,
+      "items": [
+        {
+          "name": "Humankind Organic Strawberry Lemonade 16oz",
+          "brand": "",
+          "units": 9.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Humankind Organic Lavender Lemonade 16oz",
+          "brand": "Humankind",
+          "units": 7.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Humankind Organic Lemonade 16oz",
+          "brand": "Humankind",
+          "units": 6.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
+          "brand": "",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Black Cherry Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
+          "brand": "Boylan Bottling Company",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Creamy Red Birch Beer 12oz Bottle",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Creme Soda 12oz Bottle",
+          "brand": "Boylan Bottling Company",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Diet Cola Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Seasonal Shirley Temple 12oz Bottle",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Sugar In The Raw Packets",
+          "brand": "Sugar In The Raw",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
@@ -5852,86 +5756,6 @@
           "units": 0.0,
           "lines": 1,
           "inDca1": true
-        }
-      ]
-    },
-    {
-      "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-      "name": "Bon Fresco : Gaither Rd",
-      "hasHistory": true,
-      "skus": 10,
-      "gapSkus": 2,
-      "units": 25.0,
-      "items": [
-        {
-          "name": "Humankind Organic Strawberry Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 7.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Humankind Organic Lavender Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 5.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Humankind Organic Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 4.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Dr. Boylan Soda 12oz Bottle",
-          "brand": "Boylan Bottling Company",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
-          "brand": "Boylan Bottling Company",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Creme Soda 12oz Bottle",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Diet Cola Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Sugar In The Raw Packets",
-          "brand": "Sugar In The Raw",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
         }
       ]
     },
