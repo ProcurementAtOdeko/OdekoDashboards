@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T19:47:08+00:00",
+  "generatedAt": "2026-09-18T22:41:21+00:00",
   "dateRange": {
     "min": "2026-06-21",
     "max": "2026-09-17"
@@ -20,15 +20,15 @@
     "gapsInOnboarding": 18,
     "gapsNotOnboarding": 137,
     "gapUnitsTotal": 1187.0,
-    "skusReady": 150,
+    "skusReady": 151,
     "skusNoStock": 8,
-    "skusNotActive": 4,
+    "skusNotActive": 3,
     "skusDormant": 3,
     "skusUnknownStock": 1,
-    "skusActive": 158,
+    "skusActive": 159,
     "skusInStock": 154,
     "noStockUnits": 135.0,
-    "notActiveUnits": 41.0,
+    "notActiveUnits": 22.0,
     "dormantUnits": 31.0,
     "formatSubstitutes": 10,
     "planResolved": 83,
@@ -277,6 +277,7 @@
         {
           "name": "Monin Sugar Free Caramel Syrup 750ml Glass",
           "sources": [
+            "catalog",
             "onhand"
           ],
           "pack": "750 ml glass",
@@ -423,8 +424,8 @@
         "sold90"
       ],
       "planUnits": 316.0,
-      "units": 46.0,
-      "customers": 4
+      "units": 180.0,
+      "customers": 1
     },
     {
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
@@ -499,6 +500,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 87.3,
@@ -801,8 +803,8 @@
         "sold90"
       ],
       "planUnits": 24.0,
-      "units": 97.0,
-      "customers": 9
+      "units": 55.0,
+      "customers": 3
     },
     {
       "name": "Monin Pear Syrup 750mL Glass",
@@ -4386,14 +4388,15 @@
       "lines": 11,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "inOnboarding": true,
-      "active": false,
+      "active": true,
       "inStock": true,
       "onHand": 60.0,
       "dca1Doc": null,
-      "availability": "not-active",
+      "availability": "ready",
       "customers": 7,
       "custDetail": [
         {
