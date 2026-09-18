@@ -44,9 +44,9 @@ MDT1_FILE_NAME = "Network Sales Tracker - MDT1.csv"
 
 # DCA1 "carried" signal sources.
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
-MODELS_RANGE = "'Warehouse Raw'!A1:H"
+MODELS_RANGE = "'Warehouse Raw'!A1:AF"   # through net_inventory
 ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
-ONHAND_RANGE = "'On Hand & ETA.csv'!A1:D"
+ONHAND_RANGE = "'On Hand & ETA.csv'!A1:N"   # through quantity available
 DCA1_SOLD_SPREADSHEET_ID = "18i2x-8TSifmNeEZldpIH9_Y29jJ5aJNgxvNsxtZeWSs"
 DCA1_SOLD_RANGE = "A1:C"
 
@@ -433,14 +433,22 @@ def load_onboarding_items():
 def build_carried_set(svc):
     """SKUs DCA1 already carries (union of 3 signals).
 
-    Returns (carried, carried_named):
+    Returns (carried, carried_named, status):
       carried       — norm_name -> {source, ...}
       carried_named — norm_name -> {"name": display_name, "sources": {...}}
+      status        — norm_name -> live availability at DCA1 right now:
+                      {"active", "onHand", "onHandPu", "doc", "inModel"}
     carried_named preserves an original display name so we can compute
     format-substitute keys and show the specific DCA1 item to swap to.
+
+    "Carried" is deliberately a union — it answers "is this a bring-in gap?".
+    Availability is the narrower, present-tense question: is the SKU live in
+    the catalog, and is there stock behind it? A SKU can be one without the
+    other, and both cases matter at cutover.
     """
     carried = defaultdict(set)  # norm_name -> {source, ...}
     carried_named = {}          # norm_name -> {"name", "sources"}
+    status = {}                 # norm_name -> availability
 
     def add(name, source):
         k = norm_name(name)
@@ -454,26 +462,68 @@ def build_carried_set(svc):
     def truthy(v):
         return str(v).strip().upper() in ("TRUE", "1", "YES", "Y")
 
-    # 1. Combined Models Dump — DCA1 rows flagged in_catalog.
+    def stat(name):
+        k = norm_name(name)
+        return status.setdefault(k, {
+            "active": False, "onHand": None, "onHandPu": None,
+            "doc": None, "inModel": False, "qtyKnown": False,
+        }) if k else None
+
+    # 1. Combined Models Dump — DCA1 rows. in_catalog drives "active"; the
+    #    same row carries the inventory and days-of-cover behind it.
     rows = get_values(svc, MODELS_SPREADSHEET_ID, MODELS_RANGE)
     if rows:
         col = {n: i for i, n in enumerate(rows[0])}
         wi, ni, ci = col.get("warehouse_name"), col.get("item_name"), col.get("in_catalog")
+        inv_i, doc_i = col.get("inventory"), col.get("days_of_cover")
         for r in rows[1:]:
-            if wi is not None and len(r) > wi and r[wi] == WAREHOUSE:
-                if ci is not None and len(r) > ci and truthy(r[ci]):
-                    if ni is not None and len(r) > ni:
-                        add(r[ni], "catalog")
+            if wi is None or len(r) <= wi or r[wi] != WAREHOUSE:
+                continue
+            if ni is None or len(r) <= ni or not r[ni]:
+                continue
+            active = ci is not None and len(r) > ci and truthy(r[ci])
+            if active:
+                add(r[ni], "catalog")
+            st = stat(r[ni])
+            if st is not None:
+                st["inModel"] = True
+                st["active"] = st["active"] or active
+                if inv_i is not None and len(r) > inv_i:
+                    v = parse_num(r[inv_i])
+                    if v is not None:
+                        st["onHand"] = max(st["onHand"] or 0.0, v)
+                        st["qtyKnown"] = True
+                if doc_i is not None and len(r) > doc_i:
+                    v = parse_num(r[doc_i])
+                    if v is not None and st["doc"] is None:
+                        st["doc"] = v
 
-    # 2. On Hand & ETA — DCA1 rows (has inventory).
+    # 2. On Hand & ETA — DCA1 rows (has inventory). Also the only stock signal
+    #    for items sitting in the warehouse with no row in the ordering model.
     rows = get_values(svc, ONHAND_SPREADSHEET_ID, ONHAND_RANGE)
     if rows:
         col = {n: i for i, n in enumerate(rows[0])}
         wi, ni = col.get("Warehouse Name"), col.get("Item Name")
+        pu_i, ea_i = col.get("On Hand Purchase Units"), col.get("Available Each")
         for r in rows[1:]:
-            if wi is not None and len(r) > wi and r[wi] == WAREHOUSE:
-                if ni is not None and len(r) > ni:
-                    add(r[ni], "onhand")
+            if wi is None or len(r) <= wi or r[wi] != WAREHOUSE:
+                continue
+            if ni is None or len(r) <= ni or not r[ni]:
+                continue
+            add(r[ni], "onhand")
+            st = stat(r[ni])
+            if st is None:
+                continue
+            if pu_i is not None and len(r) > pu_i:
+                v = parse_num(r[pu_i])
+                if v is not None:
+                    st["onHandPu"] = max(st["onHandPu"] or 0.0, v)
+                    st["qtyKnown"] = True
+            if ea_i is not None and len(r) > ea_i:
+                v = parse_num(r[ea_i])
+                if v is not None:
+                    st["onHand"] = max(st["onHand"] or 0.0, v)
+                    st["qtyKnown"] = True
 
     # 3. DCA1 Sales Tracker Trailing 90 — recently sold at DCA1.
     rows = get_values(svc, DCA1_SOLD_SPREADSHEET_ID, DCA1_SOLD_RANGE)
@@ -484,7 +534,57 @@ def build_carried_set(svc):
             if ni is not None and len(r) > ni:
                 add(r[ni], "sold90")
 
-    return carried, carried_named
+    return carried, carried_named, status
+
+
+def availability(key, in_dca1):
+    """Present-tense DCA1 status for one SKU.
+
+    "Carried" answers whether a SKU is a bring-in gap at all. This answers the
+    narrower question the cutover actually turns on: is it live in the catalog
+    right now, and is there stock behind it? The two come apart in both
+    directions —
+
+      ready      — in the catalog with inventory behind it; nothing to do
+      no-stock   — in the catalog but nothing on hand; orderable and will
+                   short at cutover
+      not-active — stock sitting in DCA1 but not in the catalog, so customers
+                   cannot order it; needs activating, not buying
+      dormant    — known to DCA1 but neither active nor stocked; as good as a
+                   gap at cutover, though it is already set up
+      unknown    — carried on some signal but no quantity anywhere, so stock
+                   cannot be confirmed either way
+      gap        — not carried at all
+
+    A reported zero is a fact and lands in no-stock/dormant; only a missing
+    quantity is unknown.
+    """
+    st = _DCA1_STATUS.get(key)
+    if not in_dca1:
+        return {"active": False, "inStock": False, "onHand": None,
+                "dca1Doc": None, "availability": "gap"}
+    if st is None:
+        return {"active": False, "inStock": False, "onHand": None,
+                "dca1Doc": None, "availability": "unknown"}
+    on_hand = st["onHand"] if st["onHand"] is not None else st["onHandPu"]
+    in_stock = bool(on_hand and on_hand > 0)
+    if st["active"]:
+        state = "ready" if in_stock else "no-stock"
+    elif in_stock:
+        state = "not-active"
+    else:
+        state = "dormant" if st["qtyKnown"] else "unknown"
+    return {
+        "active": bool(st["active"]),
+        "inStock": in_stock,
+        "onHand": round(on_hand, 1) if on_hand is not None else None,
+        "dca1Doc": round(st["doc"], 1) if st["doc"] is not None else None,
+        "availability": state,
+    }
+
+
+# Set once per build so availability() can stay a plain function.
+_DCA1_STATUS = {}
 
 
 def main(out_path):
@@ -502,7 +602,9 @@ def main(out_path):
     # demand at DCA1.
     wanted = set(ALL_CUSTOMER_UUIDS)
     cohort = set(CUSTOMER_UUIDS)
-    carried, carried_named = build_carried_set(svc)
+    carried, carried_named, dca1_status = build_carried_set(svc)
+    _DCA1_STATUS.clear()
+    _DCA1_STATUS.update(dca1_status)
     onboarding = load_onboarding_skus()
 
     mdt1_id = find_mdt1_file(drive)
@@ -560,6 +662,7 @@ def main(out_path):
                 "dca1Sources": sorted(carried.get(key, [])),
                 # already covered by the MDT1 SKU onboarding tracker?
                 "inOnboarding": key in onboarding,
+                **availability(key, key in carried),
             }
         if in_cohort:
             s["units"] += units
@@ -765,6 +868,20 @@ def main(out_path):
             "gapsInOnboarding": sum(1 for x in gaps if x["inOnboarding"]),
             "gapsNotOnboarding": sum(1 for x in gaps if not x["inOnboarding"]),
             "gapUnitsTotal": gap_units,
+            # Present-tense DCA1 availability across the carried SKUs.
+            "skusReady": sum(1 for x in covered if x["availability"] == "ready"),
+            "skusNoStock": sum(1 for x in covered if x["availability"] == "no-stock"),
+            "skusNotActive": sum(1 for x in covered if x["availability"] == "not-active"),
+            "skusDormant": sum(1 for x in covered if x["availability"] == "dormant"),
+            "skusUnknownStock": sum(1 for x in covered if x["availability"] == "unknown"),
+            "skusActive": sum(1 for x in covered if x["active"]),
+            "skusInStock": sum(1 for x in covered if x["inStock"]),
+            "noStockUnits": round(sum(x["units"] for x in covered
+                                      if x["availability"] == "no-stock"), 1),
+            "notActiveUnits": round(sum(x["units"] for x in covered
+                                        if x["availability"] == "not-active"), 1),
+            "dormantUnits": round(sum(x["units"] for x in covered
+                                      if x["availability"] == "dormant"), 1),
             "formatSubstitutes": len(format_subs),
             "planResolved": len(plan_resolved),
             "planResolvedCarried": sum(1 for p in plan_resolved if p["reason"] == "carried"),

@@ -113,6 +113,11 @@
   .badge.carried { background: var(--green-soft); color: var(--green); }
   .badge.gap { background: var(--red-soft); color: var(--red); }
   .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .badge.stock-ready { background: var(--green-soft); color: var(--green); }
+  .badge.stock-nostock { background: var(--red-soft); color: var(--red); }
+  .badge.stock-notactive { background: var(--amber-soft); color: var(--amber); }
+  .badge.stock-dormant { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+  .qty { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .badge.roster-kept { background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
   .badge.roster-added { background: var(--green-soft); color: var(--green); }
   .badge.roster-removed { background: var(--red-soft); color: var(--red); }
@@ -225,6 +230,7 @@
         <button data-f="planned">In onboarding</button>
         <button data-f="all">All</button>
         <button data-f="carried">Carried</button>
+        <button data-f="notready">Not orderable yet</button>
       </div>
       <input id="search" type="search" placeholder="Search item or brand…" />
       <span class="count" id="table-count"></span>
@@ -237,6 +243,7 @@
             <th data-sort="name">Item</th>
             <th data-sort="brand">Brand</th>
             <th data-sort="inDca1">In DCA1?</th>
+            <th data-sort="availability">Available Now</th>
             <th data-sort="inOnboarding">Onboarding</th>
             <th class="num" data-sort="customers">Customers</th>
             <th class="num" data-sort="lines">Order Lines</th>
@@ -502,7 +509,7 @@ function renderKpis() {
       hint: `${s.customersActive} with purchase history` },
     { label: "SKUs Purchased", value: s.skusPurchased, cls: "" },
     { label: "Carried in DCA1", value: s.skusCarried, cls: "green",
-      hint: `${s.coveragePct}% catalog coverage` },
+      hint: `${s.skusReady} orderable now · ${s.skusCarried - s.skusReady} not yet` },
     { label: "Bring-In Gaps", value: s.skusGap, cls: "red",
       hint: `${fmt(s.gapsInOnboarding)} already in the onboarding plan · ${fmt(s.gapsNotOnboarding)} new` },
     { label: "Total Units", value: s.unitsTotal, cls: "",
@@ -584,6 +591,24 @@ function renderCharts() {
   });
 }
 
+// Present-tense DCA1 status. "Carried" says a SKU isn't a bring-in gap;
+// this says whether a customer could actually order it today.
+const AVAIL = {
+  "ready":      ["Ready", "stock-ready", "live in the DCA1 catalog with stock behind it"],
+  "no-stock":   ["No stock", "stock-nostock", "in the catalog but nothing on hand — will short at cutover"],
+  "not-active": ["Not active", "stock-notactive", "stock is in DCA1 but the SKU isn't in the catalog, so customers can't order it"],
+  "dormant":    ["Dormant", "stock-dormant", "known to DCA1 but neither active nor stocked"],
+  "unknown":    ["—", "muted", "carried on some signal, but no quantity reported anywhere"],
+};
+
+function availabilityCell(s) {
+  if (!s.inDca1) return `<span class="badge muted" title="not carried at DCA1">—</span>`;
+  const [label, cls, title] = AVAIL[s.availability] || AVAIL["unknown"];
+  const qty = s.onHand == null ? "" :
+    `<div class="qty">${fmt(s.onHand)} on hand${s.dca1Doc != null ? ` · ${fmt(s.dca1Doc)}d cover` : ""}</div>`;
+  return `<span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span>${qty}`;
+}
+
 function renderTable() {
   const q = filterText.toLowerCase();
   let rows = DATA.skus.filter(s => {
@@ -591,6 +616,7 @@ function renderTable() {
     if (skuFilter === "carried" && !s.inDca1) return false;
     if (skuFilter === "new" && (s.inDca1 || s.inOnboarding)) return false;
     if (skuFilter === "planned" && !s.inOnboarding) return false;
+    if (skuFilter === "notready" && !(s.inDca1 && s.availability !== "ready")) return false;
     return !q || s.name.toLowerCase().includes(q) || (s.brand || "").toLowerCase().includes(q);
   });
 
@@ -617,6 +643,7 @@ function renderTable() {
     const badge = s.inDca1
       ? `<span class="badge carried" title="${s.dca1Sources.join(', ')}">Carried</span>`
       : `<span class="badge gap">Gap</span>`;
+    const avail = availabilityCell(s);
     const clickable = s.custDetail && s.custDetail.length;
     const nameCell = clickable
       ? `<span class="name-link">${escapeHtml(s.name)}</span>`
@@ -625,6 +652,7 @@ function renderTable() {
       <td>${nameCell}</td>
       <td class="brand-cell">${escapeHtml(s.brand || "—")}</td>
       <td>${badge}</td>
+      <td>${avail}</td>
       <td>${s.inOnboarding
         ? `<span class="badge carried" title="already tracked on the MDT1 SKU Onboarding dashboard">planned</span>`
         : (s.inDca1 ? `<span class="badge muted">—</span>`
@@ -782,8 +810,13 @@ document.getElementById("dl-skus").addEventListener("click", () => {
   const label = skuFilter === "gap" ? "gaps" : skuFilter === "carried" ? "carried" : "all";
   downloadCSV(
     `mdt1-dca1-skus-${label}.csv`,
-    ["Item", "Brand", "In DCA1", "Onboarding Plan", "DCA1 Sources", "Customers", "Order Lines", "Units"],
+    ["Item", "Brand", "In DCA1", "Available Now", "Active", "In Stock", "On Hand",
+     "DCA1 Days of Cover", "Onboarding Plan", "DCA1 Sources", "Customers", "Order Lines", "Units"],
     lastSkuRows.map(s => [s.name, s.brand, s.inDca1 ? "Yes" : "No (gap)",
+                          s.inDca1 ? (AVAIL[s.availability] || AVAIL["unknown"])[0] : "",
+                          s.inDca1 ? (s.active ? "Yes" : "No") : "",
+                          s.inDca1 ? (s.inStock ? "Yes" : "No") : "",
+                          s.onHand, s.dca1Doc,
                           s.inOnboarding ? "Planned" : (s.inDca1 ? "n/a" : "New gap"),
                           (s.dca1Sources || []).join(" / "), s.customers, s.lines, s.units]),
   );
