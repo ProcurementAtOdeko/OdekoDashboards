@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-22T07:56:13+00:00",
+  "generatedAt": "2026-09-22T13:38:29+00:00",
   "dateRange": {
     "min": "2026-06-26",
-    "max": "2026-09-20"
+    "max": "2026-09-21"
   },
   "summary": {
     "customersListed": 16,
     "customersActive": 16,
-    "skusPurchased": 154,
+    "skusPurchased": 156,
     "skusCarried": 104,
-    "skusGap": 50,
-    "coveragePct": 68,
-    "unitsTotal": 3184.0,
-    "gapUnitsTotal": 422.0
+    "skusGap": 52,
+    "coveragePct": 67,
+    "unitsTotal": 3194.0,
+    "gapUnitsTotal": 427.0
   },
   "coverage": [
     {
@@ -21,7 +21,7 @@
     },
     {
       "status": "Not carried (gap)",
-      "count": 50
+      "count": 52
     }
   ],
   "topGapSkus": [
@@ -57,18 +57,18 @@
     },
     {
       "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
-      "units": 11.0,
+      "units": 12.0,
+      "customers": 3
+    },
+    {
+      "name": "UGLIES Buffalo Ranch 2oz Bag",
+      "units": 10.0,
       "customers": 3
     },
     {
       "name": "UGLIES Salt & Vinegar 2oz Bag",
       "units": 10.0,
       "customers": 2
-    },
-    {
-      "name": "UGLIES Buffalo Ranch 2oz Bag",
-      "units": 9.0,
-      "customers": 3
     },
     {
       "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
@@ -106,6 +106,11 @@
       "customers": 1
     },
     {
+      "name": "UGLIES Sweets 1.5oz Bag",
+      "units": 6.0,
+      "customers": 3
+    },
+    {
       "name": "Da Vinci Caramel Sauce 1 Gallon Bottle(s)",
       "units": 5.0,
       "customers": 1
@@ -114,11 +119,6 @@
       "name": "UGLIES BBQ 2oz Bag",
       "units": 5.0,
       "customers": 2
-    },
-    {
-      "name": "UGLIES Sweets 1.5oz Bag",
-      "units": 5.0,
-      "customers": 3
     },
     {
       "name": "1883 French Vanilla Syrup 1L Plastic",
@@ -134,7 +134,7 @@
     },
     {
       "brand": "Uglies Kettle Chips",
-      "units": 55.0,
+      "units": 58.0,
       "skus": 7
     },
     {
@@ -144,8 +144,8 @@
     },
     {
       "brand": "(no brand)",
-      "units": 8.0,
-      "skus": 1
+      "units": 9.0,
+      "skus": 3
     },
     {
       "brand": "Pacific Foods",
@@ -183,9 +183,9 @@
       "skus": 3
     },
     {
-      "brand": "Rishi",
+      "brand": "Spindrift",
       "units": 3.0,
-      "skus": 2
+      "skus": 1
     }
   ],
   "skus": [
@@ -389,7 +389,7 @@
     },
     {
       "name": "Monin Mango Smoothie 46oz",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "e4e469fb-34e6-422d-8368-f120f353f1ab",
       "units": 147.0,
       "lines": 13,
@@ -856,14 +856,14 @@
           "lines": 1
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 2.0,
           "lines": 2
         }
@@ -954,7 +954,7 @@
     },
     {
       "name": "Monin Plastic Bottle Pump",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "2a23090c-ff0d-4dc6-a6d2-90bbf7746635",
       "units": 22.0,
       "lines": 3,
@@ -1124,6 +1124,46 @@
       ]
     },
     {
+      "name": "Boylan Bottling Co. Ginger Ale Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
+      "units": 17.0,
+      "lines": 14,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 4,
+      "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 11.0,
+          "lines": 8
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
+          "name": "Market House, LLC : 25 Market Space",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Boylan Bottling Co. Root Beer Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
@@ -1214,46 +1254,6 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
-      "units": 16.0,
-      "lines": 13,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 11.0,
-          "lines": 8
-        },
-        {
-          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
-          "name": "Market House, LLC : 25 Market Space",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Humankind Apple Juice 10oz",
       "brand": "Humankind",
       "itemUuid": "0209adad-f9f8-4009-a406-44adc40413cf",
@@ -1290,7 +1290,7 @@
     {
       "name": "Monin French Vanilla Syrup 750ml Glass",
       "brand": "",
-      "itemUuid": "",
+      "itemUuid": "b8ad037e-9abc-456d-95fe-2f33290eaaaf",
       "units": 16.0,
       "lines": 3,
       "inDca1": true,
@@ -1365,6 +1365,40 @@
       ]
     },
     {
+      "name": "Boylan Bottling Co. Black Cherry Soda",
+      "brand": "",
+      "itemUuid": "7c6e20d3-ac40-41f6-a38b-979d81e87097",
+      "units": 15.0,
+      "lines": 12,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
+          "name": "Takoma Beverage Company : 6917 Laurel Ave",
+          "units": 11.0,
+          "lines": 8
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
+          "units": 2.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "Humankind Orange Juice 10oz",
       "brand": "Humankind",
       "itemUuid": "39463c99-4668-4540-8843-cf62ab6a669f",
@@ -1385,14 +1419,14 @@
           "lines": 5
         },
         {
-          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
-          "name": "Wild Bean Coffee : 1532 Rockville Pike",
+          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
+          "name": "Market House, LLC : 25 Market Space",
           "units": 4.0,
           "lines": 3
         },
         {
-          "uuid": "7c3582a4-6f79-4363-a197-43902f3a7a68",
-          "name": "Market House, LLC : 25 Market Space",
+          "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
+          "name": "Wild Bean Coffee : 1532 Rockville Pike",
           "units": 4.0,
           "lines": 3
         }
@@ -1420,45 +1454,11 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Black Cherry Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "7c6e20d3-ac40-41f6-a38b-979d81e87097",
-      "units": 14.0,
-      "lines": 11,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
-          "name": "Takoma Beverage Company : 6917 Laurel Ave",
-          "units": 11.0,
-          "lines": 8
-        },
-        {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Humankind Organic Lavender Lemonade 16oz",
-      "brand": "Humankind",
+      "brand": "",
       "itemUuid": "1b82f65f-24fe-489e-aa9a-aadf3e3da1c7",
-      "units": 13.0,
-      "lines": 5,
+      "units": 14.0,
+      "lines": 6,
       "inDca1": true,
       "dca1Sources": [
         "onhand"
@@ -1480,8 +1480,8 @@
         {
           "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
           "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 1
+          "units": 3.0,
+          "lines": 2
         }
       ]
     },
@@ -1636,6 +1636,36 @@
       ]
     },
     {
+      "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
+      "brand": "Uglies Kettle Chips",
+      "itemUuid": "716c48ed-4f5a-47d1-982c-cbceab9d436f",
+      "units": 12.0,
+      "lines": 7,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
+          "units": 5.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 4.0,
+          "lines": 3
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "Boylan Bottling Co. Cane Cola Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "ec0c839c-ac65-465e-a886-29ee54401a4f",
@@ -1660,36 +1690,6 @@
           "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 1.0,
           "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
-      "brand": "Uglies Kettle Chips",
-      "itemUuid": "716c48ed-4f5a-47d1-982c-cbceab9d436f",
-      "units": 11.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
-          "units": 5.0,
-          "lines": 2
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 3.0,
-          "lines": 2
         }
       ]
     },
@@ -1772,6 +1772,36 @@
       ]
     },
     {
+      "name": "UGLIES Buffalo Ranch 2oz Bag",
+      "brand": "Uglies Kettle Chips",
+      "itemUuid": "e4fda8de-0a0e-4a5d-bd1e-f13fd486c378",
+      "units": 10.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
+          "units": 7.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "UGLIES Salt & Vinegar 2oz Bag",
       "brand": "Uglies Kettle Chips",
       "itemUuid": "358835ab-a795-4f41-b81c-35ba9b1f44ab",
@@ -1847,7 +1877,7 @@
     },
     {
       "name": "Monin Toffee Nut Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "9b8accca-42de-43a9-8eb3-079be8ca74df",
       "units": 9.0,
       "lines": 6,
@@ -1874,39 +1904,9 @@
       ]
     },
     {
-      "name": "UGLIES Buffalo Ranch 2oz Bag",
-      "brand": "Uglies Kettle Chips",
-      "itemUuid": "e4fda8de-0a0e-4a5d-bd1e-f13fd486c378",
-      "units": 9.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
-          "units": 7.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
       "brand": "",
-      "itemUuid": "",
+      "itemUuid": "0a167ec3-e026-4124-bcf7-0cd0954044df",
       "units": 8.0,
       "lines": 4,
       "inDca1": false,
@@ -2127,7 +2127,7 @@
     },
     {
       "name": "Monin Cinnamon Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "9ac6ceb6-3e46-4bff-bac8-8a12ed39a98d",
       "units": 6.0,
       "lines": 4,
@@ -2240,6 +2240,36 @@
       ]
     },
     {
+      "name": "UGLIES Sweets 1.5oz Bag",
+      "brand": "Uglies Kettle Chips",
+      "itemUuid": "d1f09883-e526-428a-947b-064f7fc29b1b",
+      "units": 6.0,
+      "lines": 5,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 2.0,
+          "lines": 1
+        },
+        {
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Da Vinci Caramel Sauce 1 Gallon Bottle(s)",
       "brand": "DaVinci Gourmet",
       "itemUuid": "76d3361d-8a6b-4feb-a3b5-ce3e0c6402b3",
@@ -2326,36 +2356,6 @@
         {
           "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
           "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "UGLIES Sweets 1.5oz Bag",
-      "brand": "Uglies Kettle Chips",
-      "itemUuid": "d1f09883-e526-428a-947b-064f7fc29b1b",
-      "units": 5.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         }
@@ -2729,6 +2729,68 @@
       ]
     },
     {
+      "name": "Spindrift Grapefruit",
+      "brand": "Spindrift",
+      "itemUuid": "c4e59ec2-d614-483e-ac6e-06937f57cc8c",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "Spindrift Lemon",
+      "brand": "Spindrift",
+      "itemUuid": "a888c197-94b2-46ff-a85f-e168d538d118",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
+      "name": "Spindrift Raspberry Lime",
+      "brand": "Spindrift",
+      "itemUuid": "dce718ab-5ba4-47e0-903a-d378e936ad5d",
+      "units": 3.0,
+      "lines": 2,
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog",
+        "onhand",
+        "sold90"
+      ],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 3.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "1883 Banana Syrup 1L Glass Bottle",
       "brand": "1883",
       "itemUuid": "ede5f51e-f251-4c75-bb74-e67194fc1569",
@@ -2989,7 +3051,7 @@
     },
     {
       "name": "Monin Salted Caramel Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "541abdb2-539c-4dc3-91f5-73a422a620a3",
       "units": 2.0,
       "lines": 2,
@@ -3086,68 +3148,6 @@
           "name": "French Press : 4918 Saint Elmo Avenue",
           "units": 2.0,
           "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Spindrift Grapefruit",
-      "brand": "Spindrift",
-      "itemUuid": "c4e59ec2-d614-483e-ac6e-06937f57cc8c",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Spindrift Lemon",
-      "brand": "Spindrift",
-      "itemUuid": "a888c197-94b2-46ff-a85f-e168d538d118",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Spindrift Raspberry Lime",
-      "brand": "Spindrift",
-      "itemUuid": "dce718ab-5ba4-47e0-903a-d378e936ad5d",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 1
         }
       ]
     },
@@ -3735,6 +3735,24 @@
       ]
     },
     {
+      "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
+      "brand": "",
+      "itemUuid": "ca27cfba-0103-4449-b4af-a62756271da5",
+      "units": 1.0,
+      "lines": 1,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 1,
+      "custDetail": [
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Stroopie Co. - Dark Chocolate with Espresso",
       "brand": "Stroopie Co.",
       "itemUuid": "edd82062-ab2b-4867-ba4f-586325158354",
@@ -3841,6 +3859,12 @@
       "customers": 4,
       "custDetail": [
         {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
           "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
           "name": "Takoma Beverage Company : 6917 Laurel Ave",
           "units": 0.0,
@@ -3857,10 +3881,34 @@
           "name": "Simona Cafe : 4520 East-West Highway",
           "units": 0.0,
           "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Fuel Surcharge",
+      "brand": "",
+      "itemUuid": "",
+      "units": 0.0,
+      "lines": 3,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 3,
+      "custDetail": [
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 0.0,
+          "lines": 1
         },
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 0.0,
           "lines": 1
         }
@@ -4029,8 +4077,8 @@
       "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
       "name": "Quartermaine : 4972 Wyaconda Road",
       "hasHistory": true,
-      "skus": 27,
-      "gapSkus": 1,
+      "skus": 28,
+      "gapSkus": 2,
       "units": 746.0,
       "items": [
         {
@@ -4154,7 +4202,7 @@
         },
         {
           "name": "Monin Sugar Free Hazelnut Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 4.0,
           "lines": 4,
           "inDca1": true
@@ -4189,7 +4237,7 @@
         },
         {
           "name": "Monin Salted Caramel Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 2.0,
           "lines": 2,
           "inDca1": true
@@ -4221,6 +4269,13 @@
           "units": 1.0,
           "lines": 1,
           "inDca1": true
+        },
+        {
+          "name": "Fuel Surcharge",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": false
         }
       ]
     },
@@ -4591,13 +4646,13 @@
       "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
       "name": "Filicori : 12430 Park Potomac Ave R-3",
       "hasHistory": true,
-      "skus": 31,
-      "gapSkus": 8,
+      "skus": 32,
+      "gapSkus": 9,
       "units": 183.0,
       "items": [
         {
           "name": "Monin Mango Smoothie 46oz",
-          "brand": "Monin",
+          "brand": "",
           "units": 30.0,
           "lines": 4,
           "inDca1": true
@@ -4809,6 +4864,13 @@
           "name": "Torani Sauce Pump for the Torani Sauces - Dispense 1/2 oz.",
           "brand": "Torani",
           "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Fuel Surcharge",
+          "brand": "",
+          "units": 0.0,
           "lines": 1,
           "inDca1": false
         }
@@ -5369,6 +5431,128 @@
       ]
     },
     {
+      "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+      "name": "Bean Rush Cafe : Glen Burnie",
+      "hasHistory": true,
+      "skus": 16,
+      "gapSkus": 10,
+      "units": 32.0,
+      "items": [
+        {
+          "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
+          "brand": "Uglies Kettle Chips",
+          "units": 4.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Humankind Organic Lavender Lemonade 16oz",
+          "brand": "",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Spindrift Grapefruit",
+          "brand": "Spindrift",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Spindrift Lemon",
+          "brand": "Spindrift",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Spindrift Raspberry Lime",
+          "brand": "Spindrift",
+          "units": 3.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "UGLIES Sweets 1.5oz Bag",
+          "brand": "Uglies Kettle Chips",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Black Cherry Soda",
+          "brand": "",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "UGLIES Buffalo Ranch 2oz Bag",
+          "brand": "Uglies Kettle Chips",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": false
+        },
+        {
+          "name": "Greenhouse Farma-C+ Organic Wellness Shot 2oz Glass Bottle",
+          "brand": "Greenhouse",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Humankind Organic Strawberry Lemonade 16oz",
+          "brand": "Humankind",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate Gluten Free",
+          "brand": "Stroopie Co.",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate Salted Caramel",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Dark Chocolate with Espresso",
+          "brand": "Stroopie Co.",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Stroopie Co. - Plain/Traditional",
+          "brand": "Stroopie Co.",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": false
+        },
+        {
+          "name": "Fuel Surcharge",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": false
+        }
+      ]
+    },
+    {
       "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
       "name": "Wild Bean Coffee : 1532 Rockville Pike",
       "hasHistory": true,
@@ -5515,114 +5699,6 @@
         {
           "name": "Rishi Tea Blueberry Hibiscus (Organic) 50 Sachets",
           "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        }
-      ]
-    },
-    {
-      "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-      "name": "Bean Rush Cafe : Glen Burnie",
-      "hasHistory": true,
-      "skus": 14,
-      "gapSkus": 8,
-      "units": 22.0,
-      "items": [
-        {
-          "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
-          "brand": "Uglies Kettle Chips",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Humankind Organic Lavender Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Spindrift Grapefruit",
-          "brand": "Spindrift",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Spindrift Lemon",
-          "brand": "Spindrift",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Spindrift Raspberry Lime",
-          "brand": "Spindrift",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "UGLIES Sweets 1.5oz Bag",
-          "brand": "Uglies Kettle Chips",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Black Cherry Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Greenhouse Farma-C+ Organic Wellness Shot 2oz Glass Bottle",
-          "brand": "Greenhouse",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Humankind Organic Strawberry Lemonade 16oz",
-          "brand": "Humankind",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Stroopie Co. - Dark Chocolate Gluten Free",
-          "brand": "Stroopie Co.",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Stroopie Co. - Dark Chocolate with Espresso",
-          "brand": "Stroopie Co.",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Stroopie Co. - Plain/Traditional",
-          "brand": "Stroopie Co.",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "UGLIES Buffalo Ranch 2oz Bag",
-          "brand": "Uglies Kettle Chips",
           "units": 1.0,
           "lines": 1,
           "inDca1": false
