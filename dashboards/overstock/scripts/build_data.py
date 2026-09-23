@@ -41,7 +41,11 @@ from googleapiclient.discovery import build
 # --- Sources -----------------------------------------------------------------
 LOOKER_FOLDER_ID = "1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7"
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
-MODELS_RANGE = "'Warehouse Raw'!A1:BU"
+# Open-ended on purpose: a bounded range (this was A1:BU) silently drops
+# columns when Looker adds one. That is exactly what happened when
+# `orderability` was inserted - the sheet grew to 74 columns, `as_of` fell
+# outside BU, and every build failed on "Missing expected columns".
+MODELS_RANGE = "'Warehouse Raw'"
 SALES_FILE_PATTERN = re.compile(r"^Network Sales Tracker - ([A-Za-z0-9]+)\.csv$")
 SALES_RANGE = "A1:N"
 # Warehouses whose sales export doesn't follow the network naming convention.

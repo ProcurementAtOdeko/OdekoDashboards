@@ -97,7 +97,16 @@
     background: var(--panel); color: var(--ink); border: 1px solid var(--line);
     padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; font-family: inherit;
   }
-  .toolbar .count { color: var(--muted); font-size: 12px; }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .toolbar .btn {
+    background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+    padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    font-family: inherit; cursor: pointer; white-space: nowrap;
+  }
+  .toolbar .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .toolbar .btn.primary { background: var(--accent-yellow); border-color: var(--accent-yellow); }
+  .toolbar .btn.primary:hover { background: #F0C500; border-color: var(--ink-2); }
+  .toolbar .btn:disabled { opacity: .45; cursor: default; background: var(--panel); border-color: var(--line); }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -185,6 +194,8 @@
         <option value="ready">Ready</option>
       </select>
       <span class="count" id="table-count"></span>
+      <button class="btn primary" id="csv-season" type="button">Download CSV</button>
+      <button class="btn" id="csv-all" type="button">All seasons</button>
     </div>
     <div style="overflow-x:auto">
       <table id="items">
@@ -269,6 +280,10 @@ async function load() {
   const res = await fetch("./data.json", { cache: "no-store" });
   if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
   DATA = await res.json();
+  for (const s of DATA.seasons) {
+    SEASON_LABEL[s.key] = s.label;
+    SEASON_WINDOW[s.key] = { start: s.start, end: s.end };
+  }
   season = currentSeasonKey();
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()} · model as of ${fmtDate(DATA.asOf)} · forecast horizon thru ${fmtDate(DATA.predWindow.end)}`;
@@ -446,13 +461,10 @@ function renderExpChart() {
 const RISK_RANK = Object.fromEntries(RISK_ORDER.map((k, i) => [k, i]));
 const MAX_ROWS = 500;
 
-function renderTable() {
-  const s = DATA.seasons.find(x => x.key === season);
-  document.getElementById("table-title").textContent =
-    `Target SKUs — ${s.label}${selectedWh !== "ALL" ? " · " + selectedWh : ""}`;
-
+/** The current season's rows after the search box and risk filter. */
+function filteredSeasonRows() {
   const q = filterText.toLowerCase();
-  let rows = seasonLines().filter(l => {
+  return seasonLines().filter(l => {
     if (riskFilter === "attention") {
       if (!["both", "stockout", "expiring", "watch"].includes(l.risk)) return false;
     } else if (riskFilter === "stockout") {
@@ -460,10 +472,14 @@ function renderTable() {
     } else if (riskFilter === "expiring") {
       if (l.risk !== "expiring" && l.risk !== "both") return false;
     } else if (riskFilter !== "ALL" && l.risk !== riskFilter) return false;
-    return !q || l.n.toLowerCase().includes(q) || (l.v || "").toLowerCase().includes(q) || (l.cls || "").toLowerCase().includes(q);
+    return !q || l.n.toLowerCase().includes(q)
+      || (l.v || "").toLowerCase().includes(q)
+      || (l.cls || "").toLowerCase().includes(q);
   });
+}
 
-  rows.sort((a, b) => {
+function sortSeasonRows(rows) {
+  return rows.slice().sort((a, b) => {
     let av = a[sortKey], bv = b[sortKey];
     if (sortKey === "risk") { av = RISK_RANK[a.risk]; bv = RISK_RANK[b.risk]; }
     if (av == null && bv == null) return 0;
@@ -472,6 +488,81 @@ function renderTable() {
     if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortDir === "asc" ? av - bv : bv - av;
   });
+}
+
+/* ---------- CSV export ----------
+   One column spec drives both downloads, so the per-season file and the
+   all-seasons file differ only in which rows they carry. */
+const SEASON_LABEL = {};   // key -> "Fall"
+const SEASON_WINDOW = {};  // key -> { start, end }, filled on load
+const pctOut = (v) => (v == null ? "" : +(v * 100).toFixed(1));
+
+const CSV_COLUMNS = [
+  { h: "Season", f: l => SEASON_LABEL[l.s] || l.s },
+  { h: "Season Start", f: l => (SEASON_WINDOW[l.s] || {}).start },
+  { h: "Season End", f: l => (SEASON_WINDOW[l.s] || {}).end },
+  { h: "Item", f: l => l.n },
+  { h: "Item ID", f: l => l.id },
+  { h: "Market", f: l => l.w },
+  { h: "Class", f: l => l.cls },
+  { h: "Vendor", f: l => l.v },
+  { h: "In Catalog", f: l => (l.cat ? "yes" : "no") },
+  { h: "Current rate (PU/day)", f: l => l.rate },
+  { h: "Season forecast rate (PU/day)", f: l => l.sRate },
+  { h: "Forecast uplift %", f: l => pctOut(l.uplift) },
+  { h: "Net on hand (PU)", f: l => l.inv },
+  { h: "On order (PU)", f: l => l.onOrder },
+  { h: "Projected inventory at season start (PU)", f: l => l.projInv },
+  { h: "Season coverage %", f: l => pctOut(l.covRatio) },
+  { h: "On-hand value", f: l => l.val },
+  { h: "Next expiry date", f: l => l.exp },
+  { h: "Days to expiry", f: l => l.expDays },
+  { h: "Units at expiration risk (PU)", f: l => l.expUnits },
+  { h: "$ at expiration risk", f: l => l.expValue },
+  { h: "Risk", f: l => (RISK[l.risk] ? RISK[l.risk].label : l.risk) },
+];
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function toCsv(rows) {
+  return [CSV_COLUMNS.map(c => csvCell(c.h)).join(",")]
+    .concat(rows.map(l => CSV_COLUMNS.map(c => csvCell(c.f(l))).join(",")))
+    .join("\r\n");
+}
+
+function downloadCsv(name, rows) {
+  // Lead with a BOM: item names carry × and –, and Excel mangles UTF-8 without it.
+  const blob = new Blob(["﻿" + toCsv(rows)], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+/** Filename records the scope, so downloads taken at different seasons or
+ *  markets don't overwrite each other. */
+function csvName(part) {
+  const bits = ["seasonality", part];
+  if (selectedWh !== "ALL") bits.push(selectedWh.toLowerCase());
+  bits.push(DATA.asOf);
+  return bits.join("-") + ".csv";
+}
+
+function renderTable() {
+  const s = DATA.seasons.find(x => x.key === season);
+  document.getElementById("table-title").textContent =
+    `Target SKUs — ${s.label}${selectedWh !== "ALL" ? " · " + selectedWh : ""}`;
+
+  const rows = sortSeasonRows(filteredSeasonRows());
+  document.getElementById("csv-season").disabled = !rows.length;
 
   const total = rows.length;
   const shown = rows.slice(0, MAX_ROWS);
@@ -505,6 +596,21 @@ document.getElementById("search").addEventListener("input", (e) => {
   filterText = e.target.value;
   renderTable();
 });
+// Per-season download follows what is on screen (season, market, filters,
+// sort). The all-seasons file ignores the season tabs and filters and carries
+// every line, with the Season column telling them apart.
+document.getElementById("csv-season").addEventListener("click", () => {
+  const s = DATA.seasons.find(x => x.key === season);
+  downloadCsv(csvName(s.label.toLowerCase()), sortSeasonRows(filteredSeasonRows()));
+});
+document.getElementById("csv-all").addEventListener("click", () => {
+  const order = Object.fromEntries(DATA.seasons.map((s, i) => [s.key, i]));
+  const rows = DATA.lines
+    .filter(l => selectedWh === "ALL" || l.w === selectedWh)
+    .sort((a, b) => (order[a.s] - order[b.s]) || a.n.localeCompare(b.n));
+  downloadCsv(csvName("all-seasons"), rows);
+});
+
 document.getElementById("riskFilter").addEventListener("change", (e) => {
   riskFilter = e.target.value;
   renderTable();

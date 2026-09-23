@@ -51,7 +51,11 @@ from googleapiclient.discovery import build
 
 # --- Sources -----------------------------------------------------------------
 MODELS_SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
-MODELS_RANGE = "'Warehouse Raw'!A1:BU"
+# Open-ended on purpose: a bounded range (this was A1:BU) silently drops
+# columns when Looker adds one. That is exactly what happened when
+# `orderability` was inserted - the sheet grew to 74 columns, `as_of` fell
+# outside BU, and every build failed on "Missing expected columns".
+MODELS_RANGE = "'Warehouse Raw'"
 ONHAND_SPREADSHEET_ID = "11PkkcjiAGOpoRLLuj1LEXH3nXp2iYkS6cjqqxJOWnuU"
 ONHAND_RANGE = "'On Hand & ETA.csv'!A1:R"
 CONS30_SPREADSHEET_ID = "1kivMVt86rNXoiOpsfodZ_gdSLZcElVU3P8EFT5WAggI"

@@ -541,11 +541,18 @@ function renderKpis() {
       note: `+${fmt(overGap, 1)} PU/day above plan`, cls: over.length ? "red" : "green" },
     { label: "Under Forecast", value: fmt(under.length, 0),
       note: `−${fmt(underGap, 1)} PU/day below plan`, cls: "" },
-    { label: "Under Last Fall", value: fmt(underLy.length, 0),
-      note: underLy.length
-        ? `model is ${fmt(underLyShort, 1)} PU/day below last fall's shape`
-        : "model keeps up with last fall",
-      cls: underLy.length ? "red" : "green" },
+    // Distinguish "nothing is under last fall" from "we cannot tell" — the
+    // seasonal baseline ages out of its source, and a green zero would read
+    // as reassurance we have not earned.
+    (DATA.sources && DATA.sources.seasonal && DATA.sources.seasonal.available)
+      ? { label: "Under Last Fall", value: fmt(underLy.length, 0),
+          note: underLy.length
+            ? `model is ${fmt(underLyShort, 1)} PU/day below last fall's shape`
+            : "model keeps up with last fall",
+          cls: underLy.length ? "red" : "green" }
+      : { label: "Under Last Fall", value: "—",
+          note: "last fall's baseline is unavailable — see the chart below",
+          cls: "" },
     { label: "Double Tap SKUs", value: fmt(dt.length, 0),
       note: `${fmt(dtUnits, 0)} PU recommended on top of inbound`,
       cls: dt.length ? "amber" : "green" },
@@ -785,7 +792,9 @@ function renderLastFall() {
   if (!src || !src.available) {
     hint.textContent = "";
     return showEmpty("chart-ly", "ly-empty",
-      "Last fall's history was not available for this build.");
+      src && src.reason
+        ? "Last fall's shape is unavailable: " + src.reason + "."
+        : "Last fall's history was not available for this build.");
   }
   const rows = scoped()
     .filter(l => l.under && l.sFc != null && l.fcn != null)
