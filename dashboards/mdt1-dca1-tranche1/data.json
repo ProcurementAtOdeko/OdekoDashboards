@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T06:36:47+00:00",
+  "generatedAt": "2026-09-23T12:59:04+00:00",
   "dateRange": {
     "min": "2026-06-26",
     "max": "2026-09-21"
@@ -143,9 +143,9 @@
       "skus": 1
     },
     {
-      "brand": "(no brand)",
+      "brand": "Dr. Smoothie",
       "units": 9.0,
-      "skus": 3
+      "skus": 2
     },
     {
       "brand": "Pacific Foods",
@@ -178,14 +178,14 @@
       "skus": 3
     },
     {
-      "brand": "Boylan Bottling Company",
+      "brand": "(no brand)",
       "units": 4.0,
       "skus": 3
     },
     {
-      "brand": "Spindrift",
-      "units": 3.0,
-      "skus": 1
+      "brand": "Boylan Bottling Company",
+      "units": 4.0,
+      "skus": 3
     }
   ],
   "skus": [
@@ -1125,7 +1125,7 @@
     },
     {
       "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
+      "brand": "",
       "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
       "units": 17.0,
       "lines": 14,
@@ -1366,7 +1366,7 @@
     },
     {
       "name": "Boylan Bottling Co. Black Cherry Soda",
-      "brand": "",
+      "brand": "Boylan Bottling Company",
       "itemUuid": "7c6e20d3-ac40-41f6-a38b-979d81e87097",
       "units": 15.0,
       "lines": 12,
@@ -1572,7 +1572,8 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold90"
       ],
       "customers": 1,
       "custDetail": [
@@ -1611,7 +1612,8 @@
       "inDca1": true,
       "dca1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold90"
       ],
       "customers": 3,
       "custDetail": [
@@ -1905,7 +1907,7 @@
     },
     {
       "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
-      "brand": "",
+      "brand": "Dr. Smoothie",
       "itemUuid": "0a167ec3-e026-4124-bcf7-0cd0954044df",
       "units": 8.0,
       "lines": 4,
@@ -1951,7 +1953,7 @@
     },
     {
       "name": "Monin Pumpkin Spice Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "itemUuid": "1d7dbc23-1c01-4774-873f-22ebeb178ff3",
       "units": 8.0,
       "lines": 3,
@@ -2459,7 +2461,7 @@
     },
     {
       "name": "Monin Peppermint Syrup 750ml Glass",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "05e1d3b5-270a-42bc-9025-ce38dfb66edd",
       "units": 4.0,
       "lines": 3,
@@ -2730,7 +2732,7 @@
     },
     {
       "name": "Spindrift Grapefruit",
-      "brand": "Spindrift",
+      "brand": "",
       "itemUuid": "c4e59ec2-d614-483e-ac6e-06937f57cc8c",
       "units": 3.0,
       "lines": 2,
@@ -2752,7 +2754,7 @@
     },
     {
       "name": "Spindrift Lemon",
-      "brand": "Spindrift",
+      "brand": "",
       "itemUuid": "a888c197-94b2-46ff-a85f-e168d538d118",
       "units": 3.0,
       "lines": 2,
@@ -3018,14 +3020,14 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
+          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
+          "name": "Quartermaine : 4972 Wyaconda Road",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
-          "name": "Quartermaine : 4972 Wyaconda Road",
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
           "units": 1.0,
           "lines": 1
         }
@@ -3859,12 +3861,6 @@
       "customers": 4,
       "custDetail": [
         {
-          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
-          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
           "uuid": "b2ac9bdb-f07c-441f-8eb7-7d8793636cdb",
           "name": "Takoma Beverage Company : 6917 Laurel Ave",
           "units": 0.0,
@@ -3879,6 +3875,12 @@
         {
           "uuid": "7a6d3a58-3118-4f4a-b72c-4134e17a12c0",
           "name": "Simona Cafe : 4520 East-West Highway",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "be0f9db5-a0e0-4469-9052-bb8b088ef23b",
+          "name": "Blue Rooster Cafe : 1372 Cape St Claire Rd",
           "units": 0.0,
           "lines": 1
         }
@@ -4195,7 +4197,7 @@
         },
         {
           "name": "Monin Peppermint Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 4.0,
           "lines": 3,
           "inDca1": true
@@ -4680,7 +4682,7 @@
         },
         {
           "name": "Dr. Smoothie Strawberry Acai Refreshers 46 oz. Bottle",
-          "brand": "",
+          "brand": "Dr. Smoothie",
           "units": 8.0,
           "lines": 4,
           "inDca1": false
@@ -5461,14 +5463,14 @@
         },
         {
           "name": "Spindrift Grapefruit",
-          "brand": "Spindrift",
+          "brand": "",
           "units": 3.0,
           "lines": 2,
           "inDca1": true
         },
         {
           "name": "Spindrift Lemon",
-          "brand": "Spindrift",
+          "brand": "",
           "units": 3.0,
           "lines": 2,
           "inDca1": false
