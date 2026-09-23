@@ -46,7 +46,11 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 SPREADSHEET_ID = "1sPEc5rBdRB9qaJijBh4z8DK4ZVo--5xmTGbPTZ5n2nQ"
-SHEET_RANGE = "'Warehouse Raw'!A1:BU"
+# Open-ended on purpose: a bounded range (this was A1:BU) silently drops
+# columns when Looker adds one. That is exactly what happened when
+# `orderability` was inserted - the sheet grew to 74 columns, `as_of` fell
+# outside BU, and every build failed on "Missing expected columns".
+SHEET_RANGE = "'Warehouse Raw'"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # --- supporting sources, all from the same Looker Data Dumps folder ---
@@ -56,7 +60,9 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # Monthly invoiced amount per item/warehouse, reaching back through last fall.
 ABC_SPREADSHEET_ID = "1hssj04ntj3cNMdPGedOfoNpnfo26HaYMUNnEDHxpKzE"
-ABC_RANGE = "'ABC Automation.csv'!A1:U"
+# Open-ended for the same reason as SHEET_RANGE: this pivot gains a month
+# column every month, and a bounded range quietly drops the newest one.
+ABC_RANGE = "'ABC Automation.csv'"
 # Expected vs actual PO receipt dates - how late a vendor actually runs.
 PO_DEV_SPREADSHEET_ID = "1Q1ChGZ8PQZGhoohnBBVuaGtcdzdhLmgRodmpOOSN8bs"
 PO_DEV_RANGE = "'PO Expected Vs Actual Receive Deviation.csv'!A1:G"
@@ -300,6 +306,19 @@ def load_seasonal_index(svc, cust_shape):
 
     item_lift = lifts(item, MIN_LIFT_BASE)
     cat_lift = lifts(cat, MIN_LIFT_BASE)
+    if not item_lift and not cat_lift:
+        # The base month's header can outlive its data: this pivot keeps a
+        # rolling window, so old columns go empty while still being labelled.
+        # Report that honestly instead of letting the dashboard imply that
+        # nothing is running under last fall.
+        return {}, {}, {
+            "available": False,
+            "reason": (f"{SEASON_BASE_MONTH} has aged out of the source pivot — "
+                       f"its column is still labelled but no longer carries data, "
+                       f"so last fall has no baseline to measure against"),
+            "baseMonth": SEASON_BASE_MONTH,
+            "fallMonths": SEASON_FALL_MONTHS,
+        }
     return item_lift, cat_lift, {
         "available": True,
         "baseMonth": SEASON_BASE_MONTH,
