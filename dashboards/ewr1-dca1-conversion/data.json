@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T17:27:29+00:00",
+  "generatedAt": "2026-09-23T23:08:37+00:00",
   "dateRange": {
     "min": "2026-06-26",
     "max": "2026-09-21"
@@ -8,21 +8,21 @@
     "customersListed": 19,
     "customersActive": 19,
     "skusPurchased": 187,
-    "skusCarried": 73,
-    "skusGap": 114,
-    "coveragePct": 39,
+    "skusCarried": 74,
+    "skusGap": 113,
+    "coveragePct": 40,
     "unitsTotal": 7301.0,
-    "gapUnitsTotal": 4782.0,
+    "gapUnitsTotal": 4523.0,
     "formatSubstitutes": 5
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 73
+      "count": 74
     },
     {
       "status": "Not carried (gap)",
-      "count": 114
+      "count": 113
     }
   ],
   "topGapSkus": [
@@ -39,11 +39,6 @@
     {
       "name": "Neutral Skim Milk 1 Gallon",
       "units": 276.0,
-      "customers": 2
-    },
-    {
-      "name": "1883 French Madeleine Syrup 1L Glass",
-      "units": 259.0,
       "customers": 2
     },
     {
@@ -125,6 +120,11 @@
       "name": "1883 Cardamom Syrup 1 Liter Glass Bottle",
       "units": 27.0,
       "customers": 3
+    },
+    {
+      "name": "Natalie's Orange Juice 8oz",
+      "units": 27.0,
+      "customers": 2
     }
   ],
   "topGapBrands": [
@@ -137,11 +137,6 @@
       "brand": "Byrne Dairy",
       "units": 700.0,
       "skus": 1
-    },
-    {
-      "brand": "1883",
-      "units": 311.0,
-      "skus": 6
     },
     {
       "brand": "Monin",
@@ -187,6 +182,11 @@
       "brand": "Blank Street Coffee",
       "units": 54.0,
       "skus": 1
+    },
+    {
+      "brand": "David Protein",
+      "units": 54.0,
+      "skus": 2
     }
   ],
   "formatSubstitutes": [
@@ -584,8 +584,10 @@
       "itemUuid": "9f16e732-b0d5-44c6-ad53-569170188d6b",
       "units": 259.0,
       "lines": 44,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "customers": 2,
       "custDetail": [
         {
@@ -5585,7 +5587,7 @@
       "name": "Blank Street : 3201 Prospect Street Northwest",
       "hasHistory": true,
       "skus": 41,
-      "gapSkus": 34,
+      "gapSkus": 33,
       "units": 2126.0,
       "items": [
         {
@@ -5614,7 +5616,7 @@
           "brand": "1883",
           "units": 156.0,
           "lines": 22,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Neutral Skim Milk 1 Gallon",
@@ -5882,7 +5884,7 @@
       "name": "Blank Street : 2121 M Street Northwest",
       "hasHistory": true,
       "skus": 42,
-      "gapSkus": 34,
+      "gapSkus": 33,
       "units": 1317.0,
       "items": [
         {
@@ -5911,7 +5913,7 @@
           "brand": "1883",
           "units": 103.0,
           "lines": 22,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Califia Farms Barista Coconut Milk 32oz",
