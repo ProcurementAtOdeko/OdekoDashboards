@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T20:32:51+00:00",
+  "generatedAt": "2026-09-24T05:05:45+00:00",
   "dateRange": {
     "min": "2026-06-26",
     "max": "2026-09-22"
@@ -12,37 +12,37 @@
     "customersAdded": 28,
     "customersRemoved": 32,
     "skusPurchased": 313,
-    "skusCarried": 162,
-    "skusGap": 151,
-    "coveragePct": 52,
+    "skusCarried": 166,
+    "skusGap": 147,
+    "coveragePct": 53,
     "unitsTotal": 6341.0,
     "skusInOnboarding": 59,
     "gapsInOnboarding": 18,
-    "gapsNotOnboarding": 133,
-    "gapUnitsTotal": 1173.0,
-    "skusReady": 149,
+    "gapsNotOnboarding": 129,
+    "gapUnitsTotal": 1158.0,
+    "skusReady": 154,
     "skusNoStock": 6,
     "skusNotActive": 3,
-    "skusDormant": 3,
+    "skusDormant": 2,
     "skusUnknownStock": 1,
-    "skusActive": 155,
-    "skusInStock": 152,
+    "skusActive": 160,
+    "skusInStock": 157,
     "noStockUnits": 46.0,
     "notActiveUnits": 19.0,
-    "dormantUnits": 30.0,
+    "dormantUnits": 10.0,
     "formatSubstitutes": 10,
     "planResolved": 83,
-    "planResolvedCarried": 55,
-    "planResolvedNoDemand": 28
+    "planResolvedCarried": 56,
+    "planResolvedNoDemand": 27
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 162
+      "count": 166
     },
     {
       "status": "Not carried (gap)",
-      "count": 151
+      "count": 147
     }
   ],
   "topGapSkus": [
@@ -122,11 +122,6 @@
       "customers": 1
     },
     {
-      "name": "Monin Huckleberry Syrup 750 ml Glass Bottle",
-      "units": 12.0,
-      "customers": 2
-    },
-    {
       "name": "UGLIES Cheddar and Sour Cream 2oz Bag",
       "units": 12.0,
       "customers": 3
@@ -145,13 +140,18 @@
       "name": "UGLIES Buffalo Ranch 2oz Bag",
       "units": 10.0,
       "customers": 3
+    },
+    {
+      "name": "UGLIES Salt & Vinegar 2oz Bag",
+      "units": 10.0,
+      "customers": 2
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 369.0,
-      "skus": 27
+      "units": 357.0,
+      "skus": 26
     },
     {
       "brand": "DaVinci Gourmet",
@@ -184,14 +184,14 @@
       "skus": 7
     },
     {
-      "brand": "1883",
-      "units": 37.0,
-      "skus": 20
-    },
-    {
       "brand": "Island Oasis",
       "units": 36.0,
       "skus": 4
+    },
+    {
+      "brand": "1883",
+      "units": 35.0,
+      "skus": 18
     },
     {
       "brand": "Rishi",
@@ -467,8 +467,8 @@
         "sold90"
       ],
       "planUnits": 149.3,
-      "units": 200.0,
-      "customers": 9
+      "units": 89.0,
+      "customers": 4
     },
     {
       "name": "Monin White Peach Syrup 750mL Glass",
@@ -797,6 +797,18 @@
       "customers": 1
     },
     {
+      "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
+      "brand": "1883",
+      "stage": "Live in catalog",
+      "reason": "carried",
+      "dca1Sources": [
+        "catalog"
+      ],
+      "planUnits": 24.0,
+      "units": 0.0,
+      "customers": 0
+    },
+    {
       "name": "Monin Hazelnut Syrup 750ml Glass",
       "brand": "Monin",
       "stage": "Live in catalog",
@@ -807,8 +819,8 @@
         "sold90"
       ],
       "planUnits": 24.0,
-      "units": 51.0,
-      "customers": 3
+      "units": 101.0,
+      "customers": 9
     },
     {
       "name": "Monin Pear Syrup 750mL Glass",
@@ -1228,16 +1240,6 @@
       "reason": "no-demand",
       "dca1Sources": [],
       "planUnits": 27.8,
-      "units": 0.0,
-      "customers": 0
-    },
-    {
-      "name": "1883 Sugar Free Vanilla Syrup 1L PLASTIC",
-      "brand": "1883",
-      "stage": "Received",
-      "reason": "no-demand",
-      "dca1Sources": [],
-      "planUnits": 24.0,
       "units": 0.0,
       "customers": 0
     },
@@ -4201,14 +4203,15 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "inOnboarding": false,
-      "active": false,
-      "inStock": false,
-      "onHand": 0.0,
+      "active": true,
+      "inStock": true,
+      "onHand": 10.0,
       "dca1Doc": null,
-      "availability": "dormant",
+      "availability": "ready",
       "customers": 5,
       "custDetail": [
         {
@@ -5192,14 +5195,16 @@
       "itemUuid": "da1e778a-4193-4696-83b6-069ffab44071",
       "units": 12.0,
       "lines": 7,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": false,
-      "active": false,
-      "inStock": false,
-      "onHand": null,
+      "active": true,
+      "inStock": true,
+      "onHand": 1.0,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "ready",
       "customers": 2,
       "custDetail": [
         {
@@ -9612,14 +9617,16 @@
       "itemUuid": "7815aa1f-e393-4e8f-9a66-6b59fc8b5a56",
       "units": 1.0,
       "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": false,
-      "active": false,
-      "inStock": false,
-      "onHand": null,
+      "active": true,
+      "inStock": true,
+      "onHand": 3.0,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "ready",
       "customers": 1,
       "custDetail": [
         {
@@ -9756,14 +9763,16 @@
       "itemUuid": "245e2976-6dc5-4b78-9fa0-dcc52a4e07df",
       "units": 1.0,
       "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": false,
-      "active": false,
-      "inStock": false,
-      "onHand": null,
+      "active": true,
+      "inStock": true,
+      "onHand": 3.0,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "ready",
       "customers": 1,
       "custDetail": [
         {
@@ -10616,14 +10625,16 @@
       "itemUuid": "50c85619-13d3-4f61-9191-560ca0a4a4f7",
       "units": 1.0,
       "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": false,
-      "active": false,
-      "inStock": false,
-      "onHand": null,
+      "active": true,
+      "inStock": true,
+      "onHand": 7.0,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "ready",
       "customers": 1,
       "custDetail": [
         {
@@ -12283,7 +12294,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 29,
-      "gapSkus": 10,
+      "gapSkus": 9,
       "units": 352.0,
       "items": [
         {
@@ -12354,7 +12365,7 @@
           "brand": "Monin",
           "units": 9.0,
           "lines": 4,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
@@ -14097,7 +14108,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 44,
-      "gapSkus": 15,
+      "gapSkus": 14,
       "units": 152.0,
       "items": [
         {
@@ -14210,7 +14221,7 @@
           "brand": "Monin",
           "units": 3.0,
           "lines": 3,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Sugar Free Raspberry Syrup 750ml Glass",
@@ -14581,7 +14592,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 49,
-      "gapSkus": 22,
+      "gapSkus": 21,
       "units": 136.0,
       "items": [
         {
@@ -14848,7 +14859,7 @@
           "brand": "Karat",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Banana Syrup 750ml Glass",
@@ -15311,7 +15322,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 27,
-      "gapSkus": 19,
+      "gapSkus": 18,
       "units": 62.0,
       "items": [
         {
@@ -15452,7 +15463,7 @@
           "brand": "1883",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "1883 Pineapple Syrup 1 Liter Glass Bottle",
@@ -16614,7 +16625,7 @@
       "rosterStatus": "added",
       "hasHistory": true,
       "skus": 13,
-      "gapSkus": 11,
+      "gapSkus": 10,
       "units": 12.0,
       "items": [
         {
@@ -16629,7 +16640,7 @@
           "brand": "1883",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "1883 Dulce De Leche Syrup 1L Plastic",
@@ -18481,7 +18492,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 19,
-      "gapSkus": 7,
+      "gapSkus": 6,
       "units": 455.0,
       "items": [
         {
@@ -18573,7 +18584,7 @@
           "brand": "1883",
           "units": 10.0,
           "lines": 6,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Harmony Leaf Bamboo Whisk",
@@ -18934,7 +18945,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 18,
-      "gapSkus": 6,
+      "gapSkus": 5,
       "units": 327.0,
       "items": [
         {
@@ -19026,7 +19037,7 @@
           "brand": "1883",
           "units": 3.0,
           "lines": 2,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Da Vinci Pumpkin Pie Sauce 1/2 Gallon Bottle",
@@ -19587,7 +19598,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 51,
-      "gapSkus": 26,
+      "gapSkus": 25,
       "units": 153.0,
       "items": [
         {
@@ -19812,7 +19823,7 @@
           "brand": "1883",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Black Cherry Soda",
@@ -19955,7 +19966,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 47,
-      "gapSkus": 24,
+      "gapSkus": 23,
       "units": 142.0,
       "items": [
         {
@@ -20222,7 +20233,7 @@
           "brand": "Karat",
           "units": 1.0,
           "lines": 1,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Karat PET Cold Cup 16oz (C-KC16)",
@@ -20537,7 +20548,7 @@
       "rosterStatus": "removed",
       "hasHistory": true,
       "skus": 20,
-      "gapSkus": 9,
+      "gapSkus": 8,
       "units": 128.0,
       "items": [
         {
@@ -20587,7 +20598,7 @@
           "brand": "Karat",
           "units": 6.0,
           "lines": 3,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Blackberry Syrup 750ml Glass",
