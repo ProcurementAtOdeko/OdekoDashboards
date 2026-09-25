@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T18:45:21+00:00",
+  "generatedAt": "2026-09-25T22:33:39+00:00",
   "dateRange": {
     "min": "2026-06-28",
     "max": "2026-09-24"
@@ -20,15 +20,15 @@
     "gapsInOnboarding": 17,
     "gapsNotOnboarding": 132,
     "gapUnitsTotal": 1172.0,
-    "skusReady": 149,
-    "skusNoStock": 8,
-    "skusNotActive": 3,
+    "skusReady": 151,
+    "skusNoStock": 7,
+    "skusNotActive": 2,
     "skusDormant": 2,
     "skusUnknownStock": 0,
-    "skusActive": 157,
-    "skusInStock": 152,
-    "noStockUnits": 485.0,
-    "notActiveUnits": 19.0,
+    "skusActive": 158,
+    "skusInStock": 153,
+    "noStockUnits": 35.0,
+    "notActiveUnits": 12.0,
     "dormantUnits": 10.0,
     "formatSubstitutes": 9,
     "planResolved": 83,
@@ -436,8 +436,8 @@
         "onhand"
       ],
       "planUnits": 149.3,
-      "units": 178.0,
-      "customers": 9
+      "units": 89.0,
+      "customers": 4
     },
     {
       "name": "Monin White Peach Syrup 750mL Glass",
@@ -458,6 +458,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 88.0,
@@ -522,6 +523,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 67.0,
@@ -573,6 +575,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 57.8,
@@ -611,6 +614,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 46.0,
@@ -666,8 +670,8 @@
         "onhand"
       ],
       "planUnits": 36.0,
-      "units": 5.0,
-      "customers": 2
+      "units": 7.0,
+      "customers": 1
     },
     {
       "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
@@ -1005,6 +1009,7 @@
       "stage": "Not started",
       "reason": "carried",
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "planUnits": 13.0,
@@ -1373,10 +1378,10 @@
       ],
       "inOnboarding": false,
       "active": true,
-      "inStock": false,
-      "onHand": 0.0,
+      "inStock": true,
+      "onHand": 0.5,
       "dca1Doc": null,
-      "availability": "no-stock",
+      "availability": "ready",
       "customers": 9,
       "custDetail": [
         {
@@ -6075,14 +6080,15 @@
       "lines": 7,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "inOnboarding": true,
-      "active": false,
+      "active": true,
       "inStock": true,
       "onHand": 216.0,
       "dca1Doc": null,
-      "availability": "not-active",
+      "availability": "ready",
       "customers": 5,
       "custDetail": [
         {
