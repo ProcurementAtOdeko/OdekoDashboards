@@ -83,6 +83,123 @@ def loc_key(name):
     return re.sub(r"[^a-z0-9]+", " ", str(name or "").lower()).strip()
 
 
+# ---------------------------------------------------------------------------
+# Pack-format mapping, carried over from the transition work.
+#
+# DCA1 deliberately stocks Monin in 750 ml glass where MDT1 sold 1 L plastic,
+# and Torani in 1 L plastic. Matching SKUs on their exact name would treat the
+# two packs of one syrup as unrelated products — so a customer who switched
+# packs at conversion would look like brand-new demand, and a fill error on the
+# glass bottle would not flag the plastic one. fmt_key strips size and
+# container words so both packs collapse to one product key, and the format
+# helpers then say which pack a given line actually is.
+# ---------------------------------------------------------------------------
+
+# Brand -> the pack DCA1 would rather carry. size None means "any size in that
+# material".
+PREFERRED_FORMAT = {
+    "monin": {"material": "glass", "size": None, "label": "glass"},
+    "torani": {"material": "plastic", "size": "1l", "label": "1L plastic"},
+}
+
+# Same product, named differently enough that the flavour key alone would not
+# collapse the packs.
+FLAVOUR_ALIASES = {
+    "monin chai tea concentrate": "monin chai tea",
+    "torani sugar free classic caramel syrup with splenda":
+        "torani sugar free classic caramel syrup",
+}
+
+_SIZE = re.compile(
+    r"\b\d+(\.\d+)?\s*(/\s*\d+)?\s*"
+    r"(ml|l|liter|liters|litre|fl\s*oz|oz|gallon|gal|qt|quart|"
+    r"lb|lbs|kg|g|gram|grams|ct|count|pk|pack|pcs)\b"
+)
+_UNITWORD = re.compile(
+    r"\b(ml|l|liter|liters|litre|oz|gallon|gal|qt|quart|lb|lbs|kg|"
+    r"ct|count|pk|pack|pcs)\b"
+)
+_CONT = re.compile(
+    r"\b(glass|plastic|bottle\(s\)|bottles|bottle|can|cans|jug|jugs|jar|jars|"
+    r"pouch|pouches|bag|bags|carton|box|boxes|tub|tubs|container|containers)\b"
+)
+_WS = re.compile(r"\s+")
+_SIZE_ONE = re.compile(
+    r"(\d+(?:\.\d+)?)(?:\s*/\s*(\d+))?\s*"
+    r"(ml|l|liter|litre|gallon|gal|fl\s*oz|oz|qt|quart|lb|lbs|kg|g)\b"
+)
+_UNIT_CANON = {"liter": "l", "litre": "l", "gallon": "gal", "quart": "qt",
+               "floz": "oz", "lbs": "lb"}
+_UNIT_DISP = {"ml": "ml", "l": "L", "gal": "gal", "oz": "oz", "qt": "qt",
+              "lb": "lb", "kg": "kg", "g": "g"}
+
+
+def fmt_key(name):
+    """Format-agnostic product key: same syrup, any pack, one key."""
+    s = norm_name(name).replace("bottle(s)", " ")
+    s = _SIZE.sub(" ", s)
+    s = _UNITWORD.sub(" ", s)
+    s = _CONT.sub(" ", s)
+    s = re.sub(r"[^a-z0-9 ]", " ", s)
+    s = _WS.sub(" ", s).strip()
+    s = FLAVOUR_ALIASES.get(s, s)
+    # Token-sort so word order can't split a pack pair: the same syrup is
+    # listed as "Orange Syrup Dairy Friendly" in glass and "Orange Dairy
+    # Friendly Syrup" in plastic. Sizes and containers are already stripped,
+    # so this tolerates reordering, not different products.
+    return " ".join(sorted(s.split()))
+
+
+def canon_size(name):
+    """Canonical volume token, e.g. '1l', '750ml'. '' if the pack has none."""
+    m = _SIZE_ONE.search(norm_name(name))
+    if not m:
+        return ""
+    num = m.group(1) + (("/" + m.group(2)) if m.group(2) else "")
+    unit = m.group(3).replace(" ", "")
+    return num + _UNIT_CANON.get(unit, unit)
+
+
+def pack_material(name):
+    s = norm_name(name)
+    for mat in ("glass", "plastic"):
+        if re.search(r"\b" + mat + r"\b", s):
+            return mat
+    return ""
+
+
+def pack_label(name):
+    """Human pack descriptor, e.g. '1 L plastic', '750 ml glass'."""
+    m = _SIZE_ONE.search(norm_name(name))
+    size_disp = ""
+    if m:
+        num = m.group(1) + ((" / " + m.group(2)) if m.group(2) else "")
+        unit = m.group(3).replace(" ", "")
+        unit = _UNIT_CANON.get(unit, unit)
+        size_disp = num + " " + _UNIT_DISP.get(unit, unit)
+    return " ".join(p for p in (size_disp, pack_material(name)) if p)
+
+
+def format_status(name, brand):
+    """Is this line in the pack DCA1 chose to carry for its brand?
+
+    Returns "preferred", "off-format", or "n/a". Items with no glass/plastic
+    token are n/a rather than off-format — a 64 oz Monin sauce has no pack
+    material to be wrong about, and flagging it would be noise.
+    """
+    pref = PREFERRED_FORMAT.get(str(brand or "").strip().lower())
+    if not pref:
+        return "n/a"
+    mat = pack_material(name)
+    if not mat:
+        return "n/a"
+    if mat != pref["material"]:
+        return "off-format"
+    if pref["size"] and canon_size(name) != pref["size"]:
+        return "off-format"
+    return "preferred"
+
+
 def parse_num(s):
     if s is None or s == "":
         return None
@@ -219,10 +336,22 @@ def load_transition_universe():
         with open(CONVERSION_DATA) as f:
             skus = json.load(f).get("skus", [])
     except (OSError, ValueError, KeyError):
-        return set(), {}
+        return set(), {}, {}
     universe = {norm_name(s["name"]) for s in skus}
+    # Also key by product, so ordering the glass pack of a syrup the cohort
+    # bought in plastic at MDT1 counts as the same transition SKU, not new.
+    universe |= {fmt_key(s["name"]) for s in skus}
     brands = {norm_name(s["name"]): s["brand"] for s in skus if s.get("brand")}
-    return universe, brands
+    for s_ in skus:
+        if s_.get("brand"):
+            brands.setdefault(fmt_key(s_["name"]), s_["brand"])
+    # MDT1-era packs per product, to show what each one converted from.
+    mdt1_packs = defaultdict(lambda: defaultdict(float))
+    for s_ in skus:
+        lbl = pack_label(s_["name"])
+        if lbl:
+            mdt1_packs[fmt_key(s_["name"])][lbl] += s_.get("units", 0) or 0
+    return universe, brands, {k: dict(v) for k, v in mdt1_packs.items()}
 
 
 def load_plan():
@@ -235,6 +364,7 @@ def load_plan():
                 item = (row.get("Item") or "").strip()
                 if item:
                     names.add(norm_name(item))
+                    names.add(fmt_key(item))
     except OSError:
         pass
     try:
@@ -243,6 +373,7 @@ def load_plan():
                 for k in ("name", "target"):
                     if it.get(k):
                         names.add(norm_name(it[k]))
+                        names.add(fmt_key(it[k]))
     except (OSError, ValueError):
         pass
     return names
@@ -392,17 +523,26 @@ def main(out_path):
             "sources likely mid-refresh; leaving existing data.json untouched."
         )
 
-    transition, transition_brands = load_transition_universe()
+    transition, transition_brands, mdt1_packs = load_transition_universe()
     plan = load_plan()
     cohort_keys = set(sales_skus)
+    # A fill error on the glass pack matters to a customer ordering plastic,
+    # so the FEOOS <-> cohort join is on the product, not the exact pack.
+    cohort_products = {fmt_key(v["name"]) for v in sales_skus.values()}
 
     # Fill the blank brands the sales export leaves on freshly-converted
     # accounts, preferring the FEOOS export (same warehouse, same week) and
     # falling back to what the conversion dashboard recorded at MDT1.
     feoos_brands = {k: v["brand"] for k, v in feoos.items() if v.get("brand")}
+    for k, v in list(feoos.items()):
+        if v.get("brand"):
+            feoos_brands.setdefault(fmt_key(v["name"]), v["brand"])
     for key, s_ in sales_skus.items():
         if not s_["brand"]:
-            s_["brand"] = feoos_brands.get(key) or transition_brands.get(key, "")
+            fk = fmt_key(s_["name"])
+            s_["brand"] = (feoos_brands.get(key) or feoos_brands.get(fk)
+                           or transition_brands.get(key)
+                           or transition_brands.get(fk, ""))
 
     # ---- FEOOS, with cohort relevance ------------------------------------
     feoos_list = []
@@ -415,9 +555,11 @@ def main(out_path):
             "lastEvent": days[-1] if days else None,
             "daysAffected": len(days),
             # Does this shortfall touch the converted cohort?
-            "cohortOrders": key in cohort_keys,
-            "inTransition": key in transition,
-            "inPlan": key in plan,
+            "cohortOrders": key in cohort_keys or fmt_key(s["name"]) in cohort_products,
+            "inTransition": key in transition or fmt_key(s["name"]) in transition,
+            "inPlan": key in plan or fmt_key(s["name"]) in plan,
+            "pack": pack_label(s["name"]),
+            "formatStatus": format_status(s["name"], s["brand"]),
         })
     feoos_list.sort(key=lambda x: (-x["units"], -x["events"]))
 
@@ -439,25 +581,88 @@ def main(out_path):
 
     # ---- the cohort's DCA1 ordering --------------------------------------
     feoos_by_key = {norm_name(x["name"]): x for x in feoos_list}
+    feoos_by_product = {}
+    for x in feoos_list:
+        feoos_by_product.setdefault(fmt_key(x["name"]), x)
     cohort_sku_list = []
     for key, s in sales_skus.items():
-        f = feoos_by_key.get(key)
+        fk = fmt_key(s["name"])
+        f = feoos_by_key.get(key) or feoos_by_product.get(fk)
+        in_transition = key in transition or fk in transition
         cohort_sku_list.append({
             "name": s["name"], "brand": s["brand"],
             "units": round(s["units"], 1), "lines": s["lines"],
             "customers": len(s["custs"]),
             "firstOrder": min(s["days"]) if s["days"] else None,
             "lastOrder": max(s["days"]) if s["days"] else None,
-            "inTransition": key in transition,
-            "inPlan": key in plan,
-            # Ordering now but never tracked during the transition — the
-            # demand the conversion plan did not see coming.
-            "isNew": key not in transition,
+            "inTransition": in_transition,
+            "inPlan": key in plan or fk in plan,
+            # Ordering now but never tracked during the transition, in any
+            # pack — the demand the conversion plan did not see coming.
+            "isNew": not in_transition,
+            "product": fk,
+            "pack": pack_label(s["name"]),
+            "formatStatus": format_status(s["name"], s["brand"]),
+            "mdt1Packs": sorted(mdt1_packs.get(fk, {}).items(),
+                                key=lambda kv: -kv[1]),
             "feoosEvents": f["events"] if f else 0,
             "feoosUnits": f["units"] if f else 0.0,
         })
     cohort_sku_list.sort(key=lambda x: -x["units"])
     new_skus = [x for x in cohort_sku_list if x["isNew"]]
+
+    # ---- did the pack swap actually land? ---------------------------------
+    # One row per product for the brands DCA1 made a format choice on, with
+    # what the cohort bought at MDT1 beside what they are ordering now.
+    products = defaultdict(lambda: {"name": "", "brand": "", "packs": defaultdict(float),
+                                    "customers": set(), "units": 0.0, "_best": 0.0})
+    for key, s_ in sales_skus.items():
+        brand = str(s_["brand"] or "").strip().lower()
+        if brand not in PREFERRED_FORMAT:
+            continue
+        fk = fmt_key(s_["name"])
+        p = products[fk]
+        # Name the product after its biggest pack, not whichever row we hit
+        # first — a split product should read under the pack most of the
+        # volume is actually on.
+        if s_["units"] > p.get("_best", 0):
+            p["_best"] = s_["units"]
+            p["name"] = s_["name"]
+        p["brand"] = p["brand"] or s_["brand"]
+        p["packs"][pack_label(s_["name"]) or "—"] += round(s_["units"], 1)
+        p["customers"] |= s_["custs"]
+        p["units"] += s_["units"]
+
+    format_rows = []
+    for fk, p in products.items():
+        packs = [{"pack": k, "units": round(v, 1),
+                  "status": format_status(k, p["brand"])}
+                 for k, v in sorted(p["packs"].items(), key=lambda kv: -kv[1])]
+        pref_units = sum(x["units"] for x in packs if x["status"] == "preferred")
+        off_units = sum(x["units"] for x in packs if x["status"] == "off-format")
+        # n/a when the product has no pack material to be right or wrong about
+        # (a 64 oz sauce), split when both packs are still flowing.
+        if not pref_units and not off_units:
+            state = "n/a"
+        elif off_units and pref_units:
+            state = "split"
+        elif off_units:
+            state = "off-format"
+        else:
+            state = "preferred"
+        format_rows.append({
+            "product": fk, "name": p["name"], "brand": p["brand"],
+            "packs": packs,
+            "preferredPack": PREFERRED_FORMAT[p["brand"].strip().lower()]["label"],
+            "preferredUnits": round(pref_units, 1),
+            "offFormatUnits": round(off_units, 1),
+            "state": state,
+            "customers": len(p["customers"]),
+            "units": round(p["units"], 1),
+            "mdt1Packs": sorted(mdt1_packs.get(fk, {}).items(), key=lambda kv: -kv[1]),
+        })
+    _ORDER = {"split": 0, "off-format": 1, "preferred": 2, "n/a": 3}
+    format_rows.sort(key=lambda r: (_ORDER[r["state"]], -r["offFormatUnits"], -r["units"]))
 
     customers = []
     for uuid, c in sales_custs.items():
@@ -514,10 +719,19 @@ def main(out_path):
             "marketCustomers": len(market_custs),
             # Non-product charge lines dropped from the SKU analysis.
             "chargeLinesExcluded": charge_lines,
+            # Pack-format adoption on the brands DCA1 made a choice about.
+            "formatProducts": len(format_rows),
+            "formatPreferred": sum(1 for r in format_rows if r["state"] == "preferred"),
+            "formatSplit": sum(1 for r in format_rows if r["state"] == "split"),
+            "formatOff": sum(1 for r in format_rows if r["state"] == "off-format"),
+            "formatNa": sum(1 for r in format_rows if r["state"] == "n/a"),
+            "offFormatUnits": round(sum(r["offFormatUnits"] for r in format_rows), 1),
+            "preferredUnits": round(sum(r["preferredUnits"] for r in format_rows), 1),
         },
         "feoos": feoos_list,
         "feoosTrend": feoos_trend,
         "feoosBrands": feoos_brands,
+        "formatAdoption": format_rows,
         "cohortSkus": cohort_sku_list,
         "customers": customers,
         "notYetOrdering": not_yet,
