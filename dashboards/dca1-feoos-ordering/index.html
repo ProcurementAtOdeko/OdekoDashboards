@@ -174,6 +174,14 @@
   .badge.plan { background: var(--amber-soft); color: var(--amber); }
   .badge.newsku { background: var(--amber-soft); color: var(--amber); }
   .badge.cohort { background: var(--red-soft); color: var(--red); }
+  .badge.fmt-preferred { background: var(--green-soft); color: var(--green); }
+  .badge.fmt-off { background: var(--red-soft); color: var(--red); }
+  .badge.fmt-split { background: var(--amber-soft); color: var(--amber); }
+  .pack { display: inline-block; font-size: 11px; color: var(--ink-2); background: var(--panel-2);
+          border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .pack + .pack { margin-left: 4px; }
+  .pack.off { border-color: var(--red); color: var(--red); }
+  .pack.pref { border-color: var(--green); color: var(--green); }
   .notebar {
     display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px;
     background: var(--amber-soft); border: 1px solid var(--line);
@@ -271,12 +279,43 @@
   </section>
 
   <section class="card">
+    <h3>Pack Format Adoption <span class="note" id="fmt-note"></span></h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-fmt">
+        <button data-f="issues" class="active">Not on the preferred pack</button>
+        <button data-f="all">All</button>
+        <button data-f="preferred">On preferred</button>
+      </div>
+      <span class="count" id="fmt-count"></span>
+      <button class="btn" id="dl-fmt">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="fmt">
+        <thead>
+          <tr>
+            <th data-sortm="name">Product</th>
+            <th data-sortm="brand">Brand</th>
+            <th data-sortm="state">Pack Now</th>
+            <th>Bought at MDT1</th>
+            <th data-sortm="remedy">What To Fix</th>
+            <th class="num" data-sortm="offFormatUnits" data-default="desc">Off-Format Units</th>
+            <th class="num" data-sortm="units">Units</th>
+            <th class="num" data-sortm="customers">Customers</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
     <h3>What the Cohort Is Ordering <span class="note" id="sku-note"></span></h3>
     <div class="toolbar">
       <div class="seg" id="seg-sku">
         <button data-f="all" class="active">All</button>
         <button data-f="new">Not tracked on the transition</button>
         <button data-f="plan">In the bring-in plan</button>
+        <button data-f="offformat">Off-format pack</button>
         <button data-f="feoos">Hit by FEOOS</button>
       </div>
       <input id="search-sku" type="search" placeholder="Search item or brand…" />
@@ -290,6 +329,7 @@
             <th data-sorts="name">Item</th>
             <th data-sorts="brand">Brand</th>
             <th data-sorts="isNew">Transition</th>
+            <th data-sorts="formatStatus">Pack</th>
             <th class="num" data-sorts="customers">Customers</th>
             <th class="num" data-sorts="lines">Order Lines</th>
             <th class="num" data-sorts="units" data-default="desc">Units</th>
@@ -317,7 +357,8 @@ let DATA = null;
 let feoosSort = "units", feoosDir = "desc", feoosFilter = "all", feoosText = "";
 let skuSort = "units", skuDir = "desc", skuFilter = "all", skuText = "";
 let custSort = "units", custDir = "desc";
-let lastFeoos = [], lastSkus = [], lastCusts = [];
+let fmtSort = "offFormatUnits", fmtDir = "desc", fmtFilter = "issues";
+let lastFeoos = [], lastSkus = [], lastCusts = [], lastFmt = [];
 
 const fmt = n => n == null ? "—" :
   (Math.round(n * 10) / 10).toLocaleString(undefined, { maximumFractionDigits: 1 });
@@ -378,6 +419,7 @@ async function load() {
   renderKpis();
   renderFeoos();
   renderCusts();
+  renderFmt();
   renderSkus();
   renderNotYet();
   renderCharts();
@@ -407,6 +449,8 @@ function renderKpis() {
       hint: `${fmt(s.feoosCohortUnits)} units short on SKUs the cohort orders` },
     { label: "New to the Plan", value: s.newSkus, cls: "amber",
       hint: `${fmt(s.newSkuUnits)} units on SKUs the transition never tracked` },
+    { label: "Off Preferred Pack", value: s.formatSplit + s.formatOff, cls: "red",
+      hint: `${fmt(s.offFormatUnits)} units · ${s.formatPreferred} products on the pack we chose` },
   ].map(kpi).join("");
 }
 
@@ -461,11 +505,86 @@ function renderCusts() {
     </tr>`).join("");
 }
 
+// An off-format line is only the *order's* fault if the pack we chose is
+// actually orderable. Say which of the three situations it is.
+const REMEDY = {
+  "switchable": ["Switch the order", "fmt-preferred",
+                 "the preferred pack is carried and in stock — this demand can move onto it"],
+  "preferred-short": ["Fix the stock", "fmt-off",
+                      "the preferred pack is shorting, so the other pack is the only thing shipping"],
+  "no-preferred-pack": ["No preferred pack", "muted",
+                        "DCA1 does not carry this product in the preferred pack, so there is nothing to switch to"],
+};
+
+const FMT_STATE = {
+  "preferred":  ["On preferred pack", "fmt-preferred", "DCA1 stocks this brand in this pack and that is what the cohort is ordering"],
+  "split":      ["Split", "fmt-split", "still ordering both packs — the swap is only partly done"],
+  "off-format": ["Off preferred", "fmt-off", "ordering a pack other than the one DCA1 chose to carry for this brand"],
+  "n/a":        ["—", "muted", "no glass/plastic pack choice applies to this item"],
+};
+
+function packCell(x) {
+  if (!x.pack) return `<span class="dim">—</span>`;
+  const cls = x.formatStatus === "preferred" ? "pref" : x.formatStatus === "off-format" ? "off" : "";
+  const title = (FMT_STATE[x.formatStatus] || FMT_STATE["n/a"])[2];
+  return `<span class="pack ${cls}" title="${escapeHtml(title)}">${escapeHtml(x.pack)}</span>`;
+}
+
+function remedyCell(r) {
+  if (!r.remedy) return `<span class="dim">—</span>`;
+  const [label, cls, title] = REMEDY[r.remedy];
+  let detail = "";
+  if (r.remedy === "switchable")
+    detail = `${fmt(r.preferredAltOnHand)} on hand`;
+  else if (r.remedy === "preferred-short")
+    detail = `${fmt(r.preferredAltFeoosEvents)} fill errors · ${fmt(r.preferredAltFeoosUnits)}u short`;
+  return `<span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span>` +
+         (detail ? `<div class="qty">${detail}</div>` : "");
+}
+
+function renderFmt() {
+  let rows = (DATA.formatAdoption || []).filter(r => {
+    if (fmtFilter === "issues") return r.state === "split" || r.state === "off-format";
+    if (fmtFilter === "preferred") return r.state === "preferred";
+    return true;
+  });
+  rows.sort(sorter(fmtSort, fmtDir));
+  lastFmt = rows;
+  const s = DATA.summary;
+  document.getElementById("fmt-count").textContent = `${rows.length} of ${DATA.formatAdoption.length} products`;
+  document.getElementById("fmt-note").textContent =
+    `Monin → glass, Torani → 1L plastic · ${s.formatPreferred} on the preferred pack, ` +
+    `${s.formatSplit} split, ${s.formatOff} off · ${fmt(s.offFormatUnits)} units still on the other pack · ` +
+    `${s.formatSwitchable} can switch, ${s.formatPreferredShort} blocked by stock, ${s.formatNoPreferred} have no glass option`;
+  markSort("#fmt", "sortm", fmtSort, fmtDir);
+  document.querySelector("#fmt tbody").innerHTML = rows.map(r => {
+    const [label, cls, title] = FMT_STATE[r.state] || FMT_STATE["n/a"];
+    const packs = r.packs.map(p =>
+      `<span class="pack ${p.status === "preferred" ? "pref" : p.status === "off-format" ? "off" : ""}">` +
+      `${escapeHtml(p.pack)} · ${fmt(p.units)}</span>`).join(" ");
+    const mdt1 = r.mdt1Packs.length
+      ? r.mdt1Packs.map(([k, v]) => `<span class="pack">${escapeHtml(k)} · ${fmt(v)}</span>`).join(" ")
+      : `<span class="dim">no MDT1 history</span>`;
+    return `<tr>
+      <td>${escapeHtml(r.name)}<div class="qty" style="margin-top:4px">${packs}</div></td>
+      <td class="brand-cell">${escapeHtml(r.brand || "—")}</td>
+      <td><span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span>
+          <div class="qty">want ${escapeHtml(r.preferredPack)}</div></td>
+      <td>${mdt1}</td>
+      <td>${remedyCell(r)}</td>
+      <td class="num">${r.offFormatUnits ? fmt(r.offFormatUnits) : "—"}</td>
+      <td class="num">${fmt(r.units)}</td>
+      <td class="num">${fmt(r.customers)}</td>
+    </tr>`;
+  }).join("");
+}
+
 function renderSkus() {
   const q = skuText.toLowerCase();
   let rows = (DATA.cohortSkus || []).filter(x => {
     if (skuFilter === "new" && !x.isNew) return false;
     if (skuFilter === "plan" && !x.inPlan) return false;
+    if (skuFilter === "offformat" && x.formatStatus !== "off-format") return false;
     if (skuFilter === "feoos" && !x.feoosEvents) return false;
     return !q || x.name.toLowerCase().includes(q) || (x.brand || "").toLowerCase().includes(q);
   });
@@ -485,6 +604,7 @@ function renderSkus() {
       <td>${escapeHtml(x.name)}</td>
       <td class="brand-cell">${escapeHtml(x.brand || "—")}</td>
       <td>${tag}</td>
+      <td>${packCell(x)}</td>
       <td class="num">${fmt(x.customers)}</td>
       <td class="num">${fmt(x.lines)}</td>
       <td class="num">${fmt(x.units)}</td>
@@ -549,6 +669,28 @@ document.getElementById("seg-sku").addEventListener("click", e => {
   document.querySelectorAll("#seg-sku button").forEach(x => x.classList.toggle("active", x === b));
   renderSkus();
 });
+document.getElementById("seg-fmt").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  fmtFilter = b.dataset.f;
+  document.querySelectorAll("#seg-fmt button").forEach(x => x.classList.toggle("active", x === b));
+  renderFmt();
+});
+document.querySelectorAll("#fmt th[data-sortm]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.sortm;
+  if (fmtSort === k) fmtDir = fmtDir === "asc" ? "desc" : "asc";
+  else { fmtSort = k; fmtDir = th.dataset.default || "desc"; }
+  renderFmt();
+}));
+document.getElementById("dl-fmt").addEventListener("click", () => downloadCSV(
+  `dca1-pack-format-${fmtFilter}.csv`,
+  ["Product","Brand","State","What To Fix","Preferred Alternative","Alt On Hand","Alt FEOOS Events",
+   "Preferred Pack","Packs Ordered Now","Bought at MDT1","Off-Format Units","Units","Customers"],
+  lastFmt.map(r => [r.name, r.brand, r.state, r.remedy, r.preferredAlt, r.preferredAltOnHand,
+                    r.preferredAltFeoosEvents, r.preferredPack,
+                    r.packs.map(p => `${p.pack}: ${p.units}`).join(" / "),
+                    r.mdt1Packs.map(([k,v]) => `${k}: ${v}`).join(" / "),
+                    r.offFormatUnits, r.units, r.customers])));
+
 document.getElementById("search-feoos").addEventListener("input", e => { feoosText = e.target.value; renderFeoos(); });
 document.getElementById("search-sku").addEventListener("input", e => { skuText = e.target.value; renderSkus(); });
 
@@ -579,8 +721,9 @@ document.getElementById("dl-feoos").addEventListener("click", () => downloadCSV(
 
 document.getElementById("dl-skus").addEventListener("click", () => downloadCSV(
   `dca1-cohort-ordering-${skuFilter}.csv`,
-  ["Item","Brand","Tracked on Transition","In Plan","Customers","Order Lines","Units","First Order","Last Order","FEOOS Events","FEOOS Units"],
+  ["Item","Brand","Tracked on Transition","In Plan","Pack","Format","Customers","Order Lines","Units","First Order","Last Order","FEOOS Events","FEOOS Units"],
   lastSkus.map(x => [x.name, x.brand, x.isNew ? "No (new)" : "Yes", x.inPlan ? "Yes" : "No",
+                     x.pack, x.formatStatus,
                      x.customers, x.lines, x.units, x.firstOrder, x.lastOrder, x.feoosEvents, x.feoosUnits])));
 
 document.getElementById("dl-custs").addEventListener("click", () => downloadCSV(
