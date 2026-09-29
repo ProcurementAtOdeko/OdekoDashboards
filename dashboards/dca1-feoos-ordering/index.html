@@ -297,6 +297,7 @@
             <th data-sortm="brand">Brand</th>
             <th data-sortm="state">Pack Now</th>
             <th>Bought at MDT1</th>
+            <th data-sortm="remedy">What To Fix</th>
             <th class="num" data-sortm="offFormatUnits" data-default="desc">Off-Format Units</th>
             <th class="num" data-sortm="units">Units</th>
             <th class="num" data-sortm="customers">Customers</th>
@@ -504,6 +505,17 @@ function renderCusts() {
     </tr>`).join("");
 }
 
+// An off-format line is only the *order's* fault if the pack we chose is
+// actually orderable. Say which of the three situations it is.
+const REMEDY = {
+  "switchable": ["Switch the order", "fmt-preferred",
+                 "the preferred pack is carried and in stock — this demand can move onto it"],
+  "preferred-short": ["Fix the stock", "fmt-off",
+                      "the preferred pack is shorting, so the other pack is the only thing shipping"],
+  "no-preferred-pack": ["No preferred pack", "muted",
+                        "DCA1 does not carry this product in the preferred pack, so there is nothing to switch to"],
+};
+
 const FMT_STATE = {
   "preferred":  ["On preferred pack", "fmt-preferred", "DCA1 stocks this brand in this pack and that is what the cohort is ordering"],
   "split":      ["Split", "fmt-split", "still ordering both packs — the swap is only partly done"],
@@ -518,6 +530,18 @@ function packCell(x) {
   return `<span class="pack ${cls}" title="${escapeHtml(title)}">${escapeHtml(x.pack)}</span>`;
 }
 
+function remedyCell(r) {
+  if (!r.remedy) return `<span class="dim">—</span>`;
+  const [label, cls, title] = REMEDY[r.remedy];
+  let detail = "";
+  if (r.remedy === "switchable")
+    detail = `${fmt(r.preferredAltOnHand)} on hand`;
+  else if (r.remedy === "preferred-short")
+    detail = `${fmt(r.preferredAltFeoosEvents)} fill errors · ${fmt(r.preferredAltFeoosUnits)}u short`;
+  return `<span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span>` +
+         (detail ? `<div class="qty">${detail}</div>` : "");
+}
+
 function renderFmt() {
   let rows = (DATA.formatAdoption || []).filter(r => {
     if (fmtFilter === "issues") return r.state === "split" || r.state === "off-format";
@@ -530,7 +554,8 @@ function renderFmt() {
   document.getElementById("fmt-count").textContent = `${rows.length} of ${DATA.formatAdoption.length} products`;
   document.getElementById("fmt-note").textContent =
     `Monin → glass, Torani → 1L plastic · ${s.formatPreferred} on the preferred pack, ` +
-    `${s.formatSplit} split, ${s.formatOff} off · ${fmt(s.offFormatUnits)} units still on the other pack`;
+    `${s.formatSplit} split, ${s.formatOff} off · ${fmt(s.offFormatUnits)} units still on the other pack · ` +
+    `${s.formatSwitchable} can switch, ${s.formatPreferredShort} blocked by stock, ${s.formatNoPreferred} have no glass option`;
   markSort("#fmt", "sortm", fmtSort, fmtDir);
   document.querySelector("#fmt tbody").innerHTML = rows.map(r => {
     const [label, cls, title] = FMT_STATE[r.state] || FMT_STATE["n/a"];
@@ -546,6 +571,7 @@ function renderFmt() {
       <td><span class="badge ${cls}" title="${escapeHtml(title)}">${label}</span>
           <div class="qty">want ${escapeHtml(r.preferredPack)}</div></td>
       <td>${mdt1}</td>
+      <td>${remedyCell(r)}</td>
       <td class="num">${r.offFormatUnits ? fmt(r.offFormatUnits) : "—"}</td>
       <td class="num">${fmt(r.units)}</td>
       <td class="num">${fmt(r.customers)}</td>
@@ -657,8 +683,10 @@ document.querySelectorAll("#fmt th[data-sortm]").forEach(th => th.addEventListen
 }));
 document.getElementById("dl-fmt").addEventListener("click", () => downloadCSV(
   `dca1-pack-format-${fmtFilter}.csv`,
-  ["Product","Brand","State","Preferred Pack","Packs Ordered Now","Bought at MDT1","Off-Format Units","Units","Customers"],
-  lastFmt.map(r => [r.name, r.brand, r.state, r.preferredPack,
+  ["Product","Brand","State","What To Fix","Preferred Alternative","Alt On Hand","Alt FEOOS Events",
+   "Preferred Pack","Packs Ordered Now","Bought at MDT1","Off-Format Units","Units","Customers"],
+  lastFmt.map(r => [r.name, r.brand, r.state, r.remedy, r.preferredAlt, r.preferredAltOnHand,
+                    r.preferredAltFeoosEvents, r.preferredPack,
                     r.packs.map(p => `${p.pack}: ${p.units}`).join(" / "),
                     r.mdt1Packs.map(([k,v]) => `${k}: ${v}`).join(" / "),
                     r.offFormatUnits, r.units, r.customers])));

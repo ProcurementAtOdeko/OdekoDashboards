@@ -336,7 +336,7 @@ def load_transition_universe():
         with open(CONVERSION_DATA) as f:
             skus = json.load(f).get("skus", [])
     except (OSError, ValueError, KeyError):
-        return set(), {}, {}
+        return set(), {}, {}, {}
     universe = {norm_name(s["name"]) for s in skus}
     # Also key by product, so ordering the glass pack of a syrup the cohort
     # bought in plastic at MDT1 counts as the same transition SKU, not new.
@@ -351,7 +351,22 @@ def load_transition_universe():
         lbl = pack_label(s_["name"])
         if lbl:
             mdt1_packs[fmt_key(s_["name"])][lbl] += s_.get("units", 0) or 0
-    return universe, brands, {k: dict(v) for k, v in mdt1_packs.items()}
+    # DCA1 availability per (product, pack material), so the format section
+    # can say whether the preferred pack is actually orderable. Without it an
+    # "off preferred" flag is unfair: the customer may have no alternative.
+    packs_at_dca1 = {}
+    for s_ in skus:
+        mat = pack_material(s_["name"])
+        if not mat:
+            continue
+        packs_at_dca1[(fmt_key(s_["name"]), mat)] = {
+            "name": s_["name"],
+            "inDca1": bool(s_.get("inDca1")),
+            "availability": s_.get("availability"),
+            "onHand": s_.get("onHand"),
+        }
+    return (universe, brands, {k: dict(v) for k, v in mdt1_packs.items()},
+            packs_at_dca1)
 
 
 def load_plan():
@@ -523,7 +538,7 @@ def main(out_path):
             "sources likely mid-refresh; leaving existing data.json untouched."
         )
 
-    transition, transition_brands, mdt1_packs = load_transition_universe()
+    transition, transition_brands, mdt1_packs, dca1_packs = load_transition_universe()
     plan = load_plan()
     cohort_keys = set(sales_skus)
     # A fill error on the glass pack matters to a customer ordering plastic,
@@ -584,6 +599,15 @@ def main(out_path):
     feoos_by_product = {}
     for x in feoos_list:
         feoos_by_product.setdefault(fmt_key(x["name"]), x)
+    # FEOOS on a specific pack, so the format section can tell "the pack we
+    # chose is orderable" from "the pack we chose keeps shorting".
+    feoos_by_pack = defaultdict(lambda: {"events": 0, "units": 0.0})
+    for x in feoos_list:
+        mat = pack_material(x["name"])
+        if mat:
+            e = feoos_by_pack[(fmt_key(x["name"]), mat)]
+            e["events"] += x["events"]
+            e["units"] += x["units"]
     cohort_sku_list = []
     for key, s in sales_skus.items():
         fk = fmt_key(s["name"])
@@ -650,8 +674,33 @@ def main(out_path):
             state = "off-format"
         else:
             state = "preferred"
+        # Is the pack we chose actually orderable? That decides whether an
+        # off-format line is the order to fix, the stock to fix, or nothing.
+        pref_mat = PREFERRED_FORMAT[p["brand"].strip().lower()]["material"]
+        alt = dca1_packs.get((fk, pref_mat))
+        alt_feoos = feoos_by_pack.get((fk, pref_mat), {"events": 0, "units": 0.0})
+        if state in ("split", "off-format"):
+            if not alt or not alt["inDca1"]:
+                remedy = "no-preferred-pack"
+            elif alt_feoos["events"]:
+                # It is nominally in the catalog, but it is actively shorting —
+                # telling anyone to switch onto it would just move the failure.
+                remedy = "preferred-short"
+            elif alt.get("availability") == "ready" and (alt.get("onHand") or 0) > 0:
+                remedy = "switchable"
+            else:
+                remedy = "preferred-short"
+        else:
+            remedy = ""
+
         format_rows.append({
             "product": fk, "name": p["name"], "brand": p["brand"],
+            "preferredAlt": (alt or {}).get("name", ""),
+            "preferredAltOnHand": (alt or {}).get("onHand"),
+            "preferredAltAvailability": (alt or {}).get("availability", ""),
+            "preferredAltFeoosEvents": alt_feoos["events"],
+            "preferredAltFeoosUnits": round(alt_feoos["units"], 1),
+            "remedy": remedy,
             "packs": packs,
             "preferredPack": PREFERRED_FORMAT[p["brand"].strip().lower()]["label"],
             "preferredUnits": round(pref_units, 1),
@@ -725,6 +774,9 @@ def main(out_path):
             "formatSplit": sum(1 for r in format_rows if r["state"] == "split"),
             "formatOff": sum(1 for r in format_rows if r["state"] == "off-format"),
             "formatNa": sum(1 for r in format_rows if r["state"] == "n/a"),
+            "formatSwitchable": sum(1 for r in format_rows if r["remedy"] == "switchable"),
+            "formatPreferredShort": sum(1 for r in format_rows if r["remedy"] == "preferred-short"),
+            "formatNoPreferred": sum(1 for r in format_rows if r["remedy"] == "no-preferred-pack"),
             "offFormatUnits": round(sum(r["offFormatUnits"] for r in format_rows), 1),
             "preferredUnits": round(sum(r["preferredUnits"] for r in format_rows), 1),
         },
