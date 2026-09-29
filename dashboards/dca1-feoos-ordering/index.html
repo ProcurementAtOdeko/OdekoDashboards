@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · DCA1 FEOOS &amp; Ordering</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .card.chart .body { height: 300px; position: relative; }
+  .card.tall .body { height: 520px; position: relative; }
+  .card.full { grid-column: 1 / -1; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; min-width: 240px;
+    font-family: inherit;
+  }
+  .toolbar input:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: 0; background: var(--panel); color: var(--muted); font: inherit; font-size: 13px;
+    padding: 7px 14px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
+
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+  .toolbar .btn { margin-left: 10px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; cursor: pointer; user-select: none; background: var(--bg);
+    position: sticky; top: 0;
+  }
+  th:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .brand-cell { color: var(--muted); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.carried { background: var(--green-soft); color: var(--green); }
+  .badge.gap { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .badge.stock-ready { background: var(--green-soft); color: var(--green); }
+  .badge.stock-nostock { background: var(--red-soft); color: var(--red); }
+  .badge.stock-notactive { background: var(--amber-soft); color: var(--amber); }
+  .badge.stock-dormant { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+  .qty { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .badge.roster-kept { background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .badge.roster-added { background: var(--green-soft); color: var(--green); }
+  .badge.roster-removed { background: var(--red-soft); color: var(--red); }
+  tr.off-roster td { opacity: .62; }
+  tr.off-roster:hover td { opacity: 1; }
+  .uuid { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; margin-top: 2px; }
+  .tablewrap { overflow: auto; max-height: 640px; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable td:first-child .name-link { color: var(--ink-2); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  tr.clickable:hover td:first-child .name-link { text-decoration-color: var(--ink-2); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(42,20,8,.45); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 40px 16px; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    max-width: 860px; width: 100%; box-shadow: 0 20px 50px rgba(42,20,8,.25);
+  }
+  .modal .mhead {
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    position: sticky; top: 0; background: var(--panel); border-radius: 10px 10px 0 0;
+  }
+  .modal .mtitle { font-size: 16px; font-weight: 700; color: var(--ink-2); letter-spacing: -.01em; }
+  .modal .mchips { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip b { font-variant-numeric: tabular-nums; }
+  .chip.gap { background: var(--red-soft); color: var(--red); border-color: transparent; }
+  .chip.sig { padding: 2px 8px; font-size: 11px; color: var(--muted); }
+  #subs td:nth-child(4) { color: var(--green); font-weight: 600; }
+  #subs .sub-alt { position: relative; padding-left: 16px; }
+  #subs .sub-alt::before { content: "\2192"; position: absolute; left: 0; color: var(--muted); font-weight: 400; }
+  #subs .sub-alt + .sub-alt { margin-top: 5px; }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .pack { display: inline-block; font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 500; white-space: nowrap; }
+  .mclose { border: 0; background: var(--panel-2); border-radius: 6px; width: 30px; height: 30px; cursor: pointer; font-size: 17px; line-height: 1; color: var(--ink-2); flex: none; }
+  .mclose:hover { background: var(--line); }
+  .mtoggle { margin-left: 6px; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .modal .mbody { max-height: 62vh; overflow: auto; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .toolbar .count { margin-left: 0; }
+  }
+
+  .badge.plan { background: var(--amber-soft); color: var(--amber); }
+  .badge.newsku { background: var(--amber-soft); color: var(--amber); }
+  .badge.cohort { background: var(--red-soft); color: var(--red); }
+  .notebar {
+    display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px;
+    background: var(--amber-soft); border: 1px solid var(--line);
+    border-radius: 8px; color: var(--ink-2); font-size: 13px; margin-bottom: 20px;
+  }
+  .notebar b { color: var(--amber); }
+  .notebar[hidden] { display: none; }
+  .sect { font-size: 12px; font-weight: 700; text-transform: uppercase;
+          letter-spacing: .1em; color: var(--muted); margin: 28px 0 12px; }
+  .dim { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>DCA1 — Fill Errors &amp; Post-Conversion Ordering</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="notebar" id="srcnote"></div>
+
+  <div class="sect">Part 1 · DCA1 market</div>
+  <div class="kpis" id="kpis-market"></div>
+
+  <div class="charts">
+    <section class="card chart">
+      <h3>FEOOS by Day <span class="note">units customers asked for that DCA1 could not ship</span></h3>
+      <div class="body"><canvas id="chart-trend"></canvas></div>
+    </section>
+    <section class="card chart">
+      <h3>FEOOS by Brand <span class="note">units short</span></h3>
+      <div class="body"><canvas id="chart-brands"></canvas></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h3>DCA1 FEOOS by SKU <span class="note" id="feoos-note"></span></h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-feoos">
+        <button data-f="all" class="active">All</button>
+        <button data-f="cohort">Cohort orders it</button>
+        <button data-f="transition">In the transition</button>
+      </div>
+      <input id="search-feoos" type="search" placeholder="Search item or brand…" />
+      <span class="count" id="feoos-count"></span>
+      <button class="btn" id="dl-feoos">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="feoos">
+        <thead>
+          <tr>
+            <th data-sortf="name">Item</th>
+            <th data-sortf="brand">Brand</th>
+            <th data-sortf="cohortOrders">Cohort Relevance</th>
+            <th class="num" data-sortf="events">Events</th>
+            <th class="num" data-sortf="daysAffected">Days Hit</th>
+            <th class="num" data-sortf="units" data-default="desc">Units Short</th>
+            <th data-sortf="lastEvent">Last Event</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="sect">Part 2 · The converted MDT1 cohort</div>
+  <div class="kpis" id="kpis-cohort"></div>
+
+  <section class="card">
+    <h3>Cohort Ordering at DCA1 <span class="note" id="cust-note"></span></h3>
+    <div class="toolbar">
+      <span class="count" id="cust-count"></span>
+      <button class="btn" id="dl-custs">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="custs">
+        <thead>
+          <tr>
+            <th data-sortc="name">Customer</th>
+            <th data-sortc="firstOrder">First DCA1 Order</th>
+            <th data-sortc="lastOrder">Last Order</th>
+            <th class="num" data-sortc="skus">SKUs</th>
+            <th class="num" data-sortc="lines">Order Lines</th>
+            <th class="num" data-sortc="units" data-default="desc">Units</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>What the Cohort Is Ordering <span class="note" id="sku-note"></span></h3>
+    <div class="toolbar">
+      <div class="seg" id="seg-sku">
+        <button data-f="all" class="active">All</button>
+        <button data-f="new">Not tracked on the transition</button>
+        <button data-f="plan">In the bring-in plan</button>
+        <button data-f="feoos">Hit by FEOOS</button>
+      </div>
+      <input id="search-sku" type="search" placeholder="Search item or brand…" />
+      <span class="count" id="sku-count"></span>
+      <button class="btn" id="dl-skus">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="skus">
+        <thead>
+          <tr>
+            <th data-sorts="name">Item</th>
+            <th data-sorts="brand">Brand</th>
+            <th data-sorts="isNew">Transition</th>
+            <th class="num" data-sorts="customers">Customers</th>
+            <th class="num" data-sorts="lines">Order Lines</th>
+            <th class="num" data-sorts="units" data-default="desc">Units</th>
+            <th class="num" data-sorts="feoosEvents">FEOOS</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Not Yet Ordering at DCA1 <span class="note" id="notyet-note"></span></h3>
+    <div class="tablewrap" style="max-height:340px">
+      <table id="notyet">
+        <thead><tr><th>Customer</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+let DATA = null;
+let feoosSort = "units", feoosDir = "desc", feoosFilter = "all", feoosText = "";
+let skuSort = "units", skuDir = "desc", skuFilter = "all", skuText = "";
+let custSort = "units", custDir = "desc";
+let lastFeoos = [], lastSkus = [], lastCusts = [];
+
+const fmt = n => n == null ? "—" :
+  (Math.round(n * 10) / 10).toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function downloadCSV(filename, headers, rows) {
+  const lines = [headers.map(csvCell).join(",")];
+  for (const r of rows) lines.push(r.map(csvCell).join(","));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+function sorter(key, dir) {
+  return (a, b) => {
+    let av = a[key], bv = b[key];
+    if (typeof av === "boolean") { av = av ? 1 : 0; bv = bv ? 1 : 0; }
+    if (av == null) av = ""; if (bv == null) bv = "";
+    if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return dir === "asc" ? av - bv : bv - av;
+  };
+}
+function markSort(sel, attr, key, dir) {
+  document.querySelectorAll(`${sel} th`).forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset[attr] === key) th.classList.add(dir === "asc" ? "sort-asc" : "sort-desc");
+  });
+}
+
+async function load() {
+  const res = await fetch("data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  const f = DATA.feoosRange || {}, s = DATA.salesRange || {};
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · FEOOS ${f.min} → ${f.max} · DCA1 sales ${s.min} → ${s.max}`;
+
+  // The two FEOOS exports disagree; say so on the page rather than picking a
+  // winner silently, and say what it costs (no customer-level cohort view).
+  const n = DATA.sourceNote || {};
+  document.getElementById("srcnote").innerHTML =
+    `<span>⚠</span><div><b>FEOOS source caveat.</b> DCA1 numbers come from the DCA1-only export ` +
+    `(<b>${fmt(n.dca1FeoosEvents)}</b> events over ${f.days} days). The network-wide look reports just ` +
+    `<b>${fmt(n.networkFeoosDca1Events)}</b> DCA1 events over 14 days across ${fmt(n.networkFeoosDca1Locations)} ` +
+    `locations — a strict subset, and none of them are converted-cohort sites. The DCA1 export carries no ` +
+    `Location Name, so <b>the cohort FEOOS view below is SKU-level, not customer-level</b>. Adding Location Name ` +
+    `to the DCA1 FEOOS export (or unfiltering DCA1 in the network look) turns it on automatically.`;
+
+  renderKpis();
+  renderFeoos();
+  renderCusts();
+  renderSkus();
+  renderNotYet();
+  renderCharts();
+}
+
+function kpi(k) {
+  return `<div class="kpi ${k.cls || ""}"><div class="label">${k.label}</div>` +
+         `<div class="value">${fmt(k.value)}</div>` +
+         (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`;
+}
+
+function renderKpis() {
+  const s = DATA.summary, f = DATA.feoosRange || {};
+  document.getElementById("kpis-market").innerHTML = [
+    { label: "FEOOS Events", value: s.feoosEvents, cls: "red", hint: `over ${f.days} days` },
+    { label: "Units Short", value: s.feoosUnits, cls: "red", hint: "requested but not shipped" },
+    { label: "SKUs Affected", value: s.feoosSkus, cls: "amber" },
+    { label: "DCA1 Customers", value: s.marketCustomers, cls: "", hint: "ordering in the trailing 90" },
+  ].map(kpi).join("");
+
+  document.getElementById("kpis-cohort").innerHTML = [
+    { label: "Converted & Ordering", value: s.cohortLive, cls: "accent",
+      hint: `of ${s.cohortTotal} · ${s.cohortNotYet} yet to place a DCA1 order` },
+    { label: "Units Ordered", value: s.cohortUnits, cls: "green",
+      hint: `${fmt(s.cohortSkus)} SKUs · ${fmt(s.cohortOrderLines)} lines` },
+    { label: "FEOOS SKUs They Buy", value: s.feoosCohortSkus, cls: "red",
+      hint: `${fmt(s.feoosCohortUnits)} units short on SKUs the cohort orders` },
+    { label: "New to the Plan", value: s.newSkus, cls: "amber",
+      hint: `${fmt(s.newSkuUnits)} units on SKUs the transition never tracked` },
+  ].map(kpi).join("");
+}
+
+function relevanceCell(x) {
+  const tags = [];
+  if (x.cohortOrders) tags.push(`<span class="badge cohort" title="the converted cohort orders this SKU at DCA1 today">cohort orders</span>`);
+  if (x.inTransition) tags.push(`<span class="badge muted" title="part of the MDT1 transition universe">transition</span>`);
+  if (x.inPlan) tags.push(`<span class="badge plan" title="in the MDT1 SKU onboarding plan">plan</span>`);
+  return tags.join(" ") || `<span class="dim">—</span>`;
+}
+
+function renderFeoos() {
+  const q = feoosText.toLowerCase();
+  let rows = (DATA.feoos || []).filter(x => {
+    if (feoosFilter === "cohort" && !x.cohortOrders) return false;
+    if (feoosFilter === "transition" && !x.inTransition) return false;
+    return !q || x.name.toLowerCase().includes(q) || (x.brand || "").toLowerCase().includes(q);
+  });
+  rows.sort(sorter(feoosSort, feoosDir));
+  lastFeoos = rows;
+  const s = DATA.summary;
+  document.getElementById("feoos-count").textContent = `${rows.length} of ${DATA.feoos.length} SKUs`;
+  document.getElementById("feoos-note").textContent =
+    `${s.feoosCohortSkus} of ${s.feoosSkus} are SKUs the converted cohort orders · ${s.feoosTransitionSkus} were in the transition`;
+  markSort("#feoos", "sortf", feoosSort, feoosDir);
+  document.querySelector("#feoos tbody").innerHTML = rows.map(x => `<tr>
+      <td>${escapeHtml(x.name)}</td>
+      <td class="brand-cell">${escapeHtml(x.brand || "—")}</td>
+      <td>${relevanceCell(x)}</td>
+      <td class="num">${fmt(x.events)}</td>
+      <td class="num">${fmt(x.daysAffected)}</td>
+      <td class="num">${fmt(x.units)}</td>
+      <td class="brand-cell">${x.lastEvent || "—"}</td>
+    </tr>`).join("");
+}
+
+function renderCusts() {
+  let rows = (DATA.customers || []).slice().sort(sorter(custSort, custDir));
+  lastCusts = rows;
+  const s = DATA.summary;
+  document.getElementById("cust-count").textContent = `${rows.length} ordering`;
+  document.getElementById("cust-note").textContent =
+    `${s.cohortLive} of ${s.cohortTotal} converted locations have placed a DCA1 order`;
+  markSort("#custs", "sortc", custSort, custDir);
+  document.querySelector("#custs tbody").innerHTML = rows.map(c => `<tr>
+      <td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td>
+      <td class="brand-cell">${c.firstOrder || "—"}</td>
+      <td class="brand-cell">${c.lastOrder || "—"}</td>
+      <td class="num">${fmt(c.skus)}</td>
+      <td class="num">${fmt(c.lines)}</td>
+      <td class="num">${fmt(c.units)}</td>
+    </tr>`).join("");
+}
+
+function renderSkus() {
+  const q = skuText.toLowerCase();
+  let rows = (DATA.cohortSkus || []).filter(x => {
+    if (skuFilter === "new" && !x.isNew) return false;
+    if (skuFilter === "plan" && !x.inPlan) return false;
+    if (skuFilter === "feoos" && !x.feoosEvents) return false;
+    return !q || x.name.toLowerCase().includes(q) || (x.brand || "").toLowerCase().includes(q);
+  });
+  rows.sort(sorter(skuSort, skuDir));
+  lastSkus = rows;
+  const s = DATA.summary;
+  document.getElementById("sku-count").textContent = `${rows.length} of ${DATA.cohortSkus.length} SKUs`;
+  document.getElementById("sku-note").textContent =
+    `${s.newSkus} not tracked on the transition · ${s.planSkusOrdered} from the bring-in plan`;
+  markSort("#skus", "sorts", skuSort, skuDir);
+  document.querySelector("#skus tbody").innerHTML = rows.map(x => {
+    const tag = x.isNew
+      ? `<span class="badge newsku" title="the cohort is buying this at DCA1 but it was never tracked during the transition">new to the plan</span>`
+      : (x.inPlan ? `<span class="badge plan" title="in the MDT1 SKU onboarding plan">brought on</span>`
+                  : `<span class="badge muted" title="part of the MDT1 transition universe">transition</span>`);
+    return `<tr>
+      <td>${escapeHtml(x.name)}</td>
+      <td class="brand-cell">${escapeHtml(x.brand || "—")}</td>
+      <td>${tag}</td>
+      <td class="num">${fmt(x.customers)}</td>
+      <td class="num">${fmt(x.lines)}</td>
+      <td class="num">${fmt(x.units)}</td>
+      <td class="num">${x.feoosEvents ? `<span class="badge gap">${x.feoosEvents}</span>` : "—"}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderNotYet() {
+  const rows = DATA.notYetOrdering || [];
+  document.getElementById("notyet-note").textContent =
+    `${rows.length} converted locations with no DCA1 order yet in the trailing 90`;
+  document.querySelector("#notyet tbody").innerHTML = rows.map(c =>
+    `<tr><td>${escapeHtml(c.name || "(unknown)")}<div class="uuid">${c.uuid}</div></td></tr>`).join("");
+}
+
+function renderCharts() {
+  if (typeof Chart === "undefined") return;   // CDN blocked: tables still work
+  Chart.defaults.color = "#8A7B6A";
+  Chart.defaults.borderColor = "#E6DFCC";
+  Chart.defaults.font.family = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+  new Chart(document.getElementById("chart-trend"), {
+    type: "bar",
+    data: {
+      labels: (DATA.feoosTrend || []).map(d => d.date),
+      datasets: [{ label: "Units short", data: (DATA.feoosTrend || []).map(d => d.units),
+                   backgroundColor: "#B42318", borderRadius: 3 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+                 tooltip: { callbacks: { afterLabel: c => `${DATA.feoosTrend[c.dataIndex].events} events` } } },
+      scales: { x: { grid: { display: false } }, y: { beginAtZero: true } },
+    },
+  });
+
+  new Chart(document.getElementById("chart-brands"), {
+    type: "bar",
+    data: {
+      labels: (DATA.feoosBrands || []).map(b => b.brand),
+      datasets: [{ label: "Units short", data: (DATA.feoosBrands || []).map(b => b.units),
+                   backgroundColor: "#40180B", borderRadius: 3 }],
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true }, y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 11 } } } },
+    },
+  });
+}
+
+document.getElementById("seg-feoos").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  feoosFilter = b.dataset.f;
+  document.querySelectorAll("#seg-feoos button").forEach(x => x.classList.toggle("active", x === b));
+  renderFeoos();
+});
+document.getElementById("seg-sku").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  skuFilter = b.dataset.f;
+  document.querySelectorAll("#seg-sku button").forEach(x => x.classList.toggle("active", x === b));
+  renderSkus();
+});
+document.getElementById("search-feoos").addEventListener("input", e => { feoosText = e.target.value; renderFeoos(); });
+document.getElementById("search-sku").addEventListener("input", e => { skuText = e.target.value; renderSkus(); });
+
+document.querySelectorAll("#feoos th[data-sortf]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.sortf;
+  if (feoosSort === k) feoosDir = feoosDir === "asc" ? "desc" : "asc";
+  else { feoosSort = k; feoosDir = th.dataset.default || "desc"; }
+  renderFeoos();
+}));
+document.querySelectorAll("#skus th[data-sorts]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.sorts;
+  if (skuSort === k) skuDir = skuDir === "asc" ? "desc" : "asc";
+  else { skuSort = k; skuDir = th.dataset.default || "desc"; }
+  renderSkus();
+}));
+document.querySelectorAll("#custs th[data-sortc]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.sortc;
+  if (custSort === k) custDir = custDir === "asc" ? "desc" : "asc";
+  else { custSort = k; custDir = th.dataset.default || "desc"; }
+  renderCusts();
+}));
+
+document.getElementById("dl-feoos").addEventListener("click", () => downloadCSV(
+  `dca1-feoos-${feoosFilter}.csv`,
+  ["Item","Brand","Cohort Orders","In Transition","In Plan","Events","Days Hit","Units Short","First Event","Last Event"],
+  lastFeoos.map(x => [x.name, x.brand, x.cohortOrders ? "Yes" : "No", x.inTransition ? "Yes" : "No",
+                      x.inPlan ? "Yes" : "No", x.events, x.daysAffected, x.units, x.firstEvent, x.lastEvent])));
+
+document.getElementById("dl-skus").addEventListener("click", () => downloadCSV(
+  `dca1-cohort-ordering-${skuFilter}.csv`,
+  ["Item","Brand","Tracked on Transition","In Plan","Customers","Order Lines","Units","First Order","Last Order","FEOOS Events","FEOOS Units"],
+  lastSkus.map(x => [x.name, x.brand, x.isNew ? "No (new)" : "Yes", x.inPlan ? "Yes" : "No",
+                     x.customers, x.lines, x.units, x.firstOrder, x.lastOrder, x.feoosEvents, x.feoosUnits])));
+
+document.getElementById("dl-custs").addEventListener("click", () => downloadCSV(
+  "dca1-cohort-customers.csv",
+  ["Customer","Location UUID","First DCA1 Order","Last Order","SKUs","Order Lines","Units"],
+  lastCusts.map(c => [c.name, c.uuid, c.firstOrder, c.lastOrder, c.skus, c.lines, c.units])));
+
+load();
+</script>
+</body>
+</html>
