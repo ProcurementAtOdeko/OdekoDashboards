@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-02T06:17:00.683368+00:00",
+  "generatedAt": "2026-10-02T22:35:56.143859+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-09-25",
+    "min": "2026-09-26",
     "max": "2026-10-01",
-    "days": 7
+    "days": 6
   },
   "salesRange": {
     "min": "2026-07-29",
@@ -12,18 +12,18 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 105,
-    "networkFeoosDca1Events": 12,
+    "dca1FeoosEvents": 86,
+    "networkFeoosDca1Events": 11,
     "networkFeoosDca1Locations": 11,
-    "networkFeoosCohortLocations": 1
+    "networkFeoosCohortLocations": 2
   },
   "summary": {
-    "feoosEvents": 105,
-    "feoosSkus": 34,
-    "feoosUnits": 326.0,
+    "feoosEvents": 86,
+    "feoosSkus": 33,
+    "feoosUnits": 261.0,
     "feoosCohortSkus": 11,
-    "feoosCohortUnits": 149.0,
-    "feoosTransitionSkus": 16,
+    "feoosCohortUnits": 141.0,
+    "feoosTransitionSkus": 15,
     "cohortTotal": 73,
     "cohortLive": 19,
     "cohortNotYet": 54,
@@ -33,8 +33,8 @@
     "newSkus": 5,
     "newSkuUnits": 6.0,
     "planSkusOrdered": 17,
-    "marketCustomers": 159,
-    "chargeLinesExcluded": 86,
+    "marketCustomers": 160,
+    "chargeLinesExcluded": 87,
     "formatProducts": 39,
     "formatPreferred": 29,
     "formatSplit": 3,
@@ -50,11 +50,11 @@
     {
       "name": "Monin Vanilla Syrup 750ml Glass",
       "brand": "Monin",
-      "events": 10,
-      "units": 63.0,
-      "firstEvent": "2026-09-25",
+      "events": 9,
+      "units": 55.0,
+      "firstEvent": "2026-09-26",
       "lastEvent": "2026-09-28",
-      "daysAffected": 4,
+      "daysAffected": 3,
       "cohortOrders": true,
       "inTransition": true,
       "inPlan": false,
@@ -64,30 +64,16 @@
     {
       "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
       "brand": "Talerico Bakery",
-      "events": 28,
-      "units": 43.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-30",
+      "events": 23,
+      "units": 37.0,
+      "firstEvent": "2026-09-26",
+      "lastEvent": "2026-10-01",
       "daysAffected": 6,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
       "pack": "",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Monin Strawberry Rose Syrup 750 ml Glass Bottle",
-      "brand": "Monin",
-      "events": 2,
-      "units": 41.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "750 ml glass",
-      "formatStatus": "preferred"
     },
     {
       "name": "Monin Strawberry Banana Smoothie 46oz",
@@ -132,20 +118,6 @@
       "formatStatus": "off-format"
     },
     {
-      "name": "Natalie's Orchard Island Organic Orange Juice - 6 / 12 oz btl",
-      "brand": "Natalie's Orchard Island",
-      "events": 10,
-      "units": 13.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 4,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "6 / 12 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Monin Cinnamon Syrup 750ml Glass",
       "brand": "Monin",
       "events": 4,
@@ -174,6 +146,20 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
+      "brand": "Monin",
+      "events": 1,
+      "units": 10.0,
+      "firstEvent": "2026-10-01",
+      "lastEvent": "2026-10-01",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": true,
+      "pack": "750 ml glass",
+      "formatStatus": "preferred"
+    },
+    {
       "name": "Just Ice Tea Raspberry Tea - 12 / 12 oz can",
       "brand": "Just Ice Tea",
       "events": 1,
@@ -190,43 +176,15 @@
     {
       "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 6,
-      "units": 7.0,
+      "events": 7,
+      "units": 9.0,
       "firstEvent": "2026-09-30",
-      "lastEvent": "2026-09-30",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Smithfield Cream Cheese Single Serve 1oz Container",
-      "brand": "Smithfield",
-      "events": 3,
-      "units": 7.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-30",
+      "lastEvent": "2026-10-01",
       "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "1 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "1883 Kiwi Syrup 1L Plastic Bottle",
-      "brand": "1883",
-      "events": 1,
-      "units": 6.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-25",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "1 L plastic",
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -244,6 +202,20 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Natalie's Orchard Island Organic Orange Juice - 6 / 12 oz btl",
+      "brand": "Natalie's Orchard Island",
+      "events": 4,
+      "units": 5.0,
+      "firstEvent": "2026-09-26",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 3,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "6 / 12 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Monin Strawberry Syrup 750ml Glass",
       "brand": "Monin",
       "events": 2,
@@ -258,18 +230,18 @@
       "formatStatus": "preferred"
     },
     {
-      "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
-      "brand": "Cuisine Solutions",
-      "events": 4,
-      "units": 4.0,
-      "firstEvent": "2026-09-25",
+      "name": "Monin Strawberry Rose Syrup 750 ml Glass Bottle",
+      "brand": "Monin",
+      "events": 1,
+      "units": 5.0,
+      "firstEvent": "2026-09-28",
       "lastEvent": "2026-09-28",
-      "daysAffected": 2,
+      "daysAffected": 1,
       "cohortOrders": false,
-      "inTransition": false,
+      "inTransition": true,
       "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
+      "pack": "750 ml glass",
+      "formatStatus": "preferred"
     },
     {
       "name": "1883 Butterscotch Syrup 1L Plastic",
@@ -314,31 +286,17 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Urnex Tabz Tea Equipment Cleaning Tablets Jar of 120 Tablets",
-      "brand": "Urnex",
+      "name": "Oregon Chai The Original Chai Dry Mix 3 lb. Bag(s)",
+      "brand": "Oregon Chai",
       "events": 2,
-      "units": 3.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-25",
+      "units": 2.0,
+      "firstEvent": "2026-10-01",
+      "lastEvent": "2026-10-01",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Aloutte Classic Cream Cheese Spread 5lb",
-      "brand": "Aloutte",
-      "events": 1,
-      "units": 3.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-25",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "5 lb",
+      "pack": "3 lb",
       "formatStatus": "n/a"
     },
     {
@@ -356,20 +314,6 @@
       "formatStatus": "preferred"
     },
     {
-      "name": "Sahale Cashew Tangerine Vanilla Macadamia Glazed - 18 / 1.5 oz pouch",
-      "brand": "Sahale",
-      "events": 2,
-      "units": 2.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-27",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "1.5 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
       "brand": "Rishi",
       "events": 1,
@@ -384,6 +328,20 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Smithfield Cream Cheese Single Serve 1oz Container",
+      "brand": "Smithfield",
+      "events": 1,
+      "units": 2.0,
+      "firstEvent": "2026-09-30",
+      "lastEvent": "2026-09-30",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "1 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Just Ice Tea Honey Green Tea - 12 / 16 oz btl",
       "brand": "Just Ice Tea",
       "events": 1,
@@ -395,6 +353,20 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "12 / 16 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Baked Fresh - Flourless Brownie - 1 / 56 ct",
+      "brand": "Baked Fresh",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-10-01",
+      "lastEvent": "2026-10-01",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -426,34 +398,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-09-28",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 1,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Karat Hot Cup 12oz (C-K512W)",
-      "brand": "Karat",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-09-28",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 1,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Karat PET Cold Cup 16oz (C-KC16)",
       "brand": "Karat",
       "events": 1,
@@ -479,6 +423,62 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "5 lb",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Karat Hot Cup 12oz (C-K512W)",
+      "brand": "Karat",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 1,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
+      "brand": "Cuisine Solutions",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Boylan Bottling Co. Ginger Ale Soda",
+      "brand": "Boylan Bottling Company",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 1,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Sahale Cashew Tangerine Vanilla Macadamia Glazed - 18 / 1.5 oz pouch",
+      "brand": "Sahale",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-09-27",
+      "lastEvent": "2026-09-27",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "1.5 oz",
       "formatStatus": "n/a"
     },
     {
@@ -508,28 +508,9 @@
       "inPlan": false,
       "pack": "",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Boylan Bottling Co. Seltzer Raspberry 12oz Bottle",
-      "brand": "Boylan Bottling Company",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-09-25",
-      "lastEvent": "2026-09-25",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-09-25",
-      "events": 28,
-      "units": 85.0
-    },
     {
       "date": "2026-09-26",
       "events": 5,
@@ -557,20 +538,20 @@
     },
     {
       "date": "2026-10-01",
-      "events": 2,
-      "units": 25.0
+      "events": 11,
+      "units": 45.0
     }
   ],
   "feoosBrands": [
     {
       "brand": "Monin",
-      "units": 173.0,
-      "events": 22
+      "units": 139.0,
+      "events": 21
     },
     {
       "brand": "Talerico Bakery",
-      "units": 43.0,
-      "events": 28
+      "units": 37.0,
+      "events": 23
     },
     {
       "brand": "Just Ice Tea",
@@ -579,23 +560,13 @@
     },
     {
       "brand": "1883",
-      "units": 22.0,
-      "events": 4
-    },
-    {
-      "brand": "Natalie's Orchard Island",
-      "units": 13.0,
-      "events": 10
+      "units": 16.0,
+      "events": 3
     },
     {
       "brand": "EatCommonGood",
-      "units": 7.0,
-      "events": 6
-    },
-    {
-      "brand": "Smithfield",
-      "units": 7.0,
-      "events": 3
+      "units": 9.0,
+      "events": 7
     },
     {
       "brand": "Maola",
@@ -603,8 +574,8 @@
       "events": 4
     },
     {
-      "brand": "Cuisine Solutions",
-      "units": 4.0,
+      "brand": "Natalie's Orchard Island",
+      "units": 5.0,
       "events": 4
     },
     {
@@ -621,6 +592,16 @@
       "brand": "Saratoga Spring Water",
       "units": 3.0,
       "events": 3
+    },
+    {
+      "brand": "Oregon Chai",
+      "units": 2.0,
+      "events": 2
+    },
+    {
+      "brand": "Rishi",
+      "units": 2.0,
+      "events": 1
     }
   ],
   "formatAdoption": [
@@ -629,10 +610,10 @@
       "name": "Monin Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Vanilla Syrup 750ml Glass",
-      "preferredAltOnHand": 257.0,
+      "preferredAltOnHand": 252.0,
       "preferredAltAvailability": "ready",
-      "preferredAltFeoosEvents": 10,
-      "preferredAltFeoosUnits": 63.0,
+      "preferredAltFeoosEvents": 9,
+      "preferredAltFeoosUnits": 55.0,
       "remedy": "preferred-short",
       "packs": [
         {
@@ -707,7 +688,7 @@
       "name": "Monin Sugar Free Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Sugar Free Vanilla Syrup 750ml Glass",
-      "preferredAltOnHand": 93.0,
+      "preferredAltOnHand": 92.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -746,7 +727,7 @@
       "name": "Monin Pure Cane Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "preferredAlt": "Monin Pure Cane Syrup 750ml Glass",
-      "preferredAltOnHand": 58.0,
+      "preferredAltOnHand": 54.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -908,7 +889,7 @@
       "name": "Monin Spiced Brown Sugar Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Spiced Brown Sugar Syrup 750ml Glass",
-      "preferredAltOnHand": 24.0,
+      "preferredAltOnHand": 23.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -938,7 +919,7 @@
       "name": "Monin Butter Pecan Syrup 750ml Glass Bottle",
       "brand": "Monin",
       "preferredAlt": "Monin Butter Pecan Syrup 750ml Glass Bottle",
-      "preferredAltOnHand": 518.0,
+      "preferredAltOnHand": 512.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -968,7 +949,7 @@
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Toasted Marshmallow Syrup 750ml Glass",
-      "preferredAltOnHand": 66.0,
+      "preferredAltOnHand": 61.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1370,7 +1351,7 @@
       "name": "Monin Caramel Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Caramel Syrup 750ml Glass",
-      "preferredAltOnHand": 48.0,
+      "preferredAltOnHand": 44.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1434,7 +1415,7 @@
       "name": "Monin Peach Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Peach Syrup 750ml Glass",
-      "preferredAltOnHand": 31.0,
+      "preferredAltOnHand": 29.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1588,7 +1569,7 @@
       "name": "Monin Coconut Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Coconut Syrup 750ml Glass",
-      "preferredAltOnHand": 23.0,
+      "preferredAltOnHand": 19.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1902,8 +1883,8 @@
           284.0
         ]
       ],
-      "feoosEvents": 10,
-      "feoosUnits": 63.0
+      "feoosEvents": 9,
+      "feoosUnits": 55.0
     },
     {
       "name": "Monin Mango Smoothie 46oz",
@@ -2236,8 +2217,8 @@
           284.0
         ]
       ],
-      "feoosEvents": 10,
-      "feoosUnits": 63.0
+      "feoosEvents": 9,
+      "feoosUnits": 55.0
     },
     {
       "name": "Monin White Chocolate Sauce 64oz",
@@ -3819,7 +3800,7 @@
       "skus": 5,
       "firstOrder": "2026-09-30",
       "lastOrder": "2026-09-30",
-      "feoosEvents": 1
+      "feoosEvents": 0
     },
     {
       "uuid": "efb7e2b9-1162-45c4-8dd3-3e44e010e6d4",
@@ -3899,7 +3880,7 @@
       "skus": 3,
       "firstOrder": "2026-09-29",
       "lastOrder": "2026-09-29",
-      "feoosEvents": 0
+      "feoosEvents": 1
     },
     {
       "uuid": "0ee21cde-237f-4f88-84a8-fe238d9ddabe",
