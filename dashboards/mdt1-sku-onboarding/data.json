@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T23:03:58+00:00",
+  "generatedAt": "2026-10-03T08:17:16+00:00",
   "targetWarehouse": "DCA1",
   "sourceWarehouse": "MDT1",
   "docThreshold": 50,
@@ -17,7 +17,7 @@
     "notStarted": 38,
     "onPo": 0,
     "onTransferOrder": 0,
-    "inbound": 6,
+    "inbound": 9,
     "received": 0,
     "liveInCatalog": 56,
     "completePct": 60,
@@ -3107,14 +3107,15 @@
       "onPo": true,
       "inboundDocs": [
         "PO116303",
-        "PO116909"
+        "PO116909",
+        "PO117246"
       ],
       "inboundTypes": [
         "PO"
       ],
-      "inboundUnits": 28.0,
-      "poCount": 2,
-      "ordered": 28.0,
+      "inboundUnits": 42.0,
+      "poCount": 3,
+      "ordered": 42.0,
       "received": 0.0,
       "inCatalog": true,
       "mdt1Doc": 35.0,
@@ -3127,6 +3128,20 @@
       "mdt1DocAfter": 35.0,
       "nextExpected": "2026-09-28",
       "poLines": [
+        {
+          "po": "PO117246",
+          "vendor": "VEN00000175 Monin Inc",
+          "status": "Pending Receipt",
+          "created": "2026-10-02",
+          "expected": "2026-10-12",
+          "receivedDate": "",
+          "ordered": 14.0,
+          "received": 0.0,
+          "unit": "Case (12x)",
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
+        },
         {
           "po": "PO116909",
           "vendor": "VEN00000175 Monin Inc",
@@ -3185,14 +3200,18 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": true,
-      "inbound": false,
+      "inbound": true,
       "onTo": false,
-      "onPo": false,
-      "inboundDocs": [],
-      "inboundTypes": [],
-      "inboundUnits": 0,
-      "poCount": 1,
-      "ordered": 5.0,
+      "onPo": true,
+      "inboundDocs": [
+        "PO117246"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 3.0,
+      "poCount": 2,
+      "ordered": 8.0,
       "received": 60.0,
       "inCatalog": true,
       "mdt1Doc": 19.0,
@@ -3205,6 +3224,20 @@
       "mdt1DocAfter": 19.0,
       "nextExpected": "2026-09-18",
       "poLines": [
+        {
+          "po": "PO117246",
+          "vendor": "VEN00000175 Monin Inc",
+          "status": "Pending Receipt",
+          "created": "2026-10-02",
+          "expected": "2026-10-12",
+          "receivedDate": "",
+          "ordered": 3.0,
+          "received": 0.0,
+          "unit": "Case (12x)",
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
+        },
         {
           "po": "PO115635",
           "vendor": "VEN00000175 Monin Inc",
@@ -3303,14 +3336,15 @@
       "onPo": true,
       "inboundDocs": [
         "PO116303",
-        "PO116909"
+        "PO116909",
+        "PO117246"
       ],
       "inboundTypes": [
         "PO"
       ],
-      "inboundUnits": 28.0,
-      "poCount": 2,
-      "ordered": 28.0,
+      "inboundUnits": 35.0,
+      "poCount": 3,
+      "ordered": 35.0,
       "received": 0.0,
       "inCatalog": true,
       "mdt1Doc": 40.0,
@@ -3323,6 +3357,20 @@
       "mdt1DocAfter": 40.0,
       "nextExpected": "2026-09-28",
       "poLines": [
+        {
+          "po": "PO117246",
+          "vendor": "VEN00000175 Monin Inc",
+          "status": "Pending Receipt",
+          "created": "2026-10-02",
+          "expected": "2026-10-12",
+          "receivedDate": "",
+          "ordered": 7.0,
+          "received": 0.0,
+          "unit": "Case (12x)",
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
+        },
         {
           "po": "PO116909",
           "vendor": "VEN00000175 Monin Inc",
@@ -4088,14 +4136,18 @@
       "stage": "Live in catalog",
       "stageIndex": 3,
       "hasPo": true,
-      "inbound": false,
+      "inbound": true,
       "onTo": false,
-      "onPo": false,
-      "inboundDocs": [],
-      "inboundTypes": [],
-      "inboundUnits": 0,
-      "poCount": 1,
-      "ordered": 3.0,
+      "onPo": true,
+      "inboundDocs": [
+        "PO117246"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 1.0,
+      "poCount": 2,
+      "ordered": 4.0,
       "received": 36.0,
       "inCatalog": true,
       "mdt1Doc": 40.0,
@@ -4108,6 +4160,20 @@
       "mdt1DocAfter": 40.0,
       "nextExpected": "2026-09-18",
       "poLines": [
+        {
+          "po": "PO117246",
+          "vendor": "VEN00000175 Monin Inc",
+          "status": "Pending Receipt",
+          "created": "2026-10-02",
+          "expected": "2026-10-12",
+          "receivedDate": "",
+          "ordered": 1.0,
+          "received": 0.0,
+          "unit": "Case (12x)",
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
+        },
         {
           "po": "PO115635",
           "vendor": "VEN00000175 Monin Inc",
@@ -5938,16 +6004,20 @@
       "customers": 1,
       "stage": "Live in catalog",
       "stageIndex": 3,
-      "hasPo": false,
-      "inbound": false,
+      "hasPo": true,
+      "inbound": true,
       "onTo": false,
-      "onPo": false,
-      "inboundDocs": [],
-      "inboundTypes": [],
-      "inboundUnits": 0,
-      "poCount": 0,
-      "ordered": 0,
-      "received": 0,
+      "onPo": true,
+      "inboundDocs": [
+        "PO117246"
+      ],
+      "inboundTypes": [
+        "PO"
+      ],
+      "inboundUnits": 12.0,
+      "poCount": 1,
+      "ordered": 12.0,
+      "received": 0.0,
       "inCatalog": true,
       "mdt1Doc": 15.0,
       "mdt1OnHand": 3.4,
@@ -5957,8 +6027,23 @@
       "toCapped": "",
       "mdt1Releasable": 0,
       "mdt1DocAfter": 15.0,
-      "nextExpected": "",
-      "poLines": []
+      "nextExpected": "2026-10-12",
+      "poLines": [
+        {
+          "po": "PO117246",
+          "vendor": "VEN00000175 Monin Inc",
+          "status": "Pending Receipt",
+          "created": "2026-10-02",
+          "expected": "2026-10-12",
+          "receivedDate": "",
+          "ordered": 12.0,
+          "received": 0.0,
+          "unit": "Case (12x)",
+          "caseSize": 12.0,
+          "docType": "PO",
+          "open": true
+        }
+      ]
     }
   ]
 }
