@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-04T08:50:50.096909+00:00",
+  "generatedAt": "2026-10-04T18:48:33.686211+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-09-27",
+    "min": "2026-09-28",
     "max": "2026-10-02",
-    "days": 6
+    "days": 5
   },
   "salesRange": {
     "min": "2026-07-29",
@@ -12,17 +12,17 @@
   },
   "locationLevel": false,
   "sourceNote": {
-    "dca1FeoosEvents": 96,
+    "dca1FeoosEvents": 83,
     "networkFeoosDca1Events": 10,
     "networkFeoosDca1Locations": 8,
     "networkFeoosCohortLocations": 0
   },
   "summary": {
-    "feoosEvents": 96,
-    "feoosSkus": 34,
-    "feoosUnits": 276.0,
+    "feoosEvents": 83,
+    "feoosSkus": 31,
+    "feoosUnits": 248.0,
     "feoosCohortSkus": 12,
-    "feoosCohortUnits": 145.0,
+    "feoosCohortUnits": 134.0,
     "feoosTransitionSkus": 16,
     "cohortTotal": 73,
     "cohortLive": 19,
@@ -50,11 +50,11 @@
     {
       "name": "Monin Vanilla Syrup 750ml Glass",
       "brand": "Monin",
-      "events": 8,
-      "units": 49.0,
-      "firstEvent": "2026-09-27",
+      "events": 5,
+      "units": 38.0,
+      "firstEvent": "2026-09-28",
       "lastEvent": "2026-09-28",
-      "daysAffected": 2,
+      "daysAffected": 1,
       "cohortOrders": true,
       "inTransition": true,
       "inPlan": false,
@@ -64,11 +64,11 @@
     {
       "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
       "brand": "Talerico Bakery",
-      "events": 26,
-      "units": 42.0,
-      "firstEvent": "2026-09-27",
+      "events": 23,
+      "units": 36.0,
+      "firstEvent": "2026-09-28",
       "lastEvent": "2026-10-02",
-      "daysAffected": 6,
+      "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -244,54 +244,12 @@
       "formatStatus": "preferred"
     },
     {
-      "name": "Natalie's Orchard Island Organic Orange Juice - 6 / 12 oz btl",
-      "brand": "Natalie's Orchard Island",
-      "events": 3,
-      "units": 4.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "6 / 12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "1883 Butterscotch Syrup 1L Plastic",
-      "brand": "1883",
-      "events": 2,
-      "units": 4.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "1 L plastic",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Baked Fresh - Flourless Brownie - 1 / 56 ct",
       "brand": "Baked Fresh",
       "events": 3,
       "units": 3.0,
       "firstEvent": "2026-10-01",
       "lastEvent": "2026-10-02",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Coca Cola Mexican Coke",
-      "brand": "Coca-Cola",
-      "events": 3,
-      "units": 3.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-28",
       "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
@@ -328,17 +286,31 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Saratoga Still Water 12oz Glass Bottle",
-      "brand": "Saratoga Spring Water",
+      "name": "Natalie's Orchard Island Organic Orange Juice - 6 / 12 oz btl",
+      "brand": "Natalie's Orchard Island",
       "events": 2,
       "units": 2.0,
-      "firstEvent": "2026-09-27",
+      "firstEvent": "2026-09-28",
       "lastEvent": "2026-09-28",
-      "daysAffected": 2,
+      "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz glass",
+      "pack": "6 / 12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Coca Cola Mexican Coke",
+      "brand": "Coca-Cola",
+      "events": 2,
+      "units": 2.0,
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -367,20 +339,6 @@
       "inTransition": true,
       "inPlan": false,
       "pack": "10 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Just Ice Tea Honey Green Tea - 12 / 16 oz btl",
-      "brand": "Just Ice Tea",
-      "events": 1,
-      "units": 2.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-27",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 / 16 oz",
       "formatStatus": "n/a"
     },
     {
@@ -426,20 +384,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Karat Hot Cup 12oz (C-K512W)",
-      "brand": "Karat",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-09-28",
-      "lastEvent": "2026-09-28",
-      "daysAffected": 1,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
       "brand": "Cuisine Solutions",
       "events": 1,
@@ -468,17 +412,17 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Azimuth - Whole Bean - 5lb Bag",
-      "brand": "Compass Coffee",
+      "name": "Karat Hot Cup 12oz (C-K512W)",
+      "brand": "Karat",
       "events": 1,
       "units": 1.0,
       "firstEvent": "2026-09-28",
       "lastEvent": "2026-09-28",
       "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
+      "cohortOrders": true,
+      "inTransition": true,
       "inPlan": false,
-      "pack": "5 lb",
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -496,40 +440,49 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Karat 4-Cup Molded Fiber Carrier for 8-32 oz Cups (C5000)",
-      "brand": "Karat",
+      "name": "Saratoga Still Water 12oz Glass Bottle",
+      "brand": "Saratoga Spring Water",
       "events": 1,
       "units": 1.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-27",
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "32 oz",
+      "pack": "12 oz glass",
       "formatStatus": "n/a"
     },
     {
-      "name": "Sahale Cashew Tangerine Vanilla Macadamia Glazed - 18 / 1.5 oz pouch",
-      "brand": "Sahale",
+      "name": "1883 Butterscotch Syrup 1L Plastic",
+      "brand": "1883",
       "events": 1,
       "units": 1.0,
-      "firstEvent": "2026-09-27",
-      "lastEvent": "2026-09-27",
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "1.5 oz",
+      "pack": "1 L plastic",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Azimuth - Whole Bean - 5lb Bag",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-09-28",
+      "lastEvent": "2026-09-28",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "5 lb",
       "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-09-27",
-      "events": 13,
-      "units": 28.0
-    },
     {
       "date": "2026-09-28",
       "events": 31,
@@ -559,23 +512,23 @@
   "feoosBrands": [
     {
       "brand": "Monin",
-      "units": 139.0,
-      "events": 22
+      "units": 128.0,
+      "events": 19
     },
     {
       "brand": "Talerico Bakery",
-      "units": 42.0,
-      "events": 26
+      "units": 36.0,
+      "events": 23
     },
     {
       "brand": "Just Ice Tea",
-      "units": 28.0,
-      "events": 4
+      "units": 26.0,
+      "events": 3
     },
     {
       "brand": "1883",
-      "units": 17.0,
-      "events": 4
+      "units": 14.0,
+      "events": 3
     },
     {
       "brand": "EatCommonGood",
@@ -593,28 +546,28 @@
       "events": 4
     },
     {
-      "brand": "Natalie's Orchard Island",
-      "units": 4.0,
-      "events": 3
-    },
-    {
-      "brand": "Karat",
-      "units": 4.0,
-      "events": 4
-    },
-    {
       "brand": "Baked Fresh",
-      "units": 3.0,
-      "events": 3
-    },
-    {
-      "brand": "Coca-Cola",
       "units": 3.0,
       "events": 3
     },
     {
       "brand": "Rishi",
       "units": 3.0,
+      "events": 2
+    },
+    {
+      "brand": "Humankind",
+      "units": 3.0,
+      "events": 2
+    },
+    {
+      "brand": "Karat",
+      "units": 3.0,
+      "events": 3
+    },
+    {
+      "brand": "Oregon Chai",
+      "units": 2.0,
       "events": 2
     }
   ],
@@ -626,8 +579,8 @@
       "preferredAlt": "Monin Vanilla Syrup 750ml Glass",
       "preferredAltOnHand": 252.0,
       "preferredAltAvailability": "ready",
-      "preferredAltFeoosEvents": 8,
-      "preferredAltFeoosUnits": 49.0,
+      "preferredAltFeoosEvents": 5,
+      "preferredAltFeoosUnits": 38.0,
       "remedy": "preferred-short",
       "packs": [
         {
@@ -650,7 +603,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          438.0
+          430.0
         ],
         [
           "1 L plastic",
@@ -728,11 +681,11 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          35.0
+          33.0
         ],
         [
           "1 L plastic",
-          30.0
+          29.0
         ]
       ]
     },
@@ -775,7 +728,7 @@
       "name": "Monin Lavender Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Lavender Syrup 750ml Glass",
-      "preferredAltOnHand": 90.0,
+      "preferredAltOnHand": 89.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -796,7 +749,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          178.0
+          154.0
         ],
         [
           "1 L plastic",
@@ -894,7 +847,7 @@
       "mdt1Packs": [
         [
           "1 L plastic",
-          46.0
+          38.0
         ]
       ]
     },
@@ -963,7 +916,7 @@
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Toasted Marshmallow Syrup 750ml Glass",
-      "preferredAltOnHand": 61.0,
+      "preferredAltOnHand": 60.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1014,7 +967,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          91.0
+          79.0
         ],
         [
           "1 L plastic",
@@ -1027,7 +980,7 @@
       "name": "Monin Pumpkin Spice Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Pumpkin Spice Syrup 750ml Glass",
-      "preferredAltOnHand": 208.0,
+      "preferredAltOnHand": 203.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1082,7 +1035,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          22.0
+          19.0
         ]
       ]
     },
@@ -1112,7 +1065,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          25.0
+          24.0
         ]
       ]
     },
@@ -1172,7 +1125,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          38.0
+          33.0
         ]
       ]
     },
@@ -1181,7 +1134,7 @@
       "name": "Monin French Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin French Vanilla Syrup 750ml Glass",
-      "preferredAltOnHand": 21.0,
+      "preferredAltOnHand": 9.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1202,7 +1155,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          67.0
+          58.0
         ]
       ]
     },
@@ -1271,7 +1224,7 @@
       "name": "Monin Raspberry Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Raspberry Syrup 750ml Glass",
-      "preferredAltOnHand": 164.0,
+      "preferredAltOnHand": 163.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1292,7 +1245,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          53.0
+          46.0
         ]
       ]
     },
@@ -1322,7 +1275,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          20.0
+          17.0
         ],
         [
           "1 L plastic",
@@ -1356,7 +1309,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          36.0
+          28.0
         ]
       ]
     },
@@ -1365,7 +1318,7 @@
       "name": "Monin Caramel Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Caramel Syrup 750ml Glass",
-      "preferredAltOnHand": 44.0,
+      "preferredAltOnHand": 41.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1390,7 +1343,7 @@
         ],
         [
           "750 ml glass",
-          69.0
+          68.0
         ]
       ]
     },
@@ -1399,7 +1352,7 @@
       "name": "Monin Cookie Butter Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Cookie Butter Syrup 750ml Glass",
-      "preferredAltOnHand": 24.0,
+      "preferredAltOnHand": 22.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1480,7 +1433,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          38.0
+          35.0
         ]
       ]
     },
@@ -1514,7 +1467,7 @@
         ],
         [
           "750 ml glass",
-          5.0
+          4.0
         ]
       ]
     },
@@ -1583,7 +1536,7 @@
       "name": "Monin Coconut Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Coconut Syrup 750ml Glass",
-      "preferredAltOnHand": 19.0,
+      "preferredAltOnHand": 18.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1634,7 +1587,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          7.0
+          5.0
         ]
       ]
     },
@@ -1664,7 +1617,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          2.0
+          1.0
         ]
       ]
     },
@@ -1694,7 +1647,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          340.0
+          321.0
         ]
       ]
     },
@@ -1724,7 +1677,7 @@
       "mdt1Packs": [
         [
           "46 oz",
-          162.0
+          156.0
         ]
       ]
     },
@@ -1814,7 +1767,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          295.0
+          278.0
         ]
       ]
     },
@@ -1844,7 +1797,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          79.0
+          73.0
         ]
       ]
     }
@@ -1867,7 +1820,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          340.0
+          321.0
         ]
       ],
       "feoosEvents": 0,
@@ -1890,15 +1843,15 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          438.0
+          430.0
         ],
         [
           "1 L plastic",
           284.0
         ]
       ],
-      "feoosEvents": 8,
-      "feoosUnits": 49.0
+      "feoosEvents": 5,
+      "feoosUnits": 38.0
     },
     {
       "name": "Monin Mango Smoothie 46oz",
@@ -1917,7 +1870,7 @@
       "mdt1Packs": [
         [
           "46 oz",
-          162.0
+          156.0
         ]
       ],
       "feoosEvents": 0,
@@ -1963,7 +1916,7 @@
       "mdt1Packs": [
         [
           "32 oz",
-          272.0
+          264.0
         ]
       ],
       "feoosEvents": 0,
@@ -1986,7 +1939,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          178.0
+          154.0
         ],
         [
           "1 L plastic",
@@ -2036,7 +1989,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          295.0
+          278.0
         ]
       ],
       "feoosEvents": 0,
@@ -2082,7 +2035,7 @@
       "mdt1Packs": [
         [
           "32 oz",
-          125.0
+          113.0
         ]
       ],
       "feoosEvents": 0,
@@ -2105,7 +2058,7 @@
       "mdt1Packs": [
         [
           "32 oz",
-          95.0
+          93.0
         ]
       ],
       "feoosEvents": 0,
@@ -2178,7 +2131,7 @@
       "mdt1Packs": [
         [
           "1 L plastic",
-          46.0
+          38.0
         ]
       ],
       "feoosEvents": 1,
@@ -2224,15 +2177,15 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          438.0
+          430.0
         ],
         [
           "1 L plastic",
           284.0
         ]
       ],
-      "feoosEvents": 8,
-      "feoosUnits": 49.0
+      "feoosEvents": 5,
+      "feoosUnits": 38.0
     },
     {
       "name": "Monin White Chocolate Sauce 64oz",
@@ -2251,7 +2204,7 @@
       "mdt1Packs": [
         [
           "64 oz",
-          79.0
+          73.0
         ]
       ],
       "feoosEvents": 0,
@@ -2347,7 +2300,7 @@
       "mdt1Packs": [
         [
           "10 oz",
-          39.0
+          37.0
         ]
       ],
       "feoosEvents": 1,
@@ -2411,7 +2364,7 @@
       "mdt1Packs": [
         [
           "10 oz",
-          24.0
+          22.0
         ]
       ],
       "feoosEvents": 0,
@@ -2480,7 +2433,7 @@
       "mdt1Packs": [
         [
           "23 oz",
-          50.0
+          49.0
         ]
       ],
       "feoosEvents": 0,
@@ -2503,7 +2456,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          91.0
+          79.0
         ],
         [
           "1 L plastic",
@@ -2557,7 +2510,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          22.0
+          19.0
         ]
       ],
       "feoosEvents": 3,
@@ -2603,7 +2556,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          25.0
+          24.0
         ]
       ],
       "feoosEvents": 0,
@@ -2672,7 +2625,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          38.0
+          33.0
         ]
       ],
       "feoosEvents": 5,
@@ -2695,7 +2648,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          67.0
+          58.0
         ]
       ],
       "feoosEvents": 0,
@@ -2764,7 +2717,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          53.0
+          46.0
         ]
       ],
       "feoosEvents": 0,
@@ -2787,7 +2740,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          20.0
+          17.0
         ],
         [
           "1 L plastic",
@@ -2814,11 +2767,11 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          35.0
+          33.0
         ],
         [
           "1 L plastic",
-          30.0
+          29.0
         ]
       ],
       "feoosEvents": 0,
@@ -2841,7 +2794,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          36.0
+          28.0
         ]
       ],
       "feoosEvents": 0,
@@ -2864,7 +2817,7 @@
       "mdt1Packs": [
         [
           "32 oz",
-          28.0
+          27.0
         ]
       ],
       "feoosEvents": 0,
@@ -3047,7 +3000,7 @@
         ],
         [
           "750 ml glass",
-          69.0
+          68.0
         ]
       ],
       "feoosEvents": 0,
@@ -3143,7 +3096,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          38.0
+          35.0
         ]
       ],
       "feoosEvents": 2,
@@ -3197,7 +3150,7 @@
         ],
         [
           "750 ml glass",
-          5.0
+          4.0
         ]
       ],
       "feoosEvents": 0,
@@ -3220,7 +3173,7 @@
       "mdt1Packs": [
         [
           "1 L glass",
-          10.0
+          9.0
         ]
       ],
       "feoosEvents": 0,
@@ -3302,7 +3255,7 @@
       "mdt1Packs": [
         [
           "12 oz",
-          12.0
+          10.0
         ]
       ],
       "feoosEvents": 0,
@@ -3561,7 +3514,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          7.0
+          5.0
         ]
       ],
       "feoosEvents": 0,
@@ -3584,7 +3537,7 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          2.0
+          1.0
         ]
       ],
       "feoosEvents": 0,
@@ -3607,11 +3560,11 @@
       "mdt1Packs": [
         [
           "750 ml glass",
-          35.0
+          33.0
         ],
         [
           "1 L plastic",
-          30.0
+          29.0
         ]
       ],
       "feoosEvents": 0,
