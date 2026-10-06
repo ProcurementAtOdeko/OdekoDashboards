@@ -40,6 +40,7 @@ document.body.innerHTML = `
     <div class="tabs" id="tabs">
       <button data-tab="items" class="active">Items</button>
       <button data-tab="customers">Customers</button>
+      <button data-tab="parents">Parent Cos</button>
       <button data-tab="brands" id="tab-brands" hidden>Brands</button>
       <button data-tab="placements">New Placements</button>
       <button data-tab="businessLines" id="tab-bl" hidden>Business Lines</button>
@@ -108,6 +109,21 @@ const TABS = {
     ],
     defaultSort: "units",
   },
+  parents: {
+    columns: [
+      { key: "name", label: "Parent Company" },
+      { key: "locations", label: "Locations", num: true },
+      { key: "businessLine", label: "Business Line", needsBL: true },
+      { key: "units", label: "Units Sold", num: true },
+      { key: "share", label: "% of WH Sales", num: true },
+      { key: "trendDelta", label: "Trend (4w)", num: true },
+      { key: "lines", label: "Order Lines", num: true, hideSm: true },
+      { key: "items", label: "SKUs", num: true, hideSm: true },
+      { key: "firstOrder", label: "First Order", hideSm: true },
+      { key: "lastOrder", label: "Last Order", hideSm: true },
+    ],
+    defaultSort: "units",
+  },
   brands: {
     columns: [
       { key: "name", label: "Brand" },
@@ -165,10 +181,12 @@ async function init() {
       itemUuid: DATA.items[p.i].uuid,
       brand: DATA.items[p.i].brand,
     }));
+  buildParents();
   // Share of the warehouse's total units, for customers and brands.
   const whUnits = DATA.summary.totalUnits || 1;
   DATA.customers.forEach(c => { c.share = c.units / whUnits; });
   DATA.items.forEach(i => { i.share = i.units / whUnits; });
+  DATA.parents.forEach(p => { p.share = p.units / whUnits; });
   if (DATA.brands && DATA.brands.length) {
     DATA.brands.forEach(b => { b.share = b.units / whUnits; });
     document.getElementById("tab-brands").hidden = false;
@@ -192,6 +210,96 @@ async function init() {
 }
 
 const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
+
+// Wholesale accounts are named "<Parent Company> : <Location>", so the prefix
+// is the chain. Accounts without that separator are standalone (in practice
+// nearly all ecommerce consumers) and stand as their own single-location
+// parent, which keeps the tab's totals reconciling to the warehouse.
+function parentNameOf(customerName) {
+  const i = customerName.indexOf(" : ");
+  return (i === -1 ? customerName : customerName.slice(0, i)).trim() || customerName;
+}
+
+// Rolls customers up to parent companies, and their pairs up to one row per
+// parent x item, so the tab and its drill-down mirror the Customers tab.
+// Derived here rather than in the build so every market gets it immediately,
+// including ones carrying data forward from an unavailable export.
+function buildParents() {
+  const byName = new Map();
+  const parentOfCustomer = new Int32Array(DATA.customers.length);
+  const weeks = (DATA.trendWeeks || []).length;
+
+  DATA.customers.forEach((c, ci) => {
+    const name = parentNameOf(c.name);
+    let p = byName.get(name);
+    if (!p) {
+      p = {
+        uuid: "p:" + name, name, units: 0, lines: 0, locations: 0,
+        items: 0, enterprise: false, businessLine: null, firstOrder: null,
+        lastOrder: null, trend: new Array(weeks).fill(0), _blUnits: new Map(),
+        _idx: byName.size,
+      };
+      byName.set(name, p);
+    }
+    parentOfCustomer[ci] = p._idx;
+    p.units += c.units;
+    p.lines += c.lines;
+    p.locations += 1;
+    if (c.enterprise) p.enterprise = true;
+    if (c.businessLine) p._blUnits.set(c.businessLine, (p._blUnits.get(c.businessLine) || 0) + c.units);
+    if (c.firstOrder && (p.firstOrder === null || c.firstOrder < p.firstOrder)) p.firstOrder = c.firstOrder;
+    if (c.lastOrder && (p.lastOrder === null || c.lastOrder > p.lastOrder)) p.lastOrder = c.lastOrder;
+    for (let w = 0; w < weeks; w++) p.trend[w] += (c.trend && c.trend[w]) || 0;
+  });
+
+  const parents = [...byName.values()];
+  // One row per parent x item, summing the member locations' pairs.
+  const pairsByParent = parents.map(() => new Map());
+  for (const pr of DATA.pairs) {
+    const pi = parentOfCustomer[pr.c];
+    const m = pairsByParent[pi];
+    let agg = m.get(pr.i);
+    if (!agg) { agg = { c: pi, i: pr.i, units: 0, lines: 0, minDate: null, lastOrder: null, new: false }; m.set(pr.i, agg); }
+    agg.units += pr.units;
+    agg.lines += pr.lines;
+    if (pr.new) agg.new = true;
+    if (pr.minDate && (agg.minDate === null || pr.minDate < agg.minDate)) agg.minDate = pr.minDate;
+    if (pr.lastOrder && (agg.lastOrder === null || pr.lastOrder > agg.lastOrder)) agg.lastOrder = pr.lastOrder;
+  }
+
+  parents.forEach((p, i) => {
+    const rows = [...pairsByParent[i].values()].sort((a, b) => b.units - a.units);
+    p.items = rows.length;
+    p.units = Math.round(p.units * 10) / 10;
+    // Dominant business line by units, matching how a customer row reads.
+    let best = null, bestUnits = -1;
+    for (const [bl, u] of p._blUnits) if (u > bestUnits) { best = bl; bestUnits = u; }
+    p.businessLine = best;
+    delete p._blUnits;
+    Object.assign(p, trendFields(p.trend));
+    pairsByParent[i] = rows;
+  });
+
+  DATA.parents = parents;
+  DATA.parentPairs = pairsByParent;
+}
+
+// Same comparison the build uses for item/customer trends: mean of the first
+// half of the window against the mean of the last half.
+function trendFields(series) {
+  const t = series.map(v => Math.round(v * 10) / 10);
+  if (t.length < 2) return { trend: t, trendDelta: 0, trendDir: "flat" };
+  const half = Math.floor(t.length / 2);
+  const first = t.slice(0, half).reduce((a, b) => a + b, 0) / half;
+  const last = t.slice(-half).reduce((a, b) => a + b, 0) / half;
+  const delta = last - first;
+  const eps = Math.max(0.5, 0.05 * Math.max(first, 1));
+  return {
+    trend: t,
+    trendDelta: Math.round(delta * 10) / 10,
+    trendDir: delta > eps ? "up" : delta < -eps ? "down" : "flat",
+  };
+}
 const activeColumns = (spec) => spec.columns.filter(c => !c.needsBL || hasBL());
 
 const BL_COLOR = { local: "#1F7A33", ecomm: "#B5660A", other: "#A89684" };
@@ -307,6 +415,7 @@ function renderCharts() {
 function rowsForTab() {
   if (tab === "items") return DATA.items;
   if (tab === "customers") return DATA.customers;
+  if (tab === "parents") return DATA.parents || [];
   if (tab === "brands") return DATA.brands || [];
   if (tab === "businessLines") return DATA.businessLines;
   return DATA.placements;
@@ -316,6 +425,7 @@ function searchableText(row) {
   if (tab === "placements") return `${row.customerName} ${row.itemName} ${row.brand || ""}`;
   if (tab === "businessLines") return `${row.name} ${row.category}`;
   if (tab === "brands") return row.name;
+  if (tab === "parents") return `${row.name}${row.enterprise ? " enterprise" : ""}${row.businessLine ? " " + row.businessLine : ""}`;
   return `${row.name} ${row.brand || ""} ${row.uuid}${row.enterprise ? " enterprise" : ""}${row.businessLine ? " " + row.businessLine : ""}`;
 }
 
@@ -341,7 +451,7 @@ function renderTable() {
   document.getElementById("table-count").textContent =
     `${fmtInt(rows.length)}${rows.length !== rowsForTab().length ? ` of ${fmtInt(rowsForTab().length)}` : ""} rows`;
   document.getElementById("table-hint").style.display =
-    tab === "items" || tab === "customers" ? "" : "none";
+    tab === "items" || tab === "customers" || tab === "parents" ? "" : "none";
 
   document.getElementById("grid-head").innerHTML = "<tr>" + activeColumns(spec).map(c =>
     `<th class="${c.num ? "num" : ""} ${c.hideSm ? "hide-sm" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
@@ -369,8 +479,7 @@ function renderTable() {
   document.querySelectorAll("#grid-body .dl-detail").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const list = tab === "items" ? DATA.items : DATA.customers;
-      const r = list.find(x => x.uuid === btn.dataset.id);
+      const r = rowsForTab().find(x => x.uuid === btn.dataset.id);
       if (r) exportDetailCsv(r);
     });
   });
@@ -435,6 +544,21 @@ function renderRow(r, spec) {
     </tr>`;
   }
 
+  if (tab === "parents") {
+    return withDetail(r, spec, `<tr class="row" data-id="${escapeHtml(r.uuid)}">
+      <td>${escapeHtml(r.name)}${r.enterprise ? '<span class="badge-ent">Ent</span>' : ""}</td>
+      <td class="num${r.locations > 1 ? " multi-loc" : ""}">${fmtInt(r.locations)}</td>
+      ${hasBL() ? `<td>${r.businessLine ? blDot(lineCategory(r.businessLine)) + escapeHtml(r.businessLine) : '<span class="muted">—</span>'}</td>` : ""}
+      <td class="num">${fmt(r.units)}</td>
+      <td class="num share">${fmtPct(r.share)}</td>
+      <td class="num">${sparkline(r)}</td>
+      <td class="num hide-sm">${fmtInt(r.lines)}</td>
+      <td class="num hide-sm">${fmtInt(r.items)}</td>
+      <td class="hide-sm">${fmtDate(r.firstOrder)}</td>
+      <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
+    </tr>`);
+  }
+
   const isItem = tab === "items";
   const main = isItem
     ? `<tr class="row" data-id="${r.uuid}">
@@ -461,6 +585,10 @@ function renderRow(r, spec) {
         <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
       </tr>`;
 
+  return withDetail(r, spec, main);
+}
+
+function withDetail(r, spec, main) {
   if (!expanded.has(r.uuid)) return main;
   return main + renderDetail(r, activeColumns(spec).length);
 }
@@ -477,6 +605,10 @@ function lineCategory(name) {
 // Related pairs for an expanded item/customer row, each joined to the "other"
 // entity. Shared by the detail render and its CSV export.
 function detailPairs(r) {
+  if (tab === "parents") {
+    // Already aggregated per parent x item and sorted at load.
+    return (DATA.parentPairs[r._idx] || []).map(p => ({ p, other: DATA.items[p.i] }));
+  }
   const isItem = tab === "items";
   const idx = isItem
     ? DATA.items.findIndex(i => i.uuid === r.uuid)
@@ -502,7 +634,7 @@ function detailShares(r, p, other) {
 function renderDetail(r, colspan) {
   const isItem = tab === "items";
   const otherLabel = isItem ? "Customer" : "Item";
-  const thisLabel = isItem ? "% of Item" : "% of Customer";
+  const thisLabel = isItem ? "% of Item" : tab === "parents" ? "% of Parent Co" : "% of Customer";
   const rows = detailPairs(r).map(({ p, other }) => {
     const s = detailShares(r, p, other);
     return `<tr>
@@ -537,30 +669,36 @@ function renderDetail(r, colspan) {
 
 function exportDetailCsv(r) {
   const isItem = tab === "items";
+  const isParent = tab === "parents";
   const otherLabel = isItem ? "Customer" : "Item";
-  const thisLabel = isItem ? "% of Item" : "% of Customer";
-  // Every row is one customer x item pair, so carry both identities: the
-  // drilled-into entity repeats down the file, making each row joinable on
-  // its own without needing the filename for context.
-  const parentUuidLabel = isItem ? "Item UUID" : "Account UUID";
+  const thisLabel = isItem ? "% of Item" : isParent ? "% of Parent Co" : "% of Customer";
+  // Every row is one pair, so carry both identities: the drilled-into entity
+  // repeats down the file, making each row joinable on its own without
+  // needing the filename for context. Parent companies are derived from
+  // customer naming, so they have a name but no UUID of their own.
   const otherUuidLabel = isItem ? "Account UUID" : "Item UUID";
-  const parentLabel = isItem ? "Item" : "Customer";
+  const selfHead = isItem ? ["Item", "Item UUID"]
+    : isParent ? ["Parent Company", "Locations"]
+    : ["Customer", "Account UUID"];
+  const selfVals = isItem ? [r.name, uuidOf(r.uuid)]
+    : isParent ? [r.name, r.locations]
+    : [r.name, uuidOf(r.uuid)];
   const header = [
-    parentLabel, parentUuidLabel, otherLabel, otherUuidLabel,
+    ...selfHead, otherLabel, otherUuidLabel,
     "New", "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order",
   ];
   const lines = [header.map(csvCell).join(",")];
   for (const { p, other } of detailPairs(r)) {
     const s = detailShares(r, p, other);
     lines.push([
-      r.name, uuidOf(r.uuid), other.name, uuidOf(other.uuid),
+      ...selfVals, other.name, uuidOf(other.uuid),
       p.new ? "TRUE" : "FALSE", p.units,
       s.ofThis == null ? "" : (s.ofThis * 100).toFixed(2),
       s.ofMkt == null ? "" : (s.ofMkt * 100).toFixed(2),
       p.lines, p.minDate || "", p.lastOrder || "",
     ].map(csvCell).join(","));
   }
-  const kind = isItem ? "item" : "customer";
+  const kind = isItem ? "item" : isParent ? "parent" : "customer";
   const slug = r.name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || r.uuid.slice(0, 8);
   downloadCsv(lines, `${WAREHOUSE}-${kind}-${slug}-${DATA.dateRange.end}.csv`);
 }
@@ -599,6 +737,22 @@ function csvColumns() {
       ["Order Lines", r => r.lines],
       ["Customers", r => r.customers],
       ["New Locations 14d", r => r.newLocations],
+      ["First Order", r => r.firstOrder || ""],
+      ["Last Order", r => r.lastOrder || ""],
+    ];
+  }
+  if (tab === "parents") {
+    return [
+      ["Parent Company", r => r.name],
+      ["Locations", r => r.locations],
+      ...(hasBL() ? [["Business Line", r => r.businessLine || ""]] : []),
+      ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
+      ["Units Sold", r => r.units],
+      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ["Trend 4w Delta", r => r.trendDelta],
+      ["Trend Dir", r => r.trendDir],
+      ["Order Lines", r => r.lines],
+      ["SKUs", r => r.items],
       ["First Order", r => r.firstOrder || ""],
       ["Last Order", r => r.lastOrder || ""],
     ];
