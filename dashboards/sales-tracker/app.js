@@ -215,6 +215,17 @@ const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
 // is the chain. Accounts without that separator are standalone (in practice
 // nearly all ecommerce consumers); they group under their own name and then
 // drop out, since the tab keeps only parents with more than one location.
+// ISO date that a pair's first order must be on or after to count as a new
+// location, mirroring the build: dateRange.end minus newLocationDays.
+function newLocationCutoff() {
+  const end = DATA.dateRange && DATA.dateRange.end;
+  const days = DATA.newLocationDays;
+  if (!end || !days) return null;
+  const d = new Date(end + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
 function parentNameOf(customerName) {
   const i = customerName.indexOf(" : ");
   return (i === -1 ? customerName : customerName.slice(0, i)).trim() || customerName;
@@ -253,16 +264,20 @@ function buildParents() {
   });
 
   const parents = [...byName.values()];
-  // One row per parent x item, summing the member locations' pairs.
+  // One row per parent x item, summing the member locations' pairs. newLocs
+  // counts how many of those locations first ordered the item inside the
+  // same window the Items tab's "New Locs" column uses.
+  const locCutoff = newLocationCutoff();
   const pairsByParent = parents.map(() => new Map());
   for (const pr of DATA.pairs) {
     const pi = parentOfCustomer[pr.c];
     const m = pairsByParent[pi];
     let agg = m.get(pr.i);
-    if (!agg) { agg = { c: pi, i: pr.i, units: 0, lines: 0, minDate: null, lastOrder: null, new: false }; m.set(pr.i, agg); }
+    if (!agg) { agg = { c: pi, i: pr.i, units: 0, lines: 0, minDate: null, lastOrder: null, new: false, newLocs: 0 }; m.set(pr.i, agg); }
     agg.units += pr.units;
     agg.lines += pr.lines;
     if (pr.new) agg.new = true;
+    if (pr.minDate && locCutoff && pr.minDate >= locCutoff) agg.newLocs += 1;
     if (pr.minDate && (agg.minDate === null || pr.minDate < agg.minDate)) agg.minDate = pr.minDate;
     if (pr.lastOrder && (agg.lastOrder === null || pr.lastOrder > agg.lastOrder)) agg.lastOrder = pr.lastOrder;
   }
@@ -642,14 +657,18 @@ function renderDetail(r, colspan) {
   const isItem = tab === "items";
   const otherLabel = isItem ? "Customer" : "Item";
   const thisLabel = isItem ? "% of Item" : tab === "parents" ? "% of Parent Co" : "% of Customer";
+  // A parent spans many locations, so "new" is a count of them rather than a
+  // yes/no: how many of its locations first ordered this item in the window.
+  const isParent = tab === "parents";
   const rows = detailPairs(r).map(({ p, other }) => {
     const s = detailShares(r, p, other);
     return `<tr>
-      <td>${escapeHtml(other.name)}${p.new ? '<span class="badge-new">New</span>' : ""}</td>
+      <td>${escapeHtml(other.name)}${!isParent && p.new ? '<span class="badge-new">New</span>' : ""}</td>
       <td class="num">${fmt(p.units)}</td>
       <td class="num share">${fmtPct(s.ofThis)}</td>
       <td class="num">${fmtPct(s.ofMkt)}</td>
       <td class="num hide-sm">${fmtInt(p.lines)}</td>
+      ${isParent ? `<td class="num${p.newLocs ? " new-locs" : ""}">${fmtInt(p.newLocs)}</td>` : ""}
       <td>${fmtDate(p.minDate)}</td>
       <td class="hide-sm">${fmtDate(p.lastOrder)}</td>
     </tr>`;
@@ -666,6 +685,7 @@ function renderDetail(r, colspan) {
         <th class="num" title="This ${otherLabel.toLowerCase()}'s share of ${escapeHtml(r.name)}">${thisLabel}</th>
         <th class="num" title="This ${otherLabel.toLowerCase()}'s total share of the market's units, across everything">% of Market</th>
         <th class="num hide-sm">Lines</th>
+        ${isParent ? `<th class="num" title="Locations of ${escapeHtml(r.name)} that first ordered this item in the last ${DATA.newLocationDays} days">New Locs (${DATA.newLocationDays}d)</th>` : ""}
         <th>First Order</th>
         <th class="hide-sm">Last Order</th>
       </tr></thead>
@@ -690,16 +710,19 @@ function exportDetailCsv(r) {
   const selfVals = isItem ? [r.name, uuidOf(r.uuid)]
     : isParent ? [r.name, r.locations]
     : [r.name, uuidOf(r.uuid)];
+  // A parent spans many locations, so it reports how many of them are new to
+  // the item rather than a single new/not-new flag.
+  const newLabel = isParent ? `New Locs (${DATA.newLocationDays}d)` : "New";
   const header = [
     ...selfHead, otherLabel, otherUuidLabel,
-    "New", "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order",
+    newLabel, "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order",
   ];
   const lines = [header.map(csvCell).join(",")];
   for (const { p, other } of detailPairs(r)) {
     const s = detailShares(r, p, other);
     lines.push([
       ...selfVals, other.name, uuidOf(other.uuid),
-      p.new ? "TRUE" : "FALSE", p.units,
+      isParent ? p.newLocs : p.new ? "TRUE" : "FALSE", p.units,
       s.ofThis == null ? "" : (s.ofThis * 100).toFixed(2),
       s.ofMkt == null ? "" : (s.ofMkt * 100).toFixed(2),
       p.lines, p.minDate || "", p.lastOrder || "",
