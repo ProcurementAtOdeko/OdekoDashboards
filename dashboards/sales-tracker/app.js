@@ -213,8 +213,8 @@ const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
 
 // Wholesale accounts are named "<Parent Company> : <Location>", so the prefix
 // is the chain. Accounts without that separator are standalone (in practice
-// nearly all ecommerce consumers) and stand as their own single-location
-// parent, which keeps the tab's totals reconciling to the warehouse.
+// nearly all ecommerce consumers); they group under their own name and then
+// drop out, since the tab keeps only parents with more than one location.
 function parentNameOf(customerName) {
   const i = customerName.indexOf(" : ");
   return (i === -1 ? customerName : customerName.slice(0, i)).trim() || customerName;
@@ -280,7 +280,10 @@ function buildParents() {
     pairsByParent[i] = rows;
   });
 
-  DATA.parents = parents;
+  // Only chains are interesting here: a single-location "parent" is just the
+  // customer again, and in big markets those are overwhelmingly ecommerce
+  // consumers. parentPairs stays unfiltered so _idx still indexes into it.
+  DATA.parents = parents.filter(p => p.locations > 1);
   DATA.parentPairs = pairsByParent;
 }
 
@@ -450,8 +453,12 @@ function renderTable() {
 
   document.getElementById("table-count").textContent =
     `${fmtInt(rows.length)}${rows.length !== rowsForTab().length ? ` of ${fmtInt(rowsForTab().length)}` : ""} rows`;
-  document.getElementById("table-hint").style.display =
+  const hint = document.getElementById("table-hint");
+  hint.style.display =
     tab === "items" || tab === "customers" || tab === "parents" ? "" : "none";
+  hint.textContent = tab === "parents"
+    ? "Chains with 2+ locations · click a row to see its breakdown"
+    : "Click a row to see its breakdown";
 
   document.getElementById("grid-head").innerHTML = "<tr>" + activeColumns(spec).map(c =>
     `<th class="${c.num ? "num" : ""} ${c.hideSm ? "hide-sm" : ""} ${sortKey === c.key ? (sortDir === "asc" ? "sort-asc" : "sort-desc") : ""}" data-sort="${c.key}">${c.label}</th>`
