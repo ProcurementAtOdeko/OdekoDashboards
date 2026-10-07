@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T16:42:32+00:00",
+  "generatedAt": "2026-10-07T22:06:33+00:00",
   "dateRange": {
     "min": "2026-07-10",
     "max": "2026-10-06"
@@ -12,37 +12,37 @@
     "customersAdded": 28,
     "customersRemoved": 32,
     "skusPurchased": 301,
-    "skusCarried": 162,
-    "skusGap": 139,
+    "skusCarried": 164,
+    "skusGap": 137,
     "coveragePct": 54,
     "unitsTotal": 5847.0,
     "skusInOnboarding": 53,
-    "gapsInOnboarding": 17,
+    "gapsInOnboarding": 15,
     "gapsNotOnboarding": 122,
-    "gapUnitsTotal": 1149.0,
-    "skusReady": 148,
+    "gapUnitsTotal": 1078.0,
+    "skusReady": 150,
     "skusNoStock": 7,
     "skusNotActive": 0,
     "skusDormant": 2,
     "skusUnknownStock": 5,
-    "skusActive": 155,
-    "skusInStock": 148,
-    "noStockUnits": 138.0,
+    "skusActive": 157,
+    "skusInStock": 150,
+    "noStockUnits": 148.0,
     "notActiveUnits": 0,
     "dormantUnits": 42.0,
     "formatSubstitutes": 10,
-    "planResolved": 83,
-    "planResolvedCarried": 56,
+    "planResolved": 85,
+    "planResolvedCarried": 58,
     "planResolvedNoDemand": 27
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 162
+      "count": 164
     },
     {
       "status": "Not carried (gap)",
-      "count": 139
+      "count": 137
     }
   ],
   "topGapSkus": [
@@ -65,11 +65,6 @@
       "name": "Monin Hazelnut Syrup 1 Liter Plastic Bottle",
       "units": 66.0,
       "customers": 3
-    },
-    {
-      "name": "Dr. Smoothie Classic Chai 3.5lb Bag",
-      "units": 61.0,
-      "customers": 1
     },
     {
       "name": "Torani Creme de Banana Syrup 750ml Glass Bottle",
@@ -142,9 +137,14 @@
       "customers": 1
     },
     {
-      "name": "Dr. Smoothie Matcha Green Tea Latte 3.5 lb. Bag(s)",
+      "name": "UGLIES Buffalo Ranch 2oz Bag",
       "units": 10.0,
-      "customers": 1
+      "customers": 3
+    },
+    {
+      "name": "Da Vinci Pumpkin Pie Sauce 1/2 Gallon Bottle",
+      "units": 9.0,
+      "customers": 2
     }
   ],
   "topGapBrands": [
@@ -164,11 +164,6 @@
       "skus": 9
     },
     {
-      "brand": "Dr. Smoothie",
-      "units": 108.0,
-      "skus": 9
-    },
-    {
       "brand": "(no brand)",
       "units": 57.0,
       "skus": 4
@@ -181,6 +176,11 @@
     {
       "brand": "Stroopie Co.",
       "units": 38.0,
+      "skus": 7
+    },
+    {
+      "brand": "Dr. Smoothie",
+      "units": 37.0,
       "skus": 7
     },
     {
@@ -427,8 +427,8 @@
         "sold90"
       ],
       "planUnits": 316.0,
-      "units": 171.0,
-      "customers": 1
+      "units": 68.0,
+      "customers": 4
     },
     {
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
@@ -469,8 +469,8 @@
         "sold90"
       ],
       "planUnits": 149.3,
-      "units": 85.0,
-      "customers": 4
+      "units": 153.0,
+      "customers": 9
     },
     {
       "name": "Monin White Peach Syrup 750mL Glass",
@@ -540,6 +540,18 @@
       "planUnits": 81.3,
       "units": 38.0,
       "customers": 2
+    },
+    {
+      "name": "Dr. Smoothie Classic Chai 3.5lb Bag",
+      "brand": "Dr. Smoothie",
+      "stage": "Not started",
+      "reason": "carried",
+      "dca1Sources": [
+        "catalog"
+      ],
+      "planUnits": 74.0,
+      "units": 61.0,
+      "customers": 1
     },
     {
       "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
@@ -714,8 +726,8 @@
         "sold90"
       ],
       "planUnits": 36.0,
-      "units": 20.0,
-      "customers": 1
+      "units": 4.0,
+      "customers": 2
     },
     {
       "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
@@ -1024,6 +1036,18 @@
       "planUnits": 16.0,
       "units": 58.0,
       "customers": 6
+    },
+    {
+      "name": "Dr. Smoothie Matcha Green Tea Latte 3.5 lb. Bag(s)",
+      "brand": "Dr. Smoothie",
+      "stage": "Not started",
+      "reason": "carried",
+      "dca1Sources": [
+        "catalog"
+      ],
+      "planUnits": 15.0,
+      "units": 10.0,
+      "customers": 1
     },
     {
       "name": "Monin Wild Grape Syrup 1 Liter Plastic Bottle",
@@ -1569,7 +1593,7 @@
       "inOnboarding": false,
       "active": true,
       "inStock": true,
-      "onHand": 10.0,
+      "onHand": 61.5,
       "dca1Doc": null,
       "availability": "ready",
       "customers": 9,
@@ -2441,7 +2465,7 @@
       "inOnboarding": false,
       "active": true,
       "inStock": true,
-      "onHand": 2.0,
+      "onHand": 8.3,
       "dca1Doc": null,
       "availability": "ready",
       "customers": 1,
@@ -2658,14 +2682,16 @@
       "itemUuid": "bf67e942-4144-4bd4-aa5d-57efdb35fbbf",
       "units": 61.0,
       "lines": 10,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": true,
-      "active": false,
+      "active": true,
       "inStock": false,
-      "onHand": null,
+      "onHand": 0.0,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "no-stock",
       "customers": 1,
       "custDetail": [
         {
@@ -2782,10 +2808,10 @@
       ],
       "inOnboarding": false,
       "active": true,
-      "inStock": false,
-      "onHand": 0.0,
+      "inStock": true,
+      "onHand": 1.0,
       "dca1Doc": null,
-      "availability": "no-stock",
+      "availability": "ready",
       "customers": 7,
       "custDetail": [
         {
@@ -5408,7 +5434,7 @@
       "inOnboarding": false,
       "active": true,
       "inStock": true,
-      "onHand": 24.0,
+      "onHand": 96.0,
       "dca1Doc": null,
       "availability": "ready",
       "customers": 2,
@@ -5457,14 +5483,16 @@
       "itemUuid": "b3307b9a-a284-4d0b-ad6b-9af82757f91c",
       "units": 10.0,
       "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "catalog"
+      ],
       "inOnboarding": true,
-      "active": false,
-      "inStock": false,
-      "onHand": null,
+      "active": true,
+      "inStock": true,
+      "onHand": 0.8,
       "dca1Doc": null,
-      "availability": "gap",
+      "availability": "ready",
       "customers": 1,
       "custDetail": [
         {
@@ -12599,7 +12627,7 @@
       "rosterStatus": "kept",
       "hasHistory": true,
       "skus": 37,
-      "gapSkus": 10,
+      "gapSkus": 8,
       "units": 222.0,
       "items": [
         {
@@ -12607,7 +12635,7 @@
           "brand": "Dr. Smoothie",
           "units": 61.0,
           "lines": 10,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
@@ -12642,7 +12670,7 @@
           "brand": "Dr. Smoothie",
           "units": 10.0,
           "lines": 6,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Caramel Sauce 64oz",
