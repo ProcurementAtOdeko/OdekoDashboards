@@ -1,42 +1,42 @@
 {
-  "generatedAt": "2026-10-09T06:48:07.811470+00:00",
+  "generatedAt": "2026-10-09T13:50:59.952596+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-10-02",
-    "max": "2026-10-07",
+    "min": "2026-10-03",
+    "max": "2026-10-08",
     "days": 6
   },
   "salesRange": {
     "min": "2026-07-29",
-    "max": "2026-10-07"
+    "max": "2026-10-08"
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 112,
-    "networkFeoosDca1Events": 226,
-    "networkFeoosDca1Locations": 58,
+    "dca1FeoosEvents": 102,
+    "networkFeoosDca1Events": 203,
+    "networkFeoosDca1Locations": 60,
     "networkFeoosCohortLocations": 13
   },
   "summary": {
-    "feoosEvents": 112,
-    "feoosSkus": 38,
-    "feoosUnits": 285.0,
+    "feoosEvents": 102,
+    "feoosSkus": 39,
+    "feoosUnits": 274.0,
     "feoosCohortSkus": 15,
-    "feoosCohortUnits": 151.0,
+    "feoosCohortUnits": 146.0,
     "feoosTransitionSkus": 19,
     "cohortTotal": 73,
     "cohortLive": 21,
     "cohortNotYet": 52,
-    "cohortOrderLines": 257,
+    "cohortOrderLines": 261,
     "cohortSkus": 100,
-    "cohortUnits": 806.0,
+    "cohortUnits": 813.0,
     "newSkus": 8,
     "newSkuUnits": 31.0,
     "planSkusOrdered": 22,
-    "marketCustomers": 163,
-    "chargeLinesExcluded": 95,
-    "formatProducts": 45,
-    "formatPreferred": 32,
+    "marketCustomers": 165,
+    "chargeLinesExcluded": 96,
+    "formatProducts": 47,
+    "formatPreferred": 34,
     "formatSplit": 3,
     "formatOff": 3,
     "formatNa": 7,
@@ -44,17 +44,17 @@
     "formatPreferredShort": 0,
     "formatNoPreferred": 2,
     "offFormatUnits": 41.0,
-    "preferredUnits": 304.0
+    "preferredUnits": 328.0
   },
   "feoos": [
     {
       "name": "Rishi 1:1 Organic Turmeric Ginger Chai Concentrate 32oz",
       "brand": "Rishi",
-      "events": 4,
-      "units": 44.0,
+      "events": 6,
+      "units": 49.0,
       "firstEvent": "2026-10-05",
-      "lastEvent": "2026-10-07",
-      "daysAffected": 2,
+      "lastEvent": "2026-10-08",
+      "daysAffected": 3,
       "cohortOrders": true,
       "inTransition": true,
       "inPlan": false,
@@ -64,43 +64,15 @@
     {
       "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
       "brand": "Talerico Bakery",
-      "events": 22,
-      "units": 40.0,
-      "firstEvent": "2026-10-02",
+      "events": 18,
+      "units": 33.0,
+      "firstEvent": "2026-10-03",
       "lastEvent": "2026-10-07",
-      "daysAffected": 5,
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
       "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Humankind Orange Juice 10oz",
-      "brand": "Humankind",
-      "events": 9,
-      "units": 21.0,
-      "firstEvent": "2026-10-02",
-      "lastEvent": "2026-10-07",
-      "daysAffected": 5,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "10 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "1883 Dragon Fruit Lime Refresher 1L Bottle",
-      "brand": "1883",
-      "events": 1,
-      "units": 20.0,
-      "firstEvent": "2026-10-05",
-      "lastEvent": "2026-10-05",
-      "daysAffected": 1,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "1 L",
       "formatStatus": "n/a"
     },
     {
@@ -118,13 +90,41 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "1883 Dragon Fruit Lime Refresher 1L Bottle",
+      "brand": "1883",
+      "events": 1,
+      "units": 20.0,
+      "firstEvent": "2026-10-05",
+      "lastEvent": "2026-10-05",
+      "daysAffected": 1,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "1 L",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Humankind Orange Juice 10oz",
+      "brand": "Humankind",
+      "events": 8,
+      "units": 19.0,
+      "firstEvent": "2026-10-04",
+      "lastEvent": "2026-10-07",
+      "daysAffected": 4,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "10 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Just Ice Tea Raspberry Tea - 12 / 12 oz can",
       "brand": "Just Ice Tea",
-      "events": 2,
-      "units": 16.0,
-      "firstEvent": "2026-10-02",
+      "events": 1,
+      "units": 15.0,
+      "firstEvent": "2026-10-05",
       "lastEvent": "2026-10-05",
-      "daysAffected": 2,
+      "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -146,27 +146,13 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Smithfield Cream Cheese Single Serve 1oz Container",
-      "brand": "Smithfield",
-      "events": 5,
-      "units": 12.0,
-      "firstEvent": "2026-10-02",
-      "lastEvent": "2026-10-06",
-      "daysAffected": 3,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "1 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Spindrift Grapefruit",
       "brand": "Spindrift",
-      "events": 8,
-      "units": 9.0,
-      "firstEvent": "2026-10-02",
+      "events": 7,
+      "units": 8.0,
+      "firstEvent": "2026-10-05",
       "lastEvent": "2026-10-07",
-      "daysAffected": 3,
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": true,
       "inPlan": false,
@@ -188,32 +174,46 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Monin Maple Pancake Syrup 750ml Glass Bottle",
+      "brand": "Monin",
+      "events": 1,
+      "units": 8.0,
+      "firstEvent": "2026-10-08",
+      "lastEvent": "2026-10-08",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": true,
+      "pack": "750 ml glass",
+      "formatStatus": "preferred"
+    },
+    {
+      "name": "Smithfield Cream Cheese Single Serve 1oz Container",
+      "brand": "Smithfield",
+      "events": 3,
+      "units": 7.0,
+      "firstEvent": "2026-10-05",
+      "lastEvent": "2026-10-06",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "1 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "1883 Pumpkin Spice Sauce 1.89L Bottle *NEW",
       "brand": "1883",
-      "events": 4,
-      "units": 8.0,
-      "firstEvent": "2026-10-02",
+      "events": 3,
+      "units": 7.0,
+      "firstEvent": "2026-10-04",
       "lastEvent": "2026-10-05",
-      "daysAffected": 3,
+      "daysAffected": 2,
       "cohortOrders": true,
       "inTransition": true,
       "inPlan": false,
       "pack": "1.89 L",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Monin Cinnamon Syrup 750ml Glass",
-      "brand": "Monin",
-      "events": 4,
-      "units": 7.0,
-      "firstEvent": "2026-10-02",
-      "lastEvent": "2026-10-05",
-      "daysAffected": 3,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "750 ml glass",
-      "formatStatus": "preferred"
     },
     {
       "name": "Dr. Smoothie Classic Chai 3.5lb Bag",
@@ -230,34 +230,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
-      "brand": "Rishi",
-      "events": 4,
-      "units": 6.0,
-      "firstEvent": "2026-10-02",
-      "lastEvent": "2026-10-07",
-      "daysAffected": 3,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "32 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Monin Strawberry Syrup 750ml Glass",
-      "brand": "Monin",
-      "events": 2,
-      "units": 6.0,
-      "firstEvent": "2026-10-02",
-      "lastEvent": "2026-10-05",
-      "daysAffected": 2,
-      "cohortOrders": true,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "750 ml glass",
-      "formatStatus": "preferred"
-    },
-    {
       "name": "Mylk Labs Nut Free Apple Cinnamon Oatmeal Cup 1.9oz",
       "brand": "Mylk Labs",
       "events": 1,
@@ -272,18 +244,32 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Flourless Brownie - 1 / 56 ct",
-      "brand": "Baked Fresh",
-      "events": 5,
+      "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
+      "brand": "Rishi",
+      "events": 3,
       "units": 5.0,
-      "firstEvent": "2026-10-02",
+      "firstEvent": "2026-10-06",
+      "lastEvent": "2026-10-07",
+      "daysAffected": 2,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Monin Cinnamon Syrup 750ml Glass",
+      "brand": "Monin",
+      "events": 3,
+      "units": 5.0,
+      "firstEvent": "2026-10-04",
       "lastEvent": "2026-10-05",
       "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
+      "cohortOrders": true,
+      "inTransition": true,
       "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
+      "pack": "750 ml glass",
+      "formatStatus": "preferred"
     },
     {
       "name": "Maola Milk - Non Fat - 12 / 32 oz btl",
@@ -325,6 +311,34 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "1 L plastic",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Baked Fresh - Flourless Brownie - 1 / 56 ct",
+      "brand": "Baked Fresh",
+      "events": 3,
+      "units": 3.0,
+      "firstEvent": "2026-10-05",
+      "lastEvent": "2026-10-05",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Karat Hot Cup 16oz (C-K516W)",
+      "brand": "Karat",
+      "events": 2,
+      "units": 3.0,
+      "firstEvent": "2026-10-07",
+      "lastEvent": "2026-10-08",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "16 oz",
       "formatStatus": "n/a"
     },
     {
@@ -370,6 +384,20 @@
       "formatStatus": "preferred"
     },
     {
+      "name": "Baked Fresh - Muffin - Morning Glory (Vegan) - 1 / 35 ct",
+      "brand": "Baked Fresh",
+      "events": 2,
+      "units": 2.0,
+      "firstEvent": "2026-10-07",
+      "lastEvent": "2026-10-08",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Monin Pistachio Syrup 750 ml Glass",
       "brand": "Monin",
       "events": 2,
@@ -384,18 +412,18 @@
       "formatStatus": "preferred"
     },
     {
-      "name": "Karat Hot Cup 16oz (C-K516W)",
-      "brand": "Karat",
+      "name": "Monin Strawberry Syrup 750ml Glass",
+      "brand": "Monin",
       "events": 1,
       "units": 2.0,
-      "firstEvent": "2026-10-07",
-      "lastEvent": "2026-10-07",
+      "firstEvent": "2026-10-05",
+      "lastEvent": "2026-10-05",
       "daysAffected": 1,
-      "cohortOrders": false,
+      "cohortOrders": true,
       "inTransition": true,
       "inPlan": false,
-      "pack": "16 oz",
-      "formatStatus": "n/a"
+      "pack": "750 ml glass",
+      "formatStatus": "preferred"
     },
     {
       "name": "Tony's Chocolonely Mini Bar - Milk Chocolate - 20 / 1.8 oz bar",
@@ -426,21 +454,7 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Muffin - Morning Glory (Vegan) - 1 / 35 ct",
-      "brand": "Baked Fresh",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-10-07",
-      "lastEvent": "2026-10-07",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Woodfire Brands Fiery Fiesta - 12 / 6 oz bag",
+      "name": "Woodfire Brands Zesty Ranch - 12 / 6 oz bag",
       "brand": "Woodfire Brands",
       "events": 1,
       "units": 1.0,
@@ -468,20 +482,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Woodfire Brands Zesty Ranch - 12 / 6 oz bag",
-      "brand": "Woodfire Brands",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-10-06",
-      "lastEvent": "2026-10-06",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 / 6 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Woodfire Brands BBQ - 12 / 6 oz bag",
       "brand": "Woodfire Brands",
       "events": 1,
@@ -496,17 +496,17 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Humankind Organic Lemonade 16oz",
-      "brand": "Humankind",
+      "name": "Woodfire Brands Fiery Fiesta - 12 / 6 oz bag",
+      "brand": "Woodfire Brands",
       "events": 1,
       "units": 1.0,
-      "firstEvent": "2026-10-05",
-      "lastEvent": "2026-10-05",
+      "firstEvent": "2026-10-06",
+      "lastEvent": "2026-10-06",
       "daysAffected": 1,
-      "cohortOrders": true,
-      "inTransition": true,
+      "cohortOrders": false,
+      "inTransition": false,
       "inPlan": false,
-      "pack": "16 oz",
+      "pack": "12 / 6 oz",
       "formatStatus": "n/a"
     },
     {
@@ -521,6 +521,20 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "0.71 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Humankind Organic Lemonade 16oz",
+      "brand": "Humankind",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-10-05",
+      "lastEvent": "2026-10-05",
+      "daysAffected": 1,
+      "cohortOrders": true,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "16 oz",
       "formatStatus": "n/a"
     },
     {
@@ -582,11 +596,6 @@
   ],
   "feoosTrend": [
     {
-      "date": "2026-10-02",
-      "events": 15,
-      "units": 26.0
-    },
-    {
       "date": "2026-10-03",
       "events": 6,
       "units": 12.0
@@ -610,58 +619,63 @@
       "date": "2026-10-07",
       "events": 26,
       "units": 56.0
+    },
+    {
+      "date": "2026-10-08",
+      "events": 5,
+      "units": 15.0
     }
   ],
   "feoosBrands": [
     {
-      "brand": "1883",
-      "units": 52.0,
-      "events": 7
-    },
-    {
       "brand": "Rishi",
-      "units": 50.0,
-      "events": 8
-    },
-    {
-      "brand": "Talerico Bakery",
-      "units": 40.0,
-      "events": 22
-    },
-    {
-      "brand": "Humankind",
-      "units": 36.0,
-      "events": 18
-    },
-    {
-      "brand": "Baked Fresh",
-      "units": 18.0,
-      "events": 14
-    },
-    {
-      "brand": "Monin",
-      "units": 18.0,
+      "units": 54.0,
       "events": 9
     },
     {
-      "brand": "Just Ice Tea",
-      "units": 16.0,
-      "events": 2
+      "brand": "1883",
+      "units": 51.0,
+      "events": 6
     },
     {
-      "brand": "Smithfield",
-      "units": 12.0,
-      "events": 5
+      "brand": "Humankind",
+      "units": 34.0,
+      "events": 17
+    },
+    {
+      "brand": "Talerico Bakery",
+      "units": 33.0,
+      "events": 18
+    },
+    {
+      "brand": "Monin",
+      "units": 20.0,
+      "events": 8
+    },
+    {
+      "brand": "Baked Fresh",
+      "units": 17.0,
+      "events": 13
+    },
+    {
+      "brand": "Just Ice Tea",
+      "units": 15.0,
+      "events": 1
     },
     {
       "brand": "Spindrift",
-      "units": 9.0,
-      "events": 8
+      "units": 8.0,
+      "events": 7
     },
     {
       "brand": "Woodfire Brands",
       "units": 8.0,
       "events": 5
+    },
+    {
+      "brand": "Smithfield",
+      "units": 7.0,
+      "events": 3
     },
     {
       "brand": "Dr. Smoothie",
@@ -953,6 +967,31 @@
           85.0
         ]
       ]
+    },
+    {
+      "product": "monin organic syrup vanilla",
+      "name": "Monin Organic Vanilla Syrup 750ml Glass",
+      "brand": "Monin",
+      "preferredAlt": "",
+      "preferredAltOnHand": null,
+      "preferredAltAvailability": "",
+      "preferredAltFeoosEvents": 0,
+      "preferredAltFeoosUnits": 0.0,
+      "remedy": "",
+      "packs": [
+        {
+          "pack": "750 ml glass",
+          "units": 18.0,
+          "status": "preferred"
+        }
+      ],
+      "preferredPack": "glass",
+      "preferredUnits": 18.0,
+      "offFormatUnits": 0,
+      "state": "preferred",
+      "customers": 1,
+      "units": 18.0,
+      "mdt1Packs": []
     },
     {
       "product": "butter monin pecan syrup",
@@ -1323,6 +1362,31 @@
       ]
     },
     {
+      "product": "agave monin organic syrup",
+      "name": "Monin Organic Agave Syrup 750ml Glass",
+      "brand": "Monin",
+      "preferredAlt": "",
+      "preferredAltOnHand": null,
+      "preferredAltAvailability": "",
+      "preferredAltFeoosEvents": 0,
+      "preferredAltFeoosUnits": 0.0,
+      "remedy": "",
+      "packs": [
+        {
+          "pack": "750 ml glass",
+          "units": 6.0,
+          "status": "preferred"
+        }
+      ],
+      "preferredPack": "glass",
+      "preferredUnits": 6.0,
+      "offFormatUnits": 0,
+      "state": "preferred",
+      "customers": 1,
+      "units": 6.0,
+      "mdt1Packs": []
+    },
+    {
       "product": "monin peach syrup white",
       "name": "Monin White Peach Syrup 750mL Glass",
       "brand": "Monin",
@@ -1389,8 +1453,8 @@
       "preferredAlt": "Monin Strawberry Syrup 750ml Glass",
       "preferredAltOnHand": 31.0,
       "preferredAltAvailability": "ready",
-      "preferredAltFeoosEvents": 2,
-      "preferredAltFeoosUnits": 6.0,
+      "preferredAltFeoosEvents": 1,
+      "preferredAltFeoosUnits": 2.0,
       "remedy": "",
       "packs": [
         {
@@ -1513,8 +1577,8 @@
       "preferredAlt": "Monin Cinnamon Syrup 750ml Glass",
       "preferredAltOnHand": 52.0,
       "preferredAltAvailability": "ready",
-      "preferredAltFeoosEvents": 4,
-      "preferredAltFeoosUnits": 7.0,
+      "preferredAltFeoosEvents": 3,
+      "preferredAltFeoosUnits": 5.0,
       "remedy": "",
       "packs": [
         {
@@ -2143,11 +2207,11 @@
     {
       "name": "Oatly Barista Oat Milk 32oz",
       "brand": "Oatly",
-      "units": 46.0,
-      "lines": 13,
+      "units": 48.0,
+      "lines": 14,
       "customers": 7,
       "firstOrder": "2026-09-27",
-      "lastOrder": "2026-10-07",
+      "lastOrder": "2026-10-08",
       "inTransition": true,
       "inPlan": false,
       "isNew": false,
@@ -2289,11 +2353,11 @@
     {
       "name": "Pacific Barista Almond Milk 32oz",
       "brand": "Pacific Foods",
-      "units": 25.0,
-      "lines": 12,
+      "units": 26.0,
+      "lines": 13,
       "customers": 6,
       "firstOrder": "2026-09-27",
-      "lastOrder": "2026-10-07",
+      "lastOrder": "2026-10-08",
       "inTransition": true,
       "inPlan": false,
       "isNew": false,
@@ -2361,7 +2425,7 @@
     },
     {
       "name": "Monin Organic Vanilla Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "units": 18.0,
       "lines": 1,
       "customers": 1,
@@ -2372,7 +2436,7 @@
       "isNew": true,
       "product": "monin organic syrup vanilla",
       "pack": "750 ml glass",
-      "formatStatus": "n/a",
+      "formatStatus": "preferred",
       "mdt1Packs": [],
       "feoosEvents": 0,
       "feoosUnits": 0.0
@@ -2443,8 +2507,8 @@
           19.0
         ]
       ],
-      "feoosEvents": 4,
-      "feoosUnits": 8.0
+      "feoosEvents": 3,
+      "feoosUnits": 7.0
     },
     {
       "name": "Califia Farms Barista Oat Milk 32oz",
@@ -2731,8 +2795,8 @@
           35.0
         ]
       ],
-      "feoosEvents": 9,
-      "feoosUnits": 21.0
+      "feoosEvents": 8,
+      "feoosUnits": 19.0
     },
     {
       "name": "Monin Coconut Syrup 750ml Glass",
@@ -2915,7 +2979,7 @@
     },
     {
       "name": "Monin Organic Agave Syrup 750ml Glass",
-      "brand": "",
+      "brand": "Monin",
       "units": 6.0,
       "lines": 1,
       "customers": 1,
@@ -2926,7 +2990,7 @@
       "isNew": true,
       "product": "agave monin organic syrup",
       "pack": "750 ml glass",
-      "formatStatus": "n/a",
+      "formatStatus": "preferred",
       "mdt1Packs": [],
       "feoosEvents": 0,
       "feoosUnits": 0.0
@@ -3089,8 +3153,8 @@
           19.0
         ]
       ],
-      "feoosEvents": 2,
-      "feoosUnits": 6.0
+      "feoosEvents": 1,
+      "feoosUnits": 2.0
     },
     {
       "name": "Monin Toffee Nut Syrup 750ml Glass",
@@ -3239,6 +3303,29 @@
       "feoosUnits": 0.0
     },
     {
+      "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
+      "brand": "Rishi",
+      "units": 4.0,
+      "lines": 2,
+      "customers": 1,
+      "firstOrder": "2026-09-30",
+      "lastOrder": "2026-10-08",
+      "inTransition": true,
+      "inPlan": false,
+      "isNew": false,
+      "product": "1 1 chai concentrate masala organic rishi",
+      "pack": "32 oz",
+      "formatStatus": "n/a",
+      "mdt1Packs": [
+        [
+          "32 oz",
+          9.0
+        ]
+      ],
+      "feoosEvents": 3,
+      "feoosUnits": 5.0
+    },
+    {
       "name": "Humankind Organic Lemonade 16oz",
       "brand": "Humankind",
       "units": 3.0,
@@ -3260,6 +3347,29 @@
       ],
       "feoosEvents": 1,
       "feoosUnits": 1.0
+    },
+    {
+      "name": "Humankind Organic Peach Iced Tea 16oz",
+      "brand": "Humankind",
+      "units": 3.0,
+      "lines": 3,
+      "customers": 3,
+      "firstOrder": "2026-09-23",
+      "lastOrder": "2026-10-08",
+      "inTransition": true,
+      "inPlan": false,
+      "isNew": false,
+      "product": "humankind iced organic peach tea",
+      "pack": "16 oz",
+      "formatStatus": "n/a",
+      "mdt1Packs": [
+        [
+          "16 oz",
+          23.0
+        ]
+      ],
+      "feoosEvents": 0,
+      "feoosUnits": 0.0
     },
     {
       "name": "Monin Cherry Syrup 750ml Glass",
@@ -3304,8 +3414,8 @@
           33.0
         ]
       ],
-      "feoosEvents": 4,
-      "feoosUnits": 7.0
+      "feoosEvents": 3,
+      "feoosUnits": 5.0
     },
     {
       "name": "Monin Lemon Syrup 750ml Glass",
@@ -3373,8 +3483,8 @@
           27.0
         ]
       ],
-      "feoosEvents": 4,
-      "feoosUnits": 44.0
+      "feoosEvents": 6,
+      "feoosUnits": 49.0
     },
     {
       "name": "UGLIES Original Sea Salt 2oz Bag",
@@ -3535,29 +3645,6 @@
         [
           "12 oz",
           5.0
-        ]
-      ],
-      "feoosEvents": 0,
-      "feoosUnits": 0.0
-    },
-    {
-      "name": "Humankind Organic Peach Iced Tea 16oz",
-      "brand": "Humankind",
-      "units": 2.0,
-      "lines": 2,
-      "customers": 2,
-      "firstOrder": "2026-09-23",
-      "lastOrder": "2026-09-28",
-      "inTransition": true,
-      "inPlan": false,
-      "isNew": false,
-      "product": "humankind iced organic peach tea",
-      "pack": "16 oz",
-      "formatStatus": "n/a",
-      "mdt1Packs": [
-        [
-          "16 oz",
-          23.0
         ]
       ],
       "feoosEvents": 0,
@@ -4228,29 +4315,6 @@
       "feoosUnits": 0.0
     },
     {
-      "name": "Rishi 1:1 Organic Masala Chai Concentrate 32oz",
-      "brand": "Rishi",
-      "units": 1.0,
-      "lines": 1,
-      "customers": 1,
-      "firstOrder": "2026-09-30",
-      "lastOrder": "2026-09-30",
-      "inTransition": true,
-      "inPlan": false,
-      "isNew": false,
-      "product": "1 1 chai concentrate masala organic rishi",
-      "pack": "32 oz",
-      "formatStatus": "n/a",
-      "mdt1Packs": [
-        [
-          "32 oz",
-          9.0
-        ]
-      ],
-      "feoosEvents": 4,
-      "feoosUnits": 6.0
-    },
-    {
       "name": "Smartfruit Puree Mix - Harvest Greens 48 fl oz",
       "brand": "SmartFruit",
       "units": 1.0,
@@ -4438,6 +4502,16 @@
       "feoosEvents": 6
     },
     {
+      "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
+      "name": "Ragamuffins Coffee House : 385 Main St",
+      "units": 27.0,
+      "lines": 16,
+      "skus": 11,
+      "firstOrder": "2026-09-30",
+      "lastOrder": "2026-10-08",
+      "feoosEvents": 4
+    },
+    {
       "uuid": "59edebfc-d2d4-4ca7-b28c-a141e777812c",
       "name": "The Fountain at Drug City : 2805 North Point Rd",
       "units": 27.0,
@@ -4496,16 +4570,6 @@
       "firstOrder": "2026-09-28",
       "lastOrder": "2026-10-05",
       "feoosEvents": 1
-    },
-    {
-      "uuid": "c5a56314-b962-4957-8e08-516db05daf29",
-      "name": "Ragamuffins Coffee House : 385 Main St",
-      "units": 20.0,
-      "lines": 12,
-      "skus": 10,
-      "firstOrder": "2026-09-30",
-      "lastOrder": "2026-10-07",
-      "feoosEvents": 3
     },
     {
       "uuid": "5983b2f4-e51e-4c43-b1ab-90c401c715f6",
