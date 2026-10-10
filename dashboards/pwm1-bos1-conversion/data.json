@@ -1,34 +1,34 @@
 {
-  "generatedAt": "2026-10-07T07:45:09+00:00",
+  "generatedAt": "2026-10-10T22:00:32+00:00",
   "origin": "PWM1",
   "destination": "BOS1",
   "sourceEmpty": false,
-  "sourceRows": 80538,
+  "sourceRows": 82018,
   "dateRange": {
-    "min": "2026-07-09",
+    "min": "2026-07-13",
     "max": "2026-10-01"
   },
   "summary": {
     "customersListed": 22,
     "customersActive": 20,
     "skusPurchased": 55,
-    "skusCarried": 36,
-    "skusGap": 19,
-    "coveragePct": 65,
-    "unitsTotal": 5523.0,
-    "gapUnitsTotal": 1271.0,
+    "skusCarried": 37,
+    "skusGap": 18,
+    "coveragePct": 67,
+    "unitsTotal": 5081.0,
+    "gapUnitsTotal": 1090.0,
     "formatSubstitutes": 1,
-    "bos1CatalogSkus": 805,
+    "bos1CatalogSkus": 1069,
     "deliveryDayChanges": 22
   },
   "coverage": [
     {
       "status": "Carried in BOS1",
-      "count": 36
+      "count": 37
     },
     {
       "status": "Not carried (gap)",
-      "count": 19
+      "count": 18
     }
   ],
   "groups": [
@@ -36,15 +36,15 @@
       "group": "Blank Street",
       "locations": 14,
       "active": 12,
-      "units": 5102.0,
+      "units": 4665.0,
       "skus": 48,
-      "gapSkus": 17
+      "gapSkus": 16
     },
     {
       "group": "Van Leeuwen",
       "locations": 8,
       "active": 8,
-      "units": 421.0,
+      "units": 416.0,
       "skus": 9,
       "gapSkus": 2
     }
@@ -52,37 +52,37 @@
   "topGapSkus": [
     {
       "name": "Califia Farms Barista Coconut Milk 32oz",
-      "units": 501.0,
+      "units": 415.0,
       "customers": 11
     },
     {
       "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-      "units": 157.0,
+      "units": 138.0,
       "customers": 11
     },
     {
       "name": "Yakami Orchard - Yuzu Marmalade 580g",
-      "units": 148.0,
+      "units": 131.0,
       "customers": 11
     },
     {
       "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-      "units": 137.0,
+      "units": 122.0,
       "customers": 11
     },
     {
       "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-      "units": 127.0,
+      "units": 102.0,
       "customers": 11
     },
     {
       "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-      "units": 44.0,
+      "units": 39.0,
       "customers": 11
     },
     {
       "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-      "units": 40.0,
+      "units": 38.0,
       "customers": 11
     },
     {
@@ -92,17 +92,17 @@
     },
     {
       "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-      "units": 33.0,
-      "customers": 11
+      "units": 28.0,
+      "customers": 10
     },
     {
       "name": "Dole Pineapple Juice 46fl oz Can",
-      "units": 24.0,
-      "customers": 11
+      "units": 18.0,
+      "customers": 9
     },
     {
       "name": "Innovative Freeze Dried Dragon Fruit Powder PCH 100g Pouch",
-      "units": 9.0,
+      "units": 8.0,
       "customers": 5
     },
     {
@@ -139,37 +139,32 @@
       "name": "Delivery Fee",
       "units": 0.0,
       "customers": 1
-    },
-    {
-      "name": "Fuel Surcharge",
-      "units": 0.0,
-      "customers": 9
     }
   ],
   "topGapBrands": [
     {
       "brand": "Califia Farms",
-      "units": 501.0,
+      "units": 415.0,
       "skus": 1
     },
     {
       "brand": "Bloomin Foods",
-      "units": 264.0,
+      "units": 224.0,
       "skus": 2
     },
     {
       "brand": "Re\u00e1l",
-      "units": 201.0,
+      "units": 177.0,
       "skus": 2
     },
     {
       "brand": "Yakami Orchard",
-      "units": 148.0,
+      "units": 131.0,
       "skus": 1
     },
     {
       "brand": "Pink House Alchemy",
-      "units": 40.0,
+      "units": 38.0,
       "skus": 1
     },
     {
@@ -179,17 +174,17 @@
     },
     {
       "brand": "Yuzuco",
-      "units": 33.0,
+      "units": 28.0,
       "skus": 1
     },
     {
       "brand": "Dole",
-      "units": 24.0,
+      "units": 18.0,
       "skus": 1
     },
     {
       "brand": "Innovative Freeze Dried Food",
-      "units": 9.0,
+      "units": 8.0,
       "skus": 1
     },
     {
@@ -200,7 +195,7 @@
     {
       "brand": "(no brand)",
       "units": 6.0,
-      "skus": 4
+      "skus": 3
     },
     {
       "brand": "Imperial",
@@ -220,7 +215,8 @@
           "name": "Monin Cinnamon Bun Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand"
+            "onhand",
+            "sold"
           ],
           "pack": "750 ml glass",
           "sameSize": false
@@ -233,32 +229,33 @@
       "name": "1883 French Madeleine Syrup 1L Glass",
       "brand": "1883",
       "itemUuid": "9f16e732-b0d5-44c6-ad53-569170188d6b",
-      "units": 857.0,
-      "lines": 141,
+      "units": 784.0,
+      "lines": 133,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 158.0,
-          "lines": 14
+          "units": 146.0,
+          "lines": 13
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 142.0,
-          "lines": 18
+          "units": 130.0,
+          "lines": 17
         },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 123.0,
-          "lines": 20
+          "units": 117.0,
+          "lines": 19
         },
         {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
@@ -269,32 +266,26 @@
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 64.0,
-          "lines": 11
+          "units": 59.0,
+          "lines": 10
         },
         {
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
-          "units": 63.0,
-          "lines": 15
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 54.0,
-          "lines": 6
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 48.0,
-          "lines": 13
+          "units": 57.0,
+          "lines": 14
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
           "units": 46.0,
           "lines": 14
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 43.0,
+          "lines": 12
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -305,86 +296,14 @@
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
           "name": "Blank Street : 489 East Broadway",
-          "units": 38.0,
-          "lines": 9
-        }
-      ]
-    },
-    {
-      "name": "Califia Farms Barista Coconut Milk 32oz",
-      "brand": "Califia Farms",
-      "itemUuid": "ef962bda-1f3b-405c-91d9-ab0cd04b2987",
-      "units": 501.0,
-      "lines": 86,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 93.0,
-          "lines": 9
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 76.0,
-          "lines": 10
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 72.0,
-          "lines": 12
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 63.0,
-          "lines": 11
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 50.0,
-          "lines": 8
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 38.0,
-          "lines": 9
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 33.0,
-          "lines": 10
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 32.0,
+          "units": 35.0,
           "lines": 8
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 23.0,
-          "lines": 4
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 11.0,
-          "lines": 2
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 10.0,
-          "lines": 3
+          "units": 30.0,
+          "lines": 5
         }
       ]
     },
@@ -392,42 +311,37 @@
       "name": "Polar Club Soda 7.5oz",
       "brand": "Polar Seltzer",
       "itemUuid": "24f5f0fa-c085-4126-a451-a2a00dc5029f",
-      "units": 476.0,
-      "lines": 107,
+      "units": 424.0,
+      "lines": 100,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 77.0,
-          "lines": 12
+          "units": 74.0,
+          "lines": 11
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 66.0,
-          "lines": 10
+          "units": 61.0,
+          "lines": 9
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 65.0,
-          "lines": 13
+          "units": 59.0,
+          "lines": 12
         },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 61.0,
-          "lines": 11
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
           "units": 46.0,
           "lines": 10
         },
@@ -438,16 +352,16 @@
           "lines": 12
         },
         {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 38.0,
+          "lines": 9
+        },
+        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 38.0,
           "lines": 10
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 26.0,
-          "lines": 6
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
@@ -458,14 +372,98 @@
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
           "name": "Blank Street : 489 East Broadway",
-          "units": 21.0,
-          "lines": 8
+          "units": 18.0,
+          "lines": 7
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 14.0,
+          "lines": 5
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
           "name": "Blank Street : 48 West Broadway",
           "units": 14.0,
           "lines": 7
+        }
+      ]
+    },
+    {
+      "name": "Califia Farms Barista Coconut Milk 32oz",
+      "brand": "Califia Farms",
+      "itemUuid": "ef962bda-1f3b-405c-91d9-ab0cd04b2987",
+      "units": 415.0,
+      "lines": 76,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 11,
+      "custDetail": [
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 81.0,
+          "lines": 8
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 64.0,
+          "lines": 11
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 64.0,
+          "lines": 9
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 57.0,
+          "lines": 10
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 34.0,
+          "lines": 6
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 33.0,
+          "lines": 10
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 33.0,
+          "lines": 8
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 28.0,
+          "lines": 7
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 10.0,
+          "lines": 3
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 6.0,
+          "lines": 1
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 5.0,
+          "lines": 3
         }
       ]
     },
@@ -477,7 +475,8 @@
       "lines": 99,
       "inBos1": true,
       "bos1Sources": [
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
@@ -536,14 +535,14 @@
           "lines": 9
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 19.0,
           "lines": 7
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
           "units": 19.0,
           "lines": 7
         }
@@ -557,7 +556,8 @@
       "lines": 84,
       "inBos1": true,
       "bos1Sources": [
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 12,
       "custDetail": [
@@ -639,25 +639,26 @@
       "name": "Crofters Organic Strawberry Jelly 7kg",
       "brand": "Crofters",
       "itemUuid": "a250e5db-92d2-4b8c-a5ab-81796a6f944d",
-      "units": 256.0,
-      "lines": 149,
+      "units": 239.0,
+      "lines": 141,
       "inBos1": true,
       "bos1Sources": [
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 55.0,
-          "lines": 22
+          "units": 52.0,
+          "lines": 21
         },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 39.0,
-          "lines": 14
+          "units": 36.0,
+          "lines": 13
         },
         {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
@@ -666,40 +667,28 @@
           "lines": 17
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 25.0,
-          "lines": 14
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 25.0,
-          "lines": 17
+          "units": 24.0,
+          "lines": 16
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 23.0,
+          "lines": 13
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 20.0,
-          "lines": 14
+          "units": 17.0,
+          "lines": 12
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
           "units": 14.0,
           "lines": 10
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 13.0,
-          "lines": 8
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 13.0,
-          "lines": 12
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -708,90 +697,22 @@
           "lines": 11
         },
         {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 12.0,
+          "lines": 11
+        },
+        {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
           "name": "Blank Street : 489 East Broadway",
           "units": 12.0,
           "lines": 10
-        }
-      ]
-    },
-    {
-      "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-      "brand": "David Protein",
-      "itemUuid": "de0e49a1-0426-404a-af40-24baa83d5912",
-      "units": 196.0,
-      "lines": 118,
-      "inBos1": true,
-      "bos1Sources": [
-        "onhand"
-      ],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 28.0,
-          "lines": 17
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 27.0,
-          "lines": 10
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 26.0,
-          "lines": 17
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 21.0,
-          "lines": 13
-        },
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 19.0,
-          "lines": 13
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 18.0,
-          "lines": 13
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 16.0,
-          "lines": 8
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 14.0,
-          "lines": 7
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 10.0,
-          "lines": 7
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
           "units": 9.0,
           "lines": 7
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 8.0,
-          "lines": 6
         }
       ]
     },
@@ -803,7 +724,8 @@
       "lines": 84,
       "inBos1": true,
       "bos1Sources": [
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 12,
       "custDetail": [
@@ -882,23 +804,105 @@
       ]
     },
     {
+      "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+      "brand": "David Protein",
+      "itemUuid": "de0e49a1-0426-404a-af40-24baa83d5912",
+      "units": 185.0,
+      "lines": 111,
+      "inBos1": true,
+      "bos1Sources": [
+        "onhand",
+        "sold"
+      ],
+      "customers": 11,
+      "custDetail": [
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 26.0,
+          "lines": 16
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 25.0,
+          "lines": 16
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 25.0,
+          "lines": 9
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 21.0,
+          "lines": 13
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 18.0,
+          "lines": 12
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 17.0,
+          "lines": 12
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 15.0,
+          "lines": 7
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 11.0,
+          "lines": 6
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 10.0,
+          "lines": 7
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 9.0,
+          "lines": 7
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 8.0,
+          "lines": 6
+        }
+      ]
+    },
+    {
       "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
       "brand": "Urnex",
       "itemUuid": "a5003723-4a90-4be9-82bb-11fdfb64b0d1",
-      "units": 181.0,
-      "lines": 71,
+      "units": 175.0,
+      "lines": 68,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 34.0,
-          "lines": 8
+          "units": 32.0,
+          "lines": 7
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
@@ -907,21 +911,15 @@
           "lines": 12
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 23.0,
-          "lines": 6
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 21.0,
           "lines": 9
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 16.0,
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 20.0,
           "lines": 5
         },
         {
@@ -931,22 +929,28 @@
           "lines": 9
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 12.0,
-          "lines": 6
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 16.0,
+          "lines": 5
         },
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 10.0,
-          "lines": 6
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 11.0,
+          "lines": 5
         },
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
           "units": 10.0,
           "lines": 3
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 10.0,
+          "lines": 6
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -964,14 +968,15 @@
     },
     {
       "name": "1883 Syrup Pump (Glass)",
-      "brand": "",
+      "brand": "1883",
       "itemUuid": "bf1851c3-19f7-43aa-affd-08a8fef5eb39",
       "units": 159.0,
       "lines": 21,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 7,
       "custDetail": [
@@ -994,16 +999,16 @@
           "lines": 5
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 8.0,
-          "lines": 1
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 8.0,
           "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 8.0,
+          "lines": 1
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
@@ -1023,8 +1028,8 @@
       "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
       "brand": "Re\u00e1l",
       "itemUuid": "6d0b86d1-a941-4cf6-85df-19b4c508121a",
-      "units": 157.0,
-      "lines": 64,
+      "units": 138.0,
+      "lines": 57,
       "inBos1": false,
       "bos1Sources": [],
       "customers": 11,
@@ -1032,44 +1037,44 @@
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 28.0,
-          "lines": 7
+          "units": 25.0,
+          "lines": 6
         },
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 25.0,
-          "lines": 9
+          "units": 23.0,
+          "lines": 8
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 22.0,
-          "lines": 9
+          "units": 20.0,
+          "lines": 8
         },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 21.0,
-          "lines": 6
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 13.0,
-          "lines": 6
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 12.0,
-          "lines": 4
+          "units": 17.0,
+          "lines": 5
         },
         {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 12.0,
           "lines": 4
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 10.0,
+          "lines": 5
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 8.0,
+          "lines": 3
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
@@ -1092,163 +1097,7 @@
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
           "name": "Blank Street : 489 East Broadway",
-          "units": 5.0,
-          "lines": 5
-        }
-      ]
-    },
-    {
-      "name": "Yakami Orchard - Yuzu Marmalade 580g",
-      "brand": "Yakami Orchard",
-      "itemUuid": "3d5909a7-1274-4941-af0d-64c9dc13960e",
-      "units": 148.0,
-      "lines": 70,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 27.0,
-          "lines": 9
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 23.0,
-          "lines": 11
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 22.0,
-          "lines": 11
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 20.0,
-          "lines": 9
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 16.0,
-          "lines": 6
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 10.0,
-          "lines": 5
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 8.0,
-          "lines": 5
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 8.0,
-          "lines": 3
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 5.0,
-          "lines": 3
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 5.0,
-          "lines": 4
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
           "units": 4.0,
-          "lines": 4
-        }
-      ]
-    },
-    {
-      "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-      "brand": "Bloomin Foods",
-      "itemUuid": "fe704e2b-9626-4fbc-aaf6-99327fa3e260",
-      "units": 137.0,
-      "lines": 74,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 26.0,
-          "lines": 10
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 19.0,
-          "lines": 10
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 15.0,
-          "lines": 6
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 15.0,
-          "lines": 7
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 13.0,
-          "lines": 8
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 13.0,
-          "lines": 9
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 10.0,
-          "lines": 5
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 9.0,
-          "lines": 8
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 6.0,
-          "lines": 4
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 6.0,
-          "lines": 3
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 5.0,
           "lines": 4
         }
       ]
@@ -1257,12 +1106,13 @@
       "name": "Boylan Bottling Co. Ginger Ale Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
-      "units": 137.0,
-      "lines": 48,
+      "units": 135.0,
+      "lines": 47,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 8,
       "custDetail": [
@@ -1279,12 +1129,6 @@
           "lines": 7
         },
         {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 21.0,
-          "lines": 8
-        },
-        {
           "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
           "name": "Van Leeuwen : Boston Seaport #2503",
           "units": 20.0,
@@ -1293,6 +1137,12 @@
         {
           "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
           "name": "Van Leeuwen : Burlington Mall #2508",
+          "units": 19.0,
+          "lines": 7
+        },
+        {
+          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+          "name": "Van Leeuwen : Harvard Square #2501",
           "units": 19.0,
           "lines": 7
         },
@@ -1317,22 +1167,101 @@
       ]
     },
     {
+      "name": "Yakami Orchard - Yuzu Marmalade 580g",
+      "brand": "Yakami Orchard",
+      "itemUuid": "3d5909a7-1274-4941-af0d-64c9dc13960e",
+      "units": 131.0,
+      "lines": 63,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 11,
+      "custDetail": [
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 24.0,
+          "lines": 8
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 22.0,
+          "lines": 10
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 20.0,
+          "lines": 10
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 16.0,
+          "lines": 8
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 16.0,
+          "lines": 6
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 8.0,
+          "lines": 4
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 8.0,
+          "lines": 5
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 5.0,
+          "lines": 4
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 5.0,
+          "lines": 3
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 3.0,
+          "lines": 3
+        }
+      ]
+    },
+    {
       "name": "David Protein Bars - Blueberry",
       "brand": "David Protein",
       "itemUuid": "58c2bb49-6ff6-4b70-aba4-32a4069cfd54",
-      "units": 131.0,
-      "lines": 96,
+      "units": 125.0,
+      "lines": 91,
       "inBos1": true,
       "bos1Sources": [
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 18.0,
-          "lines": 7
+          "units": 16.0,
+          "lines": 6
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
@@ -1343,20 +1272,14 @@
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 14.0,
-          "lines": 11
+          "units": 13.0,
+          "lines": 10
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 13.0,
-          "lines": 9
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
           "units": 12.0,
-          "lines": 9
+          "lines": 8
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -1365,10 +1288,16 @@
           "lines": 7
         },
         {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 11.0,
+          "lines": 8
+        },
+        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
-          "units": 12.0,
-          "lines": 10
+          "units": 11.0,
+          "lines": 9
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
@@ -1400,26 +1329,27 @@
       "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
       "brand": "Hollander",
       "itemUuid": "a3f1efb2-b7d1-4436-9b67-a4d38ad92912",
-      "units": 131.0,
-      "lines": 81,
+      "units": 124.0,
+      "lines": 78,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 11,
       "custDetail": [
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 20.0,
-          "lines": 10
-        },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
           "units": 19.0,
           "lines": 12
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 18.0,
+          "lines": 9
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
@@ -1428,28 +1358,28 @@
           "lines": 8
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 14.0,
-          "lines": 9
-        },
-        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 13.0,
           "lines": 10
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 13.0,
-          "lines": 5
+          "lines": 8
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
           "name": "Blank Street : 489 East Broadway",
           "units": 9.0,
           "lines": 5
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 9.0,
+          "lines": 4
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
@@ -1478,11 +1408,11 @@
       ]
     },
     {
-      "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+      "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
       "brand": "Bloomin Foods",
-      "itemUuid": "ddd437dd-84a6-4c77-a50d-a754601182cf",
-      "units": 127.0,
-      "lines": 63,
+      "itemUuid": "fe704e2b-9626-4fbc-aaf6-99327fa3e260",
+      "units": 122.0,
+      "lines": 66,
       "inBos1": false,
       "bos1Sources": [],
       "customers": 11,
@@ -1490,37 +1420,43 @@
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
-          "units": 27.0,
+          "units": 22.0,
           "lines": 9
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 18.0,
-          "lines": 12
+          "units": 17.0,
+          "lines": 9
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 15.0,
+          "lines": 6
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 13.0,
+          "lines": 6
         },
         {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
-          "units": 16.0,
+          "units": 12.0,
           "lines": 7
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 14.0,
-          "lines": 5
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 12.0,
-          "lines": 4
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
           "units": 11.0,
+          "lines": 8
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 10.0,
           "lines": 5
         },
         {
@@ -1530,78 +1466,21 @@
           "lines": 7
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 8.0,
-          "lines": 5
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 7.0,
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 5.0,
           "lines": 3
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "1883 Syrup Pump (Plastic)",
-      "brand": "1883",
-      "itemUuid": "b7f139bb-8e00-41ce-b92a-d366796b0ecd",
-      "units": 113.0,
-      "lines": 16,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand"
-      ],
-      "customers": 6,
-      "custDetail": [
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 29.0,
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 5.0,
           "lines": 4
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 26.0,
-          "lines": 2
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 21.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 18.0,
-          "lines": 4
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 12.0,
-          "lines": 2
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 7.0,
+          "units": 4.0,
           "lines": 2
         }
       ]
@@ -1610,12 +1489,13 @@
       "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
       "brand": "Open Water",
       "itemUuid": "946d3082-7230-4cb6-9440-0a9ec6ed443e",
-      "units": 106.0,
-      "lines": 46,
+      "units": 104.0,
+      "lines": 45,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 8,
       "custDetail": [
@@ -1646,8 +1526,8 @@
         {
           "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
           "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 11.0,
-          "lines": 6
+          "units": 9.0,
+          "lines": 5
         },
         {
           "uuid": "a305e919-8832-489d-825f-0e8208e04486",
@@ -1670,6 +1550,84 @@
       ]
     },
     {
+      "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+      "brand": "Bloomin Foods",
+      "itemUuid": "ddd437dd-84a6-4c77-a50d-a754601182cf",
+      "units": 102.0,
+      "lines": 53,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 11,
+      "custDetail": [
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 25.0,
+          "lines": 8
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 15.0,
+          "lines": 10
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 13.0,
+          "lines": 6
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 12.0,
+          "lines": 4
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 8.0,
+          "lines": 4
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 8.0,
+          "lines": 5
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 7.0,
+          "lines": 6
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 6.0,
+          "lines": 3
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 3.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
       "name": "Gossner Whole Milk 32oz",
       "brand": "Gossner Foods",
       "itemUuid": "d0c1e15e-659d-478b-a420-ec3799220498",
@@ -1678,7 +1636,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 8,
       "custDetail": [
@@ -1741,7 +1700,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 12,
       "custDetail": [
@@ -1820,15 +1780,67 @@
       ]
     },
     {
-      "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-      "brand": "EcoLogic Solutions",
-      "itemUuid": "13316c48-4b70-4a90-b383-94efbc06aef8",
-      "units": 98.0,
-      "lines": 31,
+      "name": "1883 Syrup Pump (Plastic)",
+      "brand": "1883",
+      "itemUuid": "b7f139bb-8e00-41ce-b92a-d366796b0ecd",
+      "units": 93.0,
+      "lines": 15,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
         "onhand"
+      ],
+      "customers": 6,
+      "custDetail": [
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 29.0,
+          "lines": 4
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 21.0,
+          "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 18.0,
+          "lines": 4
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 12.0,
+          "lines": 2
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 7.0,
+          "lines": 2
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 6.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
+      "brand": "EcoLogic Solutions",
+      "itemUuid": "13316c48-4b70-4a90-b383-94efbc06aef8",
+      "units": 86.0,
+      "lines": 28,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand",
+        "sold"
       ],
       "customers": 10,
       "custDetail": [
@@ -1841,26 +1853,26 @@
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 18.0,
-          "lines": 6
+          "units": 15.0,
+          "lines": 5
         },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 18.0,
-          "lines": 5
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
           "units": 14.0,
-          "lines": 3
+          "lines": 4
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
           "name": "Blank Street : 48 West Broadway",
           "units": 9.0,
           "lines": 3
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 9.0,
+          "lines": 2
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
@@ -1898,12 +1910,13 @@
       "name": "Califia Farms Barista Oat Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "2d05faec-fbce-4a35-b6bf-0df8492976a3",
-      "units": 71.0,
-      "lines": 20,
+      "units": 56.0,
+      "lines": 19,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 9,
       "custDetail": [
@@ -1914,28 +1927,22 @@
           "lines": 4
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 16.0,
-          "lines": 2
-        },
-        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 6.0,
           "lines": 1
         },
         {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
           "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
           "name": "Van Leeuwen : Fenway #2505",
           "units": 4.0,
           "lines": 3
+        },
+        {
+          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+          "name": "Van Leeuwen : Harvard Square #2501",
+          "units": 4.0,
+          "lines": 4
         },
         {
           "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
@@ -1950,149 +1957,20 @@
           "lines": 2
         },
         {
+          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+          "name": "Van Leeuwen : Burlington Mall #2508",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
           "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
           "name": "Van Leeuwen : Chestnut Hill #2502",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-          "name": "Van Leeuwen : Burlington Mall #2508",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-      "brand": "Re\u00e1l",
-      "itemUuid": "7996ee0b-2e8b-4f2e-bd95-32bed6107db2",
-      "units": 44.0,
-      "lines": 38,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 9.0,
-          "lines": 6
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 8.0,
-          "lines": 6
-        },
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 5.0,
-          "lines": 5
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 5.0,
-          "lines": 5
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-      "brand": "Urnex",
-      "itemUuid": "e2557dc5-6168-41de-8ef6-cf59f9076157",
-      "units": 42.0,
-      "lines": 14,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand"
-      ],
-      "customers": 7,
-      "custDetail": [
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 14.0,
-          "lines": 3
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 9.0,
-          "lines": 3
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 7.0,
-          "lines": 2
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 5.0,
-          "lines": 2
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 4.0,
-          "lines": 1
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
           "lines": 1
         }
@@ -2112,10 +1990,10 @@
       "customers": 12,
       "custDetail": [
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
           "units": 4.0,
-          "lines": 3
+          "lines": 4
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
@@ -2130,20 +2008,20 @@
           "lines": 3
         },
         {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
           "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 4.0,
-          "lines": 2
+          "lines": 3
         },
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
           "name": "Blank Street : 647 Boylston Street",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
           "units": 4.0,
           "lines": 2
         },
@@ -2154,8 +2032,8 @@
           "lines": 3
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
           "units": 4.0,
           "lines": 2
         },
@@ -2186,24 +2064,102 @@
       ]
     },
     {
-      "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-      "brand": "Pink House Alchemy",
-      "itemUuid": "83fc1aff-7e1c-47b2-bb6d-76450ee038a6",
-      "units": 40.0,
-      "lines": 36,
+      "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
+      "brand": "Re\u00e1l",
+      "itemUuid": "7996ee0b-2e8b-4f2e-bd95-32bed6107db2",
+      "units": 39.0,
+      "lines": 35,
       "inBos1": false,
       "bos1Sources": [],
       "customers": 11,
       "custDetail": [
         {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 8.0,
+          "lines": 6
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 7.0,
+          "lines": 5
+        },
+        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
-          "units": 6.0,
-          "lines": 6
+          "units": 5.0,
+          "lines": 5
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 3.0,
+          "lines": 3
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
           "name": "Blank Street : 282 Cambridge Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
+      "brand": "Pink House Alchemy",
+      "itemUuid": "83fc1aff-7e1c-47b2-bb6d-76450ee038a6",
+      "units": 38.0,
+      "lines": 34,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 11,
+      "custDetail": [
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 5.0,
+          "lines": 4
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
           "units": 5.0,
           "lines": 5
         },
@@ -2214,9 +2170,15 @@
           "lines": 4
         },
         {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 5.0,
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 4.0,
           "lines": 4
         },
         {
@@ -2230,12 +2192,6 @@
           "name": "Blank Street : 250 West Newton Street",
           "units": 4.0,
           "lines": 2
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 4.0,
-          "lines": 4
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
@@ -2264,53 +2220,47 @@
       ]
     },
     {
-      "name": "Everclean Milk Line Cleaning Liquid",
-      "brand": "Eversys",
-      "itemUuid": "a6c7b7e6-4ea0-42ed-9b0e-948971a3d31b",
-      "units": 36.0,
-      "lines": 20,
+      "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+      "brand": "Urnex",
+      "itemUuid": "e2557dc5-6168-41de-8ef6-cf59f9076157",
+      "units": 35.0,
+      "lines": 11,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
         "onhand"
       ],
-      "customers": 8,
+      "customers": 7,
       "custDetail": [
         {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 10.0,
-          "lines": 1
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 12.0,
+          "lines": 2
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 6.0,
-          "lines": 5
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 6.0,
+          "units": 7.0,
           "lines": 2
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 4.0,
-          "lines": 3
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 7.0,
+          "lines": 2
         },
         {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 3.0,
-          "lines": 3
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 4.0,
+          "lines": 1
         },
         {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
-          "units": 3.0,
-          "lines": 3
+          "units": 2.0,
+          "lines": 1
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
@@ -2319,77 +2269,8 @@
           "lines": 2
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Califia Farms Barista Almond Milk 32oz",
-      "brand": "Califia Farms",
-      "itemUuid": "7337eebb-4a48-4fef-894b-d41188665b96",
-      "units": 34.0,
-      "lines": 15,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand"
-      ],
-      "customers": 9,
-      "custDetail": [
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 9.0,
-          "lines": 2
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 7.0,
-          "lines": 1
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 4.0,
-          "lines": 1
-        },
-        {
-          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
-          "name": "Van Leeuwen : Boston Seaport #2503",
-          "units": 4.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
-          "name": "Van Leeuwen : Lyrik #2506",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
-          "name": "Van Leeuwen : Linden Square #2504",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
-          "name": "Van Leeuwen : Fenway #2505",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
-          "name": "Van Leeuwen : Chestnut Hill #2502",
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
           "lines": 1
         }
@@ -2436,14 +2317,154 @@
           "lines": 2
         },
         {
-          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
-          "name": "Van Leeuwen : Linden Square #2504",
+          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+          "name": "Van Leeuwen : Burlington Mall #2508",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-          "name": "Van Leeuwen : Burlington Mall #2508",
+          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
+          "name": "Van Leeuwen : Linden Square #2504",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Everclean Milk Line Cleaning Liquid",
+      "brand": "Eversys",
+      "itemUuid": "a6c7b7e6-4ea0-42ed-9b0e-948971a3d31b",
+      "units": 32.0,
+      "lines": 18,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand",
+        "sold"
+      ],
+      "customers": 8,
+      "custDetail": [
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 10.0,
+          "lines": 1
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 5.0,
+          "lines": 4
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 4.0,
+          "lines": 3
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 3.0,
+          "lines": 1
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 2.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
+      "brand": "Urnex",
+      "itemUuid": "61f652fb-e05c-4220-8119-4ea61fd92e94",
+      "units": 28.0,
+      "lines": 17,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand",
+        "sold"
+      ],
+      "customers": 10,
+      "custDetail": [
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 6.0,
+          "lines": 1
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 4.0,
+          "lines": 2
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 1.0,
           "lines": 1
         }
@@ -2453,23 +2474,17 @@
       "name": "Yuzuco Yuzu Super Juice 1L Bottle",
       "brand": "Yuzuco",
       "itemUuid": "3ce034f7-6407-4653-b4b8-791fdf10d68e",
-      "units": 33.0,
-      "lines": 32,
+      "units": 28.0,
+      "lines": 28,
       "inBos1": false,
       "bos1Sources": [],
-      "customers": 11,
+      "customers": 10,
       "custDetail": [
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
-          "units": 7.0,
-          "lines": 7
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 5.0,
-          "lines": 5
+          "units": 6.0,
+          "lines": 6
         },
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
@@ -2478,8 +2493,14 @@
           "lines": 4
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
           "units": 3.0,
           "lines": 3
         },
@@ -2490,16 +2511,10 @@
           "lines": 3
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 3.0,
           "lines": 3
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 3.0,
-          "lines": 2
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -2508,14 +2523,14 @@
           "lines": 2
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
           "units": 1.0,
           "lines": 1
         },
@@ -2528,75 +2543,64 @@
       ]
     },
     {
-      "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-      "brand": "Urnex",
-      "itemUuid": "61f652fb-e05c-4220-8119-4ea61fd92e94",
-      "units": 32.0,
-      "lines": 19,
+      "name": "Califia Farms Barista Almond Milk 32oz",
+      "brand": "Califia Farms",
+      "itemUuid": "7337eebb-4a48-4fef-894b-d41188665b96",
+      "units": 26.0,
+      "lines": 13,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
-      "customers": 10,
+      "customers": 8,
       "custDetail": [
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 7.0,
-          "lines": 3
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 6.0,
-          "lines": 1
-        },
-        {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 5.0,
-          "lines": 3
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 4.0,
-          "lines": 4
-        },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
+          "units": 9.0,
+          "lines": 2
+        },
+        {
+          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
+          "name": "Van Leeuwen : Boston Seaport #2503",
           "units": 4.0,
           "lines": 2
         },
         {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 2.0,
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 4.0,
+          "lines": 1
+        },
+        {
+          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
+          "name": "Van Leeuwen : Lyrik #2506",
+          "units": 3.0,
           "lines": 2
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
+          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+          "name": "Van Leeuwen : Harvard Square #2501",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
+          "name": "Van Leeuwen : Fenway #2505",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
+          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
+          "name": "Van Leeuwen : Chestnut Hill #2502",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
+          "name": "Van Leeuwen : Linden Square #2504",
           "units": 1.0,
           "lines": 1
         }
@@ -2606,8 +2610,8 @@
       "name": "Eversys Coffee Cleaning Balls",
       "brand": "Eversys",
       "itemUuid": "c82df885-52f2-400b-8954-f96a641fa7a4",
-      "units": 26.0,
-      "lines": 20,
+      "units": 23.0,
+      "lines": 19,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
@@ -2616,16 +2620,16 @@
       "customers": 10,
       "custDetail": [
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 5.0,
-          "lines": 2
-        },
-        {
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
           "units": 5.0,
           "lines": 4
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 3.0,
+          "lines": 2
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
@@ -2634,9 +2638,9 @@
           "lines": 2
         },
         {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 3.0,
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 2.0,
           "lines": 2
         },
         {
@@ -2652,80 +2656,8 @@
           "lines": 2
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Dole Pineapple Juice 46fl oz Can",
-      "brand": "Dole",
-      "itemUuid": "95f51369-7f21-4c36-917c-ab237721f33b",
-      "units": 24.0,
-      "lines": 23,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
           "units": 2.0,
           "lines": 2
         },
@@ -2733,23 +2665,17 @@
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
           "units": 2.0,
-          "lines": 2
+          "lines": 1
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 1.0,
           "lines": 1
         }
@@ -2759,21 +2685,16 @@
       "name": "Hollander Sauce Pump",
       "brand": "Hollander",
       "itemUuid": "887971e8-d7ee-44b8-af3e-26aa3f04f77c",
-      "units": 23.0,
-      "lines": 10,
+      "units": 19.0,
+      "lines": 9,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 5,
       "custDetail": [
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 8.0,
-          "lines": 2
-        },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
@@ -2787,6 +2708,12 @@
           "lines": 2
         },
         {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 4.0,
+          "lines": 1
+        },
+        {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
           "units": 3.0,
@@ -2796,6 +2723,72 @@
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
           "units": 2.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Dole Pineapple Juice 46fl oz Can",
+      "brand": "Dole",
+      "itemUuid": "95f51369-7f21-4c36-917c-ab237721f33b",
+      "units": 18.0,
+      "lines": 17,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 9,
+      "custDetail": [
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 4.0,
+          "lines": 3
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 3.0,
+          "lines": 3
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 1.0,
           "lines": 1
         }
       ]
@@ -2820,26 +2813,14 @@
           "lines": 2
         },
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 2.0,
           "lines": 2
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
           "units": 2.0,
           "lines": 2
         },
@@ -2850,8 +2831,20 @@
           "lines": 2
         },
         {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 2.0,
+          "lines": 1
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
           "units": 2.0,
           "lines": 2
         },
@@ -2859,39 +2852,6 @@
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
           "name": "Blank Street : 48 West Broadway",
           "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Ecologic E45F Spray Pump",
-      "brand": "EcoLogic Solutions",
-      "itemUuid": "a3dbcfd5-3127-44ae-a714-fd3507e4462a",
-      "units": 12.0,
-      "lines": 4,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 5.0,
-          "lines": 1
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 4.0,
-          "lines": 2
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 3.0,
           "lines": 1
         }
       ]
@@ -2942,47 +2902,73 @@
       ]
     },
     {
-      "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
-      "brand": "Urnex",
-      "itemUuid": "a8c424c8-3ce3-4cbc-a597-2230b2cb309f",
-      "units": 12.0,
-      "lines": 7,
+      "name": "Blank Street 2-Cup Carrier",
+      "brand": "Blank Street Coffee",
+      "itemUuid": "0d17a1f7-2384-46fe-af3a-ccfbfa6f7952",
+      "units": 9.0,
+      "lines": 8,
       "inBos1": true,
       "bos1Sources": [
-        "catalog",
         "onhand"
       ],
       "customers": 5,
       "custDetail": [
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 5.0,
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 3.0,
+          "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 2.0,
           "lines": 2
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
-          "units": 4.0,
+          "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Ecologic E45F Spray Pump",
+      "brand": "EcoLogic Solutions",
+      "itemUuid": "a3dbcfd5-3127-44ae-a714-fd3507e4462a",
+      "units": 9.0,
+      "lines": 3,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand"
+      ],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 5.0,
           "lines": 1
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 1.0,
-          "lines": 1
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 4.0,
+          "lines": 2
         }
       ]
     },
@@ -2990,8 +2976,8 @@
       "name": "Haddar Himalayan Fine Pink Salt 16oz Container",
       "brand": "Haddar",
       "itemUuid": "d151899d-385a-4785-944b-cb6d284080b1",
-      "units": 11.0,
-      "lines": 7,
+      "units": 9.0,
+      "lines": 6,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
@@ -2999,12 +2985,6 @@
       ],
       "customers": 5,
       "custDetail": [
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 4.0,
-          "lines": 2
-        },
         {
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
@@ -3024,94 +3004,14 @@
           "lines": 1
         },
         {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 2.0,
+          "lines": 1
+        },
+        {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
           "name": "Blank Street : 48 West Broadway",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Blank Street 2-Cup Carrier",
-      "brand": "Blank Street Coffee",
-      "itemUuid": "0d17a1f7-2384-46fe-af3a-ccfbfa6f7952",
-      "units": 9.0,
-      "lines": 8,
-      "inBos1": true,
-      "bos1Sources": [
-        "onhand"
-      ],
-      "customers": 5,
-      "custDetail": [
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Innovative Freeze Dried Dragon Fruit Powder PCH 100g Pouch",
-      "brand": "Innovative Freeze Dried Food",
-      "itemUuid": "0c2fce2a-b377-4ae2-84d1-f0de60abbea3",
-      "units": 9.0,
-      "lines": 8,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 5,
-      "custDetail": [
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 1.0,
           "lines": 1
         }
@@ -3126,7 +3026,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 8,
       "custDetail": [
@@ -3149,20 +3050,14 @@
           "lines": 1
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
           "name": "Blank Street : 282 Cambridge Street",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
           "units": 1.0,
           "lines": 1
         },
@@ -3173,8 +3068,59 @@
           "lines": 1
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
+      "brand": "Urnex",
+      "itemUuid": "a8c424c8-3ce3-4cbc-a597-2230b2cb309f",
+      "units": 9.0,
+      "lines": 6,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand"
+      ],
+      "customers": 5,
+      "custDetail": [
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 5.0,
+          "lines": 2
+        },
+        {
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 1.0,
           "lines": 1
         }
@@ -3189,7 +3135,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 6,
       "custDetail": [
@@ -3206,8 +3153,8 @@
           "lines": 2
         },
         {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 1.0,
           "lines": 1
         },
@@ -3218,14 +3165,56 @@
           "lines": 1
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 1.0,
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "name": "Innovative Freeze Dried Dragon Fruit Powder PCH 100g Pouch",
+      "brand": "Innovative Freeze Dried Food",
+      "itemUuid": "0c2fce2a-b377-4ae2-84d1-f0de60abbea3",
+      "units": 8.0,
+      "lines": 7,
+      "inBos1": false,
+      "bos1Sources": [],
+      "customers": 5,
+      "custDetail": [
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 3.0,
+          "lines": 2
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 1.0,
           "lines": 1
         }
@@ -3285,7 +3274,7 @@
     {
       "name": "Cocktail Kingdom - Set of Two Koriko Weighted Shaking Tins - Stainless Steel *Kitted*",
       "brand": "",
-      "itemUuid": "5e10dc84-0497-4000-b5dc-bbe6097a7701",
+      "itemUuid": "",
       "units": 4.0,
       "lines": 4,
       "inBos1": false,
@@ -3351,7 +3340,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 1,
       "custDetail": [
@@ -3372,7 +3362,8 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand"
+        "onhand",
+        "sold"
       ],
       "customers": 1,
       "custDetail": [
@@ -3462,16 +3453,12 @@
       "itemUuid": "",
       "units": 0.0,
       "lines": 9,
-      "inBos1": false,
-      "bos1Sources": [],
+      "inBos1": true,
+      "bos1Sources": [
+        "sold"
+      ],
       "customers": 9,
       "custDetail": [
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 0.0,
-          "lines": 1
-        },
         {
           "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
           "name": "Blank Street : 1380 Massachusetts Avenue",
@@ -3487,18 +3474,6 @@
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
           "units": 0.0,
           "lines": 1
         },
@@ -3519,11 +3494,214 @@
           "name": "Blank Street : 97 Charles Street",
           "units": 0.0,
           "lines": 1
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 0.0,
+          "lines": 1
         }
       ]
     }
   ],
   "customers": [
+    {
+      "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+      "name": "Blank Street : 647 Boylston Street",
+      "group": "Blank Street",
+      "location": "Boston",
+      "state": "MA",
+      "zip": "02116",
+      "currentDeliveryDay": "Tues - Fri",
+      "newDeliveryDay": "Mon to Fri",
+      "deliveryDayChanged": true,
+      "hasHistory": true,
+      "skus": 24,
+      "gapSkus": 9,
+      "units": 640.0,
+      "items": [
+        {
+          "name": "1883 French Madeleine Syrup 1L Glass",
+          "brand": "1883",
+          "units": 146.0,
+          "lines": 13,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 81.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
+          "name": "Polar Club Soda 7.5oz",
+          "brand": "Polar Seltzer",
+          "units": 74.0,
+          "lines": 11,
+          "inBos1": true
+        },
+        {
+          "name": "Crofters Organic Strawberry Jelly 7kg",
+          "brand": "Crofters",
+          "units": 52.0,
+          "lines": 21,
+          "inBos1": true
+        },
+        {
+          "name": "Cinnamon Bun Syrup - Case 6x750ml",
+          "brand": "Blank Street Coffee",
+          "units": 50.0,
+          "lines": 9,
+          "inBos1": true
+        },
+        {
+          "name": "Braswell's Sweet Potato Butter",
+          "brand": "Braswell's Select",
+          "units": 28.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 25.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 24.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 23.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
+          "units": 22.0,
+          "lines": 9,
+          "inBos1": false
+        },
+        {
+          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
+          "brand": "Miss Jones Baking Co.",
+          "units": 21.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+          "brand": "David Protein",
+          "units": 18.0,
+          "lines": 12,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
+          "brand": "Hollander",
+          "units": 18.0,
+          "lines": 9,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Blueberry",
+          "brand": "David Protein",
+          "units": 13.0,
+          "lines": 10,
+          "inBos1": true
+        },
+        {
+          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
+          "brand": "Dona",
+          "units": 11.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
+          "brand": "Urnex",
+          "units": 10.0,
+          "lines": 3,
+          "inBos1": true
+        },
+        {
+          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
+          "brand": "Pink House Alchemy",
+          "units": 5.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Chamellia Chai Garnish 1kg",
+          "brand": "Chamellia",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 4.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
+          "brand": "Yuzuco",
+          "units": 4.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Eversys Coffee Cleaning Balls",
+          "brand": "Eversys",
+          "units": 3.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Dole Pineapple Juice 46fl oz Can",
+          "brand": "Dole",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Urnex Clearly Cold 32oz Bottle",
+          "brand": "Urnex",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Fuel Surcharge",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inBos1": true
+        }
+      ]
+    },
     {
       "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
       "name": "Blank Street : 1380 Massachusetts Avenue",
@@ -3536,28 +3714,28 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 34,
-      "gapSkus": 11,
-      "units": 703.0,
+      "gapSkus": 10,
+      "units": 637.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
-          "units": 123.0,
-          "lines": 20,
+          "units": 117.0,
+          "lines": 19,
           "inBos1": true
         },
         {
           "name": "Califia Farms Barista Coconut Milk 32oz",
           "brand": "Califia Farms",
-          "units": 76.0,
-          "lines": 10,
+          "units": 64.0,
+          "lines": 9,
           "inBos1": false
         },
         {
           "name": "Polar Club Soda 7.5oz",
-          "brand": "",
-          "units": 61.0,
-          "lines": 11,
+          "brand": "Polar Seltzer",
+          "units": 46.0,
+          "lines": 10,
           "inBos1": true
         },
         {
@@ -3570,8 +3748,8 @@
         {
           "name": "Crofters Organic Strawberry Jelly 7kg",
           "brand": "Crofters",
-          "units": 39.0,
-          "lines": 14,
+          "units": 36.0,
+          "lines": 13,
           "inBos1": true
         },
         {
@@ -3584,8 +3762,8 @@
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
           "brand": "Urnex",
-          "units": 34.0,
-          "lines": 8,
+          "units": 32.0,
+          "lines": 7,
           "inBos1": true
         },
         {
@@ -3598,16 +3776,9 @@
         {
           "name": "David Protein Bars - Chocolate Chip Cookie Dough",
           "brand": "David Protein",
-          "units": 27.0,
-          "lines": 10,
+          "units": 25.0,
+          "lines": 9,
           "inBos1": true
-        },
-        {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 21.0,
-          "lines": 6,
-          "inBos1": false
         },
         {
           "name": "1883 Syrup Pump (Glass)",
@@ -3624,13 +3795,6 @@
           "inBos1": true
         },
         {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 20.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
           "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
           "brand": "Hollander",
           "units": 19.0,
@@ -3638,24 +3802,38 @@
           "inBos1": true
         },
         {
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 17.0,
+          "lines": 5,
+          "inBos1": false
+        },
+        {
           "name": "David Protein Bars - Blueberry",
           "brand": "David Protein",
-          "units": 18.0,
-          "lines": 7,
+          "units": 16.0,
+          "lines": 6,
           "inBos1": true
+        },
+        {
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 16.0,
+          "lines": 8,
+          "inBos1": false
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
           "brand": "EcoLogic Solutions",
-          "units": 18.0,
-          "lines": 5,
+          "units": 14.0,
+          "lines": 4,
           "inBos1": true
         },
         {
           "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
           "brand": "Bloomin Foods",
-          "units": 15.0,
-          "lines": 7,
+          "units": 13.0,
+          "lines": 6,
           "inBos1": false
         },
         {
@@ -3664,13 +3842,6 @@
           "units": 13.0,
           "lines": 7,
           "inBos1": true
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 12.0,
-          "lines": 4,
-          "inBos1": false
         },
         {
           "name": "Everclean Milk Line Cleaning Liquid",
@@ -3682,8 +3853,8 @@
         {
           "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
           "brand": "Re\u00e1l",
-          "units": 9.0,
-          "lines": 6,
+          "units": 7.0,
+          "lines": 5,
           "inBos1": false
         },
         {
@@ -3692,6 +3863,13 @@
           "units": 6.0,
           "lines": 1,
           "inBos1": true
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 6.0,
+          "lines": 3,
+          "inBos1": false
         },
         {
           "name": "Hollander Sauce Pump",
@@ -3708,13 +3886,6 @@
           "inBos1": false
         },
         {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 5.0,
-          "lines": 5,
-          "inBos1": false
-        },
-        {
           "name": "Chamellia Chai Garnish 1kg",
           "brand": "Chamellia",
           "units": 4.0,
@@ -3722,18 +3893,25 @@
           "inBos1": true
         },
         {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 4.0,
-          "lines": 4,
-          "inBos1": false
-        },
-        {
           "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
           "brand": "Urnex",
           "units": 4.0,
           "lines": 1,
           "inBos1": true
+        },
+        {
+          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
+          "brand": "Yuzuco",
+          "units": 4.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Dole Pineapple Juice 46fl oz Can",
+          "brand": "Dole",
+          "units": 3.0,
+          "lines": 3,
+          "inBos1": false
         },
         {
           "name": "Fox Run Brands - Silicone Jar Scraper Navy 12\"",
@@ -3775,192 +3953,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
-        }
-      ]
-    },
-    {
-      "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-      "name": "Blank Street : 647 Boylston Street",
-      "group": "Blank Street",
-      "location": "Boston",
-      "state": "MA",
-      "zip": "02116",
-      "currentDeliveryDay": "Tues - Fri",
-      "newDeliveryDay": "Mon to Fri",
-      "deliveryDayChanged": true,
-      "hasHistory": true,
-      "skus": 24,
-      "gapSkus": 10,
-      "units": 687.0,
-      "items": [
-        {
-          "name": "1883 French Madeleine Syrup 1L Glass",
-          "brand": "1883",
-          "units": 158.0,
-          "lines": 14,
           "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 93.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
-          "units": 77.0,
-          "lines": 12,
-          "inBos1": true
-        },
-        {
-          "name": "Crofters Organic Strawberry Jelly 7kg",
-          "brand": "Crofters",
-          "units": 55.0,
-          "lines": 22,
-          "inBos1": true
-        },
-        {
-          "name": "Cinnamon Bun Syrup - Case 6x750ml",
-          "brand": "Blank Street Coffee",
-          "units": 50.0,
-          "lines": 9,
-          "inBos1": true
-        },
-        {
-          "name": "Braswell's Sweet Potato Butter",
-          "brand": "Braswell's Select",
-          "units": 28.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 27.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 27.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-          "brand": "Bloomin Foods",
-          "units": 26.0,
-          "lines": 10,
-          "inBos1": false
-        },
-        {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 25.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
-          "brand": "Miss Jones Baking Co.",
-          "units": 21.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
-          "brand": "Hollander",
-          "units": 20.0,
-          "lines": 10,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "David Protein",
-          "units": 19.0,
-          "lines": 13,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Blueberry",
-          "brand": "David Protein",
-          "units": 14.0,
-          "lines": 11,
-          "inBos1": true
-        },
-        {
-          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
-          "brand": "Dona",
-          "units": 11.0,
-          "lines": 5,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 10.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 5.0,
-          "lines": 4,
-          "inBos1": false
-        },
-        {
-          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 5.0,
-          "lines": 5,
-          "inBos1": false
-        },
-        {
-          "name": "Chamellia Chai Garnish 1kg",
-          "brand": "Chamellia",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 4.0,
-          "lines": 4,
-          "inBos1": false
-        },
-        {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 3.0,
-          "lines": 3,
-          "inBos1": false
-        },
-        {
-          "name": "Eversys Coffee Cleaning Balls",
-          "brand": "Eversys",
-          "units": 3.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Fuel Surcharge",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
-          "inBos1": false
         }
       ]
     },
@@ -3976,28 +3969,28 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 35,
-      "gapSkus": 12,
-      "units": 663.0,
+      "gapSkus": 11,
+      "units": 623.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
-          "units": 142.0,
-          "lines": 18,
+          "units": 130.0,
+          "lines": 17,
           "inBos1": true
         },
         {
           "name": "Califia Farms Barista Coconut Milk 32oz",
           "brand": "Califia Farms",
-          "units": 72.0,
-          "lines": 12,
+          "units": 64.0,
+          "lines": 11,
           "inBos1": false
         },
         {
           "name": "Polar Club Soda 7.5oz",
           "brand": "Polar Seltzer",
-          "units": 66.0,
-          "lines": 10,
+          "units": 61.0,
+          "lines": 9,
           "inBos1": true
         },
         {
@@ -4023,30 +4016,30 @@
         },
         {
           "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "",
-          "units": 28.0,
-          "lines": 17,
+          "brand": "David Protein",
+          "units": 26.0,
+          "lines": 16,
           "inBos1": true
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
           "brand": "Re\u00e1l",
-          "units": 28.0,
-          "lines": 7,
+          "units": 25.0,
+          "lines": 6,
           "inBos1": false
         },
         {
           "name": "Crofters Organic Strawberry Jelly 7kg",
           "brand": "Crofters",
-          "units": 25.0,
-          "lines": 17,
+          "units": 24.0,
+          "lines": 16,
           "inBos1": true
         },
         {
           "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 23.0,
-          "lines": 11,
+          "brand": "",
+          "units": 22.0,
+          "lines": 10,
           "inBos1": false
         },
         {
@@ -4058,17 +4051,10 @@
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "",
-          "units": 18.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 14.0,
+          "brand": "EcoLogic Solutions",
+          "units": 15.0,
           "lines": 5,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Dona 1:1 Masala Chai Concentrate 64oz",
@@ -4085,22 +4071,29 @@
           "inBos1": true
         },
         {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
           "brand": "Bloomin Foods",
-          "units": 13.0,
-          "lines": 9,
+          "units": 12.0,
+          "lines": 4,
           "inBos1": false
         },
         {
           "name": "David Protein Bars - Blueberry",
           "brand": "David Protein",
-          "units": 13.0,
-          "lines": 9,
+          "units": 12.0,
+          "lines": 8,
           "inBos1": true
         },
         {
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
+          "units": 11.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
           "name": "1883 Syrup Pump (Glass)",
-          "brand": "",
+          "brand": "1883",
           "units": 8.0,
           "lines": 2,
           "inBos1": true
@@ -4222,269 +4215,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
-        }
-      ]
-    },
-    {
-      "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-      "name": "Blank Street : 97 Charles Street",
-      "group": "Blank Street",
-      "location": "Boston",
-      "state": "MA",
-      "zip": "02114",
-      "currentDeliveryDay": "Tues - Fri",
-      "newDeliveryDay": "Mon to Fri",
-      "deliveryDayChanged": true,
-      "hasHistory": true,
-      "skus": 35,
-      "gapSkus": 10,
-      "units": 569.0,
-      "items": [
-        {
-          "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
-          "units": 65.0,
-          "lines": 13,
           "inBos1": true
-        },
-        {
-          "name": "1883 French Madeleine Syrup 1L Glass",
-          "brand": "1883",
-          "units": 64.0,
-          "lines": 11,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 50.0,
-          "lines": 8,
-          "inBos1": false
-        },
-        {
-          "name": "1883 Syrup Pump (Glass)",
-          "brand": "1883",
-          "units": 34.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 34.0,
-          "lines": 4,
-          "inBos1": true
-        },
-        {
-          "name": "Cinnamon Bun Syrup - Case 6x750ml",
-          "brand": "Blank Street Coffee",
-          "units": 28.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "David Protein",
-          "units": 26.0,
-          "lines": 17,
-          "inBos1": true
-        },
-        {
-          "name": "Braswell's Sweet Potato Butter",
-          "brand": "Braswell's Select",
-          "units": 23.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 22.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "",
-          "units": 22.0,
-          "lines": 11,
-          "inBos1": false
-        },
-        {
-          "name": "1883 Syrup Pump (Plastic)",
-          "brand": "1883",
-          "units": 21.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Crofters Organic Strawberry Jelly 7kg",
-          "brand": "Crofters",
-          "units": 20.0,
-          "lines": 14,
-          "inBos1": true
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-          "brand": "Bloomin Foods",
-          "units": 19.0,
-          "lines": 10,
-          "inBos1": false
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 18.0,
-          "lines": 12,
-          "inBos1": false
-        },
-        {
-          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
-          "brand": "Miss Jones Baking Co.",
-          "units": 18.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Blueberry",
-          "brand": "David Protein",
-          "units": 16.0,
-          "lines": 14,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 12.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
-          "brand": "Dona",
-          "units": 10.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 9.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "",
-          "units": 9.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
-          "brand": "Hollander",
-          "units": 8.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 7.0,
-          "lines": 7,
-          "inBos1": false
-        },
-        {
-          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "EcoLogic Solutions",
-          "units": 6.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Everclean Milk Line Cleaning Liquid",
-          "brand": "Eversys",
-          "units": 6.0,
-          "lines": 5,
-          "inBos1": true
-        },
-        {
-          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Chamellia Chai Garnish 1kg",
-          "brand": "Chamellia",
-          "units": 3.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Hollander Sauce Pump",
-          "brand": "Hollander",
-          "units": 3.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 3.0,
-          "lines": 3,
-          "inBos1": false
-        },
-        {
-          "name": "Eversys Coffee Cleaning Balls",
-          "brand": "Eversys",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Stevia In The Raw Packets",
-          "brand": "Stevia In The Raw",
-          "units": 2.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": false
-        },
-        {
-          "name": "Sugar In The Raw Packets",
-          "brand": "Sugar In The Raw",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
-          "brand": "Urnex",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Fuel Surcharge",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
-          "inBos1": false
         }
       ]
     },
@@ -4500,8 +4231,8 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 37,
-      "gapSkus": 14,
-      "units": 547.0,
+      "gapSkus": 13,
+      "units": 531.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
@@ -4512,7 +4243,7 @@
         },
         {
           "name": "1883 Syrup Pump (Glass)",
-          "brand": "",
+          "brand": "1883",
           "units": 79.0,
           "lines": 8,
           "inBos1": true
@@ -4520,13 +4251,13 @@
         {
           "name": "Califia Farms Barista Coconut Milk 32oz",
           "brand": "Califia Farms",
-          "units": 63.0,
-          "lines": 11,
+          "units": 57.0,
+          "lines": 10,
           "inBos1": false
         },
         {
           "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
+          "brand": "",
           "units": 38.0,
           "lines": 10,
           "inBos1": true
@@ -4555,8 +4286,8 @@
         {
           "name": "David Protein Bars - Chocolate Chip Cookie Dough",
           "brand": "David Protein",
-          "units": 18.0,
-          "lines": 13,
+          "units": 17.0,
+          "lines": 12,
           "inBos1": true
         },
         {
@@ -4567,13 +4298,6 @@
           "inBos1": true
         },
         {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 16.0,
-          "lines": 7,
-          "inBos1": false
-        },
-        {
           "name": "Yakami Orchard - Yuzu Marmalade 580g",
           "brand": "Yakami Orchard",
           "units": 16.0,
@@ -4581,10 +4305,10 @@
           "inBos1": false
         },
         {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
           "brand": "Bloomin Foods",
           "units": 13.0,
-          "lines": 8,
+          "lines": 6,
           "inBos1": false
         },
         {
@@ -4602,11 +4326,11 @@
           "inBos1": true
         },
         {
-          "name": "David Protein Bars - Blueberry",
-          "brand": "David Protein",
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
           "units": 12.0,
-          "lines": 10,
-          "inBos1": true
+          "lines": 7,
+          "inBos1": false
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
@@ -4614,6 +4338,13 @@
           "units": 12.0,
           "lines": 4,
           "inBos1": false
+        },
+        {
+          "name": "David Protein Bars - Blueberry",
+          "brand": "David Protein",
+          "units": 11.0,
+          "lines": 9,
+          "inBos1": true
         },
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
@@ -4639,8 +4370,8 @@
         {
           "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
           "brand": "Pink House Alchemy",
-          "units": 6.0,
-          "lines": 6,
+          "units": 5.0,
+          "lines": 5,
           "inBos1": false
         },
         {
@@ -4649,13 +4380,6 @@
           "units": 5.0,
           "lines": 5,
           "inBos1": false
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "",
-          "units": 5.0,
-          "lines": 2,
-          "inBos1": true
         },
         {
           "name": "Califia Farms Barista Almond Milk 32oz",
@@ -4718,6 +4442,13 @@
           "brand": "Sugar In The Raw",
           "units": 2.0,
           "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+          "brand": "",
+          "units": 2.0,
+          "lines": 1,
           "inBos1": true
         },
         {
@@ -4760,273 +4491,231 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
+          "inBos1": true
         }
       ]
     },
     {
-      "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-      "name": "Blank Street : 250 West Newton Street",
+      "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+      "name": "Blank Street : 97 Charles Street",
       "group": "Blank Street",
       "location": "Boston",
       "state": "MA",
-      "zip": "02116",
+      "zip": "02114",
       "currentDeliveryDay": "Tues - Fri",
       "newDeliveryDay": "Mon to Fri",
       "deliveryDayChanged": true,
       "hasHistory": true,
-      "skus": 41,
-      "gapSkus": 12,
-      "units": 420.0,
+      "skus": 34,
+      "gapSkus": 8,
+      "units": 523.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
-          "units": 54.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "1883 Syrup Pump (Plastic)",
-          "brand": "1883",
-          "units": 26.0,
-          "lines": 2,
+          "units": 59.0,
+          "lines": 10,
           "inBos1": true
         },
         {
           "name": "Polar Club Soda 7.5oz",
           "brand": "Polar Seltzer",
-          "units": 26.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 23.0,
-          "lines": 4,
-          "inBos1": false
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 23.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Braswell's Sweet Potato Butter",
-          "brand": "Braswell's Select",
-          "units": 21.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "Cinnamon Bun Syrup - Case 6x750ml",
-          "brand": "Blank Street Coffee",
-          "units": 19.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 16.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "David Protein",
-          "units": 16.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
-          "brand": "Miss Jones Baking Co.",
-          "units": 15.0,
-          "lines": 5,
-          "inBos1": true
-        },
-        {
-          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "EcoLogic Solutions",
-          "units": 14.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "Urnex",
-          "units": 14.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Crofters Organic Strawberry Jelly 7kg",
-          "brand": "Crofters",
-          "units": 13.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
-          "brand": "Hollander",
-          "units": 13.0,
-          "lines": 5,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Blueberry",
-          "brand": "David Protein",
-          "units": 12.0,
-          "lines": 9,
-          "inBos1": true
-        },
-        {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "",
-          "units": 12.0,
-          "lines": 4,
-          "inBos1": false
-        },
-        {
-          "name": "Hollander Sauce Pump",
-          "brand": "Hollander",
-          "units": 8.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 8.0,
-          "lines": 3,
-          "inBos1": false
-        },
-        {
-          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
-          "units": 7.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 7.0,
-          "lines": 3,
-          "inBos1": false
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 7.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
-          "brand": "Dona",
-          "units": 7.0,
-          "lines": 4,
+          "units": 59.0,
+          "lines": 12,
           "inBos1": true
         },
         {
           "name": "1883 Syrup Pump (Glass)",
           "brand": "1883",
-          "units": 6.0,
-          "lines": 1,
+          "units": 34.0,
+          "lines": 3,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 34.0,
+          "lines": 6,
+          "inBos1": false
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 34.0,
+          "lines": 4,
+          "inBos1": true
+        },
+        {
+          "name": "Cinnamon Bun Syrup - Case 6x750ml",
+          "brand": "Blank Street Coffee",
+          "units": 28.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+          "brand": "David Protein",
+          "units": 25.0,
+          "lines": 16,
+          "inBos1": true
+        },
+        {
+          "name": "Braswell's Sweet Potato Butter",
+          "brand": "Braswell's Select",
+          "units": 23.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "1883 Syrup Pump (Plastic)",
+          "brand": "1883",
+          "units": 21.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 20.0,
+          "lines": 8,
+          "inBos1": false
+        },
+        {
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 20.0,
+          "lines": 10,
+          "inBos1": false
+        },
+        {
+          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
+          "brand": "Miss Jones Baking Co.",
+          "units": 18.0,
+          "lines": 7,
           "inBos1": true
         },
         {
           "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
           "brand": "Bloomin Foods",
+          "units": 17.0,
+          "lines": 9,
+          "inBos1": false
+        },
+        {
+          "name": "Crofters Organic Strawberry Jelly 7kg",
+          "brand": "Crofters",
+          "units": 17.0,
+          "lines": 12,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Blueberry",
+          "brand": "David Protein",
+          "units": 16.0,
+          "lines": 14,
+          "inBos1": true
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 15.0,
+          "lines": 10,
+          "inBos1": false
+        },
+        {
+          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
+          "brand": "Urnex",
+          "units": 11.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
+          "brand": "Dona",
+          "units": 10.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 9.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
+          "brand": "Hollander",
+          "units": 8.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+          "brand": "",
+          "units": 7.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
+          "brand": "EcoLogic Solutions",
           "units": 6.0,
           "lines": 3,
+          "inBos1": true
+        },
+        {
+          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
+          "brand": "Yuzuco",
+          "units": 6.0,
+          "lines": 6,
           "inBos1": false
         },
         {
           "name": "Everclean Milk Line Cleaning Liquid",
           "brand": "Eversys",
-          "units": 6.0,
-          "lines": 2,
+          "units": 5.0,
+          "lines": 4,
           "inBos1": true
         },
         {
-          "name": "Eversys Coffee Cleaning Balls",
-          "brand": "Eversys",
-          "units": 5.0,
+          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
+          "brand": "Urnex",
+          "units": 4.0,
           "lines": 2,
           "inBos1": true
         },
         {
           "name": "Chamellia Chai Garnish 1kg",
           "brand": "Chamellia",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Haddar Himalayan Fine Pink Salt 16oz Container",
-          "brand": "Haddar",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
-          "brand": "Urnex",
-          "units": 4.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Ecologic E45F Spray Pump",
-          "brand": "EcoLogic Solutions",
           "units": 3.0,
-          "lines": 1,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Sauce Pump",
+          "brand": "Hollander",
+          "units": 3.0,
+          "lines": 2,
           "inBos1": true
         },
         {
           "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
           "brand": "Re\u00e1l",
           "units": 3.0,
-          "lines": 2,
+          "lines": 3,
           "inBos1": false
         },
         {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 3.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Blank Street 2-Cup Carrier",
-          "brand": "Blank Street Coffee",
+          "name": "Eversys Coffee Cleaning Balls",
+          "brand": "Eversys",
           "units": 2.0,
           "lines": 2,
           "inBos1": true
         },
         {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Innovative Freeze Dried Dragon Fruit Powder PCH 100g Pouch",
-          "brand": "Innovative Freeze Dried Food",
+          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
+          "brand": "Pink House Alchemy",
           "units": 2.0,
           "lines": 2,
           "inBos1": false
@@ -5035,15 +4724,8 @@
           "name": "Stevia In The Raw Packets",
           "brand": "Stevia In The Raw",
           "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Cocktail Kingdom - Set of Two Koriko Weighted Shaking Tins - Stainless Steel *Kitted*",
-          "brand": "",
-          "units": 1.0,
           "lines": 1,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Sugar In The Raw Packets",
@@ -5053,8 +4735,8 @@
           "inBos1": true
         },
         {
-          "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
-          "brand": "Victoria Bay",
+          "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
+          "brand": "Urnex",
           "units": 1.0,
           "lines": 1,
           "inBos1": true
@@ -5064,7 +4746,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
+          "inBos1": true
         }
       ]
     },
@@ -5080,14 +4762,14 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 37,
-      "gapSkus": 12,
-      "units": 370.0,
+      "gapSkus": 11,
+      "units": 354.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
-          "units": 63.0,
-          "lines": 15,
+          "units": 57.0,
+          "lines": 14,
           "inBos1": true
         },
         {
@@ -5098,13 +4780,6 @@
           "inBos1": true
         },
         {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 32.0,
-          "lines": 8,
-          "inBos1": false
-        },
-        {
           "name": "Cinnamon Bun Syrup - Case 6x750ml",
           "brand": "Blank Street Coffee",
           "units": 32.0,
@@ -5112,17 +4787,24 @@
           "inBos1": true
         },
         {
-          "name": "Crofters Organic Strawberry Jelly 7kg",
-          "brand": "Crofters",
-          "units": 25.0,
-          "lines": 14,
-          "inBos1": true
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 28.0,
+          "lines": 7,
+          "inBos1": false
         },
         {
           "name": "Braswell's Sweet Potato Butter",
           "brand": "Braswell's Select",
           "units": 24.0,
           "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Crofters Organic Strawberry Jelly 7kg",
+          "brand": "Crofters",
+          "units": 23.0,
+          "lines": 13,
           "inBos1": true
         },
         {
@@ -5147,13 +4829,6 @@
           "inBos1": false
         },
         {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 11.0,
-          "lines": 5,
-          "inBos1": false
-        },
-        {
           "name": "David Protein Bars - Chocolate Chip Cookie Dough",
           "brand": "David Protein",
           "units": 9.0,
@@ -5166,6 +4841,13 @@
           "units": 9.0,
           "lines": 5,
           "inBos1": true
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 8.0,
+          "lines": 4,
+          "inBos1": false
         },
         {
           "name": "David Protein Bars - Blueberry",
@@ -5225,7 +4907,7 @@
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "",
+          "brand": "EcoLogic Solutions",
           "units": 4.0,
           "lines": 2,
           "inBos1": true
@@ -5257,13 +4939,6 @@
           "units": 2.0,
           "lines": 2,
           "inBos1": true
-        },
-        {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": false
         },
         {
           "name": "Haddar Himalayan Fine Pink Salt 16oz Container",
@@ -5308,6 +4983,13 @@
           "inBos1": false
         },
         {
+          "name": "Dole Pineapple Juice 46fl oz Can",
+          "brand": "Dole",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
           "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
           "brand": "Pink House Alchemy",
           "units": 1.0,
@@ -5340,240 +5022,6 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
-        }
-      ]
-    },
-    {
-      "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-      "name": "Blank Street : 282 Cambridge Street",
-      "group": "Blank Street",
-      "location": "Boston",
-      "state": "MA",
-      "zip": "02114",
-      "currentDeliveryDay": "Tues - Fri",
-      "newDeliveryDay": "Mon to Fri",
-      "deliveryDayChanged": true,
-      "hasHistory": true,
-      "skus": 31,
-      "gapSkus": 10,
-      "units": 348.0,
-      "items": [
-        {
-          "name": "1883 French Madeleine Syrup 1L Glass",
-          "brand": "1883",
-          "units": 48.0,
-          "lines": 13,
-          "inBos1": true
-        },
-        {
-          "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
-          "units": 46.0,
-          "lines": 10,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 38.0,
-          "lines": 9,
-          "inBos1": false
-        },
-        {
-          "name": "Cinnamon Bun Syrup - Case 6x750ml",
-          "brand": "Blank Street Coffee",
-          "units": 29.0,
-          "lines": 10,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 23.0,
-          "lines": 12,
-          "inBos1": true
-        },
-        {
-          "name": "Braswell's Sweet Potato Butter",
-          "brand": "Braswell's Select",
-          "units": 20.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
-          "brand": "",
-          "units": 15.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "David Protein",
-          "units": 14.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
-          "brand": "Hollander",
-          "units": 14.0,
-          "lines": 9,
-          "inBos1": true
-        },
-        {
-          "name": "Crofters Organic Strawberry Jelly 7kg",
-          "brand": "Crofters",
-          "units": 13.0,
-          "lines": 12,
-          "inBos1": true
-        },
-        {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 13.0,
-          "lines": 6,
-          "inBos1": false
-        },
-        {
-          "name": "David Protein Bars - Blueberry",
-          "brand": "David Protein",
-          "units": 10.0,
-          "lines": 9,
-          "inBos1": true
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 10.0,
-          "lines": 5,
-          "inBos1": false
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-          "brand": "Bloomin Foods",
-          "units": 9.0,
-          "lines": 8,
-          "inBos1": false
-        },
-        {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 8.0,
-          "lines": 7,
-          "inBos1": false
-        },
-        {
-          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
-          "brand": "Dona",
-          "units": 7.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 5.0,
-          "lines": 5,
-          "inBos1": false
-        },
-        {
-          "name": "Chamellia Chai Garnish 1kg",
-          "brand": "Chamellia",
-          "units": 4.0,
-          "lines": 3,
-          "inBos1": true
-        },
-        {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 3.0,
-          "lines": 3,
-          "inBos1": false
-        },
-        {
-          "name": "Everclean Milk Line Cleaning Liquid",
-          "brand": "Eversys",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Eversys Coffee Cleaning Balls",
-          "brand": "Eversys",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Imperial 4 Cup Modeled Fiber Carrier Tray",
-          "brand": "Imperial",
-          "units": 2.0,
-          "lines": 1,
-          "inBos1": false
-        },
-        {
-          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Stevia In The Raw Packets",
-          "brand": "Stevia In The Raw",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
-          "brand": "Victoria Bay",
-          "units": 2.0,
-          "lines": 2,
-          "inBos1": true
-        },
-        {
-          "name": "Blank Street 2-Cup Carrier",
-          "brand": "Blank Street Coffee",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": false
-        },
-        {
-          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "EcoLogic Solutions",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Sugar In The Raw Packets",
-          "brand": "Sugar In The Raw",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
-          "units": 1.0,
-          "lines": 1,
           "inBos1": true
         }
       ]
@@ -5590,7 +5038,7 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 36,
-      "gapSkus": 12,
+      "gapSkus": 11,
       "units": 346.0,
       "items": [
         {
@@ -5623,7 +5071,7 @@
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "EcoLogic Solutions",
+          "brand": "",
           "units": 22.0,
           "lines": 5,
           "inBos1": true
@@ -5791,7 +5239,7 @@
         },
         {
           "name": "Cocktail Kingdom - Set of Two Koriko Weighted Shaking Tins - Stainless Steel *Kitted*",
-          "brand": "",
+          "brand": "Cocktail Kingdom",
           "units": 2.0,
           "lines": 2,
           "inBos1": false
@@ -5843,7 +5291,531 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
+          "inBos1": true
+        }
+      ]
+    },
+    {
+      "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+      "name": "Blank Street : 282 Cambridge Street",
+      "group": "Blank Street",
+      "location": "Boston",
+      "state": "MA",
+      "zip": "02114",
+      "currentDeliveryDay": "Tues - Fri",
+      "newDeliveryDay": "Mon to Fri",
+      "deliveryDayChanged": true,
+      "hasHistory": true,
+      "skus": 31,
+      "gapSkus": 10,
+      "units": 317.0,
+      "items": [
+        {
+          "name": "1883 French Madeleine Syrup 1L Glass",
+          "brand": "1883",
+          "units": 43.0,
+          "lines": 12,
+          "inBos1": true
+        },
+        {
+          "name": "Polar Club Soda 7.5oz",
+          "brand": "Polar Seltzer",
+          "units": 38.0,
+          "lines": 9,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 33.0,
+          "lines": 8,
           "inBos1": false
+        },
+        {
+          "name": "Cinnamon Bun Syrup - Case 6x750ml",
+          "brand": "Blank Street Coffee",
+          "units": 29.0,
+          "lines": 10,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
+          "brand": "Urnex",
+          "units": 23.0,
+          "lines": 12,
+          "inBos1": true
+        },
+        {
+          "name": "Braswell's Sweet Potato Butter",
+          "brand": "Braswell's Select",
+          "units": 20.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
+          "brand": "Miss Jones Baking Co.",
+          "units": 15.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
+          "brand": "Hollander",
+          "units": 13.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Crofters Organic Strawberry Jelly 7kg",
+          "brand": "Crofters",
+          "units": 12.0,
+          "lines": 11,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+          "brand": "David Protein",
+          "units": 11.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Blueberry",
+          "brand": "David Protein",
+          "units": 10.0,
+          "lines": 9,
+          "inBos1": true
+        },
+        {
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 10.0,
+          "lines": 5,
+          "inBos1": false
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
+          "units": 8.0,
+          "lines": 7,
+          "inBos1": false
+        },
+        {
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 8.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 7.0,
+          "lines": 6,
+          "inBos1": false
+        },
+        {
+          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
+          "brand": "Dona",
+          "units": 7.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "Chamellia Chai Garnish 1kg",
+          "brand": "Chamellia",
+          "units": 4.0,
+          "lines": 3,
+          "inBos1": true
+        },
+        {
+          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
+          "brand": "Pink House Alchemy",
+          "units": 4.0,
+          "lines": 4,
+          "inBos1": false
+        },
+        {
+          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
+          "brand": "Yuzuco",
+          "units": 3.0,
+          "lines": 3,
+          "inBos1": false
+        },
+        {
+          "name": "Everclean Milk Line Cleaning Liquid",
+          "brand": "Eversys",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Eversys Coffee Cleaning Balls",
+          "brand": "Eversys",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Imperial 4 Cup Modeled Fiber Carrier Tray",
+          "brand": "Imperial",
+          "units": 2.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Stevia In The Raw Packets",
+          "brand": "Stevia In The Raw",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+          "brand": "",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
+          "brand": "Victoria Bay",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Blank Street 2-Cup Carrier",
+          "brand": "Blank Street Coffee",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Dole Pineapple Juice 46fl oz Can",
+          "brand": "Dole",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
+          "brand": "EcoLogic Solutions",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Sugar In The Raw Packets",
+          "brand": "Sugar In The Raw",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Clearly Cold 32oz Bottle",
+          "brand": "Urnex",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        }
+      ]
+    },
+    {
+      "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+      "name": "Blank Street : 250 West Newton Street",
+      "group": "Blank Street",
+      "location": "Boston",
+      "state": "MA",
+      "zip": "02116",
+      "currentDeliveryDay": "Tues - Fri",
+      "newDeliveryDay": "Mon to Fri",
+      "deliveryDayChanged": true,
+      "hasHistory": true,
+      "skus": 39,
+      "gapSkus": 11,
+      "units": 263.0,
+      "items": [
+        {
+          "name": "1883 French Madeleine Syrup 1L Glass",
+          "brand": "1883",
+          "units": 30.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Braswell's Sweet Potato Butter",
+          "brand": "Braswell's Select",
+          "units": 21.0,
+          "lines": 7,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
+          "brand": "",
+          "units": 20.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Cinnamon Bun Syrup - Case 6x750ml",
+          "brand": "Blank Street Coffee",
+          "units": 19.0,
+          "lines": 7,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+          "brand": "David Protein",
+          "units": 15.0,
+          "lines": 7,
+          "inBos1": true
+        },
+        {
+          "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
+          "brand": "Miss Jones Baking Co.",
+          "units": 15.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Polar Club Soda 7.5oz",
+          "brand": "",
+          "units": 14.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+          "brand": "Urnex",
+          "units": 12.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "David Protein Bars - Blueberry",
+          "brand": "David Protein",
+          "units": 11.0,
+          "lines": 8,
+          "inBos1": true
+        },
+        {
+          "name": "Crofters Organic Strawberry Jelly 7kg",
+          "brand": "Crofters",
+          "units": 9.0,
+          "lines": 7,
+          "inBos1": true
+        },
+        {
+          "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
+          "brand": "EcoLogic Solutions",
+          "units": 9.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
+          "brand": "Hollander",
+          "units": 9.0,
+          "lines": 4,
+          "inBos1": true
+        },
+        {
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 8.0,
+          "lines": 3,
+          "inBos1": false
+        },
+        {
+          "name": "Dona 1:1 Masala Chai Concentrate 64oz",
+          "brand": "Dona",
+          "units": 7.0,
+          "lines": 4,
+          "inBos1": true
+        },
+        {
+          "name": "1883 Syrup Pump (Glass)",
+          "brand": "1883",
+          "units": 6.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "1883 Syrup Pump (Plastic)",
+          "brand": "1883",
+          "units": 6.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 5.0,
+          "lines": 3,
+          "inBos1": false
+        },
+        {
+          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
+          "brand": "Urnex",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Chamellia Chai Garnish 1kg",
+          "brand": "Chamellia",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Hollander Sauce Pump",
+          "brand": "Hollander",
+          "units": 4.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
+          "brand": "Pink House Alchemy",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
+          "units": 3.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Everclean Milk Line Cleaning Liquid",
+          "brand": "Eversys",
+          "units": 3.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Blank Street 2-Cup Carrier",
+          "brand": "Blank Street Coffee",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Eversys Coffee Cleaning Balls",
+          "brand": "Eversys",
+          "units": 2.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Haddar Himalayan Fine Pink Salt 16oz Container",
+          "brand": "Haddar",
+          "units": 2.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Stevia In The Raw Packets",
+          "brand": "Stevia In The Raw",
+          "units": 2.0,
+          "lines": 2,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Cocktail Kingdom - Set of Two Koriko Weighted Shaking Tins - Stainless Steel *Kitted*",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Dole Pineapple Juice 46fl oz Can",
+          "brand": "Dole",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Innovative Freeze Dried Dragon Fruit Powder PCH 100g Pouch",
+          "brand": "Innovative Freeze Dried Food",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
+          "brand": "Re\u00e1l",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Sugar In The Raw Packets",
+          "brand": "Sugar In The Raw",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
+          "brand": "Urnex",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
+          "brand": "Victoria Bay",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
+          "brand": "Yuzuco",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": false
+        },
+        {
+          "name": "Fuel Surcharge",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inBos1": true
         }
       ]
     },
@@ -5934,7 +5906,7 @@
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "EcoLogic Solutions",
+          "brand": "",
           "units": 9.0,
           "lines": 3,
           "inBos1": true
@@ -5976,7 +5948,7 @@
         },
         {
           "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
+          "brand": "",
           "units": 4.0,
           "lines": 4,
           "inBos1": true
@@ -6092,15 +6064,15 @@
       "newDeliveryDay": "Mon to Fri",
       "deliveryDayChanged": true,
       "hasHistory": true,
-      "skus": 26,
-      "gapSkus": 10,
-      "units": 212.0,
+      "skus": 24,
+      "gapSkus": 7,
+      "units": 194.0,
       "items": [
         {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
-          "units": 38.0,
-          "lines": 9,
+          "units": 35.0,
+          "lines": 8,
           "inBos1": true
         },
         {
@@ -6113,8 +6085,8 @@
         {
           "name": "Polar Club Soda 7.5oz",
           "brand": "Polar Seltzer",
-          "units": 21.0,
-          "lines": 8,
+          "units": 18.0,
+          "lines": 7,
           "inBos1": true
         },
         {
@@ -6137,13 +6109,6 @@
           "units": 12.0,
           "lines": 10,
           "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Coconut Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 11.0,
-          "lines": 2,
-          "inBos1": false
         },
         {
           "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
@@ -6174,18 +6139,18 @@
           "inBos1": true
         },
         {
-          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
-          "brand": "Bloomin Foods",
+          "name": "Califia Farms Barista Coconut Milk 32oz",
+          "brand": "Califia Farms",
           "units": 6.0,
-          "lines": 4,
+          "lines": 1,
           "inBos1": false
         },
         {
-          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
+          "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+          "brand": "Bloomin Foods",
           "units": 5.0,
           "lines": 3,
-          "inBos1": true
+          "inBos1": false
         },
         {
           "name": "Dona 1:1 Masala Chai Concentrate 64oz",
@@ -6195,11 +6160,11 @@
           "inBos1": true
         },
         {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 5.0,
-          "lines": 5,
-          "inBos1": false
+          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
+          "brand": "Urnex",
+          "units": 4.0,
+          "lines": 2,
+          "inBos1": true
         },
         {
           "name": "Chamellia Chai Garnish 1kg",
@@ -6209,8 +6174,8 @@
           "inBos1": true
         },
         {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
+          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
+          "brand": "Re\u00e1l",
           "units": 4.0,
           "lines": 4,
           "inBos1": false
@@ -6223,10 +6188,10 @@
           "inBos1": true
         },
         {
-          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-          "brand": "Bloomin Foods",
-          "units": 2.0,
-          "lines": 2,
+          "name": "Yakami Orchard - Yuzu Marmalade 580g",
+          "brand": "Yakami Orchard",
+          "units": 3.0,
+          "lines": 3,
           "inBos1": false
         },
         {
@@ -6237,8 +6202,8 @@
           "inBos1": true
         },
         {
-          "name": "Dole Pineapple Juice 46fl oz Can",
-          "brand": "Dole",
+          "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
+          "brand": "Bloomin Foods",
           "units": 1.0,
           "lines": 1,
           "inBos1": false
@@ -6265,18 +6230,11 @@
           "inBos1": true
         },
         {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": false
-        },
-        {
           "name": "Fuel Surcharge",
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": false
+          "inBos1": true
         }
       ]
     },
@@ -6486,72 +6444,6 @@
       ]
     },
     {
-      "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-      "name": "Van Leeuwen : Harvard Square #2501",
-      "group": "Van Leeuwen",
-      "location": "Cambridge",
-      "state": "MA",
-      "zip": "02138",
-      "currentDeliveryDay": "Tues - Fri",
-      "newDeliveryDay": "Mon to Fri",
-      "deliveryDayChanged": true,
-      "hasHistory": true,
-      "skus": 7,
-      "gapSkus": 2,
-      "units": 53.0,
-      "items": [
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 21.0,
-          "lines": 8,
-          "inBos1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 11.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Gossner Whole Milk 32oz",
-          "brand": "Gossner Foods",
-          "units": 10.0,
-          "lines": 6,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 4.0,
-          "lines": 4,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 4.0,
-          "lines": 4,
-          "inBos1": true
-        },
-        {
-          "name": "Maine Root Root Beer 12 oz",
-          "brand": "Maine Root Beverages",
-          "units": 3.0,
-          "lines": 2,
-          "inBos1": false
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
-          "inBos1": false
-        }
-      ]
-    },
-    {
       "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
       "name": "Van Leeuwen : Burlington Mall #2508",
       "group": "Van Leeuwen",
@@ -6666,6 +6558,72 @@
           "units": 1.0,
           "lines": 1,
           "inBos1": true
+        }
+      ]
+    },
+    {
+      "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+      "name": "Van Leeuwen : Harvard Square #2501",
+      "group": "Van Leeuwen",
+      "location": "Cambridge",
+      "state": "MA",
+      "zip": "02138",
+      "currentDeliveryDay": "Tues - Fri",
+      "newDeliveryDay": "Mon to Fri",
+      "deliveryDayChanged": true,
+      "hasHistory": true,
+      "skus": 7,
+      "gapSkus": 2,
+      "units": 48.0,
+      "items": [
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 19.0,
+          "lines": 7,
+          "inBos1": true
+        },
+        {
+          "name": "Gossner Whole Milk 32oz",
+          "brand": "Gossner Foods",
+          "units": 10.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
+          "brand": "Open Water",
+          "units": 9.0,
+          "lines": 5,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 4.0,
+          "lines": 4,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 3.0,
+          "lines": 3,
+          "inBos1": true
+        },
+        {
+          "name": "Maine Root Root Beer 12 oz",
+          "brand": "Maine Root Beverages",
+          "units": 3.0,
+          "lines": 2,
+          "inBos1": false
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inBos1": false
         }
       ]
     },
