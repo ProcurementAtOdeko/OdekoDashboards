@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T13:05:19.214007+00:00",
+  "generatedAt": "2026-10-10T18:03:22.198579+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
     "min": "2026-10-04",
@@ -35,15 +35,15 @@
     "planSkusOrdered": 22,
     "marketCustomers": 165,
     "chargeLinesExcluded": 96,
-    "formatProducts": 46,
+    "formatProducts": 47,
     "formatPreferred": 34,
     "formatSplit": 3,
-    "formatOff": 2,
+    "formatOff": 3,
     "formatNa": 7,
     "formatSwitchable": 4,
     "formatPreferredShort": 0,
-    "formatNoPreferred": 1,
-    "offFormatUnits": 39.0,
+    "formatNoPreferred": 2,
+    "offFormatUnits": 41.0,
     "preferredUnits": 328.0
   },
   "feoos": [
@@ -638,7 +638,7 @@
       "name": "Monin Vanilla Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Vanilla Syrup 750ml Glass",
-      "preferredAltOnHand": 1153.0,
+      "preferredAltOnHand": 1149.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -807,6 +807,36 @@
       "state": "off-format",
       "customers": 1,
       "units": 4.0,
+      "mdt1Packs": [
+        [
+          "1 L plastic",
+          16.0
+        ]
+      ]
+    },
+    {
+      "product": "grapefruit monin red ruby syrup",
+      "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
+      "brand": "Monin",
+      "preferredAlt": "",
+      "preferredAltOnHand": null,
+      "preferredAltAvailability": "",
+      "preferredAltFeoosEvents": 0,
+      "preferredAltFeoosUnits": 0.0,
+      "remedy": "no-preferred-pack",
+      "packs": [
+        {
+          "pack": "1 L plastic",
+          "units": 2.0,
+          "status": "off-format"
+        }
+      ],
+      "preferredPack": "glass",
+      "preferredUnits": 0,
+      "offFormatUnits": 2.0,
+      "state": "off-format",
+      "customers": 1,
+      "units": 2.0,
       "mdt1Packs": [
         [
           "1 L plastic",
@@ -1160,7 +1190,7 @@
       "name": "Monin Raspberry Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Raspberry Syrup 750ml Glass",
-      "preferredAltOnHand": 157.0,
+      "preferredAltOnHand": 155.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -1365,7 +1395,7 @@
       "name": "Monin Strawberry Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Strawberry Syrup 750ml Glass",
-      "preferredAltOnHand": 27.0,
+      "preferredAltOnHand": 25.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 1,
       "preferredAltFeoosUnits": 2.0,
@@ -1707,7 +1737,7 @@
       "name": "Monin Amaretto Syrup 750ml Glass",
       "brand": "Monin",
       "preferredAlt": "Monin Amaretto Syrup 750ml Glass",
-      "preferredAltOnHand": 52.0,
+      "preferredAltOnHand": 48.0,
       "preferredAltAvailability": "ready",
       "preferredAltFeoosEvents": 0,
       "preferredAltFeoosUnits": 0.0,
@@ -3752,7 +3782,7 @@
     },
     {
       "name": "Monin Ruby Red Grapefruit Syrup 1L Plastic",
-      "brand": "",
+      "brand": "Monin",
       "units": 2.0,
       "lines": 1,
       "customers": 1,
@@ -3763,7 +3793,7 @@
       "isNew": false,
       "product": "grapefruit monin red ruby syrup",
       "pack": "1 L plastic",
-      "formatStatus": "n/a",
+      "formatStatus": "off-format",
       "mdt1Packs": [
         [
           "1 L plastic",
