@@ -1,50 +1,40 @@
 {
-  "generatedAt": "2026-10-14T08:00:38+00:00",
+  "generatedAt": "2026-10-14T14:01:28+00:00",
   "dateRange": {
     "min": "2026-07-17",
-    "max": "2026-10-12"
+    "max": "2026-10-13"
   },
   "summary": {
     "customersListed": 19,
     "customersActive": 19,
-    "skusPurchased": 185,
-    "skusCarried": 74,
-    "skusGap": 111,
-    "coveragePct": 40,
-    "unitsTotal": 7078.0,
-    "gapUnitsTotal": 4340.0,
+    "skusPurchased": 128,
+    "skusCarried": 61,
+    "skusGap": 67,
+    "coveragePct": 48,
+    "unitsTotal": 4308.0,
+    "gapUnitsTotal": 1682.0,
     "formatSubstitutes": 3
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 74
+      "count": 61
     },
     {
       "status": "Not carried (gap)",
-      "count": 111
+      "count": 67
     }
   ],
   "topGapSkus": [
     {
-      "name": "Neutral Whole Milk 1 Gallon",
-      "units": 2013.0,
-      "customers": 13
-    },
-    {
       "name": "Byrne - 36% Heavy Cream Quart",
-      "units": 591.0,
+      "units": 604.0,
       "customers": 11
     },
     {
       "name": "Neutral Skim Milk 1 Gallon",
-      "units": 271.0,
+      "units": 215.0,
       "customers": 2
-    },
-    {
-      "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-      "units": 113.0,
-      "customers": 11
     },
     {
       "name": "Cinnamon Bun Syrup - Case 6x750ml",
@@ -54,11 +44,6 @@
     {
       "name": "Braswell's Sweet Potato Butter",
       "units": 76.0,
-      "customers": 2
-    },
-    {
-      "name": "Pittsford / Seneca Half and Half 1/2 Gallon",
-      "units": 70.0,
       "customers": 2
     },
     {
@@ -72,18 +57,8 @@
       "customers": 4
     },
     {
-      "name": "Polar Club Soda 7.5oz",
-      "units": 44.0,
-      "customers": 2
-    },
-    {
       "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
       "units": 41.0,
-      "customers": 2
-    },
-    {
-      "name": "Toms Juice Ginger & Lime Shot",
-      "units": 38.0,
       "customers": 2
     },
     {
@@ -107,11 +82,6 @@
       "customers": 2
     },
     {
-      "name": "Sargento Skim Mozzarella String Cheese",
-      "units": 31.0,
-      "customers": 2
-    },
-    {
       "name": "Ground Cinnamon 1lb Bottle",
       "units": 29.0,
       "customers": 3
@@ -122,20 +92,50 @@
       "customers": 2
     },
     {
-      "name": "Siggi's - Vanilla 5.3oz",
-      "units": 28.0,
+      "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
+      "units": 25.0,
       "customers": 2
+    },
+    {
+      "name": "Busy Bee Clover Honey 5lb Bottle",
+      "units": 25.0,
+      "customers": 4
+    },
+    {
+      "name": "Harmony Leaf Bamboo Whisk",
+      "units": 25.0,
+      "customers": 4
+    },
+    {
+      "name": "1883 Cardamom Syrup 1 Liter Glass Bottle",
+      "units": 24.0,
+      "customers": 3
+    },
+    {
+      "name": "David Protein Bars - Blueberry",
+      "units": 17.0,
+      "customers": 2
+    },
+    {
+      "name": "Celsius Kiwi Guava - 12oz Can",
+      "units": 13.0,
+      "customers": 4
+    },
+    {
+      "name": "Celsius Peach Vibe - 12oz Can",
+      "units": 12.0,
+      "customers": 4
     }
   ],
   "topGapBrands": [
     {
-      "brand": "Neutral",
-      "units": 2284.0,
-      "skus": 2
+      "brand": "Byrne Dairy",
+      "units": 604.0,
+      "skus": 1
     },
     {
-      "brand": "Byrne Dairy",
-      "units": 591.0,
+      "brand": "Neutral",
+      "units": 215.0,
       "skus": 1
     },
     {
@@ -144,28 +144,13 @@
       "skus": 15
     },
     {
-      "brand": "Open Water",
-      "units": 138.0,
-      "skus": 2
-    },
-    {
       "brand": "Blank Street Coffee",
       "units": 101.0,
       "skus": 1
     },
     {
-      "brand": "Rishi",
-      "units": 85.0,
-      "skus": 12
-    },
-    {
       "brand": "Braswell's Select",
       "units": 76.0,
-      "skus": 1
-    },
-    {
-      "brand": "Seneca",
-      "units": 70.0,
       "skus": 1
     },
     {
@@ -179,14 +164,29 @@
       "skus": 2
     },
     {
-      "brand": "Siggi's",
-      "units": 54.0,
-      "skus": 2
-    },
-    {
       "brand": "David Protein",
       "units": 52.0,
       "skus": 2
+    },
+    {
+      "brand": "1883",
+      "units": 47.0,
+      "skus": 4
+    },
+    {
+      "brand": "Celsius",
+      "units": 47.0,
+      "skus": 6
+    },
+    {
+      "brand": "Miss Jones Baking Co.",
+      "units": 41.0,
+      "skus": 1
+    },
+    {
+      "brand": "Harmony Leaf",
+      "units": 40.0,
+      "skus": 6
     }
   ],
   "formatSubstitutes": [
@@ -250,116 +250,26 @@
   ],
   "skus": [
     {
-      "name": "Neutral Whole Milk 1 Gallon",
-      "brand": "Neutral",
-      "itemUuid": "e049f994-109f-4592-a912-d4ac9156f020",
-      "units": 2013.0,
-      "lines": 116,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 13,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 973.0,
-          "lines": 25
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 447.0,
-          "lines": 20
-        },
-        {
-          "uuid": "f5b6b34e-00cb-4ffd-8b8e-8c2dad08c414",
-          "name": "Van Leeuwen : Old Town #6303",
-          "units": 216.0,
-          "lines": 11
-        },
-        {
-          "uuid": "21d1544f-dd6a-4178-8576-622385459371",
-          "name": "Van Leeuwen : One Loudon #6304",
-          "units": 61.0,
-          "lines": 10
-        },
-        {
-          "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
-          "name": "Van Leeuwen : Adams Morgan #6203",
-          "units": 52.0,
-          "lines": 7
-        },
-        {
-          "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
-          "name": "Van Leeuwen : Clarendon #6302",
-          "units": 49.0,
-          "lines": 8
-        },
-        {
-          "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
-          "name": "Van Leeuwen : Capitol Hill #6206",
-          "units": 38.0,
-          "lines": 6
-        },
-        {
-          "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
-          "name": "Van Leeuwen : Union Station #6205",
-          "units": 38.0,
-          "lines": 6
-        },
-        {
-          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
-          "name": "Van Leeuwen : National Landing #6301",
-          "units": 36.0,
-          "lines": 5
-        },
-        {
-          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
-          "name": "Van Leeuwen : Georgetown #6202",
-          "units": 35.0,
-          "lines": 7
-        },
-        {
-          "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
-          "name": "Van Leeuwen : Ballston #6305",
-          "units": 32.0,
-          "lines": 6
-        },
-        {
-          "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
-          "name": "Van Leeuwen : Union Market #6201",
-          "units": 20.0,
-          "lines": 3
-        },
-        {
-          "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
-          "name": "Van Leeuwen : 14th St #6204",
-          "units": 16.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
       "name": "Byrne - 36% Heavy Cream Quart",
       "brand": "Byrne Dairy",
       "itemUuid": "9afd3887-ed10-43ea-a109-f31b08856505",
-      "units": 591.0,
-      "lines": 57,
+      "units": 604.0,
+      "lines": 58,
       "inDca1": false,
       "dca1Sources": [],
       "customers": 11,
       "custDetail": [
         {
-          "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
-          "name": "Van Leeuwen : Union Market #6201",
-          "units": 88.0,
-          "lines": 6
-        },
-        {
           "uuid": "21d1544f-dd6a-4178-8576-622385459371",
           "name": "Van Leeuwen : One Loudon #6304",
           "units": 88.0,
           "lines": 10
+        },
+        {
+          "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
+          "name": "Van Leeuwen : Union Market #6201",
+          "units": 88.0,
+          "lines": 6
         },
         {
           "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
@@ -374,16 +284,16 @@
           "lines": 5
         },
         {
+          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
+          "name": "Van Leeuwen : Georgetown #6202",
+          "units": 55.0,
+          "lines": 5
+        },
+        {
           "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
           "name": "Van Leeuwen : Ballston #6305",
           "units": 48.0,
           "lines": 4
-        },
-        {
-          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
-          "name": "Van Leeuwen : National Landing #6301",
-          "units": 46.0,
-          "lines": 5
         },
         {
           "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
@@ -392,10 +302,10 @@
           "lines": 5
         },
         {
-          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
-          "name": "Van Leeuwen : Georgetown #6202",
-          "units": 42.0,
-          "lines": 4
+          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
+          "name": "Van Leeuwen : National Landing #6301",
+          "units": 46.0,
+          "lines": 5
         },
         {
           "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
@@ -421,15 +331,15 @@
       "name": "Califia Farms Barista Oat Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "2d05faec-fbce-4a35-b6bf-0df8492976a3",
-      "units": 514.0,
-      "lines": 89,
+      "units": 517.0,
+      "lines": 91,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 14,
+      "customers": 16,
       "custDetail": [
         {
           "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
@@ -468,12 +378,6 @@
           "lines": 5
         },
         {
-          "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
-          "name": "Van Leeuwen : Clarendon #6302",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
           "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
           "name": "Van Leeuwen : Capitol Hill #6206",
           "units": 3.0,
@@ -484,6 +388,12 @@
           "name": "Van Leeuwen : Union Station #6205",
           "units": 3.0,
           "lines": 2
+        },
+        {
+          "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
+          "name": "Van Leeuwen : Clarendon #6302",
+          "units": 3.0,
+          "lines": 3
         },
         {
           "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
@@ -504,9 +414,9 @@
           "lines": 2
         },
         {
-          "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
-          "name": "Van Leeuwen : Ballston #6305",
-          "units": 1.0,
+          "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
+          "name": "Van Leeuwen : 14th St #6204",
+          "units": 2.0,
           "lines": 1
         },
         {
@@ -514,30 +424,18 @@
           "name": "Van Leeuwen : Old Town #6303",
           "units": 1.0,
           "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Neutral Skim Milk 1 Gallon",
-      "brand": "Neutral",
-      "itemUuid": "46f7613f-c22b-421a-accc-d19127e96a3f",
-      "units": 271.0,
-      "lines": 44,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 162.0,
-          "lines": 24
         },
         {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 109.0,
-          "lines": 20
+          "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
+          "name": "Van Leeuwen : Ballston #6305",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
+          "name": "Van Leeuwen : Georgetown #6202",
+          "units": 1.0,
+          "lines": 1
         }
       ]
     },
@@ -566,6 +464,30 @@
           "name": "Blank Street : 2121 M Street Northwest",
           "units": 96.0,
           "lines": 21
+        }
+      ]
+    },
+    {
+      "name": "Neutral Skim Milk 1 Gallon",
+      "brand": "Neutral",
+      "itemUuid": "46f7613f-c22b-421a-accc-d19127e96a3f",
+      "units": 215.0,
+      "lines": 36,
+      "inDca1": false,
+      "dca1Sources": [],
+      "customers": 2,
+      "custDetail": [
+        {
+          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
+          "name": "Blank Street : 3201 Prospect Street Northwest",
+          "units": 138.0,
+          "lines": 21
+        },
+        {
+          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
+          "name": "Blank Street : 2121 M Street Northwest",
+          "units": 77.0,
+          "lines": 15
         }
       ]
     },
@@ -607,15 +529,15 @@
       "name": "Califia Farms Barista Almond Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "7337eebb-4a48-4fef-894b-d41188665b96",
-      "units": 173.0,
-      "lines": 72,
+      "units": 175.0,
+      "lines": 74,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
         "onhand",
         "sold90"
       ],
-      "customers": 12,
+      "customers": 14,
       "custDetail": [
         {
           "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
@@ -666,8 +588,8 @@
           "lines": 2
         },
         {
-          "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
-          "name": "Van Leeuwen : Capitol Hill #6206",
+          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
+          "name": "Van Leeuwen : National Landing #6301",
           "units": 2.0,
           "lines": 2
         },
@@ -678,10 +600,22 @@
           "lines": 2
         },
         {
-          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
-          "name": "Van Leeuwen : National Landing #6301",
+          "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
+          "name": "Van Leeuwen : Capitol Hill #6206",
           "units": 2.0,
           "lines": 2
+        },
+        {
+          "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
+          "name": "Van Leeuwen : 14th St #6204",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
+          "name": "Van Leeuwen : Georgetown #6202",
+          "units": 1.0,
+          "lines": 1
         },
         {
           "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
@@ -729,8 +663,8 @@
       "name": "Boylan Bottling Co. Ginger Ale Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
-      "units": 115.0,
-      "lines": 59,
+      "units": 117.0,
+      "lines": 60,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
@@ -778,8 +712,8 @@
         {
           "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
           "name": "Van Leeuwen : 14th St #6204",
-          "units": 8.0,
-          "lines": 3
+          "units": 10.0,
+          "lines": 4
         },
         {
           "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
@@ -808,89 +742,11 @@
       ]
     },
     {
-      "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-      "brand": "Open Water",
-      "itemUuid": "946d3082-7230-4cb6-9440-0a9ec6ed443e",
-      "units": 113.0,
-      "lines": 62,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 11,
-      "custDetail": [
-        {
-          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
-          "name": "Van Leeuwen : Georgetown #6202",
-          "units": 18.0,
-          "lines": 7
-        },
-        {
-          "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
-          "name": "Van Leeuwen : Adams Morgan #6203",
-          "units": 15.0,
-          "lines": 5
-        },
-        {
-          "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
-          "name": "Van Leeuwen : Union Market #6201",
-          "units": 14.0,
-          "lines": 7
-        },
-        {
-          "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
-          "name": "Van Leeuwen : Capitol Hill #6206",
-          "units": 13.0,
-          "lines": 6
-        },
-        {
-          "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
-          "name": "Van Leeuwen : Clarendon #6302",
-          "units": 11.0,
-          "lines": 7
-        },
-        {
-          "uuid": "21d1544f-dd6a-4178-8576-622385459371",
-          "name": "Van Leeuwen : One Loudon #6304",
-          "units": 11.0,
-          "lines": 8
-        },
-        {
-          "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
-          "name": "Van Leeuwen : Union Station #6205",
-          "units": 8.0,
-          "lines": 5
-        },
-        {
-          "uuid": "f5b6b34e-00cb-4ffd-8b8e-8c2dad08c414",
-          "name": "Van Leeuwen : Old Town #6303",
-          "units": 7.0,
-          "lines": 6
-        },
-        {
-          "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
-          "name": "Van Leeuwen : National Landing #6301",
-          "units": 6.0,
-          "lines": 5
-        },
-        {
-          "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
-          "name": "Van Leeuwen : 14th St #6204",
-          "units": 6.0,
-          "lines": 3
-        },
-        {
-          "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
-          "name": "Van Leeuwen : Ballston #6305",
-          "units": 4.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Boylan Bottling Co. Root Beer Soda",
       "brand": "Boylan Bottling Company",
       "itemUuid": "f5b79032-0ab8-489a-8bc5-6166dd494021",
-      "units": 102.0,
-      "lines": 65,
+      "units": 105.0,
+      "lines": 67,
       "inDca1": true,
       "dca1Sources": [
         "catalog",
@@ -912,16 +768,16 @@
           "lines": 6
         },
         {
+          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
+          "name": "Van Leeuwen : Georgetown #6202",
+          "units": 11.0,
+          "lines": 7
+        },
+        {
           "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
           "name": "Van Leeuwen : Clarendon #6302",
           "units": 11.0,
           "lines": 8
-        },
-        {
-          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
-          "name": "Van Leeuwen : Georgetown #6202",
-          "units": 10.0,
-          "lines": 6
         },
         {
           "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
@@ -956,8 +812,8 @@
         {
           "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
           "name": "Van Leeuwen : 14th St #6204",
-          "units": 6.0,
-          "lines": 4
+          "units": 8.0,
+          "lines": 5
         },
         {
           "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
@@ -1056,30 +912,6 @@
       ]
     },
     {
-      "name": "Pittsford / Seneca Half and Half 1/2 Gallon",
-      "brand": "Seneca",
-      "itemUuid": "1ad76d0d-b447-4c08-861f-3869abeafac8",
-      "units": 70.0,
-      "lines": 35,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 40.0,
-          "lines": 17
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 30.0,
-          "lines": 18
-        }
-      ]
-    },
-    {
       "name": "Monin Dark Chocolate Sauce 64oz",
       "brand": "Monin",
       "itemUuid": "a1d36906-f3d8-4331-9954-46717d9cd0f3",
@@ -1100,16 +932,16 @@
           "lines": 10
         },
         {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 15.0,
-          "lines": 3
-        },
-        {
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
           "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 15.0,
           "lines": 7
+        },
+        {
+          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
+          "name": "Coffee Republic : 601 13th Street Northwest",
+          "units": 15.0,
+          "lines": 3
         },
         {
           "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
@@ -1412,30 +1244,6 @@
       ]
     },
     {
-      "name": "Polar Club Soda 7.5oz",
-      "brand": "Polar Seltzer",
-      "itemUuid": "24f5f0fa-c085-4126-a451-a2a00dc5029f",
-      "units": 44.0,
-      "lines": 12,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 28.0,
-          "lines": 5
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 16.0,
-          "lines": 7
-        }
-      ]
-    },
-    {
       "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
       "brand": "Miss Jones Baking Co.",
       "itemUuid": "5edcbcf7-f820-492a-96a9-7bd6a1c52c04",
@@ -1516,32 +1324,8 @@
       ]
     },
     {
-      "name": "Toms Juice Ginger & Lime Shot",
-      "brand": "Toms Juice",
-      "itemUuid": "24ef469c-60f7-4012-a27d-d47ecd6a908d",
-      "units": 38.0,
-      "lines": 31,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 23.0,
-          "lines": 17
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 15.0,
-          "lines": 14
-        }
-      ]
-    },
-    {
       "name": "Monin Blue Raspberry Syrup 1 Liter Plastic Bottle",
-      "brand": "Monin",
+      "brand": "",
       "itemUuid": "b245b0f0-20a9-4d8a-8f66-3fa81bb90cd3",
       "units": 37.0,
       "lines": 14,
@@ -1734,16 +1518,16 @@
           "lines": 8
         },
         {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 9.0,
-          "lines": 6
-        },
-        {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
           "name": "Coffee Republic : 801 Pleasant Dr",
           "units": 9.0,
           "lines": 7
+        },
+        {
+          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
+          "name": "Coffee Republic : 601 13th Street Northwest",
+          "units": 9.0,
+          "lines": 6
         },
         {
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
@@ -1764,16 +1548,16 @@
       "customers": 4,
       "custDetail": [
         {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 10.0,
-          "lines": 6
-        },
-        {
           "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
           "name": "Coffee Republic : 601 13th Street Northwest",
           "units": 10.0,
           "lines": 3
+        },
+        {
+          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
+          "name": "Coffee Republic : 7629 Old Georgetown Road",
+          "units": 10.0,
+          "lines": 6
         },
         {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
@@ -1848,82 +1632,6 @@
       ]
     },
     {
-      "name": "Sargento Skim Mozzarella String Cheese",
-      "brand": "Sargento",
-      "itemUuid": "edb849fa-51b4-4143-8984-0367c8a463b0",
-      "units": 31.0,
-      "lines": 27,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 17.0,
-          "lines": 13
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 14.0,
-          "lines": 14
-        }
-      ]
-    },
-    {
-      "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-      "brand": "Urnex",
-      "itemUuid": "a5003723-4a90-4be9-82bb-11fdfb64b0d1",
-      "units": 30.0,
-      "lines": 16,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 6,
-      "custDetail": [
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 8.0,
-          "lines": 2
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 8.0,
-          "lines": 2
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 7.0,
-          "lines": 7
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 4.0,
-          "lines": 2
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Ground Cinnamon 1lb Bottle",
       "brand": "Emerald",
       "itemUuid": "eb219cee-1f49-414c-80ff-9ea890d1e388",
@@ -1974,30 +1682,6 @@
           "name": "Blank Street : 3201 Prospect Street Northwest",
           "units": 14.0,
           "lines": 14
-        }
-      ]
-    },
-    {
-      "name": "Siggi's - Vanilla 5.3oz",
-      "brand": "Siggi's",
-      "itemUuid": "25fbedec-a519-4585-b51f-fdcfdd2cff2f",
-      "units": 28.0,
-      "lines": 28,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 15.0,
-          "lines": 15
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 13.0,
-          "lines": 13
         }
       ]
     },
@@ -2056,40 +1740,16 @@
           "lines": 8
         },
         {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
           "name": "Coffee Republic : 801 Pleasant Dr",
           "units": 4.0,
           "lines": 4
-        }
-      ]
-    },
-    {
-      "name": "Siggi's - Acai Mixed Berry 5.3oz",
-      "brand": "Siggi's",
-      "itemUuid": "7aa80b19-4031-415e-8580-3d5b7c874983",
-      "units": 26.0,
-      "lines": 26,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 16.0,
-          "lines": 16
         },
         {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 10.0,
-          "lines": 10
+          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
+          "name": "Coffee Republic : 7629 Old Georgetown Road",
+          "units": 4.0,
+          "lines": 4
         }
       ]
     },
@@ -2230,72 +1890,6 @@
       ]
     },
     {
-      "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-      "brand": "Open Water",
-      "itemUuid": "a59c0cfe-5635-4e2c-884f-03354474421d",
-      "units": 25.0,
-      "lines": 22,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 9,
-      "custDetail": [
-        {
-          "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
-          "name": "Van Leeuwen : Georgetown #6202",
-          "units": 6.0,
-          "lines": 4
-        },
-        {
-          "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
-          "name": "Van Leeuwen : Adams Morgan #6203",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
-          "name": "Van Leeuwen : Union Station #6205",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
-          "name": "Van Leeuwen : Union Market #6201",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "f5b6b34e-00cb-4ffd-8b8e-8c2dad08c414",
-          "name": "Van Leeuwen : Old Town #6303",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
-          "name": "Van Leeuwen : Ballston #6305",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
-          "name": "Van Leeuwen : Clarendon #6302",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "21d1544f-dd6a-4178-8576-622385459371",
-          "name": "Van Leeuwen : One Loudon #6304",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
-          "name": "Van Leeuwen : Capitol Hill #6206",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "1883 Cardamom Syrup 1 Liter Glass Bottle",
       "brand": "1883",
       "itemUuid": "166606b6-42df-41b8-a26e-279e031f09b2",
@@ -2366,16 +1960,16 @@
       "customers": 4,
       "custDetail": [
         {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 8.0,
-          "lines": 3
-        },
-        {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
           "name": "Coffee Republic : 801 Pleasant Dr",
           "units": 8.0,
           "lines": 4
+        },
+        {
+          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
+          "name": "Coffee Republic : 601 13th Street Northwest",
+          "units": 8.0,
+          "lines": 3
         },
         {
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
@@ -2422,30 +2016,6 @@
           "name": "Coffee Republic : 7629 Old Georgetown Road",
           "units": 1.0,
           "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-      "brand": "Re\u00e1l",
-      "itemUuid": "6d0b86d1-a941-4cf6-85df-19b4c508121a",
-      "units": 21.0,
-      "lines": 10,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 14.0,
-          "lines": 5
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 7.0,
-          "lines": 5
         }
       ]
     },
@@ -2510,56 +2080,16 @@
           "lines": 3
         },
         {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
           "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
           "name": "Coffee Republic : 7629 Old Georgetown Road",
           "units": 3.0,
           "lines": 3
-        }
-      ]
-    },
-    {
-      "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-      "brand": "Urnex",
-      "itemUuid": "31d620c1-2654-4162-96bd-aa32c606ccab",
-      "units": 18.0,
-      "lines": 8,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 4,
-      "custDetail": [
+        },
         {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
           "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 6.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 5.0,
-          "lines": 1
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 4.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
           "units": 3.0,
-          "lines": 2
+          "lines": 3
         }
       ]
     },
@@ -2610,36 +2140,6 @@
           "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
           "name": "Blank Street : 3201 Prospect Street Northwest",
           "units": 4.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Earl Grey Sachets",
-      "brand": "Rishi",
-      "itemUuid": "e27cab1a-bae2-48e5-b2ad-a3f35a7d17c9",
-      "units": 17.0,
-      "lines": 12,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 8.0,
-          "lines": 6
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 7.0,
-          "lines": 5
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
           "lines": 1
         }
       ]
@@ -2781,104 +2281,6 @@
       ]
     },
     {
-      "name": "Poppi Soda Cherry Limeade - 12oz Can",
-      "brand": "Poppi",
-      "itemUuid": "59adbb5f-b7b5-4d4c-8c7a-13187611cabd",
-      "units": 14.0,
-      "lines": 13,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 6.0,
-          "lines": 6
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Poppi Soda Strawberry Lemon - 12oz Can",
-      "brand": "Poppi",
-      "itemUuid": "3ef31fd6-d7ca-4067-a167-c26b7658f4a3",
-      "units": 14.0,
-      "lines": 14,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 6.0,
-          "lines": 6
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-      "brand": "Re\u00e1l",
-      "itemUuid": "7996ee0b-2e8b-4f2e-bd95-32bed6107db2",
-      "units": 14.0,
-      "lines": 14,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 9.0,
-          "lines": 9
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 5.0,
-          "lines": 5
-        }
-      ]
-    },
-    {
       "name": "Celsius Kiwi Guava - 12oz Can",
       "brand": "Celsius",
       "itemUuid": "dc250edd-0073-474b-bbcc-50a9cabc7965",
@@ -2915,54 +2317,6 @@
       ]
     },
     {
-      "name": "Spindrift Lemon",
-      "brand": "Spindrift",
-      "itemUuid": "a888c197-94b2-46ff-a85f-e168d538d118",
-      "units": 13.0,
-      "lines": 13,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 9.0,
-          "lines": 9
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 4.0,
-          "lines": 4
-        }
-      ]
-    },
-    {
-      "name": "Yakami Orchard - Yuzu Marmalade 580g",
-      "brand": "Yakami Orchard",
-      "itemUuid": "3d5909a7-1274-4941-af0d-64c9dc13960e",
-      "units": 13.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 8.0,
-          "lines": 5
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 5.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
       "name": "Celsius Peach Vibe - 12oz Can",
       "brand": "Celsius",
       "itemUuid": "2949edab-cfba-4b55-ab0e-32cb2c931756",
@@ -2995,36 +2349,6 @@
           "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 1.0,
           "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Poppi Soda Ginger Lime - 12oz Can",
-      "brand": "Poppi",
-      "itemUuid": "3486a65f-add2-4226-91b8-f2a2224633ec",
-      "units": 12.0,
-      "lines": 9,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 8.0,
-          "lines": 5
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 2.0,
-          "lines": 2
         }
       ]
     },
@@ -3089,63 +2413,6 @@
       ]
     },
     {
-      "name": "Organic Valley Aseptic Lowfat Chocolate Single Serve Milk - 8oz Carton",
-      "brand": "Organic Valley",
-      "itemUuid": "628ae2aa-1a0b-49b1-bf7e-7d64c4f5247e",
-      "units": 11.0,
-      "lines": 11,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand",
-        "sold90"
-      ],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 6.0,
-          "lines": 6
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 5.0,
-          "lines": 5
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Fair Trade Jasmine Green Tea Sachets",
-      "brand": "Rishi",
-      "itemUuid": "4b1d70dd-ba92-4492-829c-b2cac531dfa2",
-      "units": 11.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 6.0,
-          "lines": 4
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "1883 Syrup Pump (Glass)",
       "brand": "1883",
       "itemUuid": "bf1851c3-19f7-43aa-affd-08a8fef5eb39",
@@ -3193,76 +2460,6 @@
           "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
           "name": "Coffee Republic : 601 13th Street Northwest",
           "units": 3.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Pacific Barista Soy Milk 32oz",
-      "brand": "Pacific Foods",
-      "itemUuid": "0bda54e6-d50e-4e3d-b733-7334dd3178a9",
-      "units": 10.0,
-      "lines": 8,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic English Breakfast Sachets",
-      "brand": "Rishi",
-      "itemUuid": "653bf473-3c44-4878-995d-eaf6e77393b1",
-      "units": 10.0,
-      "lines": 7,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 4,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 5.0,
-          "lines": 3
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 1.0,
           "lines": 1
         }
       ]
@@ -3383,88 +2580,6 @@
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
           "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 9.0,
-          "lines": 3
-        }
-      ]
-    },
-    {
-      "name": "Pacific Barista Coconut Milk 32oz",
-      "brand": "Pacific Foods",
-      "itemUuid": "d55119f6-21f0-44e5-a2dc-65d500763140",
-      "units": 9.0,
-      "lines": 6,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 5.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-      "brand": "Urnex",
-      "itemUuid": "e2557dc5-6168-41de-8ef6-cf59f9076157",
-      "units": 9.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 5.0,
-          "lines": 4
-        },
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 4.0,
-          "lines": 4
-        }
-      ]
-    },
-    {
-      "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-      "brand": "Urnex",
-      "itemUuid": "61f652fb-e05c-4220-8119-4ea61fd92e94",
-      "units": 8.0,
-      "lines": 8,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 5.0,
-          "lines": 5
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 3.0,
           "lines": 3
         }
       ]
@@ -3636,174 +2751,26 @@
       ]
     },
     {
-      "name": "Rishi Butterfly Pea Flower Loose Tea 100g",
-      "brand": "Rishi",
-      "itemUuid": "de6d3a76-3bf1-41af-9a32-3c9e592f1ced",
-      "units": 7.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "e40efb93-b7d9-496e-845a-2db54c99bf51",
-          "name": "Pura Vida Miami : Cabin John Village - 7993 Tuckerman Lane",
-          "units": 6.0,
-          "lines": 5
-        },
-        {
-          "uuid": "17cc8aad-686e-4651-b1f9-1b528123eec4",
-          "name": "Pura Vida Miami : Mosaic District - 8296 Glass Alley",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Blueberry Hibiscus (Organic) 50 Sachets",
-      "brand": "Rishi",
-      "itemUuid": "fb782d57-02f4-4891-9438-7df16a9bd2f3",
-      "units": 7.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Chamomile Medley Sachets",
-      "brand": "Rishi",
-      "itemUuid": "1e5a33f8-301a-42ac-be29-8b39703ef0a6",
-      "units": 7.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Peppermint Sachets",
-      "brand": "Rishi",
-      "itemUuid": "f3ad71c8-d1a8-4fcc-993f-d5fb9f58eb8e",
-      "units": 7.0,
-      "lines": 5,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Urnex Tabz Z61 120ct Jar",
+      "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
       "brand": "Urnex",
-      "itemUuid": "fa0b7a54-0498-425a-8bbe-48eeff732bac",
-      "units": 7.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
+      "itemUuid": "61f652fb-e05c-4220-8119-4ea61fd92e94",
+      "units": 6.0,
+      "lines": 6,
+      "inDca1": false,
+      "dca1Sources": [],
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 5.0,
-          "lines": 1
-        },
-        {
-          "uuid": "e40efb93-b7d9-496e-845a-2db54c99bf51",
-          "name": "Pura Vida Miami : Cabin John Village - 7993 Tuckerman Lane",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Victoria Bay Black Nitrile Gloves - Medium",
-      "brand": "Victoria Bay",
-      "itemUuid": "60920401-41fa-4a8e-9809-52a53d6b9ad0",
-      "units": 7.0,
-      "lines": 7,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 4.0,
-          "lines": 4
+          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
+          "name": "Blank Street : 2121 M Street Northwest",
+          "units": 3.0,
+          "lines": 3
         },
         {
           "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
           "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 1.0,
-          "lines": 1
+          "units": 3.0,
+          "lines": 3
         }
       ]
     },
@@ -3950,82 +2917,6 @@
       ]
     },
     {
-      "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-      "brand": "Pink House Alchemy",
-      "itemUuid": "83fc1aff-7e1c-47b2-bb6d-76450ee038a6",
-      "units": 6.0,
-      "lines": 6,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Classic Black Iced Tea 1gal Filters",
-      "brand": "Rishi",
-      "itemUuid": "cea1d8e3-ea32-42f4-ae02-cea332f801a9",
-      "units": 6.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Tenzo Organic Ceremonial Matcha 400g Bag",
-      "brand": "Tenzo",
-      "itemUuid": "01fe2e09-40cd-4f6f-a351-d4e0b1f86db5",
-      "units": 6.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "17cc8aad-686e-4651-b1f9-1b528123eec4",
-          "name": "Pura Vida Miami : Mosaic District - 8296 Glass Alley",
-          "units": 6.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "1883 Pumpkin Spice Syrup 1L Plastic",
       "brand": "1883",
       "itemUuid": "4a8d5365-052d-408d-a95b-ed5be6984e8a",
@@ -4164,72 +3055,6 @@
           "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 5.0,
           "lines": 5
-        }
-      ]
-    },
-    {
-      "name": "Odeko Pastry Bag, 6.5\" x 1'' x 8\"",
-      "brand": "Odeko",
-      "itemUuid": "a262436f-4f9c-4f3b-84b0-e0795931afa4",
-      "units": 5.0,
-      "lines": 5,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "San Pellegrino .5L Bottles Case (24x)",
-      "brand": "San Pellegrino",
-      "itemUuid": "0372fca2-bfdc-4217-ae9d-16850f47c8e2",
-      "units": 5.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 5.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Victoria Bay Black Nitrile Gloves - X Large",
-      "brand": "Victoria Bay",
-      "itemUuid": "93f8f477-6eae-4397-83ad-af9fb8a514e6",
-      "units": 5.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 5.0,
-          "lines": 3
         }
       ]
     },
@@ -4400,117 +3225,15 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
           "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
           "name": "Coffee Republic : 801 Pleasant Dr",
           "units": 2.0,
           "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Organic Green Tea Citrus Iced Tea 1gal Filters",
-      "brand": "Rishi",
-      "itemUuid": "d25b8cf5-7fac-46f5-a559-2c646ccbfdec",
-      "units": 4.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 3,
-      "custDetail": [
+        },
         {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
+          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
+          "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 2.0,
-          "lines": 2
-        },
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Fair Trade Jade Cloud Sachets",
-      "brand": "Rishi",
-      "itemUuid": "7844574d-dd9b-48bc-895d-f6920e923afa",
-      "units": 4.0,
-      "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 3.0,
-          "lines": 2
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Toddy Cold Brew System Strainer",
-      "brand": "Toddy",
-      "itemUuid": "dcd81693-5369-428a-9ab1-d5ab30ec9d12",
-      "units": 4.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 3.0,
-          "lines": 1
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-      "brand": "Yuzuco",
-      "itemUuid": "3ce034f7-6407-4653-b4b8-791fdf10d68e",
-      "units": 4.0,
-      "lines": 4,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
-          "units": 3.0,
-          "lines": 3
-        },
-        {
-          "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
-          "name": "Blank Street : 2121 M Street Northwest",
-          "units": 1.0,
           "lines": 1
         }
       ]
@@ -4610,70 +3333,6 @@
           "name": "Coffee Republic : 3500 O Street Northwest",
           "units": 3.0,
           "lines": 3
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Yuzu Peach Green Sachets",
-      "brand": "Rishi",
-      "itemUuid": "d0292c0f-b7a0-4c81-bd61-c009fbb51cbb",
-      "units": 3.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Urnex Cafe Wipz",
-      "brand": "Urnex",
-      "itemUuid": "726f60ae-f4fd-4b15-a64d-85b462bdc8c7",
-      "units": 3.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 3.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Urnex GRINDZ Grinder Cleaner 430 grams",
-      "brand": "Urnex",
-      "itemUuid": "399d6b92-a5e1-4803-9252-c08393b30404",
-      "units": 3.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 3.0,
-          "lines": 2
         }
       ]
     },
@@ -4882,162 +3541,6 @@
         {
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
           "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Poppi Soda Classic Cola - 12oz Can",
-      "brand": "Poppi",
-      "itemUuid": "86f12b75-377a-4b4e-841d-8074c2dd0bc4",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Poppi Soda Orange - 12oz Can",
-      "brand": "Poppi",
-      "itemUuid": "ecd91597-ce1e-4977-ae77-f82ddf7e2de6",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": true,
-      "dca1Sources": [
-        "onhand"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Rishi Tea Organic Turmeric Ginger Sachets",
-      "brand": "Rishi",
-      "itemUuid": "82afd9dc-ed4c-4283-b13b-2b5cdd6384f6",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Teapigs Display Jar",
-      "brand": "Teapigs",
-      "itemUuid": "73f66fb0-5c9d-4733-953a-98db66c646db",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Toddy Commercial Model Tree Free Filters",
-      "brand": "Toddy",
-      "itemUuid": "5f200dd0-b518-40b9-8fa0-b1fd541c7f94",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 2.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
-      "name": "Toddy Paper Filter & Strainer Pack",
-      "brand": "Toddy",
-      "itemUuid": "b4f60719-e4af-44f6-b276-4b041fae030c",
-      "units": 2.0,
-      "lines": 2,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 2,
-      "custDetail": [
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Torani Brown Sugar Cinnamon Syrup 750ml Glass Bottle",
-      "brand": "Torani",
-      "itemUuid": "6a7ad469-8cc0-4d3b-bf83-a7bf25827653",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
-          "name": "Coffee Republic : 7629 Old Georgetown Road",
-          "units": 2.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Urnex Rinza Milk Frother Cleaner Tablets 120ct",
-      "brand": "Urnex",
-      "itemUuid": "1f5a6ecf-4cf8-40df-b341-6b43b7f4760a",
-      "units": 2.0,
-      "lines": 1,
-      "inDca1": true,
-      "dca1Sources": [
-        "catalog",
-        "onhand",
-        "sold90"
-      ],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "e40efb93-b7d9-496e-845a-2db54c99bf51",
-          "name": "Pura Vida Miami : Cabin John Village - 7993 Tuckerman Lane",
           "units": 2.0,
           "lines": 1
         }
@@ -5360,96 +3863,6 @@
       ]
     },
     {
-      "name": "Nuova Simonelli 98005024 Tilted Portafilter Complete Without Spout and Without Basket",
-      "brand": "Nuova Simonelli",
-      "itemUuid": "0feb9fee-1540-4daa-b5c2-975408b1dee5",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Sabert 2-Cup Drink Carrier with Handle",
-      "brand": "Sabert",
-      "itemUuid": "12053be4-94d2-4496-bd66-fb83a43ffe7e",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Toddy Cold Brew System - Commercial Model Lift(s)",
-      "brand": "Toddy",
-      "itemUuid": "2e25ad90-ddf2-41b8-9a04-1b57d1e27cae",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Toddy Commercial Model Paper Filter Pack",
-      "brand": "Toddy",
-      "itemUuid": "21db9c7f-d0f0-4bd5-b635-146956994887",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
-          "name": "Coffee Republic : 801 Pleasant Dr",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
-      "name": "Toddy Commercial Model System Bucket Assembly",
-      "brand": "Toddy",
-      "itemUuid": "840cce74-f1c7-43c2-b84e-97eb793491cd",
-      "units": 1.0,
-      "lines": 1,
-      "inDca1": false,
-      "dca1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
-          "name": "Coffee Republic : 3500 O Street Northwest",
-          "units": 1.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Delivery Fee",
       "brand": "",
       "itemUuid": "",
@@ -5461,12 +3874,6 @@
       ],
       "customers": 8,
       "custDetail": [
-        {
-          "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
-          "name": "Van Leeuwen : Union Station #6205",
-          "units": 0.0,
-          "lines": 1
-        },
         {
           "uuid": "21d1544f-dd6a-4178-8576-622385459371",
           "name": "Van Leeuwen : One Loudon #6304",
@@ -5508,6 +3915,12 @@
           "name": "Van Leeuwen : Old Town #6303",
           "units": 0.0,
           "lines": 1
+        },
+        {
+          "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
+          "name": "Van Leeuwen : Union Station #6205",
+          "units": 0.0,
+          "lines": 1
         }
       ]
     },
@@ -5540,10 +3953,10 @@
           "lines": 4
         },
         {
-          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
-          "name": "Coffee Republic : 601 13th Street Northwest",
+          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
+          "name": "Blank Street : 3201 Prospect Street Northwest",
           "units": 0.0,
-          "lines": 5
+          "lines": 4
         },
         {
           "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
@@ -5552,10 +3965,10 @@
           "lines": 3
         },
         {
-          "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
-          "name": "Blank Street : 3201 Prospect Street Northwest",
+          "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
+          "name": "Coffee Republic : 601 13th Street Northwest",
           "units": 0.0,
-          "lines": 4
+          "lines": 5
         }
       ]
     }
@@ -5565,17 +3978,10 @@
       "uuid": "515579a3-6cf0-48c5-bf5a-8c29125f27a4",
       "name": "Blank Street : 3201 Prospect Street Northwest",
       "hasHistory": true,
-      "skus": 44,
-      "gapSkus": 34,
-      "units": 2150.0,
+      "skus": 26,
+      "gapSkus": 19,
+      "units": 973.0,
       "items": [
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 973.0,
-          "lines": 25,
-          "inDca1": false
-        },
         {
           "name": "Califia Farms Barista Oat Milk 32oz",
           "brand": "Califia Farms",
@@ -5584,18 +3990,18 @@
           "inDca1": true
         },
         {
-          "name": "Neutral Skim Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 162.0,
-          "lines": 24,
-          "inDca1": false
-        },
-        {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
           "units": 154.0,
           "lines": 23,
           "inDca1": true
+        },
+        {
+          "name": "Neutral Skim Milk 1 Gallon",
+          "brand": "Neutral",
+          "units": 138.0,
+          "lines": 21,
+          "inDca1": false
         },
         {
           "name": "Califia Farms Barista Coconut Milk 32oz",
@@ -5633,20 +4039,6 @@
           "inDca1": false
         },
         {
-          "name": "Pittsford / Seneca Half and Half 1/2 Gallon",
-          "brand": "Seneca",
-          "units": 30.0,
-          "lines": 18,
-          "inDca1": false
-        },
-        {
-          "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
-          "units": 28.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
           "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
           "brand": "Miss Jones Baking Co.",
           "units": 20.0,
@@ -5675,13 +4067,6 @@
           "inDca1": false
         },
         {
-          "name": "Toms Juice Ginger & Lime Shot",
-          "brand": "Toms Juice",
-          "units": 15.0,
-          "lines": 14,
-          "inDca1": false
-        },
-        {
           "name": "Dona 1:1 Masala Chai Concentrate 64oz",
           "brand": "Dona",
           "units": 14.0,
@@ -5703,27 +4088,6 @@
           "inDca1": false
         },
         {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 14.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Sargento Skim Mozzarella String Cheese",
-          "brand": "Sargento",
-          "units": 14.0,
-          "lines": 14,
-          "inDca1": false
-        },
-        {
-          "name": "Siggi's - Vanilla 5.3oz",
-          "brand": "Siggi's",
-          "units": 13.0,
-          "lines": 13,
-          "inDca1": false
-        },
-        {
           "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
           "brand": "Hollander",
           "units": 12.0,
@@ -5731,46 +4095,11 @@
           "inDca1": true
         },
         {
-          "name": "Siggi's - Acai Mixed Berry 5.3oz",
-          "brand": "Siggi's",
-          "units": 10.0,
-          "lines": 10,
-          "inDca1": false
-        },
-        {
-          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 9.0,
-          "lines": 9,
-          "inDca1": false
-        },
-        {
-          "name": "Spindrift Lemon",
-          "brand": "Spindrift",
-          "units": 9.0,
-          "lines": 9,
-          "inDca1": false
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 8.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
           "name": "David Protein Bars - Blueberry",
           "brand": "David Protein",
           "units": 7.0,
           "lines": 7,
           "inDca1": false
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 7.0,
-          "lines": 7,
-          "inDca1": true
         },
         {
           "name": "Dole Pineapple Juice 46fl oz Can",
@@ -5794,25 +4123,11 @@
           "inDca1": false
         },
         {
-          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
-          "brand": "Urnex",
-          "units": 5.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
           "brand": "EcoLogic Solutions",
           "units": 5.0,
           "lines": 3,
           "inDca1": false
-        },
-        {
-          "name": "Organic Valley Aseptic Lowfat Chocolate Single Serve Milk - 8oz Carton",
-          "brand": "Organic Valley",
-          "units": 5.0,
-          "lines": 5,
-          "inDca1": true
         },
         {
           "name": "Eversys Coffee Cleaning Balls",
@@ -5822,29 +4137,8 @@
           "inDca1": true
         },
         {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
+          "name": "(DUPLICATE) Urnex Clearly Cold 32oz Bottle",
           "brand": "Urnex",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Odeko Pastry Bag, 6.5\" x 1'' x 8\"",
-          "brand": "Odeko",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
           "units": 3.0,
           "lines": 3,
           "inDca1": false
@@ -5852,13 +4146,6 @@
         {
           "name": "Chamellia Chai Garnish 1kg",
           "brand": "Chamellia",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Victoria Bay Black Nitrile Gloves - Medium",
-          "brand": "Victoria Bay",
           "units": 2.0,
           "lines": 2,
           "inDca1": false
@@ -5883,17 +4170,10 @@
       "uuid": "88c288d3-06bf-4187-91d0-f95fd852f1ba",
       "name": "Blank Street : 2121 M Street Northwest",
       "hasHistory": true,
-      "skus": 43,
-      "gapSkus": 33,
-      "units": 1344.0,
+      "skus": 25,
+      "gapSkus": 18,
+      "units": 698.0,
       "items": [
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 447.0,
-          "lines": 20,
-          "inDca1": false
-        },
         {
           "name": "Califia Farms Barista Oat Milk 32oz",
           "brand": "Califia Farms",
@@ -5902,18 +4182,18 @@
           "inDca1": true
         },
         {
-          "name": "Neutral Skim Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 109.0,
-          "lines": 20,
-          "inDca1": false
-        },
-        {
           "name": "1883 French Madeleine Syrup 1L Glass",
           "brand": "1883",
           "units": 96.0,
           "lines": 21,
           "inDca1": true
+        },
+        {
+          "name": "Neutral Skim Milk 1 Gallon",
+          "brand": "Neutral",
+          "units": 77.0,
+          "lines": 15,
+          "inDca1": false
         },
         {
           "name": "Califia Farms Barista Almond Milk 32oz",
@@ -5927,13 +4207,6 @@
           "brand": "Blank Street Coffee",
           "units": 41.0,
           "lines": 15,
-          "inDca1": false
-        },
-        {
-          "name": "Pittsford / Seneca Half and Half 1/2 Gallon",
-          "brand": "Seneca",
-          "units": 40.0,
-          "lines": 17,
           "inDca1": false
         },
         {
@@ -5958,13 +4231,6 @@
           "inDca1": false
         },
         {
-          "name": "Toms Juice Ginger & Lime Shot",
-          "brand": "Toms Juice",
-          "units": 23.0,
-          "lines": 17,
-          "inDca1": false
-        },
-        {
           "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
           "brand": "Miss Jones Baking Co.",
           "units": 21.0,
@@ -5979,36 +4245,8 @@
           "inDca1": false
         },
         {
-          "name": "Sargento Skim Mozzarella String Cheese",
-          "brand": "Sargento",
-          "units": 17.0,
-          "lines": 13,
-          "inDca1": false
-        },
-        {
-          "name": "Polar Club Soda 7.5oz",
-          "brand": "Polar Seltzer",
-          "units": 16.0,
-          "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Siggi's - Acai Mixed Berry 5.3oz",
-          "brand": "Siggi's",
-          "units": 16.0,
-          "lines": 16,
-          "inDca1": false
-        },
-        {
           "name": "Natalie's Orange Juice 8oz",
           "brand": "Natalie's",
-          "units": 15.0,
-          "lines": 15,
-          "inDca1": false
-        },
-        {
-          "name": "Siggi's - Vanilla 5.3oz",
-          "brand": "Siggi's",
           "units": 15.0,
           "lines": 15,
           "inDca1": false
@@ -6063,20 +4301,6 @@
           "inDca1": false
         },
         {
-          "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 7.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Organic Valley Aseptic Lowfat Chocolate Single Serve Milk - 8oz Carton",
-          "brand": "Organic Valley",
-          "units": 6.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
           "name": "Everclean Milk Line Cleaning Liquid",
           "brand": "Eversys",
           "units": 5.0,
@@ -6084,38 +4308,10 @@
           "inDca1": false
         },
         {
-          "name": "Re\u00e1l Cream of Coconut 16.9fl oz",
-          "brand": "Re\u00e1l",
-          "units": 5.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "Urnex",
-          "units": 5.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "Yakami Orchard",
-          "units": 5.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
           "brand": "EcoLogic Solutions",
           "units": 4.0,
           "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Spindrift Lemon",
-          "brand": "Spindrift",
-          "units": 4.0,
-          "lines": 4,
           "inDca1": false
         },
         {
@@ -6147,41 +4343,6 @@
           "inDca1": false
         },
         {
-          "name": "Odeko Pastry Bag, 6.5\" x 1'' x 8\"",
-          "brand": "Odeko",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
-          "brand": "Pink House Alchemy",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Victoria Bay Black Nitrile Gloves - Medium",
-          "brand": "Victoria Bay",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Yuzuco Yuzu Super Juice 1L Bottle",
-          "brand": "Yuzuco",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "EWR Service Fee",
           "brand": "",
           "units": 0.0,
@@ -6194,9 +4355,9 @@
       "uuid": "6a3750f1-29c4-442c-89b2-27986d836064",
       "name": "Coffee Republic : 601 13th Street Northwest",
       "hasHistory": true,
-      "skus": 81,
-      "gapSkus": 38,
-      "units": 593.0,
+      "skus": 62,
+      "gapSkus": 24,
+      "units": 524.0,
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
@@ -6235,7 +4396,7 @@
         },
         {
           "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "",
+          "brand": "Califia Farms",
           "units": 19.0,
           "lines": 8,
           "inDca1": true
@@ -6263,7 +4424,7 @@
         },
         {
           "name": "Monin Blue Raspberry Syrup 1 Liter Plastic Bottle",
-          "brand": "Monin",
+          "brand": "",
           "units": 16.0,
           "lines": 6,
           "inDca1": true
@@ -6374,20 +4535,6 @@
           "inDca1": true
         },
         {
-          "name": "Poppi Soda Ginger Lime - 12oz Can",
-          "brand": "Poppi",
-          "units": 8.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Earl Grey Sachets",
-          "brand": "",
-          "units": 8.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
           "name": "Celsius Kiwi Guava - 12oz Can",
           "brand": "Celsius",
           "units": 7.0,
@@ -6424,7 +4571,7 @@
         },
         {
           "name": "Monin Banana Syrup 750ml Glass",
-          "brand": "Monin",
+          "brand": "",
           "units": 6.0,
           "lines": 3,
           "inDca1": true
@@ -6442,27 +4589,6 @@
           "units": 6.0,
           "lines": 3,
           "inDca1": true
-        },
-        {
-          "name": "Poppi Soda Cherry Limeade - 12oz Can",
-          "brand": "Poppi",
-          "units": 6.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Poppi Soda Strawberry Lemon - 12oz Can",
-          "brand": "Poppi",
-          "units": 6.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Tea Organic Fair Trade Jasmine Green Tea Sachets",
-          "brand": "Rishi",
-          "units": 6.0,
-          "lines": 4,
-          "inDca1": false
         },
         {
           "name": "Celsius Tropical Vibe 12oz Can",
@@ -6491,13 +4617,6 @@
           "units": 5.0,
           "lines": 4,
           "inDca1": true
-        },
-        {
-          "name": "Rishi Tea Organic English Breakfast Sachets",
-          "brand": "Rishi",
-          "units": 5.0,
-          "lines": 3,
-          "inDca1": false
         },
         {
           "name": "1883 Cardamom Syrup 1 Liter Glass Bottle",
@@ -6549,20 +4668,6 @@
           "inDca1": true
         },
         {
-          "name": "Pacific Barista Soy Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 4.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Tea Organic Peppermint Sachets",
-          "brand": "Rishi",
-          "units": 4.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "Celsius Fuji Apple Pear 12oz Can",
           "brand": "Celsius",
           "units": 3.0,
@@ -6595,34 +4700,6 @@
           "brand": "Mylk Labs",
           "units": 3.0,
           "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Tea Blueberry Hibiscus (Organic) 50 Sachets",
-          "brand": "Rishi",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Chamomile Medley Sachets",
-          "brand": "Rishi",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Fair Trade Jade Cloud Sachets",
-          "brand": "Rishi",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-          "brand": "Urnex",
-          "units": 3.0,
-          "lines": 2,
           "inDca1": true
         },
         {
@@ -6675,27 +4752,6 @@
           "inDca1": true
         },
         {
-          "name": "Pacific Barista Coconut Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Classic Black Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Organic Green Tea Citrus Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
           "name": "Celsius Mango Passionfruit 12oz Can",
           "brand": "Celsius",
           "units": 1.0,
@@ -6724,34 +4780,6 @@
           "inDca1": true
         },
         {
-          "name": "Nuova Simonelli 98005024 Tilted Portafilter Complete Without Spout and Without Basket",
-          "brand": "Nuova Simonelli",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Cold Brew System Strainer",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Paper Filter & Strainer Pack",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
           "name": "Delivery Fee",
           "brand": "",
           "units": 0.0,
@@ -6771,9 +4799,9 @@
       "uuid": "4b99f730-6147-4a53-bc9d-437964b04bfe",
       "name": "Coffee Republic : 801 Pleasant Dr",
       "hasHistory": true,
-      "skus": 63,
-      "gapSkus": 30,
-      "units": 552.0,
+      "skus": 47,
+      "gapSkus": 18,
+      "units": 503.0,
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
@@ -6909,13 +4937,6 @@
           "inDca1": true
         },
         {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 8.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
           "name": "Ground Cinnamon 1lb Bottle",
           "brand": "Emerald",
           "units": 7.0,
@@ -6937,13 +4958,6 @@
           "inDca1": true
         },
         {
-          "name": "Rishi Tea Organic Earl Grey Sachets",
-          "brand": "Rishi",
-          "units": 7.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
           "name": "Monin Peppermint Syrup 750ml Glass",
           "brand": "Monin",
           "units": 6.0,
@@ -6955,13 +4969,6 @@
           "brand": "Monin",
           "units": 6.0,
           "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-          "brand": "Urnex",
-          "units": 6.0,
-          "lines": 3,
           "inDca1": true
         },
         {
@@ -7000,20 +5007,6 @@
           "inDca1": true
         },
         {
-          "name": "Poppi Soda Strawberry Lemon - 12oz Can",
-          "brand": "Poppi",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Victoria Bay Black Nitrile Gloves - Medium",
-          "brand": "Victoria Bay",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
           "name": "Celsius Kiwi Guava - 12oz Can",
           "brand": "Celsius",
           "units": 3.0,
@@ -7049,20 +5042,6 @@
           "inDca1": true
         },
         {
-          "name": "Rishi Tea Organic Fair Trade Jasmine Green Tea Sachets",
-          "brand": "Rishi",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex GRINDZ Grinder Cleaner 430 grams",
-          "brand": "Urnex",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
           "name": "Celsius Peach Vibe - 12oz Can",
           "brand": "Celsius",
           "units": 2.0,
@@ -7089,41 +5068,6 @@
           "units": 2.0,
           "lines": 2,
           "inDca1": true
-        },
-        {
-          "name": "Poppi Soda Cherry Limeade - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Poppi Soda Ginger Lime - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Blueberry Hibiscus (Organic) 50 Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Chamomile Medley Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic English Breakfast Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
         },
         {
           "name": "Brew Rite 15 x 5 Coffee Filters",
@@ -7182,34 +5126,6 @@
           "inDca1": true
         },
         {
-          "name": "Rishi Tea Organic Fair Trade Jade Cloud Sachets",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Peppermint Sachets",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Yuzu Peach Green Sachets",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Commercial Model Paper Filter Pack",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "EWR Service Fee",
           "brand": "",
           "units": 0.0,
@@ -7222,9 +5138,9 @@
       "uuid": "92a56f4d-d24b-485e-9800-424cec4e98dd",
       "name": "Coffee Republic : 3500 O Street Northwest",
       "hasHistory": true,
-      "skus": 85,
-      "gapSkus": 46,
-      "units": 451.0,
+      "skus": 58,
+      "gapSkus": 27,
+      "units": 380.0,
       "items": [
         {
           "name": "Monin French Vanilla Syrup 750ml Glass",
@@ -7339,13 +5255,6 @@
           "inDca1": true
         },
         {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 8.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
           "name": "Harmony Leaf Bamboo Whisk",
           "brand": "Harmony Leaf",
           "units": 7.0,
@@ -7409,27 +5318,6 @@
           "inDca1": true
         },
         {
-          "name": "San Pellegrino .5L Bottles Case (24x)",
-          "brand": "San Pellegrino",
-          "units": 5.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-          "brand": "Urnex",
-          "units": 5.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Tabz Z61 120ct Jar",
-          "brand": "Urnex",
-          "units": 5.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
           "name": "1883 Maple Syrup 1L Glass",
           "brand": "1883",
           "units": 4.0,
@@ -7469,13 +5357,6 @@
           "brand": "Mylk Labs",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Pacific Barista Soy Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 4.0,
-          "lines": 3,
           "inDca1": true
         },
         {
@@ -7525,34 +5406,6 @@
           "brand": "Mylk Labs",
           "units": 3.0,
           "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Poppi Soda Cherry Limeade - 12oz Can",
-          "brand": "Poppi",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Classic Black Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 3.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Cold Brew System Strainer",
-          "brand": "Toddy",
-          "units": 3.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Urnex Cafe Wipz",
-          "brand": "Urnex",
-          "units": 3.0,
-          "lines": 2,
           "inDca1": false
         },
         {
@@ -7626,104 +5479,6 @@
           "inDca1": false
         },
         {
-          "name": "Pacific Barista Coconut Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Poppi Soda Classic Cola - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Poppi Soda Orange - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Poppi Soda Strawberry Lemon - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Tea Blueberry Hibiscus (Organic) 50 Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Chamomile Medley Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Earl Grey Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic English Breakfast Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Fair Trade Jasmine Green Tea Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Peppermint Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Turmeric Ginger Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic Yuzu Peach Green Sachets",
-          "brand": "Rishi",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Teapigs Display Jar",
-          "brand": "Teapigs",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Commercial Model Tree Free Filters",
-          "brand": "Toddy",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
           "name": "Cafe Clean Espresso Machine Cleaner",
           "brand": "Purdy Products Co",
           "units": 1.0,
@@ -7787,34 +5542,6 @@
           "inDca1": true
         },
         {
-          "name": "Rishi Organic Green Tea Citrus Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Sabert 2-Cup Drink Carrier with Handle",
-          "brand": "Sabert",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Cold Brew System - Commercial Model Lift(s)",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Commercial Model System Bucket Assembly",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "EWR Service Fee",
           "brand": "",
           "units": 0.0,
@@ -7824,78 +5551,12 @@
       ]
     },
     {
-      "uuid": "f5b6b34e-00cb-4ffd-8b8e-8c2dad08c414",
-      "name": "Van Leeuwen : Old Town #6303",
-      "hasHistory": true,
-      "skus": 8,
-      "gapSkus": 4,
-      "units": 299.0,
-      "items": [
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 216.0,
-          "lines": 11,
-          "inDca1": false
-        },
-        {
-          "name": "Byrne - 36% Heavy Cream Quart",
-          "brand": "Byrne Dairy",
-          "units": 37.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 22.0,
-          "lines": 10,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 14.0,
-          "lines": 9,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 7.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
-          "inDca1": true
-        }
-      ]
-    },
-    {
       "uuid": "7ba7af1d-1743-47a7-b471-ef9af83fcbd6",
       "name": "Coffee Republic : 7629 Old Georgetown Road",
       "hasHistory": true,
-      "skus": 54,
-      "gapSkus": 26,
-      "units": 274.0,
+      "skus": 41,
+      "gapSkus": 18,
+      "units": 241.0,
       "items": [
         {
           "name": "Monin Vanilla Syrup 750ml Glass",
@@ -8010,38 +5671,10 @@
           "inDca1": true
         },
         {
-          "name": "Pacific Barista Coconut Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 5.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Victoria Bay Black Nitrile Gloves - X Large",
-          "brand": "Victoria Bay",
-          "units": 5.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "Lenka Bar-Chocolate Peanut Butter",
           "brand": "Lenka Bar",
           "units": 4.0,
           "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-          "brand": "Urnex",
-          "units": 4.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "Urnex",
-          "units": 4.0,
-          "lines": 2,
           "inDca1": true
         },
         {
@@ -8108,13 +5741,6 @@
           "inDca1": true
         },
         {
-          "name": "Poppi Soda Cherry Limeade - 12oz Can",
-          "brand": "Poppi",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "1883 Cardamom Syrup 1 Liter Glass Bottle",
           "brand": "1883",
           "units": 2.0,
@@ -8171,34 +5797,6 @@
           "inDca1": true
         },
         {
-          "name": "Pacific Barista Soy Milk 32oz",
-          "brand": "Pacific Foods",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Poppi Soda Ginger Lime - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Poppi Soda Strawberry Lemon - 12oz Can",
-          "brand": "Poppi",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Torani Brown Sugar Cinnamon Syrup 750ml Glass Bottle",
-          "brand": "Torani",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "7 Inch Wooden Stir Sticks Case (1000x)",
           "brand": "Fresh Impression",
           "units": 1.0,
@@ -8241,34 +5839,6 @@
           "inDca1": true
         },
         {
-          "name": "Rishi Classic Black Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Organic Green Tea Citrus Iced Tea 1gal Filters",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Rishi Tea Organic English Breakfast Sachets",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Toddy Paper Filter & Strainer Pack",
-          "brand": "Toddy",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "EWR Service Fee",
           "brand": "",
           "units": 0.0,
@@ -8278,32 +5848,63 @@
       ]
     },
     {
+      "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
+      "name": "Van Leeuwen : Union Market #6201",
+      "hasHistory": true,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 131.0,
+      "items": [
+        {
+          "name": "Byrne - 36% Heavy Cream Quart",
+          "brand": "Byrne Dairy",
+          "units": 88.0,
+          "lines": 6,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 16.0,
+          "lines": 6,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 13.0,
+          "lines": 6,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 8.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 6.0,
+          "lines": 4,
+          "inDca1": true
+        }
+      ]
+    },
+    {
       "uuid": "21d1544f-dd6a-4178-8576-622385459371",
       "name": "Van Leeuwen : One Loudon #6304",
       "hasHistory": true,
-      "skus": 9,
-      "gapSkus": 4,
-      "units": 180.0,
+      "skus": 6,
+      "gapSkus": 1,
+      "units": 107.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
           "brand": "Byrne Dairy",
           "units": 88.0,
           "lines": 10,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 61.0,
-          "lines": 10,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 11.0,
-          "lines": 8,
           "inDca1": false
         },
         {
@@ -8335,13 +5936,6 @@
           "inDca1": true
         },
         {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
           "name": "Delivery Fee",
           "brand": "",
           "units": 0.0,
@@ -8351,98 +5945,18 @@
       ]
     },
     {
-      "uuid": "41fb30f0-4084-463b-8cd4-c936ea1ca451",
-      "name": "Van Leeuwen : Union Market #6201",
-      "hasHistory": true,
-      "skus": 8,
-      "gapSkus": 4,
-      "units": 168.0,
-      "items": [
-        {
-          "name": "Byrne - 36% Heavy Cream Quart",
-          "brand": "Byrne Dairy",
-          "units": 88.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 20.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 16.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 14.0,
-          "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 13.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 8.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 6.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": false
-        }
-      ]
-    },
-    {
       "uuid": "7b289acd-5ba0-40ac-b9e9-f02cf233b6dc",
       "name": "Van Leeuwen : Adams Morgan #6203",
       "hasHistory": true,
-      "skus": 8,
-      "gapSkus": 4,
-      "units": 161.0,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 90.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
           "brand": "Byrne Dairy",
           "units": 62.0,
           "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 52.0,
-          "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 15.0,
-          "lines": 5,
           "inDca1": false
         },
         {
@@ -8460,13 +5974,6 @@
           "inDca1": true
         },
         {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 4.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
           "name": "Califia Farms Barista Almond Milk 32oz",
           "brand": "Califia Farms",
           "units": 3.0,
@@ -8478,79 +5985,6 @@
           "brand": "Califia Farms",
           "units": 3.0,
           "lines": 2,
-          "inDca1": true
-        }
-      ]
-    },
-    {
-      "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
-      "name": "Van Leeuwen : Clarendon #6302",
-      "hasHistory": true,
-      "skus": 9,
-      "gapSkus": 4,
-      "units": 135.0,
-      "items": [
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 49.0,
-          "lines": 8,
-          "inDca1": false
-        },
-        {
-          "name": "Byrne - 36% Heavy Cream Quart",
-          "brand": "Byrne Dairy",
-          "units": 46.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 11.0,
-          "lines": 6,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 11.0,
-          "lines": 8,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 11.0,
-          "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 3.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 1,
           "inDca1": true
         }
       ]
@@ -8559,9 +5993,9 @@
       "uuid": "dfcf58c3-6218-46a6-ae54-30ea9546d569",
       "name": "Van Leeuwen : Capitol Hill #6206",
       "hasHistory": true,
-      "skus": 8,
-      "gapSkus": 4,
-      "units": 131.0,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 79.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
@@ -8571,20 +6005,6 @@
           "inDca1": false
         },
         {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 38.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 13.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
           "name": "Boylan Bottling Co. Root Beer Soda",
           "brand": "Boylan Bottling Company",
           "units": 10.0,
@@ -8611,13 +6031,6 @@
           "units": 2.0,
           "lines": 2,
           "inDca1": true
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
         }
       ]
     },
@@ -8625,29 +6038,15 @@
       "uuid": "cdc14573-fdda-42e3-84fb-7c55b96e84da",
       "name": "Van Leeuwen : Georgetown #6202",
       "hasHistory": true,
-      "skus": 6,
-      "gapSkus": 4,
-      "units": 122.0,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 79.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
           "brand": "Byrne Dairy",
-          "units": 42.0,
-          "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 35.0,
-          "lines": 7,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 18.0,
-          "lines": 7,
+          "units": 55.0,
+          "lines": 5,
           "inDca1": false
         },
         {
@@ -8660,127 +6059,54 @@
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
           "brand": "Boylan Bottling Company",
-          "units": 10.0,
-          "lines": 6,
+          "units": 11.0,
+          "lines": 7,
           "inDca1": true
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 6.0,
-          "lines": 4,
-          "inDca1": false
-        }
-      ]
-    },
-    {
-      "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
-      "name": "Van Leeuwen : National Landing #6301",
-      "hasHistory": true,
-      "skus": 7,
-      "gapSkus": 3,
-      "units": 108.0,
-      "items": [
-        {
-          "name": "Byrne - 36% Heavy Cream Quart",
-          "brand": "Byrne Dairy",
-          "units": 46.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 36.0,
-          "lines": 5,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 8.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 8.0,
-          "lines": 5,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 6.0,
-          "lines": 5,
-          "inDca1": false
         },
         {
           "name": "Califia Farms Barista Almond Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 2.0,
-          "lines": 2,
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
           "inDca1": true
         },
         {
           "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 2.0,
-          "lines": 2,
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
           "inDca1": true
         }
       ]
     },
     {
-      "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
-      "name": "Van Leeuwen : Ballston #6305",
+      "uuid": "f5b6b34e-00cb-4ffd-8b8e-8c2dad08c414",
+      "name": "Van Leeuwen : Old Town #6303",
       "hasHistory": true,
-      "skus": 8,
-      "gapSkus": 4,
-      "units": 105.0,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 74.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
           "brand": "Byrne Dairy",
-          "units": 48.0,
+          "units": 37.0,
           "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 32.0,
-          "lines": 6,
           "inDca1": false
         },
         {
           "name": "Boylan Bottling Co. Ginger Ale Soda",
           "brand": "Boylan Bottling Company",
-          "units": 10.0,
-          "lines": 5,
+          "units": 22.0,
+          "lines": 10,
           "inDca1": true
         },
         {
           "name": "Boylan Bottling Co. Root Beer Soda",
           "brand": "Boylan Bottling Company",
-          "units": 8.0,
-          "lines": 5,
+          "units": 14.0,
+          "lines": 9,
           "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 4.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 2.0,
-          "lines": 2,
-          "inDca1": false
         },
         {
           "name": "Califia Farms Barista Oat Milk 32oz",
@@ -8799,32 +6125,243 @@
       ]
     },
     {
+      "uuid": "9ac8560c-197d-4f8c-80e7-8b998a6737af",
+      "name": "Van Leeuwen : Clarendon #6302",
+      "hasHistory": true,
+      "skus": 6,
+      "gapSkus": 1,
+      "units": 73.0,
+      "items": [
+        {
+          "name": "Byrne - 36% Heavy Cream Quart",
+          "brand": "Byrne Dairy",
+          "units": 46.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 11.0,
+          "lines": 6,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 11.0,
+          "lines": 8,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 3.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "977564c9-6b00-4fbb-90f2-c9747d3e461a",
+      "name": "Van Leeuwen : Ballston #6305",
+      "hasHistory": true,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 67.0,
+      "items": [
+        {
+          "name": "Byrne - 36% Heavy Cream Quart",
+          "brand": "Byrne Dairy",
+          "units": 48.0,
+          "lines": 4,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 10.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 8.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "0207bd89-7f54-46f4-9a67-511cd774cf98",
+      "name": "Van Leeuwen : National Landing #6301",
+      "hasHistory": true,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 66.0,
+      "items": [
+        {
+          "name": "Byrne - 36% Heavy Cream Quart",
+          "brand": "Byrne Dairy",
+          "units": 46.0,
+          "lines": 5,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 8.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 8.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 2.0,
+          "lines": 2,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "17cc8aad-686e-4651-b1f9-1b528123eec4",
+      "name": "Pura Vida Miami : Mosaic District - 8296 Glass Alley",
+      "hasHistory": true,
+      "skus": 4,
+      "gapSkus": 0,
+      "units": 64.0,
+      "items": [
+        {
+          "name": "1883 Vanilla Syrup 1L PLASTIC",
+          "brand": "1883",
+          "units": 34.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Monin Organic Agave Syrup 750ml Glass",
+          "brand": "Monin",
+          "units": 29.0,
+          "lines": 3,
+          "inDca1": true
+        },
+        {
+          "name": "Harmless Harvest 100% Coconut Water 10oz",
+          "brand": "Harmless Harvest",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Delivery Fee",
+          "brand": "",
+          "units": 0.0,
+          "lines": 3,
+          "inDca1": true
+        }
+      ]
+    },
+    {
+      "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
+      "name": "Van Leeuwen : 14th St #6204",
+      "hasHistory": true,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 57.0,
+      "items": [
+        {
+          "name": "Byrne - 36% Heavy Cream Quart",
+          "brand": "Byrne Dairy",
+          "units": 36.0,
+          "lines": 3,
+          "inDca1": false
+        },
+        {
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 10.0,
+          "lines": 4,
+          "inDca1": true
+        },
+        {
+          "name": "Boylan Bottling Co. Root Beer Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 8.0,
+          "lines": 5,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "",
+          "units": 2.0,
+          "lines": 1,
+          "inDca1": true
+        },
+        {
+          "name": "Califia Farms Barista Almond Milk 32oz",
+          "brand": "",
+          "units": 1.0,
+          "lines": 1,
+          "inDca1": true
+        }
+      ]
+    },
+    {
       "uuid": "8d9c530a-0659-4e48-ba31-9469ff8d6a79",
       "name": "Van Leeuwen : Union Station #6205",
       "hasHistory": true,
-      "skus": 9,
-      "gapSkus": 4,
-      "units": 103.0,
+      "skus": 6,
+      "gapSkus": 1,
+      "units": 53.0,
       "items": [
         {
           "name": "Byrne - 36% Heavy Cream Quart",
           "brand": "Byrne Dairy",
           "units": 38.0,
           "lines": 4,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 38.0,
-          "lines": 6,
-          "inDca1": false
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 8.0,
-          "lines": 5,
           "inDca1": false
         },
         {
@@ -8842,13 +6379,6 @@
           "inDca1": true
         },
         {
-          "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 4.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
           "name": "Califia Farms Barista Oat Milk 32oz",
           "brand": "Califia Farms",
           "units": 3.0,
@@ -8872,109 +6402,12 @@
       ]
     },
     {
-      "uuid": "0f1dc37f-fd0f-49e5-9928-af108d139832",
-      "name": "Van Leeuwen : 14th St #6204",
-      "hasHistory": true,
-      "skus": 5,
-      "gapSkus": 3,
-      "units": 72.0,
-      "items": [
-        {
-          "name": "Byrne - 36% Heavy Cream Quart",
-          "brand": "Byrne Dairy",
-          "units": 36.0,
-          "lines": 3,
-          "inDca1": false
-        },
-        {
-          "name": "Neutral Whole Milk 1 Gallon",
-          "brand": "Neutral",
-          "units": 16.0,
-          "lines": 2,
-          "inDca1": false
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 8.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Root Beer Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 6.0,
-          "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 6.0,
-          "lines": 3,
-          "inDca1": false
-        }
-      ]
-    },
-    {
-      "uuid": "17cc8aad-686e-4651-b1f9-1b528123eec4",
-      "name": "Pura Vida Miami : Mosaic District - 8296 Glass Alley",
-      "hasHistory": true,
-      "skus": 6,
-      "gapSkus": 1,
-      "units": 71.0,
-      "items": [
-        {
-          "name": "1883 Vanilla Syrup 1L PLASTIC",
-          "brand": "1883",
-          "units": 34.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Monin Organic Agave Syrup 750ml Glass",
-          "brand": "Monin",
-          "units": 29.0,
-          "lines": 3,
-          "inDca1": true
-        },
-        {
-          "name": "Tenzo Organic Ceremonial Matcha 400g Bag",
-          "brand": "Tenzo",
-          "units": 6.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Harmless Harvest 100% Coconut Water 10oz",
-          "brand": "Harmless Harvest",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Rishi Butterfly Pea Flower Loose Tea 100g",
-          "brand": "Rishi",
-          "units": 1.0,
-          "lines": 1,
-          "inDca1": false
-        },
-        {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
-          "lines": 3,
-          "inDca1": true
-        }
-      ]
-    },
-    {
       "uuid": "e40efb93-b7d9-496e-845a-2db54c99bf51",
       "name": "Pura Vida Miami : Cabin John Village - 7993 Tuckerman Lane",
       "hasHistory": true,
-      "skus": 7,
-      "gapSkus": 1,
-      "units": 59.0,
+      "skus": 4,
+      "gapSkus": 0,
+      "units": 49.0,
       "items": [
         {
           "name": "1883 Vanilla Syrup 1L PLASTIC",
@@ -8989,33 +6422,12 @@
           "units": 22.0,
           "lines": 5,
           "inDca1": true
-        },
-        {
-          "name": "Rishi Butterfly Pea Flower Loose Tea 100g",
-          "brand": "Rishi",
-          "units": 6.0,
-          "lines": 5,
-          "inDca1": false
         },
         {
           "name": "Harmless Harvest 100% Coconut Water 10oz",
           "brand": "Harmless Harvest",
           "units": 5.0,
           "lines": 4,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Rinza Milk Frother Cleaner Tablets 120ct",
-          "brand": "Urnex",
-          "units": 2.0,
-          "lines": 1,
-          "inDca1": true
-        },
-        {
-          "name": "Urnex Tabz Z61 120ct Jar",
-          "brand": "Urnex",
-          "units": 2.0,
-          "lines": 1,
           "inDca1": true
         },
         {
