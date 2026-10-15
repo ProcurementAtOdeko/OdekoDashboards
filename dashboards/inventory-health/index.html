@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · Inventory Health Scorecard</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>Inventory Health Scorecard</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <div class="actions">
+    <select id="wh-picker" aria-label="Warehouse"></select>
+    <button id="btn-export" title="Download every view as a formatted Excel workbook">Export Excel</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist">
+  <button role="tab" data-view="dashboard" aria-selected="true">Dashboard</button>
+  <button role="tab" data-view="score-engine" aria-selected="false">Score Engine<span class="badge" id="tab-se"></span></button>
+  <button role="tab" data-view="on-hand" aria-selected="false">On Hand</button>
+  <button role="tab" data-view="brand-eval" aria-selected="false">Brand Evaluation</button>
+  <button role="tab" data-view="summary" aria-selected="false">Summary</button>
+  <button role="tab" data-view="inactive" aria-selected="false">Inactive<span class="badge" id="tab-in"></span></button>
+  <button role="tab" data-view="sunset-review" aria-selected="false">Sunset Review<span class="badge" id="tab-sr"></span></button>
+</nav>
+
+<main>
+  <!-- ------------------------------------------------------------ DASHBOARD -->
+  <section class="view" id="view-dashboard">
+    <div class="kpis" id="kpis"></div>
+    <div class="charts">
+      <div class="card chart">
+        <h3>Recommendation mix</h3>
+        <div class="body"><canvas id="chart-rec"></canvas></div>
+      </div>
+      <div class="card chart">
+        <h3>12-month revenue by category</h3>
+        <div class="body"><canvas id="chart-rev"></canvas></div>
+      </div>
+      <div class="card full">
+        <h3>ABC × XYZ matrix
+          <span class="note">Active SKUs · count and on-hand cost</span></h3>
+        <div class="body scroll" id="matrix"></div>
+      </div>
+      <div class="card full">
+        <h3>Category performance
+          <span class="note">DIO and ITO are computed from category totals, not averaged across items</span></h3>
+        <div class="scroll"><table id="cat-tbl"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------------------------------------------------- SCORE ENGINE -->
+  <section class="view" id="view-score-engine" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="se-q" placeholder="Search item, brand or ID…" />
+        <select id="se-rec"><option value="">All recommendations</option><option>KEEP</option><option>WATCH</option><option>SUNSET</option></select>
+        <select id="se-abc"><option value="">All ABC</option><option>A</option><option>B</option><option>C</option></select>
+        <select id="se-xyz"><option value="">All XYZ</option><option>X</option><option>Y</option><option>Z</option></select>
+        <select id="se-cat"><option value="">All categories</option></select>
+        <select id="se-status"><option value="">All status</option><option>Active</option><option>New To Market</option></select>
+        <button id="se-clear">Clear</button>
+        <span class="count" id="se-count"></span>
+      </div>
+      <div class="scroll"><table id="se-tbl"></table></div>
+    </div>
+  </section>
+
+  <!-- --------------------------------------------------------------- ON HAND -->
+  <section class="view" id="view-on-hand" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="oh-q" placeholder="Search item, brand or ID…" />
+        <select id="oh-cat"><option value="">All categories</option></select>
+        <select id="oh-brand"><option value="">All brands</option></select>
+        <button id="oh-clear">Clear</button>
+        <span class="count" id="oh-count"></span>
+      </div>
+      <div class="scroll"><table id="oh-tbl"></table></div>
+    </div>
+  </section>
+
+  <!-- --------------------------------------------------------- BRAND EVAL -->
+  <section class="view" id="view-brand-eval" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="be-q" placeholder="Search brand…" />
+        <select id="be-rec"><option value="">All recommendations</option></select>
+        <button id="be-clear">Clear</button>
+        <span class="count" id="be-count"></span>
+      </div>
+      <div class="scroll"><table id="be-tbl"></table></div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------- SUMMARY -->
+  <section class="view" id="view-summary" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="sum-q" placeholder="Search item, brand or ID…" />
+        <select id="sum-cat"><option value="">All categories</option></select>
+        <select id="sum-abc"><option value="">All ABC</option><option>A</option><option>B</option><option>C</option></select>
+        <select id="sum-xyz"><option value="">All XYZ</option><option>X</option><option>Y</option><option>Z</option></select>
+        <button id="sum-clear">Clear</button>
+        <span class="count" id="sum-count"></span>
+      </div>
+      <div class="scroll"><table id="sum-tbl"></table></div>
+    </div>
+  </section>
+
+  <!-- ---------------------------------------------------------- INACTIVE -->
+  <section class="view" id="view-inactive" hidden>
+    <div class="notice">
+      Items with no live procurement position, or with no signal in any source.
+      They are excluded from every other view and from scoring, but still count
+      toward <strong>Total SKUs</strong> and toward stranded inventory cost.
+    </div>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="in-q" placeholder="Search item, brand or ID…" />
+        <select id="in-status"><option value="">All status</option><option>Inactive</option><option>No Data</option></select>
+        <select id="in-cat"><option value="">All categories</option></select>
+        <button id="in-clear">Clear</button>
+        <span class="count" id="in-count"></span>
+      </div>
+      <div class="scroll"><table id="in-tbl"></table></div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------- SUNSET REVIEW -->
+  <section class="view" id="view-sunset-review" hidden>
+    <div class="notice" id="sr-status">Loading…</div>
+    <div class="card">
+      <div class="toolbar">
+        <input type="search" id="sr-q" placeholder="Search item, brand or ID…" />
+        <select id="sr-state">
+          <option value="">All</option>
+          <option value="pending">Pending review</option>
+          <option value="CONFIRM">Confirmed sunset</option>
+          <option value="KEEP">Kept → WATCH</option>
+        </select>
+        <span class="spacer"></span>
+        <button id="sr-export">Export review file</button>
+        <button id="sr-import-btn">Import reviewed file</button>
+        <input type="file" id="sr-import" accept=".xlsx" hidden />
+        <button id="sr-export-confirmed" class="primary">Export confirmed kill list</button>
+        <span class="count" id="sr-count"></span>
+      </div>
+      <div class="scroll"><table id="sr-tbl"></table></div>
+    </div>
+  </section>
+</main>
+
+<!-- ------------------------------------------------------- DRILL-DOWN MODAL -->
+<div class="modal-bg" id="drill" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="drill-title">
+    <div class="mh">
+      <div>
+        <h2 id="drill-title"></h2>
+        <div class="sub" id="drill-sub"></div>
+      </div>
+      <button id="drill-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mb" id="drill-body"></div>
+  </div>
+</div>
+
+<!-- ---------------------------------------------------------- DECISION MODAL -->
+<div class="modal-bg" id="decide" hidden>
+  <div class="modal" style="width:min(520px,100%)" role="dialog" aria-modal="true" aria-labelledby="decide-title">
+    <div class="mh">
+      <div>
+        <h2 id="decide-title">Record decision</h2>
+        <div class="sub" id="decide-sub"></div>
+      </div>
+      <button id="decide-close" aria-label="Close">✕</button>
+    </div>
+    <div class="mb">
+      <div class="field">
+        <label for="decide-by">Your name</label>
+        <input type="text" id="decide-by" placeholder="e.g. Brian Hiney" />
+      </div>
+      <div class="field">
+        <label for="decide-note">Note (why)</label>
+        <input type="text" id="decide-note" placeholder="e.g. key account still orders it" />
+      </div>
+      <div class="notice" id="decide-warn" hidden></div>
+    </div>
+    <div class="mf">
+      <button id="decide-clear">Clear decision</button>
+      <span class="spacer"></span>
+      <button id="decide-keep">Keep → WATCH</button>
+      <button id="decide-confirm" class="primary">Confirm sunset</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
