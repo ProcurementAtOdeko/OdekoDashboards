@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-10-15T06:31:01+00:00",
+  "generatedAt": "2026-10-16T11:56:17+00:00",
   "origin": "PWM1",
   "destination": "BOS1",
   "sourceEmpty": false,
-  "sourceRows": 81660,
+  "sourceRows": 82788,
   "dateRange": {
-    "min": "2026-07-18",
+    "min": "2026-07-19",
     "max": "2026-10-01"
   },
   "summary": {
     "customersListed": 22,
     "customersActive": 20,
-    "skusPurchased": 54,
+    "skusPurchased": 53,
     "skusCarried": 37,
-    "skusGap": 17,
-    "coveragePct": 69,
-    "unitsTotal": 4707.0,
-    "gapUnitsTotal": 920.0,
+    "skusGap": 16,
+    "coveragePct": 70,
+    "unitsTotal": 4697.0,
+    "gapUnitsTotal": 838.0,
     "formatSubstitutes": 1,
-    "bos1CatalogSkus": 1066,
+    "bos1CatalogSkus": 808,
     "deliveryDayChanges": 22
   },
   "coverage": [
@@ -28,7 +28,7 @@
     },
     {
       "status": "Not carried (gap)",
-      "count": 17
+      "count": 16
     }
   ],
   "groups": [
@@ -44,9 +44,9 @@
       "group": "Van Leeuwen",
       "locations": 8,
       "active": 8,
-      "units": 381.0,
-      "skus": 9,
-      "gapSkus": 2
+      "units": 371.0,
+      "skus": 8,
+      "gapSkus": 1
     }
   ],
   "topGapSkus": [
@@ -68,11 +68,6 @@
     {
       "name": "Bloomin Foods - Blank Street Coconut Cream 2.5L Pouch",
       "units": 99.0,
-      "customers": 11
-    },
-    {
-      "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
-      "units": 82.0,
       "customers": 11
     },
     {
@@ -131,9 +126,9 @@
       "customers": 1
     },
     {
-      "name": "Delivery Fee",
+      "name": "Fuel Surcharge",
       "units": 0.0,
-      "customers": 1
+      "customers": 9
     }
   ],
   "topGapBrands": [
@@ -143,11 +138,6 @@
       "skus": 1
     },
     {
-      "brand": "Bloomin Foods",
-      "units": 181.0,
-      "skus": 2
-    },
-    {
       "brand": "Re\u00e1l",
       "units": 150.0,
       "skus": 2
@@ -155,6 +145,11 @@
     {
       "brand": "Yakami Orchard",
       "units": 111.0,
+      "skus": 1
+    },
+    {
+      "brand": "Bloomin Foods",
+      "units": 99.0,
       "skus": 1
     },
     {
@@ -210,8 +205,7 @@
           "name": "Monin Cinnamon Bun Syrup 750ml Glass",
           "sources": [
             "catalog",
-            "onhand",
-            "sold"
+            "onhand"
           ],
           "pack": "750 ml glass",
           "sameSize": false
@@ -229,8 +223,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -289,16 +282,16 @@
           "lines": 8
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
-          "units": 30.0,
-          "lines": 8
-        },
-        {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
           "units": 30.0,
           "lines": 5
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
+          "units": 30.0,
+          "lines": 8
         }
       ]
     },
@@ -311,8 +304,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -392,8 +384,7 @@
       "lines": 99,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -452,14 +443,14 @@
           "lines": 9
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 19.0,
           "lines": 7
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
           "units": 19.0,
           "lines": 7
         }
@@ -551,8 +542,7 @@
       "lines": 84,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 12,
       "custDetail": [
@@ -575,16 +565,16 @@
           "lines": 8
         },
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 24.0,
-          "lines": 7
-        },
-        {
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
           "units": 24.0,
           "lines": 8
+        },
+        {
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 24.0,
+          "lines": 7
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
@@ -638,8 +628,7 @@
       "lines": 133,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -680,16 +669,16 @@
           "lines": 11
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 12.0,
-          "lines": 11
-        },
-        {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
           "units": 12.0,
           "lines": 9
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 12.0,
+          "lines": 11
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
@@ -719,8 +708,7 @@
       "lines": 84,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 12,
       "custDetail": [
@@ -806,8 +794,7 @@
       "lines": 106,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -881,15 +868,14 @@
     },
     {
       "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-      "brand": "",
+      "brand": "Urnex",
       "itemUuid": "a5003723-4a90-4be9-82bb-11fdfb64b0d1",
       "units": 167.0,
       "lines": 64,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -936,16 +922,16 @@
           "lines": 5
         },
         {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
-          "units": 10.0,
-          "lines": 3
-        },
-        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 10.0,
           "lines": 6
+        },
+        {
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
+          "units": 10.0,
+          "lines": 3
         },
         {
           "uuid": "af492171-9c65-4977-928d-2de10f83344b",
@@ -963,15 +949,14 @@
     },
     {
       "name": "1883 Syrup Pump (Glass)",
-      "brand": "1883",
+      "brand": "",
       "itemUuid": "bf1851c3-19f7-43aa-affd-08a8fef5eb39",
       "units": 159.0,
       "lines": 21,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 7,
       "custDetail": [
@@ -994,16 +979,16 @@
           "lines": 5
         },
         {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 8.0,
-          "lines": 1
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 8.0,
           "lines": 2
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
+          "units": 8.0,
+          "lines": 1
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
@@ -1020,70 +1005,6 @@
       ]
     },
     {
-      "name": "Boylan Bottling Co. Ginger Ale Soda",
-      "brand": "Boylan Bottling Company",
-      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
-      "units": 126.0,
-      "lines": 44,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand",
-        "sold"
-      ],
-      "customers": 8,
-      "custDetail": [
-        {
-          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
-          "name": "Van Leeuwen : Lyrik #2506",
-          "units": 25.0,
-          "lines": 8
-        },
-        {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 19.0,
-          "lines": 7
-        },
-        {
-          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
-          "name": "Van Leeuwen : Fenway #2505",
-          "units": 19.0,
-          "lines": 6
-        },
-        {
-          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-          "name": "Van Leeuwen : Burlington Mall #2508",
-          "units": 19.0,
-          "lines": 7
-        },
-        {
-          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
-          "name": "Van Leeuwen : Boston Seaport #2503",
-          "units": 18.0,
-          "lines": 8
-        },
-        {
-          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
-          "name": "Van Leeuwen : Chestnut Hill #2502",
-          "units": 15.0,
-          "lines": 4
-        },
-        {
-          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
-          "name": "Van Leeuwen : Linden Square #2504",
-          "units": 6.0,
-          "lines": 2
-        },
-        {
-          "uuid": "b8c687b9-955a-42ec-9930-2bbce8ff709c",
-          "name": "Van Leeuwen : Northshore Mall #2507",
-          "units": 5.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
       "name": "Hollander Dutched Chocolate Cafe Sauce 64oz",
       "brand": "Hollander",
       "itemUuid": "a3f1efb2-b7d1-4436-9b67-a4d38ad92912",
@@ -1092,8 +1013,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -1116,16 +1036,16 @@
           "lines": 8
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 13.0,
-          "lines": 8
-        },
-        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 13.0,
           "lines": 10
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 13.0,
+          "lines": 8
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
@@ -1166,6 +1086,69 @@
       ]
     },
     {
+      "name": "Boylan Bottling Co. Ginger Ale Soda",
+      "brand": "Boylan Bottling Company",
+      "itemUuid": "ed1bc9d6-a29d-4211-b17e-10f4853882c7",
+      "units": 121.0,
+      "lines": 42,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand"
+      ],
+      "customers": 8,
+      "custDetail": [
+        {
+          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
+          "name": "Van Leeuwen : Lyrik #2506",
+          "units": 25.0,
+          "lines": 8
+        },
+        {
+          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
+          "name": "Van Leeuwen : Fenway #2505",
+          "units": 19.0,
+          "lines": 6
+        },
+        {
+          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
+          "name": "Van Leeuwen : Boston Seaport #2503",
+          "units": 18.0,
+          "lines": 8
+        },
+        {
+          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+          "name": "Van Leeuwen : Harvard Square #2501",
+          "units": 17.0,
+          "lines": 6
+        },
+        {
+          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+          "name": "Van Leeuwen : Burlington Mall #2508",
+          "units": 16.0,
+          "lines": 6
+        },
+        {
+          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
+          "name": "Van Leeuwen : Chestnut Hill #2502",
+          "units": 15.0,
+          "lines": 4
+        },
+        {
+          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
+          "name": "Van Leeuwen : Linden Square #2504",
+          "units": 6.0,
+          "lines": 2
+        },
+        {
+          "uuid": "b8c687b9-955a-42ec-9930-2bbce8ff709c",
+          "name": "Van Leeuwen : Northshore Mall #2507",
+          "units": 5.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "David Protein Bars - Blueberry",
       "brand": "David Protein",
       "itemUuid": "58c2bb49-6ff6-4b70-aba4-32a4069cfd54",
@@ -1173,8 +1156,7 @@
       "lines": 87,
       "inBos1": true,
       "bos1Sources": [
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 11,
       "custDetail": [
@@ -1209,6 +1191,12 @@
           "lines": 9
         },
         {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 10.0,
+          "lines": 9
+        },
+        {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
           "units": 10.0,
@@ -1219,12 +1207,6 @@
           "name": "Blank Street : 48 West Broadway",
           "units": 10.0,
           "lines": 6
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 10.0,
-          "lines": 9
         },
         {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
@@ -1437,16 +1419,16 @@
           "lines": 6
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
-          "units": 9.0,
-          "lines": 4
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 9.0,
           "lines": 7
+        },
+        {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 9.0,
+          "lines": 4
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
@@ -1489,8 +1471,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 12,
       "custDetail": [
@@ -1525,28 +1506,28 @@
           "lines": 5
         },
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
-          "units": 8.0,
-          "lines": 6
-        },
-        {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
           "units": 8.0,
           "lines": 7
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 7.0,
-          "lines": 4
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
+          "units": 8.0,
+          "lines": 6
         },
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
           "name": "Blank Street : 282 Cambridge Street",
           "units": 7.0,
           "lines": 6
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 7.0,
+          "lines": 4
         },
         {
           "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
@@ -1569,70 +1550,6 @@
       ]
     },
     {
-      "name": "Gossner Whole Milk 32oz",
-      "brand": "Gossner Foods",
-      "itemUuid": "d0c1e15e-659d-478b-a420-ec3799220498",
-      "units": 96.0,
-      "lines": 41,
-      "inBos1": true,
-      "bos1Sources": [
-        "catalog",
-        "onhand",
-        "sold"
-      ],
-      "customers": 8,
-      "custDetail": [
-        {
-          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
-          "name": "Van Leeuwen : Lyrik #2506",
-          "units": 27.0,
-          "lines": 10
-        },
-        {
-          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-          "name": "Van Leeuwen : Burlington Mall #2508",
-          "units": 22.0,
-          "lines": 7
-        },
-        {
-          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
-          "name": "Van Leeuwen : Fenway #2505",
-          "units": 14.0,
-          "lines": 6
-        },
-        {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 10.0,
-          "lines": 6
-        },
-        {
-          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
-          "name": "Van Leeuwen : Chestnut Hill #2502",
-          "units": 7.0,
-          "lines": 3
-        },
-        {
-          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
-          "name": "Van Leeuwen : Boston Seaport #2503",
-          "units": 6.0,
-          "lines": 5
-        },
-        {
-          "uuid": "b8c687b9-955a-42ec-9930-2bbce8ff709c",
-          "name": "Van Leeuwen : Northshore Mall #2507",
-          "units": 6.0,
-          "lines": 2
-        },
-        {
-          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
-          "name": "Van Leeuwen : Linden Square #2504",
-          "units": 4.0,
-          "lines": 2
-        }
-      ]
-    },
-    {
       "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
       "brand": "Open Water",
       "itemUuid": "946d3082-7230-4cb6-9440-0a9ec6ed443e",
@@ -1641,8 +1558,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 8,
       "custDetail": [
@@ -1705,8 +1621,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 6,
       "custDetail": [
@@ -1749,13 +1664,78 @@
       ]
     },
     {
+      "name": "Gossner Whole Milk 32oz",
+      "brand": "Gossner Foods",
+      "itemUuid": "d0c1e15e-659d-478b-a420-ec3799220498",
+      "units": 92.0,
+      "lines": 40,
+      "inBos1": true,
+      "bos1Sources": [
+        "catalog",
+        "onhand"
+      ],
+      "customers": 8,
+      "custDetail": [
+        {
+          "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
+          "name": "Van Leeuwen : Lyrik #2506",
+          "units": 27.0,
+          "lines": 10
+        },
+        {
+          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+          "name": "Van Leeuwen : Burlington Mall #2508",
+          "units": 18.0,
+          "lines": 6
+        },
+        {
+          "uuid": "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
+          "name": "Van Leeuwen : Fenway #2505",
+          "units": 14.0,
+          "lines": 6
+        },
+        {
+          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
+          "name": "Van Leeuwen : Harvard Square #2501",
+          "units": 10.0,
+          "lines": 6
+        },
+        {
+          "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
+          "name": "Van Leeuwen : Chestnut Hill #2502",
+          "units": 7.0,
+          "lines": 3
+        },
+        {
+          "uuid": "b8c687b9-955a-42ec-9930-2bbce8ff709c",
+          "name": "Van Leeuwen : Northshore Mall #2507",
+          "units": 6.0,
+          "lines": 2
+        },
+        {
+          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
+          "name": "Van Leeuwen : Boston Seaport #2503",
+          "units": 6.0,
+          "lines": 5
+        },
+        {
+          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
+          "name": "Van Leeuwen : Linden Square #2504",
+          "units": 4.0,
+          "lines": 2
+        }
+      ]
+    },
+    {
       "name": "Bloomin Foods - Blank Street Horchata Syrup 750mL Bottle",
       "brand": "Bloomin Foods",
       "itemUuid": "ddd437dd-84a6-4c77-a50d-a754601182cf",
       "units": 82.0,
       "lines": 44,
-      "inBos1": false,
-      "bos1Sources": [],
+      "inBos1": true,
+      "bos1Sources": [
+        "onhand"
+      ],
       "customers": 11,
       "custDetail": [
         {
@@ -1835,8 +1815,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 10,
       "custDetail": [
@@ -1906,13 +1885,12 @@
       "name": "Califia Farms Barista Oat Milk 32oz",
       "brand": "Califia Farms",
       "itemUuid": "2d05faec-fbce-4a35-b6bf-0df8492976a3",
-      "units": 44.0,
-      "lines": 16,
+      "units": 43.0,
+      "lines": 15,
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 9,
       "custDetail": [
@@ -1931,8 +1909,8 @@
         {
           "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
           "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 4.0,
-          "lines": 4
+          "units": 3.0,
+          "lines": 3
         },
         {
           "uuid": "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
@@ -1947,6 +1925,12 @@
           "lines": 2
         },
         {
+          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
+          "name": "Van Leeuwen : Boston Seaport #2503",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
           "units": 1.0,
@@ -1955,12 +1939,6 @@
         {
           "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
           "name": "Van Leeuwen : Chestnut Hill #2502",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "96b14b16-392f-46ef-8269-fde31e9e21b0",
-          "name": "Van Leeuwen : Boston Seaport #2503",
           "units": 1.0,
           "lines": 1
         },
@@ -1986,6 +1964,18 @@
       "customers": 12,
       "custDetail": [
         {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 4.0,
+          "lines": 3
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
+          "units": 4.0,
+          "lines": 4
+        },
+        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 4.0,
@@ -2002,18 +1992,6 @@
           "name": "Blank Street : 489 East Broadway",
           "units": 4.0,
           "lines": 3
-        },
-        {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 4.0,
-          "lines": 3
-        },
-        {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 4.0,
-          "lines": 4
         },
         {
           "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
@@ -2106,14 +2084,14 @@
           "lines": 3
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
           "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 2.0,
           "lines": 2
         },
@@ -2160,16 +2138,16 @@
           "lines": 4
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 4.0,
-          "lines": 4
-        },
-        {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
           "units": 4.0,
           "lines": 2
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 4.0,
+          "lines": 4
         },
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
@@ -2202,14 +2180,14 @@
           "lines": 2
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
           "units": 1.0,
           "lines": 1
         }
@@ -2224,8 +2202,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 7,
       "custDetail": [
@@ -2314,14 +2291,14 @@
           "lines": 2
         },
         {
-          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
-          "name": "Van Leeuwen : Linden Square #2504",
+          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+          "name": "Van Leeuwen : Burlington Mall #2508",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-          "name": "Van Leeuwen : Burlington Mall #2508",
+          "uuid": "a305e919-8832-489d-825f-0e8208e04486",
+          "name": "Van Leeuwen : Linden Square #2504",
           "units": 1.0,
           "lines": 1
         }
@@ -2336,8 +2313,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 7,
       "custDetail": [
@@ -2354,14 +2330,14 @@
           "lines": 3
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 3.0,
           "lines": 3
         },
         {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
           "units": 3.0,
           "lines": 3
         },
@@ -2414,14 +2390,14 @@
           "lines": 3
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
+          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 3.0,
           "lines": 3
         },
         {
-          "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
-          "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
           "units": 3.0,
           "lines": 3
         },
@@ -2454,8 +2430,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 8,
       "custDetail": [
@@ -2518,20 +2493,19 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 10,
       "custDetail": [
         {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
           "units": 3.0,
           "lines": 2
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
           "units": 3.0,
           "lines": 2
         },
@@ -2594,8 +2568,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 5,
       "custDetail": [
@@ -2606,16 +2579,16 @@
           "lines": 3
         },
         {
-          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
-          "name": "Blank Street : 250 West Newton Street",
-          "units": 4.0,
-          "lines": 1
-        },
-        {
           "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
           "name": "Blank Street : 122 Causeway St",
           "units": 4.0,
           "lines": 2
+        },
+        {
+          "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
+          "name": "Blank Street : 250 West Newton Street",
+          "units": 4.0,
+          "lines": 1
         },
         {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
@@ -2640,20 +2613,19 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 8,
       "custDetail": [
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
+          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+          "name": "Blank Street : 97 Charles Street",
           "units": 4.0,
           "lines": 1
         },
         {
-          "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
-          "name": "Blank Street : 97 Charles Street",
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
           "units": 4.0,
           "lines": 1
         },
@@ -2715,12 +2687,6 @@
           "lines": 2
         },
         {
-          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
-          "name": "Blank Street : 1380 Massachusetts Avenue",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
           "units": 2.0,
@@ -2729,6 +2695,12 @@
         {
           "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
           "name": "Blank Street : 282 Cambridge Street",
+          "units": 2.0,
+          "lines": 2
+        },
+        {
+          "uuid": "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+          "name": "Blank Street : 1380 Massachusetts Avenue",
           "units": 2.0,
           "lines": 2
         },
@@ -2781,14 +2753,14 @@
           "lines": 3
         },
         {
-          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
-          "name": "Blank Street : 122 Causeway St",
+          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
+          "name": "Blank Street : 647 Boylston Street",
           "units": 2.0,
           "lines": 2
         },
         {
-          "uuid": "3131861d-f02d-4cba-b60d-4f522f503ff6",
-          "name": "Blank Street : 647 Boylston Street",
+          "uuid": "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+          "name": "Blank Street : 122 Causeway St",
           "units": 2.0,
           "lines": 2
         },
@@ -2821,8 +2793,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 2,
       "custDetail": [
@@ -2894,8 +2865,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 5,
       "custDetail": [
@@ -2906,26 +2876,26 @@
           "lines": 2
         },
         {
-          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
-          "name": "Blank Street : 489 East Broadway",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
           "uuid": "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
           "name": "Blank Street : 97 Charles Street",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
-          "name": "Blank Street : 48 West Broadway",
+          "uuid": "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+          "name": "Blank Street : 489 East Broadway",
           "units": 1.0,
           "lines": 1
         },
         {
           "uuid": "541f0d0e-1ddc-4288-a713-aae705db9b63",
           "name": "Blank Street : 250 West Newton Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "af492171-9c65-4977-928d-2de10f83344b",
+          "name": "Blank Street : 48 West Broadway",
           "units": 1.0,
           "lines": 1
         }
@@ -3020,8 +2990,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 6,
       "custDetail": [
@@ -3032,18 +3001,6 @@
           "lines": 2
         },
         {
-          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
-          "name": "Blank Street : 282 Cambridge Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
-          "name": "Blank Street : 61A Central Street",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
           "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
           "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
@@ -3052,6 +3009,18 @@
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "9568a168-5de6-4a6d-9fa7-730c7da17600",
+          "name": "Blank Street : 282 Cambridge Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
+          "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
+          "name": "Blank Street : 61A Central Street",
           "units": 1.0,
           "lines": 1
         },
@@ -3105,8 +3074,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 4,
       "custDetail": [
@@ -3163,8 +3131,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 5,
       "custDetail": [
@@ -3181,6 +3148,12 @@
           "lines": 1
         },
         {
+          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
+          "name": "Blank Street : 455 Harvard Street",
+          "units": 1.0,
+          "lines": 1
+        },
+        {
           "uuid": "6618afab-9dfd-43c4-8efa-bdae9add2928",
           "name": "Blank Street : 61A Central Street",
           "units": 1.0,
@@ -3189,12 +3162,6 @@
         {
           "uuid": "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
           "name": "Blank Street : Prudential Center - 111 Huntington Ave",
-          "units": 1.0,
-          "lines": 1
-        },
-        {
-          "uuid": "58f850e7-6e93-4cd3-960b-c22f2525e016",
-          "name": "Blank Street : 455 Harvard Street",
           "units": 1.0,
           "lines": 1
         }
@@ -3269,8 +3236,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 1,
       "custDetail": [
@@ -3291,8 +3257,7 @@
       "inBos1": true,
       "bos1Sources": [
         "catalog",
-        "onhand",
-        "sold"
+        "onhand"
       ],
       "customers": 1,
       "custDetail": [
@@ -3341,33 +3306,13 @@
       ]
     },
     {
-      "name": "Delivery Fee",
-      "brand": "",
-      "itemUuid": "",
-      "units": 0.0,
-      "lines": 1,
-      "inBos1": false,
-      "bos1Sources": [],
-      "customers": 1,
-      "custDetail": [
-        {
-          "uuid": "6d6df56d-0450-48f4-ae92-ea01417a1dd0",
-          "name": "Van Leeuwen : Harvard Square #2501",
-          "units": 0.0,
-          "lines": 1
-        }
-      ]
-    },
-    {
       "name": "Fuel Surcharge",
       "brand": "",
       "itemUuid": "",
       "units": 0.0,
       "lines": 9,
-      "inBos1": true,
-      "bos1Sources": [
-        "sold"
-      ],
+      "inBos1": false,
+      "bos1Sources": [],
       "customers": 9,
       "custDetail": [
         {
@@ -3490,7 +3435,7 @@
           "brand": "Bloomin Foods",
           "units": 23.0,
           "lines": 7,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
@@ -3501,14 +3446,14 @@
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "Re\u00e1l",
+          "brand": "",
           "units": 20.0,
           "lines": 7,
           "inBos1": false
         },
         {
           "name": "Yakami Orchard - Yuzu Marmalade 580g",
-          "brand": "",
+          "brand": "Yakami Orchard",
           "units": 19.0,
           "lines": 7,
           "inBos1": false
@@ -3609,7 +3554,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -3773,7 +3718,7 @@
           "brand": "Bloomin Foods",
           "units": 6.0,
           "lines": 3,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Hollander Sauce Pump",
@@ -3850,7 +3795,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -3927,7 +3872,7 @@
         },
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "",
+          "brand": "Urnex",
           "units": 21.0,
           "lines": 9,
           "inBos1": true
@@ -3986,7 +3931,7 @@
           "brand": "Bloomin Foods",
           "units": 9.0,
           "lines": 3,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "1883 Syrup Pump (Glass)",
@@ -4112,7 +4057,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -4140,7 +4085,7 @@
         },
         {
           "name": "1883 Syrup Pump (Glass)",
-          "brand": "1883",
+          "brand": "",
           "units": 79.0,
           "lines": 8,
           "inBos1": true
@@ -4248,7 +4193,7 @@
           "brand": "Bloomin Foods",
           "units": 9.0,
           "lines": 5,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Dona 1:1 Masala Chai Concentrate 64oz",
@@ -4287,7 +4232,7 @@
         },
         {
           "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-          "brand": "",
+          "brand": "EcoLogic Solutions",
           "units": 4.0,
           "lines": 2,
           "inBos1": true
@@ -4388,7 +4333,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -4517,7 +4462,7 @@
           "brand": "Bloomin Foods",
           "units": 13.0,
           "lines": 9,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
@@ -4636,7 +4581,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -4652,7 +4597,7 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 31,
-      "gapSkus": 10,
+      "gapSkus": 9,
       "units": 317.0,
       "items": [
         {
@@ -4685,7 +4630,7 @@
         },
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "",
+          "brand": "Urnex",
           "units": 23.0,
           "lines": 12,
           "inBos1": true
@@ -4699,7 +4644,7 @@
         },
         {
           "name": "Miss Jones Baking Co. Organic Cream Cheese Frosting",
-          "brand": "",
+          "brand": "Miss Jones Baking Co.",
           "units": 15.0,
           "lines": 8,
           "inBos1": true
@@ -4758,7 +4703,7 @@
           "brand": "Bloomin Foods",
           "units": 7.0,
           "lines": 6,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Dona 1:1 Masala Chai Concentrate 64oz",
@@ -4825,7 +4770,7 @@
         },
         {
           "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "",
+          "brand": "Urnex",
           "units": 2.0,
           "lines": 2,
           "inBos1": true
@@ -4999,7 +4944,7 @@
           "brand": "Bloomin Foods",
           "units": 5.0,
           "lines": 3,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
@@ -5125,7 +5070,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -5268,7 +5213,7 @@
           "brand": "Bloomin Foods",
           "units": 4.0,
           "lines": 3,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
@@ -5387,7 +5332,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -5422,7 +5367,7 @@
         },
         {
           "name": "Urnex Rinza Milk Frother Cleaner 32oz. Bottle",
-          "brand": "",
+          "brand": "Urnex",
           "units": 20.0,
           "lines": 5,
           "inBos1": true
@@ -5457,7 +5402,7 @@
         },
         {
           "name": "Urnex Biocaf Coffee Equipment Cleaning Powder 500 g Jar(s)",
-          "brand": "Urnex",
+          "brand": "",
           "units": 12.0,
           "lines": 2,
           "inBos1": true
@@ -5492,7 +5437,7 @@
         },
         {
           "name": "Re\u00e1l Watermelon Puree Infused Syrup 16.9fl oz",
-          "brand": "",
+          "brand": "Re\u00e1l",
           "units": 8.0,
           "lines": 3,
           "inBos1": false
@@ -5565,7 +5510,7 @@
           "brand": "Bloomin Foods",
           "units": 3.0,
           "lines": 2,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Everclean Milk Line Cleaning Liquid",
@@ -5656,7 +5601,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -5813,7 +5758,7 @@
           "brand": "Bloomin Foods",
           "units": 1.0,
           "lines": 1,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Pink House Alchemy - Blank Street Blueberry Syrup 16oz",
@@ -5841,7 +5786,7 @@
           "brand": "",
           "units": 0.0,
           "lines": 1,
-          "inBos1": true
+          "inBos1": false
         }
       ]
     },
@@ -5857,7 +5802,7 @@
       "deliveryDayChanged": true,
       "hasHistory": true,
       "skus": 28,
-      "gapSkus": 7,
+      "gapSkus": 6,
       "units": 179.0,
       "items": [
         {
@@ -5904,7 +5849,7 @@
         },
         {
           "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-          "brand": "David Protein",
+          "brand": "",
           "units": 10.0,
           "lines": 7,
           "inBos1": true
@@ -6005,7 +5950,7 @@
           "brand": "Bloomin Foods",
           "units": 2.0,
           "lines": 2,
-          "inBos1": false
+          "inBos1": true
         },
         {
           "name": "Chamellia Chai Garnish 1kg",
@@ -6264,58 +6209,6 @@
       ]
     },
     {
-      "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
-      "name": "Van Leeuwen : Burlington Mall #2508",
-      "group": "Van Leeuwen",
-      "location": "Burlington",
-      "state": "MA",
-      "zip": "01803",
-      "currentDeliveryDay": "Tues - Fri",
-      "newDeliveryDay": "Mon to Fri",
-      "deliveryDayChanged": true,
-      "hasHistory": true,
-      "skus": 5,
-      "gapSkus": 1,
-      "units": 50.0,
-      "items": [
-        {
-          "name": "Gossner Whole Milk 32oz",
-          "brand": "Gossner Foods",
-          "units": 22.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "Boylan Bottling Co. Ginger Ale Soda",
-          "brand": "Boylan Bottling Company",
-          "units": 19.0,
-          "lines": 7,
-          "inBos1": true
-        },
-        {
-          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
-          "brand": "Open Water",
-          "units": 7.0,
-          "lines": 4,
-          "inBos1": true
-        },
-        {
-          "name": "Califia Farms Barista Oat Milk 32oz",
-          "brand": "Califia Farms",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": true
-        },
-        {
-          "name": "Maine Root Root Beer 12 oz",
-          "brand": "Maine Root Beverages",
-          "units": 1.0,
-          "lines": 1,
-          "inBos1": false
-        }
-      ]
-    },
-    {
       "uuid": "d0efe4cf-4020-45a2-9d9f-caf9153e9444",
       "name": "Van Leeuwen : Chestnut Hill #2502",
       "group": "Van Leeuwen",
@@ -6392,15 +6285,15 @@
       "newDeliveryDay": "Mon to Fri",
       "deliveryDayChanged": true,
       "hasHistory": true,
-      "skus": 7,
-      "gapSkus": 2,
-      "units": 48.0,
+      "skus": 6,
+      "gapSkus": 1,
+      "units": 45.0,
       "items": [
         {
           "name": "Boylan Bottling Co. Ginger Ale Soda",
           "brand": "Boylan Bottling Company",
-          "units": 19.0,
-          "lines": 7,
+          "units": 17.0,
+          "lines": 6,
           "inBos1": true
         },
         {
@@ -6418,14 +6311,14 @@
           "inBos1": true
         },
         {
-          "name": "Califia Farms Barista Oat Milk 32oz",
+          "name": "Califia Farms Barista Almond Milk 32oz",
           "brand": "Califia Farms",
-          "units": 4.0,
-          "lines": 4,
+          "units": 3.0,
+          "lines": 3,
           "inBos1": true
         },
         {
-          "name": "Califia Farms Barista Almond Milk 32oz",
+          "name": "Califia Farms Barista Oat Milk 32oz",
           "brand": "Califia Farms",
           "units": 3.0,
           "lines": 3,
@@ -6437,11 +6330,56 @@
           "units": 3.0,
           "lines": 2,
           "inBos1": false
+        }
+      ]
+    },
+    {
+      "uuid": "1470ab63-5eae-4f3d-a298-5c8ab3f268a0",
+      "name": "Van Leeuwen : Burlington Mall #2508",
+      "group": "Van Leeuwen",
+      "location": "Burlington",
+      "state": "MA",
+      "zip": "01803",
+      "currentDeliveryDay": "Tues - Fri",
+      "newDeliveryDay": "Mon to Fri",
+      "deliveryDayChanged": true,
+      "hasHistory": true,
+      "skus": 5,
+      "gapSkus": 1,
+      "units": 43.0,
+      "items": [
+        {
+          "name": "Gossner Whole Milk 32oz",
+          "brand": "Gossner Foods",
+          "units": 18.0,
+          "lines": 6,
+          "inBos1": true
         },
         {
-          "name": "Delivery Fee",
-          "brand": "",
-          "units": 0.0,
+          "name": "Boylan Bottling Co. Ginger Ale Soda",
+          "brand": "Boylan Bottling Company",
+          "units": 16.0,
+          "lines": 6,
+          "inBos1": true
+        },
+        {
+          "name": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
+          "brand": "Open Water",
+          "units": 7.0,
+          "lines": 4,
+          "inBos1": true
+        },
+        {
+          "name": "Califia Farms Barista Oat Milk 32oz",
+          "brand": "Califia Farms",
+          "units": 1.0,
+          "lines": 1,
+          "inBos1": true
+        },
+        {
+          "name": "Maine Root Root Beer 12 oz",
+          "brand": "Maine Root Beverages",
+          "units": 1.0,
           "lines": 1,
           "inBos1": false
         }
