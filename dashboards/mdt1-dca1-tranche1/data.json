@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T07:54:21+00:00",
+  "generatedAt": "2026-10-20T13:49:27+00:00",
   "dateRange": {
     "min": "2026-07-28",
     "max": "2026-10-05"
@@ -8,20 +8,20 @@
     "customersListed": 16,
     "customersActive": 16,
     "skusPurchased": 149,
-    "skusCarried": 104,
-    "skusGap": 45,
+    "skusCarried": 105,
+    "skusGap": 44,
     "coveragePct": 70,
     "unitsTotal": 2626.0,
-    "gapUnitsTotal": 400.0
+    "gapUnitsTotal": 380.0
   },
   "coverage": [
     {
       "status": "Carried in DCA1",
-      "count": 104
+      "count": 105
     },
     {
       "status": "Not carried (gap)",
-      "count": 45
+      "count": 44
     }
   ],
   "topGapSkus": [
@@ -38,11 +38,6 @@
     {
       "name": "Almond Breeze Barista Unsweetened Almond Milk 32oz",
       "units": 30.0,
-      "customers": 1
-    },
-    {
-      "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
-      "units": 20.0,
       "customers": 1
     },
     {
@@ -124,13 +119,18 @@
       "name": "Stroopie Co. -  Plain/Traditional Gluten Free",
       "units": 2.0,
       "customers": 1
+    },
+    {
+      "name": "Torani Creme de Menthe Syrup 750ml Glass Bottle",
+      "units": 2.0,
+      "customers": 1
     }
   ],
   "topGapBrands": [
     {
       "brand": "Monin",
-      "units": 294.0,
-      "skus": 12
+      "units": 274.0,
+      "skus": 11
     },
     {
       "brand": "Uglies Kettle Chips",
@@ -220,7 +220,7 @@
     {
       "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "cb8b3dff-af59-458a-8d7d-4f1c54b62b14",
+      "itemUuid": "",
       "units": 156.0,
       "lines": 6,
       "inDca1": false,
@@ -476,7 +476,7 @@
     {
       "name": "Monin Pure Cane Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "818f8d0b-4a43-42b5-9bfc-fbfcbe685ec0",
+      "itemUuid": "",
       "units": 84.0,
       "lines": 4,
       "inDca1": true,
@@ -584,7 +584,7 @@
     {
       "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "bcb19e6c-5ac1-48b7-b7fb-3ea3f2c42868",
+      "itemUuid": "",
       "units": 48.0,
       "lines": 7,
       "inDca1": true,
@@ -660,7 +660,7 @@
     {
       "name": "Monin Sugar Free Vanilla Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "",
+      "itemUuid": "86cd2ad6-de34-4d7c-b667-a1c30fee0de0",
       "units": 44.0,
       "lines": 3,
       "inDca1": true,
@@ -951,11 +951,13 @@
     {
       "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "",
+      "itemUuid": "b5a40281-b7b1-4542-939b-3333c36514e5",
       "units": 20.0,
       "lines": 3,
-      "inDca1": false,
-      "dca1Sources": [],
+      "inDca1": true,
+      "dca1Sources": [
+        "onhand"
+      ],
       "customers": 1,
       "custDetail": [
         {
@@ -1351,16 +1353,16 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
-          "name": "Casey's Coffee : College Park",
-          "units": 6.0,
-          "lines": 3
-        },
-        {
           "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
           "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 6.0,
           "lines": 1
+        },
+        {
+          "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
+          "name": "Casey's Coffee : College Park",
+          "units": 6.0,
+          "lines": 3
         }
       ]
     },
@@ -1539,14 +1541,14 @@
           "lines": 6
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
         }
@@ -2150,16 +2152,16 @@
       "customers": 3,
       "custDetail": [
         {
-          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
-          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
-          "units": 2.0,
-          "lines": 1
-        },
-        {
           "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
           "name": "Bean Rush Cafe : Glen Burnie",
           "units": 2.0,
           "lines": 2
+        },
+        {
+          "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
+          "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
+          "units": 2.0,
+          "lines": 1
         },
         {
           "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
@@ -3746,6 +3748,12 @@
       "customers": 5,
       "custDetail": [
         {
+          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
+          "name": "French Press : 4918 Saint Elmo Avenue",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
           "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
           "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 0.0,
@@ -3764,12 +3772,6 @@
           "lines": 1
         },
         {
-          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
-          "name": "French Press : 4918 Saint Elmo Avenue",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
           "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
           "name": "Bean Rush Cafe : Glen Burnie",
           "units": 0.0,
@@ -3784,7 +3786,7 @@
       "name": "CBRC LLC dba Chesapeake Coffee Roasters : 2100 Concord Boulevard",
       "hasHistory": true,
       "skus": 23,
-      "gapSkus": 7,
+      "gapSkus": 6,
       "units": 1354.0,
       "items": [
         {
@@ -3890,7 +3892,7 @@
           "brand": "Monin",
           "units": 20.0,
           "lines": 3,
-          "inDca1": false
+          "inDca1": true
         },
         {
           "name": "Monin Sugar Free Hazelnut Syrup 1 Liter Plastic Bottle",
