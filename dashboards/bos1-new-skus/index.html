@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · BOS1 New-to-Market SKUs</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --olive: #6E8F3A;
+    --olive-soft: rgba(110,143,58,.14);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  select, input[type=search] {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font: inherit; font-size: 13px; max-width: 200px;
+  }
+  input[type=search] { min-width: 220px; max-width: none; }
+  .toggle { font-size: 12px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
+
+  .notice {
+    background: var(--amber-soft); border: 1px solid var(--line);
+    border-left: 3px solid var(--amber); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 16px; color: var(--ink-2); font-size: 13px;
+  }
+  .notice b { color: var(--amber); }
+  .notice a { color: var(--ink-2); }
+  .status-line {
+    background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent-yellow);
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 16px;
+    font-size: 15px; line-height: 1.6; color: var(--ink-2);
+  }
+  .status-line b { font-variant-numeric: tabular-nums; }
+  .freshness { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip.warn { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .value small { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .chart-box { height: 300px; position: relative; }
+  .empty { padding: 18px 16px; color: var(--muted); font-size: 13px; }
+  .empty.good { color: var(--green); font-weight: 600; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line); align-items: center; background: var(--bg);
+  }
+  .toolbar .count { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-2);
+    font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { background: #FAF4E4; border-color: var(--ink-2); }
+
+  .verdicts { display: flex; height: 30px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--panel-2); }
+  .verdicts > button {
+    border: 0; display: flex; align-items: center; justify-content: center; color: #fff; font: inherit;
+    font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; cursor: pointer; padding: 0;
+  }
+  .verdicts > button.dim { opacity: .3; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; background: var(--bg); position: sticky; top: 0; white-space: nowrap;
+  }
+  th[data-sort] { cursor: pointer; user-select: none; }
+  th[data-sort]:hover { color: var(--ink-2); }
+  th.sort-asc::after { content: " ▲"; color: var(--accent); }
+  th.sort-desc::after { content: " ▼"; color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .muted { color: var(--muted); }
+  .small { font-size: 12px; }
+  .tablewrap { overflow: auto; max-height: 640px; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.good { background: var(--green-soft); color: var(--green); }
+  .badge.olive { background: var(--olive-soft); color: var(--olive); }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .badge.bad { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+  .spark { display: block; }
+  .trend-up { color: var(--green); } .trend-down { color: var(--red); }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .status-line { font-size: 14px; }
+    input[type=search] { min-width: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>BOS1 — New-to-Market SKUs</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <div class="filters">
+    <select id="f-category" aria-label="Category"><option value="">All categories</option></select>
+    <select id="f-brand" aria-label="Brand"><option value="">All brands</option></select>
+    <select id="f-vendor" aria-label="Vendor"><option value="">All vendors</option></select>
+    <label class="toggle"><input type="checkbox" id="f-oneoff"> Show one-offs</label>
+  </div>
+</header>
+
+<main>
+  <div class="notice" id="notice" hidden></div>
+  <div class="status-line" id="status-line"></div>
+  <div class="freshness" id="freshness"></div>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h3>Launch verdicts <span class="note">click a segment to filter the table</span></h3>
+    <div class="body">
+      <div class="verdicts" id="verdict-bar"></div>
+      <div class="legend" id="verdict-legend"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Weekly units from new SKUs <span class="note" id="weekly-note"></span></h3>
+    <div class="body"><div class="chart-box"><canvas id="chart-weekly"></canvas></div></div>
+  </section>
+
+  <section class="card">
+    <h3>New SKUs <span class="note" id="table-note"></span></h3>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search item, brand, vendor…" />
+      <span class="count" id="count"></span>
+      <button class="btn" id="dl">⬇ Download CSV</button>
+    </div>
+    <div class="tablewrap">
+      <table id="skus">
+        <thead><tr>
+          <th data-sort="name">SKU</th>
+          <th data-sort="verdictRank">Verdict</th>
+          <th data-sort="launch">Launched</th>
+          <th class="num" data-sort="unitsPerWeek">Units / wk</th>
+          <th data-sort="trendPct">Trend</th>
+          <th class="num" data-sort="customers">Customers</th>
+          <th class="num" data-sort="index">vs network</th>
+          <th class="num" data-sort="repeatRate">Repeat</th>
+          <th class="num" data-sort="doc">Days cover</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>By category <span class="note">new SKUs per category and how they're landing</span></h3>
+    <div class="tablewrap">
+      <table id="cats">
+        <thead><tr>
+          <th>Category</th><th class="num">New SKUs</th><th class="num">Units / wk</th>
+          <th>Verdicts</th><th class="num">Median vs network</th><th class="num">Repeat</th><th class="num">Supply risk</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Supply watch <span class="note">new SKUs whose performance may be limited by stock, not demand</span></h3>
+    <div id="supply-body"></div>
+  </section>
+
+  <section class="card">
+    <h3>How verdicts work</h3>
+    <div class="body small muted" id="rules"></div>
+  </section>
+</main>
+
+<script>
+const fmt = (n, d = 1) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: d });
+const pct = (r, d = 0) => r == null ? "—" : `${(r * 100).toFixed(d)}%`;
+const VERDICTS = [
+  { name: "Winning",   color: "#1F7A33", cls: "good",  rank: 0 },
+  { name: "Building",  color: "#6E8F3A", cls: "olive", rank: 1 },
+  { name: "Too early", color: "#A89684", cls: "muted", rank: 2 },
+  { name: "Slow",      color: "#B5660A", cls: "warn",  rank: 3 },
+  { name: "Stalled",   color: "#B42318", cls: "bad",   rank: 4 },
+  { name: "One-off",   color: "#C9BBA6", cls: "muted", rank: 5 },
+];
+const V = Object.fromEntries(VERDICTS.map(v => [v.name, v]));
+let DATA = null, chart = null;
+const F = { category: "", brand: "", vendor: "", oneoff: false, verdict: "", q: "" };
+let sortKey = "verdictRank", sortDir = "asc", lastRows = [];
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+const shortDate = (iso) => iso ? new Date(iso + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "—";
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  DATA.skus.forEach(s => {
+    s.verdictRank = V[s.verdict]?.rank ?? 9;
+    s.index = s.network.index;
+  });
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · launched at BOS1 in the last ${DATA.thresholds.newWindowDays} days`;
+  for (const [id, key] of [["f-category", "category"], ["f-brand", "brand"], ["f-vendor", "vendor"]]) {
+    const vals = [...new Set(DATA.skus.map(s => s[key]).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const el = document.getElementById(id);
+    el.innerHTML += vals.map(v => `<option>${escapeHtml(v)}</option>`).join("");
+    el.addEventListener("change", () => { F[key] = el.value; render(); });
+  }
+  document.getElementById("f-oneoff").addEventListener("change", (e) => { F.oneoff = e.target.checked; render(); });
+  document.getElementById("search").addEventListener("input", (e) => { F.q = e.target.value.toLowerCase(); renderTable(); });
+  document.querySelectorAll("#skus th[data-sort]").forEach(th => th.addEventListener("click", () => {
+    const k = th.dataset.sort;
+    if (sortKey === k) sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortKey = k; sortDir = ["name", "verdictRank", "launch"].includes(k) ? "asc" : "desc"; }
+    renderTable();
+  }));
+  document.getElementById("dl").addEventListener("click", downloadCsv);
+  renderRules();
+  render();
+}
+
+// Everything but the verdict filter, which the verdict bar itself drives.
+function baseSkus() {
+  return DATA.skus.filter(s =>
+    (F.oneoff || s.verdict !== "One-off") &&
+    (!F.category || s.category === F.category) &&
+    (!F.brand || s.brand === F.brand) &&
+    (!F.vendor || s.vendor === F.vendor));
+}
+
+function render() {
+  const base = baseSkus();
+  renderNotice();
+  renderKpis(base);
+  renderVerdictBar(base);
+  renderWeekly(base);
+  renderTable();
+  renderCategories(base);
+  renderSupply(base);
+}
+
+function renderNotice() {
+  const p = DATA.sources.pairs, w = DATA.sources.weekly;
+  const el = document.getElementById("notice");
+  const look = (src) => `<a href="https://odeko.cloud.looker.com/looks/${src.look}" target="_blank" rel="noopener">Look ${src.look}</a> → "${escapeHtml(src.file)}"`;
+  const missing = [p, w].filter(s => s.status === "missing");
+  if (missing.length) {
+    el.hidden = false;
+    el.innerHTML = `<b>Waiting on the Looker export${missing.length > 1 ? "s" : ""}.</b> Schedule ${missing.map(look).join(" and ")} ` +
+      `into the Looker Data Dumps folder as a Google Sheet (all results). This page fills in on the next hourly refresh after ${missing.length > 1 ? "they land" : "it lands"}; stock and out-of-stock tracking below are already live.`;
+  } else el.hidden = true;
+
+  const chips = [];
+  if (p.through) {
+    const stale = p.status === "carried";
+    chips.push(`<span class="chip${stale ? " warn" : ""}">BOS1 fulfillments through ${shortDate(p.through)}${stale ? " · export empty this run, last good copy kept" : ""}</span>`);
+  }
+  chips.push(`<span class="chip">Network benchmark: ${DATA.sources.benchmark.warehouses.length} warehouses, trailing ~90 days</span>`);
+  if (DATA.sources.feoos.trackingSince)
+    chips.push(`<span class="chip">Out-of-stocks tracked since ${shortDate(DATA.sources.feoos.trackingSince)}</span>`);
+  if (DATA.bos1.activeCustomers)
+    chips.push(`<span class="chip">${fmt(DATA.bos1.activeCustomers)} active BOS1 customers (${DATA.thresholds.activeCustomerDays}d)</span>`);
+  document.getElementById("freshness").innerHTML = chips.join("");
+}
+
+// The last four complete weeks, the window "units per week lately" uses.
+function recentWeeks() {
+  const through = DATA.sources.pairs.through;
+  if (!through) return [];
+  const t = new Date(through + "T00:00:00Z");
+  const dow = (t.getUTCDay() + 6) % 7;
+  let end = new Date(t.getTime() - dow * 864e5);              // Monday of the current week
+  if (dow === 6) end = new Date(end.getTime() + 7 * 864e5);   // a Sunday completes it
+  return [4, 3, 2, 1].map(k => new Date(end.getTime() - k * 7 * 864e5).toISOString().slice(0, 10));
+}
+
+function renderKpis(base) {
+  const judged = base.filter(s => !["Too early", "One-off"].includes(s.verdict));
+  const count = (v) => base.filter(s => s.verdict === v).length;
+  const weeks = recentWeeks();
+  const recent = base.reduce((a, s) => a + weeks.reduce((b, w) => b + (s.byWeek[w] || 0), 0), 0) / (weeks.length || 1);
+  const total = DATA.weekly.filter(x => weeks.includes(x.week)).reduce((a, x) => a + x.total, 0) / (weeks.length || 1);
+  const idx = judged.map(s => s.index).filter(x => x != null).sort((a, b) => a - b);
+  const medIdx = idx.length ? idx[Math.floor((idx.length - 1) / 2)] : null;
+  const cust = judged.reduce((a, s) => a + s.customers, 0);
+  const rep = cust ? judged.reduce((a, s) => a + s.repeatCustomers, 0) / cust : null;
+  const risk = base.filter(s => s.supplyRisk).length;
+  const oneoffs = DATA.skus.filter(s => s.verdict === "One-off" &&
+    (!F.category || s.category === F.category) && (!F.brand || s.brand === F.brand) && (!F.vendor || s.vendor === F.vendor)).length;
+  const launches = base.filter(s => s.verdict !== "One-off").length;
+
+  const kpis = [
+    { label: "New SKUs launched", value: fmt(launches), cls: "accent",
+      hint: `last ${DATA.thresholds.newWindowDays} days · ${oneoffs} one-off orders ${F.oneoff ? "included" : "hidden"}` },
+    { label: "Units / week lately", value: fmt(recent), cls: "",
+      hint: total ? `${pct(recent / total, 1)} of BOS1 volume · last 4 full weeks` : "last 4 full weeks" },
+    { label: "Reach vs network", value: medIdx == null ? "—" : `${fmt(medIdx, 2)}×`,
+      cls: medIdx == null ? "" : medIdx >= DATA.thresholds.winIndex ? "green" : medIdx >= DATA.thresholds.slowIndex ? "amber" : "red",
+      hint: "median BOS1 penetration ÷ network median" },
+    { label: "Repeat rate", value: pct(rep), cls: rep == null ? "" : rep >= DATA.thresholds.winRepeat ? "green" : "amber",
+      hint: "buyers who ordered again · judged SKUs" },
+    { label: "Winning", value: `${count("Winning")}<small> / ${judged.length}</small>`, cls: "green",
+      hint: `${count("Building")} building · ${count("Too early")} too early` },
+    { label: "Slow or stalled", value: fmt(count("Slow") + count("Stalled")), cls: count("Slow") + count("Stalled") ? "red" : "green",
+      hint: `${risk} with supply risk` },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div>` +
+    (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`).join("");
+
+  const sl = document.getElementById("status-line");
+  if (!DATA.sources.pairs.through) {
+    sl.innerHTML = `No BOS1 fulfillment data yet — launches and their performance appear once the Looker exports land.`;
+    return;
+  }
+  const scope = [F.category, F.brand, F.vendor].filter(Boolean).join(" · ");
+  const parts = [`<b>${launches}</b> SKU${launches === 1 ? "" : "s"}${scope ? ` in ${escapeHtml(scope)}` : ""} launched at BOS1 in the last ${DATA.thresholds.newWindowDays} days` +
+    (oneoffs && !F.oneoff ? ` (plus ${oneoffs} one-off special orders)` : "") + "."];
+  if (judged.length) {
+    parts.push(`Of the ${judged.length} old enough to judge, <b>${count("Winning")}</b> ${count("Winning") === 1 ? "is" : "are"} winning, ${count("Building")} building, and <b>${count("Slow") + count("Stalled")}</b> slow or stalled.`);
+  } else if (launches) parts.push(`All are under ${DATA.thresholds.tooEarlyDays} days old — too early to judge.`);
+  if (recent && total) parts.push(`Lately they move <b>${fmt(recent)}</b> units a week, ${pct(recent / total, 1)} of BOS1 volume.`);
+  if (risk) parts.push(`<b>${risk}</b> ${risk === 1 ? "has" : "have"} supply risk.`);
+  sl.innerHTML = parts.join(" ");
+}
+
+function renderVerdictBar(base) {
+  const total = base.length || 1;
+  const counts = Object.fromEntries(VERDICTS.map(v => [v.name, base.filter(s => s.verdict === v.name).length]));
+  const bar = document.getElementById("verdict-bar");
+  bar.innerHTML = VERDICTS.filter(v => counts[v.name]).map(v =>
+    `<button data-v="${v.name}" class="${F.verdict && F.verdict !== v.name ? "dim" : ""}" style="width:${counts[v.name] / total * 100}%;background:${v.color}" title="${v.name}: ${counts[v.name]} — click to filter">${counts[v.name]}</button>`).join("")
+    || `<div class="empty">No SKUs for this filter.</div>`;
+  bar.onclick = (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    F.verdict = F.verdict === b.dataset.v ? "" : b.dataset.v;
+    renderVerdictBar(baseSkus()); renderTable();
+  };
+  document.getElementById("verdict-legend").innerHTML = VERDICTS.filter(v => counts[v.name] || v.name !== "One-off").map(v =>
+    `<span><i style="background:${v.color}"></i>${v.name} · ${counts[v.name]}</span>`).join("") +
+    (F.verdict ? ` <button class="btn" style="padding:2px 8px;font-size:12px" onclick="F.verdict='';render()">Clear verdict filter</button>` : "");
+}
+
+function renderWeekly(base) {
+  const weeks = DATA.weekly.map(w => w.week);
+  const firstLaunch = base.reduce((m, s) => s.launch < m ? s.launch : m, "9999");
+  const shown = weeks.filter(w => w >= firstLaunch.slice(0, 10) || base.some(s => s.byWeek[w]));
+  const start = shown.length ? weeks.indexOf(shown[0]) : weeks.length;
+  const labels = weeks.slice(Math.max(start - 1, 0));
+  const totals = Object.fromEntries(DATA.weekly.map(w => [w.week, w.total]));
+  const series = VERDICTS.filter(v => F.oneoff || v.name !== "One-off").map(v => ({
+    v, data: labels.map(w => base.filter(s => s.verdict === v.name).reduce((a, s) => a + (s.byWeek[w] || 0), 0)),
+  })).filter(x => x.data.some(Boolean));
+  const share = labels.map((w, i) => {
+    const t = totals[w] || 0;
+    return t ? series.reduce((a, x) => a + x.data[i], 0) / t * 100 : null;
+  });
+  const thru = DATA.sources.pairs.through;
+  const partial = (w) => thru && new Date(new Date(w + "T00:00:00Z").getTime() + 6 * 864e5).toISOString().slice(0, 10) > thru;
+  document.getElementById("weekly-note").textContent = "stacked by current verdict · line is share of all BOS1 units";
+  if (typeof Chart === "undefined") return;
+  Chart.defaults.color = "#8A7B6A";
+  Chart.defaults.borderColor = "#E6DFCC";
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const cfg = {
+    data: {
+      labels: labels.map(w => shortDate(w) + (partial(w) ? " (partial)" : "")),
+      datasets: [
+        ...series.map(x => ({ type: "bar", label: x.v.name, data: x.data, stack: "u", borderRadius: 2,
+          backgroundColor: labels.map(w => partial(w) ? x.v.color + "55" : x.v.color), yAxisID: "y" })),
+        { type: "line", label: "Share of BOS1 units", data: share, yAxisID: "y2", borderColor: "#40180B",
+          backgroundColor: "#40180B", borderWidth: 2, pointRadius: 2, tension: .25, spanGaps: true },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { generateLabels: (c) =>
+          Chart.defaults.plugins.legend.labels.generateLabels(c).map((l, i) =>
+            i < series.length ? { ...l, fillStyle: series[i].v.color, strokeStyle: series[i].v.color } : l) } },
+        tooltip: { callbacks: {
+          title: (it) => `Week of ${shortDate(labels[it[0].dataIndex])}` + (partial(labels[it[0].dataIndex]) ? " — partial week" : ""),
+          label: (c) => c.dataset.yAxisID === "y2" ? `Share of BOS1 units: ${c.raw == null ? "—" : c.raw.toFixed(1) + "%"}` : `${c.dataset.label}: ${fmt(c.raw)} units`,
+        } },
+      },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, title: { display: true, text: "Units" } },
+        y2: { position: "right", beginAtZero: true, grid: { drawOnChartArea: false },
+              ticks: { callback: (v) => v + "%" }, title: { display: true, text: "Share of BOS1" } },
+      },
+    },
+  };
+  if (chart) { chart.data = cfg.data; chart.options = cfg.options; chart.update(); }
+  else chart = new Chart(document.getElementById("chart-weekly"), cfg);
+}
+
+function spark(series) {
+  if (!series || series.length < 2) return `<span class="muted small">—</span>`;
+  const w = 80, h = 22, max = Math.max(...series, 1);
+  const pts = series.map((v, i) => `${(i / (series.length - 1) * w).toFixed(1)},${(h - 2 - v / max * (h - 4)).toFixed(1)}`).join(" ");
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">` +
+    `<polyline points="${pts}" fill="none" stroke="#40180B" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+
+function renderTable() {
+  const rows = baseSkus().filter(s =>
+    (!F.verdict || s.verdict === F.verdict) &&
+    (!F.q || [s.name, s.brand, s.vendor, s.category].join(" ").toLowerCase().includes(F.q)));
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return a.verdictRank - b.verdictRank || b.unitsPerWeek - a.unitsPerWeek;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    const c = typeof av === "string" ? av.localeCompare(bv) : av - bv;
+    return (sortDir === "asc" ? c : -c) || (b.unitsPerWeek - a.unitsPerWeek);
+  });
+  lastRows = rows;
+  document.querySelectorAll("#skus th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.sort === sortKey) th.classList.add(sortDir === "asc" ? "sort-asc" : "sort-desc");
+  });
+  document.getElementById("count").textContent = `${rows.length} SKUs`;
+  document.getElementById("table-note").textContent = F.verdict ? `showing ${F.verdict}` : "";
+  const t = DATA.thresholds;
+  document.querySelector("#skus tbody").innerHTML = rows.map(s => {
+    const v = V[s.verdict] || { cls: "muted" };
+    const n = s.network;
+    const idxCls = n.index == null ? "muted" : n.index >= t.winIndex ? "trend-up" : n.index < t.slowIndex ? "trend-down" : "";
+    const trendTxt = s.trend === "ramping" ? `<span class="trend-up">▲ ramping</span>` : s.trend === "fading" ? `<span class="trend-down">▼ fading</span>`
+      : `<span class="muted">${s.trend}</span>`;
+    const docCls = s.doc == null ? "" : s.doc < t.docCritical ? "bad" : s.doc < 14 ? "warn" : "";
+    return `<tr>
+      <td><b>${escapeHtml(s.name)}</b>${s.newToOdeko ? ` <span class="badge olive" title="Item record created recently and not sold at any other warehouse">new to Odeko</span>` : ""}
+        <div class="small muted">${escapeHtml([s.brand, s.category, s.vendor].filter(Boolean).join(" · ") || "—")}</div></td>
+      <td><span class="badge ${v.cls}">${escapeHtml(s.verdict)}</span>${s.supplyRisk ? `<div><span class="badge bad" title="Out-of-stock events, or under ${t.docCritical} days of cover with nothing on order">supply risk</span></div>` : ""}</td>
+      <td>${shortDate(s.launch)}<div class="small muted">${s.daysLive}d live · last ${s.daysSinceLastOrder ? s.daysSinceLastOrder + "d ago" : "today"}</div></td>
+      <td class="num">${fmt(s.unitsPerWeek)}<div class="small muted">${fmt(s.units)} total</div></td>
+      <td>${spark(s.weekly)}<div class="small">${trendTxt}</div></td>
+      <td class="num">${s.customers}<div class="small muted">${pct(s.penetration, 1)} of BOS1</div></td>
+      <td class="num"><span class="${idxCls}">${n.index == null ? "—" : n.index >= 10 ? "10×+" : fmt(n.index, 2) + "×"}</span>
+        <div class="small muted">${n.penetration == null ? "not sold elsewhere" : `network ${pct(n.penetration, 1)} · ${n.warehouses} WH`}</div></td>
+      <td class="num">${pct(s.repeatRate)}<div class="small muted">${s.repeatCustomers} of ${s.customers}</div></td>
+      <td class="num">${s.doc == null ? "—" : `<span class="badge ${docCls}">${fmt(s.doc)}</span>`}
+        <div class="small muted">${s.onOrder ? `${fmt(s.onOrder)} on order` : s.doc != null ? "none on order" : ""}</div></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="9" class="empty">${DATA.sources.pairs.through ? "No SKUs match these filters." : "Waiting on the Looker exports."}</td></tr>`;
+}
+
+function renderCategories(base) {
+  const by = new Map();
+  for (const s of base) {
+    const c = s.category || "(uncategorised)";
+    const r = by.get(c) || { cat: c, skus: [], };
+    r.skus.push(s); by.set(c, r);
+  }
+  const weeks = recentWeeks();
+  const rows = [...by.values()].map(r => {
+    const judged = r.skus.filter(s => !["Too early", "One-off"].includes(s.verdict));
+    const idx = judged.map(s => s.index).filter(x => x != null).sort((a, b) => a - b);
+    const cust = judged.reduce((a, s) => a + s.customers, 0);
+    return { ...r,
+      wk: r.skus.reduce((a, s) => a + weeks.reduce((b, w) => b + (s.byWeek[w] || 0), 0), 0) / (weeks.length || 1),
+      med: idx.length ? idx[Math.floor((idx.length - 1) / 2)] : null,
+      rep: cust ? judged.reduce((a, s) => a + s.repeatCustomers, 0) / cust : null,
+      risk: r.skus.filter(s => s.supplyRisk).length };
+  }).sort((a, b) => b.wk - a.wk);
+  document.querySelector("#cats tbody").innerHTML = rows.map(r => {
+    const mix = VERDICTS.map(v => [v, r.skus.filter(s => s.verdict === v.name).length]).filter(x => x[1])
+      .map(([v, n]) => `<span class="badge ${v.cls}" title="${v.name}">${n} ${v.name.toLowerCase()}</span>`).join(" ");
+    return `<tr><td><b>${escapeHtml(r.cat)}</b></td><td class="num">${r.skus.length}</td><td class="num">${fmt(r.wk)}</td>
+      <td>${mix}</td><td class="num">${r.med == null ? "—" : fmt(r.med, 2) + "×"}</td><td class="num">${pct(r.rep)}</td>
+      <td class="num">${r.risk ? `<span class="badge bad">${r.risk}</span>` : "<span class='muted'>—</span>"}</td></tr>`;
+  }).join("") || `<tr><td colspan="7" class="empty">No SKUs for this filter.</td></tr>`;
+}
+
+function renderSupply(base) {
+  const t = DATA.thresholds;
+  const rows = base.filter(s => s.supplyRisk || (s.doc != null && s.doc < 14)).sort((a, b) => (a.doc ?? 99) - (b.doc ?? 99));
+  const el = document.getElementById("supply-body");
+  if (!DATA.sources.pairs.through) { el.innerHTML = `<div class="empty">Waiting on the Looker exports.</div>`; return; }
+  if (!rows.length) { el.innerHTML = `<div class="empty good">No supply issues on these new SKUs: no out-of-stocks and all at 14+ days of cover or on order.</div>`; return; }
+  el.innerHTML = `<div class="tablewrap" style="max-height:420px"><table><thead><tr><th>SKU</th><th>Verdict</th><th class="num">Days cover</th>
+    <th class="num">On hand</th><th class="num">On order</th><th class="num">Out-of-stocks</th><th>Past-due POs</th></tr></thead><tbody>` +
+    rows.map(s => `<tr><td><b>${escapeHtml(s.name)}</b><div class="small muted">${escapeHtml(s.vendor || s.brand || "")}</div></td>
+      <td><span class="badge ${(V[s.verdict] || {}).cls || "muted"}">${escapeHtml(s.verdict)}</span></td>
+      <td class="num">${s.doc == null ? "—" : `<span class="badge ${s.doc < t.docCritical ? "bad" : s.doc < 14 ? "warn" : "good"}">${fmt(s.doc)}</span>`}</td>
+      <td class="num">${fmt(s.onHand)}</td>
+      <td class="num">${s.onOrder ? fmt(s.onOrder) : `<span style="color:var(--red)">none</span>`}</td>
+      <td class="num">${s.feoosEvents ? `<span class="badge bad">${s.feoosEvents}</span>` : "—"}</td>
+      <td class="small">${s.pastDuePos.map(escapeHtml).join(", ") || "—"}</td></tr>`).join("") + `</tbody></table></div>`;
+}
+
+function renderRules() {
+  const t = DATA.thresholds;
+  document.getElementById("rules").innerHTML = `
+    <p><b>New</b> means a SKU's first-ever fulfillment from BOS1 (all time, from Looker) falls in the last ${t.newWindowDays} days.
+    <b>Penetration</b> is buyers ÷ BOS1 customers active in the last ${t.activeCustomerDays} days; <b>vs network</b> divides it by the median penetration of the same SKU across the other warehouses (their trailing ~90 days), so a young launch naturally starts below 1×.</p>
+    <p><b>Too early</b>: under ${t.tooEarlyDays} days live. <b>One-off</b>: one customer, ${t.oneOffMaxOrders} orders or fewer — a special order rather than a launch (hidden unless "Show one-offs" is on).
+    <b>Stalled</b>: no BOS1 fulfillment in ${t.stalledDays}+ days. <b>Winning</b>: at or above the network's penetration (${t.winIndex}×), ${pct(t.winRepeat)}+ of buyers reordering, and at least ${t.minWinCustomers} customers.
+    <b>Slow</b>: under ${t.slowIndex}× the network with under ${pct(t.winRepeat)} repeat. Everything else is <b>Building</b>. With no other warehouse to compare against, Winning needs ${pct(t.winRepeat)}+ repeat from ${t.minWinCustomers}+ customers and Slow means two or fewer customers.</p>
+    <p><b>Trend</b> compares the last 3 full weeks with the 3 before (±${pct(t.trendBand)}). <b>Supply risk</b> flags out-of-stock events at BOS1, or under ${t.docCritical} days of cover with nothing on order — a launch can look weak because it can't be shipped.</p>`;
+}
+
+function downloadCsv() {
+  const head = ["SKU", "Brand", "Category", "Vendor", "Verdict", "Supply risk", "Launched", "Days live", "Units/wk", "Units total",
+    "Trend", "Customers", "BOS1 penetration", "Network penetration", "Index vs network", "Repeat rate", "Days of cover", "On order"];
+  const cell = (v) => v == null ? "" : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+  const lines = [head.join(",")].concat(lastRows.map(s => [s.name, s.brand, s.category, s.vendor, s.verdict, s.supplyRisk ? "yes" : "",
+    s.launch, s.daysLive, s.unitsPerWeek, s.units, s.trend, s.customers, s.penetration, s.network.penetration, s.network.index,
+    s.repeatRate, s.doc, s.onOrder].map(cell).join(",")));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "bos1-new-skus.csv";
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+}
+
+load();
+</script>
+</body>
+</html>

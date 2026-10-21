@@ -1,0 +1,2429 @@
+{
+ "generatedAt": "2026-10-21T16:43:20+00:00",
+ "warehouse": "BOS1",
+ "thresholds": {
+  "newWindowDays": 60,
+  "tooEarlyDays": 21,
+  "stalledDays": 21,
+  "winIndex": 1.0,
+  "slowIndex": 0.5,
+  "winRepeat": 0.4,
+  "trendBand": 0.25,
+  "docCritical": 7,
+  "minWinCustomers": 5,
+  "oneOffMaxOrders": 2,
+  "activeCustomerDays": 90
+ },
+ "sources": {
+  "pairs": {
+   "status": "missing",
+   "file": "BOS1 SKU Customer Fulfillment.csv",
+   "look": 2405,
+   "through": null,
+   "exportModified": null
+  },
+  "weekly": {
+   "status": "missing",
+   "file": "BOS1 SKU Weekly Fulfillment.csv",
+   "look": 2406,
+   "exportModified": null
+  },
+  "feoos": {
+   "trackingSince": "2026-10-07"
+  },
+  "benchmark": {
+   "warehouses": [
+    "ATL1",
+    "AUS1",
+    "BLI1",
+    "BNA1",
+    "CLT1",
+    "DCA1",
+    "DEN1",
+    "DFW1",
+    "EWR1",
+    "HOU1",
+    "LAX1",
+    "MDT1",
+    "MIA1",
+    "PDX1",
+    "PWM1",
+    "SEA1",
+    "SMF1"
+   ]
+  }
+ },
+ "bos1": {
+  "activeCustomers": null,
+  "skusEverFulfilled": null
+ },
+ "skus": [],
+ "weekly": [],
+ "lookerCache": {
+  "pairs": null,
+  "weekly": null
+ },
+ "feoosHistory": {
+  "trackingSince": "2026-10-07",
+  "events": [
+   {
+    "k": [
+     "2026-10-07",
+     "1883 Hazelnut Syrup 1L Plastic Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Kendall - 238 Main Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Hollander Pumpkin Pie Cafe Sauce 64oz",
+     "Solid Ground Cafe - 742 Huntington Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Kalamata Olives Pitted RD 10kg Bucket",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Pure Clover Honey 2lb",
+     "Cafe On The Common - 677 Main Street",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Pure Clover Honey 2lb",
+     "Shy Bird - FENWAY - 201 Brookline Ave",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Pure Clover Honey 2lb",
+     "State Park - 1 Kendall Square",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "San Benito Crushed Tomato #10 Can",
+     "Bakey - COMMISSARY - 151 Tremont St",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-07",
+     "Spindrift Strawberry Lemonade",
+     "American Provisions - 1971 Dorchester Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "1883 Hazelnut Syrup 1L Plastic Bottle",
+     "Bakey - Boston - 151 Tremont St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "1883 Hazelnut Syrup 1L Plastic Bottle",
+     "Bakey - Brookline - 370 Harvard St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Brookline - 370 Harvard St",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Lemonade Juice 12oz",
+     "Bakey - Brookline - 370 Harvard St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Lemonade Juice 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Boston - 151 Tremont St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Brookline - 370 Harvard St",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Better Booch Kombucha - Golden Pear 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Better Booch Kombucha - Morning Glory 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Citterio Capocollo Hot 7lb",
+     "P & K Deli - 244 Beacon St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Figs Black Mission 30 LBS",
+     "Pavement - Kitchen - 415 Western Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Gourmet Liquid Egg Yolks 1lb",
+     "Cambridge Street Hospitality Group - Puritan & Company - 1166 Cambridge Street",
+     "10"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Hollander Pumpkin Pie Cafe Sauce 64oz",
+     "Solid Ground Cafe - 742 Huntington Ave",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Hollander Pumpkin Pie Cafe Sauce 64oz",
+     "Zinneken's - 1154 Massachusetts Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Kalamata Olives Pitted RD 10kg Bucket",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Allston - 1243 Commonwealth Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - BU - 736 Commonwealth Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Berklee - 1096 Boylston Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Fenway - 1334 Boylston Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Harvard - 1350 Massachusetts Ave",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Lesley - 1663 Massachusetts Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Symphony - 44 Gainsborough Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Rancatore's Mango Sorbet 2.5gal",
+     "Berry Line - 3 Arrow St",
+     "1"
+    ],
+    "n": 2
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Rancatore's Vanilla Bean Ice Cream 2.5gal",
+     "Mamaleh's - BROOKLINE - 1659 Beacon St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-08",
+     "Spindrift Lime",
+     "Quebrada Baking Co - 272 Washington St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "1883 Hazelnut Syrup 1L Plastic Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "American Nut & Chocolate Dry Cranberry 3lb",
+     "Rifrullo - 147 Cypress Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Kendall - 238 Main Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Brakebush Italian Chicken Strip 10lb",
+     "kaffmanduLLC - 102-104 Endicott Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Chaokoh Coconut Milk 13.5oz",
+     "Rifrullo - 147 Cypress Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Cheddar White Mild 10lb",
+     "Shay's Pub & Wine Bar - 58 JFK St.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-09",
+     "Organic Jumbo Brown Eggs",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "American Nut & Chocolate Dry Cranberry 3lb",
+     "Shy Bird - FENWAY - 201 Brookline Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Boston - 151 Tremont St",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Brookline - 370 Harvard St",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Newton - 749 Beacon Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Lemonade Juice 12oz",
+     "Bakey - Boston - 151 Tremont St",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Lemonade Juice 12oz",
+     "Bakey - Brookline - 370 Harvard St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Boston - 151 Tremont St",
+     "5"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Brookline - 370 Harvard St",
+     "5"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Kendall - 238 Main Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Newton - 749 Beacon Street",
+     "2"
+    ],
+    "n": 2
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Brakebush Italian Chicken Strip 10lb",
+     "kaffmanduLLC - 8 Maple Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Citterio Capocollo Hot 7lb",
+     "Ziggy's - 583 Washington Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Imported Brie D'Amir 6lb",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Allston - 1243 Commonwealth Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - BU - 736 Commonwealth Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Berklee - 1096 Boylston Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Fenway - 1334 Boylston Street",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Harvard - 1350 Massachusetts Ave",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Lesley - 1663 Massachusetts Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Newbury - 286 Newbury Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Symphony - 44 Gainsborough Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Pizza Doughballs 10oz",
+     "Statione One by STB - Station One by STB",
+     "9"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Sesame Oil 56oz",
+     "Grafton Group - State Street Provisions - 255 State Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-11",
+     "Vanilla Pure Extract 32oz",
+     "Call Me Honey - 441 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "American Nut & Chocolate Dry Cranberry 3lb",
+     "Shy Bird - FENWAY - 201 Brookline Ave",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "American Nut & Chocolate Dry Cranberry 3lb",
+     "Shy Bird - SOUTHIE - 12 Old Colony Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Faneuil Hall - 4 South Market St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Newton - 749 Beacon Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Better Booch Kombucha - Citrus Sunrise 12oz",
+     "Diesel Cafe - 257 Elm Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Better Booch Kombucha - Golden Pear 12oz",
+     "Diesel Cafe - 257 Elm Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Better Booch Kombucha - Strawberry Lemonade 12oz",
+     "Diesel Cafe - 257 Elm Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Citterio Capocollo Hot 7lb",
+     "P & K Deli - 244 Beacon St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Dustless Black Pepper 5lb",
+     "Pressed Cafe - 3 Bud Way #25",
+     "30"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Figs Black Mission 30 LBS",
+     "Pavement - Kitchen - 415 Western Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Heinz Ketchup #10 Plastic Jug",
+     "State Park - 1 Kendall Square",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Kohler Cooked Deluxe Medium Ham 12.5lb",
+     "Family Delicatessen - 129 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Kohler Golden Roasted Turkey 8lb",
+     "Family Delicatessen - 129 Main Street",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Little Rhody Farms - Lemonade & Iced Tea Half and Half 16oz",
+     "Langwater Farms - 215 Washington St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Provolone 12.5lb",
+     "Family Delicatessen - 129 Main Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Sadaf Garlic Granulated 5lb Bag",
+     "Pressed Cafe - 3 Bud Way #25",
+     "25"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Sadaf Paprika 5lb",
+     "Yazs Table - 1209 Bedford Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Salted Butter 1lb",
+     "We Got Bunz Hun  - 119 Main Street",
+     "72"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Sesame Oil 56oz",
+     "Grafton Group - State Street Provisions - 255 State Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Shredded Monterey Jack/Yellow Cheddar 5lb",
+     "Grafton Group - State Street Provisions - 255 State Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Shredded Swiss 5lb",
+     "Mr. Crepe - 51 Davis Sq",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Shredded Swiss 5lb",
+     "We Got Bunz Hun  - 119 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-12",
+     "Trash Liners 60 Gallon",
+     "Intelligentsia Coffee Inc - Boston - 810 Mt. Auburn",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Boston - 151 Tremont St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bakey Beet Juice 12oz Bottle",
+     "Bakey - Kendall - 238 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Boston - 151 Tremont St",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Bakey Orange Juice 12oz",
+     "Bakey - Kendall - 238 Main Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Better Booch Kombucha - Citrus Sunrise 12oz",
+     "Pavement - BU - 736 Commonwealth Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Better Booch Kombucha - Strawberry Lemonade 12oz",
+     "Pavement - BU - 736 Commonwealth Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Carlson's Apple Cider Gallon",
+     "Berry Line - 3 Arrow St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Carlson's Apple Cider Gallon",
+     "Pavement - Symphony - 44 Gainsborough Street",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Carlson's Apple Cider Gallon",
+     "VESTER - 73 Ames Street",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Citterio Capocollo Hot 7lb",
+     "P & K Deli - 244 Beacon St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Coke Zero Sugar 12oz Can",
+     "Triangle Coffee - 200 Inner Belt Rd",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Lifeway Kefir Low Fat Vanilla Cultured 32oz",
+     "Pressed Cafe - 3 Bud Way #25",
+     "123"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Lifeway Kefir Low Fat Vanilla Cultured 32oz",
+     "Pressed Cafe - 3 Bud Way #25",
+     "132"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "McLure's Maple Syrup 64oz",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "McLure's Maple Syrup 64oz",
+     "Little Wolf Coffee - 125 A High Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - BU - 736 Commonwealth Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Fenway - 1334 Boylston Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Harvard - 1350 Massachusetts Ave",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Lesley - 1663 Massachusetts Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Newbury - 286 Newbury Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Pavement Orange Juice 12oz Bottle",
+     "Pavement - Symphony - 44 Gainsborough Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Shredded Swiss 5lb",
+     "Blooming Hearts Roastery & Cafe - 206 E Main St",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Spindrift Strawberry Lemonade",
+     "Paul Marks Co. - 8 Commercial Street",
+     "10"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-13",
+     "Trash Liners 60 Gallon",
+     "Intelligentsia Coffee Inc - Boston - 810 Mt. Auburn",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Anchovies 28oz",
+     "Shy Bird - KENDALL - 390 Third St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "American Provisions - 613 E. Broadway",
+     "9"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "BCG Cafe Seaport - BCG Triangle Coffee Bar-200 Pier 4 Boulevard",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "Cafe Zing - 25 White Street",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "Call Me Honey - 441 Cambridge Street",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "Mariposa Bakery - 424 Massachusetts Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider 1/2 Gallon",
+     "Park Bagelry - 280 Western Ave",
+     "9"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "BCG Cafe Seaport - BCG Triangle Coffee Bar-200 Pier 4 Boulevard",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Cafe Zing - 25 White Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Call Me Honey - 441 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Elmendorf Baking Supplies - 594 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Mariposa Bakery - 424 Massachusetts Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Park Bagelry - 280 Western Ave",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "Solid Ground Cafe - 742 Huntington Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Carlson's Apple Cider Gallon",
+     "VESTER - 73 Ames Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Citterio Capocollo Hot 7lb",
+     "P & K Deli - 244 Beacon St",
+     "10"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Coca Cola Mexican Coke",
+     "American Provisions - 1971 Dorchester Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Coconut Dessicated Macaroon Fine 25lb",
+     "Katsiroubas - 200 Meadow Rd - PICK UP",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Feta Crumbled 5lb",
+     "Grafton Group - Russel House Tavern - 14 JFK Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Figs Black Mission 30 LBS",
+     "Pavement - Kitchen - 415 Western Ave",
+     "2"
+    ],
+    "n": 2
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Goat Cheese 4lb Pail",
+     "Bakey - COMMISSARY - 151 Tremont St",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Gruyere 6lb",
+     "Specialty Foods - 140 Newmarket Square",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Java Jacket Eco Hot Cup Sleeves",
+     "Gracenote - 100 High St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Java Jacket Eco Hot Cup Sleeves",
+     "Rifrullo - 147 Cypress Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Java Jacket Eco Hot Cup Sleeves",
+     "Seabird Coffee & Co. - 24 S. Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Kohler Black Forest Ham 8lb",
+     "Adams Corner Cafe, LLC - 786 Adams Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Kohler Black Forest Ham 8lb",
+     "Grafton Group - Russel House Tavern - 14 JFK Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Kohler Cooked Deluxe Medium Ham 12.5lb",
+     "Adams Corner Cafe, LLC - 786 Adams Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Lea & Perrins Worcestershire Sauce 1 Gallon",
+     "Old Friend - 5272 Washington St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "McLure's Maple Syrup 64oz",
+     "Solid Ground Cafe - 742 Huntington Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Natalie's Natural Lemonade 12oz Bottle",
+     "Changing - 92 Pleasant Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Natalie's Strawberry Lemonade 12oz Bottle",
+     "Quebrada Baking Co - 208 Massachusetts Avenue",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Sauce Chili Mae Ploy 12x32oz",
+     "Club Passim - 47 Palmer Street",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Shaved Parmesan 5lb",
+     "Club Passim - 47 Palmer Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Shredded Monterey Jack/Yellow Cheddar 5lb",
+     "Shay's Pub & Wine Bar - 58 JFK St.",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Skyline Pot & Pan Detergent 1 Gallon",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Spindrift Strawberry Lemonade",
+     "American Provisions - 613 E. Broadway",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Turmeric 15oz",
+     "Comfort Kitchen - 611 Columbia Rd",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Turmeric 15oz",
+     "Rifrullo - 147 Cypress Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Vanilla Pure Extract 32oz",
+     "Call Me Honey - 441 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-14",
+     "Vanilla Pure Extract 32oz",
+     "Seabird Coffee & Co. - 24 S. Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Anchovies 28oz",
+     "Shy Bird - KENDALL - 390 Third St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Better Booch Kombucha - Golden Pear 12oz",
+     "Bakey - Newton - 749 Beacon Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Better Booch Kombucha - Morning Glory 12oz",
+     "Bakey - Newton - 749 Beacon Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Coca Cola Mexican Coke",
+     "Pavement - Brighton: Cafe - 415 Western Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Diced White Chicken Meat 10lb",
+     "P & K Deli - 244 Beacon St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Fontinini Meatball 10lb",
+     "P & K Deli - 244 Beacon St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Goat Cheese 4lb Pail",
+     "Bakey - COMMISSARY - 151 Tremont St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Gourmet Liquid Egg Yolks 1lb",
+     "Alcove - 50 Love Joy Warf",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Gourmet Liquid Egg Yolks 1lb",
+     "Cambridge Street Hospitality Group - Puritan & Company - 1166 Cambridge Street",
+     "10"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Gruyere 6lb",
+     "Specialty Foods - 140 Newmarket Square",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Imported Brie D'Amir 6lb",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Kohler Black Forest Ham 8lb",
+     "Cuppacoffee - 57 Traveler Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Kohler Cooked Deluxe Medium Ham 12.5lb",
+     "Cuppacoffee - 57 Traveler Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Kohler Smoked Homestyle Turkey 8lb",
+     "Cafe Nation - 380 Washington St.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Little Rhody Farms - Lemonade & Iced Tea Half and Half 16oz",
+     "Bacco's Wine & Cheese - 31 St. James Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Natalie's Strawberry Lemonade 12oz Bottle",
+     "Ogawa Coffee USA - SHIRAZI - 10 Milk Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Pearl Sliced Red Pastrami 5lb",
+     "P & K Deli - 244 Beacon St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Sadaf Lebni (Kefir Cheese) 32LB",
+     "Chai Bar - 744 Broadway",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Sadaf Lebni (Kefir Cheese) 32LB",
+     "Katsiroubas - 200 Meadow Rd - PICK UP",
+     "50"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Sadaf Lebni (Kefir Cheese) 32LB",
+     "Shy Bird - KENDALL - 390 Third St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Trash Liners 60 Gallon",
+     "Intelligentsia Coffee Inc - Boston - 810 Mt. Auburn",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Vanilla Pure Extract 32oz",
+     "Call Me Honey - 441 Cambridge Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-15",
+     "Vanilla Pure Extract 32oz",
+     "Cuppacoffee - 57 Traveler Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "American Nut & Chocolate Sweet Shredded Coconut 3lb",
+     "Clover - Clover - KIT - Food Lab - 496 Massachusetts Ave",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Carlson's Apple Cider 1 Pint",
+     "Honeycomb Creamy - 1702 Massachusetts Ave",
+     "15"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Coca Cola Mexican Coke",
+     "Flake Bakery - 1298 Beacon St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Feta Crumbled 5lb",
+     "Grafton Group - Russel House Tavern - 14 JFK Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Feta Crumbled 5lb",
+     "Pagu - 310 Massachusetts Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Gruyere 6lb",
+     "Specialty Foods - 140 Newmarket Square",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Java Jacket Eco Hot Cup Sleeves",
+     "Triangle Coffee - 66 Galen St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Kohler Black Forest Ham 8lb",
+     "Depasquale's Night Cap - 339 River Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Kohler Black Forest Ham 8lb",
+     "Grafton Group - Russel House Tavern - 14 JFK Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Little Rhody Farms - Lemonade & Iced Tea Half and Half 16oz",
+     "Depasquale's Night Cap - 339 River Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Shredded White Cheddar 5lb",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Skyline Pot & Pan Detergent 1 Gallon",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Trash Liners 60 Gallon",
+     "Triangle Coffee - 238 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-16",
+     "Turmeric 15oz",
+     "Veggie Galaxy - 450 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-17",
+     "Kohler Black Forest Ham 8lb",
+     "Blooming Hearts Roastery & Cafe - 206 E Main St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-17",
+     "Kohler Corned Beef Flats 1/2 6lb",
+     "Square Root Rozzie - 2 Corinth Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-17",
+     "Kohler Smoked Homestyle Turkey 8lb",
+     "Cafe Nation - 380 Washington St.",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Anchovies 28oz",
+     "Shy Bird - FENWAY - 201 Brookline Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Anchovies 28oz",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Carlson's Apple Cider 1 Pint",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Carlson's Apple Cider 1 Pint",
+     "Elmendorf Baking Supplies - 594 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Carlson's Apple Cider 1 Pint",
+     "Square Root Rozzie - 2 Corinth Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Coca Cola Mexican Coke",
+     "Pavement - Allston - 1243 Commonwealth Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Coca Cola Mexican Coke",
+     "Pavement - Brighton: Cafe - 415 Western Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Crushed Hot Cherry Peppers 1 Gallon",
+     "Shy Bird - FENWAY - 201 Brookline Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Del's Lemonade 16oz Glass Bottle",
+     "Square Root Rozzie - 2 Corinth Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Del's Lemonade 16oz Glass Bottle",
+     "Ziggy's - 583 Washington Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Diced White Chicken Meat 10lb",
+     "P & K Deli - 244 Beacon St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Fontinini Meatball 10lb",
+     "P & K Deli - 244 Beacon St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Goat Cheese 4lb Pail",
+     "Bakey - COMMISSARY - 151 Tremont St",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Goat Cheese 4lb Pail",
+     "Grafton Group - State Street Provisions - 255 State Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Gourmet Liquid Egg Yolks 1lb",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Java Jacket Eco Hot Cup Sleeves",
+     "Seabird Coffee & Co. - 24 S. Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Kohler Black Forest Ham 8lb",
+     "Ziggy's - 583 Washington Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Kohler Smoked Homestyle Turkey 8lb",
+     "Ula Cafe - 284 Amory Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Little Rhody Farms - Lemonade & Iced Tea Half and Half 16oz",
+     "Ziggy's - 583 Washington Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Maplebrook Feta 8lb",
+     "Rifrullo - 147 Cypress Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Natalie's Strawberry Lemonade 12oz Bottle",
+     "Quebrada Baking Co - 208 Massachusetts Avenue",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Polar Tonic Water 7.5oz Can",
+     "Intelligentsia Coffee Inc - Boston - 810 Mt. Auburn",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Salami Genoa 6lb",
+     "Ziggy's - 583 Washington Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "San Pellegrino Sparkling Mineral Water Glass Bottle 250mL Case (24x)",
+     "The Roasted Granola - 1346 Massachusetts Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Skyline Pot & Pan Detergent 1 Gallon",
+     "Za - 138 Massachusetts Ave.",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Trash Liners 60 Gallon",
+     "Intelligentsia Coffee Inc - Boston - 810 Mt. Auburn",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Vanilla Pure Extract 32oz",
+     "Call Me Honey - 441 Cambridge Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Vanilla Pure Extract 32oz",
+     "Rifrullo - 147 Cypress Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-18",
+     "Vanilla Pure Extract 32oz",
+     "Seabird Coffee & Co. - 24 S. Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "American Nut & Chocolate Dry Cranberry 3lb",
+     "Rami's - 324 Harvard Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "American Nut & Chocolate Pecans Halves 3lb",
+     "Rami's - 324 Harvard Street",
+     "5"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "BerryLine Logo Cup 8oz",
+     "Berry Line - 3 Arrow St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Carlson's Apple Cider 1 Pint",
+     "American Provisions - 613 E. Broadway",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Del's Lemonade 16oz Glass Bottle",
+     "Langwater Farms - 215 Washington St",
+     "6"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Del's Lemonade 16oz Glass Bottle",
+     "The Spirited Gourmet - 448 Common Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Del's Pink Lemonade 16oz Glass Bottle",
+     "Langwater Farms - 215 Washington St",
+     "4"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Diced White Chicken Meat 10lb",
+     "Keegan Kreations - 136 Main Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Diced White Chicken Meat 10lb",
+     "Keegan Kreations - 136 Main Street",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Dustless Black Pepper 5lb",
+     "Park Bagelry - 280 Western Ave",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Figs Black Mission 30 LBS",
+     "Pavement - Kitchen - 415 Western Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Goat Cheese 4lb Pail",
+     "Bakey - COMMISSARY - 151 Tremont St",
+     "7"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Gourmet Liquid Egg Yolks 1lb",
+     "Olive's Coffee & Bakehouse - 341 High St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Kohler Cooked Deluxe Medium Ham 12.5lb",
+     "Keegan Kreations - 136 Main Street",
+     "1"
+    ],
+    "n": 2
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Little Rhody Farms - Lemonade & Iced Tea Half and Half 16oz",
+     "The Spirited Gourmet - 448 Common Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Natalie's Natural Lemonade 12oz Bottle",
+     "Quebrada Baking Co - 19 Leonard Street",
+     "3"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Rancatore's Mango Sorbet 2.5gal",
+     "Berry Line - 3 Arrow St",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-10-19",
+     "Shredded Monterey Jack 5lb",
+     "Blackmoor Bar & Kitchen - Olde Magoun\u2019s Saloon - 518 Medford Street",
+     "12"
+    ],
+    "n": 1
+   }
+  ]
+ }
+}
