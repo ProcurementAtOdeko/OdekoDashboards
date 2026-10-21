@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · PWM1 → BOS1 Transfer Performance</title>
+<link rel="icon" type="image/png" href="../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../_shared/odeko-logo.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF7EC;
+    --panel: #FFFFFF;
+    --panel-2: #F5EFE0;
+    --line: #E6DFCC;
+    --ink: #2A1408;
+    --ink-2: #40180B;
+    --muted: #8A7B6A;
+    --accent: #40180B;
+    --accent-yellow: #FFD100;
+    --green: #1F7A33;
+    --green-soft: rgba(31,122,51,.12);
+    --red: #B42318;
+    --red-soft: rgba(180,35,24,.10);
+    --amber: #B5660A;
+    --amber-soft: rgba(181,102,10,.12);
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    background: var(--panel); position: sticky; top: 0; z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; gap: 14px; }
+  header .logo { width: 40px; height: 40px; border-radius: 8px; }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-2); }
+  header .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+  .filters { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .filters label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: 0; background: var(--panel); color: var(--muted); font: inherit; font-size: 13px;
+    padding: 7px 14px; cursor: pointer; border-right: 1px solid var(--line);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink-2); color: #fff; font-weight: 600; }
+  select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font: inherit; font-size: 13px; max-width: 220px;
+  }
+
+  .notice {
+    background: var(--amber-soft); border: 1px solid var(--line);
+    border-left: 3px solid var(--amber); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 16px; color: var(--ink-2); font-size: 13px;
+  }
+  .notice b { color: var(--amber); }
+
+  .status-line {
+    background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent-yellow);
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 16px;
+    font-size: 15px; line-height: 1.6; color: var(--ink-2);
+  }
+  .status-line b { font-variant-numeric: tabular-nums; }
+  .freshness { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2); }
+  .chip.warn { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--ink-2); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi .value small { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .kpi .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .kpi.red .value { color: var(--red); }
+  .kpi.amber .value { color: var(--amber); }
+  .kpi.green .value { color: var(--green); }
+  .kpi.accent { border-left: 3px solid var(--accent-yellow); }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; }
+  .card h3 {
+    margin: 0; padding: 14px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .card h3 .note { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 11px; }
+  .card .body { padding: 16px; }
+  .chart-box { height: 300px; position: relative; }
+  .sub-h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 14px 16px 6px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+  .grid2 > div + div { border-left: 1px solid var(--line); }
+  @media (max-width: 900px) { .grid2 > div + div { border-left: 0; border-top: 1px solid var(--line); } }
+  .empty { padding: 18px 16px; color: var(--muted); font-size: 13px; }
+  .empty.good { color: var(--green); font-weight: 600; }
+
+  .progress { display: flex; height: 26px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--panel-2); }
+  .progress > div { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; background: var(--bg); position: sticky; top: 0; white-space: nowrap;
+  }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover td { background: #FAF4E4; }
+  .muted { color: var(--muted); }
+  .small { font-size: 12px; }
+  .tablewrap { overflow: auto; max-height: 560px; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge.good { background: var(--green-soft); color: var(--green); }
+  .badge.warn { background: var(--amber-soft); color: var(--amber); }
+  .badge.bad { background: var(--red-soft); color: var(--red); }
+  .badge.muted { background: var(--panel-2); color: var(--muted); }
+
+  .bar { position: relative; height: 8px; background: var(--panel-2); border-radius: 4px; min-width: 90px; margin-top: 4px; }
+  .bar > span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; }
+  .bar .mark { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink-2); opacity: .5; }
+
+  @media (max-width: 700px) {
+    header { padding: 12px 14px; }
+    header .logo { width: 32px; height: 32px; }
+    header h1 { font-size: 15px; }
+    main { padding: 14px 12px 40px; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .kpi .value { font-size: 20px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .status-line { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>PWM1 → BOS1 Transfer — Performance</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <div class="filters">
+    <label for="seg-chain">Chain</label>
+    <div class="seg" id="seg-chain"></div>
+    <label for="brand">Brand</label>
+    <select id="brand"><option value="">All brands</option></select>
+  </div>
+</header>
+
+<main>
+  <div class="notice" id="notice" hidden></div>
+  <div class="status-line" id="status-line"></div>
+  <div class="freshness" id="freshness"></div>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h3>Store run-rate vs PWM1 <span class="note" id="runrate-note"></span></h3>
+    <div class="body"><div class="chart-box"><canvas id="chart-weekly"></canvas></div></div>
+    <div class="tablewrap">
+      <table id="stores">
+        <thead><tr>
+          <th>Store</th><th>Status</th>
+          <th class="num">PWM1 / wk</th><th class="num">BOS1 / wk</th>
+          <th>BOS1 vs baseline</th><th>Last BOS1 order</th><th class="num">Lost lines</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Gap SKU onboarding <span class="note" id="gap-note"></span></h3>
+    <div class="body">
+      <div class="progress" id="gap-progress"></div>
+      <div class="legend" id="gap-legend"></div>
+    </div>
+    <div class="tablewrap">
+      <table id="gaps">
+        <thead><tr>
+          <th>Item</th><th>Stage</th><th>Inbound</th><th>Reordered at BOS1</th>
+          <th class="num">Units when scoped</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Fill &amp; stock health <span class="note">out-of-stocks and BOS1 days of cover on what these stores buy</span></h3>
+    <div class="grid2">
+      <div>
+        <div class="sub-h" id="feoos-h">Out-of-stock events</div>
+        <div id="feoos-body"></div>
+      </div>
+      <div>
+        <div class="sub-h">Low cover at BOS1 <span class="muted" id="cover-h"></span></div>
+        <div id="cover-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Basket shift <span class="note" id="basket-note"></span></h3>
+    <div class="grid2">
+      <div>
+        <div class="sub-h">Lost lines — bought at PWM1, not reordered at BOS1</div>
+        <div id="lost-body"></div>
+      </div>
+      <div>
+        <div class="sub-h">New at BOS1 — not bought at PWM1 in the baseline</div>
+        <div id="new-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>By brand <span class="note">volume recovery and open issues per brand</span></h3>
+    <div class="tablewrap">
+      <table id="brands">
+        <thead><tr>
+          <th>Brand</th><th>Vendor</th>
+          <th class="num">PWM1 / wk</th><th class="num">BOS1 / wk</th><th>BOS1 vs baseline</th>
+          <th class="num">SKUs</th><th class="num">Open gaps</th><th class="num">Lost lines</th><th class="num">Low cover</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const fmt = (n, d = 1) =>
+  n == null ? "—" :
+  Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
+                      : n.toLocaleString(undefined, { maximumFractionDigits: d });
+const pct = (r) => r == null ? "—" : `${Math.round(r * 100)}%`;
+const PALETTE = {
+  ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC", neutral: "#C9BBA6",
+  green: "#1F7A33", amber: "#B5660A", red: "#B42318", yellow: "#FFD100",
+};
+const STAGES = [
+  { name: "Live at BOS1", color: PALETTE.green, cls: "good" },
+  { name: "Received", color: "#6E8F3A", cls: "good" },
+  { name: "On PO/TO", color: PALETTE.amber, cls: "warn" },
+  { name: "Not started", color: PALETTE.red, cls: "bad" },
+];
+const STATUS_CLASS = {
+  "On track": "good", "Below baseline": "warn", "Well below baseline": "bad",
+  "Gone quiet": "bad", "Not ordering at BOS1": "bad",
+  "No PWM1 baseline": "muted", "No activity": "muted", "Awaiting BOS1 data": "muted",
+};
+
+let DATA = null, chain = "all", brand = "", chart = null;
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+const shortDate = (iso) => iso ? new Date(iso + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "—";
+const groupsSel = () => chain === "all" ? DATA.groups : [chain];
+const hasBos1 = () => DATA.sources.bos1Sales.status !== "missing";
+const postWeeks = () => DATA.sources.bos1Sales.postCutoverDays / 7;
+
+// Per-SKU totals over the selected chains.
+function skuTotals(s) {
+  const t = { baseUnits: 0, baseLines: 0, baseStores: 0, bos1Units: 0, bos1Stores: 0 };
+  for (const g of groupsSel()) {
+    const p = s.byGroup[g]; if (!p) continue;
+    for (const k in t) t[k] += p[k];
+  }
+  return t;
+}
+const brandOk = (s) => !brand || (s.brand || "(no brand)") === brand;
+function skuInChain(s, t = skuTotals(s)) {
+  if (t.baseUnits || t.bos1Units) return true;
+  return s.originalGap && (chain === "all" || (s.scopedChains || []).includes(chain));
+}
+// Bought at PWM1 often enough that it should have been reordered by now.
+function isLost(s, t) {
+  if (!hasBos1() || !t.baseUnits || t.bos1Units) return false;
+  const expected = t.baseLines / DATA.sources.baseline.weeks * postWeeks();
+  return expected >= DATA.thresholds.lostLineExpectedOrders;
+}
+const isNew = (s, t) => hasBos1() && !t.baseUnits && t.bos1Units > 0;
+function coverClass(doc) {
+  if (doc == null) return null;
+  if (doc < DATA.thresholds.docCritical) return "bad";
+  if (doc < DATA.thresholds.docLow) return "warn";
+  return null;
+}
+
+async function load() {
+  const res = await fetch("./data.json", { cache: "no-store" });
+  if (!res.ok) { document.getElementById("meta").textContent = "Failed to load data.json"; return; }
+  DATA = await res.json();
+  document.getElementById("meta").textContent =
+    `Updated ${new Date(DATA.generatedAt).toLocaleString()} · cutover ${shortDate(DATA.cutover)}`;
+
+  const seg = document.getElementById("seg-chain");
+  seg.innerHTML = [["all", "All"], ...DATA.groups.map(g => [g, g])]
+    .map(([v, l]) => `<button data-v="${escapeHtml(v)}"${v === "all" ? ' class="active"' : ""}>${escapeHtml(l)}</button>`).join("");
+  seg.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    chain = b.dataset.v;
+    seg.querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
+    render();
+  });
+  const brands = [...new Set(DATA.skus.map(s => s.brand || "(no brand)"))].sort((a, b) => a.localeCompare(b));
+  const sel = document.getElementById("brand");
+  sel.innerHTML += brands.map(b => `<option>${escapeHtml(b)}</option>`).join("");
+  sel.addEventListener("change", () => { brand = sel.value; render(); });
+  render();
+}
+
+function render() {
+  const stores = DATA.stores.filter(s => chain === "all" || s.group === chain);
+  const skus = DATA.skus.map(s => ({ s, t: skuTotals(s) })).filter(x => skuInChain(x.s, x.t));
+  const storeIds = new Set(stores.map(s => s.uuid));
+  const feoosStore = DATA.feoosEvents.filter(e => e.storeUuid && storeIds.has(e.storeUuid));
+  renderNotice();
+  renderKpis(stores, skus, feoosStore);
+  renderWeekly();
+  renderStores(stores);
+  renderGaps(skus);
+  renderFill(skus, feoosStore);
+  renderBasket(skus);
+  renderBrands(skus);
+}
+
+function renderNotice() {
+  const el = document.getElementById("notice");
+  const b = DATA.sources.bos1Sales;
+  if (b.status === "missing") {
+    el.hidden = false;
+    el.innerHTML = `<b>Waiting on BOS1 order data.</b> "BOS1 Sales Tracker.csv" has been empty on every refresh so far. ` +
+      `Store run-rate and basket shift fill in on the first refresh that finds it populated; onboarding and stock health below are current.`;
+  } else el.hidden = true;
+
+  const chips = [];
+  if (b.status !== "missing") {
+    const ageH = (Date.now() - new Date(b.capturedAt)) / 36e5;
+    chips.push(`<span class="chip${ageH > 36 ? " warn" : ""}">BOS1 orders through ${shortDate(b.dataThrough)}` +
+      (b.status === "carried" ? ` · last captured ${ageH < 24 ? Math.round(ageH) + "h" : Math.round(ageH / 24) + "d"} ago` : "") + `</span>`);
+  }
+  const bl = DATA.sources.baseline;
+  chips.push(`<span class="chip">PWM1 baseline ${shortDate(bl.start)} – ${shortDate(bl.end)} (${bl.weeks} wks)</span>`);
+  if (DATA.sources.feoos.trackingSince)
+    chips.push(`<span class="chip">Out-of-stocks tracked since ${shortDate(DATA.sources.feoos.trackingSince)}</span>`);
+  document.getElementById("freshness").innerHTML = chips.join("");
+}
+
+function volumeRatio(stores) {
+  const based = stores.filter(s => s.baselineWeekly > 0);
+  const base = based.reduce((a, s) => a + s.baselineWeekly, 0);
+  const now = based.reduce((a, s) => a + s.bos1Weekly, 0);
+  return base ? now / base : null;
+}
+
+function renderKpis(stores, skus, feoosStore) {
+  const ordering = stores.filter(s => s.bos1Units > 0).length;
+  const based = stores.filter(s => s.baselineWeekly > 0);
+  const onTrack = based.filter(s => s.status === "On track").length;
+  const ratio = hasBos1() ? volumeRatio(stores) : null;
+  const gaps = skus.filter(x => x.s.originalGap);
+  const live = gaps.filter(x => x.s.stageIndex === 3).length;
+  const open = gaps.length - live;
+  const inbound = gaps.filter(x => x.s.stageIndex === 1 || x.s.stageIndex === 2).length;
+  const oosStore = feoosStore.reduce((a, e) => a + e.count, 0);
+  const oosSku = DATA.feoosEvents.filter(e => !e.storeUuid && skus.some(x => x.s.name.toLowerCase() === e.item.toLowerCase())).reduce((a, e) => a + e.count, 0);
+  const lostAll = skus.filter(x => isLost(x.s, x.t));
+  const lost = lostAll.length;
+  const lostUnstocked = lostAll.filter(x => !x.s.live).length;
+  const lowCover = skus.filter(x => x.s.live && coverClass(x.s.doc)).length;
+  const critical = skus.filter(x => x.s.live && coverClass(x.s.doc) === "bad").length;
+
+  const ratioCls = ratio == null ? "" : ratio >= DATA.thresholds.onTrack ? "green" : ratio >= DATA.thresholds.wellBelow ? "amber" : "red";
+  const kpis = [
+    { label: "Stores ordering at BOS1", value: hasBos1() ? `${ordering}<small> / ${stores.length}</small>` : "—", cls: "accent",
+      hint: hasBos1() ? `${onTrack} of ${based.length} with a baseline on track` : "awaiting BOS1 order data" },
+    { label: "Volume vs PWM1 baseline", value: pct(ratio), cls: ratioCls,
+      hint: "BOS1 weekly units ÷ pre-cutover PWM1" },
+    { label: "Gap SKUs live at BOS1", value: `${live}<small> / ${gaps.length}</small>`, cls: open ? "amber" : "green",
+      hint: `${open} still open · ${inbound} inbound` },
+    { label: "Out-of-stocks at these stores", value: fmt(oosStore), cls: oosStore ? "red" : "green",
+      hint: `${oosSku} more on their SKUs at other BOS1 stores` },
+    { label: "Lost lines", value: hasBos1() ? fmt(lost) : "—", cls: lost ? "amber" : "",
+      hint: hasBos1() ? `${lostUnstocked} because BOS1 doesn't carry them` : "regular PWM1 SKUs not yet reordered" },
+    { label: "Their SKUs at low cover", value: fmt(lowCover), cls: critical ? "red" : lowCover ? "amber" : "green",
+      hint: `under ${DATA.thresholds.docLow} days at BOS1 · ${critical} under ${DATA.thresholds.docCritical}` },
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="kpi ${k.cls}"><div class="label">${k.label}</div><div class="value">${k.value}</div>` +
+    (k.hint ? `<div class="hint">${k.hint}</div>` : "") + `</div>`).join("");
+
+  // One-paragraph readout built from the same numbers as the tiles.
+  const who = chain === "all" ? "these stores" : `${chain} stores`;
+  const counted = chain === "all" ? "stores" : `${chain} stores`;
+  const parts = [];
+  if (hasBos1()) {
+    parts.push(`Since cutover on <b>${shortDate(DATA.cutover)}</b>, <b>${ordering} of ${stores.length}</b> ${counted} are ordering from BOS1` +
+      (ratio != null ? `, at <b>${pct(ratio)}</b> of their PWM1 weekly volume.` : "."));
+  } else {
+    parts.push(`Cutover was <b>${shortDate(DATA.cutover)}</b>; BOS1 order data hasn't been captured yet, so volume isn't measured.`);
+  }
+  parts.push(`<b>${live} of ${gaps.length}</b> bring-in SKUs are live at BOS1` +
+    (open ? `; ${open} still open${inbound ? `, ${inbound} inbound` : ", none of them on order"}.` : "."));
+  parts.push(oosStore
+    ? `<b>${oosStore}</b> out-of-stock event${oosStore === 1 ? "" : "s"} hit ${who} since tracking began.`
+    : `No out-of-stocks have hit ${who} since tracking began.`);
+  if (critical) parts.push(`<b>${critical}</b> SKU${critical === 1 ? " they buy is" : "s they buy are"} under ${DATA.thresholds.docCritical} days of cover.`);
+  document.getElementById("status-line").innerHTML = parts.join(" ");
+}
+
+// Vertical cutover line between the last PWM1-only week and the first BOS1 week.
+const cutoverLine = {
+  id: "cutoverLine",
+  afterDatasetsDraw(c, args, opts) {
+    if (opts.index == null || opts.index < 0) return;
+    const x = c.scales.x, y = c.scales.y;
+    const step = c.data.labels.length > 1 ? x.getPixelForValue(1) - x.getPixelForValue(0) : x.width;
+    // Bars span Monday→Sunday; land the line on the cutover weekday.
+    const px = x.getPixelForValue(opts.index) - step / 2 + step * (opts.dow / 7);
+    const ctx = c.ctx; ctx.save();
+    ctx.strokeStyle = PALETTE.ink; ctx.globalAlpha = .55; ctx.setLineDash([4, 4]); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(px, y.top); ctx.lineTo(px, y.bottom); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = .8; ctx.fillStyle = PALETTE.ink;
+    ctx.font = "600 11px Inter, sans-serif"; ctx.fillText("Cutover", px + 5, y.top + 12);
+    ctx.restore();
+  },
+};
+
+function renderWeekly() {
+  const gs = groupsSel();
+  const rows = DATA.weekly.map(w => ({
+    week: w.week,
+    pwm1: gs.reduce((a, g) => a + (w.byGroup[g]?.pwm1 || 0), 0),
+    bos1: gs.reduce((a, g) => a + (w.byGroup[g]?.bos1 || 0), 0),
+  }));
+  const stores = DATA.stores.filter(s => chain === "all" || s.group === chain);
+  const baseWk = stores.reduce((a, s) => a + s.baselineWeekly, 0);
+  const cutDate = new Date(DATA.cutover + "T00:00:00Z");
+  const dow = (cutDate.getUTCDay() + 6) % 7;  // Monday = 0
+  const cutWeek = new Date(cutDate.getTime() - dow * 864e5).toISOString().slice(0, 10);
+  const cutIdx = rows.findIndex(r => r.week === cutWeek);
+  const bl = DATA.sources.baseline, thru = DATA.sources.bos1Sales.dataThrough;
+  const partial = (w) => {
+    const end = new Date(new Date(w + "T00:00:00Z").getTime() + 6 * 864e5).toISOString().slice(0, 10);
+    return w < bl.start || (thru && end > thru && w <= thru);
+  };
+  document.getElementById("runrate-note").textContent =
+    `weekly units · baseline ${fmt(baseWk)} / wk` + (hasBos1() ? "" : " · BOS1 weeks appear once order data is captured");
+
+  if (typeof Chart === "undefined") return;
+  Chart.defaults.color = PALETTE.muted;
+  Chart.defaults.borderColor = PALETTE.line;
+  Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  const cfg = {
+    data: {
+      // A partial week (baseline start, or BOS1 data ending mid-week) is drawn
+      // faded and labelled, so a 2-day week doesn't read as volume collapsing.
+      labels: rows.map(r => shortDate(r.week) + (partial(r.week) ? " (partial)" : "")),
+      datasets: [
+        { type: "bar", label: "PWM1", data: rows.map(r => r.pwm1), stack: "u", borderRadius: 3,
+          backgroundColor: rows.map(r => partial(r.week) ? "rgba(201,187,166,.4)" : PALETTE.neutral) },
+        { type: "bar", label: "BOS1", data: rows.map(r => r.bos1), stack: "u", borderRadius: 3,
+          backgroundColor: rows.map(r => partial(r.week) ? "rgba(64,24,11,.3)" : PALETTE.ink) },
+        { type: "line", label: "PWM1 baseline / wk", data: rows.map(() => baseWk), borderColor: PALETTE.amber,
+          backgroundColor: PALETTE.amber, borderDash: [6, 4], borderWidth: 2, pointRadius: 0 },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        // Bar colours are per-week arrays (partial weeks are faded), so pin the
+        // legend swatches to the full-strength colours.
+        legend: { position: "bottom", labels: { generateLabels: (c) =>
+          Chart.defaults.plugins.legend.labels.generateLabels(c).map((l, i) =>
+            i < 2 ? { ...l, fillStyle: [PALETTE.neutral, PALETTE.ink][i], strokeStyle: [PALETTE.neutral, PALETTE.ink][i] } : l) } },
+        cutoverLine: { index: cutIdx, dow },
+        tooltip: { callbacks: {
+          title: (items) => `Week of ${shortDate(rows[items[0].dataIndex].week)}` + (partial(rows[items[0].dataIndex].week) ? " — partial week" : ""),
+          label: (c) => `${c.dataset.label}: ${fmt(c.raw)} units`,
+        } },
+      },
+      scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, title: { display: true, text: "Units" } } },
+    },
+    plugins: [cutoverLine],
+  };
+  if (chart) { chart.data = cfg.data; chart.options = cfg.options; chart.update(); }
+  else chart = new Chart(document.getElementById("chart-weekly"), cfg);
+}
+
+function ratioBar(r) {
+  if (r == null) return `<span class="muted">—</span>`;
+  const w = Math.min(r, 1.5) / 1.5 * 100;
+  const col = r >= DATA.thresholds.onTrack ? PALETTE.green : r >= DATA.thresholds.wellBelow ? PALETTE.amber : PALETTE.red;
+  return `<b style="color:${col}">${pct(r)}</b><div class="bar"><span style="width:${w}%;background:${col}"></span>` +
+         `<i class="mark" style="left:${100 / 1.5}%"></i></div>`;
+}
+
+function renderStores(stores) {
+  const order = { "Not ordering at BOS1": 0, "Gone quiet": 1, "Well below baseline": 2, "Below baseline": 3, "On track": 4, "Awaiting BOS1 data": 5, "No PWM1 baseline": 6, "No activity": 7 };
+  const rows = [...stores].sort((a, b) => (order[a.status] - order[b.status]) || (b.baselineWeekly - a.baselineWeekly));
+  document.querySelector("#stores tbody").innerHTML = rows.map(s => {
+    const leak = s.pwm1AfterCutover
+      ? `<div class="small" style="color:var(--amber)">still ordering at PWM1 · last ${shortDate(s.pwm1AfterCutover.last)}</div>` : "";
+    const low = s.lowVolume ? `<div class="small muted">low volume — ratio is noisy</div>` : "";
+    const lostTip = s.lostLines.map(l => (DATA.skus.find(x => x.key === l.key) || {}).name || l.key).join("\n");
+    return `<tr>
+      <td><b>${escapeHtml(s.name)}</b><div class="small muted">${escapeHtml(s.group)} · ${escapeHtml(s.location)}</div>${leak}</td>
+      <td><span class="badge ${STATUS_CLASS[s.status] || "muted"}">${escapeHtml(s.status)}</span>${low}</td>
+      <td class="num">${s.baselineWeekly ? fmt(s.baselineWeekly) : "—"}</td>
+      <td class="num">${hasBos1() ? fmt(s.bos1Weekly) : "—"}</td>
+      <td>${ratioBar(s.ratio && hasBos1() ? s.ratio : (hasBos1() && s.baselineWeekly ? 0 : null))}</td>
+      <td>${s.lastBos1Order ? shortDate(s.lastBos1Order) : "<span class='muted'>—</span>"}</td>
+      <td class="num" title="${escapeHtml(lostTip)}">${hasBos1() ? s.lostLines.length || "—" : "—"}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderGaps(skus) {
+  const gaps = skus.filter(x => x.s.originalGap).map(x => x.s);
+  const shown = gaps.filter(brandOk).sort((a, b) => (a.stageIndex - b.stageIndex) || (b.scopedUnits - a.scopedUnits));
+  const counts = STAGES.map(st => gaps.filter(g => g.stage === st.name).length);
+  const total = gaps.length || 1;
+  document.getElementById("gap-progress").innerHTML = STAGES.map((st, i) => counts[i]
+    ? `<div style="width:${counts[i] / total * 100}%;background:${st.color}" title="${st.name}: ${counts[i]}">${counts[i]}</div>` : "").join("");
+  document.getElementById("gap-legend").innerHTML = STAGES.map((st, i) =>
+    `<span><i style="background:${st.color}"></i>${st.name} · ${counts[i]}</span>`).join("");
+  document.getElementById("gap-note").textContent =
+    `the ${DATA.originalGapCount} SKUs BOS1 didn't carry when the transfer was scoped (Sep 14)` + (brand ? ` · ${brand}` : "");
+  document.querySelector("#gaps tbody").innerHTML = shown.map(g => {
+    const st = STAGES[3 - g.stageIndex];
+    const inbound = g.inbound.length
+      ? g.inbound.map(l => `${escapeHtml(l.type)} ${escapeHtml(l.po)} <span class="muted">· ${escapeHtml(l.vendor)}${l.expected ? " · ETA " + shortDate(l.expected) : ""}</span>`).join("<br>")
+      : `<span class="muted">—</span>`;
+    const via = g.live ? `<div class="small muted">${g.bos1Sources.join(" · ")}</div>` : "";
+    return `<tr>
+      <td><b>${escapeHtml(g.name)}</b><div class="small muted">${escapeHtml(g.brand || "—")}${g.vendor ? " · " + escapeHtml(g.vendor) : ""}</div></td>
+      <td><span class="badge ${st.cls}">${escapeHtml(g.stage)}</span>${via}</td>
+      <td class="small">${inbound}</td>
+      <td>${g.reorderedByRoster ? `<span class="badge good">Yes</span>` : hasBos1() ? `<span class="muted">Not yet</span>` : `<span class="muted">—</span>`}</td>
+      <td class="num">${fmt(g.scopedUnits)}<div class="small muted">${g.scopedStores} stores</div></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="5" class="empty">No gap SKUs for this filter.</td></tr>`;
+}
+
+function renderFill(skus, feoosStore) {
+  const names = new Set(skus.filter(x => brandOk(x.s)).map(x => x.s.name.toLowerCase()));
+  const skuEvents = DATA.feoosEvents.filter(e => !e.storeUuid && names.has(e.item.toLowerCase()));
+  const events = [...feoosStore.filter(e => !brand || (e.brand || "(no brand)") === brand), ...skuEvents];
+  const since = DATA.sources.feoos.trackingSince ? ` since ${shortDate(DATA.sources.feoos.trackingSince)}` : "";
+  const m = DATA.sources.feoos.market14d;
+  const fb = document.getElementById("feoos-body");
+  if (!events.length) {
+    fb.innerHTML = `<div class="empty good">No out-of-stocks at these stores or on their SKUs${since}.</div>` +
+      (m ? `<div class="empty small" style="padding-top:0">For scale: BOS1 logged ${m.events} out-of-stock events across ${m.locations} other locations in the last 14 days.</div>` : "");
+  } else {
+    fb.innerHTML = `<div class="tablewrap" style="max-height:360px"><table><thead><tr><th>Date</th><th>Item</th><th>Where</th><th class="num">Qty</th></tr></thead><tbody>` +
+      events.map(e => `<tr>
+        <td>${shortDate(e.eventDate)}${e.count > 1 ? ` <span class="muted">×${e.count}</span>` : ""}</td>
+        <td>${escapeHtml(e.item)}<div class="small muted">${escapeHtml(e.brand || "")}</div></td>
+        <td>${e.storeUuid ? `<b>${escapeHtml(e.location)}</b>` : `<span class="muted">${escapeHtml(e.location)}</span><div class="small muted">other BOS1 customer</div>`}</td>
+        <td class="num">${fmt(e.qty)}</td></tr>`).join("") + `</tbody></table></div>`;
+  }
+
+  const low = skus.map(x => x.s).filter(s => s.live && brandOk(s) && coverClass(s.doc)).sort((a, b) => a.doc - b.doc);
+  document.getElementById("cover-h").textContent = `· under ${DATA.thresholds.docLow} days`;
+  const cb = document.getElementById("cover-body");
+  cb.innerHTML = !low.length
+    ? `<div class="empty good">Everything these stores buy has at least ${DATA.thresholds.docLow} days of cover at BOS1.</div>`
+    : `<div class="tablewrap" style="max-height:360px"><table><thead><tr><th>Item</th><th class="num">Days</th><th class="num">On hand</th><th class="num">On order</th></tr></thead><tbody>` +
+      low.map(s => `<tr>
+        <td>${escapeHtml(s.name)}<div class="small muted">${escapeHtml(s.vendor || s.brand || "")}</div>` +
+        (s.pastDuePos.length ? `<div class="small" style="color:var(--red)">past due: ${s.pastDuePos.map(escapeHtml).join(", ")}</div>` : "") + `</td>
+        <td class="num"><span class="badge ${coverClass(s.doc)}">${fmt(s.doc)}</span></td>
+        <td class="num">${fmt(s.onHand)}</td>
+        <td class="num">${s.onOrder ? fmt(s.onOrder) : `<span style="color:var(--red)">none</span>`}</td></tr>`).join("") + `</tbody></table></div>`;
+}
+
+function renderBasket(skus) {
+  const pw = postWeeks();
+  document.getElementById("basket-note").textContent = hasBos1()
+    ? `a line counts as lost once the store would normally have reordered it ${DATA.thresholds.lostLineExpectedOrders}+ times in the ${fmt(pw)} weeks since cutover`
+    : "appears once BOS1 order data is captured";
+  const lost = skus.filter(x => brandOk(x.s) && isLost(x.s, x.t))
+    .sort((a, b) => (a.s.live - b.s.live) || (b.t.baseUnits - a.t.baseUnits));
+  const neu = skus.filter(x => brandOk(x.s) && isNew(x.s, x.t)).sort((a, b) => b.t.bos1Units - a.t.bos1Units);
+  const table = (list, cols) => `<div class="tablewrap" style="max-height:360px"><table><thead><tr><th>Item</th>${cols.map(c => `<th class="num">${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    list.map(x => `<tr><td>${escapeHtml(x.s.name)}<div class="small muted">${escapeHtml(x.s.brand || "—")}</div></td>` +
+      cols.map(c => `<td class="num">${c[1](x)}</td>`).join("") + `</tr>`).join("") + `</tbody></table></div>`;
+  document.getElementById("lost-body").innerHTML = !hasBos1() ? `<div class="empty">Waiting on BOS1 order data.</div>`
+    : !lost.length ? `<div class="empty good">No lost lines — every regular PWM1 SKU has been reordered at BOS1.</div>`
+    : table(lost, [["Why", x => x.s.live
+        ? `<span class="badge warn" title="BOS1 carries it — the stores haven't reordered">not reordered</span>`
+        : `<span class="badge bad" title="Still an open gap — BOS1 doesn't carry it">not at BOS1</span>`],
+      ["Stores", x => x.t.baseStores], ["PWM1 / wk", x => fmt(x.t.baseUnits / DATA.sources.baseline.weeks)]]);
+  document.getElementById("new-body").innerHTML = !hasBos1() ? `<div class="empty">Waiting on BOS1 order data.</div>`
+    : !neu.length ? `<div class="empty">No new SKUs yet.</div>`
+    : table(neu, [["Stores", x => x.t.bos1Stores], ["BOS1 / wk", x => fmt(pw ? x.t.bos1Units / pw : 0)]]);
+}
+
+function renderBrands(skus) {
+  const pw = postWeeks(), bw = DATA.sources.baseline.weeks;
+  const by = new Map();
+  for (const x of skus) {
+    const b = x.s.brand || "(no brand)";
+    const r = by.get(b) || { brand: b, vendors: new Set(), base: 0, bos1: 0, skus: 0, open: 0, lost: 0, low: 0 };
+    if (x.s.vendor) r.vendors.add(x.s.vendor);
+    r.base += x.t.baseUnits; r.bos1 += x.t.bos1Units; r.skus += 1;
+    if (x.s.originalGap && x.s.stageIndex < 3) r.open += 1;
+    if (isLost(x.s, x.t)) r.lost += 1;
+    if (x.s.live && coverClass(x.s.doc)) r.low += 1;
+    by.set(b, r);
+  }
+  const rows = [...by.values()].filter(r => !brand || r.brand === brand)
+    .sort((a, b) => (b.base + b.bos1) - (a.base + a.bos1));
+  const flag = (n, cls) => n ? `<span class="badge ${cls}">${n}</span>` : `<span class="muted">—</span>`;
+  document.querySelector("#brands tbody").innerHTML = rows.map(r => {
+    const baseWk = r.base / bw, bosWk = pw ? r.bos1 / pw : 0;
+    const ratio = hasBos1() && baseWk ? bosWk / baseWk : null;
+    return `<tr>
+      <td><b>${escapeHtml(r.brand)}</b></td>
+      <td class="small muted">${escapeHtml([...r.vendors].join(", ") || "—")}</td>
+      <td class="num">${baseWk ? fmt(baseWk) : "—"}</td>
+      <td class="num">${hasBos1() ? fmt(bosWk) : "—"}</td>
+      <td>${ratioBar(ratio)}</td>
+      <td class="num">${r.skus}</td>
+      <td class="num">${flag(r.open, "bad")}</td>
+      <td class="num">${flag(r.lost, "warn")}</td>
+      <td class="num">${flag(r.low, "warn")}</td>
+    </tr>`;
+  }).join("");
+}
+
+load();
+</script>
+</body>
+</html>

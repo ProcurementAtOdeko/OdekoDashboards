@@ -1,0 +1,67 @@
+name: Refresh PWM1 to BOS1 performance data
+
+on:
+  schedule:
+    - cron: "20 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refresh-pwm1-bos1-performance.yml"
+      - "dashboards/pwm1-bos1-performance/scripts/**"
+      - "dashboards/pwm1-bos1-conversion/scripts/roster.csv"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-pwm1-bos1-performance
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet google-api-python-client google-auth
+
+      # Reads the committed data.json first: it carries the BOS1 order and
+      # FEOOS history that each run merges forward.
+      - name: Build data.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 dashboards/pwm1-bos1-performance/scripts/build_data.py \
+            dashboards/pwm1-bos1-performance/data.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboards/pwm1-bos1-performance/data.json
+          if git diff --cached --quiet -- dashboards/pwm1-bos1-performance/data.json; then
+            echo "No data changes."
+            exit 0
+          fi
+          git commit -m "chore: refresh PWM1 to BOS1 performance data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          # Refresh workflows all push to main and do overlap in practice, and a
+          # plain push just loses the race: the second one is rejected with
+          # "fetch first" and that hour's refresh is dropped. Rebase onto
+          # whatever landed first and try again. Each dashboard owns its own
+          # data.json, so there is nothing for the rebase to conflict over.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt) — rebasing onto origin/main"
+            git pull --rebase origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "::error::could not push PWM1 to BOS1 performance data after 5 attempts"
+          exit 1
