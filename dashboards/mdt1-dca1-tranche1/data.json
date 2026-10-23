@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T07:58:21+00:00",
+  "generatedAt": "2026-10-23T13:46:31+00:00",
   "dateRange": {
     "min": "2026-07-28",
     "max": "2026-10-05"
@@ -220,7 +220,7 @@
     {
       "name": "Monin Chai Tea Concentrate 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "",
+      "itemUuid": "cb8b3dff-af59-458a-8d7d-4f1c54b62b14",
       "units": 156.0,
       "lines": 6,
       "inDca1": false,
@@ -312,7 +312,7 @@
     {
       "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "c32059d1-05a7-4cb0-b043-5df1a52c6708",
+      "itemUuid": "",
       "units": 139.0,
       "lines": 5,
       "inDca1": true,
@@ -476,7 +476,7 @@
     {
       "name": "Monin Pure Cane Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "",
+      "itemUuid": "818f8d0b-4a43-42b5-9bfc-fbfcbe685ec0",
       "units": 84.0,
       "lines": 4,
       "inDca1": true,
@@ -584,7 +584,7 @@
     {
       "name": "Monin Lavender Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "",
+      "itemUuid": "bcb19e6c-5ac1-48b7-b7fb-3ea3f2c42868",
       "units": 48.0,
       "lines": 7,
       "inDca1": true,
@@ -660,7 +660,7 @@
     {
       "name": "Monin Sugar Free Vanilla Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "86cd2ad6-de34-4d7c-b667-a1c30fee0de0",
+      "itemUuid": "",
       "units": 44.0,
       "lines": 3,
       "inDca1": true,
@@ -951,7 +951,7 @@
     {
       "name": "Monin Sugar Free Caramel Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "itemUuid": "b5a40281-b7b1-4542-939b-3333c36514e5",
+      "itemUuid": "",
       "units": 20.0,
       "lines": 3,
       "inDca1": true,
@@ -1353,16 +1353,16 @@
       "customers": 2,
       "custDetail": [
         {
-          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
-          "name": "Filicori : 12430 Park Potomac Ave R-3",
-          "units": 6.0,
-          "lines": 1
-        },
-        {
           "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
           "name": "Casey's Coffee : College Park",
           "units": 6.0,
           "lines": 3
+        },
+        {
+          "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
+          "name": "Filicori : 12430 Park Potomac Ave R-3",
+          "units": 6.0,
+          "lines": 1
         }
       ]
     },
@@ -1541,14 +1541,14 @@
           "lines": 6
         },
         {
-          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
-          "name": "Bon Fresco : Gaither Rd",
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
           "units": 1.0,
           "lines": 1
         },
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
+          "uuid": "f062df16-1b93-43bc-82ce-10ac9333428b",
+          "name": "Bon Fresco : Gaither Rd",
           "units": 1.0,
           "lines": 1
         }
@@ -1961,6 +1961,7 @@
       "lines": 3,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "customers": 1,
@@ -2152,16 +2153,16 @@
       "customers": 3,
       "custDetail": [
         {
-          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
-          "name": "Bean Rush Cafe : Glen Burnie",
-          "units": 2.0,
-          "lines": 2
-        },
-        {
           "uuid": "d8143089-c480-4143-bd2c-a05f54d62cec",
           "name": "Back Creek Cafe & Boat Supply : 7310 Edgewood Rd",
           "units": 2.0,
           "lines": 1
+        },
+        {
+          "uuid": "ad13b290-d24f-4713-9c19-87dd12c49766",
+          "name": "Bean Rush Cafe : Glen Burnie",
+          "units": 2.0,
+          "lines": 2
         },
         {
           "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
@@ -3748,12 +3749,6 @@
       "customers": 5,
       "custDetail": [
         {
-          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
-          "name": "French Press : 4918 Saint Elmo Avenue",
-          "units": 0.0,
-          "lines": 1
-        },
-        {
           "uuid": "2cdb0293-1e1b-4bc9-b17e-84209f455ee3",
           "name": "Filicori : 12430 Park Potomac Ave R-3",
           "units": 0.0,
@@ -3768,6 +3763,12 @@
         {
           "uuid": "48e19e54-5515-4f80-a414-c479b69c493f",
           "name": "Casey's Coffee : College Park",
+          "units": 0.0,
+          "lines": 1
+        },
+        {
+          "uuid": "7b890e64-9771-4344-ae84-cb3d03d4ecd9",
+          "name": "French Press : 4918 Saint Elmo Avenue",
           "units": 0.0,
           "lines": 1
         },
