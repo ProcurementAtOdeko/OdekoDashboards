@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-24T05:54:55+00:00",
+ "generatedAt": "2026-10-24T11:01:38+00:00",
  "origin": "PWM1",
  "destination": "BOS1",
  "cutover": "2026-10-02",
@@ -18,9 +18,9 @@
  "sources": {
   "bos1Sales": {
    "status": "fresh",
-   "capturedAt": "2026-10-24T05:54:46+00:00",
-   "dataThrough": "2026-10-21",
-   "postCutoverDays": 20
+   "capturedAt": "2026-10-24T11:01:25+00:00",
+   "dataThrough": "2026-10-23",
+   "postCutoverDays": 22
   },
   "baseline": {
    "start": "2026-08-07",
@@ -30,10 +30,15 @@
   },
   "feoos": {
    "trackingSince": "2026-10-07",
-   "market14d": null
+   "market14d": {
+    "events": 325,
+    "locations": 99,
+    "from": "2026-10-11",
+    "to": "2026-10-23"
+   }
   },
   "pwm1Leakage": {
-   "checked": false
+   "checked": true
   }
  },
  "originalGapCount": 42,
@@ -47,12 +52,12 @@
    "baselineUnits": 142.0,
    "baselineWeekly": 17.8,
    "baselineSkus": 25,
-   "bos1Units": 44.0,
-   "bos1Weekly": 15.4,
-   "bos1Skus": 15,
-   "ratio": 0.868,
+   "bos1Units": 51.0,
+   "bos1Weekly": 16.2,
+   "bos1Skus": 16,
+   "ratio": 0.914,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-20",
+   "lastBos1Order": "2026-10-21",
    "status": "On track",
    "lowVolume": false,
    "lostLines": [],
@@ -69,9 +74,9 @@
    "baselineWeekly": 26.5,
    "baselineSkus": 30,
    "bos1Units": 52.0,
-   "bos1Weekly": 18.2,
+   "bos1Weekly": 16.5,
    "bos1Skus": 17,
-   "ratio": 0.687,
+   "ratio": 0.624,
    "firstBos1Order": "2026-10-11",
    "lastBos1Order": "2026-10-21",
    "status": "Below baseline",
@@ -89,13 +94,13 @@
    "baselineUnits": 316.0,
    "baselineWeekly": 39.5,
    "baselineSkus": 31,
-   "bos1Units": 78.0,
-   "bos1Weekly": 27.3,
-   "bos1Skus": 18,
-   "ratio": 0.691,
+   "bos1Units": 105.0,
+   "bos1Weekly": 33.4,
+   "bos1Skus": 19,
+   "ratio": 0.846,
    "firstBos1Order": "2026-10-05",
-   "lastBos1Order": "2026-10-19",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-22",
+   "status": "On track",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 6,
@@ -111,18 +116,18 @@
    "baselineWeekly": 42.6,
    "baselineSkus": 29,
    "bos1Units": 63.0,
-   "bos1Weekly": 22.1,
+   "bos1Weekly": 20.0,
    "bos1Skus": 14,
-   "ratio": 0.517,
+   "ratio": 0.47,
    "firstBos1Order": "2026-10-05",
    "lastBos1Order": "2026-10-21",
-   "status": "Below baseline",
+   "status": "Well below baseline",
    "lowVolume": false,
    "lostLines": [
     {
      "key": "1883 syrup pump (glass)",
      "baselineUnits": 79.0,
-     "expectedOrders": 2.9
+     "expectedOrders": 3.1
     }
    ],
    "newSkus": 4,
@@ -137,12 +142,12 @@
    "baselineUnits": 206.0,
    "baselineWeekly": 25.8,
    "baselineSkus": 28,
-   "bos1Units": 59.0,
-   "bos1Weekly": 20.6,
-   "bos1Skus": 16,
-   "ratio": 0.802,
+   "bos1Units": 80.0,
+   "bos1Weekly": 25.5,
+   "bos1Skus": 17,
+   "ratio": 0.989,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-18",
+   "lastBos1Order": "2026-10-22",
    "status": "On track",
    "lowVolume": false,
    "lostLines": [],
@@ -179,16 +184,16 @@
    "baselineUnits": 188.0,
    "baselineWeekly": 23.5,
    "baselineSkus": 29,
-   "bos1Units": 61.0,
-   "bos1Weekly": 21.3,
-   "bos1Skus": 16,
-   "ratio": 0.909,
+   "bos1Units": 71.0,
+   "bos1Weekly": 22.6,
+   "bos1Skus": 18,
+   "ratio": 0.961,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-20",
+   "lastBos1Order": "2026-10-21",
    "status": "On track",
    "lowVolume": false,
    "lostLines": [],
-   "newSkus": 4,
+   "newSkus": 5,
    "pwm1AfterCutover": null
   },
   {
@@ -201,18 +206,18 @@
    "baselineWeekly": 28.5,
    "baselineSkus": 29,
    "bos1Units": 68.0,
-   "bos1Weekly": 23.8,
+   "bos1Weekly": 21.6,
    "bos1Skus": 17,
-   "ratio": 0.835,
+   "ratio": 0.759,
    "firstBos1Order": "2026-10-04",
    "lastBos1Order": "2026-10-21",
-   "status": "On track",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [
     {
      "key": "polar club soda 7.5oz",
      "baselineUnits": 19.0,
-     "expectedOrders": 2.5
+     "expectedOrders": 2.8
     }
    ],
    "newSkus": 6,
@@ -228,9 +233,9 @@
    "baselineWeekly": 18.1,
    "baselineSkus": 19,
    "bos1Units": 33.0,
-   "bos1Weekly": 11.5,
+   "bos1Weekly": 10.5,
    "bos1Skus": 12,
-   "ratio": 0.637,
+   "ratio": 0.579,
    "firstBos1Order": "2026-10-04",
    "lastBos1Order": "2026-10-17",
    "status": "Below baseline",
@@ -270,9 +275,9 @@
    "baselineWeekly": 48.2,
    "baselineSkus": 22,
    "bos1Units": 128.0,
-   "bos1Weekly": 44.8,
+   "bos1Weekly": 40.7,
    "bos1Skus": 16,
-   "ratio": 0.928,
+   "ratio": 0.844,
    "firstBos1Order": "2026-10-04",
    "lastBos1Order": "2026-10-21",
    "status": "On track",
@@ -291,12 +296,12 @@
    "baselineWeekly": 51.9,
    "baselineSkus": 31,
    "bos1Units": 130.0,
-   "bos1Weekly": 45.5,
+   "bos1Weekly": 41.4,
    "bos1Skus": 21,
-   "ratio": 0.877,
+   "ratio": 0.797,
    "firstBos1Order": "2026-10-05",
    "lastBos1Order": "2026-10-20",
-   "status": "On track",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 7,
@@ -312,12 +317,12 @@
    "baselineWeekly": 49.9,
    "baselineSkus": 31,
    "bos1Units": 119.0,
-   "bos1Weekly": 41.6,
+   "bos1Weekly": 37.9,
    "bos1Skus": 21,
-   "ratio": 0.835,
+   "ratio": 0.759,
    "firstBos1Order": "2026-10-04",
    "lastBos1Order": "2026-10-21",
-   "status": "On track",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 8,
@@ -375,9 +380,9 @@
    "baselineWeekly": 4.4,
    "baselineSkus": 5,
    "bos1Units": 11.0,
-   "bos1Weekly": 3.9,
+   "bos1Weekly": 3.5,
    "bos1Skus": 2,
-   "ratio": 0.88,
+   "ratio": 0.8,
    "firstBos1Order": "2026-10-02",
    "lastBos1Order": "2026-10-06",
    "status": "Gone quiet",
@@ -417,9 +422,9 @@
    "baselineWeekly": 4.4,
    "baselineSkus": 7,
    "bos1Units": 7.0,
-   "bos1Weekly": 2.4,
+   "bos1Weekly": 2.2,
    "bos1Skus": 3,
-   "ratio": 0.56,
+   "ratio": 0.509,
    "firstBos1Order": "2026-10-19",
    "lastBos1Order": "2026-10-19",
    "status": "Below baseline",
@@ -438,9 +443,9 @@
    "baselineWeekly": 4.6,
    "baselineSkus": 6,
    "bos1Units": 9.0,
-   "bos1Weekly": 3.1,
+   "bos1Weekly": 2.9,
    "bos1Skus": 4,
-   "ratio": 0.681,
+   "ratio": 0.619,
    "firstBos1Order": "2026-10-05",
    "lastBos1Order": "2026-10-05",
    "status": "Gone quiet",
@@ -458,16 +463,16 @@
    "baselineUnits": 11.0,
    "baselineWeekly": 1.4,
    "baselineSkus": 3,
-   "bos1Units": 0,
-   "bos1Weekly": 0.0,
-   "bos1Skus": 0,
-   "ratio": 0.0,
-   "firstBos1Order": null,
-   "lastBos1Order": null,
-   "status": "Not ordering at BOS1",
+   "bos1Units": 8.0,
+   "bos1Weekly": 2.5,
+   "bos1Skus": 4,
+   "ratio": 1.851,
+   "firstBos1Order": "2026-10-22",
+   "lastBos1Order": "2026-10-22",
+   "status": "On track",
    "lowVolume": true,
    "lostLines": [],
-   "newSkus": 0,
+   "newSkus": 1,
    "pwm1AfterCutover": null
   },
   {
@@ -480,12 +485,12 @@
    "baselineWeekly": 7.6,
    "baselineSkus": 7,
    "bos1Units": 19.0,
-   "bos1Weekly": 6.6,
+   "bos1Weekly": 6.0,
    "bos1Skus": 4,
-   "ratio": 0.872,
+   "ratio": 0.793,
    "firstBos1Order": "2026-10-05",
    "lastBos1Order": "2026-10-19",
-   "status": "On track",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 0,
@@ -662,11 +667,11 @@
    "byGroup": {
     "Blank Street": {
      "pwm1": 0.0,
-     "bos1": 175.0
+     "bos1": 240.0
     },
     "Van Leeuwen": {
      "pwm1": 0.0,
-     "bos1": 15.0
+     "bos1": 23.0
     }
    }
   }
@@ -712,7 +717,7 @@
      "baseUnits": 528.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 211.0,
+     "bos1Units": 223.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -729,8 +734,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 119.0,
-   "onHand": 57.3,
+   "doc": 97.0,
+   "onHand": 51.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -755,8 +760,8 @@
      "baseUnits": 159.0,
      "baseLines": 21,
      "baseStores": 7,
-     "bos1Units": 1.0,
-     "bos1Stores": 1
+     "bos1Units": 11.0,
+     "bos1Stores": 2
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -772,7 +777,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 1815.0,
+   "doc": 1665.0,
    "onHand": 0.6,
    "onOrder": null,
    "pastDuePos": [],
@@ -951,8 +956,8 @@
      "baseUnits": 87.0,
      "baseLines": 30,
      "baseStores": 8,
-     "bos1Units": 16.0,
-     "bos1Stores": 4
+     "bos1Units": 17.0,
+     "bos1Stores": 5
     }
    },
    "live": true,
@@ -961,7 +966,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 199.0,
+   "doc": 187.0,
    "onHand": 53.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1003,7 +1008,7 @@
     "catalog",
     "onhand"
    ],
-   "doc": 1920.0,
+   "doc": 960.0,
    "onHand": 32.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1029,7 +1034,7 @@
      "baseUnits": 242.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 66.0,
+     "bos1Units": 68.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1045,8 +1050,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 55.0,
-   "onHand": 53.0,
+   "doc": 44.0,
+   "onHand": 45.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1078,8 +1083,8 @@
      "baseUnits": 6.0,
      "baseLines": 6,
      "baseStores": 4,
-     "bos1Units": 1.0,
-     "bos1Stores": 1
+     "bos1Units": 2.0,
+     "bos1Stores": 2
     }
    },
    "live": true,
@@ -1088,8 +1093,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 22.0,
-   "onHand": 368.0,
+   "doc": 20.0,
+   "onHand": 339.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1161,8 +1166,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 28.0,
-   "onHand": 161.0,
+   "doc": 26.0,
+   "onHand": 155.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1220,7 +1225,7 @@
      "baseUnits": 343.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 145.0,
+     "bos1Units": 149.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1236,8 +1241,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 64.0,
-   "onHand": 138.0,
+   "doc": 56.0,
+   "onHand": 124.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1340,7 +1345,7 @@
      "baseUnits": 160.0,
      "baseLines": 93,
      "baseStores": 11,
-     "bos1Units": 64.0,
+     "bos1Units": 67.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1356,8 +1361,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 101.0,
-   "onHand": 99.0,
+   "doc": 90.0,
+   "onHand": 91.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1398,8 +1403,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 118.0,
-   "onHand": 49.0,
+   "doc": 101.0,
+   "onHand": 47.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1424,7 +1429,7 @@
      "baseUnits": 136.0,
      "baseLines": 77,
      "baseStores": 11,
-     "bos1Units": 47.0,
+     "bos1Units": 50.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1440,8 +1445,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 83.0,
-   "onHand": 58.0,
+   "doc": 69.0,
+   "onHand": 53.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1505,7 +1510,7 @@
      "baseUnits": 89.0,
      "baseLines": 55,
      "baseStores": 11,
-     "bos1Units": 26.0,
+     "bos1Units": 28.0,
      "bos1Stores": 10
     },
     "Van Leeuwen": {
@@ -1522,8 +1527,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 161.0,
-   "onHand": 145.0,
+   "doc": 157.0,
+   "onHand": 141.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1667,7 +1672,7 @@
      "baseUnits": 17.0,
      "baseLines": 14,
      "baseStores": 9,
-     "bos1Units": 6.0,
+     "bos1Units": 7.0,
      "bos1Stores": 4
     },
     "Van Leeuwen": {
@@ -1684,8 +1689,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 120.0,
-   "onHand": 10.0,
+   "doc": 80.0,
+   "onHand": 8.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1756,8 +1761,8 @@
      "baseUnits": 70.0,
      "baseLines": 30,
      "baseStores": 8,
-     "bos1Units": 20.0,
-     "bos1Stores": 4
+     "bos1Units": 24.0,
+     "bos1Stores": 5
     }
    },
    "live": true,
@@ -1783,8 +1788,8 @@
      "baseUnits": 5.0,
      "baseLines": 3,
      "baseStores": 3,
-     "bos1Units": 13.0,
-     "bos1Stores": 4
+     "bos1Units": 15.0,
+     "bos1Stores": 6
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1800,8 +1805,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 49.0,
-   "onHand": 0.8,
+   "doc": 32.0,
+   "onHand": 0.6,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1826,7 +1831,7 @@
      "baseUnits": 92.0,
      "baseLines": 59,
      "baseStores": 11,
-     "bos1Units": 43.0,
+     "bos1Units": 45.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1843,8 +1848,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 91.0,
-   "onHand": 11.8,
+   "doc": 79.0,
+   "onHand": 11.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1860,7 +1865,7 @@
      "baseUnits": 13.0,
      "baseLines": 7,
      "baseStores": 4,
-     "bos1Units": 9.0,
+     "bos1Units": 10.0,
      "bos1Stores": 6
     },
     "Van Leeuwen": {
@@ -1877,7 +1882,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 23.0,
+   "doc": 16.0,
    "onHand": 0.2,
    "onOrder": null,
    "pastDuePos": [],
@@ -1894,7 +1899,7 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 14.0,
+     "bos1Units": 18.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1911,8 +1916,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 364.0,
-   "onHand": 17.2,
+   "doc": 346.0,
+   "onHand": 16.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2087,7 +2092,7 @@
      "baseUnits": 183.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 48.0,
+     "bos1Units": 49.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -2103,8 +2108,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 20.0,
-   "onHand": 16.0,
+   "doc": 18.0,
+   "onHand": 14.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2168,7 +2173,7 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 15.0,
+     "bos1Units": 19.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -2184,8 +2189,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 454.0,
-   "onHand": 8.8,
+   "doc": 433.0,
+   "onHand": 8.4,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2250,8 +2255,8 @@
      "baseUnits": 66.0,
      "baseLines": 30,
      "baseStores": 8,
-     "bos1Units": 6.0,
-     "bos1Stores": 2
+     "bos1Units": 8.0,
+     "bos1Stores": 3
     }
    },
    "live": true,
@@ -2341,7 +2346,7 @@
     "catalog",
     "onhand"
    ],
-   "doc": 18.0,
+   "doc": 14.0,
    "onHand": 33.0,
    "onOrder": 56.0,
    "pastDuePos": [
@@ -2401,7 +2406,7 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 18.0,
+     "bos1Units": 24.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -2417,8 +2422,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 646.0,
-   "onHand": 183.0,
+   "doc": 621.0,
+   "onHand": 176.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2572,8 +2577,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 41.0,
-   "onHand": 32.0,
+   "doc": 36.0,
+   "onHand": 29.0,
    "onOrder": 4.0,
    "pastDuePos": [
     "[\"PO108215\"]"
@@ -2634,8 +2639,8 @@
      "baseUnits": 18.0,
      "baseLines": 13,
      "baseStores": 8,
-     "bos1Units": 9.0,
-     "bos1Stores": 4
+     "bos1Units": 10.0,
+     "bos1Stores": 5
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2651,8 +2656,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 73.0,
-   "onHand": 1.8,
+   "doc": 54.0,
+   "onHand": 1.5,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2763,8 +2768,8 @@
      "baseUnits": 106.0,
      "baseLines": 42,
      "baseStores": 10,
-     "bos1Units": 23.0,
-     "bos1Stores": 9
+     "bos1Units": 26.0,
+     "bos1Stores": 10
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2780,8 +2785,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 33.0,
-   "onHand": 2.5,
+   "doc": 15.0,
+   "onHand": 1.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2797,7 +2802,7 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 15.0,
+     "bos1Units": 19.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -2813,8 +2818,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 69.0,
-   "onHand": 1.6,
+   "doc": 47.0,
+   "onHand": 1.1,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -3899,6 +3904,13 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-22",
+    12.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "1883 syrup pump (plastic)",
     "2026-10-13",
     4.0,
@@ -3920,6 +3932,13 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "braswell's sweet potato butter",
+    "2026-10-22",
+    2.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-04",
     3.0,
@@ -3964,6 +3983,13 @@
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "crofters organic strawberry jelly 7kg",
     "2026-10-18",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -4039,6 +4065,13 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "hollander white chocolate sauce 64oz",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-11",
     3.0,
@@ -4053,6 +4086,13 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-11",
     1.0,
@@ -4063,6 +4103,20 @@
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-13",
     1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-22",
+    2.0,
     1
    ],
    [
@@ -4076,6 +4130,13 @@
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-13",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "very fine foods - hojicha powder 1kg bag",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -4683,6 +4744,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "crofters organic strawberry jelly 7kg",
     "2026-10-08",
     1.0,
@@ -4699,6 +4767,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "crofters organic strawberry jelly 7kg",
     "2026-10-20",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -4746,8 +4821,22 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "eversys coffee cleaning balls",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "haddar himalayan fine pink salt 16oz container",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -4795,6 +4884,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "hollander white chocolate sauce 64oz",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-04",
     1.0,
@@ -4823,6 +4919,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-12",
     1.0,
@@ -4830,8 +4933,22 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-21",
+    2.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "urnex biocaf coffee equipment cleaning powder 500 g jar(s)",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "urnex clearly cold 32oz bottle",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -4853,6 +4970,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-12",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "very fine foods - hojicha powder 1kg bag",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -5158,6 +5282,34 @@
     1
    ],
    [
+    "a305e919-8832-489d-825f-0e8208e04486",
+    "boylan bottling co. ginger ale soda",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "a305e919-8832-489d-825f-0e8208e04486",
+    "califia farms barista almond milk 32oz",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "a305e919-8832-489d-825f-0e8208e04486",
+    "gossner whole milk 32oz",
+    "2026-10-22",
+    4.0,
+    1
+   ],
+   [
+    "a305e919-8832-489d-825f-0e8208e04486",
+    "open water still water w/ electrolytes 16oz aluminum bottle - 24 pack",
+    "2026-10-22",
+    2.0,
+    1
+   ],
+   [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "1883 french madeleine syrup 1l glass",
     "2026-10-07",
@@ -5327,6 +5479,13 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "1883 syrup pump (glass)",
+    "2026-10-22",
+    10.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "braswell's sweet potato butter",
     "2026-10-05",
     2.0,
@@ -5383,6 +5542,13 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-22",
+    3.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "crofters organic strawberry jelly 7kg",
     "2026-10-12",
     2.0,
@@ -5392,6 +5558,13 @@
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "crofters organic strawberry jelly 7kg",
     "2026-10-19",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -5439,6 +5612,13 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-22",
+    3.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-05",
     1.0,
@@ -5455,6 +5635,13 @@
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-19",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -5488,6 +5675,13 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-22",
+    2.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "hollander sauce pump",
     "2026-10-05",
     1.0,
@@ -5502,8 +5696,22 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "hollander sauce pump",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "hollander white chocolate sauce 64oz",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "hollander white chocolate sauce 64oz",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -5523,8 +5731,22 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-22",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "nouka black sesame paste - pure ground sesame seeds 1lb",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -5533,6 +5755,13 @@
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-15",
     1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-22",
+    2.0,
     1
    ],
    [
@@ -5567,6 +5796,13 @@
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "very fine foods - hojicha powder 1kg bag",
+    "2026-10-22",
     1.0,
     1
    ],
@@ -5726,6 +5962,20 @@
    ],
    [
     "af492171-9c65-4977-928d-2de10f83344b",
+    "eversys coffee cleaning balls",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
+    "haddar himalayan fine pink salt 16oz container",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
     "hollander dutched chocolate cafe sauce 64oz",
     "2026-10-20",
     1.0,
@@ -5735,6 +5985,13 @@
     "af492171-9c65-4977-928d-2de10f83344b",
     "hollander white chocolate sauce 64oz",
     "2026-10-12",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
+    "hollander white chocolate sauce 64oz",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -5754,8 +6011,22 @@
    ],
    [
     "af492171-9c65-4977-928d-2de10f83344b",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-12",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -5782,8 +6053,22 @@
    ],
    [
     "af492171-9c65-4977-928d-2de10f83344b",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-12",
+    1.0,
+    1
+   ],
+   [
+    "af492171-9c65-4977-928d-2de10f83344b",
+    "very fine foods - hojicha powder 1kg bag",
+    "2026-10-21",
     1.0,
     1
    ],
@@ -6021,11 +6306,12 @@
    "e6755f87-c2d2-4b85-a4c9-f1107160e7f2": "Van Leeuwen : Lyrik #2506",
    "b47f8916-5e49-4f6d-91c4-f4e99f886e06": "Van Leeuwen : Fenway #2505",
    "1470ab63-5eae-4f3d-a298-5c8ab3f268a0": "Van Leeuwen : Burlington Mall #2508",
-   "6d6df56d-0450-48f4-ae92-ea01417a1dd0": "Van Leeuwen : Harvard Square #2501"
+   "6d6df56d-0450-48f4-ae92-ea01417a1dd0": "Van Leeuwen : Harvard Square #2501",
+   "a305e919-8832-489d-825f-0e8208e04486": "Van Leeuwen : Linden Square #2504"
   },
-  "capturedAt": "2026-10-24T05:54:46+00:00",
-  "dataThrough": "2026-10-21",
-  "feedRows": 27882
+  "capturedAt": "2026-10-24T11:01:25+00:00",
+  "dataThrough": "2026-10-23",
+  "feedRows": 28013
  },
  "feoosHistory": {
   "trackingSince": "2026-10-07",
