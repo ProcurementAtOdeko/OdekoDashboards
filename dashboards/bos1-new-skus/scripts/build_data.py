@@ -105,6 +105,22 @@ def norm_name(name):
     return _DUP.sub("", str(name).strip()).lower()
 
 
+def repair_keys(items, known, rename=False):
+    """Looker's Sheets export sometimes destroys non-ASCII characters
+    ("Reál" arrives as "Re\ufffd\ufffdl"), which breaks the by-name join to
+    stock and the network benchmark. Treat each run of U+FFFD as a 1–2
+    character wildcard and re-key the entry under the one known name it
+    matches, if exactly one does. known: norm_name -> display name."""
+    for key in [k for k in items if "\ufffd" in k]:
+        pat = re.compile("^" + ".{1,2}".join(re.escape(x) for x in re.split("\ufffd+", key)) + "$")
+        hits = [n for n in known if pat.match(n)]
+        if len(hits) == 1 and hits[0] not in items:
+            entry = items.pop(key)
+            if rename:
+                entry["name"] = known[hits[0]]
+            items[hits[0]] = entry
+
+
 def is_product(name):
     return bool(str(name).strip()) and not _NON_PRODUCT.search(str(name))
 
@@ -302,7 +318,8 @@ def load_stock(svc):
         key = norm_name(cell(r, col["Item Name"]))
         # The sheet repeats each item once per stock line with identical
         # values, so the first non-empty value wins rather than summing.
-        s = stock.setdefault(key, {"vendor": "", "doc": None, "consumption60": None,
+        s = stock.setdefault(key, {"name": cell(r, col["Item Name"]).strip(), "vendor": "",
+                                   "doc": None, "consumption60": None,
                                    "onHand": None, "onOrder": None, "pastDue": set()})
         if not s["vendor"]:
             s["vendor"] = cell(r, col["Procurement Vendor"]).strip()
@@ -346,9 +363,10 @@ def load_network_benchmark():
         with open(os.path.join(SALES_TRACKER_DATA, "manifest.json")) as f:
             manifest = json.load(f)
     except (OSError, ValueError):
-        return {}, []
+        return {}, [], {}
     per_item = defaultdict(list)
     used = []
+    names = {}  # norm_name -> display name, for repairing Looker's names
     for w in manifest.get("warehouses", []):
         code = w.get("code")
         if code == WAREHOUSE or w.get("status") != "ok":
@@ -369,11 +387,12 @@ def load_network_benchmark():
             c = it.get("customers") or 0
             if not c:
                 continue
+            names.setdefault(norm_name(it.get("name", "")), it.get("name", ""))
             per_item[norm_name(it.get("name", ""))].append({
                 "wh": code, "penetration": c / base,
                 "perBuyerWeekly": (it.get("units") or 0) / c / weeks,
             })
-    return per_item, used
+    return per_item, used, names
 
 
 # --- Build ----------------------------------------------------------------
@@ -439,6 +458,11 @@ def main(out_path):
         previous = {}
     cache = previous.get("lookerCache") or {}
 
+    # Stock and the benchmark come first: their names repair the Looker ones.
+    stock = load_stock(svc)
+    bench, bench_whs, bench_names = load_network_benchmark()
+    known = {**{k: v["name"] for k, v in stock.items() if v.get("name")}, **bench_names}
+
     # Looker exports, carrying the last good parse forward when one is empty.
     rows, mod = read_export(svc, drive, PAIRS_FILE_NAME, "A1:P")
     pairs = parse_pairs(rows) if rows else None
@@ -448,6 +472,9 @@ def main(out_path):
         pairs, pairs_status = cache["pairs"], "carried"
     else:
         pairs, pairs_status = None, "missing"
+
+    if pairs:
+        repair_keys(pairs["items"], known, rename=True)
 
     new_items = {}
     if pairs:
@@ -465,12 +492,12 @@ def main(out_path):
     else:
         weekly, weekly_status = {"items": {}, "total": {}}, "missing"
 
-    stock = load_stock(svc)
+    repair_keys(weekly["items"], known)
+
     feoos = merge_feoos(svc, drive, previous)
     feoos_by_item = Counter()
     for e in feoos["events"]:
         feoos_by_item[norm_name(e["k"][1])] += e["n"]
-    bench, bench_whs = load_network_benchmark()
 
     skus = []
     if pairs:
@@ -529,7 +556,10 @@ def main(out_path):
                 "key": key, "name": it["name"], "itemId": it["itemId"],
                 "brand": it["brand"] or "", "category": it["category"] or "",
                 "subCategory": it["subCategory"] or "",
-                "vendor": st.get("vendor") or it["vendor"] or "",
+                # On Hand & ETA's procurement vendor only: Looker's
+                # dim_item.vendor_name is the vendor's name *for the item*
+                # ("Mozzarella House Burratina 8oz"), not the vendor.
+                "vendor": st.get("vendor") or "",
                 "launch": it["launch"], "daysLive": days_live, "lastOrder": it["lastOrder"],
                 "daysSinceLastOrder": days_since,
                 "newToOdeko": new_to_odeko,
