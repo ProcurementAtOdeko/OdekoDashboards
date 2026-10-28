@@ -487,6 +487,9 @@ function loadMarket(wh) {
     .then(r => { if (!r.ok) throw new Error("no data for " + wh); return r.json(); })
     .then(d => {
       DATA = d;
+      // Biggest dollars first wherever the market reports them.
+      STATE.sort = d.hasRevenue ? "revenue" : "units";
+      STATE.dir = -1;
       document.getElementById("meta").textContent =
         `${wh} · ${d.dateRange.start} → ${d.dateRange.end} · ${fmtInt(d.summary.itemCount)} SKUs · updated ${new Date(d.generatedAt).toLocaleString()}`;
       rebuild();

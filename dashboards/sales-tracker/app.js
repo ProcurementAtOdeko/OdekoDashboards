@@ -23,15 +23,15 @@ document.body.innerHTML = `
 
   <section class="charts">
     <div class="card chart full">
-      <h3>Units Sold by Week</h3>
+      <h3 id="title-weekly">Units Sold by Week</h3>
       <div class="body"><canvas id="chart-weekly"></canvas></div>
     </div>
     <div class="card tall">
-      <h3>Top 10 Items — Units Sold</h3>
+      <h3 id="title-items">Top 10 Items — Units Sold</h3>
       <div class="body"><canvas id="chart-items"></canvas></div>
     </div>
     <div class="card tall">
-      <h3>Top 10 Customers — Units Sold</h3>
+      <h3 id="title-customers">Top 10 Customers — Units Sold</h3>
       <div class="body"><canvas id="chart-customers"></canvas></div>
     </div>
   </section>
@@ -97,6 +97,7 @@ const TABS = {
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
+    defaultSortRev: "revenue",
   },
   customers: {
     columns: [
@@ -113,6 +114,7 @@ const TABS = {
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
+    defaultSortRev: "revenue",
   },
   parents: {
     columns: [
@@ -130,6 +132,7 @@ const TABS = {
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
+    defaultSortRev: "revenue",
   },
   brands: {
     columns: [
@@ -147,6 +150,7 @@ const TABS = {
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "units",
+    defaultSortRev: "revenue",
   },
   businessLines: {
     columns: [
@@ -161,6 +165,7 @@ const TABS = {
       { key: "items", label: "SKUs", num: true, hideSm: true },
     ],
     defaultSort: "units",
+    defaultSortRev: "revenue",
   },
   placements: {
     columns: [
@@ -173,6 +178,7 @@ const TABS = {
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
     defaultSort: "minDate",
+    defaultSortRev: "rev",
   },
 };
 
@@ -225,6 +231,8 @@ async function init() {
   }
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.dateRange.start} → ${DATA.dateRange.end}`;
+  sortKey = defaultSortFor(tab);
+  sortDir = "desc";
   renderKpis();
   renderTable();
   try { renderCharts(); } catch (e) { console.error("Charts failed to render:", e); }
@@ -234,6 +242,13 @@ const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
 // Revenue comes from the export's optional "SO Amount" column, so a market
 // only shows dollars once its Looker export carries it.
 const hasRev = () => !!(DATA && DATA.hasRevenue);
+
+// Dollars are the headline once a market's export carries them, so every tab
+// opens sorted by revenue and falls back to its units default until then.
+const defaultSortFor = (t) =>
+  (hasRev() && TABS[t].defaultSortRev) || TABS[t].defaultSort;
+// Biggest spender / biggest line first inside drill-downs, on the same basis.
+const byValueDesc = (a, b) => hasRev() ? (b.rev || 0) - (a.rev || 0) : b.units - a.units;
 
 // Wholesale accounts are named "<Parent Company> : <Location>", so the prefix
 // is the chain. Accounts without that separator are standalone (in practice
@@ -309,7 +324,7 @@ function buildParents() {
   }
 
   parents.forEach((p, i) => {
-    const rows = [...pairsByParent[i].values()].sort((a, b) => b.units - a.units);
+    const rows = [...pairsByParent[i].values()].sort(byValueDesc);
     p.items = rows.length;
     p.units = Math.round(p.units * 10) / 10;
     p.revenue = Math.round(p.revenue * 100) / 100;
@@ -395,13 +410,25 @@ function renderCharts() {
     ? s.slice(0, Math.ceil((n - 1) / 2)) + "…" + s.slice(s.length - Math.floor((n - 1) / 2))
     : s;
 
+  // Once a market carries dollars, the charts rank and plot by revenue.
+  const money = hasRev();
+  const metric = (r) => money ? (r.revenue || 0) : r.units;
+  const axisLabel = money ? "Revenue" : "Units Sold";
+  const fmtMetric = money ? fmtMoney : fmt;
+  document.getElementById("title-weekly").textContent =
+    money ? "Revenue by Week" : "Units Sold by Week";
+  document.getElementById("title-items").textContent =
+    money ? "Top 10 Items — Revenue" : "Top 10 Items — Units Sold";
+  document.getElementById("title-customers").textContent =
+    money ? "Top 10 Customers — Revenue" : "Top 10 Customers — Units Sold";
+
   const wk = DATA.weeklyTrend;
   new Chart(document.getElementById("chart-weekly"), {
     type: "bar",
     data: {
       labels: wk.map(w => w.weekStart),
       datasets: [{
-        data: wk.map(w => w.units),
+        data: wk.map(w => metric(w)),
         backgroundColor: PALETTE.ink,
         borderRadius: 4,
       }],
@@ -412,20 +439,25 @@ function renderCharts() {
         legend: { display: false },
         tooltip: { callbacks: {
           title: (c) => `Week of ${c[0].label}`,
-          label: (c) => `${fmt(c.raw)} units · ${fmtInt(wk[c.dataIndex].lines)} lines` +
-            (hasRev() ? ` · ${fmtMoney(wk[c.dataIndex].revenue)}` : ""),
+          label: (c) => `${fmt(wk[c.dataIndex].units)} units · ${fmtInt(wk[c.dataIndex].lines)} lines` +
+            (money ? ` · ${fmtMoney(wk[c.dataIndex].revenue)}` : ""),
         } },
       },
-      scales: { y: { beginAtZero: true, title: { display: true, text: "Units Sold" } } },
+      scales: {
+        y: {
+          beginAtZero: true, title: { display: true, text: axisLabel },
+          ticks: money ? { callback: (v) => fmtMoney(v) } : {},
+        },
+      },
     },
   });
 
-  const ti = DATA.items.slice(0, 10);
+  const ti = [...DATA.items].sort((a, b) => metric(b) - metric(a)).slice(0, 10);
   new Chart(document.getElementById("chart-items"), {
     type: "bar",
     data: {
       labels: ti.map(i => i.name),
-      datasets: [{ data: ti.map(i => i.units), backgroundColor: PALETTE.ink, borderRadius: 4 }],
+      datasets: [{ data: ti.map(i => metric(i)), backgroundColor: PALETTE.ink, borderRadius: 4 }],
     },
     options: {
       indexAxis: "y",
@@ -434,23 +466,23 @@ function renderCharts() {
         legend: { display: false },
         tooltip: { callbacks: {
           title: (c) => ti[c[0].dataIndex].name,
-          label: (c) => `${fmt(c.raw)} units` +
-            (hasRev() ? ` · ${fmtMoney(ti[c.dataIndex].revenue)}` : ""),
+          label: (c) => `${fmt(ti[c.dataIndex].units)} units` +
+            (money ? ` · ${fmtMoney(ti[c.dataIndex].revenue)}` : ""),
         } },
       },
       scales: {
-        x: { beginAtZero: true },
+        x: { beginAtZero: true, ticks: money ? { callback: (v) => fmtMetric(v) } : {} },
         y: { ticks: { font: { size: 11 }, callback: function (v) { return truncEnd(this.getLabelForValue(v), 28); } } },
       },
     },
   });
 
-  const tc = DATA.customers.slice(0, 10);
+  const tc = [...DATA.customers].sort((a, b) => metric(b) - metric(a)).slice(0, 10);
   new Chart(document.getElementById("chart-customers"), {
     type: "bar",
     data: {
       labels: tc.map(c => c.name),
-      datasets: [{ data: tc.map(c => c.units), backgroundColor: PALETTE.neutral, borderRadius: 4 }],
+      datasets: [{ data: tc.map(c => metric(c)), backgroundColor: PALETTE.neutral, borderRadius: 4 }],
     },
     options: {
       indexAxis: "y",
@@ -459,12 +491,12 @@ function renderCharts() {
         legend: { display: false },
         tooltip: { callbacks: {
           title: (c) => tc[c[0].dataIndex].name,
-          label: (c) => `${fmt(c.raw)} units` +
-            (hasRev() ? ` · ${fmtMoney(tc[c.dataIndex].revenue)}` : ""),
+          label: (c) => `${fmt(tc[c.dataIndex].units)} units` +
+            (money ? ` · ${fmtMoney(tc[c.dataIndex].revenue)}` : ""),
         } },
       },
       scales: {
-        x: { beginAtZero: true },
+        x: { beginAtZero: true, ticks: money ? { callback: (v) => fmtMetric(v) } : {} },
         y: { ticks: { font: { size: 11 }, callback: function (v) { return truncMid(this.getLabelForValue(v), 28); } } },
       },
     },
@@ -689,7 +721,7 @@ function detailPairs(r) {
   return DATA.pairs
     .filter(p => (isItem ? p.i === idx : p.c === idx))
     .map(p => ({ p, other: isItem ? DATA.customers[p.c] : DATA.items[p.i] }))
-    .sort((a, b) => b.p.units - a.p.units);
+    .sort((a, b) => byValueDesc(a.p, b.p));
 }
 
 // Two shares per drill-down row:
@@ -952,7 +984,7 @@ document.querySelectorAll("#tabs button").forEach(btn => {
   btn.addEventListener("click", () => {
     tab = btn.dataset.tab;
     document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("active", b === btn));
-    sortKey = TABS[tab].defaultSort;
+    sortKey = defaultSortFor(tab);
     sortDir = "desc";
     expanded = new Set();
     renderTable();
