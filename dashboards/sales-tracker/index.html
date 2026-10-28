@@ -43,6 +43,9 @@
   }
   li a:hover { background: #FAF4E4; }
   li .dead { border-left-color: var(--line); color: var(--muted); }
+  li a.cross { border-left-color: var(--ink-2); }
+  .section { margin: 26px 0 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .section:first-child { margin-top: 0; }
   .name { font-weight: 600; font-size: 15px; }
   .desc { color: var(--muted); font-size: 12px; margin-top: 2px; }
   .stat { font-variant-numeric: tabular-nums; }
@@ -66,6 +69,14 @@
   <a class="back" href="../">← All dashboards</a>
 </header>
 <main>
+  <div class="section">Across all markets</div>
+  <ul>
+    <li><a class="cross" href="./concentration/">
+      <div class="name">SKU Concentration Risk</div>
+      <div class="desc">Any market · SKUs where one customer or parent company buys 50%+ of the volume</div>
+    </a></li>
+  </ul>
+  <div class="section">Markets</div>
   <ul id="markets"><li class="desc">Loading…</li></ul>
 </main>
 <script>

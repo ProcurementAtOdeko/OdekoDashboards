@@ -30,6 +30,10 @@ Files in this folder are Looker scheduled exports — Google Sheets with
 `.csv` in the title. They refresh on Looker's schedule, so dashboards
 just need to re-read the latest values.
 
+Naming is not uniform: most market exports are
+`Network Sales Tracker - <WH>.csv`, but some are `<WH> Sales Tracker.csv`
+(e.g. BOS1). The sales-tracker builder matches both.
+
 To browse it, use the Drive MCP `search_files` with
 `parentId = '1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7'`. To filter by name, add
 `and title contains '<keyword>'`.

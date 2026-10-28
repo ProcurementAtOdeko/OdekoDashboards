@@ -2,8 +2,9 @@
 """Build per-warehouse data files for the network Sales Tracker dashboard.
 
 Discovers every "Network Sales Tracker - <WAREHOUSE>.csv" Looker export in
-the Looker Data Dumps Drive folder (newest per warehouse), plus the static
-DCA1 sheet, aggregates each into data/<WAREHOUSE>.json, and writes a
+the Looker Data Dumps Drive folder (newest per warehouse), plus per-market
+exports named "<WAREHOUSE> Sales Tracker.csv" and the static DCA1 sheet,
+aggregates each into data/<WAREHOUSE>.json, and writes a
 data/manifest.json the front-end uses to render the warehouse switcher.
 
 Per order line, actual sold units = SO Item Qty / Conversion Rate.
@@ -30,6 +31,10 @@ from googleapiclient.discovery import build
 
 LOOKER_FOLDER_ID = "1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7"
 FILE_PATTERN = re.compile(r"^Network Sales Tracker - ([A-Za-z0-9]+)\.csv$")
+# Some markets are exported under their own name instead of the network one
+# (e.g. "BOS1 Sales Tracker.csv"). Require a warehouse-shaped code so unrelated
+# trackers in the same folder ("The Worx Sales Tracker.csv") don't match.
+ALT_FILE_PATTERN = re.compile(r"^([A-Za-z]{2,4}[0-9]) Sales Tracker\.csv$")
 # Warehouses with dedicated exports that don't follow the network naming.
 # Discovered "Network Sales Tracker - <WH>" files override these.
 STATIC_SOURCES = {
@@ -466,22 +471,22 @@ def aggregate(rows, warehouse):
 
 
 def discover_sources(drive):
-    """Newest 'Network Sales Tracker - <WH>.csv' per warehouse, merged over
-    STATIC_SOURCES (discovered files win)."""
+    """Newest sales-tracker export per warehouse, merged over STATIC_SOURCES
+    (discovered files win)."""
     res = drive.files().list(
         q=(
             f"'{LOOKER_FOLDER_ID}' in parents"
-            " and name contains 'Network Sales Tracker - '"
+            " and name contains 'Sales Tracker'"
             " and mimeType = 'application/vnd.google-apps.spreadsheet'"
             " and trashed = false"
         ),
         orderBy="modifiedTime desc",
         fields="files(id, name, modifiedTime)",
-        pageSize=100,
+        pageSize=200,
     ).execute()
     sources = {}
     for f in res.get("files", []):  # newest first: keep first file per WH
-        m = FILE_PATTERN.match(f["name"])
+        m = FILE_PATTERN.match(f["name"]) or ALT_FILE_PATTERN.match(f["name"])
         if m:
             sources.setdefault(m.group(1).upper(), f["id"])
     for wh, file_id in STATIC_SOURCES.items():
