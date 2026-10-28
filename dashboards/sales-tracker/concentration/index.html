@@ -12,6 +12,8 @@
 <style>
   .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
   .controls label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  /* The explicit display above would otherwise beat the UA [hidden] rule. */
+  .controls label[hidden] { display: none; }
   .controls select {
     background: var(--panel); color: var(--ink); border: 1px solid var(--line);
     padding: 7px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
@@ -52,6 +54,10 @@
       <option value="parent" selected>Parent company</option>
       <option value="customer">Single location</option>
     </select></label>
+    <label id="measureWrap" hidden>Measure <select id="measure">
+      <option value="units" selected>Units</option>
+      <option value="revenue">Revenue ($)</option>
+    </select></label>
     <label>Threshold <select id="threshold">
       <option value="0.5" selected>50% or more</option>
       <option value="0.6">60% or more</option>
@@ -59,11 +65,17 @@
       <option value="0.9">90% or more</option>
       <option value="1">100% (sole buyer)</option>
     </select></label>
-    <label>Min units <select id="minUnits">
+    <label id="minUnitsLabel">Min units <select id="minUnits">
       <option value="0">No minimum</option>
       <option value="10" selected>10+</option>
       <option value="50">50+</option>
       <option value="250">250+</option>
+    </select></label>
+    <label id="minRevLabel" hidden>Min revenue <select id="minRev">
+      <option value="0">No minimum</option>
+      <option value="100" selected>$100+</option>
+      <option value="1000">$1,000+</option>
+      <option value="5000">$5,000+</option>
     </select></label>
   </div>
 
@@ -73,7 +85,7 @@
 
   <div class="charts">
     <div class="card chart full">
-      <h3>Largest exposure — units riding on one buyer</h3>
+      <h3 id="riskTitle">Largest exposure — units riding on one buyer</h3>
       <div class="body"><canvas id="riskChart"></canvas></div>
     </div>
   </div>
@@ -96,17 +108,35 @@
 const fmtInt = (n) => n == null ? "—" : n.toLocaleString(undefined, { maximumFractionDigits: 0 });
 const fmtPct = (v) => v == null ? "—" : (v >= 0.1 ? Math.round(v * 100) : (v * 100).toFixed(1)) + "%";
 
-const COLUMNS = [
-  { key: "name", label: "SKU", sort: "name" },
-  { key: "brand", label: "Brand", sort: "brand", cls: "hide-sm" },
-  { key: "units", label: "Units", sort: "units", num: true },
-  { key: "buyers", label: "Buyers", sort: "buyers", num: true, cls: "hide-sm" },
-  { key: "topName", label: "Top buyer", sort: "topName" },
-  { key: "topUnits", label: "Their units", sort: "topUnits", num: true, cls: "hide-sm" },
-  { key: "share", label: "Share", sort: "share", num: true },
-];
+const fmtMoney = (n) => n == null ? "—" :
+  "$" + Math.round(n).toLocaleString(undefined, { maximumFractionDigits: 0 });
 
-let STATE = { wh: null, basis: "parent", threshold: 0.5, minUnits: 10, search: "", sort: "units", dir: -1, open: null };
+/** Columns depend on whether this market's export carries SO Amount. */
+function columns() {
+  const cols = [
+    { label: "SKU", sort: "name" },
+    { label: "Brand", sort: "brand", cls: "hide-sm" },
+    { label: "Units", sort: "units", num: true },
+  ];
+  if (hasRevenue()) cols.push({ label: "Revenue", sort: "revenue", num: true });
+  cols.push(
+    { label: "Buyers", sort: "buyers", num: true, cls: "hide-sm" },
+    { label: "Top buyer", sort: "topName" },
+    { label: measure() === "revenue" ? "Their revenue" : "Their units",
+      sort: measure() === "revenue" ? "topRevenue" : "topUnits", num: true, cls: "hide-sm" },
+    { label: "Share", sort: "share", num: true },
+  );
+  return cols;
+}
+
+let STATE = {
+  wh: null, basis: "parent", measure: "units", threshold: 0.5,
+  minUnits: 10, minRev: 100, search: "", sort: "units", dir: -1, open: null,
+};
+
+const hasRevenue = () => !!(DATA && DATA.hasRevenue);
+/** Revenue is only a valid measure where the export provides it. */
+const measure = () => (hasRevenue() && STATE.measure === "revenue") ? "revenue" : "units";
 let DATA = null;       // raw per-market json
 let ROWS = [];         // computed concentration rows for the current basis
 let CHART = null;
@@ -124,26 +154,34 @@ function parentNameOf(name) {
  */
 function computeRows(basis) {
   const items = DATA.items, customers = DATA.customers;
-  const byItem = items.map(() => new Map());  // buyer key -> {units, name, uuid, locs}
+  const key = measure();  // the measure the "top buyer" and share are based on
+  const byItem = items.map(() => new Map());  // buyer -> {units, revenue, name, uuid, locs}
   for (const p of DATA.pairs) {
     const cu = customers[p.c];
     if (!cu) continue;
-    const key = basis === "parent" ? parentNameOf(cu.name) : cu.uuid;
+    const bk = basis === "parent" ? parentNameOf(cu.name) : cu.uuid;
     const m = byItem[p.i];
-    let e = m.get(key);
+    let e = m.get(bk);
     if (!e) {
-      e = { units: 0, name: basis === "parent" ? key : cu.name, uuid: basis === "parent" ? "" : cu.uuid, locs: new Set() };
-      m.set(key, e);
+      e = {
+        units: 0, revenue: 0,
+        name: basis === "parent" ? bk : cu.name,
+        uuid: basis === "parent" ? "" : cu.uuid,
+        locs: new Set(),
+      };
+      m.set(bk, e);
     }
     e.units += p.units;
+    e.revenue += p.rev || 0;
     e.locs.add(cu.uuid);
   }
 
   const rows = [];
   items.forEach((it, i) => {
     const m = byItem[i];
-    if (!m.size || !(it.units > 0)) return;
-    const buyers = [...m.values()].sort((a, b) => b.units - a.units);
+    const total = key === "revenue" ? (it.revenue || 0) : it.units;
+    if (!m.size || !(total > 0)) return;
+    const buyers = [...m.values()].sort((a, b) => b[key] - a[key]);
     const top = buyers[0];
     rows.push({
       i,
@@ -151,13 +189,16 @@ function computeRows(basis) {
       name: it.name,
       brand: it.brand,
       units: it.units,
+      revenue: it.revenue || 0,
+      total,
       buyers: m.size,
-      locations: new Set(buyers.flatMap(b => [...b.locs])).size,
       topName: top.name,
       topUuid: top.uuid,
       topUnits: Math.round(top.units * 100) / 100,
+      topRevenue: Math.round(top.revenue * 100) / 100,
+      topTotal: top[key],
       topLocations: top.locs.size,
-      share: Math.min(1, top.units / it.units),
+      share: Math.min(1, top[key] / total),
       breakdown: buyers,
     });
   });
@@ -166,8 +207,9 @@ function computeRows(basis) {
 
 function visibleRows() {
   const q = STATE.search.trim().toLowerCase();
+  const floor = measure() === "revenue" ? STATE.minRev : STATE.minUnits;
   let rows = ROWS.filter(r =>
-    r.share >= STATE.threshold - 1e-9 && r.units >= STATE.minUnits
+    r.share >= STATE.threshold - 1e-9 && r.total >= floor
   );
   if (q) {
     rows = rows.filter(r =>
@@ -200,15 +242,19 @@ function concCell(share) {
 }
 
 function renderKpis(rows) {
-  const unitsAtRisk = rows.reduce((s, r) => s + r.topUnits, 0);
   const sole = rows.filter(r => r.share >= 0.999).length;
   const dependents = new Set(rows.map(r => r.topName)).size;
   const pctOfCatalog = DATA.items.length ? rows.length / DATA.items.length : 0;
   const label = STATE.basis === "parent" ? "parent companies" : "locations";
+  const atRisk = hasRevenue()
+    ? `<div class="kpi"><div class="label">Revenue riding on one buyer</div><div class="value">${
+        fmtMoney(rows.reduce((s, r) => s + r.topRevenue, 0))}</div></div>`
+    : `<div class="kpi"><div class="label">Units riding on one buyer</div><div class="value">${
+        fmtInt(rows.reduce((s, r) => s + r.topUnits, 0))}</div></div>`;
   document.getElementById("kpis").innerHTML = `
     <div class="kpi accent"><div class="label">Concentrated SKUs</div><div class="value">${fmtInt(rows.length)}</div></div>
     <div class="kpi"><div class="label">Share of catalog</div><div class="value">${fmtPct(pctOfCatalog)}</div></div>
-    <div class="kpi"><div class="label">Units riding on one buyer</div><div class="value">${fmtInt(unitsAtRisk)}</div></div>
+    ${atRisk}
     <div class="kpi"><div class="label">Sole-buyer SKUs</div><div class="value">${fmtInt(sole)}</div></div>
     <div class="kpi"><div class="label">Distinct ${label}</div><div class="value">${fmtInt(dependents)}</div></div>`;
 }
@@ -216,7 +262,14 @@ function renderKpis(rows) {
 function renderChart(rows) {
   const canvas = document.getElementById("riskChart");
   if (typeof Chart === "undefined" || !canvas) return;
-  const top = [...rows].sort((a, b) => b.topUnits - a.topUnits).slice(0, 15);
+  // Size the exposure in dollars wherever we have them, units otherwise.
+  const money = hasRevenue();
+  const field = money ? "topRevenue" : "topUnits";
+  const fmt = money ? fmtMoney : fmtInt;
+  const top = [...rows].sort((a, b) => b[field] - a[field]).slice(0, 15);
+  document.getElementById("riskTitle").textContent =
+    money ? "Largest exposure — revenue riding on one buyer"
+          : "Largest exposure — units riding on one buyer";
   if (CHART) { CHART.destroy(); CHART = null; }
   if (!top.length) return;
   CHART = new Chart(canvas, {
@@ -224,8 +277,8 @@ function renderChart(rows) {
     data: {
       labels: top.map(r => r.name.length > 42 ? r.name.slice(0, 41) + "…" : r.name),
       datasets: [{
-        label: "Units from the top buyer",
-        data: top.map(r => r.topUnits),
+        label: money ? "Revenue from the top buyer" : "Units from the top buyer",
+        data: top.map(r => r[field]),
         backgroundColor: top.map(r => severityColor(r.share)),
         borderWidth: 0,
       }],
@@ -237,15 +290,20 @@ function renderChart(rows) {
         legend: { display: false },
         tooltip: {
           callbacks: {
+            label: (ctx) => fmt(ctx.parsed.x),
             afterLabel: (ctx) => {
               const r = top[ctx.dataIndex];
-              return `${r.topName} · ${fmtPct(r.share)} of ${fmtInt(r.units)} units`;
+              return `${r.topName} · ${fmtPct(r.share)} of ${
+                money ? fmtMoney(r.revenue) : fmtInt(r.units) + " units"}`;
             },
           },
         },
       },
       scales: {
-        x: { beginAtZero: true, grid: { color: "#E6DFCC" } },
+        x: {
+          beginAtZero: true, grid: { color: "#E6DFCC" },
+          ticks: money ? { callback: (v) => fmtMoney(v) } : {},
+        },
         y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 10 } } },
       },
     },
@@ -253,7 +311,7 @@ function renderChart(rows) {
 }
 
 function renderHead() {
-  document.getElementById("head").innerHTML = COLUMNS.map(c =>
+  document.getElementById("head").innerHTML = columns().map(c =>
     `<th data-sort="${c.sort}" class="${c.num ? "num " : ""}${c.cls || ""}${
       STATE.sort === c.sort ? (STATE.dir === 1 ? " sort-asc" : " sort-desc") : ""
     }">${c.label}</th>`
@@ -263,23 +321,28 @@ function renderHead() {
       const k = th.dataset.sort;
       if (STATE.sort === k) STATE.dir = -STATE.dir;
       else { STATE.sort = k; STATE.dir = (k === "name" || k === "brand" || k === "topName") ? 1 : -1; }
+      STATE.open = null;
       render();
     };
   });
 }
 
 function detailHtml(r) {
+  const money = hasRevenue();
+  const key = measure();
+  const span = columns().length;
   const rows = r.breakdown.slice(0, 50).map(b => `
     <tr>
       <td>${b.name}${b.uuid ? `<div class="uuid">${b.uuid}</div>` : ""}</td>
       <td class="num">${STATE.basis === "parent" ? fmtInt(b.locs.size) : ""}</td>
       <td class="num">${fmtInt(b.units)}</td>
-      <td class="num">${fmtPct(Math.min(1, b.units / r.units))}</td>
+      ${money ? `<td class="num">${fmtMoney(b.revenue)}</td>` : ""}
+      <td class="num">${fmtPct(Math.min(1, b[key] / r.total))}</td>
     </tr>`).join("");
   const more = r.breakdown.length > 50
-    ? `<tr><td colspan="4" class="muted">+ ${fmtInt(r.breakdown.length - 50)} more — use the CSV for the full list</td></tr>`
+    ? `<tr><td colspan="${money ? 5 : 4}" class="muted">+ ${fmtInt(r.breakdown.length - 50)} more — use the CSV for the full list</td></tr>`
     : "";
-  return `<tr class="detail"><td colspan="${COLUMNS.length}">
+  return `<tr class="detail"><td colspan="${span}">
     <div class="detail-head">
       <span class="detail-title">Every buyer of ${r.name}</span>
       <button class="dl-csv dl-detail" data-detail="${r.i}">Download CSV</button>
@@ -288,7 +351,9 @@ function detailHtml(r) {
       <thead><tr>
         <th>${STATE.basis === "parent" ? "Parent company" : "Customer"}</th>
         <th class="num">${STATE.basis === "parent" ? "Locations" : ""}</th>
-        <th class="num">Units</th><th class="num">Share of SKU</th>
+        <th class="num">Units</th>
+        ${money ? `<th class="num">Revenue</th>` : ""}
+        <th class="num">Share of SKU${money ? ` (${key === "revenue" ? "$" : "units"})` : ""}</th>
       </tr></thead>
       <tbody>${rows}${more}</tbody>
     </table>
@@ -302,25 +367,31 @@ function render() {
   renderHead();
   document.getElementById("count").textContent =
     `${fmtInt(rows.length)} of ${fmtInt(DATA.items.length)} SKUs`;
-  document.getElementById("basisNote").textContent =
-    STATE.basis === "parent"
-      ? "Buyers are rolled up to the parent company, so a chain's locations count as one buyer. A single-location customer is its own parent."
-      : "Each delivery location counts as its own buyer — chains are not rolled up.";
+  const basisNote = STATE.basis === "parent"
+    ? "Buyers are rolled up to the parent company, so a chain's locations count as one buyer. A single-location customer is its own parent."
+    : "Each delivery location counts as its own buyer — chains are not rolled up.";
+  document.getElementById("basisNote").textContent = hasRevenue()
+    ? basisNote + ` Shares are measured by ${measure() === "revenue" ? "revenue" : "units"}.`
+    : basisNote + " This market's export has no revenue figures yet.";
 
+  const money = hasRevenue();
+  const span = columns().length;
   document.getElementById("body").innerHTML = rows.map(r => `
     <tr class="row" data-i="${r.i}">
       <td>${r.name}<div class="uuid">${r.uuid}</div></td>
       <td class="hide-sm">${r.brand || "—"}</td>
       <td class="num">${fmtInt(r.units)}</td>
+      ${money ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
       <td class="num hide-sm">${fmtInt(r.buyers)}</td>
       <td><span class="buyer-name">${r.topName}</span>${
         STATE.basis === "parent" && r.topLocations > 1
           ? `<div class="uuid">${fmtInt(r.topLocations)} locations</div>` : ""
       }</td>
-      <td class="num hide-sm">${fmtInt(r.topUnits)}</td>
+      <td class="num hide-sm">${
+        measure() === "revenue" ? fmtMoney(r.topRevenue) : fmtInt(r.topUnits)}</td>
       <td class="num">${concCell(r.share)}</td>
     </tr>${STATE.open === r.i ? detailHtml(r) : ""}`).join("")
-    || `<tr><td colspan="${COLUMNS.length}" class="muted">No SKU in this market reaches that concentration.</td></tr>`;
+    || `<tr><td colspan="${span}" class="muted">No SKU in this market reaches that concentration.</td></tr>`;
 
   document.querySelectorAll("#body tr.row").forEach(tr => {
     tr.onclick = () => {
@@ -352,31 +423,56 @@ function downloadCsv(name, rows) {
 }
 function downloadMainCsv() {
   const basisLabel = STATE.basis === "parent" ? "Parent Company" : "Customer";
+  const money = hasRevenue();
+  const shareLabel = money ? `Share of SKU (${measure() === "revenue" ? "$" : "units"})` : "Share of SKU";
   const header = [
-    "Warehouse", "Item Name", "Item UUID", "Brand", "Total Units", "Buyers",
-    `Top ${basisLabel}`, "Top Buyer UUID", "Top Buyer Locations", "Top Buyer Units", "Share of SKU",
+    "Warehouse", "Item Name", "Item UUID", "Brand", "Total Units",
+    ...(money ? ["Total Revenue"] : []), "Buyers",
+    `Top ${basisLabel}`, "Top Buyer UUID", "Top Buyer Locations", "Top Buyer Units",
+    ...(money ? ["Top Buyer Revenue"] : []), shareLabel,
   ];
   const rows = visibleRows().map(r => [
-    STATE.wh, r.name, r.uuid, r.brand, r.units, r.buyers,
-    r.topName, r.topUuid, r.topLocations, r.topUnits, (r.share * 100).toFixed(1) + "%",
+    STATE.wh, r.name, r.uuid, r.brand, r.units,
+    ...(money ? [r.revenue.toFixed(2)] : []), r.buyers,
+    r.topName, r.topUuid, r.topLocations, r.topUnits,
+    ...(money ? [r.topRevenue.toFixed(2)] : []), (r.share * 100).toFixed(1) + "%",
   ]);
   downloadCsv(`${STATE.wh}-sku-concentration-${STATE.basis}.csv`, [header, ...rows]);
 }
 function downloadDetailCsv(r) {
   const basisLabel = STATE.basis === "parent" ? "Parent Company" : "Customer";
+  const money = hasRevenue();
+  const key = measure();
+  const shareLabel = money ? `Share of SKU (${key === "revenue" ? "$" : "units"})` : "Share of SKU";
   const header = [
     "Warehouse", "Item Name", "Item UUID", basisLabel, "Customer UUID",
-    "Locations", "Units", "Share of SKU",
+    "Locations", "Units", ...(money ? ["Revenue"] : []), shareLabel,
   ];
   const rows = r.breakdown.map(b => [
     STATE.wh, r.name, r.uuid, b.name, b.uuid, b.locs.size,
     Math.round(b.units * 100) / 100,
-    (Math.min(1, b.units / r.units) * 100).toFixed(1) + "%",
+    ...(money ? [b.revenue.toFixed(2)] : []),
+    (Math.min(1, b[key] / r.total) * 100).toFixed(1) + "%",
   ]);
   downloadCsv(`${STATE.wh}-${r.name.replace(/[^\w.-]+/g, "_")}-buyers.csv`, [header, ...rows]);
 }
 
+/** Dollar controls only make sense where the export carries SO Amount. */
+function syncControls() {
+  const money = hasRevenue();
+  document.getElementById("measureWrap").hidden = !money;
+  const byRev = money && measure() === "revenue";
+  document.getElementById("minUnitsLabel").hidden = byRev;
+  document.getElementById("minRevLabel").hidden = !byRev;
+  // A market without revenue can't be sorted by it.
+  if (!money && (STATE.sort === "revenue" || STATE.sort === "topRevenue")) {
+    STATE.sort = "units";
+    STATE.dir = -1;
+  }
+}
+
 function rebuild() {
+  syncControls();
   ROWS = computeRows(STATE.basis);
   STATE.open = null;
   render();
@@ -416,6 +512,11 @@ fetch("../data/manifest.json", { cache: "no-store" })
       : markets[0];
     sel.value = start;
     sel.onchange = () => loadMarket(sel.value);
+    // Editing the hash (or a same-page deep link) switches markets too.
+    window.addEventListener("hashchange", () => {
+      const h = decodeURIComponent(location.hash.replace("#", "")).toUpperCase();
+      if (markets.includes(h) && h !== STATE.wh) { sel.value = h; loadMarket(h); }
+    });
     return loadMarket(start);
   })
   .catch(() => {
@@ -423,8 +524,17 @@ fetch("../data/manifest.json", { cache: "no-store" })
   });
 
 document.getElementById("basis").onchange = (e) => { STATE.basis = e.target.value; rebuild(); };
+document.getElementById("measure").onchange = (e) => {
+  STATE.measure = e.target.value;
+  // Keep the sort meaningful when switching measure.
+  if (STATE.sort === "topUnits" || STATE.sort === "topRevenue") {
+    STATE.sort = measure() === "revenue" ? "topRevenue" : "topUnits";
+  }
+  rebuild();
+};
 document.getElementById("threshold").onchange = (e) => { STATE.threshold = Number(e.target.value); STATE.open = null; render(); };
 document.getElementById("minUnits").onchange = (e) => { STATE.minUnits = Number(e.target.value); STATE.open = null; render(); };
+document.getElementById("minRev").onchange = (e) => { STATE.minRev = Number(e.target.value); STATE.open = null; render(); };
 document.getElementById("search").oninput = (e) => { STATE.search = e.target.value; STATE.open = null; render(); };
 document.getElementById("dl").onclick = downloadMainCsv;
 </script>

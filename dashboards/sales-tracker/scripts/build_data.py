@@ -7,7 +7,10 @@ exports named "<WAREHOUSE> Sales Tracker.csv" and the static DCA1 sheet,
 aggregates each into data/<WAREHOUSE>.json, and writes a
 data/manifest.json the front-end uses to render the warehouse switcher.
 
-Per order line, actual sold units = SO Item Qty / Conversion Rate.
+Per order line, actual sold units = SO Item Qty / Conversion Rate. When the
+export carries "SO Amount" (the line's extended dollar value) we also roll up
+revenue; markets whose export lacks it get no dollar figures and the
+dashboards hide the dollar views for them.
 The location/SKU first ORDER date drives new-placement logic: we use the
 "Min Order Date" column when the export provides it, otherwise the legacy
 "Min Date" (first fulfill date) clamped to the earliest observed order date.
@@ -84,6 +87,10 @@ COL_MIN_ORDER_DATE = "Min Order Date"  # preferred when the export provides it
 COL_MIN_DATE = "Min Date"  # legacy: first FULFILL date, lags the order by 1-3 days
 COL_ENTERPRISE = "Enterprise"  # optional
 COL_BUSINESS_LINE = "Business Line"  # optional
+# Optional: the sales-order line's dollar value (already extended, i.e. the
+# whole line, not a unit price). Markets whose export lacks it simply get no
+# revenue figures, and the dashboards hide the dollar views for them.
+COL_SO_AMOUNT = "SO Amount"
 
 # Business-line categories. Local delivery and ecomm (shipping) are the two
 # we split items on; everything else rolls up to "other".
@@ -155,18 +162,21 @@ def aggregate(rows, warehouse):
     min_date_col = col.get(COL_MIN_ORDER_DATE, col.get(COL_MIN_DATE))
     has_enterprise = COL_ENTERPRISE in col
     has_business_line = COL_BUSINESS_LINE in col
+    has_revenue = COL_SO_AMOUNT in col
 
     items = {}
     customers = {}
     pairs = {}
-    weekly = defaultdict(lambda: {"units": 0.0, "lines": 0})
+    weekly = defaultdict(lambda: {"units": 0.0, "lines": 0, "revenue": 0.0})
     brand_units = defaultdict(float)
     brands = defaultdict(lambda: {
         "units": 0.0, "lines": 0, "customers": set(), "items": set(),
         "localUnits": 0.0, "ecommUnits": 0.0, "weekly": defaultdict(float),
-        "firstOrder": None, "lastOrder": None,
+        "firstOrder": None, "lastOrder": None, "revenue": 0.0,
     })
-    business_lines = defaultdict(lambda: {"units": 0.0, "lines": 0, "customers": set(), "items": set()})
+    business_lines = defaultdict(lambda: {
+        "units": 0.0, "lines": 0, "customers": set(), "items": set(), "revenue": 0.0,
+    })
     max_date = None
     min_order_date = None
     skipped = 0
@@ -212,6 +222,8 @@ def aggregate(rows, warehouse):
         if not conv:  # missing or zero conversion -> already in sold units
             conv = 1.0
         units = qty / conv
+        # SO Amount is the line's extended dollar value, so it sums directly.
+        amount = (parse_num(r[col[COL_SO_AMOUNT]]) or 0.0) if has_revenue else 0.0
         bl_name = r[col[COL_BUSINESS_LINE]].strip() if has_business_line else ""
         bl_cat = line_category(bl_name)
         # While the export still carries the fulfill-based "Min Date", clamp
@@ -241,9 +253,11 @@ def aggregate(rows, warehouse):
                 "weekly": defaultdict(float),
                 "localUnits": 0.0,
                 "ecommUnits": 0.0,
+                "revenue": 0.0,
             },
         )
         it["units"] += units
+        it["revenue"] += amount
         it["lines"] += 1
         it["customers"].add(account_uuid)
         it["weekly"][wk] += units
@@ -269,9 +283,11 @@ def aggregate(rows, warehouse):
                 "weekly": defaultdict(float),
                 "enterprise": False,
                 "blUnits": defaultdict(float),
+                "revenue": 0.0,
             },
         )
         cu["units"] += units
+        cu["revenue"] += amount
         cu["lines"] += 1
         cu["items"].add(item_uuid)
         cu["weekly"][wk] += units
@@ -286,9 +302,11 @@ def aggregate(rows, warehouse):
 
         pr = pairs.setdefault(
             (account_uuid, item_uuid),
-            {"units": 0.0, "lines": 0, "minDate": pair_min_date, "lastOrder": None},
+            {"units": 0.0, "lines": 0, "minDate": pair_min_date, "lastOrder": None,
+             "revenue": 0.0},
         )
         pr["units"] += units
+        pr["revenue"] += amount
         pr["lines"] += 1
         if pair_min_date and (pr["minDate"] is None or pair_min_date < pr["minDate"]):
             pr["minDate"] = pair_min_date
@@ -297,11 +315,13 @@ def aggregate(rows, warehouse):
 
         weekly[wk]["units"] += units
         weekly[wk]["lines"] += 1
+        weekly[wk]["revenue"] += amount
         brand_name = r[col[COL_BRAND]].strip()
         if brand_name:
             brand_units[brand_name] += units
             br = brands[brand_name]
             br["units"] += units
+            br["revenue"] += amount
             br["lines"] += 1
             br["customers"].add(account_uuid)
             br["items"].add(item_uuid)
@@ -317,6 +337,7 @@ def aggregate(rows, warehouse):
         if bl_name:
             bl = business_lines[bl_name]
             bl["units"] += units
+            bl["revenue"] += amount
             bl["lines"] += 1
             bl["customers"].add(account_uuid)
             bl["items"].add(item_uuid)
@@ -340,17 +361,20 @@ def aggregate(rows, warehouse):
             new_placements += 1
         if pr["minDate"] and pr["minDate"] >= location_cutoff:
             item_new_locations[item_uuid] += 1
-        pairs_out.append(
-            {
-                "c": customer_index[account_uuid],
-                "i": item_index[item_uuid],
-                "units": round(pr["units"], 2),
-                "lines": pr["lines"],
-                "minDate": iso(pr["minDate"]),
-                "lastOrder": iso(pr["lastOrder"]),
-                "new": is_new,
-            }
-        )
+        pair_out = {
+            "c": customer_index[account_uuid],
+            "i": item_index[item_uuid],
+            "units": round(pr["units"], 2),
+            "lines": pr["lines"],
+            "minDate": iso(pr["minDate"]),
+            "lastOrder": iso(pr["lastOrder"]),
+            "new": is_new,
+        }
+        # Only carried when the export has SO Amount, so markets without it
+        # don't pay for an always-zero field on every pair.
+        if has_revenue:
+            pair_out["rev"] = round(pr["revenue"], 2)
+        pairs_out.append(pair_out)
     pairs_out.sort(key=lambda p: -p["units"])
 
     new_customers = sum(
@@ -371,6 +395,7 @@ def aggregate(rows, warehouse):
             "lines": bl["lines"],
             "customers": len(bl["customers"]),
             "items": len(bl["items"]),
+            "revenue": round(bl["revenue"], 2),
         }
         for name, bl in sorted(business_lines.items(), key=lambda kv: -kv[1]["units"])
     ]
@@ -404,6 +429,7 @@ def aggregate(rows, warehouse):
             "items": len(br["items"]),
             "localUnits": round(br["localUnits"], 1),
             "ecommUnits": round(br["ecommUnits"], 1),
+            "revenue": round(br["revenue"], 2),
             "firstOrder": iso(br["firstOrder"]),
             "lastOrder": iso(br["lastOrder"]),
             **trend_fields(br["weekly"]),
@@ -414,12 +440,14 @@ def aggregate(rows, warehouse):
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "warehouse": warehouse,
+        "hasRevenue": has_revenue,
         "dateRange": {"start": iso(min_order_date), "end": iso(max_date)},
         "newPlacementDays": NEW_PLACEMENT_DAYS,
         "newLocationDays": NEW_LOCATION_DAYS,
         "trendWeeks": [iso(w) for w in trend_weeks],
         "summary": {
             "totalUnits": round(sum(it["units"] for it in items_list), 1),
+            "totalRevenue": round(sum(it["revenue"] for it in items_list), 2),
             "orderLines": sum(it["lines"] for it in items_list),
             "customerCount": len(customers_list),
             "itemCount": len(items_list),
@@ -428,7 +456,8 @@ def aggregate(rows, warehouse):
             "newLocations": new_locations,
         },
         "weeklyTrend": [
-            {"weekStart": iso(w), "units": round(weekly[w]["units"], 1), "lines": weekly[w]["lines"]}
+            {"weekStart": iso(w), "units": round(weekly[w]["units"], 1),
+             "lines": weekly[w]["lines"], "revenue": round(weekly[w]["revenue"], 2)}
             for w in weeks
         ],
         "topBrands": [{"brand": b, "units": round(u, 1)} for b, u in top_brands],
@@ -443,6 +472,7 @@ def aggregate(rows, warehouse):
                 "lines": it["lines"],
                 "customers": len(it["customers"]),
                 "newLocations": item_new_locations.get(it["uuid"], 0),
+                "revenue": round(it["revenue"], 2),
                 "localUnits": round(it["localUnits"], 1),
                 "ecommUnits": round(it["ecommUnits"], 1),
                 "firstOrder": iso(it["firstOrder"]),
@@ -458,6 +488,7 @@ def aggregate(rows, warehouse):
                 "units": round(cu["units"], 2),
                 "lines": cu["lines"],
                 "items": len(cu["items"]),
+                "revenue": round(cu["revenue"], 2),
                 "enterprise": cu["enterprise"],
                 "businessLine": primary_business_line(cu["blUnits"]),
                 "firstOrder": iso(cu["firstOrder"]),
@@ -549,7 +580,7 @@ def main(out_dir):
                 print(f"{wh}: created sub-page {page}")
             manifest["warehouses"].append(
                 {"code": wh, "status": "ok", "summary": data["summary"],
-                 "dateRange": data["dateRange"]}
+                 "hasRevenue": data["hasRevenue"], "dateRange": data["dateRange"]}
             )
             print(
                 f"{wh}: {data['summary']['itemCount']} items, "
@@ -565,7 +596,9 @@ def main(out_dir):
             if prev:
                 manifest["warehouses"].append(
                     {"code": wh, "status": "ok", "stale": True,
-                     "summary": prev["summary"], "dateRange": prev["dateRange"]}
+                     "summary": prev["summary"],
+                     "hasRevenue": prev.get("hasRevenue", False),
+                     "dateRange": prev["dateRange"]}
                 )
                 print(f"{wh}: export unavailable ({e}); kept previous data", file=sys.stderr)
                 continue
