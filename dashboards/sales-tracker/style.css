@@ -85,7 +85,7 @@ main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
 }
 .toolbar .dl-csv:hover { background: #FAF4E4; border-color: var(--ink-2); }
 
-.tabs { display: flex; gap: 6px; padding: 12px 16px 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 0; }
 .tabs button {
   background: var(--bg); color: var(--muted); border: 1px solid var(--line); border-bottom: none;
   padding: 8px 16px; border-radius: 8px 8px 0 0; font-size: 12px; font-weight: 600;

@@ -66,6 +66,8 @@ const fmt = (n) =>
   Math.abs(n) >= 1000 ? n.toLocaleString(undefined, { maximumFractionDigits: 0 })
                       : n.toLocaleString(undefined, { maximumFractionDigits: 1 });
 const fmtDate = (s) => s == null ? "—" : s;
+const fmtMoney = (n) => n == null ? "—" :
+  "$" + Math.round(n).toLocaleString(undefined, { maximumFractionDigits: 0 });
 
 const PALETTE = {
   ink: "#40180B", muted: "#8A7B6A", line: "#E6DFCC",
@@ -85,6 +87,7 @@ const TABS = {
       { key: "name", label: "Item" },
       { key: "brand", label: "Brand", hideSm: true },
       { key: "units", label: "Units Sold", num: true },
+      { key: "revenue", label: "Revenue", num: true, needsRev: true },
       { key: "localShare", label: "Local / Ecomm", num: true, needsBL: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
@@ -100,7 +103,9 @@ const TABS = {
       { key: "name", label: "Customer" },
       { key: "businessLine", label: "Business Line", needsBL: true },
       { key: "units", label: "Units Sold", num: true },
-      { key: "share", label: "% of WH Sales", num: true },
+      { key: "revenue", label: "Revenue", num: true, needsRev: true },
+      { key: "share", label: "% of WH Sales", labelRev: "% of Units", num: true },
+      { key: "revShare", label: "% of WH Rev", num: true, needsRev: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "items", label: "SKUs", num: true, hideSm: true },
@@ -115,7 +120,9 @@ const TABS = {
       { key: "locations", label: "Locations", num: true },
       { key: "businessLine", label: "Business Line", needsBL: true },
       { key: "units", label: "Units Sold", num: true },
-      { key: "share", label: "% of WH Sales", num: true },
+      { key: "revenue", label: "Revenue", num: true, needsRev: true },
+      { key: "share", label: "% of WH Sales", labelRev: "% of Units", num: true },
+      { key: "revShare", label: "% of WH Rev", num: true, needsRev: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "items", label: "SKUs", num: true, hideSm: true },
@@ -128,7 +135,9 @@ const TABS = {
     columns: [
       { key: "name", label: "Brand" },
       { key: "units", label: "Units Sold", num: true },
-      { key: "share", label: "% of WH Sales", num: true },
+      { key: "revenue", label: "Revenue", num: true, needsRev: true },
+      { key: "share", label: "% of WH Sales", labelRev: "% of Units", num: true },
+      { key: "revShare", label: "% of WH Rev", num: true, needsRev: true },
       { key: "localShare", label: "Local / Ecomm", num: true, needsBL: true },
       { key: "trendDelta", label: "Trend (4w)", num: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
@@ -144,7 +153,9 @@ const TABS = {
       { key: "name", label: "Business Line" },
       { key: "category", label: "Type", hideSm: true },
       { key: "units", label: "Units Sold", num: true },
+      { key: "revenue", label: "Revenue", num: true, needsRev: true },
       { key: "share", label: "% of Units", num: true },
+      { key: "revShare", label: "% of Rev", num: true, needsRev: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "customers", label: "Customers", num: true },
       { key: "items", label: "SKUs", num: true, hideSm: true },
@@ -157,6 +168,7 @@ const TABS = {
       { key: "itemName", label: "Item" },
       { key: "minDate", label: "First Order" },
       { key: "units", label: "Units Since", num: true },
+      { key: "rev", label: "Revenue Since", num: true, needsRev: true },
       { key: "lines", label: "Order Lines", num: true, hideSm: true },
       { key: "lastOrder", label: "Last Order", hideSm: true },
     ],
@@ -184,11 +196,16 @@ async function init() {
   buildParents();
   // Share of the warehouse's total units, for customers and brands.
   const whUnits = DATA.summary.totalUnits || 1;
-  DATA.customers.forEach(c => { c.share = c.units / whUnits; });
-  DATA.items.forEach(i => { i.share = i.units / whUnits; });
-  DATA.parents.forEach(p => { p.share = p.units / whUnits; });
+  const whRev = DATA.summary.totalRevenue || 0;
+  const addShares = (r) => {
+    r.share = r.units / whUnits;
+    if (whRev) r.revShare = (r.revenue || 0) / whRev;
+  };
+  DATA.customers.forEach(addShares);
+  DATA.items.forEach(addShares);
+  DATA.parents.forEach(addShares);
   if (DATA.brands && DATA.brands.length) {
-    DATA.brands.forEach(b => { b.share = b.units / whUnits; });
+    DATA.brands.forEach(addShares);
     document.getElementById("tab-brands").hidden = false;
   }
   if (hasBL()) {
@@ -199,7 +216,11 @@ async function init() {
     DATA.items.forEach(splitShare);
     (DATA.brands || []).forEach(splitShare);
     const total = DATA.businessLines.reduce((s, b) => s + b.units, 0) || 1;
-    DATA.businessLines.forEach(b => { b.share = b.units / total; });
+    const totalRev = DATA.businessLines.reduce((s, b) => s + (b.revenue || 0), 0);
+    DATA.businessLines.forEach(b => {
+      b.share = b.units / total;
+      if (totalRev) b.revShare = (b.revenue || 0) / totalRev;
+    });
     document.getElementById("tab-bl").hidden = false;
   }
   document.getElementById("meta").textContent =
@@ -210,6 +231,9 @@ async function init() {
 }
 
 const hasBL = () => !!(DATA && DATA.businessLines && DATA.businessLines.length);
+// Revenue comes from the export's optional "SO Amount" column, so a market
+// only shows dollars once its Looker export carries it.
+const hasRev = () => !!(DATA && DATA.hasRevenue);
 
 // Wholesale accounts are named "<Parent Company> : <Location>", so the prefix
 // is the chain. Accounts without that separator are standalone (in practice
@@ -245,7 +269,7 @@ function buildParents() {
     let p = byName.get(name);
     if (!p) {
       p = {
-        uuid: "p:" + name, name, units: 0, lines: 0, locations: 0,
+        uuid: "p:" + name, name, units: 0, revenue: 0, lines: 0, locations: 0,
         items: 0, enterprise: false, businessLine: null, firstOrder: null,
         lastOrder: null, trend: new Array(weeks).fill(0), _blUnits: new Map(),
         _idx: byName.size,
@@ -254,6 +278,7 @@ function buildParents() {
     }
     parentOfCustomer[ci] = p._idx;
     p.units += c.units;
+    p.revenue += c.revenue || 0;
     p.lines += c.lines;
     p.locations += 1;
     if (c.enterprise) p.enterprise = true;
@@ -273,8 +298,9 @@ function buildParents() {
     const pi = parentOfCustomer[pr.c];
     const m = pairsByParent[pi];
     let agg = m.get(pr.i);
-    if (!agg) { agg = { c: pi, i: pr.i, units: 0, lines: 0, minDate: null, lastOrder: null, new: false, newLocs: 0 }; m.set(pr.i, agg); }
+    if (!agg) { agg = { c: pi, i: pr.i, units: 0, rev: 0, lines: 0, minDate: null, lastOrder: null, new: false, newLocs: 0 }; m.set(pr.i, agg); }
     agg.units += pr.units;
+    agg.rev += pr.rev || 0;
     agg.lines += pr.lines;
     if (pr.new) agg.new = true;
     if (pr.minDate && locCutoff && pr.minDate >= locCutoff) agg.newLocs += 1;
@@ -286,6 +312,7 @@ function buildParents() {
     const rows = [...pairsByParent[i].values()].sort((a, b) => b.units - a.units);
     p.items = rows.length;
     p.units = Math.round(p.units * 10) / 10;
+    p.revenue = Math.round(p.revenue * 100) / 100;
     // Dominant business line by units, matching how a customer row reads.
     let best = null, bestUnits = -1;
     for (const [bl, u] of p._blUnits) if (u > bestUnits) { best = bl; bestUnits = u; }
@@ -318,7 +345,11 @@ function trendFields(series) {
     trendDir: delta > eps ? "up" : delta < -eps ? "down" : "flat",
   };
 }
-const activeColumns = (spec) => spec.columns.filter(c => !c.needsBL || hasBL());
+// Columns gated on optional source data, with labels that disambiguate the
+// units-based share once dollars sit beside it.
+const activeColumns = (spec) => spec.columns
+  .filter(c => (!c.needsBL || hasBL()) && (!c.needsRev || hasRev()))
+  .map(c => (c.labelRev && hasRev()) ? { ...c, label: c.labelRev } : c);
 
 const BL_COLOR = { local: "#1F7A33", ecomm: "#B5660A", other: "#A89684" };
 
@@ -341,6 +372,7 @@ function renderKpis() {
   const s = DATA.summary;
   const kpis = [
     { label: "Units Sold (90d)", value: fmt(s.totalUnits), cls: "accent" },
+    ...(hasRev() ? [{ label: "Revenue (90d)", value: fmtMoney(s.totalRevenue), cls: "accent" }] : []),
     { label: "Order Lines", value: fmtInt(s.orderLines), cls: "" },
     { label: "Active Customers", value: fmtInt(s.customerCount), cls: "" },
     { label: "Active SKUs", value: fmtInt(s.itemCount), cls: "" },
@@ -380,7 +412,8 @@ function renderCharts() {
         legend: { display: false },
         tooltip: { callbacks: {
           title: (c) => `Week of ${c[0].label}`,
-          label: (c) => `${fmt(c.raw)} units · ${fmtInt(wk[c.dataIndex].lines)} lines`,
+          label: (c) => `${fmt(c.raw)} units · ${fmtInt(wk[c.dataIndex].lines)} lines` +
+            (hasRev() ? ` · ${fmtMoney(wk[c.dataIndex].revenue)}` : ""),
         } },
       },
       scales: { y: { beginAtZero: true, title: { display: true, text: "Units Sold" } } },
@@ -399,7 +432,11 @@ function renderCharts() {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { title: (c) => ti[c[0].dataIndex].name, label: (c) => `${fmt(c.raw)} units` } },
+        tooltip: { callbacks: {
+          title: (c) => ti[c[0].dataIndex].name,
+          label: (c) => `${fmt(c.raw)} units` +
+            (hasRev() ? ` · ${fmtMoney(ti[c.dataIndex].revenue)}` : ""),
+        } },
       },
       scales: {
         x: { beginAtZero: true },
@@ -420,7 +457,11 @@ function renderCharts() {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { title: (c) => tc[c[0].dataIndex].name, label: (c) => `${fmt(c.raw)} units` } },
+        tooltip: { callbacks: {
+          title: (c) => tc[c[0].dataIndex].name,
+          label: (c) => `${fmt(c.raw)} units` +
+            (hasRev() ? ` · ${fmtMoney(tc[c.dataIndex].revenue)}` : ""),
+        } },
       },
       scales: {
         x: { beginAtZero: true },
@@ -534,6 +575,7 @@ function renderRow(r, spec) {
       <td>${escapeHtml(r.itemName)}${r.brand ? `<div class="uuid">${escapeHtml(r.brand)}</div>` : ""}</td>
       <td>${fmtDate(r.minDate)}<span class="badge-new">New</span></td>
       <td class="num">${fmt(r.units)}</td>
+      ${hasRev() ? `<td class="num">${fmtMoney(r.rev)}</td>` : ""}
       <td class="num hide-sm">${fmtInt(r.lines)}</td>
       <td class="hide-sm">${fmtDate(r.lastOrder)}</td>
     </tr>`;
@@ -544,7 +586,9 @@ function renderRow(r, spec) {
       <td>${blDot(r.category)}${escapeHtml(r.name)}</td>
       <td class="hide-sm" style="text-transform:capitalize">${escapeHtml(r.category)}</td>
       <td class="num">${fmt(r.units)}</td>
+      ${hasRev() ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
       <td class="num">${Math.round(r.share * 100)}%</td>
+      ${hasRev() ? `<td class="num share">${fmtPct(r.revShare)}</td>` : ""}
       <td class="num hide-sm">${fmtInt(r.lines)}</td>
       <td class="num">${fmtInt(r.customers)}</td>
       <td class="num hide-sm">${fmtInt(r.items)}</td>
@@ -555,7 +599,9 @@ function renderRow(r, spec) {
     return `<tr>
       <td>${escapeHtml(r.name)}</td>
       <td class="num">${fmt(r.units)}</td>
+      ${hasRev() ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
       <td class="num share">${fmtPct(r.share)}</td>
+      ${hasRev() ? `<td class="num share">${fmtPct(r.revShare)}</td>` : ""}
       ${hasBL() ? `<td class="num">${splitBar(r)}</td>` : ""}
       <td class="num">${sparkline(r)}</td>
       <td class="num hide-sm">${fmtInt(r.lines)}</td>
@@ -572,7 +618,9 @@ function renderRow(r, spec) {
       <td class="num${r.locations > 1 ? " multi-loc" : ""}">${fmtInt(r.locations)}</td>
       ${hasBL() ? `<td>${r.businessLine ? blDot(lineCategory(r.businessLine)) + escapeHtml(r.businessLine) : '<span class="muted">—</span>'}</td>` : ""}
       <td class="num">${fmt(r.units)}</td>
+      ${hasRev() ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
       <td class="num share">${fmtPct(r.share)}</td>
+      ${hasRev() ? `<td class="num share">${fmtPct(r.revShare)}</td>` : ""}
       <td class="num">${sparkline(r)}</td>
       <td class="num hide-sm">${fmtInt(r.lines)}</td>
       <td class="num hide-sm">${fmtInt(r.items)}</td>
@@ -587,6 +635,7 @@ function renderRow(r, spec) {
         <td>${escapeHtml(r.name)}${/^[0-9a-f]{8}-/.test(r.uuid) ? `<div class="uuid">${r.uuid.slice(0, 8)}</div>` : ""}</td>
         <td class="hide-sm">${escapeHtml(r.brand || "")}</td>
         <td class="num">${fmt(r.units)}</td>
+        ${hasRev() ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
         ${hasBL() ? `<td class="num">${splitBar(r)}</td>` : ""}
         <td class="num">${sparkline(r)}</td>
         <td class="num hide-sm">${fmtInt(r.lines)}</td>
@@ -599,7 +648,9 @@ function renderRow(r, spec) {
         <td>${escapeHtml(r.name)}${r.enterprise ? '<span class="badge-ent">Ent</span>' : ""}${/^[0-9a-f]{8}-/.test(r.uuid) ? `<div class="uuid">${r.uuid.slice(0, 8)}</div>` : ""}</td>
         ${hasBL() ? `<td>${r.businessLine ? blDot(lineCategory(r.businessLine)) + escapeHtml(r.businessLine) : '<span class="muted">—</span>'}</td>` : ""}
         <td class="num">${fmt(r.units)}</td>
+        ${hasRev() ? `<td class="num">${fmtMoney(r.revenue)}</td>` : ""}
         <td class="num share">${fmtPct(r.share)}</td>
+        ${hasRev() ? `<td class="num share">${fmtPct(r.revShare)}</td>` : ""}
         <td class="num">${sparkline(r)}</td>
         <td class="num hide-sm">${fmtInt(r.lines)}</td>
         <td class="num hide-sm">${fmtInt(r.items)}</td>
@@ -649,6 +700,7 @@ function detailPairs(r) {
 function detailShares(r, p, other) {
   return {
     ofThis: r.units ? p.units / r.units : null,
+    ofThisRev: r.revenue ? (p.rev || 0) / r.revenue : null,
     ofMkt: other.share == null ? null : other.share,
   };
 }
@@ -665,7 +717,9 @@ function renderDetail(r, colspan) {
     return `<tr>
       <td>${escapeHtml(other.name)}${!isParent && p.new ? '<span class="badge-new">New</span>' : ""}</td>
       <td class="num">${fmt(p.units)}</td>
+      ${hasRev() ? `<td class="num">${fmtMoney(p.rev)}</td>` : ""}
       <td class="num share">${fmtPct(s.ofThis)}</td>
+      ${hasRev() ? `<td class="num share">${fmtPct(s.ofThisRev)}</td>` : ""}
       <td class="num">${fmtPct(s.ofMkt)}</td>
       <td class="num hide-sm">${fmtInt(p.lines)}</td>
       ${isParent ? `<td class="num${p.newLocs ? " new-locs" : ""}">${fmtInt(p.newLocs)}</td>` : ""}
@@ -682,7 +736,9 @@ function renderDetail(r, colspan) {
       <thead><tr>
         <th>${otherLabel}</th>
         <th class="num">Units</th>
-        <th class="num" title="This ${otherLabel.toLowerCase()}'s share of ${escapeHtml(r.name)}">${thisLabel}</th>
+        ${hasRev() ? `<th class="num">Revenue</th>` : ""}
+        <th class="num" title="This ${otherLabel.toLowerCase()}'s share of ${escapeHtml(r.name)}, by units">${thisLabel}${hasRev() ? " (units)" : ""}</th>
+        ${hasRev() ? `<th class="num" title="This ${otherLabel.toLowerCase()}'s share of ${escapeHtml(r.name)}, by revenue">${thisLabel} ($)</th>` : ""}
         <th class="num" title="This ${otherLabel.toLowerCase()}'s total share of the market's units, across everything">% of Market</th>
         <th class="num hide-sm">Lines</th>
         ${isParent ? `<th class="num" title="Locations of ${escapeHtml(r.name)} that first ordered this item in the last ${DATA.newLocationDays} days">New Locs (${DATA.newLocationDays}d)</th>` : ""}
@@ -715,7 +771,9 @@ function exportDetailCsv(r) {
   const newLabel = isParent ? `New Locs (${DATA.newLocationDays}d)` : "New";
   const header = [
     ...selfHead, otherLabel, otherUuidLabel,
-    newLabel, "Units", thisLabel, "% of Market", "Order Lines", "First Order", "Last Order",
+    newLabel, "Units", ...(hasRev() ? ["Revenue"] : []),
+    thisLabel, ...(hasRev() ? [`${thisLabel} ($)`] : []),
+    "% of Market", "Order Lines", "First Order", "Last Order",
   ];
   const lines = [header.map(csvCell).join(",")];
   for (const { p, other } of detailPairs(r)) {
@@ -723,7 +781,9 @@ function exportDetailCsv(r) {
     lines.push([
       ...selfVals, other.name, uuidOf(other.uuid),
       isParent ? p.newLocs : p.new ? "TRUE" : "FALSE", p.units,
+      ...(hasRev() ? [(p.rev || 0).toFixed(2)] : []),
       s.ofThis == null ? "" : (s.ofThis * 100).toFixed(2),
+      ...(hasRev() ? [s.ofThisRev == null ? "" : (s.ofThisRev * 100).toFixed(2)] : []),
       s.ofMkt == null ? "" : (s.ofMkt * 100).toFixed(2),
       p.lines, p.minDate || "", p.lastOrder || "",
     ].map(csvCell).join(","));
@@ -757,6 +817,7 @@ function csvColumns() {
       ["Brand", r => r.brand || ""],
       ["Item UUID", r => uuidOf(r.uuid)],
       ["Units Sold", r => r.units],
+      ...(hasRev() ? [["Revenue", r => (r.revenue || 0).toFixed(2)]] : []),
       ...(hasBL() ? [
         ["Local Units", r => r.localUnits],
         ["Ecomm Units", r => r.ecommUnits],
@@ -778,7 +839,9 @@ function csvColumns() {
       ...(hasBL() ? [["Business Line", r => r.businessLine || ""]] : []),
       ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
       ["Units Sold", r => r.units],
-      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["Revenue", r => (r.revenue || 0).toFixed(2)]] : []),
+      [hasRev() ? "% of WH Units" : "% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["% of WH Rev", r => ((r.revShare || 0) * 100).toFixed(2)]] : []),
       ["Trend 4w Delta", r => r.trendDelta],
       ["Trend Dir", r => r.trendDir],
       ["Order Lines", r => r.lines],
@@ -791,7 +854,9 @@ function csvColumns() {
     return [
       ["Brand", r => r.name],
       ["Units Sold", r => r.units],
-      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["Revenue", r => (r.revenue || 0).toFixed(2)]] : []),
+      [hasRev() ? "% of WH Units" : "% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["% of WH Rev", r => ((r.revShare || 0) * 100).toFixed(2)]] : []),
       ...(hasBL() ? [
         ["Local Units", r => r.localUnits],
         ["Ecomm Units", r => r.ecommUnits],
@@ -813,7 +878,9 @@ function csvColumns() {
       ["Enterprise", r => r.enterprise ? "TRUE" : "FALSE"],
       ["Account UUID", r => uuidOf(r.uuid)],
       ["Units Sold", r => r.units],
-      ["% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["Revenue", r => (r.revenue || 0).toFixed(2)]] : []),
+      [hasRev() ? "% of WH Units" : "% of WH Sales", r => (r.share * 100).toFixed(2)],
+      ...(hasRev() ? [["% of WH Rev", r => ((r.revShare || 0) * 100).toFixed(2)]] : []),
       ["Trend 4w Delta", r => r.trendDelta],
       ["Trend Dir", r => r.trendDir],
       ["Order Lines", r => r.lines],
@@ -827,7 +894,9 @@ function csvColumns() {
       ["Business Line", r => r.name],
       ["Type", r => r.category],
       ["Units Sold", r => r.units],
+      ...(hasRev() ? [["Revenue", r => (r.revenue || 0).toFixed(2)]] : []),
       ["% of Units", r => Math.round(r.share * 100)],
+      ...(hasRev() ? [["% of Rev", r => ((r.revShare || 0) * 100).toFixed(2)]] : []),
       ["Order Lines", r => r.lines],
       ["Customers", r => r.customers],
       ["SKUs", r => r.items],
@@ -841,6 +910,7 @@ function csvColumns() {
     ["Brand", r => r.brand || ""],
     ["First Order", r => r.minDate || ""],
     ["Units Since", r => r.units],
+    ...(hasRev() ? [["Revenue Since", r => (r.rev || 0).toFixed(2)]] : []),
     ["Order Lines", r => r.lines],
     ["Last Order", r => r.lastOrder || ""],
   ];
