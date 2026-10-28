@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-28T05:43:39+00:00",
+ "generatedAt": "2026-10-28T12:56:11+00:00",
  "origin": "PWM1",
  "destination": "BOS1",
  "cutover": "2026-10-02",
@@ -17,10 +17,10 @@
  },
  "sources": {
   "bos1Sales": {
-   "status": "carried",
-   "capturedAt": "2026-10-25T06:08:39+00:00",
-   "dataThrough": "2026-10-23",
-   "postCutoverDays": 22
+   "status": "fresh",
+   "capturedAt": "2026-10-28T12:55:58+00:00",
+   "dataThrough": "2026-10-27",
+   "postCutoverDays": 26
   },
   "baseline": {
    "start": "2026-08-07",
@@ -31,14 +31,14 @@
   "feoos": {
    "trackingSince": "2026-10-07",
    "market14d": {
-    "events": 310,
-    "locations": 95,
-    "from": "2026-10-14",
-    "to": "2026-10-27"
+    "events": 300,
+    "locations": 92,
+    "from": "2026-10-15",
+    "to": "2026-10-28"
    }
   },
   "pwm1Leakage": {
-   "checked": false
+   "checked": true
   }
  },
  "originalGapCount": 42,
@@ -53,12 +53,12 @@
    "baselineWeekly": 17.8,
    "baselineSkus": 25,
    "bos1Units": 51.0,
-   "bos1Weekly": 16.2,
+   "bos1Weekly": 13.7,
    "bos1Skus": 16,
-   "ratio": 0.914,
+   "ratio": 0.774,
    "firstBos1Order": "2026-10-04",
    "lastBos1Order": "2026-10-21",
-   "status": "On track",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 4,
@@ -73,15 +73,21 @@
    "baselineUnits": 212.0,
    "baselineWeekly": 26.5,
    "baselineSkus": 30,
-   "bos1Units": 52.0,
-   "bos1Weekly": 16.5,
-   "bos1Skus": 17,
-   "ratio": 0.624,
+   "bos1Units": 63.0,
+   "bos1Weekly": 17.0,
+   "bos1Skus": 18,
+   "ratio": 0.64,
    "firstBos1Order": "2026-10-11",
-   "lastBos1Order": "2026-10-21",
+   "lastBos1Order": "2026-10-25",
    "status": "Below baseline",
    "lowVolume": false,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "califia farms barista coconut milk 32oz",
+     "baselineUnits": 13.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 7,
    "pwm1AfterCutover": null
   },
@@ -94,15 +100,21 @@
    "baselineUnits": 316.0,
    "baselineWeekly": 39.5,
    "baselineSkus": 31,
-   "bos1Units": 105.0,
-   "bos1Weekly": 33.4,
+   "bos1Units": 115.0,
+   "bos1Weekly": 31.0,
    "bos1Skus": 19,
-   "ratio": 0.846,
+   "ratio": 0.784,
    "firstBos1Order": "2026-10-05",
-   "lastBos1Order": "2026-10-22",
-   "status": "On track",
+   "lastBos1Order": "2026-10-25",
+   "status": "Below baseline",
    "lowVolume": false,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "polar club soda 7.5oz",
+     "baselineUnits": 25.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 6,
    "pwm1AfterCutover": null
   },
@@ -115,19 +127,24 @@
    "baselineUnits": 341.0,
    "baselineWeekly": 42.6,
    "baselineSkus": 29,
-   "bos1Units": 63.0,
-   "bos1Weekly": 20.0,
+   "bos1Units": 84.0,
+   "bos1Weekly": 22.6,
    "bos1Skus": 14,
-   "ratio": 0.47,
+   "ratio": 0.531,
    "firstBos1Order": "2026-10-05",
-   "lastBos1Order": "2026-10-21",
-   "status": "Well below baseline",
+   "lastBos1Order": "2026-10-26",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [
     {
      "key": "1883 syrup pump (glass)",
      "baselineUnits": 79.0,
-     "expectedOrders": 3.1
+     "expectedOrders": 3.7
+    },
+    {
+     "key": "polar club soda 7.5oz",
+     "baselineUnits": 16.0,
+     "expectedOrders": 2.3
     }
    ],
    "newSkus": 4,
@@ -142,15 +159,21 @@
    "baselineUnits": 206.0,
    "baselineWeekly": 25.8,
    "baselineSkus": 28,
-   "bos1Units": 80.0,
-   "bos1Weekly": 25.5,
-   "bos1Skus": 17,
-   "ratio": 0.989,
+   "bos1Units": 110.0,
+   "bos1Weekly": 29.6,
+   "bos1Skus": 18,
+   "ratio": 1.15,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-22",
+   "lastBos1Order": "2026-10-27",
    "status": "On track",
    "lowVolume": false,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "polar club soda 7.5oz",
+     "baselineUnits": 14.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 6,
    "pwm1AfterCutover": null
   },
@@ -184,12 +207,12 @@
    "baselineUnits": 188.0,
    "baselineWeekly": 23.5,
    "baselineSkus": 29,
-   "bos1Units": 71.0,
-   "bos1Weekly": 22.6,
+   "bos1Units": 90.0,
+   "bos1Weekly": 24.2,
    "bos1Skus": 18,
-   "ratio": 0.961,
+   "ratio": 1.031,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-21",
+   "lastBos1Order": "2026-10-25",
    "status": "On track",
    "lowVolume": false,
    "lostLines": [],
@@ -205,19 +228,19 @@
    "baselineUnits": 228.0,
    "baselineWeekly": 28.5,
    "baselineSkus": 29,
-   "bos1Units": 68.0,
-   "bos1Weekly": 21.6,
+   "bos1Units": 82.0,
+   "bos1Weekly": 22.1,
    "bos1Skus": 17,
-   "ratio": 0.759,
+   "ratio": 0.775,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-21",
+   "lastBos1Order": "2026-10-25",
    "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [
     {
      "key": "polar club soda 7.5oz",
      "baselineUnits": 19.0,
-     "expectedOrders": 2.8
+     "expectedOrders": 3.2
     }
    ],
    "newSkus": 6,
@@ -232,37 +255,43 @@
    "baselineUnits": 145.0,
    "baselineWeekly": 18.1,
    "baselineSkus": 19,
-   "bos1Units": 33.0,
-   "bos1Weekly": 10.5,
+   "bos1Units": 41.0,
+   "bos1Weekly": 11.0,
    "bos1Skus": 12,
-   "ratio": 0.579,
+   "ratio": 0.609,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-17",
+   "lastBos1Order": "2026-10-25",
    "status": "Below baseline",
    "lowVolume": false,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "polar club soda 7.5oz",
+     "baselineUnits": 11.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 4,
    "pwm1AfterCutover": null
   },
   {
    "uuid": "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
-   "name": "Blank Street - 501 Cambridge Street",
+   "name": "Blank Street : 501 Cambridge Street",
    "group": "Blank Street",
    "location": "Boston",
    "zip": "02134",
    "baselineUnits": 0,
    "baselineWeekly": 0.0,
    "baselineSkus": 0,
-   "bos1Units": 0,
-   "bos1Weekly": 0.0,
-   "bos1Skus": 0,
+   "bos1Units": 73.0,
+   "bos1Weekly": 19.7,
+   "bos1Skus": 21,
    "ratio": null,
-   "firstBos1Order": null,
-   "lastBos1Order": null,
-   "status": "No activity",
+   "firstBos1Order": "2026-10-26",
+   "lastBos1Order": "2026-10-26",
+   "status": "No PWM1 baseline",
    "lowVolume": false,
    "lostLines": [],
-   "newSkus": 0,
+   "newSkus": 21,
    "pwm1AfterCutover": null
   },
   {
@@ -274,13 +303,13 @@
    "baselineUnits": 386.0,
    "baselineWeekly": 48.2,
    "baselineSkus": 22,
-   "bos1Units": 128.0,
-   "bos1Weekly": 40.7,
+   "bos1Units": 142.0,
+   "bos1Weekly": 38.2,
    "bos1Skus": 16,
-   "ratio": 0.844,
+   "ratio": 0.792,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-21",
-   "status": "On track",
+   "lastBos1Order": "2026-10-25",
+   "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 4,
@@ -295,15 +324,26 @@
    "baselineUnits": 415.0,
    "baselineWeekly": 51.9,
    "baselineSkus": 31,
-   "bos1Units": 130.0,
-   "bos1Weekly": 41.4,
+   "bos1Units": 158.0,
+   "bos1Weekly": 42.5,
    "bos1Skus": 21,
-   "ratio": 0.797,
+   "ratio": 0.82,
    "firstBos1Order": "2026-10-05",
-   "lastBos1Order": "2026-10-20",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-27",
+   "status": "On track",
    "lowVolume": false,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "polar club soda 7.5oz",
+     "baselineUnits": 20.0,
+     "expectedOrders": 2.3
+    },
+    {
+     "key": "1883 syrup pump (glass)",
+     "baselineUnits": 20.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 7,
    "pwm1AfterCutover": null
   },
@@ -316,13 +356,13 @@
    "baselineUnits": 399.0,
    "baselineWeekly": 49.9,
    "baselineSkus": 31,
-   "bos1Units": 119.0,
-   "bos1Weekly": 37.9,
-   "bos1Skus": 21,
-   "ratio": 0.759,
+   "bos1Units": 156.0,
+   "bos1Weekly": 42.0,
+   "bos1Skus": 23,
+   "ratio": 0.842,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-21",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-26",
+   "status": "On track",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 8,
@@ -366,7 +406,13 @@
    "lastBos1Order": null,
    "status": "Not ordering at BOS1",
    "lowVolume": true,
-   "lostLines": [],
+   "lostLines": [
+    {
+     "key": "open water still water w/ electrolytes 16oz aluminum bottle - 24 pack",
+     "baselineUnits": 13.0,
+     "expectedOrders": 2.3
+    }
+   ],
    "newSkus": 0,
    "pwm1AfterCutover": null
   },
@@ -380,9 +426,9 @@
    "baselineWeekly": 4.4,
    "baselineSkus": 5,
    "bos1Units": 11.0,
-   "bos1Weekly": 3.5,
+   "bos1Weekly": 3.0,
    "bos1Skus": 2,
-   "ratio": 0.8,
+   "ratio": 0.677,
    "firstBos1Order": "2026-10-02",
    "lastBos1Order": "2026-10-06",
    "status": "Gone quiet",
@@ -421,12 +467,12 @@
    "baselineUnits": 35.0,
    "baselineWeekly": 4.4,
    "baselineSkus": 7,
-   "bos1Units": 7.0,
-   "bos1Weekly": 2.2,
-   "bos1Skus": 3,
-   "ratio": 0.509,
+   "bos1Units": 11.0,
+   "bos1Weekly": 3.0,
+   "bos1Skus": 4,
+   "ratio": 0.677,
    "firstBos1Order": "2026-10-19",
-   "lastBos1Order": "2026-10-19",
+   "lastBos1Order": "2026-10-27",
    "status": "Below baseline",
    "lowVolume": true,
    "lostLines": [],
@@ -443,9 +489,9 @@
    "baselineWeekly": 4.6,
    "baselineSkus": 6,
    "bos1Units": 9.0,
-   "bos1Weekly": 2.9,
+   "bos1Weekly": 2.4,
    "bos1Skus": 4,
-   "ratio": 0.619,
+   "ratio": 0.524,
    "firstBos1Order": "2026-10-05",
    "lastBos1Order": "2026-10-05",
    "status": "Gone quiet",
@@ -464,9 +510,9 @@
    "baselineWeekly": 1.4,
    "baselineSkus": 3,
    "bos1Units": 8.0,
-   "bos1Weekly": 2.5,
+   "bos1Weekly": 2.2,
    "bos1Skus": 4,
-   "ratio": 1.851,
+   "ratio": 1.566,
    "firstBos1Order": "2026-10-22",
    "lastBos1Order": "2026-10-22",
    "status": "On track",
@@ -484,13 +530,13 @@
    "baselineUnits": 61.0,
    "baselineWeekly": 7.6,
    "baselineSkus": 7,
-   "bos1Units": 19.0,
-   "bos1Weekly": 6.0,
-   "bos1Skus": 4,
-   "ratio": 0.793,
+   "bos1Units": 23.0,
+   "bos1Weekly": 6.2,
+   "bos1Skus": 5,
+   "ratio": 0.812,
    "firstBos1Order": "2026-10-05",
-   "lastBos1Order": "2026-10-19",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-24",
+   "status": "On track",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 0,
@@ -667,11 +713,24 @@
    "byGroup": {
     "Blank Street": {
      "pwm1": 0.0,
-     "bos1": 240.0
+     "bos1": 366.0
     },
     "Van Leeuwen": {
      "pwm1": 0.0,
-     "bos1": 23.0
+     "bos1": 27.0
+    }
+   }
+  },
+  {
+   "week": "2026-10-26",
+   "byGroup": {
+    "Blank Street": {
+     "pwm1": 0.0,
+     "bos1": 139.0
+    },
+    "Van Leeuwen": {
+     "pwm1": 0.0,
+     "bos1": 4.0
     }
    }
   }
@@ -717,8 +776,8 @@
      "baseUnits": 528.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 223.0,
-     "bos1Stores": 11
+     "bos1Units": 277.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -734,8 +793,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 80.0,
-   "onHand": 50.2,
+   "doc": 70.0,
+   "onHand": 45.2,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -760,8 +819,8 @@
      "baseUnits": 159.0,
      "baseLines": 21,
      "baseStores": 7,
-     "bos1Units": 11.0,
-     "bos1Stores": 2
+     "bos1Units": 31.0,
+     "bos1Stores": 3
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -821,15 +880,15 @@
   {
    "key": "blank street 2-cup carrier",
    "name": "Blank Street 2-Cup Carrier",
-   "brand": "Blank Street Coffee",
+   "brand": "",
    "vendor": "Odeko EWR intracompany transfer",
    "byGroup": {
     "Blank Street": {
      "baseUnits": 5.0,
      "baseLines": 5,
      "baseStores": 4,
-     "bos1Units": 0.0,
-     "bos1Stores": 0
+     "bos1Units": 1.0,
+     "bos1Stores": 1
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -841,7 +900,8 @@
    },
    "live": true,
    "bos1Sources": [
-    "onhand"
+    "onhand",
+    "roster orders"
    ],
    "doc": null,
    "onHand": 13.0,
@@ -857,7 +917,7 @@
     "Blank Street"
    ],
    "inbound": [],
-   "reorderedByRoster": false
+   "reorderedByRoster": true
   },
   {
    "key": "bloomin foods - blank street coconut cream 2.5l pouch",
@@ -956,7 +1016,7 @@
      "baseUnits": 87.0,
      "baseLines": 30,
      "baseStores": 8,
-     "bos1Units": 17.0,
+     "bos1Units": 21.0,
      "bos1Stores": 5
     }
    },
@@ -966,8 +1026,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 173.0,
-   "onHand": 49.0,
+   "doc": 144.0,
+   "onHand": 48.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1008,8 +1068,8 @@
     "catalog",
     "onhand"
    ],
-   "doc": 960.0,
-   "onHand": 32.0,
+   "doc": 930.0,
+   "onHand": 31.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1034,7 +1094,7 @@
      "baseUnits": 242.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 68.0,
+     "bos1Units": 83.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1050,8 +1110,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 34.0,
-   "onHand": 41.0,
+   "doc": 25.0,
+   "onHand": 31.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1093,9 +1153,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 19.0,
-   "onHand": 297.0,
-   "onOrder": 225.0,
+   "doc": 17.0,
+   "onHand": 284.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": false
@@ -1166,9 +1226,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 25.0,
-   "onHand": 142.0,
-   "onOrder": 150.0,
+   "doc": 23.0,
+   "onHand": 135.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": false
@@ -1225,8 +1285,8 @@
      "baseUnits": 343.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 149.0,
-     "bos1Stores": 11
+     "bos1Units": 183.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1241,9 +1301,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 48.0,
-   "onHand": 120.0,
-   "onOrder": 60.0,
+   "doc": 39.0,
+   "onHand": 101.0,
+   "onOrder": 180.0,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -1256,11 +1316,11 @@
    ],
    "inbound": [
     {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
+     "po": "PO118777",
+     "type": "PO",
+     "vendor": "Bloomin Foods LLC",
      "status": "Pending Receipt",
-     "expected": "2026-11-02"
+     "expected": "2026-11-04"
     }
    ],
    "reorderedByRoster": true
@@ -1353,8 +1413,8 @@
      "baseUnits": 160.0,
      "baseLines": 93,
      "baseStores": 11,
-     "bos1Units": 67.0,
-     "bos1Stores": 11
+     "bos1Units": 79.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1369,8 +1429,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 75.0,
-   "onHand": 88.0,
+   "doc": 73.0,
+   "onHand": 85.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1395,8 +1455,8 @@
      "baseUnits": 82.0,
      "baseLines": 62,
      "baseStores": 11,
-     "bos1Units": 29.0,
-     "bos1Stores": 9
+     "bos1Units": 40.0,
+     "bos1Stores": 10
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1411,8 +1471,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 97.0,
-   "onHand": 47.0,
+   "doc": 89.0,
+   "onHand": 43.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1437,8 +1497,8 @@
      "baseUnits": 136.0,
      "baseLines": 77,
      "baseStores": 11,
-     "bos1Units": 50.0,
-     "bos1Stores": 11
+     "bos1Units": 65.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1453,9 +1513,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 64.0,
-   "onHand": 53.0,
-   "onOrder": 30.0,
+   "doc": 58.0,
+   "onHand": 48.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -1466,15 +1526,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -1526,8 +1578,8 @@
      "baseUnits": 89.0,
      "baseLines": 55,
      "baseStores": 11,
-     "bos1Units": 28.0,
-     "bos1Stores": 10
+     "bos1Units": 37.0,
+     "bos1Stores": 11
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1543,8 +1595,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 136.0,
-   "onHand": 136.0,
+   "doc": 129.0,
+   "onHand": 131.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1560,8 +1612,8 @@
      "baseUnits": 7.0,
      "baseLines": 2,
      "baseStores": 2,
-     "bos1Units": 4.0,
-     "bos1Stores": 1
+     "bos1Units": 7.0,
+     "bos1Stores": 2
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1596,15 +1648,15 @@
   {
    "key": "ecologic foaming drain treatment (e45f) 1qt bottle",
    "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
-   "brand": "EcoLogic Solutions",
+   "brand": "",
    "vendor": "Odeko EWR intracompany transfer",
    "byGroup": {
     "Blank Street": {
      "baseUnits": 21.0,
      "baseLines": 10,
      "baseStores": 7,
-     "bos1Units": 0.0,
-     "bos1Stores": 0
+     "bos1Units": 5.0,
+     "bos1Stores": 1
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1617,7 +1669,8 @@
    "live": true,
    "bos1Sources": [
     "catalog",
-    "onhand"
+    "onhand",
+    "roster orders"
    ],
    "doc": 4380.0,
    "onHand": 12.2,
@@ -1633,7 +1686,7 @@
     "Blank Street"
    ],
    "inbound": [],
-   "reorderedByRoster": false
+   "reorderedByRoster": true
   },
   {
    "key": "everclean milk line cleaning liquid",
@@ -1645,7 +1698,7 @@
      "baseUnits": 23.0,
      "baseLines": 13,
      "baseStores": 6,
-     "bos1Units": 3.0,
+     "bos1Units": 4.0,
      "bos1Stores": 2
     },
     "Van Leeuwen": {
@@ -1662,8 +1715,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 540.0,
-   "onHand": 27.0,
+   "doc": 390.0,
+   "onHand": 26.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1688,8 +1741,8 @@
      "baseUnits": 17.0,
      "baseLines": 14,
      "baseStores": 9,
-     "bos1Units": 7.0,
-     "bos1Stores": 4
+     "bos1Units": 11.0,
+     "bos1Stores": 6
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1705,8 +1758,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 69.0,
-   "onHand": 8.0,
+   "doc": 45.0,
+   "onHand": 6.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1787,7 +1840,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 308.0,
+   "doc": 261.0,
    "onHand": 113.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1804,8 +1857,8 @@
      "baseUnits": 5.0,
      "baseLines": 3,
      "baseStores": 3,
-     "bos1Units": 15.0,
-     "bos1Stores": 6
+     "bos1Units": 17.0,
+     "bos1Stores": 7
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1823,7 +1876,7 @@
    ],
    "doc": 28.0,
    "onHand": 0.6,
-   "onOrder": 1.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -1834,15 +1887,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -1855,8 +1900,8 @@
      "baseUnits": 92.0,
      "baseLines": 59,
      "baseStores": 11,
-     "bos1Units": 45.0,
-     "bos1Stores": 11
+     "bos1Units": 61.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1872,8 +1917,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 69.0,
-   "onHand": 10.7,
+   "doc": 57.0,
+   "onHand": 9.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1906,8 +1951,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 15.0,
-   "onHand": 0.2,
+   "doc": 4.0,
+   "onHand": 0.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1923,8 +1968,8 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 18.0,
-     "bos1Stores": 11
+     "bos1Units": 20.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2116,8 +2161,8 @@
      "baseUnits": 183.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 49.0,
-     "bos1Stores": 11
+     "bos1Units": 60.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2132,9 +2177,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 13.0,
-   "onHand": 11.0,
-   "onOrder": 30.0,
+   "doc": 6.0,
+   "onHand": 5.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -2145,15 +2190,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -2205,8 +2242,8 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 19.0,
-     "bos1Stores": 11
+     "bos1Units": 30.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2221,8 +2258,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 319.0,
-   "onHand": 8.4,
+   "doc": 297.0,
+   "onHand": 7.8,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2245,16 +2282,17 @@
      "baseUnits": 5.0,
      "baseLines": 4,
      "baseStores": 4,
-     "bos1Units": 0.0,
-     "bos1Stores": 0
+     "bos1Units": 2.0,
+     "bos1Stores": 1
     }
    },
    "live": true,
    "bos1Sources": [
     "catalog",
-    "onhand"
+    "onhand",
+    "roster orders"
    ],
-   "doc": null,
+   "doc": 240.0,
    "onHand": 8.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2268,7 +2306,7 @@
     "Van Leeuwen"
    ],
    "inbound": [],
-   "reorderedByRoster": false
+   "reorderedByRoster": true
   },
   {
    "key": "open water still water w/ electrolytes 16oz aluminum bottle - 24 pack",
@@ -2287,8 +2325,8 @@
      "baseUnits": 66.0,
      "baseLines": 30,
      "baseStores": 8,
-     "bos1Units": 8.0,
-     "bos1Stores": 3
+     "bos1Units": 10.0,
+     "bos1Stores": 4
     }
    },
    "live": true,
@@ -2297,7 +2335,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 970.0,
+   "doc": 728.0,
    "onHand": 97.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2378,13 +2416,13 @@
     "catalog",
     "onhand"
    ],
-   "doc": 15.0,
-   "onHand": 32.0,
+   "doc": 14.0,
+   "onHand": 30.0,
    "onOrder": 86.0,
    "pastDuePos": [
-    "\"PO109985\"",
-    "\"PO112597\"]",
-    "[\"PO113127\""
+    "\"PO109985\"]",
+    "\"PO113127\"",
+    "[\"PO112597\""
    ],
    "feoosEvents": 0,
    "originalGap": false
@@ -2438,8 +2476,8 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 24.0,
-     "bos1Stores": 11
+     "bos1Units": 35.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2454,8 +2492,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 440.0,
-   "onHand": 176.0,
+   "doc": 420.0,
+   "onHand": 168.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2549,8 +2587,8 @@
      "baseUnits": 15.0,
      "baseLines": 13,
      "baseStores": 8,
-     "bos1Units": 1.0,
-     "bos1Stores": 1
+     "bos1Units": 2.0,
+     "bos1Stores": 2
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2592,8 +2630,8 @@
      "baseUnits": 6.0,
      "baseLines": 6,
      "baseStores": 6,
-     "bos1Units": 1.0,
-     "bos1Stores": 1
+     "bos1Units": 2.0,
+     "bos1Stores": 2
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2609,8 +2647,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 33.0,
-   "onHand": 27.0,
+   "doc": 31.0,
+   "onHand": 26.0,
    "onOrder": 4.0,
    "pastDuePos": [
     "[\"PO108215\"]"
@@ -2671,8 +2709,8 @@
      "baseUnits": 18.0,
      "baseLines": 13,
      "baseStores": 8,
-     "bos1Units": 10.0,
-     "bos1Stores": 5
+     "bos1Units": 15.0,
+     "bos1Stores": 7
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2688,9 +2726,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 49.0,
-   "onHand": 1.5,
-   "onOrder": 1.0,
+   "doc": 38.0,
+   "onHand": 1.2,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -2701,15 +2739,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -2722,8 +2752,8 @@
      "baseUnits": 8.0,
      "baseLines": 5,
      "baseStores": 4,
-     "bos1Units": 2.0,
-     "bos1Stores": 1
+     "bos1Units": 5.0,
+     "bos1Stores": 2
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2741,7 +2771,7 @@
    ],
    "doc": 0.0,
    "onHand": 0.0,
-   "onOrder": 1.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -2752,15 +2782,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -2792,7 +2814,7 @@
    ],
    "doc": 12.0,
    "onHand": 0.1,
-   "onOrder": 1.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -2803,15 +2825,7 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [
-    {
-     "po": "PO118672",
-     "type": "TO",
-     "vendor": "Odeko EWR intracompany transfer",
-     "status": "Pending Receipt",
-     "expected": "2026-11-02"
-    }
-   ],
+   "inbound": [],
    "reorderedByRoster": true
   },
   {
@@ -2824,8 +2838,8 @@
      "baseUnits": 106.0,
      "baseLines": 42,
      "baseStores": 10,
-     "bos1Units": 26.0,
-     "bos1Stores": 10
+     "bos1Units": 43.0,
+     "bos1Stores": 11
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -2841,9 +2855,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 13.0,
-   "onHand": 1.3,
-   "onOrder": 5.0,
+   "doc": 0.0,
+   "onHand": 0.0,
+   "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": false
@@ -2858,8 +2872,8 @@
      "baseUnits": 0.0,
      "baseLines": 0,
      "baseStores": 0,
-     "bos1Units": 19.0,
-     "bos1Stores": 11
+     "bos1Units": 20.0,
+     "bos1Stores": 12
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -3029,6 +3043,20 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-24",
+    6.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-26",
+    6.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "1883 syrup pump (glass)",
     "2026-10-18",
     1.0,
@@ -3059,6 +3087,20 @@
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "braswell's sweet potato butter",
     "2026-10-21",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "braswell's sweet potato butter",
+    "2026-10-24",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "braswell's sweet potato butter",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -3099,6 +3141,20 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-24",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "crofters organic strawberry jelly 7kg",
     "2026-10-04",
     1.0,
@@ -3148,6 +3204,13 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-24",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "david protein bars - blueberry",
     "2026-10-07",
     2.0,
@@ -3171,6 +3234,13 @@
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "david protein bars - blueberry",
     "2026-10-19",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "david protein bars - blueberry",
+    "2026-10-26",
     1.0,
     1
    ],
@@ -3211,8 +3281,36 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "everclean milk line cleaning liquid",
     "2026-10-11",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "everclean milk line cleaning liquid",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "eversys coffee cleaning balls",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -3253,6 +3351,13 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "hollander sauce pump",
     "2026-10-18",
     1.0,
@@ -3288,6 +3393,13 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-24",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "nouka black sesame paste - pure ground sesame seeds 1lb",
     "2026-10-13",
     1.0,
@@ -3309,6 +3421,13 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-13",
     1.0,
@@ -3326,6 +3445,13 @@
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-21",
     1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-26",
+    2.0,
     1
    ],
    [
@@ -3367,6 +3493,13 @@
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "urnex rinza milk frother cleaner 32oz. bottle",
     "2026-10-19",
+    2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -3449,6 +3582,13 @@
    ],
    [
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-26",
+    6.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "braswell's sweet potato butter",
     "2026-10-08",
     2.0,
@@ -3473,6 +3613,13 @@
     "braswell's sweet potato butter",
     "2026-10-21",
     2.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "braswell's sweet potato butter",
+    "2026-10-26",
+    1.0,
     1
    ],
    [
@@ -3505,6 +3652,13 @@
    ],
    [
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "crofters organic strawberry jelly 7kg",
     "2026-10-05",
     1.0,
@@ -3533,6 +3687,13 @@
    ],
    [
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "david protein bars - blueberry",
     "2026-10-08",
     1.0,
@@ -3542,6 +3703,13 @@
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "david protein bars - blueberry",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "david protein bars - blueberry",
+    "2026-10-26",
     1.0,
     1
    ],
@@ -3563,6 +3731,13 @@
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-26",
     1.0,
     1
    ],
@@ -3605,6 +3780,13 @@
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "hollander dutched chocolate cafe sauce 64oz",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-26",
     1.0,
     1
    ],
@@ -3638,6 +3820,13 @@
    ],
    [
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "nouka black sesame paste - pure ground sesame seeds 1lb",
     "2026-10-14",
     1.0,
@@ -3645,9 +3834,23 @@
    ],
    [
     "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-14",
     1.0,
+    1
+   ],
+   [
+    "25cfd9d4-8c13-4ed5-b8a9-ac1f31d5f1c8",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-26",
+    4.0,
     1
    ],
    [
@@ -3715,6 +3918,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "braswell's sweet potato butter",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-04",
     12.0,
@@ -3750,6 +3960,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "crofters organic strawberry jelly 7kg",
     "2026-10-04",
     3.0,
@@ -3780,6 +3997,13 @@
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "crofters organic strawberry jelly 7kg",
     "2026-10-21",
+    2.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -3855,6 +4079,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-25",
+    5.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "eversys coffee cleaning balls",
     "2026-10-14",
     1.0,
@@ -3879,6 +4110,13 @@
     "hollander dutched chocolate cafe sauce 64oz",
     "2026-10-21",
     1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
+    2.0,
     1
    ],
    [
@@ -3914,6 +4152,13 @@
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-18",
     4.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-25",
+    1.0,
     1
    ],
    [
@@ -3967,6 +4212,13 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "1883 syrup pump (plastic)",
     "2026-10-13",
     4.0,
@@ -3995,6 +4247,20 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "braswell's sweet potato butter",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "braswell's sweet potato butter",
+    "2026-10-27",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-04",
     3.0,
@@ -4018,6 +4284,20 @@
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-18",
+    3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-27",
     3.0,
     1
    ],
@@ -4051,9 +4331,30 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-27",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "david protein bars - blueberry",
     "2026-10-13",
     3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "david protein bars - blueberry",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "david protein bars - blueberry",
+    "2026-10-27",
+    2.0,
     1
    ],
    [
@@ -4065,9 +4366,30 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-27",
+    3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-13",
     1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "eversys coffee cleaning balls",
+    "2026-10-27",
+    2.0,
     1
    ],
    [
@@ -4095,6 +4417,20 @@
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "hollander dutched chocolate cafe sauce 64oz",
     "2026-10-11",
+    2.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-27",
     2.0,
     1
    ],
@@ -4131,6 +4467,13 @@
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-11",
     3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-25",
+    1.0,
     1
    ],
    [
@@ -4177,6 +4520,20 @@
    ],
    [
     "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-27",
+    3.0,
+    1
+   ],
+   [
+    "541f0d0e-1ddc-4288-a713-aae705db9b63",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-11",
     2.0,
@@ -4240,6 +4597,13 @@
    ],
    [
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "braswell's sweet potato butter",
     "2026-10-04",
     1.0,
@@ -4264,6 +4628,13 @@
     "braswell's sweet potato butter",
     "2026-10-21",
     1.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "braswell's sweet potato butter",
+    "2026-10-25",
+    2.0,
     1
    ],
    [
@@ -4306,6 +4677,13 @@
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-21",
     1.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    2.0,
     1
    ],
    [
@@ -4355,6 +4733,13 @@
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-14",
     2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-25",
+    1.0,
     1
    ],
    [
@@ -4429,6 +4814,13 @@
    ],
    [
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-25",
+    4.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-14",
     1.0,
@@ -4439,6 +4831,13 @@
     "re\u00e1l fig puree infused syrup 16.9fl oz",
     "2026-10-19",
     1.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-25",
+    2.0,
     1
    ],
    [
@@ -4492,6 +4891,13 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "braswell's sweet potato butter",
     "2026-10-14",
     2.0,
@@ -4550,6 +4956,13 @@
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "crofters organic strawberry jelly 7kg",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -4604,6 +5017,13 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "hollander sauce pump",
     "2026-10-21",
     1.0,
@@ -4646,8 +5066,22 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "urnex biocaf coffee equipment cleaning powder 500 g jar(s)",
     "2026-10-11",
+    2.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "urnex clearly cold 32oz bottle",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -4662,6 +5096,13 @@
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "urnex rinza milk frother cleaner 32oz. bottle",
     "2026-10-18",
+    2.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -4737,6 +5178,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    4.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "braswell's sweet potato butter",
     "2026-10-04",
     3.0,
@@ -4760,6 +5208,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "braswell's sweet potato butter",
     "2026-10-20",
+    2.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "braswell's sweet potato butter",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -4807,6 +5262,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "crofters organic strawberry jelly 7kg",
     "2026-10-08",
     1.0,
@@ -4849,6 +5311,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "david protein bars - blueberry",
+    "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-12",
     1.0,
@@ -4858,6 +5327,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-20",
+    2.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -4879,6 +5355,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -4886,6 +5369,13 @@
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "eversys coffee cleaning balls",
     "2026-10-15",
+    1.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "eversys coffee cleaning balls",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -4968,6 +5458,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "nouka black sesame paste - pure ground sesame seeds 1lb",
     "2026-10-12",
     1.0,
@@ -5024,6 +5521,13 @@
    ],
    [
     "9568a168-5de6-4a6d-9fa7-730c7da17600",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "9568a168-5de6-4a6d-9fa7-730c7da17600",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-12",
     1.0,
@@ -5073,6 +5577,20 @@
    ],
    [
     "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    6.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-27",
+    4.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
     "braswell's sweet potato butter",
     "2026-10-05",
     3.0,
@@ -5111,6 +5629,20 @@
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-20",
     2.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    4.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-27",
+    4.0,
     1
    ],
    [
@@ -5143,6 +5675,13 @@
    ],
    [
     "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-27",
+    2.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
     "david protein bars - blueberry",
     "2026-10-05",
     2.0,
@@ -5159,6 +5698,13 @@
     "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
     "david protein bars - blueberry",
     "2026-10-20",
+    2.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "david protein bars - blueberry",
+    "2026-10-27",
     2.0,
     1
    ],
@@ -5181,6 +5727,13 @@
     "david protein bars - chocolate chip cookie dough",
     "2026-10-20",
     3.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-27",
+    2.0,
     1
    ],
    [
@@ -5262,6 +5815,13 @@
    ],
    [
     "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
     "hollander sauce pump",
     "2026-10-11",
     2.0,
@@ -5332,6 +5892,13 @@
    ],
    [
     "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "998862b7-ba8c-4c94-bacd-f921b3a3bc5f",
     "very fine foods - hojicha powder 1kg bag",
     "2026-10-13",
     1.0,
@@ -5388,6 +5955,13 @@
    ],
    [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    3.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "braswell's sweet potato butter",
     "2026-10-17",
     1.0,
@@ -5423,6 +5997,13 @@
    ],
    [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "crofters organic strawberry jelly 7kg",
     "2026-10-11",
     1.0,
@@ -5432,6 +6013,13 @@
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "crofters organic strawberry jelly 7kg",
     "2026-10-14",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -5453,6 +6041,13 @@
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-04",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "dona 1:1 masala chai concentrate 64oz",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -5488,6 +6083,13 @@
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-11",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-25",
     1.0,
     1
    ],
@@ -5535,6 +6137,13 @@
    ],
    [
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "1883 syrup pump (glass)",
     "2026-10-22",
     10.0,
@@ -5565,6 +6174,13 @@
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "braswell's sweet potato butter",
     "2026-10-19",
+    2.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "braswell's sweet potato butter",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -5601,6 +6217,13 @@
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-22",
     3.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-25",
+    4.0,
     1
    ],
    [
@@ -5733,6 +6356,13 @@
     "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
     "hollander dutched chocolate cafe sauce 64oz",
     "2026-10-22",
+    2.0,
+    1
+   ],
+   [
+    "abcdaf05-e0b9-4433-9832-ab2ff68b2000",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-25",
     2.0,
     1
    ],
@@ -6129,9 +6759,163 @@
     1
    ],
    [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-26",
+    8.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "1883 syrup pump (glass)",
+    "2026-10-26",
+    20.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "blank street 2-cup carrier",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-26",
+    4.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "david protein bars - blueberry",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "ecologic e45f spray pump",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "ecologic foaming drain treatment (e45f) 1qt bottle",
+    "2026-10-26",
+    5.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "haddar himalayan fine pink salt 16oz container",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "hollander dutched chocolate cafe sauce 64oz",
+    "2026-10-26",
+    4.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "hollander white chocolate sauce 64oz",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "nouka black sesame paste - pure ground sesame seeds 1lb",
+    "2026-10-26",
+    2.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "re\u00e1l fig puree infused syrup 16.9fl oz",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "stevia in the raw packets",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "sugar in the raw packets",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "urnex clearly cold 32oz bottle",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "urnex complete cafe liquid sanitizer 32oz bottle",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-26",
+    3.0,
+    1
+   ],
+   [
+    "b3f3d15c-9082-4681-bda0-58fa1faa31f8",
+    "very fine foods - hojicha powder 1kg bag",
+    "2026-10-26",
+    1.0,
+    1
+   ],
+   [
     "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
     "boylan bottling co. ginger ale soda",
     "2026-10-19",
+    2.0,
+    1
+   ],
+   [
+    "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
+    "boylan bottling co. ginger ale soda",
+    "2026-10-27",
     2.0,
     1
    ],
@@ -6147,6 +6931,13 @@
     "gossner whole milk 32oz",
     "2026-10-19",
     4.0,
+    1
+   ],
+   [
+    "b47f8916-5e49-4f6d-91c4-f4e99f886e06",
+    "open water still water w/ electrolytes 16oz aluminum bottle - 24 pack",
+    "2026-10-27",
+    2.0,
     1
    ],
    [
@@ -6167,6 +6958,13 @@
     "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
     "boylan bottling co. ginger ale soda",
     "2026-10-19",
+    2.0,
+    1
+   ],
+   [
+    "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
+    "boylan bottling co. ginger ale soda",
+    "2026-10-24",
     2.0,
     1
    ],
@@ -6196,6 +6994,13 @@
     "gossner whole milk 32oz",
     "2026-10-19",
     4.0,
+    1
+   ],
+   [
+    "e6755f87-c2d2-4b85-a4c9-f1107160e7f2",
+    "open water sparkling water w/ electrolytes 16oz aluminum bottle - 24 pack",
+    "2026-10-24",
+    2.0,
     1
    ],
    [
@@ -6345,6 +7150,18 @@
    "victoria bay register tape roll thermal white paper, 220ft, 3.125\"": {
     "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
     "brand": "Victoria Bay"
+   },
+   "blank street 2-cup carrier": {
+    "name": "Blank Street 2-Cup Carrier",
+    "brand": ""
+   },
+   "ecologic foaming drain treatment (e45f) 1qt bottle": {
+    "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
+    "brand": ""
+   },
+   "open water sparkling water w/ electrolytes 16oz aluminum bottle - 24 pack": {
+    "name": "Open Water Sparkling Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
+    "brand": "Open Water"
    }
   },
   "customerNames": {
@@ -6363,11 +7180,12 @@
    "b47f8916-5e49-4f6d-91c4-f4e99f886e06": "Van Leeuwen : Fenway #2505",
    "1470ab63-5eae-4f3d-a298-5c8ab3f268a0": "Van Leeuwen : Burlington Mall #2508",
    "6d6df56d-0450-48f4-ae92-ea01417a1dd0": "Van Leeuwen : Harvard Square #2501",
-   "a305e919-8832-489d-825f-0e8208e04486": "Van Leeuwen : Linden Square #2504"
+   "a305e919-8832-489d-825f-0e8208e04486": "Van Leeuwen : Linden Square #2504",
+   "b3f3d15c-9082-4681-bda0-58fa1faa31f8": "Blank Street : 501 Cambridge Street"
   },
-  "capturedAt": "2026-10-25T06:08:39+00:00",
-  "dataThrough": "2026-10-23",
-  "feedRows": 28013
+  "capturedAt": "2026-10-28T12:55:58+00:00",
+  "dataThrough": "2026-10-27",
+  "feedRows": 27571
  },
  "feoosHistory": {
   "trackingSince": "2026-10-07",
