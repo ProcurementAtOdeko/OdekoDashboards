@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#FFD100" />
+<title>Odeko · SKU Concentration</title>
+<link rel="icon" type="image/png" href="../../_shared/odeko-logo.png" />
+<link rel="apple-touch-icon" href="../../_shared/odeko-logo.png" />
+<link rel="stylesheet" href="../style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+  .controls label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .controls select {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    padding: 7px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
+    font-weight: 600; outline: none;
+  }
+  .controls select:focus { border-color: var(--ink-2); box-shadow: 0 0 0 3px rgba(64,24,11,.08); }
+  .conc-wrap { display: inline-flex; align-items: center; gap: 8px; justify-content: flex-end; width: 100%; }
+  .conc-bar { display: inline-flex; width: 56px; height: 8px; border-radius: 999px; overflow: hidden; background: var(--line); flex: none; }
+  .conc-bar span { display: block; height: 100%; }
+  .conc-pct { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 42px; text-align: right; }
+  .sev-red { color: var(--red); }
+  .sev-amber { color: var(--amber); }
+  .sev-ink { color: var(--ink-2); }
+  .buyer-name { font-weight: 600; }
+  .note { color: var(--muted); font-size: 12px; margin: 0 0 16px; }
+  @media (max-width: 700px) {
+    .controls { gap: 8px; }
+    .controls label { font-size: 11px; }
+    .conc-bar { width: 36px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img class="logo" src="../../_shared/odeko-logo.png" alt="Odeko" width="40" height="40" />
+    <div>
+      <h1>SKU Concentration Risk</h1>
+      <div class="sub" id="meta">Loading…</div>
+    </div>
+  </div>
+  <a class="back" href="../">← Pick a market</a>
+</header>
+<main>
+  <div class="controls">
+    <label>Market <select id="wh"></select></label>
+    <label>Basis <select id="basis">
+      <option value="parent" selected>Parent company</option>
+      <option value="customer">Single location</option>
+    </select></label>
+    <label>Threshold <select id="threshold">
+      <option value="0.5" selected>50% or more</option>
+      <option value="0.6">60% or more</option>
+      <option value="0.75">75% or more</option>
+      <option value="0.9">90% or more</option>
+      <option value="1">100% (sole buyer)</option>
+    </select></label>
+    <label>Min units <select id="minUnits">
+      <option value="0">No minimum</option>
+      <option value="10" selected>10+</option>
+      <option value="50">50+</option>
+      <option value="250">250+</option>
+    </select></label>
+  </div>
+
+  <p class="note" id="basisNote"></p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="charts">
+    <div class="card chart full">
+      <h3>Largest exposure — units riding on one buyer</h3>
+      <div class="body"><canvas id="riskChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Search SKU, brand or buyer…" />
+      <span class="count" id="count"></span>
+      <button class="dl-csv" id="dl">Download CSV</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table id="table">
+        <thead><tr id="head"></tr></thead>
+        <tbody id="body"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<script>
+const fmtInt = (n) => n == null ? "—" : n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+const fmtPct = (v) => v == null ? "—" : (v >= 0.1 ? Math.round(v * 100) : (v * 100).toFixed(1)) + "%";
+
+const COLUMNS = [
+  { key: "name", label: "SKU", sort: "name" },
+  { key: "brand", label: "Brand", sort: "brand", cls: "hide-sm" },
+  { key: "units", label: "Units", sort: "units", num: true },
+  { key: "buyers", label: "Buyers", sort: "buyers", num: true, cls: "hide-sm" },
+  { key: "topName", label: "Top buyer", sort: "topName" },
+  { key: "topUnits", label: "Their units", sort: "topUnits", num: true, cls: "hide-sm" },
+  { key: "share", label: "Share", sort: "share", num: true },
+];
+
+let STATE = { wh: null, basis: "parent", threshold: 0.5, minUnits: 10, search: "", sort: "units", dir: -1, open: null };
+let DATA = null;       // raw per-market json
+let ROWS = [];         // computed concentration rows for the current basis
+let CHART = null;
+
+/** Parent company = everything before " : " in the location name. */
+function parentNameOf(name) {
+  const i = name.indexOf(" : ");
+  return (i === -1 ? name : name.slice(0, i)).trim() || name;
+}
+
+/**
+ * One pass over pairs to find, for every SKU, the buyer that accounts for the
+ * largest slice of its units — on either basis. Shares use the SKU's own units
+ * total, so they're the share of that SKU's sales in this market.
+ */
+function computeRows(basis) {
+  const items = DATA.items, customers = DATA.customers;
+  const byItem = items.map(() => new Map());  // buyer key -> {units, name, uuid, locs}
+  for (const p of DATA.pairs) {
+    const cu = customers[p.c];
+    if (!cu) continue;
+    const key = basis === "parent" ? parentNameOf(cu.name) : cu.uuid;
+    const m = byItem[p.i];
+    let e = m.get(key);
+    if (!e) {
+      e = { units: 0, name: basis === "parent" ? key : cu.name, uuid: basis === "parent" ? "" : cu.uuid, locs: new Set() };
+      m.set(key, e);
+    }
+    e.units += p.units;
+    e.locs.add(cu.uuid);
+  }
+
+  const rows = [];
+  items.forEach((it, i) => {
+    const m = byItem[i];
+    if (!m.size || !(it.units > 0)) return;
+    const buyers = [...m.values()].sort((a, b) => b.units - a.units);
+    const top = buyers[0];
+    rows.push({
+      i,
+      uuid: it.uuid,
+      name: it.name,
+      brand: it.brand,
+      units: it.units,
+      buyers: m.size,
+      locations: new Set(buyers.flatMap(b => [...b.locs])).size,
+      topName: top.name,
+      topUuid: top.uuid,
+      topUnits: Math.round(top.units * 100) / 100,
+      topLocations: top.locs.size,
+      share: Math.min(1, top.units / it.units),
+      breakdown: buyers,
+    });
+  });
+  return rows;
+}
+
+function visibleRows() {
+  const q = STATE.search.trim().toLowerCase();
+  let rows = ROWS.filter(r =>
+    r.share >= STATE.threshold - 1e-9 && r.units >= STATE.minUnits
+  );
+  if (q) {
+    rows = rows.filter(r =>
+      (r.name + " " + r.brand + " " + r.topName).toLowerCase().includes(q)
+    );
+  }
+  const k = STATE.sort, dir = STATE.dir;
+  return rows.sort((a, b) => {
+    const x = a[k], y = b[k];
+    if (typeof x === "string" || typeof y === "string") {
+      return String(x).localeCompare(String(y)) * dir;
+    }
+    return ((x ?? 0) - (y ?? 0)) * dir;
+  });
+}
+
+function severity(share) {
+  return share >= 0.9 ? "sev-red" : share >= 0.75 ? "sev-amber" : "sev-ink";
+}
+function severityColor(share) {
+  return share >= 0.9 ? "#B42318" : share >= 0.75 ? "#B5660A" : "#40180B";
+}
+
+function concCell(share) {
+  const pct = Math.round(share * 100);
+  return `<div class="conc-wrap">
+    <span class="conc-bar"><span style="width:${pct}%;background:${severityColor(share)}"></span></span>
+    <span class="conc-pct ${severity(share)}">${fmtPct(share)}</span>
+  </div>`;
+}
+
+function renderKpis(rows) {
+  const unitsAtRisk = rows.reduce((s, r) => s + r.topUnits, 0);
+  const sole = rows.filter(r => r.share >= 0.999).length;
+  const dependents = new Set(rows.map(r => r.topName)).size;
+  const pctOfCatalog = DATA.items.length ? rows.length / DATA.items.length : 0;
+  const label = STATE.basis === "parent" ? "parent companies" : "locations";
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi accent"><div class="label">Concentrated SKUs</div><div class="value">${fmtInt(rows.length)}</div></div>
+    <div class="kpi"><div class="label">Share of catalog</div><div class="value">${fmtPct(pctOfCatalog)}</div></div>
+    <div class="kpi"><div class="label">Units riding on one buyer</div><div class="value">${fmtInt(unitsAtRisk)}</div></div>
+    <div class="kpi"><div class="label">Sole-buyer SKUs</div><div class="value">${fmtInt(sole)}</div></div>
+    <div class="kpi"><div class="label">Distinct ${label}</div><div class="value">${fmtInt(dependents)}</div></div>`;
+}
+
+function renderChart(rows) {
+  const canvas = document.getElementById("riskChart");
+  if (typeof Chart === "undefined" || !canvas) return;
+  const top = [...rows].sort((a, b) => b.topUnits - a.topUnits).slice(0, 15);
+  if (CHART) { CHART.destroy(); CHART = null; }
+  if (!top.length) return;
+  CHART = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: top.map(r => r.name.length > 42 ? r.name.slice(0, 41) + "…" : r.name),
+      datasets: [{
+        label: "Units from the top buyer",
+        data: top.map(r => r.topUnits),
+        backgroundColor: top.map(r => severityColor(r.share)),
+        borderWidth: 0,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: (ctx) => {
+              const r = top[ctx.dataIndex];
+              return `${r.topName} · ${fmtPct(r.share)} of ${fmtInt(r.units)} units`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { beginAtZero: true, grid: { color: "#E6DFCC" } },
+        y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 10 } } },
+      },
+    },
+  });
+}
+
+function renderHead() {
+  document.getElementById("head").innerHTML = COLUMNS.map(c =>
+    `<th data-sort="${c.sort}" class="${c.num ? "num " : ""}${c.cls || ""}${
+      STATE.sort === c.sort ? (STATE.dir === 1 ? " sort-asc" : " sort-desc") : ""
+    }">${c.label}</th>`
+  ).join("");
+  document.querySelectorAll("#head th").forEach(th => {
+    th.onclick = () => {
+      const k = th.dataset.sort;
+      if (STATE.sort === k) STATE.dir = -STATE.dir;
+      else { STATE.sort = k; STATE.dir = (k === "name" || k === "brand" || k === "topName") ? 1 : -1; }
+      render();
+    };
+  });
+}
+
+function detailHtml(r) {
+  const rows = r.breakdown.slice(0, 50).map(b => `
+    <tr>
+      <td>${b.name}${b.uuid ? `<div class="uuid">${b.uuid}</div>` : ""}</td>
+      <td class="num">${STATE.basis === "parent" ? fmtInt(b.locs.size) : ""}</td>
+      <td class="num">${fmtInt(b.units)}</td>
+      <td class="num">${fmtPct(Math.min(1, b.units / r.units))}</td>
+    </tr>`).join("");
+  const more = r.breakdown.length > 50
+    ? `<tr><td colspan="4" class="muted">+ ${fmtInt(r.breakdown.length - 50)} more — use the CSV for the full list</td></tr>`
+    : "";
+  return `<tr class="detail"><td colspan="${COLUMNS.length}">
+    <div class="detail-head">
+      <span class="detail-title">Every buyer of ${r.name}</span>
+      <button class="dl-csv dl-detail" data-detail="${r.i}">Download CSV</button>
+    </div>
+    <table class="detail-table">
+      <thead><tr>
+        <th>${STATE.basis === "parent" ? "Parent company" : "Customer"}</th>
+        <th class="num">${STATE.basis === "parent" ? "Locations" : ""}</th>
+        <th class="num">Units</th><th class="num">Share of SKU</th>
+      </tr></thead>
+      <tbody>${rows}${more}</tbody>
+    </table>
+  </td></tr>`;
+}
+
+function render() {
+  const rows = visibleRows();
+  renderKpis(rows);
+  renderChart(rows);
+  renderHead();
+  document.getElementById("count").textContent =
+    `${fmtInt(rows.length)} of ${fmtInt(DATA.items.length)} SKUs`;
+  document.getElementById("basisNote").textContent =
+    STATE.basis === "parent"
+      ? "Buyers are rolled up to the parent company, so a chain's locations count as one buyer. A single-location customer is its own parent."
+      : "Each delivery location counts as its own buyer — chains are not rolled up.";
+
+  document.getElementById("body").innerHTML = rows.map(r => `
+    <tr class="row" data-i="${r.i}">
+      <td>${r.name}<div class="uuid">${r.uuid}</div></td>
+      <td class="hide-sm">${r.brand || "—"}</td>
+      <td class="num">${fmtInt(r.units)}</td>
+      <td class="num hide-sm">${fmtInt(r.buyers)}</td>
+      <td><span class="buyer-name">${r.topName}</span>${
+        STATE.basis === "parent" && r.topLocations > 1
+          ? `<div class="uuid">${fmtInt(r.topLocations)} locations</div>` : ""
+      }</td>
+      <td class="num hide-sm">${fmtInt(r.topUnits)}</td>
+      <td class="num">${concCell(r.share)}</td>
+    </tr>${STATE.open === r.i ? detailHtml(r) : ""}`).join("")
+    || `<tr><td colspan="${COLUMNS.length}" class="muted">No SKU in this market reaches that concentration.</td></tr>`;
+
+  document.querySelectorAll("#body tr.row").forEach(tr => {
+    tr.onclick = () => {
+      const i = Number(tr.dataset.i);
+      STATE.open = STATE.open === i ? null : i;
+      render();
+    };
+  });
+  document.querySelectorAll("#body [data-detail]").forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const r = rows.find(x => x.i === Number(btn.dataset.detail));
+      if (r) downloadDetailCsv(r);
+    };
+  });
+}
+
+function csvCell(v) {
+  const s = v == null ? "" : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function downloadCsv(name, rows) {
+  const blob = new Blob([rows.map(r => r.map(csvCell).join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function downloadMainCsv() {
+  const basisLabel = STATE.basis === "parent" ? "Parent Company" : "Customer";
+  const header = [
+    "Warehouse", "Item Name", "Item UUID", "Brand", "Total Units", "Buyers",
+    `Top ${basisLabel}`, "Top Buyer UUID", "Top Buyer Locations", "Top Buyer Units", "Share of SKU",
+  ];
+  const rows = visibleRows().map(r => [
+    STATE.wh, r.name, r.uuid, r.brand, r.units, r.buyers,
+    r.topName, r.topUuid, r.topLocations, r.topUnits, (r.share * 100).toFixed(1) + "%",
+  ]);
+  downloadCsv(`${STATE.wh}-sku-concentration-${STATE.basis}.csv`, [header, ...rows]);
+}
+function downloadDetailCsv(r) {
+  const basisLabel = STATE.basis === "parent" ? "Parent Company" : "Customer";
+  const header = [
+    "Warehouse", "Item Name", "Item UUID", basisLabel, "Customer UUID",
+    "Locations", "Units", "Share of SKU",
+  ];
+  const rows = r.breakdown.map(b => [
+    STATE.wh, r.name, r.uuid, b.name, b.uuid, b.locs.size,
+    Math.round(b.units * 100) / 100,
+    (Math.min(1, b.units / r.units) * 100).toFixed(1) + "%",
+  ]);
+  downloadCsv(`${STATE.wh}-${r.name.replace(/[^\w.-]+/g, "_")}-buyers.csv`, [header, ...rows]);
+}
+
+function rebuild() {
+  ROWS = computeRows(STATE.basis);
+  STATE.open = null;
+  render();
+}
+
+function loadMarket(wh) {
+  STATE.wh = wh;
+  try { localStorage.setItem("conc-wh", wh); } catch (e) { /* private mode */ }
+  if (location.hash.replace("#", "") !== wh) history.replaceState(null, "", "#" + wh);
+  document.getElementById("meta").textContent = "Loading " + wh + "…";
+  return fetch(`../data/${wh}.json`, { cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error("no data for " + wh); return r.json(); })
+    .then(d => {
+      DATA = d;
+      document.getElementById("meta").textContent =
+        `${wh} · ${d.dateRange.start} → ${d.dateRange.end} · ${fmtInt(d.summary.itemCount)} SKUs · updated ${new Date(d.generatedAt).toLocaleString()}`;
+      rebuild();
+    })
+    .catch(err => {
+      document.getElementById("meta").textContent = "Could not load " + wh;
+      document.getElementById("body").innerHTML =
+        `<tr><td class="muted">${err.message}</td></tr>`;
+    });
+}
+
+fetch("../data/manifest.json", { cache: "no-store" })
+  .then(r => r.json())
+  .then(m => {
+    const markets = m.warehouses.filter(w => w.status === "ok").map(w => w.code);
+    const sel = document.getElementById("wh");
+    sel.innerHTML = markets.map(c => `<option value="${c}">${c}</option>`).join("");
+    let saved = null;
+    try { saved = localStorage.getItem("conc-wh"); } catch (e) { /* private mode */ }
+    const hash = decodeURIComponent(location.hash.replace("#", "")).toUpperCase();
+    const start = markets.includes(hash) ? hash
+      : markets.includes(saved) ? saved
+      : markets[0];
+    sel.value = start;
+    sel.onchange = () => loadMarket(sel.value);
+    return loadMarket(start);
+  })
+  .catch(() => {
+    document.getElementById("meta").textContent = "Failed to load manifest.json";
+  });
+
+document.getElementById("basis").onchange = (e) => { STATE.basis = e.target.value; rebuild(); };
+document.getElementById("threshold").onchange = (e) => { STATE.threshold = Number(e.target.value); STATE.open = null; render(); };
+document.getElementById("minUnits").onchange = (e) => { STATE.minUnits = Number(e.target.value); STATE.open = null; render(); };
+document.getElementById("search").oninput = (e) => { STATE.search = e.target.value; STATE.open = null; render(); };
+document.getElementById("dl").onclick = downloadMainCsv;
+</script>
+</body>
+</html>
