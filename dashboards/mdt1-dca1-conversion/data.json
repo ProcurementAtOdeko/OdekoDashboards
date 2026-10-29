@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T21:46:42+00:00",
+  "generatedAt": "2026-10-29T08:41:45+00:00",
   "dateRange": {
     "min": "2026-07-31",
     "max": "2026-10-27"
@@ -20,15 +20,15 @@
     "gapsInOnboarding": 10,
     "gapsNotOnboarding": 95,
     "gapUnitsTotal": 731.0,
-    "skusReady": 148,
+    "skusReady": 150,
     "skusNoStock": 2,
-    "skusNotActive": 2,
+    "skusNotActive": 0,
     "skusDormant": 4,
     "skusUnknownStock": 5,
-    "skusActive": 150,
+    "skusActive": 152,
     "skusInStock": 150,
     "noStockUnits": 37.0,
-    "notActiveUnits": 90.0,
+    "notActiveUnits": 0,
     "dormantUnits": 43.0,
     "formatSubstitutes": 8,
     "planResolved": 88,
@@ -388,8 +388,8 @@
         "sold90"
       ],
       "planUnits": 316.0,
-      "units": 45.0,
-      "customers": 3
+      "units": 132.0,
+      "customers": 1
     },
     {
       "name": "Monin Toasted Marshmallow Syrup 750ml Glass",
@@ -430,8 +430,8 @@
         "sold90"
       ],
       "planUnits": 149.3,
-      "units": 127.0,
-      "customers": 9
+      "units": 69.0,
+      "customers": 4
     },
     {
       "name": "Monin White Peach Syrup 750mL Glass",
@@ -714,8 +714,8 @@
         "sold90"
       ],
       "planUnits": 36.0,
-      "units": 3.0,
-      "customers": 2
+      "units": 20.0,
+      "customers": 1
     },
     {
       "name": "Dr. Smoothie Dragon Fruit Lychee Refreshers 46 oz. Bottle",
@@ -2178,14 +2178,15 @@
       "lines": 12,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "inOnboarding": true,
-      "active": false,
+      "active": true,
       "inStock": true,
       "onHand": 20.0,
       "dca1Doc": null,
-      "availability": "not-active",
+      "availability": "ready",
       "customers": 4,
       "custDetail": [
         {
@@ -3537,14 +3538,15 @@
       "lines": 4,
       "inDca1": true,
       "dca1Sources": [
+        "catalog",
         "onhand"
       ],
       "inOnboarding": true,
-      "active": false,
+      "active": true,
       "inStock": true,
       "onHand": 20.0,
       "dca1Doc": null,
-      "availability": "not-active",
+      "availability": "ready",
       "customers": 2,
       "custDetail": [
         {
