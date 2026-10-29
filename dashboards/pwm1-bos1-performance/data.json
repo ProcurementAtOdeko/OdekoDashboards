@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-29T09:59:08+00:00",
+ "generatedAt": "2026-10-29T16:56:58+00:00",
  "origin": "PWM1",
  "destination": "BOS1",
  "cutover": "2026-10-02",
@@ -18,7 +18,7 @@
  "sources": {
   "bos1Sales": {
    "status": "fresh",
-   "capturedAt": "2026-10-29T09:58:55+00:00",
+   "capturedAt": "2026-10-29T16:56:45+00:00",
    "dataThrough": "2026-10-28",
    "postCutoverDays": 27
   },
@@ -31,10 +31,10 @@
   "feoos": {
    "trackingSince": "2026-10-07",
    "market14d": {
-    "events": 300,
-    "locations": 92,
-    "from": "2026-10-15",
-    "to": "2026-10-28"
+    "events": 288,
+    "locations": 93,
+    "from": "2026-10-16",
+    "to": "2026-10-29"
    }
   },
   "pwm1Leakage": {
@@ -73,12 +73,12 @@
    "baselineUnits": 212.0,
    "baselineWeekly": 26.5,
    "baselineSkus": 30,
-   "bos1Units": 63.0,
-   "bos1Weekly": 16.3,
-   "bos1Skus": 18,
-   "ratio": 0.616,
+   "bos1Units": 71.0,
+   "bos1Weekly": 18.4,
+   "bos1Skus": 20,
+   "ratio": 0.695,
    "firstBos1Order": "2026-10-11",
-   "lastBos1Order": "2026-10-25",
+   "lastBos1Order": "2026-10-28",
    "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [
@@ -88,7 +88,7 @@
      "expectedOrders": 2.4
     }
    ],
-   "newSkus": 7,
+   "newSkus": 8,
    "pwm1AfterCutover": null
   },
   {
@@ -228,13 +228,13 @@
    "baselineUnits": 228.0,
    "baselineWeekly": 28.5,
    "baselineSkus": 29,
-   "bos1Units": 82.0,
-   "bos1Weekly": 21.3,
+   "bos1Units": 92.0,
+   "bos1Weekly": 23.9,
    "bos1Skus": 17,
-   "ratio": 0.746,
+   "ratio": 0.837,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-25",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-28",
+   "status": "On track",
    "lowVolume": false,
    "lostLines": [
     {
@@ -255,12 +255,12 @@
    "baselineUnits": 145.0,
    "baselineWeekly": 18.1,
    "baselineSkus": 19,
-   "bos1Units": 41.0,
-   "bos1Weekly": 10.6,
+   "bos1Units": 47.0,
+   "bos1Weekly": 12.2,
    "bos1Skus": 12,
-   "ratio": 0.586,
+   "ratio": 0.672,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-25",
+   "lastBos1Order": "2026-10-28",
    "status": "Below baseline",
    "lowVolume": false,
    "lostLines": [
@@ -303,13 +303,13 @@
    "baselineUnits": 386.0,
    "baselineWeekly": 48.2,
    "baselineSkus": 22,
-   "bos1Units": 142.0,
-   "bos1Weekly": 36.8,
+   "bos1Units": 152.0,
+   "bos1Weekly": 39.4,
    "bos1Skus": 16,
-   "ratio": 0.763,
+   "ratio": 0.817,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-25",
-   "status": "Below baseline",
+   "lastBos1Order": "2026-10-28",
+   "status": "On track",
    "lowVolume": false,
    "lostLines": [],
    "newSkus": 4,
@@ -356,12 +356,12 @@
    "baselineUnits": 399.0,
    "baselineWeekly": 49.9,
    "baselineSkus": 31,
-   "bos1Units": 156.0,
-   "bos1Weekly": 40.4,
+   "bos1Units": 160.0,
+   "bos1Weekly": 41.5,
    "bos1Skus": 23,
-   "ratio": 0.811,
+   "ratio": 0.832,
    "firstBos1Order": "2026-10-04",
-   "lastBos1Order": "2026-10-26",
+   "lastBos1Order": "2026-10-28",
    "status": "On track",
    "lowVolume": false,
    "lostLines": [],
@@ -726,7 +726,7 @@
    "byGroup": {
     "Blank Street": {
      "pwm1": 0.0,
-     "bos1": 139.0
+     "bos1": 177.0
     },
     "Van Leeuwen": {
      "pwm1": 0.0,
@@ -776,7 +776,7 @@
      "baseUnits": 528.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 277.0,
+     "bos1Units": 280.0,
      "bos1Stores": 12
     },
     "Van Leeuwen": {
@@ -793,8 +793,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 70.0,
-   "onHand": 45.2,
+   "doc": 61.0,
+   "onHand": 42.8,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -836,8 +836,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 476.0,
-   "onHand": 0.6,
+   "doc": 390.0,
+   "onHand": 0.5,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -904,7 +904,7 @@
     "roster orders"
    ],
    "doc": null,
-   "onHand": 13.0,
+   "onHand": 12.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1026,8 +1026,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 144.0,
-   "onHand": 48.0,
+   "doc": 131.0,
+   "onHand": 46.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1068,7 +1068,7 @@
     "catalog",
     "onhand"
    ],
-   "doc": 930.0,
+   "doc": 620.0,
    "onHand": 31.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1094,7 +1094,7 @@
      "baseUnits": 242.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 83.0,
+     "bos1Units": 90.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -1110,7 +1110,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 25.0,
+   "doc": 23.0,
    "onHand": 31.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1153,8 +1153,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 17.0,
-   "onHand": 284.0,
+   "doc": 16.0,
+   "onHand": 265.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1226,8 +1226,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 23.0,
-   "onHand": 135.0,
+   "doc": 22.0,
+   "onHand": 131.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1285,7 +1285,7 @@
      "baseUnits": 343.0,
      "baseLines": 91,
      "baseStores": 11,
-     "bos1Units": 183.0,
+     "bos1Units": 192.0,
      "bos1Stores": 12
     },
     "Van Leeuwen": {
@@ -1301,8 +1301,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 39.0,
-   "onHand": 101.0,
+   "doc": 35.0,
+   "onHand": 97.0,
    "onOrder": 180.0,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1413,7 +1413,7 @@
      "baseUnits": 160.0,
      "baseLines": 93,
      "baseStores": 11,
-     "bos1Units": 79.0,
+     "bos1Units": 83.0,
      "bos1Stores": 12
     },
     "Van Leeuwen": {
@@ -1429,8 +1429,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 73.0,
-   "onHand": 85.0,
+   "doc": 67.0,
+   "onHand": 82.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1455,7 +1455,7 @@
      "baseUnits": 82.0,
      "baseLines": 62,
      "baseStores": 11,
-     "bos1Units": 40.0,
+     "bos1Units": 42.0,
      "bos1Stores": 10
     },
     "Van Leeuwen": {
@@ -1471,8 +1471,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 89.0,
-   "onHand": 43.0,
+   "doc": 73.0,
+   "onHand": 40.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1497,7 +1497,7 @@
      "baseUnits": 136.0,
      "baseLines": 77,
      "baseStores": 11,
-     "bos1Units": 65.0,
+     "bos1Units": 71.0,
      "bos1Stores": 12
     },
     "Van Leeuwen": {
@@ -1513,8 +1513,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 58.0,
-   "onHand": 48.0,
+   "doc": 47.0,
+   "onHand": 43.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1595,7 +1595,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 129.0,
+   "doc": 121.0,
    "onHand": 131.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1629,8 +1629,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 90.0,
-   "onHand": 6.0,
+   "doc": 45.0,
+   "onHand": 3.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1672,8 +1672,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 4380.0,
-   "onHand": 12.2,
+   "doc": 4080.0,
+   "onHand": 11.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1698,8 +1698,8 @@
      "baseUnits": 23.0,
      "baseLines": 13,
      "baseStores": 6,
-     "bos1Units": 4.0,
-     "bos1Stores": 2
+     "bos1Units": 5.0,
+     "bos1Stores": 3
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1741,8 +1741,8 @@
      "baseUnits": 17.0,
      "baseLines": 14,
      "baseStores": 9,
-     "bos1Units": 11.0,
-     "bos1Stores": 6
+     "bos1Units": 12.0,
+     "bos1Stores": 7
     },
     "Van Leeuwen": {
      "baseUnits": 0.0,
@@ -1758,7 +1758,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 45.0,
+   "doc": 40.0,
    "onHand": 6.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1840,8 +1840,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 261.0,
-   "onHand": 113.0,
+   "doc": 258.0,
+   "onHand": 112.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1874,8 +1874,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 28.0,
-   "onHand": 0.6,
+   "doc": 20.0,
+   "onHand": 0.4,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1917,8 +1917,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 57.0,
-   "onHand": 9.3,
+   "doc": 50.0,
+   "onHand": 8.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1951,7 +1951,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 4.0,
+   "doc": 3.0,
    "onHand": 0.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1985,8 +1985,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 267.0,
-   "onHand": 16.3,
+   "doc": 262.0,
+   "onHand": 16.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2161,7 +2161,7 @@
      "baseUnits": 183.0,
      "baseLines": 76,
      "baseStores": 11,
-     "bos1Units": 60.0,
+     "bos1Units": 63.0,
      "bos1Stores": 12
     },
     "Van Leeuwen": {
@@ -2177,8 +2177,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 6.0,
-   "onHand": 5.0,
+   "doc": 3.0,
+   "onHand": 3.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2258,8 +2258,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 297.0,
-   "onHand": 7.8,
+   "doc": 208.0,
+   "onHand": 7.5,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2335,8 +2335,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 728.0,
-   "onHand": 97.0,
+   "doc": 713.0,
+   "onHand": 95.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2416,13 +2416,13 @@
     "catalog",
     "onhand"
    ],
-   "doc": 14.0,
-   "onHand": 30.0,
-   "onOrder": 86.0,
+   "doc": 28.0,
+   "onHand": 60.0,
+   "onOrder": 56.0,
    "pastDuePos": [
-    "\"PO109985\"]",
-    "\"PO113127\"",
-    "[\"PO112597\""
+    "\"PO109985\"",
+    "\"PO112597\"]",
+    "[\"PO113127\""
    ],
    "feoosEvents": 0,
    "originalGap": false
@@ -2492,8 +2492,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 420.0,
-   "onHand": 168.0,
+   "doc": 309.0,
+   "onHand": 165.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2604,8 +2604,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 540.0,
-   "onHand": 9.0,
+   "doc": 480.0,
+   "onHand": 8.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2647,8 +2647,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 31.0,
-   "onHand": 26.0,
+   "doc": 29.0,
+   "onHand": 25.0,
    "onOrder": 4.0,
    "pastDuePos": [
     "[\"PO108215\"]"
@@ -2709,7 +2709,7 @@
      "baseUnits": 18.0,
      "baseLines": 13,
      "baseStores": 8,
-     "bos1Units": 15.0,
+     "bos1Units": 16.0,
      "bos1Stores": 7
     },
     "Van Leeuwen": {
@@ -2726,8 +2726,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 38.0,
-   "onHand": 1.2,
+   "doc": 18.0,
+   "onHand": 0.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2838,7 +2838,7 @@
      "baseUnits": 106.0,
      "baseLines": 42,
      "baseStores": 10,
-     "bos1Units": 43.0,
+     "bos1Units": 44.0,
      "bos1Stores": 11
     },
     "Van Leeuwen": {
@@ -2888,8 +2888,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 35.0,
-   "onHand": 1.1,
+   "doc": 32.0,
+   "onHand": 1.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -3106,6 +3106,13 @@
    ],
    [
     "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "braswell's sweet potato butter",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-07",
     2.0,
@@ -3151,6 +3158,13 @@
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-25",
     2.0,
+    1
+   ],
+   [
+    "0eb5da98-66ff-40eb-99e2-4002a2a367fb",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-28",
+    3.0,
     1
    ],
    [
@@ -3890,6 +3904,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "braswell's sweet potato butter",
     "2026-10-04",
     6.0,
@@ -3920,6 +3941,13 @@
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "braswell's sweet potato butter",
     "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "braswell's sweet potato butter",
+    "2026-10-28",
     2.0,
     1
    ],
@@ -3967,6 +3995,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-28",
+    3.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "crofters organic strawberry jelly 7kg",
     "2026-10-04",
     3.0,
@@ -4009,6 +4044,13 @@
    ],
    [
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "david protein bars - blueberry",
     "2026-10-11",
     1.0,
@@ -4025,6 +4067,13 @@
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "david protein bars - blueberry",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "david protein bars - blueberry",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -4053,6 +4102,13 @@
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -4179,6 +4235,13 @@
     "3131861d-f02d-4cba-b60d-4f522f503ff6",
     "urnex clearly cold 32oz bottle",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "3131861d-f02d-4cba-b60d-4f522f503ff6",
+    "urnex clearly cold 32oz bottle",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -4604,6 +4667,13 @@
    ],
    [
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "1883 french madeleine syrup 1l glass",
+    "2026-10-28",
+    2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "braswell's sweet potato butter",
     "2026-10-04",
     1.0,
@@ -4634,6 +4704,13 @@
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "braswell's sweet potato butter",
     "2026-10-25",
+    2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "braswell's sweet potato butter",
+    "2026-10-28",
     2.0,
     1
    ],
@@ -4688,6 +4765,13 @@
    ],
    [
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-28",
+    2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "crofters organic strawberry jelly 7kg",
     "2026-10-04",
     2.0,
@@ -4716,6 +4800,13 @@
    ],
    [
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-28",
+    2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "david protein bars - blueberry",
     "2026-10-19",
     1.0,
@@ -4725,6 +4816,13 @@
     "58f850e7-6e93-4cd3-960b-c22f2525e016",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-19",
+    1.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -4803,6 +4901,13 @@
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-19",
     2.0,
+    1
+   ],
+   [
+    "58f850e7-6e93-4cd3-960b-c22f2525e016",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-28",
+    1.0,
     1
    ],
    [
@@ -4919,6 +5024,13 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "braswell's sweet potato butter",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-11",
     2.0,
@@ -4975,6 +5087,13 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "david protein bars - blueberry",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-14",
     2.0,
@@ -4996,6 +5115,13 @@
    ],
    [
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-28",
+    2.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-14",
     1.0,
@@ -5005,6 +5131,20 @@
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "dona 1:1 masala chai concentrate 64oz",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "everclean milk line cleaning liquid",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "eversys coffee cleaning balls",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -5047,6 +5187,13 @@
     "6618afab-9dfd-43c4-8efa-bdae9add2928",
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-21",
+    1.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -5104,6 +5251,13 @@
     "urnex rinza milk frother cleaner 32oz. bottle",
     "2026-10-25",
     2.0,
+    1
+   ],
+   [
+    "6618afab-9dfd-43c4-8efa-bdae9add2928",
+    "urnex rinza milk frother cleaner 32oz. bottle",
+    "2026-10-28",
+    1.0,
     1
    ],
    [
@@ -5969,6 +6123,13 @@
    ],
    [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "braswell's sweet potato butter",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "cinnamon bun syrup - case 6x750ml",
     "2026-10-04",
     3.0,
@@ -6004,6 +6165,13 @@
    ],
    [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "cinnamon bun syrup - case 6x750ml",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "crofters organic strawberry jelly 7kg",
     "2026-10-11",
     1.0,
@@ -6025,6 +6193,13 @@
    ],
    [
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "crofters organic strawberry jelly 7kg",
+    "2026-10-28",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "david protein bars - chocolate chip cookie dough",
     "2026-10-14",
     1.0,
@@ -6035,6 +6210,13 @@
     "david protein bars - chocolate chip cookie dough",
     "2026-10-17",
     1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "david protein bars - chocolate chip cookie dough",
+    "2026-10-28",
+    2.0,
     1
    ],
    [
@@ -6090,6 +6272,13 @@
     "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
     "miss jones baking co. organic cream cheese frosting",
     "2026-10-25",
+    1.0,
+    1
+   ],
+   [
+    "ab4eb9a1-3fa3-47f1-9045-01d9a77301d8",
+    "miss jones baking co. organic cream cheese frosting",
+    "2026-10-28",
     1.0,
     1
    ],
@@ -7183,9 +7372,9 @@
    "a305e919-8832-489d-825f-0e8208e04486": "Van Leeuwen : Linden Square #2504",
    "b3f3d15c-9082-4681-bda0-58fa1faa31f8": "Blank Street : 501 Cambridge Street"
   },
-  "capturedAt": "2026-10-29T09:58:55+00:00",
+  "capturedAt": "2026-10-29T16:56:45+00:00",
   "dataThrough": "2026-10-28",
-  "feedRows": 27678
+  "feedRows": 27923
  },
  "feoosHistory": {
   "trackingSince": "2026-10-07",
