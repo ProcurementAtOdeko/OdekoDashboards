@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-30T08:39:54+00:00",
+ "generatedAt": "2026-10-30T20:48:33+00:00",
  "origin": "PWM1",
  "destination": "BOS1",
  "cutover": "2026-10-02",
@@ -17,7 +17,7 @@
  },
  "sources": {
   "bos1Sales": {
-   "status": "fresh",
+   "status": "carried",
    "capturedAt": "2026-10-30T08:39:39+00:00",
    "dataThrough": "2026-10-28",
    "postCutoverDays": 27
@@ -31,14 +31,14 @@
   "feoos": {
    "trackingSince": "2026-10-07",
    "market14d": {
-    "events": 288,
-    "locations": 93,
-    "from": "2026-10-16",
+    "events": 305,
+    "locations": 92,
+    "from": "2026-10-17",
     "to": "2026-10-29"
    }
   },
   "pwm1Leakage": {
-   "checked": true
+   "checked": false
   }
  },
  "originalGapCount": 42,
@@ -334,12 +334,12 @@
    "lowVolume": false,
    "lostLines": [
     {
-     "key": "polar club soda 7.5oz",
+     "key": "1883 syrup pump (glass)",
      "baselineUnits": 20.0,
      "expectedOrders": 2.4
     },
     {
-     "key": "1883 syrup pump (glass)",
+     "key": "polar club soda 7.5oz",
      "baselineUnits": 20.0,
      "expectedOrders": 2.4
     }
@@ -793,8 +793,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 61.0,
-   "onHand": 42.8,
+   "doc": 55.0,
+   "onHand": 42.2,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -836,7 +836,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 390.0,
+   "doc": 161.0,
    "onHand": 0.5,
    "onOrder": null,
    "pastDuePos": [],
@@ -903,7 +903,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": null,
+   "doc": 720.0,
    "onHand": 12.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1026,7 +1026,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 131.0,
+   "doc": 120.0,
    "onHand": 46.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1110,8 +1110,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 23.0,
-   "onHand": 31.0,
+   "doc": 21.0,
+   "onHand": 29.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1153,8 +1153,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 16.0,
-   "onHand": 265.0,
+   "doc": 28.0,
+   "onHand": 469.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1226,8 +1226,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 22.0,
-   "onHand": 131.0,
+   "doc": 42.0,
+   "onHand": 256.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1301,8 +1301,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 35.0,
-   "onHand": 97.0,
+   "doc": 31.0,
+   "onHand": 90.0,
    "onOrder": 180.0,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1429,8 +1429,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 67.0,
-   "onHand": 82.0,
+   "doc": 61.0,
+   "onHand": 79.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1471,8 +1471,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 73.0,
-   "onHand": 40.0,
+   "doc": 55.0,
+   "onHand": 35.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1513,8 +1513,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 47.0,
-   "onHand": 43.0,
+   "doc": 64.0,
+   "onHand": 66.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1629,7 +1629,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 45.0,
+   "doc": 26.0,
    "onHand": 3.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1672,7 +1672,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 4080.0,
+   "doc": 680.0,
    "onHand": 11.3,
    "onOrder": null,
    "pastDuePos": [],
@@ -1715,8 +1715,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 390.0,
-   "onHand": 26.0,
+   "doc": 375.0,
+   "onHand": 25.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1758,9 +1758,9 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 40.0,
-   "onHand": 6.0,
-   "onOrder": null,
+   "doc": 20.0,
+   "onHand": 3.0,
+   "onOrder": 20.0,
    "pastDuePos": [],
    "feoosEvents": 0,
    "originalGap": true,
@@ -1848,7 +1848,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 258.0,
+   "doc": 249.0,
    "onHand": 112.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -1882,8 +1882,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 20.0,
-   "onHand": 0.4,
+   "doc": 28.0,
+   "onHand": 0.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1925,8 +1925,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 50.0,
-   "onHand": 8.7,
+   "doc": 44.0,
+   "onHand": 8.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1993,7 +1993,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 262.0,
+   "doc": 240.0,
    "onHand": 16.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2185,8 +2185,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 3.0,
-   "onHand": 3.0,
+   "doc": 42.0,
+   "onHand": 42.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2266,7 +2266,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 208.0,
+   "doc": 180.0,
    "onHand": 7.5,
    "onOrder": null,
    "pastDuePos": [],
@@ -2343,7 +2343,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 713.0,
+   "doc": 570.0,
    "onHand": 95.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2424,9 +2424,9 @@
     "catalog",
     "onhand"
    ],
-   "doc": 28.0,
-   "onHand": 60.0,
-   "onOrder": 56.0,
+   "doc": 19.0,
+   "onHand": 40.0,
+   "onOrder": 106.0,
    "pastDuePos": [
     "\"PO109985\"",
     "\"PO112597\"]",
@@ -2500,7 +2500,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 309.0,
+   "doc": 283.0,
    "onHand": 165.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2612,7 +2612,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 480.0,
+   "doc": 240.0,
    "onHand": 8.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -2734,8 +2734,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 18.0,
-   "onHand": 0.7,
+   "doc": 38.0,
+   "onHand": 1.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2777,8 +2777,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 0.0,
-   "onHand": 0.0,
+   "doc": 360.0,
+   "onHand": 1.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2820,8 +2820,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 12.0,
-   "onHand": 0.1,
+   "doc": 156.0,
+   "onHand": 1.1,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2863,8 +2863,8 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 0.0,
-   "onHand": 0.0,
+   "doc": 40.0,
+   "onHand": 5.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2896,7 +2896,7 @@
     "onhand",
     "roster orders"
    ],
-   "doc": 32.0,
+   "doc": 30.0,
    "onHand": 1.0,
    "onOrder": null,
    "pastDuePos": [],
