@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-30T01:58:24+00:00",
+ "generatedAt": "2026-10-30T08:39:54+00:00",
  "origin": "PWM1",
  "destination": "BOS1",
  "cutover": "2026-10-02",
@@ -18,7 +18,7 @@
  "sources": {
   "bos1Sales": {
    "status": "fresh",
-   "capturedAt": "2026-10-30T01:58:11+00:00",
+   "capturedAt": "2026-10-30T08:39:39+00:00",
    "dataThrough": "2026-10-28",
    "postCutoverDays": 27
   },
@@ -1771,7 +1771,15 @@
    "scopedChains": [
     "Blank Street"
    ],
-   "inbound": [],
+   "inbound": [
+    {
+     "po": "PO118942",
+     "type": "TO",
+     "vendor": "Odeko EWR intracompany transfer",
+     "status": "Pending Receipt",
+     "expected": "2026-11-05"
+    }
+   ],
    "reorderedByRoster": true
   },
   {
@@ -7372,7 +7380,7 @@
    "a305e919-8832-489d-825f-0e8208e04486": "Van Leeuwen : Linden Square #2504",
    "b3f3d15c-9082-4681-bda0-58fa1faa31f8": "Blank Street : 501 Cambridge Street"
   },
-  "capturedAt": "2026-10-30T01:58:11+00:00",
+  "capturedAt": "2026-10-30T08:39:39+00:00",
   "dataThrough": "2026-10-28",
   "feedRows": 27923
  },
