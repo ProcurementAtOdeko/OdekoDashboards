@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-05T11:35:56.030066+00:00",
+  "generatedAt": "2026-11-05T19:03:00.443932+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-10-29",
-    "max": "2026-11-03",
+    "min": "2026-10-30",
+    "max": "2026-11-04",
     "days": 6
   },
   "salesRange": {
@@ -12,18 +12,18 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 137,
+    "dca1FeoosEvents": 160,
     "networkFeoosDca1Events": 430,
     "networkFeoosDca1Locations": 33,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 137,
-    "feoosSkus": 28,
-    "feoosUnits": 269.0,
+    "feoosEvents": 160,
+    "feoosSkus": 30,
+    "feoosUnits": 454.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
-    "feoosTransitionSkus": 2,
+    "feoosTransitionSkus": 4,
     "cohortTotal": 73,
     "cohortLive": 0,
     "cohortNotYet": 73,
@@ -48,26 +48,26 @@
   },
   "feoos": [
     {
-      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
-      "brand": "EatCommonGood",
-      "events": 25,
-      "units": 58.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-11-03",
-      "daysAffected": 5,
+      "name": "Monin Caramel Syrup 1 Liter Plastic Bottle",
+      "brand": "Monin",
+      "events": 1,
+      "units": 140.0,
+      "firstEvent": "2026-11-04",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 1,
       "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
+      "inTransition": true,
+      "inPlan": true,
+      "pack": "1 L plastic",
+      "formatStatus": "off-format"
     },
     {
       "name": "EatCommonGood Breakfast Sandwich - Bacon Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 24,
-      "units": 56.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-11-03",
+      "events": 29,
+      "units": 73.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-11-04",
       "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
@@ -76,13 +76,13 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Croissant - Ham & Cheese - 1 / 16 ct",
-      "brand": "Baked Fresh",
-      "events": 10,
-      "units": 24.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-10-30",
-      "daysAffected": 2,
+      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
+      "brand": "EatCommonGood",
+      "events": 30,
+      "units": 72.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -92,10 +92,10 @@
     {
       "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
       "brand": "Baked Fresh",
-      "events": 21,
-      "units": 23.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-11-03",
+      "events": 25,
+      "units": 29.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-11-04",
       "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
@@ -104,13 +104,13 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Muffin - Blueberry - 1 / 36 ct",
-      "brand": "Baked Fresh",
-      "events": 9,
-      "units": 12.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-10-30",
-      "daysAffected": 2,
+      "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
+      "brand": "EatCommonGood",
+      "events": 12,
+      "units": 26.0,
+      "firstEvent": "2026-11-02",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -118,31 +118,31 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Oregon Chai The Original Chai Dry Mix 3 lb. Bag(s)",
-      "brand": "Oregon Chai",
-      "events": 1,
-      "units": 12.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-10-29",
+      "name": "Baked Fresh - Croissant - Ham & Cheese - 1 / 16 ct",
+      "brand": "Baked Fresh",
+      "events": 7,
+      "units": 18.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-10-30",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "3 lb",
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Scone - Cheddar Chive - 1 / 36 ct",
-      "brand": "Baked Fresh",
-      "events": 8,
-      "units": 11.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-10-30",
-      "daysAffected": 2,
+      "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 10,
+      "units": 13.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "",
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -160,13 +160,13 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
-      "brand": "EatCommonGood",
-      "events": 5,
-      "units": 10.0,
-      "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-03",
-      "daysAffected": 2,
+      "name": "Baked Fresh - Muffin - Blueberry - 1 / 36 ct",
+      "brand": "Baked Fresh",
+      "events": 7,
+      "units": 9.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-10-30",
+      "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -174,31 +174,17 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Waypoint - 12 oz",
+      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
       "brand": "Compass Coffee",
-      "events": 6,
-      "units": 7.0,
-      "firstEvent": "2026-10-30",
-      "lastEvent": "2026-11-02",
-      "daysAffected": 3,
+      "events": 5,
+      "units": 8.0,
+      "firstEvent": "2026-11-02",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Hollander Pumpkin Pie Cafe Sauce 64oz",
-      "brand": "Hollander",
-      "events": 3,
-      "units": 7.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-11-01",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "64 oz",
+      "pack": "6 / 12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -216,6 +202,34 @@
       "formatStatus": "preferred"
     },
     {
+      "name": "Baked Fresh - Scone - Cheddar Chive - 1 / 36 ct",
+      "brand": "Baked Fresh",
+      "events": 4,
+      "units": 5.0,
+      "firstEvent": "2026-10-30",
+      "lastEvent": "2026-10-30",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Hollander Pumpkin Pie Cafe Sauce 64oz",
+      "brand": "Hollander",
+      "events": 2,
+      "units": 5.0,
+      "firstEvent": "2026-11-01",
+      "lastEvent": "2026-11-01",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "64 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
       "events": 4,
@@ -223,6 +237,20 @@
       "firstEvent": "2026-10-30",
       "lastEvent": "2026-11-02",
       "daysAffected": 3,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 2,
+      "units": 4.0,
+      "firstEvent": "2026-11-02",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -244,17 +272,45 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
+      "name": "Compass Coffee Cardinal Roast Decaf - 6 / 12 oz ctn",
       "brand": "Compass Coffee",
       "events": 2,
       "units": 3.0,
       "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-02",
-      "daysAffected": 1,
+      "lastEvent": "2026-11-04",
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
       "pack": "6 / 12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "1883 Maple Syrup 1L Glass",
+      "brand": "1883",
+      "events": 1,
+      "units": 3.0,
+      "firstEvent": "2026-11-04",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "1 L glass",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
+      "brand": "Talerico Bakery",
+      "events": 1,
+      "units": 3.0,
+      "firstEvent": "2026-11-04",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -272,20 +328,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 3.0,
-      "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-02",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "JUST WATER 500ml 100% Spring Water",
       "brand": "JUST Water",
       "events": 1,
@@ -297,6 +339,20 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "500 ml",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Henry and Henry Crown Cherry Filling 20lb",
+      "brand": "Henry & Henry",
+      "events": 2,
+      "units": 2.0,
+      "firstEvent": "2026-11-04",
+      "lastEvent": "2026-11-04",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "20 lb",
       "formatStatus": "n/a"
     },
     {
@@ -356,8 +412,8 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Cardinal Roast Decaf - 6 / 12 oz ctn",
-      "brand": "Compass Coffee",
+      "name": "Granola Factory Bethlehem Bar, Bulk - 32 / 1 ct ea",
+      "brand": "Granola Factory",
       "events": 1,
       "units": 1.0,
       "firstEvent": "2026-11-02",
@@ -366,7 +422,7 @@
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "6 / 12 oz",
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -381,20 +437,6 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "1 L glass",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Granola Factory Bethlehem Bar, Bulk - 32 / 1 ct ea",
-      "brand": "Granola Factory",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-02",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -424,28 +466,9 @@
       "inPlan": false,
       "pack": "5 lb",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Breakfast - Whole Bean - 5lb Bag",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-10-29",
-      "lastEvent": "2026-10-29",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "5 lb",
-      "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-10-29",
-      "events": 18,
-      "units": 42.0
-    },
     {
       "date": "2026-10-30",
       "events": 52,
@@ -465,28 +488,33 @@
       "date": "2026-11-03",
       "events": 12,
       "units": 25.0
+    },
+    {
+      "date": "2026-11-04",
+      "events": 41,
+      "units": 227.0
     }
   ],
   "feoosBrands": [
     {
       "brand": "EatCommonGood",
-      "units": 124.0,
-      "events": 54
+      "units": 171.0,
+      "events": 71
+    },
+    {
+      "brand": "Monin",
+      "units": 146.0,
+      "events": 2
     },
     {
       "brand": "Baked Fresh",
-      "units": 70.0,
-      "events": 48
+      "units": 61.0,
+      "events": 43
     },
     {
       "brand": "Compass Coffee",
-      "units": 24.0,
-      "events": 20
-    },
-    {
-      "brand": "Oregon Chai",
-      "units": 12.0,
-      "events": 1
+      "units": 37.0,
+      "events": 28
     },
     {
       "brand": "Nutella & Go",
@@ -495,12 +523,17 @@
     },
     {
       "brand": "Hollander",
-      "units": 7.0,
-      "events": 3
+      "units": 5.0,
+      "events": 2
     },
     {
-      "brand": "Monin",
-      "units": 6.0,
+      "brand": "1883",
+      "units": 4.0,
+      "events": 2
+    },
+    {
+      "brand": "Talerico Bakery",
+      "units": 3.0,
       "events": 1
     },
     {
@@ -514,19 +547,14 @@
       "events": 1
     },
     {
-      "brand": "Elara",
+      "brand": "Henry & Henry",
       "units": 2.0,
       "events": 2
     },
     {
-      "brand": "AmerCareRoyal",
+      "brand": "Elara",
       "units": 2.0,
-      "events": 1
-    },
-    {
-      "brand": "Rip Van",
-      "units": 2.0,
-      "events": 1
+      "events": 2
     }
   ],
   "formatAdoption": [],
