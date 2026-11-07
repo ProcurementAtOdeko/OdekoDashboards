@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-07T07:48:45.117548+00:00",
+  "generatedAt": "2026-11-07T14:23:57.580753+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
     "min": "2026-11-01",
-    "max": "2026-11-05",
-    "days": 5
+    "max": "2026-11-07",
+    "days": 7
   },
   "salesRange": {
     "min": null,
@@ -12,15 +12,15 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 115,
-    "networkFeoosDca1Events": 336,
-    "networkFeoosDca1Locations": 32,
+    "dca1FeoosEvents": 143,
+    "networkFeoosDca1Events": 348,
+    "networkFeoosDca1Locations": 31,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 115,
+    "feoosEvents": 143,
     "feoosSkus": 25,
-    "feoosUnits": 377.0,
+    "feoosUnits": 430.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
     "feoosTransitionSkus": 5,
@@ -62,13 +62,13 @@
       "formatStatus": "off-format"
     },
     {
-      "name": "EatCommonGood Breakfast Sandwich - Bacon Egg and Cheese - 1 / 14 ct",
+      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 21,
-      "units": 58.0,
+      "events": 31,
+      "units": 79.0,
       "firstEvent": "2026-11-01",
-      "lastEvent": "2026-11-05",
-      "daysAffected": 5,
+      "lastEvent": "2026-11-07",
+      "daysAffected": 7,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -76,13 +76,27 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
+      "name": "EatCommonGood Breakfast Sandwich - Bacon Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 21,
-      "units": 53.0,
+      "events": 22,
+      "units": 60.0,
       "firstEvent": "2026-11-01",
-      "lastEvent": "2026-11-05",
-      "daysAffected": 5,
+      "lastEvent": "2026-11-06",
+      "daysAffected": 6,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
+      "brand": "Baked Fresh",
+      "events": 26,
+      "units": 32.0,
+      "firstEvent": "2026-11-01",
+      "lastEvent": "2026-11-07",
+      "daysAffected": 7,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -104,17 +118,17 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
-      "brand": "Baked Fresh",
-      "events": 19,
-      "units": 23.0,
+      "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 10,
+      "units": 13.0,
       "firstEvent": "2026-11-01",
-      "lastEvent": "2026-11-05",
-      "daysAffected": 5,
+      "lastEvent": "2026-11-06",
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "",
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -132,31 +146,31 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Waypoint - 12 oz",
+      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
       "brand": "Compass Coffee",
-      "events": 8,
+      "events": 7,
       "units": 10.0,
-      "firstEvent": "2026-11-01",
-      "lastEvent": "2026-11-04",
+      "firstEvent": "2026-11-02",
+      "lastEvent": "2026-11-06",
       "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz",
+      "pack": "6 / 12 oz",
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
-      "brand": "Compass Coffee",
+      "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
+      "brand": "Talerico Bakery",
       "events": 5,
-      "units": 8.0,
-      "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-04",
-      "daysAffected": 2,
+      "units": 9.0,
+      "firstEvent": "2026-11-04",
+      "lastEvent": "2026-11-06",
+      "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "6 / 12 oz",
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -174,6 +188,34 @@
       "formatStatus": "preferred"
     },
     {
+      "name": "Monin Glass Bottle Pump",
+      "brand": "Monin",
+      "events": 3,
+      "units": 5.0,
+      "firstEvent": "2026-11-05",
+      "lastEvent": "2026-11-06",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": true,
+      "inPlan": false,
+      "pack": "glass",
+      "formatStatus": "preferred"
+    },
+    {
+      "name": "AmerCareRoyal Black Beverage Plugs 400ct",
+      "brand": "AmerCareRoyal",
+      "events": 2,
+      "units": 5.0,
+      "firstEvent": "2026-11-02",
+      "lastEvent": "2026-11-06",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Hollander Pumpkin Pie Cafe Sauce 64oz",
       "brand": "Hollander",
       "events": 2,
@@ -185,20 +227,6 @@
       "inTransition": true,
       "inPlan": false,
       "pack": "64 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Talerico Bakery Apple Cider Donut, 3.5 Ounce, 24 Per Case",
-      "brand": "Talerico Bakery",
-      "events": 2,
-      "units": 4.0,
-      "firstEvent": "2026-11-04",
-      "lastEvent": "2026-11-05",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -314,34 +342,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Monin Glass Bottle Pump",
-      "brand": "Monin",
-      "events": 1,
-      "units": 2.0,
-      "firstEvent": "2026-11-05",
-      "lastEvent": "2026-11-05",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "glass",
-      "formatStatus": "preferred"
-    },
-    {
-      "name": "AmerCareRoyal Black Beverage Plugs 400ct",
-      "brand": "AmerCareRoyal",
-      "events": 1,
-      "units": 2.0,
-      "firstEvent": "2026-11-02",
-      "lastEvent": "2026-11-02",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Compass Coffee Meridian - Whole Bean - 5lb Bag",
       "brand": "Compass Coffee",
       "events": 1,
@@ -423,28 +423,38 @@
       "date": "2026-11-05",
       "events": 7,
       "units": 10.0
+    },
+    {
+      "date": "2026-11-06",
+      "events": 26,
+      "units": 48.0
+    },
+    {
+      "date": "2026-11-07",
+      "events": 2,
+      "units": 5.0
     }
   ],
   "feoosBrands": [
     {
-      "brand": "Monin",
-      "units": 148.0,
-      "events": 3
+      "brand": "EatCommonGood",
+      "units": 166.0,
+      "events": 66
     },
     {
-      "brand": "EatCommonGood",
-      "units": 138.0,
-      "events": 55
+      "brand": "Monin",
+      "units": 151.0,
+      "events": 5
     },
     {
       "brand": "Compass Coffee",
-      "units": 31.0,
-      "events": 23
+      "units": 36.0,
+      "events": 27
     },
     {
       "brand": "Baked Fresh",
-      "units": 23.0,
-      "events": 19
+      "units": 32.0,
+      "events": 26
     },
     {
       "brand": "Nutella & Go",
@@ -452,13 +462,18 @@
       "events": 1
     },
     {
-      "brand": "Hollander",
+      "brand": "Talerico Bakery",
+      "units": 9.0,
+      "events": 5
+    },
+    {
+      "brand": "AmerCareRoyal",
       "units": 5.0,
       "events": 2
     },
     {
-      "brand": "Talerico Bakery",
-      "units": 4.0,
+      "brand": "Hollander",
+      "units": 5.0,
       "events": 2
     },
     {
@@ -479,11 +494,6 @@
     {
       "brand": "JUST Water",
       "units": 3.0,
-      "events": 1
-    },
-    {
-      "brand": "AmerCareRoyal",
-      "units": 2.0,
       "events": 1
     }
   ],
