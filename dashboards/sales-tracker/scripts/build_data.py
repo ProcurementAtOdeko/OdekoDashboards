@@ -74,23 +74,37 @@ PAGE_STUB = """<!doctype html>
 </html>
 """
 
-COL_ITEM_NAME = "Item Name"
-COL_BRAND = "Brand Name"
-COL_CUSTOMER = "Customer Name"
-COL_ACCOUNT_UUID = "Odeko Account Uuid"
-COL_DATE = "Date Date"
-COL_WAREHOUSE = "Warehouse Name"
-COL_QTY = "SO Item Qty"
-COL_ITEM_UUID = "Item Uuid"
-COL_CONVERSION = "Conversion Rate"
-COL_MIN_ORDER_DATE = "Min Order Date"  # preferred when the export provides it
-COL_MIN_DATE = "Min Date"  # legacy: first FULFILL date, lags the order by 1-3 days
-COL_ENTERPRISE = "Enterprise"  # optional
-COL_BUSINESS_LINE = "Business Line"  # optional
+# Looker renames these fields from time to time, and the exports don't all
+# refresh at once, so each column is a list of accepted spellings, newest
+# first. An unrecognised rename stops the build loudly rather than silently
+# carrying stale data forward (see check_sources_fresh).
+COL_ITEM_NAME = ["Item Name"]
+COL_BRAND = ["Brand Name"]
+COL_CUSTOMER = ["Customer Name"]
+COL_ACCOUNT_UUID = ["Odeko Account UUID", "Odeko Account Uuid"]
+COL_DATE = ["Date Date"]
+COL_WAREHOUSE = ["Warehouse Name"]
+# "(Eaches)" is a label change only: the value is still the ordered quantity
+# in purchase units, which Conversion Rate turns into sold units.
+COL_QTY = ["SO Item Qty (Eaches)", "SO Item Qty"]
+COL_ITEM_UUID = ["Item Uuid", "Item UUID"]
+COL_CONVERSION = ["Conversion Rate"]
+COL_MIN_ORDER_DATE = ["Min Order Date"]  # preferred when the export provides it
+COL_MIN_DATE = ["Min Date"]  # legacy: first FULFILL date, lags the order by 1-3 days
+COL_ENTERPRISE = ["Enterprise"]  # optional
+COL_BUSINESS_LINE = ["Business Line"]  # optional
 # Optional: the sales-order line's dollar value (already extended, i.e. the
 # whole line, not a unit price). Markets whose export lacks it simply get no
 # revenue figures, and the dashboards hide the dollar views for them.
-COL_SO_AMOUNT = "SO Amount"
+COL_SO_AMOUNT = ["Sales Order Line Amount", "SO Amount"]
+
+
+def find_col(col, names):
+    """Index of the first accepted spelling present in the header, or None."""
+    for n in names:
+        if n in col:
+            return col[n]
+    return None
 
 # Business-line categories. Local delivery and ecomm (shipping) are the two
 # we split items on; everything else rolls up to "other".
@@ -149,20 +163,37 @@ def aggregate(rows, warehouse):
     """Aggregate raw sheet rows for one warehouse into the dashboard JSON."""
     header = rows[0]
     col = {name: i for i, name in enumerate(header)}
-    required = [
-        COL_ITEM_NAME, COL_BRAND, COL_CUSTOMER, COL_ACCOUNT_UUID, COL_DATE,
-        COL_WAREHOUSE, COL_QTY, COL_ITEM_UUID, COL_CONVERSION,
-    ]
-    missing = [c for c in required if c not in col]
+    required = {
+        "Item Name": COL_ITEM_NAME, "Brand Name": COL_BRAND,
+        "Customer Name": COL_CUSTOMER, "Odeko Account UUID": COL_ACCOUNT_UUID,
+        "Date Date": COL_DATE, "Warehouse Name": COL_WAREHOUSE,
+        "SO Item Qty": COL_QTY, "Item Uuid": COL_ITEM_UUID,
+        "Conversion Rate": COL_CONVERSION,
+    }
+    idx = {label: find_col(col, names) for label, names in required.items()}
+    missing = sorted(label for label, i in idx.items() if i is None)
     if missing:
-        raise ValueError(f"missing expected columns: {missing}")
-    if COL_MIN_ORDER_DATE not in col and COL_MIN_DATE not in col:
-        raise ValueError(f"missing expected columns: ['{COL_MIN_ORDER_DATE}']")
+        raise ValueError(
+            f"missing expected columns: {missing}; export header is {header}"
+        )
     # Prefer the true first-order date; "Min Date" is the first FULFILL date.
-    min_date_col = col.get(COL_MIN_ORDER_DATE, col.get(COL_MIN_DATE))
-    has_enterprise = COL_ENTERPRISE in col
-    has_business_line = COL_BUSINESS_LINE in col
-    has_revenue = COL_SO_AMOUNT in col
+    min_date_col = find_col(col, COL_MIN_ORDER_DATE + COL_MIN_DATE)
+    if min_date_col is None:
+        raise ValueError(
+            f"missing expected columns: {COL_MIN_ORDER_DATE}; "
+            f"export header is {header}"
+        )
+    c_item_name, c_brand = idx["Item Name"], idx["Brand Name"]
+    c_customer, c_account = idx["Customer Name"], idx["Odeko Account UUID"]
+    c_date, c_warehouse = idx["Date Date"], idx["Warehouse Name"]
+    c_qty, c_item_uuid = idx["SO Item Qty"], idx["Item Uuid"]
+    c_conversion = idx["Conversion Rate"]
+    c_enterprise = find_col(col, COL_ENTERPRISE)
+    c_business_line = find_col(col, COL_BUSINESS_LINE)
+    c_amount = find_col(col, COL_SO_AMOUNT)
+    has_enterprise = c_enterprise is not None
+    has_business_line = c_business_line is not None
+    has_revenue = c_amount is not None
 
     items = {}
     customers = {}
@@ -188,43 +219,43 @@ def aggregate(rows, warehouse):
     cust_uuid_votes = defaultdict(Counter)
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
-        if r[col[COL_WAREHOUSE]] != warehouse:
+        if r[c_warehouse] != warehouse:
             continue
-        if r[col[COL_ITEM_UUID]].strip() and r[col[COL_ITEM_NAME]].strip():
-            item_uuid_votes[r[col[COL_ITEM_NAME]].strip()][r[col[COL_ITEM_UUID]].strip()] += 1
-        if r[col[COL_ACCOUNT_UUID]].strip() and r[col[COL_CUSTOMER]].strip():
-            cust_uuid_votes[r[col[COL_CUSTOMER]].strip()][r[col[COL_ACCOUNT_UUID]].strip()] += 1
+        if r[c_item_uuid].strip() and r[c_item_name].strip():
+            item_uuid_votes[r[c_item_name].strip()][r[c_item_uuid].strip()] += 1
+        if r[c_account].strip() and r[c_customer].strip():
+            cust_uuid_votes[r[c_customer].strip()][r[c_account].strip()] += 1
     item_name_to_uuid = {n: c.most_common(1)[0][0] for n, c in item_uuid_votes.items()}
     cust_name_to_uuid = {n: c.most_common(1)[0][0] for n, c in cust_uuid_votes.items()}
 
     for r in rows[1:]:
         r = r + [""] * (len(header) - len(r))
-        if r[col[COL_WAREHOUSE]] != warehouse:
+        if r[c_warehouse] != warehouse:
             continue
-        item_name = r[col[COL_ITEM_NAME]].strip()
-        cust_name = r[col[COL_CUSTOMER]].strip()
+        item_name = r[c_item_name].strip()
+        cust_name = r[c_customer].strip()
         item_uuid = (
-            r[col[COL_ITEM_UUID]].strip()
+            r[c_item_uuid].strip()
             or item_name_to_uuid.get(item_name)
             or (item_name and "n:" + item_name)
         )
         account_uuid = (
-            r[col[COL_ACCOUNT_UUID]].strip()
+            r[c_account].strip()
             or cust_name_to_uuid.get(cust_name)
             or (cust_name and "n:" + cust_name)
         )
-        qty = parse_num(r[col[COL_QTY]])
-        order_date = parse_date(r[col[COL_DATE]])
+        qty = parse_num(r[c_qty])
+        order_date = parse_date(r[c_date])
         if not item_uuid or not account_uuid or qty is None or order_date is None:
             skipped += 1
             continue
-        conv = parse_num(r[col[COL_CONVERSION]])
+        conv = parse_num(r[c_conversion])
         if not conv:  # missing or zero conversion -> already in sold units
             conv = 1.0
         units = qty / conv
         # SO Amount is the line's extended dollar value, so it sums directly.
-        amount = (parse_num(r[col[COL_SO_AMOUNT]]) or 0.0) if has_revenue else 0.0
-        bl_name = r[col[COL_BUSINESS_LINE]].strip() if has_business_line else ""
+        amount = (parse_num(r[c_amount]) or 0.0) if has_revenue else 0.0
+        bl_name = r[c_business_line].strip() if has_business_line else ""
         bl_cat = line_category(bl_name)
         # While the export still carries the fulfill-based "Min Date", clamp
         # to the earliest order date we actually observe for the row, so a
@@ -243,8 +274,8 @@ def aggregate(rows, warehouse):
             item_uuid,
             {
                 "uuid": item_uuid,
-                "name": r[col[COL_ITEM_NAME]],
-                "brand": r[col[COL_BRAND]],
+                "name": r[c_item_name],
+                "brand": r[c_brand],
                 "units": 0.0,
                 "lines": 0,
                 "customers": set(),
@@ -274,7 +305,7 @@ def aggregate(rows, warehouse):
             account_uuid,
             {
                 "uuid": account_uuid,
-                "name": r[col[COL_CUSTOMER]],
+                "name": r[c_customer],
                 "units": 0.0,
                 "lines": 0,
                 "items": set(),
@@ -293,7 +324,7 @@ def aggregate(rows, warehouse):
         cu["weekly"][wk] += units
         if bl_name:
             cu["blUnits"][bl_name] += units
-        if has_enterprise and str(r[col[COL_ENTERPRISE]]).strip().upper() == "TRUE":
+        if has_enterprise and str(r[c_enterprise]).strip().upper() == "TRUE":
             cu["enterprise"] = True
         if cu["firstOrder"] is None or (pair_min_date and pair_min_date < cu["firstOrder"]):
             cu["firstOrder"] = pair_min_date
@@ -316,7 +347,7 @@ def aggregate(rows, warehouse):
         weekly[wk]["units"] += units
         weekly[wk]["lines"] += 1
         weekly[wk]["revenue"] += amount
-        brand_name = r[col[COL_BRAND]].strip()
+        brand_name = r[c_brand].strip()
         if brand_name:
             brand_units[brand_name] += units
             br = brands[brand_name]
@@ -545,6 +576,7 @@ def main(out_dir):
         "warehouses": [],
     }
     failures = 0
+    stale = []
     for wh in sorted(sources):
         try:
             res = (
@@ -596,10 +628,14 @@ def main(out_dir):
             if prev:
                 manifest["warehouses"].append(
                     {"code": wh, "status": "ok", "stale": True,
+                     "staleSince": prev["dateRange"]["end"],
+                     "staleReason": str(e)[:300],
                      "summary": prev["summary"],
                      "hasRevenue": prev.get("hasRevenue", False),
                      "dateRange": prev["dateRange"]}
                 )
+                stale.append(wh)
+                print(f"::warning::{wh}: export unavailable ({e}); kept previous data")
                 print(f"{wh}: export unavailable ({e}); kept previous data", file=sys.stderr)
                 continue
             failures += 1
@@ -611,9 +647,23 @@ def main(out_dir):
     ok = [w for w in manifest["warehouses"] if w["status"] == "ok"]
     if not ok:
         sys.exit("Every warehouse failed; not writing manifest")
+    fresh = [w for w in ok if not w.get("stale")]
+    manifest["staleWarehouses"] = stale
     with open(os.path.join(out_dir, "manifest.json"), "w") as f:
         json.dump(manifest, f, indent=1)
-    print(f"Wrote manifest with {len(ok)} ok / {failures} failed warehouses to {out_dir}")
+    print(
+        f"Wrote manifest with {len(fresh)} fresh / {len(stale)} stale / "
+        f"{failures} failed warehouses to {out_dir}"
+    )
+    # Carry-forward keeps the site up through a brief Looker hiccup, but if it
+    # covers for EVERY market the exports have really changed underneath us
+    # (a renamed column, revoked access) and the dashboards are quietly
+    # serving old data. Fail the run so that surfaces instead of going green.
+    if not fresh:
+        sys.exit(
+            f"No warehouse refreshed; all {len(stale)} carried stale data forward. "
+            f"First reason: {manifest['warehouses'][0].get('staleReason', 'unknown')}"
+        )
 
 
 if __name__ == "__main__":

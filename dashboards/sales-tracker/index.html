@@ -43,6 +43,18 @@
   }
   li a:hover { background: #FAF4E4; }
   li .dead { border-left-color: var(--line); color: var(--muted); }
+  li a.stale { border-left-color: var(--amber); }
+  .tag-stale {
+    display: inline-block; background: rgba(181,102,10,.12); color: var(--amber);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 1px 7px; border-radius: 999px; margin-left: 8px; vertical-align: middle;
+  }
+  .stale-note {
+    background: rgba(181,102,10,.12); border: 1px solid var(--amber);
+    border-left: 3px solid var(--amber); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 16px; font-size: 13px; line-height: 1.5;
+  }
+  .stale-note strong { color: var(--amber); }
   li a.cross { border-left-color: var(--ink-2); }
   .section { margin: 26px 0 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
   .section:first-child { margin-top: 0; }
@@ -77,6 +89,7 @@
     </a></li>
   </ul>
   <div class="section">Markets</div>
+  <div id="stale-note" hidden></div>
   <ul id="markets"><li class="desc">Loading…</li></ul>
 </main>
 <script>
@@ -87,10 +100,24 @@ fetch("./data/manifest.json", { cache: "no-store" })
   .then(m => {
     document.getElementById("meta").textContent =
       `Updated ${new Date(m.generatedAt).toLocaleString()} · trailing 90 days`;
+    // A market whose export can't be read keeps its last good data, which
+    // otherwise looks identical to a healthy one. Call it out here.
+    const stale = m.warehouses.filter(w => w.stale).map(w => w.code);
+    const note = document.getElementById("stale-note");
+    if (stale.length) {
+      note.hidden = false;
+      note.className = "stale-note";
+      note.innerHTML =
+        `<strong>${stale.length} market${stale.length > 1 ? "s" : ""} showing older data:</strong> ` +
+        `${stale.join(", ")}. Their source exports did not refresh, so they are ` +
+        `serving the last good snapshot.`;
+    } else {
+      note.hidden = true;
+    }
     document.getElementById("markets").innerHTML = m.warehouses.map(w =>
       w.status === "ok"
-        ? `<li><a href="./${w.code}/">
-             <div class="name">${w.code}</div>
+        ? `<li><a href="./${w.code}/"${w.stale ? ' class="stale"' : ""}>
+             <div class="name">${w.code}${w.stale ? '<span class="tag-stale">stale</span>' : ""}</div>
              <div class="desc stat">${fmtInt(w.summary.totalUnits)} units sold ·
                ${fmtInt(w.summary.customerCount)} customers ·
                ${fmtInt(w.summary.itemCount)} SKUs ·

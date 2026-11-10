@@ -19,6 +19,7 @@ document.body.innerHTML = `
 </header>
 
 <main>
+  <div id="stale-banner" hidden></div>
   <section class="kpis" id="kpis"></section>
 
   <section class="charts">
@@ -231,6 +232,7 @@ async function init() {
   }
   document.getElementById("meta").textContent =
     `Updated ${new Date(DATA.generatedAt).toLocaleString()} · ${DATA.dateRange.start} → ${DATA.dateRange.end}`;
+  renderStaleBanner();
   sortKey = defaultSortFor(tab);
   sortDir = "desc";
   renderKpis();
@@ -381,6 +383,28 @@ function splitBar(r) {
 
 function blDot(cat) {
   return `<span class="bl-dot" style="background:${BL_COLOR[cat] || BL_COLOR.other}"></span>`;
+}
+
+// The build carries a market's last good data forward when its export can't
+// be read, which keeps the page up but makes a days-long outage look normal.
+// Say so on the page once the newest sale is older than the export's own
+// cadence would explain.
+const STALE_AFTER_DAYS = 3;
+
+function renderStaleBanner() {
+  const el = document.getElementById("stale-banner");
+  const end = DATA.dateRange && DATA.dateRange.end;
+  if (!end) { el.hidden = true; return; }
+  const days = Math.floor(
+    (Date.now() - new Date(end + "T00:00:00Z").getTime()) / 86400000
+  );
+  if (days <= STALE_AFTER_DAYS) { el.hidden = true; return; }
+  el.hidden = false;
+  el.className = "stale-banner";
+  el.innerHTML =
+    `<strong>Data may be out of date.</strong> The most recent sale here is ` +
+    `${escapeHtml(end)}, ${fmtInt(days)} days ago — the source export has not ` +
+    `refreshed since. Figures below are the last good snapshot, not today's.`;
 }
 
 function renderKpis() {
