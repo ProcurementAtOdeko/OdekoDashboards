@@ -47,6 +47,13 @@ main { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
 }
 .wh-switch span.disabled { color: var(--muted); background: var(--bg); opacity: .6; cursor: not-allowed; }
 
+.stale-banner {
+  background: var(--amber-soft); border: 1px solid var(--amber);
+  border-left: 3px solid var(--amber); border-radius: 8px;
+  padding: 12px 16px; margin-bottom: 16px; color: var(--ink);
+  font-size: 13px; line-height: 1.5;
+}
+.stale-banner strong { color: var(--amber); }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
 .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
 .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }

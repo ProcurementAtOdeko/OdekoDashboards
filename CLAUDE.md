@@ -34,6 +34,24 @@ Naming is not uniform: most market exports are
 `Network Sales Tracker - <WH>.csv`, but some are `<WH> Sales Tracker.csv`
 (e.g. BOS1). The sales-tracker builder matches both.
 
+**Looker renames columns without warning**, and the exports don't all
+refresh at once, so `build_data.py` holds each column as a list of
+accepted spellings (newest first) rather than one literal name. When an
+export gains a renamed field, add the new spelling to the front of that
+list — don't replace the old one, or markets that haven't refreshed yet
+will break. Renames seen so far:
+
+| Was | Now |
+| --- | --- |
+| `Odeko Account Uuid` | `Odeko Account UUID` |
+| `SO Item Qty` | `SO Item Qty (Eaches)` |
+| `SO Amount` | `Sales Order Line Amount` |
+
+`(Eaches)` was a label change only — the value is still the ordered
+quantity in purchase units, so `units = qty / Conversion Rate` still
+holds. Verified by the per-unit price distribution being unchanged
+across the rename.
+
 To browse it, use the Drive MCP `search_files` with
 `parentId = '1kpM0QOi7Wriuk_Xf6uYYR9a6RqMyBCT7'`. To filter by name, add
 `and title contains '<keyword>'`.
