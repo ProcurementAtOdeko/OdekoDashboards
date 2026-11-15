@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-15T11:32:31.836314+00:00",
+  "generatedAt": "2026-11-15T17:59:57.768837+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-08",
+    "min": "2026-11-09",
     "max": "2026-11-13",
-    "days": 6
+    "days": 5
   },
   "salesRange": {
     "min": null,
@@ -12,18 +12,18 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 110,
+    "dca1FeoosEvents": 100,
     "networkFeoosDca1Events": 249,
     "networkFeoosDca1Locations": 27,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 110,
-    "feoosSkus": 20,
-    "feoosUnits": 227.0,
+    "feoosEvents": 100,
+    "feoosSkus": 19,
+    "feoosUnits": 214.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
-    "feoosTransitionSkus": 6,
+    "feoosTransitionSkus": 5,
     "cohortTotal": 73,
     "cohortLive": 0,
     "cohortNotYet": 73,
@@ -50,11 +50,11 @@
     {
       "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 26,
-      "units": 58.0,
-      "firstEvent": "2026-11-08",
+      "events": 19,
+      "units": 50.0,
+      "firstEvent": "2026-11-09",
       "lastEvent": "2026-11-12",
-      "daysAffected": 5,
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -90,20 +90,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
-      "brand": "Baked Fresh",
-      "events": 16,
-      "units": 18.0,
-      "firstEvent": "2026-11-08",
-      "lastEvent": "2026-11-12",
-      "daysAffected": 5,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
       "events": 9,
@@ -118,13 +104,27 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
+      "brand": "Baked Fresh",
+      "events": 15,
+      "units": 17.0,
+      "firstEvent": "2026-11-09",
+      "lastEvent": "2026-11-12",
+      "daysAffected": 4,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "AmerCareRoyal Black Beverage Plugs 400ct",
       "brand": "AmerCareRoyal",
-      "events": 6,
-      "units": 18.0,
-      "firstEvent": "2026-11-08",
+      "events": 5,
+      "units": 17.0,
+      "firstEvent": "2026-11-09",
       "lastEvent": "2026-11-13",
-      "daysAffected": 4,
+      "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -230,20 +230,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Monin Glass Bottle Pump",
-      "brand": "Monin",
-      "events": 1,
-      "units": 3.0,
-      "firstEvent": "2026-11-08",
-      "lastEvent": "2026-11-08",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": false,
-      "pack": "glass",
-      "formatStatus": "preferred"
-    },
-    {
       "name": "Monin Granny Smith Apple Syrup 750ml Glass",
       "brand": "Monin",
       "events": 1,
@@ -330,11 +316,6 @@
   ],
   "feoosTrend": [
     {
-      "date": "2026-11-08",
-      "events": 10,
-      "units": 13.0
-    },
-    {
       "date": "2026-11-09",
       "events": 30,
       "units": 76.0
@@ -363,8 +344,8 @@
   "feoosBrands": [
     {
       "brand": "EatCommonGood",
-      "units": 81.0,
-      "events": 37
+      "units": 73.0,
+      "events": 30
     },
     {
       "brand": "Compass Coffee",
@@ -373,8 +354,8 @@
     },
     {
       "brand": "Baked Fresh",
-      "units": 31.0,
-      "events": 24
+      "units": 30.0,
+      "events": 23
     },
     {
       "brand": "Maola",
@@ -383,8 +364,8 @@
     },
     {
       "brand": "AmerCareRoyal",
-      "units": 18.0,
-      "events": 6
+      "units": 17.0,
+      "events": 5
     },
     {
       "brand": "Noosa",
@@ -397,13 +378,13 @@
       "events": 2
     },
     {
-      "brand": "Monin",
-      "units": 5.0,
-      "events": 2
-    },
-    {
       "brand": "IKEA",
       "units": 3.0,
+      "events": 1
+    },
+    {
+      "brand": "Monin",
+      "units": 2.0,
       "events": 1
     },
     {
