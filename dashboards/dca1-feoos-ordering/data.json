@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-16T22:33:42.011096+00:00",
+  "generatedAt": "2026-11-17T13:54:32.468493+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-10",
-    "max": "2026-11-13",
-    "days": 4
+    "min": "2026-11-11",
+    "max": "2026-11-16",
+    "days": 6
   },
   "salesRange": {
     "min": null,
@@ -12,18 +12,18 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 70,
-    "networkFeoosDca1Events": 206,
+    "dca1FeoosEvents": 91,
+    "networkFeoosDca1Events": 225,
     "networkFeoosDca1Locations": 26,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 70,
-    "feoosSkus": 14,
-    "feoosUnits": 138.0,
+    "feoosEvents": 91,
+    "feoosSkus": 16,
+    "feoosUnits": 181.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
-    "feoosTransitionSkus": 3,
+    "feoosTransitionSkus": 2,
     "cohortTotal": 73,
     "cohortLive": 0,
     "cohortNotYet": 73,
@@ -48,27 +48,13 @@
   },
   "feoos": [
     {
-      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
-      "brand": "EatCommonGood",
-      "events": 10,
-      "units": 24.0,
-      "firstEvent": "2026-11-10",
-      "lastEvent": "2026-11-12",
-      "daysAffected": 3,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 9,
-      "units": 18.0,
+      "events": 19,
+      "units": 36.0,
       "firstEvent": "2026-11-13",
-      "lastEvent": "2026-11-13",
-      "daysAffected": 1,
+      "lastEvent": "2026-11-16",
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -78,11 +64,11 @@
     {
       "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
       "brand": "Compass Coffee",
-      "events": 8,
-      "units": 18.0,
+      "events": 13,
+      "units": 26.0,
       "firstEvent": "2026-11-11",
-      "lastEvent": "2026-11-13",
-      "daysAffected": 3,
+      "lastEvent": "2026-11-16",
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -90,13 +76,27 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Baked Fresh - Cinnamon Roll - 1 / 20 ct",
-      "brand": "Baked Fresh",
-      "events": 8,
-      "units": 13.0,
-      "firstEvent": "2026-11-10",
-      "lastEvent": "2026-11-12",
+      "name": "Noosa Blueberry Yogurt - 6 / 4.5 oz ctn",
+      "brand": "Noosa",
+      "events": 14,
+      "units": 20.0,
+      "firstEvent": "2026-11-13",
+      "lastEvent": "2026-11-16",
       "daysAffected": 3,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "4.5 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "EatCommonGood Breakfast Sandwich - Chicken Sausage Egg and Cheese - 1 / 14 ct",
+      "brand": "EatCommonGood",
+      "events": 7,
+      "units": 20.0,
+      "firstEvent": "2026-11-11",
+      "lastEvent": "2026-11-12",
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -106,10 +106,24 @@
     {
       "name": "AmerCareRoyal Black Beverage Plugs 400ct",
       "brand": "AmerCareRoyal",
-      "events": 4,
-      "units": 13.0,
+      "events": 5,
+      "units": 17.0,
       "firstEvent": "2026-11-11",
-      "lastEvent": "2026-11-13",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 3,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Baked Fresh - Cinnamon Roll - 1 / 20 ct",
+      "brand": "Baked Fresh",
+      "events": 6,
+      "units": 11.0,
+      "firstEvent": "2026-11-11",
+      "lastEvent": "2026-11-12",
       "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
@@ -118,27 +132,27 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Noosa Blueberry Yogurt - 6 / 4.5 oz ctn",
-      "brand": "Noosa",
-      "events": 8,
-      "units": 12.0,
-      "firstEvent": "2026-11-13",
-      "lastEvent": "2026-11-13",
-      "daysAffected": 1,
+      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 6,
+      "units": 10.0,
+      "firstEvent": "2026-11-12",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "4.5 oz",
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
       "name": "Baked Fresh - Coffee Cake - 1 / 36 ct",
       "brand": "Baked Fresh",
-      "events": 9,
-      "units": 10.0,
-      "firstEvent": "2026-11-10",
+      "events": 7,
+      "units": 8.0,
+      "firstEvent": "2026-11-11",
       "lastEvent": "2026-11-12",
-      "daysAffected": 3,
+      "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -157,20 +171,6 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "12 / 1 qt",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 5,
-      "units": 7.0,
-      "firstEvent": "2026-11-10",
-      "lastEvent": "2026-11-13",
-      "daysAffected": 3,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -202,12 +202,54 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Mooala Barista Almond Milk 32oz",
+      "brand": "Mooala",
+      "events": 1,
+      "units": 5.0,
+      "firstEvent": "2026-11-16",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
-      "events": 2,
-      "units": 2.0,
+      "events": 3,
+      "units": 3.0,
       "firstEvent": "2026-11-11",
-      "lastEvent": "2026-11-11",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
+      "brand": "Cuisine Solutions",
+      "events": 3,
+      "units": 3.0,
+      "firstEvent": "2026-11-15",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Meridian - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 2.0,
+      "firstEvent": "2026-11-16",
+      "lastEvent": "2026-11-16",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
@@ -216,40 +258,21 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Monin Granny Smith Apple Syrup 750ml Glass",
+      "name": "Monin Peppermint Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "events": 1,
       "units": 2.0,
-      "firstEvent": "2026-11-10",
-      "lastEvent": "2026-11-10",
+      "firstEvent": "2026-11-15",
+      "lastEvent": "2026-11-15",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": true,
-      "inPlan": true,
-      "pack": "750 ml glass",
-      "formatStatus": "preferred"
-    },
-    {
-      "name": "Dr. Smoothie Matcha Green Tea Latte 3.5 lb. Bag(s)",
-      "brand": "Dr. Smoothie",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-10",
-      "lastEvent": "2026-11-10",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": true,
-      "inPlan": true,
-      "pack": "3.5 lb",
-      "formatStatus": "n/a"
+      "inPlan": false,
+      "pack": "1 L plastic",
+      "formatStatus": "off-format"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-11-10",
-      "events": 10,
-      "units": 12.0
-    },
     {
       "date": "2026-11-11",
       "events": 21,
@@ -264,33 +287,48 @@
       "date": "2026-11-13",
       "events": 27,
       "units": 49.0
+    },
+    {
+      "date": "2026-11-14",
+      "events": 1,
+      "units": 1.0
+    },
+    {
+      "date": "2026-11-15",
+      "events": 4,
+      "units": 6.0
+    },
+    {
+      "date": "2026-11-16",
+      "events": 26,
+      "units": 48.0
     }
   ],
   "feoosBrands": [
     {
       "brand": "EatCommonGood",
-      "units": 47.0,
-      "events": 21
+      "units": 61.0,
+      "events": 28
     },
     {
       "brand": "Compass Coffee",
-      "units": 27.0,
-      "events": 15
-    },
-    {
-      "brand": "Baked Fresh",
-      "units": 23.0,
-      "events": 17
-    },
-    {
-      "brand": "AmerCareRoyal",
-      "units": 13.0,
-      "events": 4
+      "units": 41.0,
+      "events": 23
     },
     {
       "brand": "Noosa",
-      "units": 12.0,
-      "events": 8
+      "units": 20.0,
+      "events": 14
+    },
+    {
+      "brand": "Baked Fresh",
+      "units": 19.0,
+      "events": 13
+    },
+    {
+      "brand": "AmerCareRoyal",
+      "units": 17.0,
+      "events": 5
     },
     {
       "brand": "Maola",
@@ -303,13 +341,18 @@
       "events": 2
     },
     {
-      "brand": "Monin",
-      "units": 2.0,
+      "brand": "Mooala",
+      "units": 5.0,
       "events": 1
     },
     {
-      "brand": "Dr. Smoothie",
-      "units": 1.0,
+      "brand": "Cuisine Solutions",
+      "units": 3.0,
+      "events": 3
+    },
+    {
+      "brand": "Monin",
+      "units": 2.0,
       "events": 1
     }
   ],
