@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-18T03:49:33+00:00",
+ "generatedAt": "2026-11-18T13:19:58+00:00",
  "warehouse": "BOS1",
  "thresholds": {
   "newWindowDays": 60,
@@ -19,14 +19,14 @@
    "status": "fresh",
    "file": "BOS1 SKU Customer Fulfillment.csv",
    "look": 2405,
-   "through": "2026-11-16",
-   "exportModified": "2026-11-17T09:02:18.706Z"
+   "through": "2026-11-17",
+   "exportModified": "2026-11-18T09:00:47.452Z"
   },
   "weekly": {
    "status": "fresh",
    "file": "BOS1 SKU Weekly Fulfillment.csv",
    "look": 2406,
-   "exportModified": "2026-11-17T11:01:58.162Z"
+   "exportModified": "2026-11-18T11:01:43.455Z"
   },
   "feoos": {
    "trackingSince": "2026-10-07"
@@ -54,7 +54,7 @@
   }
  },
  "bos1": {
-  "activeCustomers": 300,
+  "activeCustomers": 299,
   "skusEverFulfilled": 742
  },
  "skus": [
@@ -67,13 +67,13 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-16",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 465.0,
-   "orders": 84,
-   "unitsPerWeek": 77.5,
+   "units": 481.0,
+   "orders": 89,
+   "unitsPerWeek": 78.3,
    "weekly": [
     86.0,
     87.0,
@@ -88,15 +88,15 @@
     "2026-10-26": 57.0,
     "2026-11-02": 106.0,
     "2026-11-09": 70.0,
-    "2026-11-16": 9.0
+    "2026-11-16": 25.0
    },
    "trend": "steady",
    "trendPct": -0.102,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 6.46,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 6.53,
    "adoptionByWeek": {
     "2026-10-05": 8,
     "2026-10-12": 3,
@@ -104,16 +104,14 @@
    },
    "network": {
     "warehouses": 14,
-    "penetration": 0.013,
+    "penetration": 0.0132,
     "perBuyerWeekly": 0.57,
-    "index": 3.09
+    "index": 3.04
    },
-   "doc": 9.0,
-   "onHand": 10.8,
-   "onOrder": 125.0,
-   "pastDuePos": [
-    "[\"PO119434\"]"
-   ],
+   "doc": 102.0,
+   "onHand": 133.2,
+   "onOrder": null,
+   "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Winning"
@@ -127,13 +125,13 @@
    "subCategory": "Syrups",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-16",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 289.0,
-   "orders": 103,
-   "unitsPerWeek": 48.2,
+   "units": 293.0,
+   "orders": 107,
+   "unitsPerWeek": 47.7,
    "weekly": [
     49.0,
     54.0,
@@ -148,15 +146,15 @@
     "2026-10-26": 43.0,
     "2026-11-02": 53.0,
     "2026-11-09": 42.0,
-    "2026-11-16": 4.0
+    "2026-11-16": 8.0
    },
    "trend": "steady",
    "trendPct": -0.107,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 4.01,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 3.97,
    "adoptionByWeek": {
     "2026-10-05": 10,
     "2026-10-12": 1,
@@ -165,11 +163,11 @@
    "network": {
     "warehouses": 3,
     "penetration": 0.0062,
-    "perBuyerWeekly": 3.46,
-    "index": 6.43
+    "perBuyerWeekly": 3.58,
+    "index": 6.51
    },
-   "doc": 34.0,
-   "onHand": 162.0,
+   "doc": 33.0,
+   "onHand": 158.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -185,13 +183,13 @@
    "subCategory": "Nut",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-20",
-   "daysLive": 28,
+   "daysLive": 29,
    "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
+   "daysSinceLastOrder": 1,
    "newToOdeko": false,
    "units": 131.0,
    "orders": 14,
-   "unitsPerWeek": 32.8,
+   "unitsPerWeek": 31.6,
    "weekly": [
     2.0,
     114.0,
@@ -209,8 +207,8 @@
    "customers": 7,
    "repeatCustomers": 2,
    "repeatRate": 0.286,
-   "penetration": 0.0233,
-   "perBuyerWeekly": 4.68,
+   "penetration": 0.0234,
+   "perBuyerWeekly": 4.52,
    "adoptionByWeek": {
     "2026-10-19": 3,
     "2026-11-02": 2,
@@ -219,10 +217,10 @@
    "network": {
     "warehouses": 13,
     "penetration": 0.0267,
-    "perBuyerWeekly": 1.44,
+    "perBuyerWeekly": 1.38,
     "index": 0.88
    },
-   "doc": 83.0,
+   "doc": 82.0,
    "onHand": 188.0,
    "onOrder": null,
    "pastDuePos": [],
@@ -239,13 +237,13 @@
    "subCategory": "Spices & Seasonings",
    "vendor": "W.A. Imports, LLC",
    "launch": "2026-10-14",
-   "daysLive": 34,
-   "lastOrder": "2026-11-16",
+   "daysLive": 35,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 105.0,
-   "orders": 44,
-   "unitsPerWeek": 21.6,
+   "units": 117.0,
+   "orders": 50,
+   "unitsPerWeek": 23.4,
    "weekly": [
     9.0,
     11.0,
@@ -258,15 +256,15 @@
     "2026-10-26": 11.0,
     "2026-11-02": 30.0,
     "2026-11-09": 39.0,
-    "2026-11-16": 6.0
+    "2026-11-16": 18.0
    },
    "trend": "ramping",
    "trendPct": 1.963,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 1.8,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 1.95,
    "adoptionByWeek": {
     "2026-10-12": 10,
     "2026-10-19": 1,
@@ -274,16 +272,16 @@
    },
    "network": {
     "warehouses": 2,
-    "penetration": 0.0033,
-    "perBuyerWeekly": 0.67,
-    "index": 11.99
+    "penetration": 0.0039,
+    "perBuyerWeekly": 0.69,
+    "index": 10.32
    },
-   "doc": 8.0,
-   "onHand": 1.1,
+   "doc": 1.0,
+   "onHand": 0.1,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
-   "supplyRisk": false,
+   "supplyRisk": true,
    "verdict": "Winning"
   },
   {
@@ -295,13 +293,13 @@
    "subCategory": "Spreads",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-16",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 125.0,
-   "orders": 80,
-   "unitsPerWeek": 20.8,
+   "units": 131.0,
+   "orders": 84,
+   "unitsPerWeek": 21.3,
    "weekly": [
     27.0,
     25.0,
@@ -316,15 +314,15 @@
     "2026-10-26": 16.0,
     "2026-11-02": 19.0,
     "2026-11-09": 21.0,
-    "2026-11-16": 2.0
+    "2026-11-16": 8.0
    },
    "trend": "fading",
    "trendPct": -0.282,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 1.74,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 1.78,
    "adoptionByWeek": {
     "2026-10-05": 8,
     "2026-10-12": 3,
@@ -333,11 +331,11 @@
    "network": {
     "warehouses": 3,
     "penetration": 0.0062,
-    "perBuyerWeekly": 0.83,
-    "index": 6.43
+    "perBuyerWeekly": 0.8,
+    "index": 6.51
    },
-   "doc": 26.0,
-   "onHand": 53.0,
+   "doc": 37.0,
+   "onHand": 77.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -353,13 +351,13 @@
    "subCategory": "Syrups",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-13",
-   "daysLive": 35,
-   "lastOrder": "2026-11-16",
+   "daysLive": 36,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 94.0,
-   "orders": 46,
-   "unitsPerWeek": 18.8,
+   "units": 106.0,
+   "orders": 52,
+   "unitsPerWeek": 20.6,
    "weekly": [
     13.0,
     11.0,
@@ -372,15 +370,15 @@
     "2026-10-26": 11.0,
     "2026-11-02": 28.0,
     "2026-11-09": 27.0,
-    "2026-11-16": 4.0
+    "2026-11-16": 16.0
    },
    "trend": "ramping",
    "trendPct": 0.692,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 1.57,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 1.72,
    "adoptionByWeek": {
     "2026-10-12": 10,
     "2026-10-19": 1,
@@ -389,11 +387,70 @@
    "network": {
     "warehouses": 2,
     "penetration": 0.0034,
-    "perBuyerWeekly": 0.57,
-    "index": 11.74
+    "perBuyerWeekly": 0.61,
+    "index": 11.85
    },
-   "doc": 69.0,
-   "onHand": 106.0,
+   "doc": 59.0,
+   "onHand": 94.0,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Winning"
+  },
+  {
+   "key": "david protein bars - chocolate chip cookie dough",
+   "name": "David Protein Bars - Chocolate Chip Cookie Dough",
+   "itemId": "320577",
+   "brand": "David Protein",
+   "category": "Grab & Go",
+   "subCategory": "Packaged Goods",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-06",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 113.0,
+   "orders": 70,
+   "unitsPerWeek": 18.4,
+   "weekly": [
+    18.0,
+    21.0,
+    21.0,
+    20.0,
+    15.0
+   ],
+   "byWeek": {
+    "2026-10-05": 11.0,
+    "2026-10-12": 18.0,
+    "2026-10-19": 21.0,
+    "2026-10-26": 21.0,
+    "2026-11-02": 20.0,
+    "2026-11-09": 15.0,
+    "2026-11-16": 7.0
+   },
+   "trend": "steady",
+   "trendPct": -0.043,
+   "customers": 12,
+   "repeatCustomers": 11,
+   "repeatRate": 0.917,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 1.53,
+   "adoptionByWeek": {
+    "2026-10-05": 6,
+    "2026-10-12": 4,
+    "2026-10-19": 1,
+    "2026-10-26": 1
+   },
+   "network": {
+    "warehouses": 2,
+    "penetration": 0.0091,
+    "perBuyerWeekly": 0.86,
+    "index": 4.39
+   },
+   "doc": 39.0,
+   "onHand": 71.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -409,13 +466,13 @@
    "subCategory": "Spreads",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
+   "daysLive": 43,
    "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
+   "daysSinceLastOrder": 11,
    "newToOdeko": false,
    "units": 109.0,
    "orders": 65,
-   "unitsPerWeek": 18.2,
+   "unitsPerWeek": 17.7,
    "weekly": [
     19.0,
     27.0,
@@ -435,8 +492,8 @@
    "customers": 11,
    "repeatCustomers": 11,
    "repeatRate": 1.0,
-   "penetration": 0.0367,
-   "perBuyerWeekly": 1.65,
+   "penetration": 0.0368,
+   "perBuyerWeekly": 1.61,
    "adoptionByWeek": {
     "2026-10-05": 9,
     "2026-10-12": 1,
@@ -444,9 +501,9 @@
    },
    "network": {
     "warehouses": 3,
-    "penetration": 0.0064,
-    "perBuyerWeekly": 1.87,
-    "index": 5.76
+    "penetration": 0.0063,
+    "perBuyerWeekly": 1.84,
+    "index": 5.83
    },
    "doc": 3.0,
    "onHand": 5.0,
@@ -454,64 +511,6 @@
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": true,
-   "verdict": "Winning"
-  },
-  {
-   "key": "david protein bars - chocolate chip cookie dough",
-   "name": "David Protein Bars - Chocolate Chip Cookie Dough",
-   "itemId": "320577",
-   "brand": "David Protein",
-   "category": "Grab & Go",
-   "subCategory": "Packaged Goods",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
-   "newToOdeko": false,
-   "units": 106.0,
-   "orders": 67,
-   "unitsPerWeek": 17.7,
-   "weekly": [
-    18.0,
-    21.0,
-    21.0,
-    20.0,
-    15.0
-   ],
-   "byWeek": {
-    "2026-10-05": 11.0,
-    "2026-10-12": 18.0,
-    "2026-10-19": 21.0,
-    "2026-10-26": 21.0,
-    "2026-11-02": 20.0,
-    "2026-11-09": 15.0
-   },
-   "trend": "steady",
-   "trendPct": -0.043,
-   "customers": 12,
-   "repeatCustomers": 11,
-   "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 1.47,
-   "adoptionByWeek": {
-    "2026-10-05": 6,
-    "2026-10-12": 4,
-    "2026-10-19": 1,
-    "2026-10-26": 1
-   },
-   "network": {
-    "warehouses": 2,
-    "penetration": 0.0091,
-    "perBuyerWeekly": 0.88,
-    "index": 4.37
-   },
-   "doc": 27.0,
-   "onHand": 48.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
    "verdict": "Winning"
   },
   {
@@ -523,13 +522,13 @@
    "subCategory": "Cheese",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-16",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 100.0,
-   "orders": 55,
-   "unitsPerWeek": 16.7,
+   "units": 103.0,
+   "orders": 57,
+   "unitsPerWeek": 16.8,
    "weekly": [
     19.0,
     15.0,
@@ -544,15 +543,15 @@
     "2026-10-26": 14.0,
     "2026-11-02": 22.0,
     "2026-11-09": 12.0,
-    "2026-11-16": 3.0
+    "2026-11-16": 6.0
    },
    "trend": "steady",
    "trendPct": -0.059,
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 1.39,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 1.4,
    "adoptionByWeek": {
     "2026-10-05": 6,
     "2026-10-12": 4,
@@ -563,14 +562,14 @@
     "warehouses": 3,
     "penetration": 0.0062,
     "perBuyerWeekly": 1.34,
-    "index": 6.43
+    "index": 6.51
    },
-   "doc": 2.0,
-   "onHand": 3.0,
+   "doc": 59.0,
+   "onHand": 100.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
-   "supplyRisk": true,
+   "supplyRisk": false,
    "verdict": "Winning"
   },
   {
@@ -582,13 +581,13 @@
    "subCategory": "Sauces",
    "vendor": "Hollander Chocolate, Inc.",
    "launch": "2026-09-22",
-   "daysLive": 56,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysLive": 57,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 99.0,
-   "orders": 62,
-   "unitsPerWeek": 12.4,
+   "units": 106.0,
+   "orders": 67,
+   "unitsPerWeek": 13.0,
    "weekly": [
     0.0,
     11.0,
@@ -605,31 +604,33 @@
     "2026-10-19": 18.0,
     "2026-10-26": 16.0,
     "2026-11-02": 12.0,
-    "2026-11-09": 17.0
+    "2026-11-09": 17.0,
+    "2026-11-16": 7.0
    },
    "trend": "steady",
    "trendPct": -0.062,
-   "customers": 14,
+   "customers": 16,
    "repeatCustomers": 12,
-   "repeatRate": 0.857,
-   "penetration": 0.0467,
-   "perBuyerWeekly": 0.88,
+   "repeatRate": 0.75,
+   "penetration": 0.0535,
+   "perBuyerWeekly": 0.81,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-10-05": 5,
     "2026-10-12": 3,
     "2026-10-19": 3,
     "2026-10-26": 1,
-    "2026-11-09": 1
+    "2026-11-09": 1,
+    "2026-11-16": 2
    },
    "network": {
     "warehouses": 15,
-    "penetration": 0.0824,
+    "penetration": 0.0833,
     "perBuyerWeekly": 0.69,
-    "index": 0.57
+    "index": 0.64
    },
-   "doc": 13.0,
-   "onHand": 3.5,
+   "doc": 45.0,
+   "onHand": 12.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -645,13 +646,13 @@
    "subCategory": "Packaged Goods",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 57.0,
-   "orders": 42,
-   "unitsPerWeek": 9.5,
+   "units": 60.0,
+   "orders": 44,
+   "unitsPerWeek": 9.8,
    "weekly": [
     13.0,
     11.0,
@@ -665,15 +666,16 @@
     "2026-10-19": 11.0,
     "2026-10-26": 13.0,
     "2026-11-02": 7.0,
-    "2026-11-09": 8.0
+    "2026-11-09": 8.0,
+    "2026-11-16": 3.0
    },
    "trend": "steady",
    "trendPct": -0.222,
    "customers": 12,
    "repeatCustomers": 10,
    "repeatRate": 0.833,
-   "penetration": 0.04,
-   "perBuyerWeekly": 0.79,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 0.81,
    "adoptionByWeek": {
     "2026-10-05": 3,
     "2026-10-12": 5,
@@ -685,11 +687,11 @@
    "network": {
     "warehouses": 2,
     "penetration": 0.0091,
-    "perBuyerWeekly": 0.49,
-    "index": 4.41
+    "perBuyerWeekly": 0.48,
+    "index": 4.42
    },
-   "doc": 41.0,
-   "onHand": 39.0,
+   "doc": 59.0,
+   "onHand": 56.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -705,13 +707,13 @@
    "subCategory": "Deli Meat",
    "vendor": "Zoe's Meats, Inc.",
    "launch": "2026-11-02",
-   "daysLive": 15,
+   "daysLive": 16,
    "lastOrder": "2026-11-02",
-   "daysSinceLastOrder": 14,
+   "daysSinceLastOrder": 15,
    "newToOdeko": false,
    "units": 20.0,
    "orders": 1,
-   "unitsPerWeek": 9.3,
+   "unitsPerWeek": 8.8,
    "weekly": [
     20.0,
     0.0
@@ -725,7 +727,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 9.33,
+   "perBuyerWeekly": 8.75,
    "adoptionByWeek": {
     "2026-11-02": 1
    },
@@ -752,13 +754,13 @@
    "subCategory": "Coffee Supplies",
    "vendor": "Routin America",
    "launch": "2026-09-21",
-   "daysLive": 57,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysLive": 58,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 54.0,
-   "orders": 10,
-   "unitsPerWeek": 6.6,
+   "units": 68.0,
+   "orders": 13,
+   "unitsPerWeek": 8.2,
    "weekly": [
     3.0,
     0.0,
@@ -774,35 +776,37 @@
     "2026-10-19": 11.0,
     "2026-10-26": 20.0,
     "2026-11-02": 8.0,
-    "2026-11-09": 12.0
+    "2026-11-09": 12.0,
+    "2026-11-16": 14.0
    },
    "trend": "ramping",
    "trendPct": 2.636,
-   "customers": 8,
-   "repeatCustomers": 2,
-   "repeatRate": 0.25,
-   "penetration": 0.0267,
-   "perBuyerWeekly": 0.83,
+   "customers": 9,
+   "repeatCustomers": 4,
+   "repeatRate": 0.444,
+   "penetration": 0.0301,
+   "perBuyerWeekly": 0.91,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-10-19": 2,
     "2026-10-26": 1,
     "2026-11-02": 1,
-    "2026-11-09": 3
+    "2026-11-09": 3,
+    "2026-11-16": 1
    },
    "network": {
     "warehouses": 14,
     "penetration": 0.0183,
-    "perBuyerWeekly": 0.33,
-    "index": 1.46
+    "perBuyerWeekly": 0.34,
+    "index": 1.65
    },
-   "doc": 79.0,
-   "onHand": 0.4,
+   "doc": 63.0,
+   "onHand": 0.3,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
-   "verdict": "Building"
+   "verdict": "Winning"
   },
   {
    "key": "monin french vanilla syrup 750ml glass",
@@ -813,13 +817,13 @@
    "subCategory": "Syrups",
    "vendor": "Monin Inc",
    "launch": "2026-09-24",
-   "daysLive": 54,
+   "daysLive": 55,
    "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
+   "daysSinceLastOrder": 7,
    "newToOdeko": false,
    "units": 46.0,
    "orders": 6,
-   "unitsPerWeek": 6.0,
+   "unitsPerWeek": 5.9,
    "weekly": [
     0.0,
     0.0,
@@ -840,8 +844,8 @@
    "customers": 4,
    "repeatCustomers": 2,
    "repeatRate": 0.5,
-   "penetration": 0.0133,
-   "perBuyerWeekly": 1.49,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 1.46,
    "adoptionByWeek": {
     "2026-09-21": 2,
     "2026-10-26": 1,
@@ -870,13 +874,13 @@
    "subCategory": "Tea",
    "vendor": "Very Fine Foods Company Limited",
    "launch": "2026-10-13",
-   "daysLive": 35,
+   "daysLive": 36,
    "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
+   "daysSinceLastOrder": 11,
    "newToOdeko": false,
    "units": 30.0,
    "orders": 28,
-   "unitsPerWeek": 6.0,
+   "unitsPerWeek": 5.8,
    "weekly": [
     7.0,
     1.0,
@@ -894,8 +898,8 @@
    "customers": 12,
    "repeatCustomers": 11,
    "repeatRate": 0.917,
-   "penetration": 0.04,
-   "perBuyerWeekly": 0.5,
+   "penetration": 0.0401,
+   "perBuyerWeekly": 0.49,
    "adoptionByWeek": {
     "2026-10-12": 10,
     "2026-10-19": 1,
@@ -905,14 +909,14 @@
     "warehouses": 2,
     "penetration": 0.0035,
     "perBuyerWeekly": 0.23,
-    "index": 11.49
+    "index": 11.61
    },
-   "doc": 0.0,
-   "onHand": 0.0,
+   "doc": 40.0,
+   "onHand": 2.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
-   "supplyRisk": true,
+   "supplyRisk": false,
    "verdict": "Winning"
   },
   {
@@ -924,13 +928,13 @@
    "subCategory": "Coffee Supplies",
    "vendor": "Routin America",
    "launch": "2026-10-15",
-   "daysLive": 33,
+   "daysLive": 34,
    "lastOrder": "2026-11-12",
-   "daysSinceLastOrder": 4,
+   "daysSinceLastOrder": 5,
    "newToOdeko": false,
    "units": 25.0,
    "orders": 5,
-   "unitsPerWeek": 5.3,
+   "unitsPerWeek": 5.1,
    "weekly": [
     0.0,
     0.0,
@@ -947,8 +951,8 @@
    "customers": 4,
    "repeatCustomers": 1,
    "repeatRate": 0.25,
-   "penetration": 0.0133,
-   "perBuyerWeekly": 1.33,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 1.29,
    "adoptionByWeek": {
     "2026-10-12": 1,
     "2026-11-02": 1,
@@ -956,8 +960,8 @@
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0238,
-    "perBuyerWeekly": 0.39,
+    "penetration": 0.0239,
+    "perBuyerWeekly": 0.38,
     "index": 0.56
    },
    "doc": 420.0,
@@ -969,64 +973,6 @@
    "verdict": "Building"
   },
   {
-   "key": "boylan bottling co. ginger ale soda",
-   "name": "Boylan Bottling Co. Ginger Ale Soda",
-   "itemId": "125012",
-   "brand": "Boylan Bottling Company",
-   "category": "Beverages",
-   "subCategory": "Soft Drinks",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
-   "newToOdeko": false,
-   "units": 27.0,
-   "orders": 16,
-   "unitsPerWeek": 4.5,
-   "weekly": [
-    2.0,
-    5.0,
-    6.0,
-    1.0,
-    3.0
-   ],
-   "byWeek": {
-    "2026-10-05": 10.0,
-    "2026-10-12": 2.0,
-    "2026-10-19": 5.0,
-    "2026-10-26": 6.0,
-    "2026-11-02": 1.0,
-    "2026-11-09": 3.0
-   },
-   "trend": "steady",
-   "trendPct": -0.048,
-   "customers": 8,
-   "repeatCustomers": 4,
-   "repeatRate": 0.5,
-   "penetration": 0.0267,
-   "perBuyerWeekly": 0.56,
-   "adoptionByWeek": {
-    "2026-10-05": 3,
-    "2026-10-19": 2,
-    "2026-10-26": 2,
-    "2026-11-09": 1
-   },
-   "network": {
-    "warehouses": 11,
-    "penetration": 0.0071,
-    "perBuyerWeekly": 0.19,
-    "index": 3.75
-   },
-   "doc": 93.0,
-   "onHand": 42.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Winning"
-  },
-  {
    "key": "hollander white chocolate sauce 64oz",
    "name": "Hollander White Chocolate Sauce 64oz",
    "itemId": "4556",
@@ -1035,13 +981,13 @@
    "subCategory": "Sauces",
    "vendor": "Hollander Chocolate, Inc.",
    "launch": "2026-09-24",
-   "daysLive": 54,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysLive": 55,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 35.0,
-   "orders": 34,
-   "unitsPerWeek": 4.5,
+   "units": 38.0,
+   "orders": 37,
+   "unitsPerWeek": 4.8,
    "weekly": [
     0.0,
     1.0,
@@ -1058,29 +1004,31 @@
     "2026-10-19": 9.0,
     "2026-10-26": 2.0,
     "2026-11-02": 9.0,
-    "2026-11-09": 2.0
+    "2026-11-09": 2.0,
+    "2026-11-16": 3.0
    },
    "trend": "fading",
    "trendPct": -0.381,
-   "customers": 13,
+   "customers": 14,
    "repeatCustomers": 12,
-   "repeatRate": 0.923,
-   "penetration": 0.0433,
+   "repeatRate": 0.857,
+   "penetration": 0.0468,
    "perBuyerWeekly": 0.35,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-10-12": 10,
     "2026-10-19": 1,
-    "2026-10-26": 1
+    "2026-10-26": 1,
+    "2026-11-16": 1
    },
    "network": {
     "warehouses": 15,
-    "penetration": 0.0613,
+    "penetration": 0.0626,
     "perBuyerWeekly": 0.64,
-    "index": 0.71
+    "index": 0.75
    },
-   "doc": 146.0,
-   "onHand": 14.2,
+   "doc": 141.0,
+   "onHand": 13.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1088,72 +1036,120 @@
    "verdict": "Building"
   },
   {
-   "key": "1883 apple syrup 1l glass bottle",
-   "name": "1883 Apple Syrup 1L Glass Bottle",
-   "itemId": "110711",
-   "brand": "1883",
-   "category": "Syrups & Smoothies",
-   "subCategory": "Syrups",
-   "vendor": "Routin America",
-   "launch": "2026-09-18",
-   "daysLive": 60,
-   "lastOrder": "2026-11-12",
-   "daysSinceLastOrder": 4,
+   "key": "boylan bottling co. ginger ale soda",
+   "name": "Boylan Bottling Co. Ginger Ale Soda",
+   "itemId": "125012",
+   "brand": "Boylan Bottling Company",
+   "category": "Beverages",
+   "subCategory": "Soft Drinks",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-06",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 37.0,
-   "orders": 19,
-   "unitsPerWeek": 4.3,
+   "units": 29.0,
+   "orders": 18,
+   "unitsPerWeek": 4.7,
    "weekly": [
     2.0,
-    3.0,
-    3.0,
-    11.0,
+    5.0,
+    6.0,
     1.0,
-    1.0,
-    13.0,
-    2.0
+    3.0
    ],
    "byWeek": {
-    "2026-09-14": 1.0,
-    "2026-09-21": 2.0,
-    "2026-09-28": 3.0,
-    "2026-10-05": 3.0,
-    "2026-10-12": 11.0,
-    "2026-10-19": 1.0,
-    "2026-10-26": 1.0,
-    "2026-11-02": 13.0,
-    "2026-11-09": 2.0
+    "2026-10-05": 10.0,
+    "2026-10-12": 2.0,
+    "2026-10-19": 5.0,
+    "2026-10-26": 6.0,
+    "2026-11-02": 1.0,
+    "2026-11-09": 3.0,
+    "2026-11-16": 2.0
    },
    "trend": "steady",
-   "trendPct": 0.067,
-   "customers": 7,
-   "repeatCustomers": 3,
-   "repeatRate": 0.429,
-   "penetration": 0.0233,
-   "perBuyerWeekly": 0.62,
+   "trendPct": -0.048,
+   "customers": 8,
+   "repeatCustomers": 4,
+   "repeatRate": 0.5,
+   "penetration": 0.0268,
+   "perBuyerWeekly": 0.59,
    "adoptionByWeek": {
-    "2026-09-14": 1,
-    "2026-09-21": 2,
-    "2026-09-28": 1,
-    "2026-10-12": 1,
-    "2026-11-02": 1,
+    "2026-10-05": 3,
+    "2026-10-19": 2,
+    "2026-10-26": 2,
     "2026-11-09": 1
    },
    "network": {
-    "warehouses": 14,
-    "penetration": 0.0132,
-    "perBuyerWeekly": 0.46,
-    "index": 1.76
+    "warehouses": 11,
+    "penetration": 0.0071,
+    "perBuyerWeekly": 0.19,
+    "index": 3.76
    },
-   "doc": 58.0,
-   "onHand": 5.8,
-   "onOrder": 15.0,
-   "pastDuePos": [
-    "[\"PO119434\"]"
-   ],
+   "doc": 89.0,
+   "onHand": 40.0,
+   "onOrder": null,
+   "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Winning"
+  },
+  {
+   "key": "pacific barista almond milk 32oz",
+   "name": "Pacific Barista Almond Milk 32oz",
+   "itemId": "1498",
+   "brand": "Pacific Foods",
+   "category": "Alternative Milk",
+   "subCategory": "Nut",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-09",
+   "daysLive": 40,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 23.0,
+   "orders": 16,
+   "unitsPerWeek": 4.0,
+   "weekly": [
+    0.0,
+    2.0,
+    5.0,
+    4.0,
+    10.0
+   ],
+   "byWeek": {
+    "2026-10-05": 1.0,
+    "2026-10-19": 2.0,
+    "2026-10-26": 5.0,
+    "2026-11-02": 4.0,
+    "2026-11-09": 10.0,
+    "2026-11-16": 1.0
+   },
+   "trend": "ramping",
+   "trendPct": 5.333,
+   "customers": 5,
+   "repeatCustomers": 1,
+   "repeatRate": 0.2,
+   "penetration": 0.0167,
+   "perBuyerWeekly": 0.8,
+   "adoptionByWeek": {
+    "2026-10-05": 1,
+    "2026-10-19": 1,
+    "2026-11-09": 3
+   },
+   "network": {
+    "warehouses": 16,
+    "penetration": 0.0767,
+    "perBuyerWeekly": 0.97,
+    "index": 0.22
+   },
+   "doc": 71.0,
+   "onHand": 26.0,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Slow"
   },
   {
    "key": "haddar himalayan fine pink salt 16oz container",
@@ -1164,13 +1160,13 @@
    "subCategory": "Spices & Seasonings",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-13",
-   "daysLive": 35,
+   "daysLive": 36,
    "lastOrder": "2026-11-03",
-   "daysSinceLastOrder": 13,
+   "daysSinceLastOrder": 14,
    "newToOdeko": false,
    "units": 20.0,
    "orders": 13,
-   "unitsPerWeek": 4.0,
+   "unitsPerWeek": 3.9,
    "weekly": [
     8.0,
     2.0,
@@ -1188,8 +1184,8 @@
    "customers": 8,
    "repeatCustomers": 3,
    "repeatRate": 0.375,
-   "penetration": 0.0267,
-   "perBuyerWeekly": 0.5,
+   "penetration": 0.0268,
+   "perBuyerWeekly": 0.49,
    "adoptionByWeek": {
     "2026-10-12": 3,
     "2026-10-19": 3,
@@ -1198,9 +1194,9 @@
    },
    "network": {
     "warehouses": 2,
-    "penetration": 0.0041,
+    "penetration": 0.004,
     "perBuyerWeekly": 0.17,
-    "index": 6.57
+    "index": 6.62
    },
    "doc": 18.0,
    "onHand": 0.5,
@@ -1219,13 +1215,13 @@
    "subCategory": "Coffee Supplies",
    "vendor": "Monin Inc",
    "launch": "2026-10-27",
-   "daysLive": 21,
+   "daysLive": 22,
    "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
+   "daysSinceLastOrder": 7,
    "newToOdeko": false,
    "units": 12.0,
    "orders": 2,
-   "unitsPerWeek": 4.0,
+   "unitsPerWeek": 3.8,
    "weekly": [
     0.0,
     2.0
@@ -1240,75 +1236,19 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0067,
-   "perBuyerWeekly": 2.0,
+   "perBuyerWeekly": 1.91,
    "adoptionByWeek": {
     "2026-10-26": 1,
     "2026-11-09": 1
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0348,
+    "penetration": 0.0346,
     "perBuyerWeekly": 0.38,
     "index": 0.19
    },
    "doc": 40.0,
    "onHand": 8.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Slow"
-  },
-  {
-   "key": "pacific barista almond milk 32oz",
-   "name": "Pacific Barista Almond Milk 32oz",
-   "itemId": "1498",
-   "brand": "Pacific Foods",
-   "category": "Alternative Milk",
-   "subCategory": "Nut",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-09",
-   "daysLive": 39,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
-   "newToOdeko": false,
-   "units": 22.0,
-   "orders": 15,
-   "unitsPerWeek": 3.9,
-   "weekly": [
-    0.0,
-    2.0,
-    5.0,
-    4.0,
-    10.0
-   ],
-   "byWeek": {
-    "2026-10-05": 1.0,
-    "2026-10-19": 2.0,
-    "2026-10-26": 5.0,
-    "2026-11-02": 4.0,
-    "2026-11-09": 10.0
-   },
-   "trend": "ramping",
-   "trendPct": 5.333,
-   "customers": 5,
-   "repeatCustomers": 1,
-   "repeatRate": 0.2,
-   "penetration": 0.0167,
-   "perBuyerWeekly": 0.79,
-   "adoptionByWeek": {
-    "2026-10-05": 1,
-    "2026-10-19": 1,
-    "2026-11-09": 3
-   },
-   "network": {
-    "warehouses": 16,
-    "penetration": 0.0767,
-    "perBuyerWeekly": 0.96,
-    "index": 0.22
-   },
-   "doc": 19.0,
-   "onHand": 7.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1324,13 +1264,13 @@
    "subCategory": "Coffee Cleaning Products",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-12",
-   "daysLive": 36,
+   "daysLive": 37,
    "lastOrder": "2026-11-12",
-   "daysSinceLastOrder": 4,
+   "daysSinceLastOrder": 5,
    "newToOdeko": false,
    "units": 19.0,
    "orders": 11,
-   "unitsPerWeek": 3.7,
+   "unitsPerWeek": 3.6,
    "weekly": [
     9.0,
     2.0,
@@ -1349,17 +1289,17 @@
    "customers": 7,
    "repeatCustomers": 4,
    "repeatRate": 0.571,
-   "penetration": 0.0233,
-   "perBuyerWeekly": 0.53,
+   "penetration": 0.0234,
+   "perBuyerWeekly": 0.51,
    "adoptionByWeek": {
     "2026-10-12": 4,
     "2026-11-02": 3
    },
    "network": {
     "warehouses": 5,
-    "penetration": 0.0028,
+    "penetration": 0.0029,
     "perBuyerWeekly": 0.18,
-    "index": 8.19
+    "index": 8.2
    },
    "doc": 111.0,
    "onHand": 2.9,
@@ -1378,13 +1318,13 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-09-30",
-   "daysLive": 48,
+   "daysLive": 49,
    "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
+   "daysSinceLastOrder": 11,
    "newToOdeko": false,
    "units": 24.0,
    "orders": 4,
-   "unitsPerWeek": 3.5,
+   "unitsPerWeek": 3.4,
    "weekly": [
     10.0,
     0.0,
@@ -1405,22 +1345,20 @@
    "repeatCustomers": 1,
    "repeatRate": 1.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 3.5,
+   "perBuyerWeekly": 3.43,
    "adoptionByWeek": {
     "2026-09-28": 1
    },
    "network": {
     "warehouses": 14,
-    "penetration": 0.0254,
-    "perBuyerWeekly": 0.71,
+    "penetration": 0.0253,
+    "perBuyerWeekly": 0.72,
     "index": 0.13
    },
-   "doc": 0.0,
-   "onHand": 0.0,
-   "onOrder": 20.0,
-   "pastDuePos": [
-    "[\"PO119434\"]"
-   ],
+   "doc": 300.0,
+   "onHand": 20.0,
+   "onOrder": null,
+   "pastDuePos": [],
    "feoosEvents": 3,
    "supplyRisk": true,
    "verdict": "Building"
@@ -1434,13 +1372,13 @@
    "subCategory": "Coffee Cleaning Products",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
+   "daysLive": 43,
    "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
+   "daysSinceLastOrder": 1,
    "newToOdeko": false,
    "units": 21.0,
    "orders": 13,
-   "unitsPerWeek": 3.5,
+   "unitsPerWeek": 3.4,
    "weekly": [
     6.0,
     4.0,
@@ -1462,8 +1400,8 @@
    "customers": 10,
    "repeatCustomers": 3,
    "repeatRate": 0.3,
-   "penetration": 0.0333,
-   "perBuyerWeekly": 0.35,
+   "penetration": 0.0334,
+   "perBuyerWeekly": 0.34,
    "adoptionByWeek": {
     "2026-10-05": 1,
     "2026-10-12": 3,
@@ -1474,12 +1412,67 @@
    },
    "network": {
     "warehouses": 11,
-    "penetration": 0.0036,
-    "perBuyerWeekly": 0.16,
-    "index": 9.38
+    "penetration": 0.0031,
+    "perBuyerWeekly": 0.15,
+    "index": 10.75
    },
-   "doc": 35.0,
+   "doc": 31.0,
    "onHand": 1.8,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Building"
+  },
+  {
+   "key": "1883 vanilla syrup 1l plastic",
+   "name": "1883 Vanilla Syrup 1L PLASTIC",
+   "itemId": "4230",
+   "brand": "1883",
+   "category": "Syrups & Smoothies",
+   "subCategory": "Syrups",
+   "vendor": "Routin America",
+   "launch": "2026-09-22",
+   "daysLive": 57,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 25.0,
+   "orders": 5,
+   "unitsPerWeek": 3.1,
+   "weekly": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    4.0,
+    6.0
+   ],
+   "byWeek": {
+    "2026-09-21": 9.0,
+    "2026-11-02": 4.0,
+    "2026-11-09": 6.0,
+    "2026-11-16": 6.0
+   },
+   "trend": "ramping",
+   "trendPct": null,
+   "customers": 2,
+   "repeatCustomers": 2,
+   "repeatRate": 1.0,
+   "penetration": 0.0067,
+   "perBuyerWeekly": 1.54,
+   "adoptionByWeek": {
+    "2026-09-21": 2
+   },
+   "network": {
+    "warehouses": 16,
+    "penetration": 0.0699,
+    "perBuyerWeekly": 1.54,
+    "index": 0.1
+   },
+   "doc": 205.0,
+   "onHand": 10.8,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1495,13 +1488,13 @@
    "subCategory": "Coffee Cleaning Products",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-13",
-   "daysLive": 35,
-   "lastOrder": "2026-11-16",
+   "daysLive": 36,
+   "lastOrder": "2026-11-17",
    "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 15.0,
-   "orders": 12,
-   "unitsPerWeek": 3.0,
+   "units": 16.0,
+   "orders": 13,
+   "unitsPerWeek": 3.1,
    "weekly": [
     2.0,
     5.0,
@@ -1513,15 +1506,15 @@
     "2026-10-19": 2.0,
     "2026-10-26": 5.0,
     "2026-11-09": 1.0,
-    "2026-11-16": 2.0
+    "2026-11-16": 3.0
    },
    "trend": "steady",
    "trendPct": 0.0,
    "customers": 8,
-   "repeatCustomers": 4,
-   "repeatRate": 0.5,
-   "penetration": 0.0267,
-   "perBuyerWeekly": 0.38,
+   "repeatCustomers": 5,
+   "repeatRate": 0.625,
+   "penetration": 0.0268,
+   "perBuyerWeekly": 0.39,
    "adoptionByWeek": {
     "2026-10-12": 4,
     "2026-10-26": 3,
@@ -1529,12 +1522,12 @@
    },
    "network": {
     "warehouses": 13,
-    "penetration": 0.0072,
+    "penetration": 0.0073,
     "perBuyerWeekly": 0.25,
-    "index": 3.7
+    "index": 3.67
    },
-   "doc": 115.0,
-   "onHand": 25.0,
+   "doc": 96.0,
+   "onHand": 24.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1550,13 +1543,13 @@
    "subCategory": "Sauces",
    "vendor": "Hollander Chocolate, Inc.",
    "launch": "2026-09-22",
-   "daysLive": 56,
+   "daysLive": 57,
    "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
+   "daysSinceLastOrder": 1,
    "newToOdeko": false,
    "units": 22.0,
    "orders": 6,
-   "unitsPerWeek": 2.8,
+   "unitsPerWeek": 2.7,
    "weekly": [
     0.0,
     1.0,
@@ -1580,18 +1573,18 @@
    "repeatCustomers": 1,
    "repeatRate": 0.5,
    "penetration": 0.0067,
-   "perBuyerWeekly": 1.38,
+   "perBuyerWeekly": 1.35,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-11-09": 1
    },
    "network": {
     "warehouses": 14,
-    "penetration": 0.0825,
+    "penetration": 0.0827,
     "perBuyerWeekly": 0.89,
     "index": 0.08
    },
-   "doc": 143.0,
+   "doc": 104.0,
    "onHand": 6.3,
    "onOrder": null,
    "pastDuePos": [],
@@ -1608,13 +1601,13 @@
    "subCategory": "Coffee Cleaning Products",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 15.0,
-   "orders": 10,
-   "unitsPerWeek": 2.5,
+   "units": 16.0,
+   "orders": 11,
+   "unitsPerWeek": 2.6,
    "weekly": [
     1.0,
     0.0,
@@ -1627,15 +1620,16 @@
     "2026-10-12": 1.0,
     "2026-10-26": 2.0,
     "2026-11-02": 2.0,
-    "2026-11-09": 8.0
+    "2026-11-09": 8.0,
+    "2026-11-16": 1.0
    },
    "trend": "ramping",
    "trendPct": 7.0,
    "customers": 6,
-   "repeatCustomers": 3,
-   "repeatRate": 0.5,
-   "penetration": 0.02,
-   "perBuyerWeekly": 0.42,
+   "repeatCustomers": 4,
+   "repeatRate": 0.667,
+   "penetration": 0.0201,
+   "perBuyerWeekly": 0.43,
    "adoptionByWeek": {
     "2026-10-05": 1,
     "2026-10-12": 1,
@@ -1649,8 +1643,8 @@
     "perBuyerWeekly": 0.17,
     "index": 3.64
    },
-   "doc": 60.0,
-   "onHand": 15.0,
+   "doc": 56.0,
+   "onHand": 14.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1666,13 +1660,13 @@
    "subCategory": "Water",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 15.0,
-   "orders": 8,
-   "unitsPerWeek": 2.5,
+   "units": 16.0,
+   "orders": 9,
+   "unitsPerWeek": 2.6,
    "weekly": [
     2.0,
     0.0,
@@ -1685,15 +1679,16 @@
     "2026-10-12": 2.0,
     "2026-10-26": 4.0,
     "2026-11-02": 1.0,
-    "2026-11-09": 4.0
+    "2026-11-09": 4.0,
+    "2026-11-16": 1.0
    },
    "trend": "ramping",
    "trendPct": 2.0,
    "customers": 6,
-   "repeatCustomers": 1,
-   "repeatRate": 0.167,
-   "penetration": 0.02,
-   "perBuyerWeekly": 0.42,
+   "repeatCustomers": 2,
+   "repeatRate": 0.333,
+   "penetration": 0.0201,
+   "perBuyerWeekly": 0.43,
    "adoptionByWeek": {
     "2026-10-05": 2,
     "2026-10-26": 2,
@@ -1702,115 +1697,17 @@
    },
    "network": {
     "warehouses": 13,
-    "penetration": 0.0153,
-    "perBuyerWeekly": 0.6,
-    "index": 1.31
+    "penetration": 0.0148,
+    "perBuyerWeekly": 0.63,
+    "index": 1.36
    },
-   "doc": 360.0,
-   "onHand": 90.0,
+   "doc": 356.0,
+   "onHand": 89.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Building"
-  },
-  {
-   "key": "1883 vanilla syrup 1l plastic",
-   "name": "1883 Vanilla Syrup 1L PLASTIC",
-   "itemId": "4230",
-   "brand": "1883",
-   "category": "Syrups & Smoothies",
-   "subCategory": "Syrups",
-   "vendor": "Routin America",
-   "launch": "2026-09-22",
-   "daysLive": 56,
-   "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
-   "newToOdeko": false,
-   "units": 19.0,
-   "orders": 4,
-   "unitsPerWeek": 2.4,
-   "weekly": [
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    4.0,
-    6.0
-   ],
-   "byWeek": {
-    "2026-09-21": 9.0,
-    "2026-11-02": 4.0,
-    "2026-11-09": 6.0
-   },
-   "trend": "ramping",
-   "trendPct": null,
-   "customers": 2,
-   "repeatCustomers": 1,
-   "repeatRate": 0.5,
-   "penetration": 0.0067,
-   "perBuyerWeekly": 1.19,
-   "adoptionByWeek": {
-    "2026-09-21": 2
-   },
-   "network": {
-    "warehouses": 16,
-    "penetration": 0.0694,
-    "perBuyerWeekly": 1.46,
-    "index": 0.1
-   },
-   "doc": 224.0,
-   "onHand": 11.8,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Building"
-  },
-  {
-   "key": "1883 pure cane sugar syrup 1l plastic",
-   "name": "1883 Pure Cane Sugar Syrup 1L Plastic",
-   "itemId": "6622",
-   "brand": "1883",
-   "category": "Syrups & Smoothies",
-   "subCategory": "Syrups",
-   "vendor": "Routin America",
-   "launch": "2026-11-11",
-   "daysLive": 6,
-   "lastOrder": "2026-11-11",
-   "daysSinceLastOrder": 5,
-   "newToOdeko": false,
-   "units": 2.0,
-   "orders": 1,
-   "unitsPerWeek": 2.3,
-   "weekly": [],
-   "byWeek": {
-    "2026-11-09": 2.0
-   },
-   "trend": "new",
-   "trendPct": null,
-   "customers": 1,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0033,
-   "perBuyerWeekly": 2.33,
-   "adoptionByWeek": {
-    "2026-11-09": 1
-   },
-   "network": {
-    "warehouses": 14,
-    "penetration": 0.018,
-    "perBuyerWeekly": 0.48,
-    "index": 0.19
-   },
-   "doc": 840.0,
-   "onHand": 4.7,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Too early"
   },
   {
    "key": "humankind spring water 23oz",
@@ -1821,13 +1718,13 @@
    "subCategory": "Water",
    "vendor": "Odeko MDT intracompany transfer",
    "launch": "2026-09-23",
-   "daysLive": 55,
+   "daysLive": 56,
    "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
+   "daysSinceLastOrder": 1,
    "newToOdeko": false,
    "units": 17.0,
    "orders": 12,
-   "unitsPerWeek": 2.2,
+   "unitsPerWeek": 2.1,
    "weekly": [
     1.0,
     2.0,
@@ -1852,8 +1749,8 @@
    "customers": 6,
    "repeatCustomers": 3,
    "repeatRate": 0.5,
-   "penetration": 0.02,
-   "perBuyerWeekly": 0.36,
+   "penetration": 0.0201,
+   "perBuyerWeekly": 0.35,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-09-28": 1,
@@ -1865,8 +1762,8 @@
    "network": {
     "warehouses": 15,
     "penetration": 0.0133,
-    "perBuyerWeekly": 0.52,
-    "index": 1.5
+    "perBuyerWeekly": 0.51,
+    "index": 1.51
    },
    "doc": 184.0,
    "onHand": 52.0,
@@ -1885,13 +1782,13 @@
    "subCategory": "Lids",
    "vendor": "Karat Packaging by Lollicup",
    "launch": "2026-09-21",
-   "daysLive": 57,
-   "lastOrder": "2026-11-11",
-   "daysSinceLastOrder": 5,
+   "daysLive": 58,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 16.0,
-   "orders": 10,
-   "unitsPerWeek": 2.0,
+   "units": 17.0,
+   "orders": 11,
+   "unitsPerWeek": 2.1,
    "weekly": [
     1.0,
     0.0,
@@ -1909,15 +1806,16 @@
     "2026-10-19": 3.0,
     "2026-10-26": 2.0,
     "2026-11-02": 3.0,
-    "2026-11-09": 5.0
+    "2026-11-09": 5.0,
+    "2026-11-16": 1.0
    },
    "trend": "ramping",
    "trendPct": 1.0,
    "customers": 6,
    "repeatCustomers": 3,
    "repeatRate": 0.5,
-   "penetration": 0.02,
-   "perBuyerWeekly": 0.33,
+   "penetration": 0.0201,
+   "perBuyerWeekly": 0.34,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-10-12": 1,
@@ -1927,12 +1825,12 @@
    },
    "network": {
     "warehouses": 13,
-    "penetration": 0.0437,
-    "perBuyerWeekly": 0.31,
+    "penetration": 0.0438,
+    "perBuyerWeekly": 0.3,
     "index": 0.46
    },
-   "doc": 30.0,
-   "onHand": 8.0,
+   "doc": 26.0,
+   "onHand": 7.0,
    "onOrder": 20.0,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1940,16 +1838,16 @@
    "verdict": "Building"
   },
   {
-   "key": "monin plastic bottle pump",
-   "name": "Monin Plastic Bottle Pump",
-   "itemId": "6524",
-   "brand": "Monin",
-   "category": "Cafe Supplies",
-   "subCategory": "Coffee Supplies",
-   "vendor": "Monin Inc",
-   "launch": "2026-11-10",
+   "key": "1883 pure cane sugar syrup 1l plastic",
+   "name": "1883 Pure Cane Sugar Syrup 1L Plastic",
+   "itemId": "6622",
+   "brand": "1883",
+   "category": "Syrups & Smoothies",
+   "subCategory": "Syrups",
+   "vendor": "Routin America",
+   "launch": "2026-11-11",
    "daysLive": 7,
-   "lastOrder": "2026-11-10",
+   "lastOrder": "2026-11-11",
    "daysSinceLastOrder": 6,
    "newToOdeko": false,
    "units": 2.0,
@@ -1970,13 +1868,13 @@
     "2026-11-09": 1
    },
    "network": {
-    "warehouses": 16,
-    "penetration": 0.0116,
-    "perBuyerWeekly": 0.28,
-    "index": 0.29
+    "warehouses": 14,
+    "penetration": 0.0182,
+    "perBuyerWeekly": 0.46,
+    "index": 0.18
    },
-   "doc": 540.0,
-   "onHand": 18.0,
+   "doc": 840.0,
+   "onHand": 4.7,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -1992,13 +1890,13 @@
    "subCategory": "Coffee Cleaning Products",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-20",
-   "daysLive": 28,
-   "lastOrder": "2026-11-12",
-   "daysSinceLastOrder": 4,
+   "daysLive": 29,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 7.0,
-   "orders": 3,
-   "unitsPerWeek": 1.8,
+   "units": 8.0,
+   "orders": 4,
+   "unitsPerWeek": 1.9,
    "weekly": [
     0.0,
     0.0,
@@ -2006,15 +1904,16 @@
    ],
    "byWeek": {
     "2026-10-19": 5.0,
-    "2026-11-09": 2.0
+    "2026-11-09": 2.0,
+    "2026-11-16": 1.0
    },
    "trend": "new",
    "trendPct": null,
    "customers": 3,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
+   "repeatCustomers": 1,
+   "repeatRate": 0.333,
    "penetration": 0.01,
-   "perBuyerWeekly": 0.58,
+   "perBuyerWeekly": 0.64,
    "adoptionByWeek": {
     "2026-10-19": 2,
     "2026-11-09": 1
@@ -2023,15 +1922,117 @@
     "warehouses": 11,
     "penetration": 0.002,
     "perBuyerWeekly": 0.11,
-    "index": 4.98
+    "index": 5.0
    },
-   "doc": 94.0,
-   "onHand": 0.9,
+   "doc": 86.0,
+   "onHand": 0.8,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Building"
+  },
+  {
+   "key": "monin plastic bottle pump",
+   "name": "Monin Plastic Bottle Pump",
+   "itemId": "6524",
+   "brand": "Monin",
+   "category": "Cafe Supplies",
+   "subCategory": "Coffee Supplies",
+   "vendor": "Monin Inc",
+   "launch": "2026-11-10",
+   "daysLive": 8,
+   "lastOrder": "2026-11-10",
+   "daysSinceLastOrder": 7,
+   "newToOdeko": false,
+   "units": 2.0,
+   "orders": 1,
+   "unitsPerWeek": 1.8,
+   "weekly": [],
+   "byWeek": {
+    "2026-11-09": 2.0
+   },
+   "trend": "new",
+   "trendPct": null,
+   "customers": 1,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0033,
+   "perBuyerWeekly": 1.75,
+   "adoptionByWeek": {
+    "2026-11-09": 1
+   },
+   "network": {
+    "warehouses": 16,
+    "penetration": 0.0116,
+    "perBuyerWeekly": 0.28,
+    "index": 0.29
+   },
+   "doc": 540.0,
+   "onHand": 18.0,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Too early"
+  },
+  {
+   "key": "urnex cafiza espresso machine cleaner powder 20oz",
+   "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
+   "itemId": "679",
+   "brand": "Urnex",
+   "category": "Cleaning Supplies",
+   "subCategory": "Coffee Cleaning Products",
+   "vendor": "Urnex Brands, LLC",
+   "launch": "2026-09-24",
+   "daysLive": 55,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 14.0,
+   "orders": 5,
+   "unitsPerWeek": 1.8,
+   "weekly": [
+    0.0,
+    3.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    5.0
+   ],
+   "byWeek": {
+    "2026-09-21": 4.0,
+    "2026-10-05": 3.0,
+    "2026-11-09": 5.0,
+    "2026-11-16": 2.0
+   },
+   "trend": "ramping",
+   "trendPct": 0.667,
+   "customers": 4,
+   "repeatCustomers": 1,
+   "repeatRate": 0.25,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 0.45,
+   "adoptionByWeek": {
+    "2026-09-21": 1,
+    "2026-10-05": 1,
+    "2026-11-09": 1,
+    "2026-11-16": 1
+   },
+   "network": {
+    "warehouses": 16,
+    "penetration": 0.1096,
+    "perBuyerWeekly": 0.28,
+    "index": 0.12
+   },
+   "doc": 530.0,
+   "onHand": 8.8,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Slow"
   },
   {
    "key": "monin pistachio syrup 750 ml glass",
@@ -2042,9 +2043,9 @@
    "subCategory": "Syrups",
    "vendor": "Monin Inc",
    "launch": "2026-09-29",
-   "daysLive": 49,
+   "daysLive": 50,
    "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
+   "daysSinceLastOrder": 1,
    "newToOdeko": false,
    "units": 12.0,
    "orders": 7,
@@ -2069,8 +2070,8 @@
    "customers": 6,
    "repeatCustomers": 1,
    "repeatRate": 0.167,
-   "penetration": 0.02,
-   "perBuyerWeekly": 0.29,
+   "penetration": 0.0201,
+   "perBuyerWeekly": 0.28,
    "adoptionByWeek": {
     "2026-09-28": 1,
     "2026-10-19": 1,
@@ -2080,73 +2081,17 @@
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0385,
-    "perBuyerWeekly": 0.39,
-    "index": 0.52
+    "penetration": 0.0398,
+    "perBuyerWeekly": 0.38,
+    "index": 0.5
    },
-   "doc": 125.0,
+   "doc": 115.0,
    "onHand": 1.9,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Building"
-  },
-  {
-   "key": "urnex cafiza espresso machine cleaner powder 20oz",
-   "name": "Urnex Cafiza Espresso Machine Cleaner Powder 20oz",
-   "itemId": "679",
-   "brand": "Urnex",
-   "category": "Cleaning Supplies",
-   "subCategory": "Coffee Cleaning Products",
-   "vendor": "Urnex Brands, LLC",
-   "launch": "2026-09-24",
-   "daysLive": 54,
-   "lastOrder": "2026-11-10",
-   "daysSinceLastOrder": 6,
-   "newToOdeko": false,
-   "units": 12.0,
-   "orders": 4,
-   "unitsPerWeek": 1.6,
-   "weekly": [
-    0.0,
-    3.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    5.0
-   ],
-   "byWeek": {
-    "2026-09-21": 4.0,
-    "2026-10-05": 3.0,
-    "2026-11-09": 5.0
-   },
-   "trend": "ramping",
-   "trendPct": 0.667,
-   "customers": 3,
-   "repeatCustomers": 1,
-   "repeatRate": 0.333,
-   "penetration": 0.01,
-   "perBuyerWeekly": 0.52,
-   "adoptionByWeek": {
-    "2026-09-21": 1,
-    "2026-10-05": 1,
-    "2026-11-09": 1
-   },
-   "network": {
-    "warehouses": 16,
-    "penetration": 0.1097,
-    "perBuyerWeekly": 0.28,
-    "index": 0.09
-   },
-   "doc": 540.0,
-   "onHand": 9.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Slow"
   },
   {
    "key": "zoe's bacon applewood ends & pcs dry cured 10lb",
@@ -2157,9 +2102,9 @@
    "subCategory": "Deli Meat",
    "vendor": "",
    "launch": "2026-10-02",
-   "daysLive": 46,
+   "daysLive": 47,
    "lastOrder": "2026-10-02",
-   "daysSinceLastOrder": 45,
+   "daysSinceLastOrder": 46,
    "newToOdeko": false,
    "units": 10.0,
    "orders": 1,
@@ -2181,7 +2126,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 1.52,
+   "perBuyerWeekly": 1.49,
    "adoptionByWeek": {
     "2026-09-28": 1
    },
@@ -2208,9 +2153,9 @@
    "subCategory": "Soap & Solutions",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-13",
-   "daysLive": 35,
+   "daysLive": 36,
    "lastOrder": "2026-10-28",
-   "daysSinceLastOrder": 19,
+   "daysSinceLastOrder": 20,
    "newToOdeko": false,
    "units": 7.0,
    "orders": 2,
@@ -2231,7 +2176,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0067,
-   "perBuyerWeekly": 0.7,
+   "perBuyerWeekly": 0.68,
    "adoptionByWeek": {
     "2026-10-12": 1,
     "2026-10-26": 1
@@ -2239,8 +2184,8 @@
    "network": {
     "warehouses": 2,
     "penetration": 0.0015,
-    "perBuyerWeekly": 0.37,
-    "index": 4.48
+    "perBuyerWeekly": 0.36,
+    "index": 4.51
    },
    "doc": 26.0,
    "onHand": 3.0,
@@ -2259,9 +2204,9 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-09-24",
-   "daysLive": 54,
+   "daysLive": 55,
    "lastOrder": "2026-11-02",
-   "daysSinceLastOrder": 14,
+   "daysSinceLastOrder": 15,
    "newToOdeko": false,
    "units": 10.0,
    "orders": 3,
@@ -2286,16 +2231,16 @@
    "repeatCustomers": 1,
    "repeatRate": 0.5,
    "penetration": 0.0067,
-   "perBuyerWeekly": 0.65,
+   "perBuyerWeekly": 0.64,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-10-12": 1
    },
    "network": {
     "warehouses": 15,
-    "penetration": 0.0276,
+    "penetration": 0.0267,
     "perBuyerWeekly": 0.53,
-    "index": 0.24
+    "index": 0.25
    },
    "doc": 120.0,
    "onHand": 3.3,
@@ -2306,54 +2251,6 @@
    "verdict": "Building"
   },
   {
-   "key": "monin dulce de leche sauce 64oz",
-   "name": "Monin Dulce de Leche Sauce 64oz",
-   "itemId": "6183",
-   "brand": "Monin",
-   "category": "Syrups & Smoothies",
-   "subCategory": "Sauces",
-   "vendor": "Monin Inc",
-   "launch": "2026-11-05",
-   "daysLive": 12,
-   "lastOrder": "2026-11-16",
-   "daysSinceLastOrder": 0,
-   "newToOdeko": false,
-   "units": 2.0,
-   "orders": 2,
-   "unitsPerWeek": 1.2,
-   "weekly": [
-    0.0
-   ],
-   "byWeek": {
-    "2026-11-02": 1.0,
-    "2026-11-16": 1.0
-   },
-   "trend": "new",
-   "trendPct": null,
-   "customers": 2,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0067,
-   "perBuyerWeekly": 0.58,
-   "adoptionByWeek": {
-    "2026-11-02": 1,
-    "2026-11-16": 1
-   },
-   "network": {
-    "warehouses": 13,
-    "penetration": 0.0104,
-    "perBuyerWeekly": 0.52,
-    "index": 0.64
-   },
-   "doc": 1080.0,
-   "onHand": 4.5,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Too early"
-  },
-  {
    "key": "1883 lavender syrup 1l plastic",
    "name": "1883 Lavender Syrup 1L Plastic",
    "itemId": "4449",
@@ -2362,9 +2259,9 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-09-29",
-   "daysLive": 49,
+   "daysLive": 50,
    "lastOrder": "2026-10-27",
-   "daysSinceLastOrder": 20,
+   "daysSinceLastOrder": 21,
    "newToOdeko": false,
    "units": 8.0,
    "orders": 5,
@@ -2389,14 +2286,14 @@
    "repeatCustomers": 1,
    "repeatRate": 0.333,
    "penetration": 0.01,
-   "perBuyerWeekly": 0.38,
+   "perBuyerWeekly": 0.37,
    "adoptionByWeek": {
     "2026-09-28": 2,
     "2026-10-19": 1
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0396,
+    "penetration": 0.0397,
     "perBuyerWeekly": 0.41,
     "index": 0.25
    },
@@ -2409,6 +2306,54 @@
    "verdict": "Slow"
   },
   {
+   "key": "monin dulce de leche sauce 64oz",
+   "name": "Monin Dulce de Leche Sauce 64oz",
+   "itemId": "6183",
+   "brand": "Monin",
+   "category": "Syrups & Smoothies",
+   "subCategory": "Sauces",
+   "vendor": "Monin Inc",
+   "launch": "2026-11-05",
+   "daysLive": 13,
+   "lastOrder": "2026-11-16",
+   "daysSinceLastOrder": 1,
+   "newToOdeko": false,
+   "units": 2.0,
+   "orders": 2,
+   "unitsPerWeek": 1.1,
+   "weekly": [
+    0.0
+   ],
+   "byWeek": {
+    "2026-11-02": 1.0,
+    "2026-11-16": 1.0
+   },
+   "trend": "new",
+   "trendPct": null,
+   "customers": 2,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0067,
+   "perBuyerWeekly": 0.54,
+   "adoptionByWeek": {
+    "2026-11-02": 1,
+    "2026-11-16": 1
+   },
+   "network": {
+    "warehouses": 13,
+    "penetration": 0.0103,
+    "perBuyerWeekly": 0.52,
+    "index": 0.65
+   },
+   "doc": 540.0,
+   "onHand": 4.5,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Too early"
+  },
+  {
    "key": "1883 roasted hazelnut syrup 1l plastic",
    "name": "1883 Roasted Hazelnut Syrup 1L Plastic",
    "itemId": "6625",
@@ -2417,9 +2362,9 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-10-06",
-   "daysLive": 42,
+   "daysLive": 43,
    "lastOrder": "2026-10-27",
-   "daysSinceLastOrder": 20,
+   "daysSinceLastOrder": 21,
    "newToOdeko": false,
    "units": 6.0,
    "orders": 2,
@@ -2441,13 +2386,13 @@
    "repeatCustomers": 1,
    "repeatRate": 1.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 1.0,
+   "perBuyerWeekly": 0.98,
    "adoptionByWeek": {
     "2026-10-05": 1
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0172,
+    "penetration": 0.0173,
     "perBuyerWeekly": 0.47,
     "index": 0.19
    },
@@ -2460,6 +2405,55 @@
    "verdict": "One-off"
   },
   {
+   "key": "blank street 2-cup carrier",
+   "name": "Blank Street 2-Cup Carrier",
+   "itemId": "515304",
+   "brand": "Blank Street Coffee",
+   "category": "Paper & Disposables",
+   "subCategory": "Branded Paper",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-28",
+   "daysLive": 21,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 3.0,
+   "orders": 2,
+   "unitsPerWeek": 1.0,
+   "weekly": [
+    0.0,
+    0.0
+   ],
+   "byWeek": {
+    "2026-10-26": 1.0,
+    "2026-11-16": 2.0
+   },
+   "trend": "new",
+   "trendPct": null,
+   "customers": 2,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0067,
+   "perBuyerWeekly": 0.5,
+   "adoptionByWeek": {
+    "2026-10-26": 1,
+    "2026-11-16": 1
+   },
+   "network": {
+    "warehouses": 3,
+    "penetration": 0.0022,
+    "perBuyerWeekly": 0.08,
+    "index": 3.11
+   },
+   "doc": 600.0,
+   "onHand": 10.0,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Building"
+  },
+  {
    "key": "ecologic foaming drain treatment (e45f) 1qt bottle",
    "name": "Ecologic Foaming Drain Treatment (E45F) 1qt Bottle",
    "itemId": "352684",
@@ -2468,9 +2462,9 @@
    "subCategory": "Soap & Solutions",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-07",
-   "daysLive": 41,
+   "daysLive": 42,
    "lastOrder": "2026-10-28",
-   "daysSinceLastOrder": 19,
+   "daysSinceLastOrder": 20,
    "newToOdeko": false,
    "units": 6.0,
    "orders": 2,
@@ -2492,7 +2486,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0067,
-   "perBuyerWeekly": 0.51,
+   "perBuyerWeekly": 0.5,
    "adoptionByWeek": {
     "2026-10-05": 1,
     "2026-10-26": 1
@@ -2501,7 +2495,7 @@
     "warehouses": 3,
     "penetration": 0.0072,
     "perBuyerWeekly": 0.26,
-    "index": 0.92
+    "index": 0.93
    },
    "doc": 680.0,
    "onHand": 11.3,
@@ -2520,9 +2514,9 @@
    "subCategory": "Cup Carriers",
    "vendor": "Karat Packaging by Lollicup",
    "launch": "2026-09-24",
-   "daysLive": 54,
+   "daysLive": 55,
    "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysSinceLastOrder": 4,
    "newToOdeko": false,
    "units": 8.0,
    "orders": 6,
@@ -2550,7 +2544,7 @@
    "repeatCustomers": 1,
    "repeatRate": 0.2,
    "penetration": 0.0167,
-   "perBuyerWeekly": 0.21,
+   "perBuyerWeekly": 0.2,
    "adoptionByWeek": {
     "2026-09-21": 1,
     "2026-09-28": 1,
@@ -2573,6 +2567,118 @@
    "verdict": "Slow"
   },
   {
+   "key": "monin cinnamon bun syrup 750ml glass",
+   "name": "Monin Cinnamon Bun Syrup 750ml Glass",
+   "itemId": "6175",
+   "brand": "Monin",
+   "category": "Syrups & Smoothies",
+   "subCategory": "Syrups",
+   "vendor": "Monin Inc",
+   "launch": "2026-09-21",
+   "daysLive": 58,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 8.0,
+   "orders": 5,
+   "unitsPerWeek": 1.0,
+   "weekly": [
+    2.0,
+    0.0,
+    0.0,
+    2.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "byWeek": {
+    "2026-09-21": 2.0,
+    "2026-10-12": 2.0,
+    "2026-10-26": 1.0,
+    "2026-11-16": 3.0
+   },
+   "trend": "fading",
+   "trendPct": -0.5,
+   "customers": 4,
+   "repeatCustomers": 1,
+   "repeatRate": 0.25,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 0.24,
+   "adoptionByWeek": {
+    "2026-09-21": 2,
+    "2026-10-12": 1,
+    "2026-10-26": 1
+   },
+   "network": {
+    "warehouses": 16,
+    "penetration": 0.0285,
+    "perBuyerWeekly": 0.4,
+    "index": 0.47
+   },
+   "doc": 336.0,
+   "onHand": 2.3,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Slow"
+  },
+  {
+   "key": "urnex complete cafe liquid sanitizer 32oz bottle",
+   "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
+   "itemId": "214048",
+   "brand": "Urnex",
+   "category": "Cleaning Supplies",
+   "subCategory": "Coffee Cleaning Products",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-15",
+   "daysLive": 34,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
+   "newToOdeko": false,
+   "units": 5.0,
+   "orders": 4,
+   "unitsPerWeek": 1.0,
+   "weekly": [
+    0.0,
+    0.0,
+    1.0,
+    2.0
+   ],
+   "byWeek": {
+    "2026-10-12": 1.0,
+    "2026-11-02": 1.0,
+    "2026-11-09": 2.0,
+    "2026-11-16": 1.0
+   },
+   "trend": "ramping",
+   "trendPct": null,
+   "customers": 3,
+   "repeatCustomers": 1,
+   "repeatRate": 0.333,
+   "penetration": 0.01,
+   "perBuyerWeekly": 0.34,
+   "adoptionByWeek": {
+    "2026-10-12": 1,
+    "2026-11-02": 1,
+    "2026-11-16": 1
+   },
+   "network": {
+    "warehouses": 11,
+    "penetration": 0.0026,
+    "perBuyerWeekly": 0.16,
+    "index": 3.8
+   },
+   "doc": 30.0,
+   "onHand": 0.3,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "Building"
+  },
+  {
    "key": "karat pet strawless sipper lid for 12-24 oz. pet cup - with enclosure (c-kc626ts-sh)",
    "name": "Karat PET Strawless Sipper Lid for 12-24 oz. PET Cup - with Enclosure (C-KC626TS-SH)",
    "itemId": "59955",
@@ -2581,9 +2687,9 @@
    "subCategory": "Lids",
    "vendor": "Karat Packaging by Lollicup",
    "launch": "2026-09-23",
-   "daysLive": 55,
+   "daysLive": 56,
    "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "daysSinceLastOrder": 4,
    "newToOdeko": false,
    "units": 7.0,
    "orders": 7,
@@ -2610,7 +2716,7 @@
    "repeatCustomers": 1,
    "repeatRate": 0.2,
    "penetration": 0.0167,
-   "perBuyerWeekly": 0.18,
+   "perBuyerWeekly": 0.17,
    "adoptionByWeek": {
     "2026-09-21": 2,
     "2026-10-19": 1,
@@ -2619,7 +2725,7 @@
    },
    "network": {
     "warehouses": 15,
-    "penetration": 0.0554,
+    "penetration": 0.0562,
     "perBuyerWeekly": 0.22,
     "index": 0.3
    },
@@ -2640,9 +2746,9 @@
    "subCategory": "Deli Meat",
    "vendor": "",
    "launch": "2026-10-02",
-   "daysLive": 46,
+   "daysLive": 47,
    "lastOrder": "2026-10-02",
-   "daysSinceLastOrder": 45,
+   "daysSinceLastOrder": 46,
    "newToOdeko": false,
    "units": 6.0,
    "orders": 1,
@@ -2664,7 +2770,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.91,
+   "perBuyerWeekly": 0.89,
    "adoptionByWeek": {
     "2026-09-28": 1
    },
@@ -2683,51 +2789,54 @@
    "verdict": "One-off"
   },
   {
-   "key": "urnex complete cafe liquid sanitizer 32oz bottle",
-   "name": "Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
-   "itemId": "214048",
-   "brand": "Urnex",
-   "category": "Cleaning Supplies",
-   "subCategory": "Coffee Cleaning Products",
+   "key": "stevia in the raw packets",
+   "name": "Stevia In The Raw Packets",
+   "itemId": "1569",
+   "brand": "Stevia In The Raw",
+   "category": "Pantry Items",
+   "subCategory": "Baking",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-15",
-   "daysLive": 33,
-   "lastOrder": "2026-11-12",
-   "daysSinceLastOrder": 4,
+   "daysLive": 34,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
    "units": 4.0,
-   "orders": 3,
+   "orders": 4,
    "unitsPerWeek": 0.8,
    "weekly": [
     0.0,
-    0.0,
     1.0,
-    2.0
+    1.0,
+    0.0
    ],
    "byWeek": {
     "2026-10-12": 1.0,
+    "2026-10-26": 1.0,
     "2026-11-02": 1.0,
-    "2026-11-09": 2.0
+    "2026-11-16": 1.0
    },
    "trend": "ramping",
    "trendPct": null,
-   "customers": 2,
-   "repeatCustomers": 1,
-   "repeatRate": 0.5,
-   "penetration": 0.0067,
-   "perBuyerWeekly": 0.42,
+   "customers": 4,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 0.21,
    "adoptionByWeek": {
     "2026-10-12": 1,
-    "2026-11-02": 1
+    "2026-10-26": 1,
+    "2026-11-02": 1,
+    "2026-11-16": 1
    },
    "network": {
     "warehouses": 11,
-    "penetration": 0.0026,
-    "perBuyerWeekly": 0.16,
-    "index": 2.53
+    "penetration": 0.007,
+    "perBuyerWeekly": 0.1,
+    "index": 1.92
    },
-   "doc": 45.0,
-   "onHand": 0.5,
+   "doc": 90.0,
+   "onHand": 6.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -2735,57 +2844,57 @@
    "verdict": "Building"
   },
   {
-   "key": "american nut & chocolate dry currants 3lb",
-   "name": "American Nut & Chocolate Dry Currants 3lb",
-   "itemId": "550317",
-   "brand": "American Nut & Chocolate",
-   "category": "Pantry Items",
-   "subCategory": "Nuts, Seeds & Dried Fruit",
-   "vendor": "American Nut & Chocolate, Inc.",
-   "launch": "2026-09-18",
-   "daysLive": 60,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
+   "key": "victoria bay register tape roll thermal white paper, 220ft, 3.125\"",
+   "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
+   "itemId": "86983",
+   "brand": "Victoria Bay",
+   "category": "Paper & Disposables",
+   "subCategory": "Receipt Paper",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-06",
+   "daysLive": 43,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 6.0,
-   "orders": 3,
-   "unitsPerWeek": 0.7,
+   "units": 5.0,
+   "orders": 5,
+   "unitsPerWeek": 0.8,
    "weekly": [
+    1.0,
     0.0,
     0.0,
     0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    5.0
+    2.0
    ],
    "byWeek": {
-    "2026-09-14": 1.0,
-    "2026-11-09": 5.0
+    "2026-10-05": 1.0,
+    "2026-10-12": 1.0,
+    "2026-11-09": 2.0,
+    "2026-11-16": 1.0
    },
    "trend": "ramping",
-   "trendPct": null,
-   "customers": 1,
+   "trendPct": 0.333,
+   "customers": 4,
    "repeatCustomers": 1,
-   "repeatRate": 1.0,
-   "penetration": 0.0033,
-   "perBuyerWeekly": 0.7,
+   "repeatRate": 0.25,
+   "penetration": 0.0134,
+   "perBuyerWeekly": 0.2,
    "adoptionByWeek": {
-    "2026-09-14": 1
+    "2026-10-05": 1,
+    "2026-10-12": 1,
+    "2026-11-09": 1,
+    "2026-11-16": 1
    },
    "network": {
-    "warehouses": 0,
-    "penetration": null,
-    "perBuyerWeekly": null,
-    "index": null
+    "warehouses": 3,
+    "penetration": 0.0093,
+    "perBuyerWeekly": 0.11,
+    "index": 1.43
    },
-   "doc": 0.0,
-   "onHand": 0.0,
-   "onOrder": 4.0,
-   "pastDuePos": [
-    "[\"PO119972\"]"
-   ],
+   "doc": 75.0,
+   "onHand": 5.0,
+   "onOrder": null,
+   "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
    "verdict": "Building"
@@ -2799,9 +2908,58 @@
    "subCategory": "Ingredients",
    "vendor": "Siegel Egg Co. LLC dba Siegel Ingredients",
    "launch": "2026-10-28",
-   "daysLive": 20,
+   "daysLive": 21,
    "lastOrder": "2026-11-04",
-   "daysSinceLastOrder": 12,
+   "daysSinceLastOrder": 13,
+   "newToOdeko": false,
+   "units": 2.0,
+   "orders": 2,
+   "unitsPerWeek": 0.7,
+   "weekly": [
+    1.0,
+    0.0
+   ],
+   "byWeek": {
+    "2026-10-26": 1.0,
+    "2026-11-02": 1.0
+   },
+   "trend": "new",
+   "trendPct": null,
+   "customers": 2,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0067,
+   "perBuyerWeekly": 0.33,
+   "adoptionByWeek": {
+    "2026-10-26": 1,
+    "2026-11-02": 1
+   },
+   "network": {
+    "warehouses": 0,
+    "penetration": null,
+    "perBuyerWeekly": null,
+    "index": null
+   },
+   "doc": 90.0,
+   "onHand": 3.0,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 1,
+   "supplyRisk": true,
+   "verdict": "Slow"
+  },
+  {
+   "key": "tenzo matcha 500g bag",
+   "name": "Tenzo Matcha 500g Bag",
+   "itemId": "12257",
+   "brand": "Tenzo",
+   "category": "Tea & Chai",
+   "subCategory": "Matcha",
+   "vendor": "Tenzo Tea",
+   "launch": "2026-10-29",
+   "daysLive": 20,
+   "lastOrder": "2026-11-06",
+   "daysSinceLastOrder": 11,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 2,
@@ -2826,59 +2984,10 @@
     "2026-11-02": 1
    },
    "network": {
-    "warehouses": 0,
-    "penetration": null,
-    "perBuyerWeekly": null,
-    "index": null
-   },
-   "doc": 90.0,
-   "onHand": 3.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 1,
-   "supplyRisk": true,
-   "verdict": "Too early"
-  },
-  {
-   "key": "tenzo matcha 500g bag",
-   "name": "Tenzo Matcha 500g Bag",
-   "itemId": "12257",
-   "brand": "Tenzo",
-   "category": "Tea & Chai",
-   "subCategory": "Matcha",
-   "vendor": "Tenzo Tea",
-   "launch": "2026-10-29",
-   "daysLive": 19,
-   "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
-   "newToOdeko": false,
-   "units": 2.0,
-   "orders": 2,
-   "unitsPerWeek": 0.7,
-   "weekly": [
-    1.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-10-26": 1.0,
-    "2026-11-02": 1.0
-   },
-   "trend": "new",
-   "trendPct": null,
-   "customers": 2,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0067,
-   "perBuyerWeekly": 0.37,
-   "adoptionByWeek": {
-    "2026-10-26": 1,
-    "2026-11-02": 1
-   },
-   "network": {
     "warehouses": 15,
-    "penetration": 0.0228,
+    "penetration": 0.0224,
     "perBuyerWeekly": 0.37,
-    "index": 0.29
+    "index": 0.3
    },
    "doc": 630.0,
    "onHand": 0.9,
@@ -2889,60 +2998,6 @@
    "verdict": "Too early"
   },
   {
-   "key": "victoria bay register tape roll thermal white paper, 220ft, 3.125\"",
-   "name": "Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
-   "itemId": "86983",
-   "brand": "Victoria Bay",
-   "category": "Paper & Disposables",
-   "subCategory": "Receipt Paper",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-06",
-   "daysLive": 42,
-   "lastOrder": "2026-11-13",
-   "daysSinceLastOrder": 3,
-   "newToOdeko": false,
-   "units": 4.0,
-   "orders": 4,
-   "unitsPerWeek": 0.7,
-   "weekly": [
-    1.0,
-    0.0,
-    0.0,
-    0.0,
-    2.0
-   ],
-   "byWeek": {
-    "2026-10-05": 1.0,
-    "2026-10-12": 1.0,
-    "2026-11-09": 2.0
-   },
-   "trend": "ramping",
-   "trendPct": 0.333,
-   "customers": 3,
-   "repeatCustomers": 1,
-   "repeatRate": 0.333,
-   "penetration": 0.01,
-   "perBuyerWeekly": 0.22,
-   "adoptionByWeek": {
-    "2026-10-05": 1,
-    "2026-10-12": 1,
-    "2026-11-09": 1
-   },
-   "network": {
-    "warehouses": 3,
-    "penetration": 0.0094,
-    "perBuyerWeekly": 0.11,
-    "index": 1.06
-   },
-   "doc": 90.0,
-   "onHand": 6.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Building"
-  },
-  {
    "key": "black sesame seed 22oz",
    "name": "Black Sesame Seed 22oz",
    "itemId": "548136",
@@ -2951,9 +3006,9 @@
    "subCategory": "Spices & Seasonings",
    "vendor": "Paul W Marks Co Inc",
    "launch": "2026-11-06",
-   "daysLive": 11,
+   "daysLive": 12,
    "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
+   "daysSinceLastOrder": 11,
    "newToOdeko": false,
    "units": 1.0,
    "orders": 1,
@@ -2970,7 +3025,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.64,
+   "perBuyerWeekly": 0.58,
    "adoptionByWeek": {
     "2026-11-02": 1
    },
@@ -2989,61 +3044,60 @@
    "verdict": "Too early"
   },
   {
-   "key": "monin cinnamon bun syrup 750ml glass",
-   "name": "Monin Cinnamon Bun Syrup 750ml Glass",
-   "itemId": "6175",
-   "brand": "Monin",
-   "category": "Syrups & Smoothies",
-   "subCategory": "Syrups",
-   "vendor": "Monin Inc",
-   "launch": "2026-09-21",
-   "daysLive": 57,
-   "lastOrder": "2026-10-28",
-   "daysSinceLastOrder": 19,
+   "key": "boylan bottling co. root beer soda",
+   "name": "Boylan Bottling Co. Root Beer Soda",
+   "itemId": "107508",
+   "brand": "Boylan Bottling Company",
+   "category": "Beverages",
+   "subCategory": "Soft Drinks",
+   "vendor": "Odeko EWR intracompany transfer",
+   "launch": "2026-10-02",
+   "daysLive": 47,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
-   "units": 5.0,
+   "units": 4.0,
    "orders": 4,
    "unitsPerWeek": 0.6,
    "weekly": [
-    2.0,
     0.0,
     0.0,
-    2.0,
-    0.0,
+    1.0,
     1.0,
     0.0,
     0.0
    ],
    "byWeek": {
-    "2026-09-21": 2.0,
-    "2026-10-12": 2.0,
-    "2026-10-26": 1.0
+    "2026-09-28": 1.0,
+    "2026-10-19": 1.0,
+    "2026-10-26": 1.0,
+    "2026-11-16": 1.0
    },
-   "trend": "fading",
-   "trendPct": -0.5,
-   "customers": 4,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0133,
-   "perBuyerWeekly": 0.15,
+   "trend": "steady",
+   "trendPct": 0.0,
+   "customers": 3,
+   "repeatCustomers": 1,
+   "repeatRate": 0.333,
+   "penetration": 0.01,
+   "perBuyerWeekly": 0.2,
    "adoptionByWeek": {
-    "2026-09-21": 2,
-    "2026-10-12": 1,
+    "2026-09-28": 1,
+    "2026-10-19": 1,
     "2026-10-26": 1
    },
    "network": {
-    "warehouses": 16,
-    "penetration": 0.029,
-    "perBuyerWeekly": 0.39,
-    "index": 0.46
+    "warehouses": 10,
+    "penetration": 0.0069,
+    "perBuyerWeekly": 0.25,
+    "index": 1.45
    },
-   "doc": 372.0,
-   "onHand": 2.6,
+   "doc": 600.0,
+   "onHand": 30.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
-   "verdict": "Slow"
+   "verdict": "Building"
   },
   {
    "key": "monin spiced brown sugar syrup 750ml glass",
@@ -3054,9 +3108,9 @@
    "subCategory": "Syrups",
    "vendor": "Monin Inc",
    "launch": "2026-10-26",
-   "daysLive": 22,
+   "daysLive": 23,
    "lastOrder": "2026-10-26",
-   "daysSinceLastOrder": 21,
+   "daysSinceLastOrder": 22,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 1,
@@ -3075,14 +3129,14 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.64,
+   "perBuyerWeekly": 0.61,
    "adoptionByWeek": {
     "2026-10-26": 1
    },
    "network": {
     "warehouses": 16,
     "penetration": 0.0287,
-    "perBuyerWeekly": 0.48,
+    "perBuyerWeekly": 0.47,
     "index": 0.12
    },
    "doc": 1020.0,
@@ -3102,9 +3156,9 @@
    "subCategory": "Water",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-26",
-   "daysLive": 22,
+   "daysLive": 23,
    "lastOrder": "2026-10-26",
-   "daysSinceLastOrder": 21,
+   "daysSinceLastOrder": 22,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 1,
@@ -3123,13 +3177,13 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.64,
+   "perBuyerWeekly": 0.61,
    "adoptionByWeek": {
     "2026-10-26": 1
    },
    "network": {
     "warehouses": 13,
-    "penetration": 0.0168,
+    "penetration": 0.0169,
     "perBuyerWeekly": 0.24,
     "index": 0.2
    },
@@ -3142,107 +3196,53 @@
    "verdict": "One-off"
   },
   {
-   "key": "stevia in the raw packets",
-   "name": "Stevia In The Raw Packets",
-   "itemId": "1569",
-   "brand": "Stevia In The Raw",
-   "category": "Pantry Items",
-   "subCategory": "Baking",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-15",
-   "daysLive": 33,
-   "lastOrder": "2026-11-06",
-   "daysSinceLastOrder": 10,
-   "newToOdeko": false,
-   "units": 3.0,
-   "orders": 3,
-   "unitsPerWeek": 0.6,
-   "weekly": [
-    0.0,
-    1.0,
-    1.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-10-12": 1.0,
-    "2026-10-26": 1.0,
-    "2026-11-02": 1.0
-   },
-   "trend": "ramping",
-   "trendPct": null,
-   "customers": 3,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.01,
-   "perBuyerWeekly": 0.21,
-   "adoptionByWeek": {
-    "2026-10-12": 1,
-    "2026-10-26": 1,
-    "2026-11-02": 1
-   },
-   "network": {
-    "warehouses": 11,
-    "penetration": 0.007,
-    "perBuyerWeekly": 0.1,
-    "index": 1.43
-   },
-   "doc": 140.0,
-   "onHand": 7.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Building"
-  },
-  {
-   "key": "boylan bottling co. root beer soda",
-   "name": "Boylan Bottling Co. Root Beer Soda",
-   "itemId": "107508",
-   "brand": "Boylan Bottling Company",
+   "key": "humankind organic peach iced tea 16oz",
+   "name": "Humankind Organic Peach Iced Tea 16oz",
+   "itemId": "18222",
+   "brand": "Humankind",
    "category": "Beverages",
-   "subCategory": "Soft Drinks",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-02",
-   "daysLive": 46,
-   "lastOrder": "2026-10-27",
-   "daysSinceLastOrder": 20,
+   "subCategory": "Bottled Tea & Coffee",
+   "vendor": "MDT1-VA Warehouse",
+   "launch": "2026-09-29",
+   "daysLive": 50,
+   "lastOrder": "2026-11-17",
+   "daysSinceLastOrder": 0,
    "newToOdeko": false,
    "units": 3.0,
    "orders": 3,
-   "unitsPerWeek": 0.5,
+   "unitsPerWeek": 0.4,
    "weekly": [
     0.0,
     0.0,
-    1.0,
+    0.0,
     1.0,
     0.0,
     0.0
    ],
    "byWeek": {
     "2026-09-28": 1.0,
-    "2026-10-19": 1.0,
-    "2026-10-26": 1.0
+    "2026-10-26": 1.0,
+    "2026-11-16": 1.0
    },
-   "trend": "steady",
-   "trendPct": 0.0,
-   "customers": 3,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.01,
-   "perBuyerWeekly": 0.15,
+   "trend": "ramping",
+   "trendPct": null,
+   "customers": 2,
+   "repeatCustomers": 1,
+   "repeatRate": 0.5,
+   "penetration": 0.0067,
+   "perBuyerWeekly": 0.21,
    "adoptionByWeek": {
     "2026-09-28": 1,
-    "2026-10-19": 1,
     "2026-10-26": 1
    },
    "network": {
-    "warehouses": 10,
-    "penetration": 0.007,
-    "perBuyerWeekly": 0.25,
-    "index": 1.42
+    "warehouses": 11,
+    "penetration": 0.0021,
+    "perBuyerWeekly": 0.13,
+    "index": 3.19
    },
-   "doc": 620.0,
-   "onHand": 31.0,
+   "doc": 160.0,
+   "onHand": 8.0,
    "onOrder": null,
    "pastDuePos": [],
    "feoosEvents": 0,
@@ -3258,9 +3258,9 @@
    "subCategory": "Spices & Seasonings",
    "vendor": "Paul W Marks Co Inc",
    "launch": "2026-10-30",
-   "daysLive": 18,
+   "daysLive": 19,
    "lastOrder": "2026-10-30",
-   "daysSinceLastOrder": 17,
+   "daysSinceLastOrder": 18,
    "newToOdeko": false,
    "units": 1.0,
    "orders": 1,
@@ -3278,7 +3278,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.39,
+   "perBuyerWeekly": 0.37,
    "adoptionByWeek": {
     "2026-10-26": 1
    },
@@ -3297,106 +3297,6 @@
    "verdict": "Too early"
   },
   {
-   "key": "blank street 2-cup carrier",
-   "name": "Blank Street 2-Cup Carrier",
-   "itemId": "515304",
-   "brand": "Blank Street Coffee",
-   "category": "Paper & Disposables",
-   "subCategory": "Branded Paper",
-   "vendor": "Odeko EWR intracompany transfer",
-   "launch": "2026-10-28",
-   "daysLive": 20,
-   "lastOrder": "2026-10-28",
-   "daysSinceLastOrder": 19,
-   "newToOdeko": false,
-   "units": 1.0,
-   "orders": 1,
-   "unitsPerWeek": 0.3,
-   "weekly": [
-    0.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-10-26": 1.0
-   },
-   "trend": "new",
-   "trendPct": null,
-   "customers": 1,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0033,
-   "perBuyerWeekly": 0.35,
-   "adoptionByWeek": {
-    "2026-10-26": 1
-   },
-   "network": {
-    "warehouses": 3,
-    "penetration": 0.0022,
-    "perBuyerWeekly": 0.08,
-    "index": 1.54
-   },
-   "doc": 720.0,
-   "onHand": 12.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Too early"
-  },
-  {
-   "key": "humankind organic peach iced tea 16oz",
-   "name": "Humankind Organic Peach Iced Tea 16oz",
-   "itemId": "18222",
-   "brand": "Humankind",
-   "category": "Beverages",
-   "subCategory": "Bottled Tea & Coffee",
-   "vendor": "MDT1-VA Warehouse",
-   "launch": "2026-09-29",
-   "daysLive": 49,
-   "lastOrder": "2026-10-26",
-   "daysSinceLastOrder": 21,
-   "newToOdeko": false,
-   "units": 2.0,
-   "orders": 2,
-   "unitsPerWeek": 0.3,
-   "weekly": [
-    0.0,
-    0.0,
-    0.0,
-    1.0,
-    0.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-09-28": 1.0,
-    "2026-10-26": 1.0
-   },
-   "trend": "ramping",
-   "trendPct": null,
-   "customers": 2,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0067,
-   "perBuyerWeekly": 0.14,
-   "adoptionByWeek": {
-    "2026-09-28": 1,
-    "2026-10-26": 1
-   },
-   "network": {
-    "warehouses": 11,
-    "penetration": 0.0028,
-    "perBuyerWeekly": 0.13,
-    "index": 2.37
-   },
-   "doc": 270.0,
-   "onHand": 9.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "Building"
-  },
-  {
    "key": "karat kraft shopping bag with twisted handles, 12.2\"w x 14\"h x 7.5\"l (fp-sb120)",
    "name": "Karat Kraft Shopping Bag with Twisted Handles, 12.2\"W x 14\"H x 7.5\"L (FP-SB120)",
    "itemId": "68864",
@@ -3405,9 +3305,9 @@
    "subCategory": "Take-Out Packaging",
    "vendor": "Odeko EWR intracompany transfer",
    "launch": "2026-10-06",
-   "daysLive": 42,
+   "daysLive": 43,
    "lastOrder": "2026-10-06",
-   "daysSinceLastOrder": 41,
+   "daysSinceLastOrder": 42,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 2,
@@ -3428,7 +3328,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0067,
-   "perBuyerWeekly": 0.17,
+   "perBuyerWeekly": 0.16,
    "adoptionByWeek": {
     "2026-10-05": 2
    },
@@ -3436,7 +3336,7 @@
     "warehouses": 10,
     "penetration": 0.0046,
     "perBuyerWeekly": 0.13,
-    "index": 1.45
+    "index": 1.46
    },
    "doc": 90.0,
    "onHand": 3.0,
@@ -3455,9 +3355,9 @@
    "subCategory": "Syrups",
    "vendor": "Monin Inc",
    "launch": "2026-09-30",
-   "daysLive": 48,
+   "daysLive": 49,
    "lastOrder": "2026-09-30",
-   "daysSinceLastOrder": 47,
+   "daysSinceLastOrder": 48,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 1,
@@ -3486,7 +3386,7 @@
    "network": {
     "warehouses": 14,
     "penetration": 0.0161,
-    "perBuyerWeekly": 0.38,
+    "perBuyerWeekly": 0.36,
     "index": 0.21
    },
    "doc": 1020.0,
@@ -3506,9 +3406,9 @@
    "subCategory": "Spices & Seasonings",
    "vendor": "Paul W Marks Co Inc",
    "launch": "2026-10-23",
-   "daysLive": 25,
+   "daysLive": 26,
    "lastOrder": "2026-10-23",
-   "daysSinceLastOrder": 24,
+   "daysSinceLastOrder": 25,
    "newToOdeko": false,
    "units": 1.0,
    "orders": 1,
@@ -3527,7 +3427,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.28,
+   "perBuyerWeekly": 0.27,
    "adoptionByWeek": {
     "2026-10-19": 1
    },
@@ -3554,9 +3454,9 @@
    "subCategory": "Chai",
    "vendor": "Rishi Tea/ Diaspora Tea & Herb",
    "launch": "2026-10-28",
-   "daysLive": 20,
+   "daysLive": 21,
    "lastOrder": "2026-10-28",
-   "daysSinceLastOrder": 19,
+   "daysSinceLastOrder": 20,
    "newToOdeko": false,
    "units": 1.0,
    "orders": 1,
@@ -3574,13 +3474,13 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.35,
+   "perBuyerWeekly": 0.33,
    "adoptionByWeek": {
     "2026-10-26": 1
    },
    "network": {
     "warehouses": 16,
-    "penetration": 0.0418,
+    "penetration": 0.0417,
     "perBuyerWeekly": 0.5,
     "index": 0.08
    },
@@ -3590,7 +3490,7 @@
    "pastDuePos": [],
    "feoosEvents": 0,
    "supplyRisk": false,
-   "verdict": "Too early"
+   "verdict": "One-off"
   },
   {
    "key": "teddie's smooth creamy peanut butter 16oz",
@@ -3601,9 +3501,9 @@
    "subCategory": "Spreads",
    "vendor": "The Leavitt Corporation",
    "launch": "2026-10-06",
-   "daysLive": 42,
+   "daysLive": 43,
    "lastOrder": "2026-11-04",
-   "daysSinceLastOrder": 12,
+   "daysSinceLastOrder": 13,
    "newToOdeko": false,
    "units": 2.0,
    "orders": 2,
@@ -3625,7 +3525,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0067,
-   "perBuyerWeekly": 0.17,
+   "perBuyerWeekly": 0.16,
    "adoptionByWeek": {
     "2026-10-05": 1,
     "2026-11-02": 1
@@ -3653,8 +3553,57 @@
    "subCategory": "Syrups",
    "vendor": "Routin America",
    "launch": "2026-10-13",
-   "daysLive": 35,
+   "daysLive": 36,
    "lastOrder": "2026-10-13",
+   "daysSinceLastOrder": 35,
+   "newToOdeko": false,
+   "units": 1.0,
+   "orders": 1,
+   "unitsPerWeek": 0.2,
+   "weekly": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "byWeek": {
+    "2026-10-12": 1.0
+   },
+   "trend": "flat",
+   "trendPct": null,
+   "customers": 1,
+   "repeatCustomers": 0,
+   "repeatRate": 0.0,
+   "penetration": 0.0033,
+   "perBuyerWeekly": 0.19,
+   "adoptionByWeek": {
+    "2026-10-12": 1
+   },
+   "network": {
+    "warehouses": 14,
+    "penetration": 0.0092,
+    "perBuyerWeekly": 0.38,
+    "index": 0.36
+   },
+   "doc": 1020.0,
+   "onHand": 2.8,
+   "onOrder": null,
+   "pastDuePos": [],
+   "feoosEvents": 0,
+   "supplyRisk": false,
+   "verdict": "One-off"
+  },
+  {
+   "key": "cayenne pepper 5lb",
+   "name": "Cayenne Pepper 5lb",
+   "itemId": "550115",
+   "brand": "Generic",
+   "category": "Pantry Items",
+   "subCategory": "Spices & Seasonings",
+   "vendor": "",
+   "launch": "2026-10-14",
+   "daysLive": 35,
+   "lastOrder": "2026-10-14",
    "daysSinceLastOrder": 34,
    "newToOdeko": false,
    "units": 1.0,
@@ -3680,55 +3629,6 @@
     "2026-10-12": 1
    },
    "network": {
-    "warehouses": 14,
-    "penetration": 0.0092,
-    "perBuyerWeekly": 0.44,
-    "index": 0.36
-   },
-   "doc": 1020.0,
-   "onHand": 2.8,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "One-off"
-  },
-  {
-   "key": "cayenne pepper 5lb",
-   "name": "Cayenne Pepper 5lb",
-   "itemId": "550115",
-   "brand": "Generic",
-   "category": "Pantry Items",
-   "subCategory": "Spices & Seasonings",
-   "vendor": "",
-   "launch": "2026-10-14",
-   "daysLive": 34,
-   "lastOrder": "2026-10-14",
-   "daysSinceLastOrder": 33,
-   "newToOdeko": false,
-   "units": 1.0,
-   "orders": 1,
-   "unitsPerWeek": 0.2,
-   "weekly": [
-    0.0,
-    0.0,
-    0.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-10-12": 1.0
-   },
-   "trend": "flat",
-   "trendPct": null,
-   "customers": 1,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0033,
-   "perBuyerWeekly": 0.21,
-   "adoptionByWeek": {
-    "2026-10-12": 1
-   },
-   "network": {
     "warehouses": 0,
     "penetration": null,
     "perBuyerWeekly": null,
@@ -3743,59 +3643,6 @@
    "verdict": "One-off"
   },
   {
-   "key": "duro kraft shopping bag 10\" x 6.75\" x 12\"",
-   "name": "Duro Kraft Shopping Bag 10\" x 6.75\" x 12\"",
-   "itemId": "27843",
-   "brand": "Duro",
-   "category": "Paper & Disposables",
-   "subCategory": "Take-Out Packaging",
-   "vendor": "Callico Distributors, Inc.",
-   "launch": "2026-09-18",
-   "daysLive": 60,
-   "lastOrder": "2026-09-18",
-   "daysSinceLastOrder": 59,
-   "newToOdeko": false,
-   "units": 2.0,
-   "orders": 1,
-   "unitsPerWeek": 0.2,
-   "weekly": [
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0
-   ],
-   "byWeek": {
-    "2026-09-14": 2.0
-   },
-   "trend": "flat",
-   "trendPct": null,
-   "customers": 1,
-   "repeatCustomers": 0,
-   "repeatRate": 0.0,
-   "penetration": 0.0033,
-   "perBuyerWeekly": 0.23,
-   "adoptionByWeek": {
-    "2026-09-14": 1
-   },
-   "network": {
-    "warehouses": 1,
-    "penetration": 0.0023,
-    "perBuyerWeekly": 0.14,
-    "index": 1.43
-   },
-   "doc": null,
-   "onHand": 7.0,
-   "onOrder": null,
-   "pastDuePos": [],
-   "feoosEvents": 0,
-   "supplyRisk": false,
-   "verdict": "One-off"
-  },
-  {
    "key": "sadaf beans red lentil imported 55lb",
    "name": "Sadaf Beans Red Lentil Imported 55lb",
    "itemId": "548228",
@@ -3804,9 +3651,9 @@
    "subCategory": "Soups & Broths",
    "vendor": "Soofer Co., Inc. dba Sadaf Foods",
    "launch": "2026-10-20",
-   "daysLive": 28,
+   "daysLive": 29,
    "lastOrder": "2026-10-20",
-   "daysSinceLastOrder": 27,
+   "daysSinceLastOrder": 28,
    "newToOdeko": false,
    "units": 1.0,
    "orders": 1,
@@ -3825,7 +3672,7 @@
    "repeatCustomers": 0,
    "repeatRate": 0.0,
    "penetration": 0.0033,
-   "perBuyerWeekly": 0.25,
+   "perBuyerWeekly": 0.24,
    "adoptionByWeek": {
     "2026-10-19": 1
    },
@@ -3895,14 +3742,14 @@
   },
   {
    "week": "2026-11-16",
-   "total": 2512.0
+   "total": 3932.0
   }
  ],
  "lookerCache": {
   "pairs": {
-   "through": "2026-11-16",
-   "activeCustomers": 300,
-   "totalCustomers": 355,
+   "through": "2026-11-17",
+   "activeCustomers": 299,
+   "totalCustomers": 356,
    "items": {
     "1883 apple syrup 1l glass bottle": {
      "name": "1883 Apple Syrup 1L Glass Bottle",
@@ -3919,12 +3766,12 @@
      "customers": 7,
      "repeatCustomers": 3,
      "adoption": {
+      "2026-11-02": 1,
       "2026-09-21": 2,
+      "2026-10-12": 1,
       "2026-09-28": 1,
       "2026-09-14": 1,
-      "2026-11-09": 1,
-      "2026-10-12": 1,
-      "2026-11-02": 1
+      "2026-11-09": 1
      }
     },
     "1883 blueberry syrup 1 liter plastic": {
@@ -3942,9 +3789,9 @@
      "customers": 3,
      "repeatCustomers": 2,
      "adoption": {
-      "2026-09-07": 1,
       "2026-11-09": 1,
-      "2026-09-28": 1
+      "2026-09-28": 1,
+      "2026-09-07": 1
      }
     },
     "1883 dulce de leche syrup 1l plastic": {
@@ -3974,9 +3821,9 @@
      "vendor": "1883 French Madeline Syrup 1LGlass-5132",
      "created": "2022-11-09",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-16",
-     "units": 465.0,
-     "orders": 84,
+     "lastOrder": "2026-11-17",
+     "units": 481.0,
+     "orders": 89,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
@@ -4018,8 +3865,8 @@
      "customers": 3,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-09-28": 2,
-      "2026-10-19": 1
+      "2026-10-19": 1,
+      "2026-09-28": 2
      }
     },
     "1883 maple syrup 1l glass": {
@@ -4056,11 +3903,11 @@
      "customers": 6,
      "repeatCustomers": 5,
      "adoption": {
-      "2026-09-21": 2,
       "2026-09-28": 1,
       "2026-09-14": 1,
+      "2026-10-05": 1,
       "2026-09-07": 1,
-      "2026-10-05": 1
+      "2026-09-21": 2
      }
     },
     "1883 pure cane sugar syrup 1l plastic": {
@@ -4108,9 +3955,9 @@
      "vendor": "1883 Strawberry Syrup 1L Plastic",
      "created": "2022-10-10",
      "launch": "2026-09-10",
-     "lastOrder": "2026-10-22",
-     "units": 2.0,
-     "orders": 2,
+     "lastOrder": "2026-11-17",
+     "units": 3.0,
+     "orders": 3,
      "customers": 1,
      "repeatCustomers": 1,
      "adoption": {
@@ -4126,17 +3973,18 @@
      "vendor": "1883 Syrup Pump (Glass) (Item 4768)",
      "created": "2022-06-14",
      "launch": "2026-09-21",
-     "lastOrder": "2026-11-13",
-     "units": 54.0,
-     "orders": 10,
-     "customers": 8,
-     "repeatCustomers": 2,
+     "lastOrder": "2026-11-17",
+     "units": 68.0,
+     "orders": 13,
+     "customers": 9,
+     "repeatCustomers": 4,
      "adoption": {
-      "2026-11-02": 1,
-      "2026-11-09": 3,
-      "2026-09-21": 1,
       "2026-10-19": 2,
-      "2026-10-26": 1
+      "2026-10-26": 1,
+      "2026-11-09": 3,
+      "2026-11-02": 1,
+      "2026-11-16": 1,
+      "2026-09-21": 1
      }
     },
     "1883 syrup pump (plastic)": {
@@ -4154,9 +4002,9 @@
      "customers": 4,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 2,
+      "2026-11-02": 1,
       "2026-10-12": 1,
-      "2026-11-02": 1
+      "2026-11-09": 2
      }
     },
     "1883 vanilla syrup 1l plastic": {
@@ -4168,11 +4016,11 @@
      "vendor": "1883 Vanilla Syrup 1L PLASTIC",
      "created": "2020-12-02",
      "launch": "2026-09-22",
-     "lastOrder": "2026-11-10",
-     "units": 19.0,
-     "orders": 4,
+     "lastOrder": "2026-11-17",
+     "units": 25.0,
+     "orders": 5,
      "customers": 2,
-     "repeatCustomers": 1,
+     "repeatCustomers": 2,
      "adoption": {
       "2026-09-21": 2
      }
@@ -4277,12 +4125,13 @@
      "vendor": "(BlnkSt2Cup) Blank Street 2-Cup Carrier",
      "created": "2026-02-06",
      "launch": "2026-10-28",
-     "lastOrder": "2026-10-28",
-     "units": 1.0,
-     "orders": 1,
-     "customers": 1,
+     "lastOrder": "2026-11-17",
+     "units": 3.0,
+     "orders": 2,
+     "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
+      "2026-11-16": 1,
       "2026-10-26": 1
      }
     },
@@ -4295,16 +4144,16 @@
      "vendor": "Boylan Bottling Co. Ginger Ale Soda 4 Pack",
      "created": "2023-11-08",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-10",
-     "units": 27.0,
-     "orders": 16,
+     "lastOrder": "2026-11-17",
+     "units": 29.0,
+     "orders": 18,
      "customers": 8,
      "repeatCustomers": 4,
      "adoption": {
-      "2026-10-05": 3,
       "2026-10-26": 2,
-      "2026-11-09": 1,
-      "2026-10-19": 2
+      "2026-10-19": 2,
+      "2026-10-05": 3,
+      "2026-11-09": 1
      }
     },
     "boylan bottling co. root beer soda": {
@@ -4316,15 +4165,15 @@
      "vendor": "Boylan Bottling Co. Root Beer Soda 4 Pack, 4",
      "created": "2023-09-27",
      "launch": "2026-10-02",
-     "lastOrder": "2026-10-27",
-     "units": 3.0,
-     "orders": 3,
+     "lastOrder": "2026-11-17",
+     "units": 4.0,
+     "orders": 4,
      "customers": 3,
-     "repeatCustomers": 0,
+     "repeatCustomers": 1,
      "adoption": {
-      "2026-09-28": 1,
+      "2026-10-19": 1,
       "2026-10-26": 1,
-      "2026-10-19": 1
+      "2026-09-28": 1
      }
     },
     "braswell's sweet potato butter": {
@@ -4362,8 +4211,8 @@
      "customers": 7,
      "repeatCustomers": 2,
      "adoption": {
-      "2026-11-09": 2,
       "2026-10-19": 3,
+      "2026-11-09": 2,
       "2026-11-02": 2
      }
     },
@@ -4384,12 +4233,12 @@
      "adoption": {
       "2026-09-14": 4,
       "2026-10-26": 1,
-      "2026-10-12": 3,
-      "2026-09-28": 3,
       "2026-10-19": 1,
-      "2026-08-31": 3,
-      "2026-10-05": 3,
       "2026-09-21": 1,
+      "2026-09-28": 3,
+      "2026-10-05": 3,
+      "2026-10-12": 3,
+      "2026-08-31": 3,
       "2026-11-02": 1,
       "2026-11-09": 1
      }
@@ -4403,21 +4252,21 @@
      "vendor": "Carlson's Apple Cider Gallon",
      "created": "2026-04-28",
      "launch": "2026-09-01",
-     "lastOrder": "2026-11-16",
-     "units": 1143.0,
-     "orders": 324,
+     "lastOrder": "2026-11-17",
+     "units": 1160.0,
+     "orders": 327,
      "customers": 46,
      "repeatCustomers": 40,
      "adoption": {
       "2026-09-07": 5,
+      "2026-08-31": 5,
       "2026-09-21": 14,
       "2026-09-14": 7,
       "2026-09-28": 10,
-      "2026-08-31": 5,
-      "2026-10-26": 1,
+      "2026-10-05": 1,
       "2026-10-12": 2,
-      "2026-11-02": 1,
-      "2026-10-05": 1
+      "2026-10-26": 1,
+      "2026-11-02": 1
      }
     },
     "cayenne pepper 5lb": {
@@ -4447,15 +4296,15 @@
      "vendor": "(BSCB-US-01) Cinnamon Bun Syrup - Case 6x750ml",
      "created": "2026-07-06",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-16",
-     "units": 289.0,
-     "orders": 103,
+     "lastOrder": "2026-11-17",
+     "units": 293.0,
+     "orders": 107,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
       "2026-10-05": 10,
-      "2026-10-12": 1,
-      "2026-10-26": 1
+      "2026-10-26": 1,
+      "2026-10-12": 1
      }
     },
     "cinnamon sticks 6oz": {
@@ -4473,10 +4322,10 @@
      "customers": 5,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 1,
       "2026-10-12": 1,
       "2026-09-07": 2,
-      "2026-08-31": 1
+      "2026-08-31": 1,
+      "2026-11-09": 1
      }
     },
     "coconut dessicated macaroon fine 25lb": {
@@ -4494,8 +4343,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-11-02": 1,
-      "2026-10-26": 1
+      "2026-10-26": 1,
+      "2026-11-02": 1
      }
     },
     "crofters organic strawberry jelly 7kg": {
@@ -4507,9 +4356,9 @@
      "vendor": "Crofters Organic Strawberry Jelly - 7kg (680435)",
      "created": "2025-02-12",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-16",
-     "units": 125.0,
-     "orders": 80,
+     "lastOrder": "2026-11-17",
+     "units": 131.0,
+     "orders": 84,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
@@ -4527,17 +4376,17 @@
      "vendor": "David Protein Bars - Blueberry",
      "created": "2025-04-15",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-13",
-     "units": 57.0,
-     "orders": 42,
+     "lastOrder": "2026-11-17",
+     "units": 60.0,
+     "orders": 44,
      "customers": 12,
      "repeatCustomers": 10,
      "adoption": {
-      "2026-10-12": 5,
       "2026-10-05": 3,
-      "2026-11-09": 1,
+      "2026-10-12": 5,
       "2026-10-19": 1,
       "2026-10-26": 1,
+      "2026-11-09": 1,
       "2026-11-02": 1
      }
     },
@@ -4550,9 +4399,9 @@
      "vendor": "David Protein Bars - Chocolate Chip Cookie Dough",
      "created": "2025-04-15",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-13",
-     "units": 106.0,
-     "orders": 67,
+     "lastOrder": "2026-11-17",
+     "units": 113.0,
+     "orders": 70,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
@@ -4577,8 +4426,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-10-26": 1,
-      "2026-09-07": 1
+      "2026-09-07": 1,
+      "2026-10-26": 1
      }
     },
     "duro kraft shopping bag 10\" x 6.75\" x 12\"": {
@@ -4599,27 +4448,6 @@
       "2026-09-14": 1
      }
     },
-    "dustless black pepper 14oz": {
-     "name": "Dustless Black Pepper 14oz",
-     "itemId": "545833",
-     "brand": "Generic",
-     "category": "Pantry Items",
-     "subCategory": "Spices & Seasonings",
-     "vendor": "Dustless Black Pepper 14oz",
-     "created": "2026-04-28",
-     "launch": "2026-08-18",
-     "lastOrder": "2026-11-11",
-     "units": 5.0,
-     "orders": 4,
-     "customers": 4,
-     "repeatCustomers": 0,
-     "adoption": {
-      "2026-11-09": 1,
-      "2026-10-19": 1,
-      "2026-10-05": 1,
-      "2026-08-17": 1
-     }
-    },
     "ecologic e45f spray pump": {
      "name": "Ecologic E45F Spray Pump",
      "itemId": "357284",
@@ -4635,8 +4463,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-10-26": 1,
-      "2026-10-12": 1
+      "2026-10-12": 1,
+      "2026-10-26": 1
      }
     },
     "ecologic foaming drain treatment (e45f) 1qt bottle": {
@@ -4667,17 +4495,17 @@
      "vendor": "Everclean Milk Line Cleaning Liquid",
      "created": "2023-08-08",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-13",
-     "units": 15.0,
-     "orders": 10,
+     "lastOrder": "2026-11-17",
+     "units": 16.0,
+     "orders": 11,
      "customers": 6,
-     "repeatCustomers": 3,
+     "repeatCustomers": 4,
      "adoption": {
-      "2026-11-02": 1,
       "2026-10-26": 1,
-      "2026-10-12": 1,
+      "2026-10-05": 1,
       "2026-11-09": 2,
-      "2026-10-05": 1
+      "2026-10-12": 1,
+      "2026-11-02": 1
      }
     },
     "eversys coffee cleaning balls": {
@@ -4689,15 +4517,15 @@
      "vendor": "Eversys Coffee Cleaning Balls",
      "created": "2023-08-09",
      "launch": "2026-10-13",
-     "lastOrder": "2026-11-16",
-     "units": 15.0,
-     "orders": 12,
+     "lastOrder": "2026-11-17",
+     "units": 16.0,
+     "orders": 13,
      "customers": 8,
-     "repeatCustomers": 4,
+     "repeatCustomers": 5,
      "adoption": {
       "2026-10-12": 4,
-      "2026-10-26": 3,
-      "2026-11-16": 1
+      "2026-11-16": 1,
+      "2026-10-26": 3
      }
     },
     "gossner whole milk 32oz": {
@@ -4716,9 +4544,9 @@
      "repeatCustomers": 3,
      "adoption": {
       "2026-10-05": 3,
-      "2026-10-19": 1,
       "2026-09-14": 1,
-      "2026-10-26": 1
+      "2026-10-26": 1,
+      "2026-10-19": 1
      }
     },
     "haddar himalayan fine pink salt 16oz container": {
@@ -4736,8 +4564,8 @@
      "customers": 8,
      "repeatCustomers": 3,
      "adoption": {
-      "2026-10-19": 3,
       "2026-10-12": 3,
+      "2026-10-19": 3,
       "2026-10-26": 1,
       "2026-11-02": 1
      }
@@ -4770,16 +4598,17 @@
      "vendor": "Hollander Dutched Cafe Sauce 64oz-00612",
      "created": "2021-01-06",
      "launch": "2026-09-22",
-     "lastOrder": "2026-11-13",
-     "units": 99.0,
-     "orders": 62,
-     "customers": 14,
+     "lastOrder": "2026-11-17",
+     "units": 106.0,
+     "orders": 67,
+     "customers": 16,
      "repeatCustomers": 12,
      "adoption": {
       "2026-10-05": 5,
-      "2026-10-19": 3,
       "2026-10-12": 3,
+      "2026-10-19": 3,
       "2026-09-21": 1,
+      "2026-11-16": 2,
       "2026-10-26": 1,
       "2026-11-09": 1
      }
@@ -4800,8 +4629,8 @@
      "repeatCustomers": 3,
      "adoption": {
       "2026-09-14": 1,
-      "2026-10-12": 2,
-      "2026-09-21": 2
+      "2026-09-21": 2,
+      "2026-10-12": 2
      }
     },
     "hollander sauce pump": {
@@ -4820,9 +4649,9 @@
      "repeatCustomers": 3,
      "adoption": {
       "2026-10-12": 2,
+      "2026-10-19": 3,
       "2026-09-14": 1,
-      "2026-10-05": 1,
-      "2026-10-19": 3
+      "2026-10-05": 1
      }
     },
     "hollander white chocolate sauce 64oz": {
@@ -4834,15 +4663,16 @@
      "vendor": "Hollander White Chocolate Sauce 64oz-00613",
      "created": "2021-01-06",
      "launch": "2026-09-24",
-     "lastOrder": "2026-11-13",
-     "units": 35.0,
-     "orders": 34,
-     "customers": 13,
+     "lastOrder": "2026-11-17",
+     "units": 38.0,
+     "orders": 37,
+     "customers": 14,
      "repeatCustomers": 12,
      "adoption": {
+      "2026-11-16": 1,
       "2026-10-12": 10,
-      "2026-09-21": 1,
       "2026-10-19": 1,
+      "2026-09-21": 1,
       "2026-10-26": 1
      }
     },
@@ -4861,12 +4691,12 @@
      "customers": 9,
      "repeatCustomers": 3,
      "adoption": {
-      "2026-10-26": 2,
-      "2026-11-02": 2,
-      "2026-08-24": 1,
-      "2026-08-31": 1,
       "2026-09-28": 2,
-      "2026-09-21": 1
+      "2026-11-02": 2,
+      "2026-08-31": 1,
+      "2026-10-26": 2,
+      "2026-09-21": 1,
+      "2026-08-24": 1
      }
     },
     "humankind orange juice 10oz": {
@@ -4878,17 +4708,17 @@
      "vendor": "Humankind Orange Juice 10oz",
      "created": "2023-09-06",
      "launch": "2026-08-24",
-     "lastOrder": "2026-11-16",
-     "units": 24.0,
-     "orders": 23,
+     "lastOrder": "2026-11-17",
+     "units": 26.0,
+     "orders": 24,
      "customers": 8,
      "repeatCustomers": 6,
      "adoption": {
       "2026-08-24": 2,
-      "2026-09-28": 2,
       "2026-10-12": 1,
       "2026-09-21": 1,
       "2026-10-05": 1,
+      "2026-09-28": 2,
       "2026-10-19": 1
      }
     },
@@ -4901,14 +4731,14 @@
      "vendor": "Humankind Organic Peach Iced Tea 16oz, 12",
      "created": "2022-08-23",
      "launch": "2026-09-29",
-     "lastOrder": "2026-10-26",
-     "units": 2.0,
-     "orders": 2,
+     "lastOrder": "2026-11-17",
+     "units": 3.0,
+     "orders": 3,
      "customers": 2,
-     "repeatCustomers": 0,
+     "repeatCustomers": 1,
      "adoption": {
-      "2026-10-26": 1,
-      "2026-09-28": 1
+      "2026-09-28": 1,
+      "2026-10-26": 1
      }
     },
     "humankind organic strawberry lemonade 16oz": {
@@ -4920,11 +4750,11 @@
      "vendor": "Humankind Organic Strawberry Lemonade 16oz, 12",
      "created": "2022-08-23",
      "launch": "2026-08-27",
-     "lastOrder": "2026-11-02",
-     "units": 12.0,
-     "orders": 9,
+     "lastOrder": "2026-11-17",
+     "units": 13.0,
+     "orders": 10,
      "customers": 4,
-     "repeatCustomers": 2,
+     "repeatCustomers": 3,
      "adoption": {
       "2026-09-28": 2,
       "2026-08-24": 1,
@@ -4940,17 +4770,17 @@
      "vendor": "Humankind Sparkling Mineral Spring Water 12oz Glass",
      "created": "2026-05-28",
      "launch": "2026-08-27",
-     "lastOrder": "2026-11-02",
-     "units": 17.0,
-     "orders": 11,
+     "lastOrder": "2026-11-17",
+     "units": 18.0,
+     "orders": 12,
      "customers": 7,
-     "repeatCustomers": 3,
+     "repeatCustomers": 4,
      "adoption": {
-      "2026-11-02": 1,
+      "2026-09-07": 1,
       "2026-08-24": 3,
-      "2026-10-19": 1,
       "2026-08-31": 1,
-      "2026-09-07": 1
+      "2026-10-19": 1,
+      "2026-11-02": 1
      }
     },
     "humankind spring water 23oz": {
@@ -4968,12 +4798,12 @@
      "customers": 6,
      "repeatCustomers": 3,
      "adoption": {
+      "2026-09-21": 1,
+      "2026-10-12": 1,
       "2026-10-19": 1,
-      "2026-09-28": 1,
       "2026-10-26": 1,
       "2026-10-05": 1,
-      "2026-09-21": 1,
-      "2026-10-12": 1
+      "2026-09-28": 1
      }
     },
     "humankind still mineral spring water 12oz glass": {
@@ -4992,8 +4822,8 @@
      "repeatCustomers": 2,
      "adoption": {
       "2026-08-24": 2,
-      "2026-10-19": 2,
-      "2026-08-31": 1
+      "2026-08-31": 1,
+      "2026-10-19": 2
      }
     },
     "kp matzo meal 25lb": {
@@ -5029,11 +4859,11 @@
      "customers": 5,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-09-21": 1,
-      "2026-10-19": 1,
-      "2026-11-02": 1,
       "2026-11-09": 1,
-      "2026-09-28": 1
+      "2026-09-28": 1,
+      "2026-10-19": 1,
+      "2026-09-21": 1,
+      "2026-11-02": 1
      }
     },
     "karat kraft cup jackets for 10-24oz hot cups (c5300 (kraft))": {
@@ -5045,20 +4875,20 @@
      "vendor": "C5300 (Kraft) | Karat Kraft Cup Jackets for 10-24oz Hot Cups",
      "created": "2023-05-11",
      "launch": "2026-09-10",
-     "lastOrder": "2026-11-13",
-     "units": 18.0,
-     "orders": 17,
+     "lastOrder": "2026-11-17",
+     "units": 19.0,
+     "orders": 18,
      "customers": 14,
-     "repeatCustomers": 3,
+     "repeatCustomers": 4,
      "adoption": {
       "2026-10-19": 1,
-      "2026-11-02": 2,
-      "2026-10-26": 4,
-      "2026-10-12": 2,
-      "2026-09-21": 1,
+      "2026-09-07": 1,
       "2026-11-09": 2,
+      "2026-10-26": 4,
       "2026-09-28": 1,
-      "2026-09-07": 1
+      "2026-10-12": 2,
+      "2026-11-02": 2,
+      "2026-09-21": 1
      }
     },
     "karat kraft shopping bag with twisted handles, 12.2\"w x 14\"h x 7.5\"l (fp-sb120)": {
@@ -5095,8 +4925,8 @@
      "repeatCustomers": 1,
      "adoption": {
       "2026-09-21": 2,
-      "2026-11-02": 1,
       "2026-10-26": 1,
+      "2026-11-02": 1,
       "2026-10-19": 1
      }
     },
@@ -5109,17 +4939,17 @@
      "vendor": "(C-KC626TS-SHNE) Karat PET Strawless Sipper Lid, 12-24oz",
      "created": "2024-04-05",
      "launch": "2026-09-21",
-     "lastOrder": "2026-11-11",
-     "units": 16.0,
-     "orders": 10,
+     "lastOrder": "2026-11-17",
+     "units": 17.0,
+     "orders": 11,
      "customers": 6,
      "repeatCustomers": 3,
      "adoption": {
-      "2026-11-09": 1,
-      "2026-09-21": 1,
-      "2026-10-12": 1,
       "2026-10-19": 2,
-      "2026-11-02": 1
+      "2026-09-21": 1,
+      "2026-11-02": 1,
+      "2026-11-09": 1,
+      "2026-10-12": 1
      }
     },
     "miss jones baking co. organic cream cheese frosting": {
@@ -5131,15 +4961,15 @@
      "vendor": "(2009) Miss Jones Baking Co. Organic Cream Cheese Frosting",
      "created": "2026-06-23",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-16",
-     "units": 100.0,
-     "orders": 55,
+     "lastOrder": "2026-11-17",
+     "units": 103.0,
+     "orders": 57,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
       "2026-10-05": 6,
-      "2026-10-12": 4,
       "2026-10-19": 1,
+      "2026-10-12": 4,
       "2026-10-26": 1
      }
     },
@@ -5177,10 +5007,10 @@
      "customers": 5,
      "repeatCustomers": 3,
      "adoption": {
+      "2026-11-02": 1,
       "2026-10-05": 1,
       "2026-09-21": 1,
       "2026-09-07": 1,
-      "2026-11-02": 1,
       "2026-10-12": 1
      }
     },
@@ -5193,15 +5023,15 @@
      "vendor": "Monin Cinnamon Bun Syrup 750mL, 1",
      "created": "2021-03-06",
      "launch": "2026-09-21",
-     "lastOrder": "2026-10-28",
-     "units": 5.0,
-     "orders": 4,
+     "lastOrder": "2026-11-17",
+     "units": 8.0,
+     "orders": 5,
      "customers": 4,
-     "repeatCustomers": 0,
+     "repeatCustomers": 1,
      "adoption": {
-      "2026-10-26": 1,
+      "2026-10-12": 1,
       "2026-09-21": 2,
-      "2026-10-12": 1
+      "2026-10-26": 1
      }
     },
     "monin cookie butter syrup 750ml glass": {
@@ -5220,8 +5050,8 @@
      "repeatCustomers": 0,
      "adoption": {
       "2026-09-07": 2,
-      "2026-09-21": 1,
-      "2026-10-19": 1
+      "2026-10-19": 1,
+      "2026-09-21": 1
      }
     },
     "monin dulce de leche sauce 64oz": {
@@ -5239,8 +5069,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-11-02": 1,
-      "2026-11-16": 1
+      "2026-11-16": 1,
+      "2026-11-02": 1
      }
     },
     "monin french vanilla syrup 750ml glass": {
@@ -5259,8 +5089,8 @@
      "repeatCustomers": 2,
      "adoption": {
       "2026-09-21": 2,
-      "2026-10-26": 1,
-      "2026-11-09": 1
+      "2026-11-09": 1,
+      "2026-10-26": 1
      }
     },
     "monin glass bottle pump": {
@@ -5316,10 +5146,10 @@
      "customers": 6,
      "repeatCustomers": 1,
      "adoption": {
+      "2026-10-19": 1,
       "2026-09-28": 1,
       "2026-10-26": 2,
       "2026-11-09": 1,
-      "2026-10-19": 1,
       "2026-11-16": 1
      }
     },
@@ -5374,10 +5204,10 @@
      "customers": 4,
      "repeatCustomers": 2,
      "adoption": {
-      "2026-09-14": 1,
+      "2026-09-07": 1,
       "2026-09-28": 1,
       "2026-10-26": 1,
-      "2026-09-07": 1
+      "2026-09-14": 1
      }
     },
     "monin spiced brown sugar syrup 750ml glass": {
@@ -5413,11 +5243,11 @@
      "customers": 6,
      "repeatCustomers": 0,
      "adoption": {
+      "2026-11-02": 2,
+      "2026-09-21": 1,
       "2026-09-07": 1,
       "2026-10-26": 1,
-      "2026-11-09": 1,
-      "2026-09-21": 1,
-      "2026-11-02": 2
+      "2026-11-09": 1
      }
     },
     "mooala barista banana milk 32oz": {
@@ -5429,18 +5259,18 @@
      "vendor": "Mooala Barista Banana Milk 32oz",
      "created": "2026-02-03",
      "launch": "2026-09-10",
-     "lastOrder": "2026-11-16",
-     "units": 124.0,
-     "orders": 47,
+     "lastOrder": "2026-11-17",
+     "units": 130.0,
+     "orders": 49,
      "customers": 13,
      "repeatCustomers": 7,
      "adoption": {
+      "2026-10-19": 3,
       "2026-09-14": 1,
       "2026-10-12": 3,
-      "2026-09-07": 3,
-      "2026-11-09": 1,
       "2026-10-05": 2,
-      "2026-10-19": 3
+      "2026-09-07": 3,
+      "2026-11-09": 1
      }
     },
     "nouka black sesame paste - pure ground sesame seeds 1lb": {
@@ -5452,9 +5282,9 @@
      "vendor": "(4703) Nouka Black Sesame Paste - Pure Ground Sesame Seeds 1lb",
      "created": "2026-09-24",
      "launch": "2026-10-14",
-     "lastOrder": "2026-11-16",
-     "units": 105.0,
-     "orders": 44,
+     "lastOrder": "2026-11-17",
+     "units": 117.0,
+     "orders": 50,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
@@ -5490,16 +5320,16 @@
      "vendor": "Open Water Still Water W/ Electrolytes 16oz Aluminum Bottle - 24 pack",
      "created": "2022-11-07",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-10",
-     "units": 15.0,
-     "orders": 8,
+     "lastOrder": "2026-11-17",
+     "units": 16.0,
+     "orders": 9,
      "customers": 6,
-     "repeatCustomers": 1,
+     "repeatCustomers": 2,
      "adoption": {
-      "2026-10-05": 2,
-      "2026-10-26": 2,
       "2026-11-09": 1,
-      "2026-11-02": 1
+      "2026-11-02": 1,
+      "2026-10-26": 2,
+      "2026-10-05": 2
      }
     },
     "oregano leaf 6oz": {
@@ -5529,9 +5359,9 @@
      "vendor": "(04312) Pacific Barista Almond Original -32oz, 12",
      "created": "2020-07-17",
      "launch": "2026-10-09",
-     "lastOrder": "2026-11-13",
-     "units": 22.0,
-     "orders": 15,
+     "lastOrder": "2026-11-17",
+     "units": 23.0,
+     "orders": 16,
      "customers": 5,
      "repeatCustomers": 1,
      "adoption": {
@@ -5555,8 +5385,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-09-07": 1,
-      "2026-10-05": 1
+      "2026-10-05": 1,
+      "2026-09-07": 1
      }
     },
     "pumpkin puree #10 can": {
@@ -5574,14 +5404,14 @@
      "customers": 9,
      "repeatCustomers": 7,
      "adoption": {
+      "2026-10-12": 1,
       "2026-08-31": 2,
       "2026-09-14": 1,
-      "2026-09-28": 1,
-      "2026-10-05": 1,
-      "2026-10-12": 1,
-      "2026-09-07": 1,
       "2026-09-21": 1,
-      "2026-08-24": 1
+      "2026-09-28": 1,
+      "2026-08-24": 1,
+      "2026-09-07": 1,
+      "2026-10-05": 1
      }
     },
     "re\u00e1l fig puree infused syrup 16.9fl oz": {
@@ -5593,15 +5423,15 @@
      "vendor": "(127B) Re\u00e1l Fig Puree Infused Syrup 16.9fl oz",
      "created": "2026-08-20",
      "launch": "2026-10-13",
-     "lastOrder": "2026-11-16",
-     "units": 94.0,
-     "orders": 46,
+     "lastOrder": "2026-11-17",
+     "units": 106.0,
+     "orders": 52,
      "customers": 12,
      "repeatCustomers": 11,
      "adoption": {
       "2026-10-12": 10,
-      "2026-10-26": 1,
-      "2026-10-19": 1
+      "2026-10-19": 1,
+      "2026-10-26": 1
      }
     },
     "rishi 1:1 organic masala chai concentrate 32oz": {
@@ -5692,9 +5522,9 @@
      "customers": 3,
      "repeatCustomers": 0,
      "adoption": {
+      "2026-11-02": 1,
       "2026-08-24": 1,
-      "2026-11-09": 1,
-      "2026-11-02": 1
+      "2026-11-09": 1
      }
     },
     "sadaf special blend tea earl grey 50ct tea bags": {
@@ -5760,15 +5590,16 @@
      "vendor": "In The Raw Stevia Packets, 1000 (PCSTEVI)",
      "created": "2020-07-17",
      "launch": "2026-10-15",
-     "lastOrder": "2026-11-06",
-     "units": 3.0,
-     "orders": 3,
-     "customers": 3,
+     "lastOrder": "2026-11-17",
+     "units": 4.0,
+     "orders": 4,
+     "customers": 4,
      "repeatCustomers": 0,
      "adoption": {
+      "2026-10-12": 1,
+      "2026-11-16": 1,
       "2026-11-02": 1,
-      "2026-10-26": 1,
-      "2026-10-12": 1
+      "2026-10-26": 1
      }
     },
     "strawberry jam 4lb": {
@@ -5786,8 +5617,8 @@
      "customers": 2,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 1,
-      "2026-08-17": 1
+      "2026-08-17": 1,
+      "2026-11-09": 1
      }
     },
     "teddie's smooth creamy peanut butter 16oz": {
@@ -5805,8 +5636,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-11-02": 1,
-      "2026-10-05": 1
+      "2026-10-05": 1,
+      "2026-11-02": 1
      }
     },
     "tenzo matcha 500g bag": {
@@ -5824,8 +5655,8 @@
      "customers": 2,
      "repeatCustomers": 0,
      "adoption": {
-      "2026-10-26": 1,
-      "2026-11-02": 1
+      "2026-11-02": 1,
+      "2026-10-26": 1
      }
     },
     "tenzo organic ceremonial matcha 400g bag": {
@@ -5874,15 +5705,16 @@
      "vendor": "Item 12-ESP12-20 Urnex Cafiza Espresso Machine Cleaner 20 oz. Jar, 1",
      "created": "2020-06-08",
      "launch": "2026-09-24",
-     "lastOrder": "2026-11-10",
-     "units": 12.0,
-     "orders": 4,
-     "customers": 3,
+     "lastOrder": "2026-11-17",
+     "units": 14.0,
+     "orders": 5,
+     "customers": 4,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 1,
       "2026-09-21": 1,
-      "2026-10-05": 1
+      "2026-10-05": 1,
+      "2026-11-16": 1,
+      "2026-11-09": 1
      }
     },
     "urnex clearly cold 32oz bottle": {
@@ -5900,12 +5732,12 @@
      "customers": 10,
      "repeatCustomers": 3,
      "adoption": {
+      "2026-11-16": 1,
       "2026-10-12": 3,
-      "2026-10-19": 2,
       "2026-10-26": 2,
+      "2026-10-19": 2,
       "2026-11-09": 1,
-      "2026-10-05": 1,
-      "2026-11-16": 1
+      "2026-10-05": 1
      }
     },
     "urnex complete cafe liquid sanitizer 32oz bottle": {
@@ -5917,14 +5749,15 @@
      "vendor": "(U60048A) Urnex Complete Cafe Liquid Sanitizer 32oz Bottle",
      "created": "2024-09-11",
      "launch": "2026-10-15",
-     "lastOrder": "2026-11-12",
-     "units": 4.0,
-     "orders": 3,
-     "customers": 2,
+     "lastOrder": "2026-11-17",
+     "units": 5.0,
+     "orders": 4,
+     "customers": 3,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-10-12": 1,
-      "2026-11-02": 1
+      "2026-11-02": 1,
+      "2026-11-16": 1,
+      "2026-10-12": 1
      }
     },
     "urnex freez ice machine cleaner 14 oz. bottle": {
@@ -5936,14 +5769,14 @@
      "vendor": "Item 15-FRZ12-14 Urnex Freez Ice Machine Cleaner 14 oz. Bottle(s), 1",
      "created": "2022-05-25",
      "launch": "2026-10-20",
-     "lastOrder": "2026-11-12",
-     "units": 7.0,
-     "orders": 3,
+     "lastOrder": "2026-11-17",
+     "units": 8.0,
+     "orders": 4,
      "customers": 3,
-     "repeatCustomers": 0,
+     "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 1,
-      "2026-10-19": 2
+      "2026-10-19": 2,
+      "2026-11-09": 1
      }
     },
     "urnex rinza milk frother cleaner 32oz. bottle": {
@@ -5962,10 +5795,10 @@
      "repeatCustomers": 9,
      "adoption": {
       "2026-10-05": 5,
-      "2026-10-19": 3,
       "2026-10-12": 6,
-      "2026-09-14": 1,
-      "2026-11-02": 1
+      "2026-11-02": 1,
+      "2026-10-19": 3,
+      "2026-09-14": 1
      }
     },
     "very fine foods - hojicha powder 1kg bag": {
@@ -5997,15 +5830,16 @@
      "vendor": "(VBRST322) Victoria Bay Register Tape Roll Thermal White Paper, 220ft, 3.125\"",
      "created": "2023-07-07",
      "launch": "2026-10-06",
-     "lastOrder": "2026-11-13",
-     "units": 4.0,
-     "orders": 4,
-     "customers": 3,
+     "lastOrder": "2026-11-17",
+     "units": 5.0,
+     "orders": 5,
+     "customers": 4,
      "repeatCustomers": 1,
      "adoption": {
-      "2026-11-09": 1,
+      "2026-11-16": 1,
       "2026-10-05": 1,
-      "2026-10-12": 1
+      "2026-10-12": 1,
+      "2026-11-09": 1
      }
     },
     "zoe's bacon applewood ends & pcs dry cured 10lb": {
@@ -6081,7 +5915,7 @@
      }
     }
    },
-   "exportModified": "2026-11-17T09:02:18.706Z"
+   "exportModified": "2026-11-18T09:00:47.452Z"
   },
   "weekly": {
    "items": {
@@ -6112,7 +5946,7 @@
      "2026-10-26": 57.0,
      "2026-11-02": 106.0,
      "2026-11-09": 70.0,
-     "2026-11-16": 9.0
+     "2026-11-16": 25.0
     },
     "1883 french vanilla syrup 1l plastic": {
      "2026-09-28": 3.0,
@@ -6150,14 +5984,16 @@
     },
     "1883 strawberry syrup 1l plastic": {
      "2026-09-07": 1.0,
-     "2026-10-19": 1.0
+     "2026-10-19": 1.0,
+     "2026-11-16": 1.0
     },
     "1883 syrup pump (glass)": {
      "2026-09-21": 3.0,
      "2026-10-19": 11.0,
      "2026-10-26": 20.0,
      "2026-11-02": 8.0,
-     "2026-11-09": 12.0
+     "2026-11-09": 12.0,
+     "2026-11-16": 14.0
     },
     "1883 syrup pump (plastic)": {
      "2026-10-12": 4.0,
@@ -6167,7 +6003,8 @@
     "1883 vanilla syrup 1l plastic": {
      "2026-09-21": 9.0,
      "2026-11-02": 4.0,
-     "2026-11-09": 6.0
+     "2026-11-09": 6.0,
+     "2026-11-16": 6.0
     },
     "american nut & chocolate dry currants 3lb": {
      "2026-09-14": 1.0,
@@ -6192,7 +6029,8 @@
      "2026-11-02": 1.0
     },
     "blank street 2-cup carrier": {
-     "2026-10-26": 1.0
+     "2026-10-26": 1.0,
+     "2026-11-16": 2.0
     },
     "boylan bottling co. ginger ale soda": {
      "2026-10-05": 10.0,
@@ -6200,12 +6038,14 @@
      "2026-10-19": 5.0,
      "2026-10-26": 6.0,
      "2026-11-02": 1.0,
-     "2026-11-09": 3.0
+     "2026-11-09": 3.0,
+     "2026-11-16": 2.0
     },
     "boylan bottling co. root beer soda": {
      "2026-09-28": 1.0,
      "2026-10-19": 1.0,
-     "2026-10-26": 1.0
+     "2026-10-26": 1.0,
+     "2026-11-16": 1.0
     },
     "braswell's sweet potato butter": {
      "2026-10-05": 22.0,
@@ -6246,7 +6086,7 @@
      "2026-10-26": 113.0,
      "2026-11-02": 101.0,
      "2026-11-09": 153.0,
-     "2026-11-16": 48.0
+     "2026-11-16": 65.0
     },
     "cayenne pepper 5lb": {
      "2026-10-12": 1.0
@@ -6258,7 +6098,7 @@
      "2026-10-26": 43.0,
      "2026-11-02": 53.0,
      "2026-11-09": 42.0,
-     "2026-11-16": 4.0
+     "2026-11-16": 8.0
     },
     "cinnamon sticks 6oz": {
      "2026-08-31": 1.0,
@@ -6277,7 +6117,7 @@
      "2026-10-26": 16.0,
      "2026-11-02": 19.0,
      "2026-11-09": 21.0,
-     "2026-11-16": 2.0
+     "2026-11-16": 8.0
     },
     "david protein bars - blueberry": {
      "2026-10-05": 5.0,
@@ -6285,7 +6125,8 @@
      "2026-10-19": 11.0,
      "2026-10-26": 13.0,
      "2026-11-02": 7.0,
-     "2026-11-09": 8.0
+     "2026-11-09": 8.0,
+     "2026-11-16": 3.0
     },
     "david protein bars - chocolate chip cookie dough": {
      "2026-10-05": 11.0,
@@ -6293,7 +6134,8 @@
      "2026-10-19": 21.0,
      "2026-10-26": 21.0,
      "2026-11-02": 20.0,
-     "2026-11-09": 15.0
+     "2026-11-09": 15.0,
+     "2026-11-16": 7.0
     },
     "dry lavender 1lb": {
      "2026-09-07": 1.0,
@@ -6301,11 +6143,6 @@
     },
     "duro kraft shopping bag 10\" x 6.75\" x 12\"": {
      "2026-09-14": 2.0
-    },
-    "dustless black pepper 14oz": {
-     "2026-10-05": 2.0,
-     "2026-10-19": 1.0,
-     "2026-11-09": 1.0
     },
     "ecologic e45f spray pump": {
      "2026-10-12": 4.0,
@@ -6320,14 +6157,15 @@
      "2026-10-12": 1.0,
      "2026-10-26": 2.0,
      "2026-11-02": 2.0,
-     "2026-11-09": 8.0
+     "2026-11-09": 8.0,
+     "2026-11-16": 1.0
     },
     "eversys coffee cleaning balls": {
      "2026-10-12": 5.0,
      "2026-10-19": 2.0,
      "2026-10-26": 5.0,
      "2026-11-09": 1.0,
-     "2026-11-16": 2.0
+     "2026-11-16": 3.0
     },
     "gossner whole milk 32oz": {
      "2026-09-14": 1.0,
@@ -6357,7 +6195,8 @@
      "2026-10-19": 18.0,
      "2026-10-26": 16.0,
      "2026-11-02": 12.0,
-     "2026-11-09": 17.0
+     "2026-11-09": 17.0,
+     "2026-11-16": 7.0
     },
     "hollander pumpkin pie cafe sauce 64oz": {
      "2026-09-14": 6.0,
@@ -6384,7 +6223,8 @@
      "2026-10-19": 9.0,
      "2026-10-26": 2.0,
      "2026-11-02": 9.0,
-     "2026-11-09": 2.0
+     "2026-11-09": 2.0,
+     "2026-11-16": 3.0
     },
     "humankind apple juice 10oz": {
      "2026-08-24": 1.0,
@@ -6411,11 +6251,12 @@
      "2026-10-19": 2.0,
      "2026-10-26": 4.0,
      "2026-11-02": 2.0,
-     "2026-11-16": 1.0
+     "2026-11-16": 3.0
     },
     "humankind organic peach iced tea 16oz": {
      "2026-09-28": 1.0,
-     "2026-10-26": 1.0
+     "2026-10-26": 1.0,
+     "2026-11-16": 1.0
     },
     "humankind organic strawberry lemonade 16oz": {
      "2026-08-24": 1.0,
@@ -6423,7 +6264,8 @@
      "2026-09-14": 3.0,
      "2026-09-28": 4.0,
      "2026-10-26": 2.0,
-     "2026-11-02": 1.0
+     "2026-11-02": 1.0,
+     "2026-11-16": 1.0
     },
     "humankind sparkling mineral spring water 12oz glass": {
      "2026-08-24": 6.0,
@@ -6433,7 +6275,8 @@
      "2026-10-12": 1.0,
      "2026-10-19": 2.0,
      "2026-10-26": 3.0,
-     "2026-11-02": 1.0
+     "2026-11-02": 1.0,
+     "2026-11-16": 1.0
     },
     "humankind spring water 23oz": {
      "2026-09-21": 1.0,
@@ -6472,7 +6315,8 @@
      "2026-10-19": 2.0,
      "2026-10-26": 4.0,
      "2026-11-02": 2.0,
-     "2026-11-09": 5.0
+     "2026-11-09": 5.0,
+     "2026-11-16": 1.0
     },
     "karat kraft shopping bag with twisted handles, 12.2\"w x 14\"h x 7.5\"l (fp-sb120)": {
      "2026-10-05": 2.0
@@ -6491,7 +6335,8 @@
      "2026-10-19": 3.0,
      "2026-10-26": 2.0,
      "2026-11-02": 3.0,
-     "2026-11-09": 5.0
+     "2026-11-09": 5.0,
+     "2026-11-16": 1.0
     },
     "miss jones baking co. organic cream cheese frosting": {
      "2026-10-05": 15.0,
@@ -6500,7 +6345,7 @@
      "2026-10-26": 14.0,
      "2026-11-02": 22.0,
      "2026-11-09": 12.0,
-     "2026-11-16": 3.0
+     "2026-11-16": 6.0
     },
     "mister agave compostable agave straws, wrapped, 8.25\"": {
      "2026-09-14": 3.0,
@@ -6523,7 +6368,8 @@
     "monin cinnamon bun syrup 750ml glass": {
      "2026-09-21": 2.0,
      "2026-10-12": 2.0,
-     "2026-10-26": 1.0
+     "2026-10-26": 1.0,
+     "2026-11-16": 3.0
     },
     "monin cookie butter syrup 750ml glass": {
      "2026-09-07": 3.0,
@@ -6589,7 +6435,7 @@
      "2026-10-26": 23.0,
      "2026-11-02": 23.0,
      "2026-11-09": 25.0,
-     "2026-11-16": 3.0
+     "2026-11-16": 9.0
     },
     "nouka black sesame paste - pure ground sesame seeds 1lb": {
      "2026-10-12": 10.0,
@@ -6597,7 +6443,7 @@
      "2026-10-26": 11.0,
      "2026-11-02": 30.0,
      "2026-11-09": 39.0,
-     "2026-11-16": 6.0
+     "2026-11-16": 18.0
     },
     "open water sparkling water w/ electrolytes 16oz aluminum bottle - 24 pack": {
      "2026-10-26": 2.0
@@ -6607,7 +6453,8 @@
      "2026-10-12": 2.0,
      "2026-10-26": 4.0,
      "2026-11-02": 1.0,
-     "2026-11-09": 4.0
+     "2026-11-09": 4.0,
+     "2026-11-16": 1.0
     },
     "oregano leaf 6oz": {
      "2026-10-19": 1.0
@@ -6617,7 +6464,8 @@
      "2026-10-19": 2.0,
      "2026-10-26": 5.0,
      "2026-11-02": 4.0,
-     "2026-11-09": 10.0
+     "2026-11-09": 10.0,
+     "2026-11-16": 1.0
     },
     "poppy seed 5lb": {
      "2026-09-07": 1.0,
@@ -6643,7 +6491,7 @@
      "2026-10-26": 11.0,
      "2026-11-02": 28.0,
      "2026-11-09": 27.0,
-     "2026-11-16": 4.0
+     "2026-11-16": 16.0
     },
     "rishi 1:1 organic masala chai concentrate 32oz": {
      "2026-10-26": 1.0
@@ -6678,7 +6526,8 @@
     "stevia in the raw packets": {
      "2026-10-12": 1.0,
      "2026-10-26": 1.0,
-     "2026-11-02": 1.0
+     "2026-11-02": 1.0,
+     "2026-11-16": 1.0
     },
     "strawberry jam 4lb": {
      "2026-09-28": 1.0,
@@ -6705,7 +6554,8 @@
     "urnex cafiza espresso machine cleaner powder 20oz": {
      "2026-09-21": 4.0,
      "2026-10-05": 3.0,
-     "2026-11-09": 5.0
+     "2026-11-09": 5.0,
+     "2026-11-16": 2.0
     },
     "urnex clearly cold 32oz bottle": {
      "2026-10-05": 1.0,
@@ -6719,11 +6569,13 @@
     "urnex complete cafe liquid sanitizer 32oz bottle": {
      "2026-10-12": 1.0,
      "2026-11-02": 1.0,
-     "2026-11-09": 2.0
+     "2026-11-09": 2.0,
+     "2026-11-16": 1.0
     },
     "urnex freez ice machine cleaner 14 oz. bottle": {
      "2026-10-19": 5.0,
-     "2026-11-09": 2.0
+     "2026-11-09": 2.0,
+     "2026-11-16": 1.0
     },
     "urnex rinza milk frother cleaner 32oz. bottle": {
      "2026-09-14": 1.0,
@@ -6743,7 +6595,8 @@
     "victoria bay register tape roll thermal white paper, 220ft, 3.125\"": {
      "2026-10-05": 1.0,
      "2026-10-12": 1.0,
-     "2026-11-09": 2.0
+     "2026-11-09": 2.0,
+     "2026-11-16": 1.0
     },
     "zoe's bacon applewood ends & pcs dry cured 10lb": {
      "2026-09-28": 10.0
@@ -6771,9 +6624,9 @@
     "2026-10-26": 10679.0,
     "2026-11-02": 9428.0,
     "2026-11-09": 9091.0,
-    "2026-11-16": 2512.0
+    "2026-11-16": 3932.0
    },
-   "exportModified": "2026-11-17T11:01:58.162Z"
+   "exportModified": "2026-11-18T11:01:43.455Z"
   }
  },
  "feoosHistory": {
@@ -13454,6 +13307,69 @@
      "Wooden Stirrrers, 7.5\"",
      "Remnant Brewing - 2 Bow Market Way",
      "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Bake'n Joy Lemon Poppy 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 1369 Cambridge Street",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Bake'n Joy Orange Cranberry 8lb",
+     "1369 Coffee House - 757 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Catania 10% Oil 1 Gallon",
+     "Vinal Bakery - 222 Somerville Ave",
+     "2"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "Imported Brie D'Amir 6lb",
+     "Bagelsaurus - 1796 Massachusetts Avenue",
+     "1"
+    ],
+    "n": 1
+   },
+   {
+    "k": [
+     "2026-11-17",
+     "True Cane Sugar 25lb Bag",
+     "Jadu - 767 Centre St",
+     "2"
     ],
     "n": 1
    }
