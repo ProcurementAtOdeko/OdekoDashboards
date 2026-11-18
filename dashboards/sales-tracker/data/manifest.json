@@ -1,9 +1,12 @@
 {
- "generatedAt": "2026-11-18T02:59:22+00:00",
+ "generatedAt": "2026-11-18T12:00:06+00:00",
  "warehouses": [
   {
    "code": "ATL1",
    "status": "ok",
+   "stale": true,
+   "staleSince": "2026-11-16",
+   "staleReason": "partial export: 12001 order lines vs 37495 previously",
    "summary": {
     "totalUnits": 101401.0,
     "totalRevenue": 2291764.88,
@@ -23,99 +26,96 @@
   {
    "code": "AUS1",
    "status": "ok",
-   "stale": true,
-   "staleSince": "2026-11-14",
-   "staleReason": "partial export: 6000 order lines vs 57602 previously",
    "summary": {
-    "totalUnits": 145206.0,
-    "totalRevenue": 3395569.9,
-    "orderLines": 57602,
-    "customerCount": 950,
-    "itemCount": 948,
-    "newPlacements": 3712,
-    "newCustomers": 155,
+    "totalUnits": 148116.0,
+    "totalRevenue": 3465805.97,
+    "orderLines": 58542,
+    "customerCount": 955,
+    "itemCount": 952,
+    "newPlacements": 4060,
+    "newCustomers": 149,
     "newLocations": 52
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-18",
-    "end": "2026-11-14"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "BLI1",
    "status": "ok",
    "summary": {
-    "totalUnits": 78316.0,
-    "totalRevenue": 683439.29,
-    "orderLines": 10958,
+    "totalUnits": 76785.0,
+    "totalRevenue": 669013.55,
+    "orderLines": 10724,
     "customerCount": 128,
-    "itemCount": 242,
-    "newPlacements": 122,
+    "itemCount": 241,
+    "newPlacements": 123,
     "newCustomers": 2,
     "newLocations": 1
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "BNA1",
    "status": "ok",
    "summary": {
-    "totalUnits": 18186.0,
-    "totalRevenue": 492506.26,
-    "orderLines": 7265,
-    "customerCount": 111,
-    "itemCount": 382,
-    "newPlacements": 482,
-    "newCustomers": 10,
-    "newLocations": 6
+    "totalUnits": 18196.0,
+    "totalRevenue": 494847.56,
+    "orderLines": 7279,
+    "customerCount": 112,
+    "itemCount": 383,
+    "newPlacements": 500,
+    "newCustomers": 11,
+    "newLocations": 5
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "BOS1",
    "status": "ok",
    "summary": {
-    "totalUnits": 142395.6,
-    "totalRevenue": 1924963.94,
-    "orderLines": 27581,
+    "totalUnits": 140844.6,
+    "totalRevenue": 1908713.56,
+    "orderLines": 27331,
     "customerCount": 302,
-    "itemCount": 902,
-    "newPlacements": 810,
-    "newCustomers": 22,
-    "newLocations": 6
+    "itemCount": 899,
+    "newPlacements": 826,
+    "newCustomers": 23,
+    "newLocations": 7
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "CLT1",
    "status": "ok",
    "summary": {
-    "totalUnits": 76474.0,
-    "totalRevenue": 1534326.25,
-    "orderLines": 26230,
-    "customerCount": 832,
-    "itemCount": 848,
-    "newPlacements": 2388,
-    "newCustomers": 192,
+    "totalUnits": 75731.0,
+    "totalRevenue": 1522599.6,
+    "orderLines": 26064,
+    "customerCount": 823,
+    "itemCount": 840,
+    "newPlacements": 2392,
+    "newCustomers": 193,
     "newLocations": 83
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
@@ -141,176 +141,179 @@
    "code": "DEN1",
    "status": "ok",
    "summary": {
-    "totalUnits": 121574.0,
-    "totalRevenue": 2525542.82,
-    "orderLines": 52960,
-    "customerCount": 1053,
-    "itemCount": 1454,
-    "newPlacements": 4060,
-    "newCustomers": 279,
-    "newLocations": 122
+    "totalUnits": 122157.0,
+    "totalRevenue": 2532041.47,
+    "orderLines": 53069,
+    "customerCount": 1051,
+    "itemCount": 1453,
+    "newPlacements": 4219,
+    "newCustomers": 275,
+    "newLocations": 114
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "DFW1",
    "status": "ok",
    "summary": {
-    "totalUnits": 98831.0,
-    "totalRevenue": 2053455.29,
-    "orderLines": 32783,
-    "customerCount": 1896,
-    "itemCount": 1309,
-    "newPlacements": 2903,
-    "newCustomers": 240,
-    "newLocations": 103
+    "totalUnits": 99146.0,
+    "totalRevenue": 2061417.32,
+    "orderLines": 32912,
+    "customerCount": 1895,
+    "itemCount": 1315,
+    "newPlacements": 2967,
+    "newCustomers": 243,
+    "newLocations": 100
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "EWR1",
    "status": "ok",
    "summary": {
-    "totalUnits": 1245354.0,
-    "totalRevenue": 17447637.16,
-    "orderLines": 358358,
-    "customerCount": 6916,
-    "itemCount": 2241,
-    "newPlacements": 16665,
-    "newCustomers": 1166,
-    "newLocations": 645
+    "totalUnits": 1250085.0,
+    "totalRevenue": 17497131.65,
+    "orderLines": 359468,
+    "customerCount": 6971,
+    "itemCount": 2239,
+    "newPlacements": 17363,
+    "newCustomers": 1241,
+    "newLocations": 676
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "HOU1",
    "status": "ok",
    "summary": {
-    "totalUnits": 85452.0,
-    "totalRevenue": 2113374.5,
-    "orderLines": 27681,
-    "customerCount": 1066,
+    "totalUnits": 86044.0,
+    "totalRevenue": 2124462.44,
+    "orderLines": 27912,
+    "customerCount": 1056,
     "itemCount": 1091,
-    "newPlacements": 2291,
-    "newCustomers": 145,
-    "newLocations": 56
+    "newPlacements": 2397,
+    "newCustomers": 149,
+    "newLocations": 57
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "LAX1",
    "status": "ok",
    "summary": {
-    "totalUnits": 371733.0,
-    "totalRevenue": 6981373.61,
-    "orderLines": 100620,
-    "customerCount": 2250,
-    "itemCount": 1600,
-    "newPlacements": 5403,
-    "newCustomers": 327,
-    "newLocations": 153
+    "totalUnits": 373621.0,
+    "totalRevenue": 7015244.53,
+    "orderLines": 101113,
+    "customerCount": 2249,
+    "itemCount": 1599,
+    "newPlacements": 5596,
+    "newCustomers": 334,
+    "newLocations": 150
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "MDT1",
    "status": "ok",
    "summary": {
-    "totalUnits": 79897.0,
-    "totalRevenue": 1498485.8,
-    "orderLines": 27464,
-    "customerCount": 433,
-    "itemCount": 894,
-    "newPlacements": 1629,
-    "newCustomers": 38,
-    "newLocations": 14
+    "totalUnits": 80248.0,
+    "totalRevenue": 1504280.21,
+    "orderLines": 27676,
+    "customerCount": 431,
+    "itemCount": 890,
+    "newPlacements": 1716,
+    "newCustomers": 41,
+    "newLocations": 13
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "MIA1",
    "status": "ok",
    "summary": {
-    "totalUnits": 84944.0,
-    "totalRevenue": 1793344.68,
-    "orderLines": 32887,
-    "customerCount": 1384,
-    "itemCount": 1089,
-    "newPlacements": 2235,
-    "newCustomers": 144,
+    "totalUnits": 84967.0,
+    "totalRevenue": 1791781.12,
+    "orderLines": 32873,
+    "customerCount": 1385,
+    "itemCount": 1085,
+    "newPlacements": 2300,
+    "newCustomers": 145,
     "newLocations": 67
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "PDX1",
    "status": "ok",
    "summary": {
-    "totalUnits": 196636.0,
-    "totalRevenue": 3283120.24,
-    "orderLines": 53527,
-    "customerCount": 2579,
-    "itemCount": 1229,
-    "newPlacements": 3256,
-    "newCustomers": 452,
-    "newLocations": 196
+    "totalUnits": 197152.0,
+    "totalRevenue": 3295408.13,
+    "orderLines": 53569,
+    "customerCount": 2590,
+    "itemCount": 1227,
+    "newPlacements": 3303,
+    "newCustomers": 453,
+    "newLocations": 190
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "PWM1",
    "status": "ok",
    "summary": {
-    "totalUnits": 297513.0,
-    "totalRevenue": 2872768.41,
-    "orderLines": 79976,
-    "customerCount": 911,
-    "itemCount": 1018,
-    "newPlacements": 3262,
-    "newCustomers": 183,
-    "newLocations": 78
+    "totalUnits": 301394.0,
+    "totalRevenue": 2886478.03,
+    "orderLines": 81013,
+    "customerCount": 907,
+    "itemCount": 1009,
+    "newPlacements": 3362,
+    "newCustomers": 188,
+    "newLocations": 80
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   },
   {
    "code": "SEA1",
    "status": "ok",
+   "stale": true,
+   "staleSince": "2026-11-16",
+   "staleReason": "sheet returned no rows",
    "summary": {
     "totalUnits": 313452.0,
     "totalRevenue": 4172113.22,
@@ -331,23 +334,24 @@
    "code": "SMF1",
    "status": "ok",
    "summary": {
-    "totalUnits": 29901.0,
-    "totalRevenue": 792652.9,
-    "orderLines": 13970,
+    "totalUnits": 29995.0,
+    "totalRevenue": 791590.25,
+    "orderLines": 14037,
     "customerCount": 195,
-    "itemCount": 793,
-    "newPlacements": 802,
+    "itemCount": 795,
+    "newPlacements": 810,
     "newCustomers": 12,
-    "newLocations": 6
+    "newLocations": 5
    },
    "hasRevenue": true,
    "dateRange": {
-    "start": "2026-08-20",
-    "end": "2026-11-16"
+    "start": "2026-08-21",
+    "end": "2026-11-17"
    }
   }
  ],
  "staleWarehouses": [
-  "AUS1"
+  "ATL1",
+  "SEA1"
  ]
 }
