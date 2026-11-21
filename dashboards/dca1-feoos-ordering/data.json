@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-21T07:44:49.719510+00:00",
+  "generatedAt": "2026-11-21T15:39:32.373217+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-14",
-    "max": "2026-11-19",
+    "min": "2026-11-15",
+    "max": "2026-11-20",
     "days": 6
   },
   "salesRange": {
@@ -12,15 +12,15 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 57,
-    "networkFeoosDca1Events": 177,
+    "dca1FeoosEvents": 68,
+    "networkFeoosDca1Events": 179,
     "networkFeoosDca1Locations": 26,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 57,
-    "feoosSkus": 13,
-    "feoosUnits": 101.0,
+    "feoosEvents": 68,
+    "feoosSkus": 17,
+    "feoosUnits": 113.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
     "feoosTransitionSkus": 2,
@@ -50,15 +50,29 @@
     {
       "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 19,
-      "units": 35.0,
-      "firstEvent": "2026-11-14",
+      "events": 18,
+      "units": 34.0,
+      "firstEvent": "2026-11-15",
       "lastEvent": "2026-11-19",
-      "daysAffected": 6,
+      "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
       "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 10,
+      "units": 14.0,
+      "firstEvent": "2026-11-16",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 5,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -76,27 +90,13 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 6,
-      "units": 9.0,
-      "firstEvent": "2026-11-16",
-      "lastEvent": "2026-11-19",
-      "daysAffected": 4,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
       "brand": "Cuisine Solutions",
-      "events": 8,
-      "units": 8.0,
+      "events": 11,
+      "units": 11.0,
       "firstEvent": "2026-11-15",
-      "lastEvent": "2026-11-19",
-      "daysAffected": 4,
+      "lastEvent": "2026-11-20",
+      "daysAffected": 5,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -188,6 +188,20 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 2,
+      "units": 2.0,
+      "firstEvent": "2026-11-16",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "1883 Maple Syrup 1L Glass",
       "brand": "1883",
       "events": 1,
@@ -199,6 +213,62 @@
       "inTransition": true,
       "inPlan": false,
       "pack": "1 L glass",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Cardinal - Universal Grind - 5lb Bag",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "5 lb",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Simple Syrups - Almond Butter - 6 / 1 L btl",
+      "brand": "Simple Syrups",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "6 / 1 L",
       "formatStatus": "n/a"
     },
     {
@@ -214,28 +284,9 @@
       "inPlan": false,
       "pack": "",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-16",
-      "lastEvent": "2026-11-16",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-11-14",
-      "events": 1,
-      "units": 1.0
-    },
     {
       "date": "2026-11-15",
       "events": 4,
@@ -260,23 +311,28 @@
       "date": "2026-11-19",
       "events": 4,
       "units": 5.0
+    },
+    {
+      "date": "2026-11-20",
+      "events": 12,
+      "units": 13.0
     }
   ],
   "feoosBrands": [
     {
-      "brand": "EatCommonGood",
-      "units": 35.0,
-      "events": 19
+      "brand": "Compass Coffee",
+      "units": 36.0,
+      "events": 24
     },
     {
-      "brand": "Compass Coffee",
-      "units": 27.0,
-      "events": 16
+      "brand": "EatCommonGood",
+      "units": 34.0,
+      "events": 18
     },
     {
       "brand": "Cuisine Solutions",
-      "units": 8.0,
-      "events": 8
+      "units": 11.0,
+      "events": 11
     },
     {
       "brand": "Noosa",
@@ -306,6 +362,11 @@
     {
       "brand": "1883",
       "units": 2.0,
+      "events": 1
+    },
+    {
+      "brand": "Simple Syrups",
+      "units": 1.0,
       "events": 1
     },
     {
