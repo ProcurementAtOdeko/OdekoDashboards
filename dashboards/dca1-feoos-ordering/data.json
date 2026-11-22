@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-22T08:53:31.752164+00:00",
+  "generatedAt": "2026-11-22T17:25:40.561258+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-15",
+    "min": "2026-11-16",
     "max": "2026-11-20",
-    "days": 6
+    "days": 5
   },
   "salesRange": {
     "min": null,
@@ -12,15 +12,15 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 68,
-    "networkFeoosDca1Events": 179,
+    "dca1FeoosEvents": 64,
+    "networkFeoosDca1Events": 169,
     "networkFeoosDca1Locations": 26,
     "networkFeoosCohortLocations": 3
   },
   "summary": {
-    "feoosEvents": 68,
+    "feoosEvents": 64,
     "feoosSkus": 17,
-    "feoosUnits": 113.0,
+    "feoosUnits": 107.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
     "feoosTransitionSkus": 2,
@@ -50,11 +50,11 @@
     {
       "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
       "brand": "EatCommonGood",
-      "events": 18,
-      "units": 34.0,
-      "firstEvent": "2026-11-15",
+      "events": 17,
+      "units": 33.0,
+      "firstEvent": "2026-11-16",
       "lastEvent": "2026-11-19",
-      "daysAffected": 5,
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -92,29 +92,15 @@
     {
       "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
       "brand": "Cuisine Solutions",
-      "events": 11,
-      "units": 11.0,
-      "firstEvent": "2026-11-15",
+      "events": 10,
+      "units": 10.0,
+      "firstEvent": "2026-11-16",
       "lastEvent": "2026-11-20",
-      "daysAffected": 5,
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
       "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Noosa Blueberry Yogurt - 6 / 4.5 oz ctn",
-      "brand": "Noosa",
-      "events": 6,
-      "units": 8.0,
-      "firstEvent": "2026-11-15",
-      "lastEvent": "2026-11-16",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "4.5 oz",
       "formatStatus": "n/a"
     },
     {
@@ -132,13 +118,27 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Noosa Blueberry Yogurt - 6 / 4.5 oz ctn",
+      "brand": "Noosa",
+      "events": 5,
+      "units": 6.0,
+      "firstEvent": "2026-11-16",
+      "lastEvent": "2026-11-16",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "4.5 oz",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Monin Peppermint Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
-      "events": 2,
-      "units": 6.0,
-      "firstEvent": "2026-11-15",
+      "events": 1,
+      "units": 4.0,
+      "firstEvent": "2026-11-17",
       "lastEvent": "2026-11-17",
-      "daysAffected": 2,
+      "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": true,
       "inPlan": false,
@@ -216,7 +216,35 @@
       "formatStatus": "n/a"
     },
     {
+      "name": "Simple Syrups - Almond Butter - 6 / 1 L btl",
+      "brand": "Simple Syrups",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "6 / 1 L",
+      "formatStatus": "n/a"
+    },
+    {
       "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
       "events": 1,
       "units": 1.0,
@@ -244,34 +272,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Simple Syrups - Almond Butter - 6 / 1 L btl",
-      "brand": "Simple Syrups",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "6 / 1 L",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Tre Marie Croissant, Cornetto Pistachio - Two Tone R2B",
       "brand": "Tre Marie",
       "events": 1,
@@ -287,11 +287,6 @@
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-11-15",
-      "events": 4,
-      "units": 6.0
-    },
     {
       "date": "2026-11-16",
       "events": 26,
@@ -326,18 +321,13 @@
     },
     {
       "brand": "EatCommonGood",
-      "units": 34.0,
-      "events": 18
+      "units": 33.0,
+      "events": 17
     },
     {
       "brand": "Cuisine Solutions",
-      "units": 11.0,
-      "events": 11
-    },
-    {
-      "brand": "Noosa",
-      "units": 8.0,
-      "events": 6
+      "units": 10.0,
+      "events": 10
     },
     {
       "brand": "Mooala",
@@ -345,9 +335,14 @@
       "events": 2
     },
     {
-      "brand": "Monin",
+      "brand": "Noosa",
       "units": 6.0,
-      "events": 2
+      "events": 5
+    },
+    {
+      "brand": "Monin",
+      "units": 4.0,
+      "events": 1
     },
     {
       "brand": "AmerCareRoyal",
