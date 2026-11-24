@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-24T11:39:34.312548+00:00",
+  "generatedAt": "2026-11-24T21:33:32.179297+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-17",
-    "max": "2026-11-20",
-    "days": 4
+    "min": "2026-11-18",
+    "max": "2026-11-23",
+    "days": 6
   },
   "salesRange": {
     "min": null,
@@ -12,18 +12,18 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 38,
+    "dca1FeoosEvents": 52,
     "networkFeoosDca1Events": 149,
     "networkFeoosDca1Locations": 29,
     "networkFeoosCohortLocations": 2
   },
   "summary": {
-    "feoosEvents": 38,
-    "feoosSkus": 15,
-    "feoosUnits": 59.0,
+    "feoosEvents": 52,
+    "feoosSkus": 18,
+    "feoosUnits": 84.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
-    "feoosTransitionSkus": 2,
+    "feoosTransitionSkus": 3,
     "cohortTotal": 73,
     "cohortLive": 0,
     "cohortNotYet": 73,
@@ -48,26 +48,12 @@
   },
   "feoos": [
     {
-      "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
-      "brand": "EatCommonGood",
-      "events": 9,
-      "units": 17.0,
-      "firstEvent": "2026-11-17",
-      "lastEvent": "2026-11-19",
-      "daysAffected": 3,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
-      "events": 8,
-      "units": 10.0,
-      "firstEvent": "2026-11-17",
-      "lastEvent": "2026-11-20",
+      "events": 11,
+      "units": 15.0,
+      "firstEvent": "2026-11-18",
+      "lastEvent": "2026-11-23",
       "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
@@ -78,11 +64,11 @@
     {
       "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
       "brand": "Cuisine Solutions",
-      "events": 8,
-      "units": 8.0,
+      "events": 13,
+      "units": 14.0,
       "firstEvent": "2026-11-18",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 3,
+      "lastEvent": "2026-11-23",
+      "daysAffected": 4,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
@@ -90,32 +76,102 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
-      "brand": "Compass Coffee",
-      "events": 2,
-      "units": 6.0,
-      "firstEvent": "2026-11-17",
-      "lastEvent": "2026-11-18",
+      "name": "EatCommonGood Breakfast Sandwich - Sausage Egg and Cheese - 1 / 14 ct",
+      "brand": "EatCommonGood",
+      "events": 7,
+      "units": 14.0,
+      "firstEvent": "2026-11-18",
+      "lastEvent": "2026-11-19",
       "daysAffected": 2,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "6 / 12 oz",
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 4,
+      "units": 7.0,
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
       "name": "Monin Peppermint Syrup 1 Liter Plastic Bottle",
       "brand": "Monin",
       "events": 1,
-      "units": 4.0,
-      "firstEvent": "2026-11-17",
-      "lastEvent": "2026-11-17",
+      "units": 6.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": true,
       "inPlan": false,
       "pack": "1 L plastic",
       "formatStatus": "off-format"
+    },
+    {
+      "name": "Dr. Smoothie Classic Chai 3.5lb Bag",
+      "brand": "Dr. Smoothie",
+      "events": 1,
+      "units": 5.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": true,
+      "inPlan": true,
+      "pack": "3.5 lb",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Mooala Barista Almond Milk 32oz",
+      "brand": "Mooala",
+      "events": 2,
+      "units": 4.0,
+      "firstEvent": "2026-11-18",
+      "lastEvent": "2026-11-22",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Mooala Barista Banana Milk 32oz",
+      "brand": "Mooala",
+      "events": 2,
+      "units": 3.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Meridian - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 2,
+      "units": 3.0,
+      "firstEvent": "2026-11-19",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
     },
     {
       "name": "Just Ice Tea Peach Oolong Tea - 12 / 16 oz btl",
@@ -129,20 +185,6 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "12 / 16 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Mooala Barista Almond Milk 32oz",
-      "brand": "Mooala",
-      "events": 1,
-      "units": 2.0,
-      "firstEvent": "2026-11-18",
-      "lastEvent": "2026-11-18",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "32 oz",
       "formatStatus": "n/a"
     },
     {
@@ -160,21 +202,49 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
+      "name": "Compass Coffee Emblem - 6 / 12 oz ctn",
       "brand": "Compass Coffee",
       "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
+      "units": 2.0,
+      "firstEvent": "2026-11-18",
+      "lastEvent": "2026-11-18",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz",
+      "pack": "6 / 12 oz",
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Waypoint - 12 oz",
+      "name": "Banneton All-Butter Danish Twist, 60 Piece",
+      "brand": "Banneton",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Mooala Barista Oat Milk 32oz",
+      "brand": "Mooala",
+      "events": 1,
+      "units": 1.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
       "events": 1,
       "units": 1.0,
@@ -202,20 +272,6 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Cardinal - Universal Grind - 5lb Bag",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "5 lb",
-      "formatStatus": "n/a"
-    },
-    {
       "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
       "brand": "Compass Coffee",
       "events": 1,
@@ -230,40 +286,21 @@
       "formatStatus": "n/a"
     },
     {
-      "name": "Compass Coffee Meridian - Whole Bean - 12 oz Tin",
+      "name": "Compass Coffee Cardinal - Universal Grind - 5lb Bag",
       "brand": "Compass Coffee",
       "events": 1,
       "units": 1.0,
-      "firstEvent": "2026-11-19",
-      "lastEvent": "2026-11-19",
+      "firstEvent": "2026-11-20",
+      "lastEvent": "2026-11-20",
       "daysAffected": 1,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Tre Marie Croissant, Cornetto Pistachio - Two Tone R2B",
-      "brand": "Tre Marie",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-17",
-      "lastEvent": "2026-11-17",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
+      "pack": "5 lb",
       "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-11-17",
-      "events": 6,
-      "units": 13.0
-    },
     {
       "date": "2026-11-18",
       "events": 16,
@@ -278,27 +315,47 @@
       "date": "2026-11-20",
       "events": 12,
       "units": 13.0
+    },
+    {
+      "date": "2026-11-22",
+      "events": 1,
+      "units": 2.0
+    },
+    {
+      "date": "2026-11-23",
+      "events": 19,
+      "units": 36.0
     }
   ],
   "feoosBrands": [
     {
       "brand": "Compass Coffee",
-      "units": 21.0,
-      "events": 15
-    },
-    {
-      "brand": "EatCommonGood",
-      "units": 17.0,
-      "events": 9
+      "units": 30.0,
+      "events": 21
     },
     {
       "brand": "Cuisine Solutions",
+      "units": 14.0,
+      "events": 13
+    },
+    {
+      "brand": "EatCommonGood",
+      "units": 14.0,
+      "events": 7
+    },
+    {
+      "brand": "Mooala",
       "units": 8.0,
-      "events": 8
+      "events": 5
     },
     {
       "brand": "Monin",
-      "units": 4.0,
+      "units": 6.0,
+      "events": 1
+    },
+    {
+      "brand": "Dr. Smoothie",
+      "units": 5.0,
       "events": 1
     },
     {
@@ -307,22 +364,17 @@
       "events": 1
     },
     {
-      "brand": "Mooala",
-      "units": 2.0,
-      "events": 1
-    },
-    {
       "brand": "1883",
       "units": 2.0,
       "events": 1
     },
     {
-      "brand": "Simple Syrups",
+      "brand": "Banneton",
       "units": 1.0,
       "events": 1
     },
     {
-      "brand": "Tre Marie",
+      "brand": "Simple Syrups",
       "units": 1.0,
       "events": 1
     }
