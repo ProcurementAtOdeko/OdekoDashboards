@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-24T23:33:51+00:00",
+ "generatedAt": "2026-11-25T08:56:16+00:00",
  "warehouses": [
   {
    "code": "ATL1",
@@ -194,6 +194,9 @@
   {
    "code": "HOU1",
    "status": "ok",
+   "stale": true,
+   "staleSince": "2026-11-23",
+   "staleReason": "<HttpError 503 when requesting https://sheets.googleapis.com/v4/spreadsheets/1Co3X13WW3AznohX1WMyYqfrScxIlYsVOXNDA8DfWi_8/values/A1%3AZ?alt=json returned \"The service is currently unavailable.\". Details: \"The service is currently unavailable.\">",
    "summary": {
     "totalUnits": 84427.0,
     "totalRevenue": 2093588.6,
@@ -348,6 +351,7 @@
   }
  ],
  "staleWarehouses": [
+  "HOU1",
   "SEA1"
  ]
 }
