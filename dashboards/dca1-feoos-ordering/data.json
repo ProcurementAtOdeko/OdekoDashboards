@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-27T09:08:06.795041+00:00",
+  "generatedAt": "2026-11-27T19:12:13.510105+00:00",
   "warehouse": "DCA1",
   "feoosRange": {
-    "min": "2026-11-20",
+    "min": "2026-11-22",
     "max": "2026-11-25",
-    "days": 6
+    "days": 4
   },
   "salesRange": {
     "min": null,
@@ -12,15 +12,15 @@
   },
   "locationLevel": true,
   "sourceNote": {
-    "dca1FeoosEvents": 52,
-    "networkFeoosDca1Events": 136,
-    "networkFeoosDca1Locations": 31,
+    "dca1FeoosEvents": 40,
+    "networkFeoosDca1Events": 109,
+    "networkFeoosDca1Locations": 30,
     "networkFeoosCohortLocations": 2
   },
   "summary": {
-    "feoosEvents": 52,
-    "feoosSkus": 17,
-    "feoosUnits": 1235.0,
+    "feoosEvents": 40,
+    "feoosSkus": 13,
+    "feoosUnits": 1222.0,
     "feoosCohortSkus": 0,
     "feoosCohortUnits": 0,
     "feoosTransitionSkus": 3,
@@ -106,43 +106,15 @@
     {
       "name": "Cuisine Solutions Bacon and Cheddar Egg Bite - 1 / 40 ct",
       "brand": "Cuisine Solutions",
-      "events": 12,
-      "units": 14.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-25",
-      "daysAffected": 4,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 8,
+      "events": 9,
       "units": 11.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-23",
-      "daysAffected": 2,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Waypoint - 12 oz",
-      "brand": "Compass Coffee",
-      "events": 6,
-      "units": 9.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-24",
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-25",
       "daysAffected": 3,
       "cohortOrders": false,
       "inTransition": false,
       "inPlan": false,
-      "pack": "12 oz",
+      "pack": "",
       "formatStatus": "n/a"
     },
     {
@@ -157,6 +129,34 @@
       "inTransition": false,
       "inPlan": false,
       "pack": "32 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Waypoint - 12 oz",
+      "brand": "Compass Coffee",
+      "events": 5,
+      "units": 8.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-24",
+      "daysAffected": 2,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
+      "formatStatus": "n/a"
+    },
+    {
+      "name": "Compass Coffee Breakfast - Whole Bean - 12 oz Tin",
+      "brand": "Compass Coffee",
+      "events": 4,
+      "units": 6.0,
+      "firstEvent": "2026-11-23",
+      "lastEvent": "2026-11-23",
+      "daysAffected": 1,
+      "cohortOrders": false,
+      "inTransition": false,
+      "inPlan": false,
+      "pack": "12 oz",
       "formatStatus": "n/a"
     },
     {
@@ -228,70 +228,9 @@
       "inPlan": false,
       "pack": "12 / 16 oz",
       "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Cardinal - Universal Grind - 5lb Bag",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "5 lb",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Decaf Emblem Espresso - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Simple Syrups - Almond Butter - 6 / 1 L btl",
-      "brand": "Simple Syrups",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "6 / 1 L",
-      "formatStatus": "n/a"
-    },
-    {
-      "name": "Compass Coffee Shaw - Whole Bean - 12 oz Tin",
-      "brand": "Compass Coffee",
-      "events": 1,
-      "units": 1.0,
-      "firstEvent": "2026-11-20",
-      "lastEvent": "2026-11-20",
-      "daysAffected": 1,
-      "cohortOrders": false,
-      "inTransition": false,
-      "inPlan": false,
-      "pack": "12 oz",
-      "formatStatus": "n/a"
     }
   ],
   "feoosTrend": [
-    {
-      "date": "2026-11-20",
-      "events": 12,
-      "units": 13.0
-    },
     {
       "date": "2026-11-22",
       "events": 1,
@@ -325,19 +264,19 @@
       "events": 10
     },
     {
-      "brand": "Compass Coffee",
-      "units": 27.0,
-      "events": 20
-    },
-    {
       "brand": "1883",
       "units": 24.0,
       "events": 1
     },
     {
-      "brand": "Cuisine Solutions",
-      "units": 14.0,
+      "brand": "Compass Coffee",
+      "units": 18.0,
       "events": 12
+    },
+    {
+      "brand": "Cuisine Solutions",
+      "units": 11.0,
+      "events": 9
     },
     {
       "brand": "Monin",
@@ -357,11 +296,6 @@
     {
       "brand": "Just Ice Tea",
       "units": 2.0,
-      "events": 1
-    },
-    {
-      "brand": "Simple Syrups",
-      "units": 1.0,
       "events": 1
     }
   ],
